@@ -9,6 +9,7 @@ import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
 import { getCollection } from 'astro:content';
 
+
 const posts = (await getCollection('posts')).sort(
 	(a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
@@ -45,7 +46,7 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 					{
 						posts.map((post: any) => (
 							<div>
-								<h1>{ post.title }</h1>
+								{ post.data.title }
 							</div>
 						))
 					}
