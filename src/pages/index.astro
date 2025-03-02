@@ -16,6 +16,8 @@ const posts = (await getCollection('posts')).sort(
 );
 
 const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
+
+const postFilters: string[] = ["Tag A", "Tag B"];
 ---
 
 <!doctype html>
@@ -43,7 +45,15 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 
 			<!-- POSTS -->
 			<Section>
-				<div class="group grid grid-cols-2 gap-4 p-8 bg-primary border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">
+				<div class={postFilters.length > 0 ? "flex gap-2 mb-2" : "hidden"}>
+					{
+						postFilters &&
+						postFilters.map((postFilter) => (
+							<Tag title={postFilter} />
+						))
+					}
+				</div>
+				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">					
 					{
 						posts.map((post: any) => (
 							<div class="min-h-32 h-min border rounded-xl border-gray-700/30 bg-primary pointer-events-auto hover:border-accent duration-200">
