@@ -1,4 +1,7 @@
-import type { Social } from "../types/social.type";
+type Social = {
+    title: string,
+    href: string
+}
 
 export const USER_EMAIL: string = "user@email.com";
 

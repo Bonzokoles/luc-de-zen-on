@@ -7,13 +7,18 @@ import Tag from '../components/Tag.astro';
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort(
+	(a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 
 const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 ---
 
 <!doctype html>
 <html lang="en" class="bg-primary-desaturated">
-	<head><Head pageTitle=`${ USER_NAME }'s Portfolio` pageDescription='This is the page they will see when they first visit your website.'  /></head>
+	<head><Head pageTitle=`${ USER_NAME }'s Portfolio` pageDescription=`Home page of ${USER_NAME}'s portfolio.`  /></head>
 	<body>
 		<main class="min-h-svh bg-linear-to-b from-primary-desaturated to-primary">
 			<!-- HEADER -->
@@ -21,8 +26,10 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 
 			<!-- HERO -->
 			<Section class="max-w-xl mx-auto py-32 text-center">
+				<!-- PROFESSIONAL DESCRIPTION -->
 				{ USER_PROFESSIONAL_DESCRIPTION }
 
+				<!-- TAGS -->
 				<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
 					{
 						heroTags.map((tag) => (
@@ -32,9 +39,17 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 				</div>
 			</Section>
 
-			<!-- CONTENT -->
+			<!-- POSTS -->
 			<Section>
-				<div class="bg-primary border rounded-lg border-accent"></div>
+				<div class="bg-primary border rounded-lg border-accent">
+					{
+						posts.map((post: any) => (
+							<div>
+								<h1>{ post.title }</h1>
+							</div>
+						))
+					}
+				</div>
 			</Section>
 
 			<!-- FOOTER -->
