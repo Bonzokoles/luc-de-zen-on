@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Header from "../components/Header.astro";
 import Section from "../components/Section.astro";
 import Tag from '../components/Tag.astro';
+import Date from '../components/Date.astro';
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
@@ -42,11 +43,16 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 
 			<!-- POSTS -->
 			<Section>
-				<div class="grid grid-cols-2 p-8 bg-primary border rounded-lg border-accent">
+				<div class="h-lvh group grid grid-cols-2 gap-4 p-8 bg-primary border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">
 					{
 						posts.map((post: any) => (
-							<div class="">
-								{ post.data.title }
+							<div class="min-h-32 h-min border rounded-xl border-gray-700/30 bg-primary pointer-events-auto hover:border-accent duration-200">
+								<img>
+								<div class="p-2">
+									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
+									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
+									<p>{ post.data.description }</p>
+								</div>
 							</div>
 						))
 					}

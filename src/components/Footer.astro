@@ -13,10 +13,10 @@ import { USER_NAME } from "../data/user-personal";
 	<!-- USER CONTACT -->
 	<div class="flex flex-col ml-auto">
 		<div class="flex flex-row-reverse flex-wrap gap-2">
-			<a class="ml-auto hover:text-white" href={`mailto:${ USER_EMAIL }`}>{ USER_EMAIL }<Arrow rotate={-45} /></a>
+			<a class="ml-auto hover:text-white duration-200" href={`mailto:${ USER_EMAIL }`}>{ USER_EMAIL }<Arrow rotate={-45} /></a>
 			{ 
 				USER_SOCIALS.map((social) => (
-					<a class="hover:text-white" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
+					<a class="hover:text-white duration-200" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
 				))
 			}
 		</div>
@@ -25,5 +25,5 @@ import { USER_NAME } from "../data/user-personal";
 
 <!-- CREDITS -->
 <Section class='py-16 m-auto text-center'>
-	<a class="hover:underline" target="_blank" rel="noopener noreferrer" href="https://github.com/kadirlofca/backstage">Site design & development by Kadir Lofca <Arrow rotate={-45} /></a>
+	<a class="hover:text-white duration-200" target="_blank" rel="noopener noreferrer" href="https://github.com/kadirlofca/backstage">Site design & development by Kadir Lofca <Arrow rotate={-45} /></a>
 </Section>

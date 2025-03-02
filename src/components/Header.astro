@@ -12,11 +12,11 @@ import { USER_NAME } from "../data/user-personal";
 
 	<!-- USER CONTACT -->
 	<div class="flex flex-col ml-auto">
-		<a class="ml-auto hover:text-white" href={`mailto:${ USER_EMAIL }`}>{ USER_EMAIL }<Arrow rotate={-45} /></a>
+		<a class="ml-auto hover:text-white duration-200" href={`mailto:${ USER_EMAIL }`}>{ USER_EMAIL }<Arrow rotate={-45} /></a>
 		<div class="flex flex-row-reverse flex-wrap gap-2">
 			{ 
 				USER_SOCIALS.map((social) => (
-					<a class="hover:text-white" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
+					<a class="hover:text-white duration-200" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
 				))
 			}
 		</div>
