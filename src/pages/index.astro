@@ -42,10 +42,10 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 
 			<!-- POSTS -->
 			<Section>
-				<div class="bg-primary border rounded-lg border-accent">
+				<div class="grid grid-cols-2 p-8 bg-primary border rounded-lg border-accent">
 					{
 						posts.map((post: any) => (
-							<div>
+							<div class="">
 								{ post.data.title }
 							</div>
 						))

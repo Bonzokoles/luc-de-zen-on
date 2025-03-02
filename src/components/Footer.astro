@@ -1,9 +1,29 @@
 ---
 import Section from "./Section.astro";
-import Header from "./Header.astro";
+import Arrow from "../components/Arrow.astro";
+
+import { USER_SOCIALS, USER_EMAIL } from "../data/user-contact";
+import { USER_NAME } from "../data/user-personal";
 ---
 
-<Header />
+<Section class='py-16' />
+<Section class='flex flex-row'>
+	<a class="hover:text-white" href="/"><h1>{ USER_NAME }</h1></a>
+
+	<!-- USER CONTACT -->
+	<div class="flex flex-col ml-auto">
+		<div class="flex flex-row-reverse flex-wrap gap-2">
+			<a class="ml-auto hover:text-white" href={`mailto:${ USER_EMAIL }`}>{ USER_EMAIL }<Arrow rotate={-45} /></a>
+			{ 
+				USER_SOCIALS.map((social) => (
+					<a class="hover:text-white" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
+				))
+			}
+		</div>
+	</div>
+</Section>
+
+<!-- CREDITS -->
 <Section class='py-16 m-auto text-center'>
-	<a class="hover:underline" target="_blank" rel="noopener noreferrer" href="https://github.com/kadirlofca/backstage">Site design & development by Kadir Lofca.</a>
+	<a class="hover:underline" target="_blank" rel="noopener noreferrer" href="https://github.com/kadirlofca/backstage">Site design & development by Kadir Lofca <Arrow rotate={-45} /></a>
 </Section>
