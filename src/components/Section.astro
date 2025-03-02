@@ -6,10 +6,10 @@ interface Props {
 const { class: className } = Astro.props;
 ---
 
-<div class="border border-gray-700/30">
-    <div class="max-w-6xl mx-auto border-x border-gray-700/30">
+<section class="border border-primary-foreground/10">
+    <div class="max-w-6xl mx-auto border-x border-primary-foreground/10">
         <div class={className}>
             <slot />
         </div>
     </div>
-</div>
+</section>

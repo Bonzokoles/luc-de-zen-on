@@ -1,11 +1,11 @@
 ---
 interface Props {
-    title: string
+
 }
 
-const { title } = Astro.props;
+const { } = Astro.props;
 ---
 
-<div class="inline-block w-fit px-2 py-1 bg-primary border rounded-xl border-accent text-accent font-semibold hover:bg-accent hover:text-primary hover:cursor-pointer duration-200">
-    {title}
-</div>
+<button class="inline-block w-fit px-2 py-1 bg-primary border rounded-lg border-accent text-accent font-semibold hover:bg-accent hover:text-primary-foreground hover:cursor-pointer duration-200">
+    <slot />
+</button>
