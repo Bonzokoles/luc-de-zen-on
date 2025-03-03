@@ -61,10 +61,10 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 					)
 				}
 
-				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">					
+				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-accent/15 to-transparent pointer-events-none hover:border-gray-700/50 duration-200">					
 					{
 						posts.map((post: any) => (
-							<a href={post.id} class="min-h-32 h-min border rounded-xl border-primary-border bg-primary pointer-events-auto hover:border-accent duration-200">
+							<a href={post.id} class="min-h-32 h-min border rounded-xl border-primary-border bg-primary/80 pointer-events-auto hover:border-accent duration-200">
 								<div class="p-2">
 									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
@@ -80,7 +80,7 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 
 			<!-- ABOUT -->
 			<Section class="flex flex-row gap-4 max-w-2xl mx-auto p-2">
-				<div class="aspect-square w-96 h-auto bg-primary-desaturated"></div>
+				<div class="aspect-square w-96 h-auto rounded-lg bg-accent/70"></div>
 
 				<div class="text-pretty my-auto">
 					{ USER_INTRODUCTION }
