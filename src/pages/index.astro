@@ -12,7 +12,6 @@ import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
 import { getCollection } from 'astro:content';
 
-
 const posts = (await getCollection('posts')).sort(
 	(a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
@@ -33,14 +32,14 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 			<!-- HERO -->
 			<Section class="flex flex-row min-h-96 text-center">
 				<!-- SKILLS -->
-				<label class="bg-primary-border has-checked:bg-transparent has-checked:w-full">
+				<label class="border border-primary-border w-14 has-checked:w-full duration-1000">
 					<input name="hero-accordion" type="radio" class="peer hidden" checked />
-					<div class="group flex flex-col justify-between w-14 mr-[1px] min-h-full rounded-lg bg-primary hover:bg-accent hover:cursor-pointer peer-checked:hidden duration-200">
+					<div class="group flex flex-col justify-between w-14 mr-[1px] min-h-full rounded-lg bg-primary hover:bg-accent hover:cursor-pointer peer-checked:opacity-0 duration-1000 peer-checked:duration-0">
 						<Arrow class="w-8 mx-auto my-6 stroke-accent group-hover:stroke-primary-foreground" />
 						<h1 style="writing-mode: vertical-lr;" class="my-auto text-2xl font-light group-hover:font-medium">Skills</h1>
 						<Arrow class="w-8 mx-auto my-6 stroke-accent group-hover:stroke-primary-foreground" />
 					</div>
-					<div class="hidden h-full peer-checked:flex">
+					<div class="hidden h-full peer-checked:">
 						<div class="min-w-14"></div>
 						<div class="m-auto">
 							{ USER_PROFESSIONAL_DESCRIPTION }
@@ -57,14 +56,14 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				</label>
 
 				<!-- ABOUT -->
-				<label class="bg-primary-border has-checked:bg-transparent has-checked:w-full">
+				<label class="border border-primary-border w-14 has-checked:w-full duration-1000">
 					<input name="hero-accordion" type="radio" class="peer hidden" />
-					<div class="group flex flex-col justify-between w-14 ml-[1px] min-h-full rounded-lg bg-primary hover:bg-accent hover:cursor-pointer peer-checked:hidden duration-200">
+					<div class="group flex flex-col justify-between w-14 ml-[1px] min-h-full rounded-lg hover:bg-accent hover:cursor-pointer peer-checked:opacity-0 duration-1000 peer-checked:duration-0">
 						<Arrow class="w-8 mx-auto my-6 stroke-accent rotate-180 group-hover:stroke-primary-foreground" />
 						<h1 style="writing-mode: vertical-lr;" class="my-auto text-2xl font-light group-hover:font-medium">About</h1>
 						<Arrow class="w-8 mx-auto my-6 stroke-accent rotate-180 group-hover:stroke-primary-foreground" />
 					</div>
-					<div class="h-full hidden peer-checked:flex">
+					<div class="h-full hidden peer-checked:">
 						<div class="m-auto">About content</div>
 						<div class="min-w-14"></div>
 					</div>
