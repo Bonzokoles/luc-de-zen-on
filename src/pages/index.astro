@@ -7,6 +7,7 @@ import Tag from '../components/Tag.astro';
 import Date from '../components/Date.astro';
 import XMark from "../components/XMark.astro";
 import Arrow from '../components/Arrow.astro';
+import Accordion from '../components/Accordion.astro';
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
@@ -30,47 +31,20 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 			<Header />
 
 			<!-- HERO -->
-			<Section class="flex flex-row min-h-96 text-center">
-				<!-- SKILLS -->
-				<label class="border border-primary-border w-14 has-checked:w-full duration-1000">
-					<input name="hero-accordion" type="radio" class="peer hidden" checked />
-					<div class="group flex flex-col justify-between w-14 mr-[1px] min-h-full rounded-lg bg-primary hover:bg-accent hover:cursor-pointer peer-checked:opacity-0 duration-1000 peer-checked:duration-0">
-						<Arrow class="w-8 mx-auto my-6 stroke-accent group-hover:stroke-primary-foreground" />
-						<h1 style="writing-mode: vertical-lr;" class="my-auto text-2xl font-light group-hover:font-medium">Skills</h1>
-						<Arrow class="w-8 mx-auto my-6 stroke-accent group-hover:stroke-primary-foreground" />
+			<Section class='min-h-72'>
+				<div class="w-full">
+					{ USER_PROFESSIONAL_DESCRIPTION }
+					<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
+						{
+							heroTags.map((tag) => (
+								<Tag>{ tag }</Tag>
+							))
+						}
 					</div>
-					<div class="hidden h-full peer-checked:">
-						<div class="min-w-14"></div>
-						<div class="m-auto">
-							{ USER_PROFESSIONAL_DESCRIPTION }
-
-							<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
-								{
-									heroTags.map((tag) => (
-										<Tag>{ tag }</Tag>
-									))
-								}
-							</div>
-						</div>
-					</div>
-				</label>
-
-				<!-- ABOUT -->
-				<label class="border border-primary-border w-14 has-checked:w-full duration-1000">
-					<input name="hero-accordion" type="radio" class="peer hidden" />
-					<div class="group flex flex-col justify-between w-14 ml-[1px] min-h-full rounded-lg hover:bg-accent hover:cursor-pointer peer-checked:opacity-0 duration-1000 peer-checked:duration-0">
-						<Arrow class="w-8 mx-auto my-6 stroke-accent rotate-180 group-hover:stroke-primary-foreground" />
-						<h1 style="writing-mode: vertical-lr;" class="my-auto text-2xl font-light group-hover:font-medium">About</h1>
-						<Arrow class="w-8 mx-auto my-6 stroke-accent rotate-180 group-hover:stroke-primary-foreground" />
-					</div>
-					<div class="h-full hidden peer-checked:">
-						<div class="m-auto">About content</div>
-						<div class="min-w-14"></div>
-					</div>
-				</label>
+				</div>	
 			</Section>
 
-			<!-- POST FILTERS --> 
+			<!-- FILTERS --> 
 			{
 				postFilters.length > 0 &&
 				(
@@ -87,11 +61,11 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 			}
 
 			<!-- POSTS -->
-			<Section class='bg-primary-foreground/10'>
+			<Section class='bg-primary-border'>
 				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">					
 					{
 						posts.map((post: any) => (
-							<a href="" class="min-h-32 h-min border rounded-xl border-gray-700/30 bg-primary pointer-events-auto hover:border-accent duration-200">
+							<a href="" class="min-h-32 h-min border rounded-xl border-primary-border bg-primary pointer-events-auto hover:border-accent duration-200">
 								<div class="p-2">
 									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
