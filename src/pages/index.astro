@@ -6,8 +6,6 @@ import Section from "../components/Section.astro";
 import Tag from '../components/Tag.astro';
 import Date from '../components/Date.astro';
 import XMark from "../components/XMark.astro";
-import Arrow from '../components/Arrow.astro';
-import Accordion from '../components/Accordion.astro';
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME } from '../data/user-personal';
@@ -30,9 +28,11 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 			<!-- HEADER -->
 			<Header />
 
+			<Section class="p-2" />
+
 			<!-- HERO -->
-			<Section class='min-h-72'>
-				<div class="w-full">
+			<Section class='flex min-h-72 bg-linear-to-b from-accent/3 to-transparent'>
+				<div class="m-auto">
 					{ USER_PROFESSIONAL_DESCRIPTION }
 					<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
 						{
@@ -44,24 +44,23 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				</div>	
 			</Section>
 
-			<!-- FILTERS --> 
-			{
-				postFilters.length > 0 &&
-				(
-					<Section>
-						<div class="flex gap-2 p-2">
-							{
-								postFilters.map((postFilter) => (
-									<Tag>{ postFilter } <span class="ml-2 opacity-90"><XMark /></span></Tag>
-								))
-							}
-						</div>
-					</Section>
-				)
-			}
+			<Section class="p-2" />
 
 			<!-- POSTS -->
-			<Section class='bg-primary-border'>
+			<Section>
+				{
+					postFilters.length > 0 &&
+					(
+							<div class="flex gap-2 p-2">
+								{
+									postFilters.map((postFilter) => (
+										<Tag>{ postFilter } <span class="ml-2 opacity-90"><XMark /></span></Tag>
+									))
+								}
+							</div>
+					)
+				}
+
 				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">					
 					{
 						posts.map((post: any) => (
@@ -77,6 +76,13 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				</div>
 			</Section>
 
+			<!-- ABOUT -->
+			<Section class="">
+
+			</Section>
+
+			<Section class="p-2" />
+			
 			<!-- FOOTER -->
 			<Footer />
 		</main>
