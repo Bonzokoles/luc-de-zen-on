@@ -8,7 +8,7 @@ import Date from '../components/Date.astro';
 import XMark from "../components/XMark.astro";
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
-import { USER_NAME } from '../data/user-personal';
+import { USER_NAME, USER_INTRODUCTION } from '../data/user-personal';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts')).sort(
@@ -28,10 +28,10 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 			<!-- HEADER -->
 			<Header />
 
-			<Section class="p-2" />
+			<Section class="p-6" />
 
 			<!-- HERO -->
-			<Section class='flex min-h-72 bg-linear-to-b from-accent/3 to-transparent'>
+			<Section class='flex min-h-72'>
 				<div class="m-auto">
 					{ USER_PROFESSIONAL_DESCRIPTION }
 					<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
@@ -44,14 +44,14 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				</div>	
 			</Section>
 
-			<Section class="p-2" />
+			<Section class="p-6" />
 
 			<!-- POSTS -->
-			<Section>
+			<Section class="p-2">
 				{
 					postFilters.length > 0 &&
 					(
-							<div class="flex gap-2 p-2">
+							<div class="flex gap-2 mb-2">
 								{
 									postFilters.map((postFilter) => (
 										<Tag>{ postFilter } <span class="ml-2 opacity-90"><XMark /></span></Tag>
@@ -64,7 +64,7 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-primary to-primary-desaturated pointer-events-none hover:border-gray-700/50 duration-200">					
 					{
 						posts.map((post: any) => (
-							<a href="" class="min-h-32 h-min border rounded-xl border-primary-border bg-primary pointer-events-auto hover:border-accent duration-200">
+							<a href={post.id} class="min-h-32 h-min border rounded-xl border-primary-border bg-primary pointer-events-auto hover:border-accent duration-200">
 								<div class="p-2">
 									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
@@ -76,12 +76,18 @@ const postFilters: string[] = ["Tag A", "Tag B"];
 				</div>
 			</Section>
 
-			<!-- ABOUT -->
-			<Section class="">
+			<Section class="p-6" />
 
+			<!-- ABOUT -->
+			<Section class="flex flex-row gap-4 max-w-2xl mx-auto p-2">
+				<div class="aspect-square w-96 h-auto bg-primary-desaturated"></div>
+
+				<div class="text-pretty my-auto">
+					{ USER_INTRODUCTION }
+				</div>
 			</Section>
 
-			<Section class="p-2" />
+			<Section class="p-6" />
 			
 			<!-- FOOTER -->
 			<Footer />
