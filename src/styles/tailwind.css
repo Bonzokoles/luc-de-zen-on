@@ -15,6 +15,9 @@
     
     /* FONT */
     --font-primary: Rajdhani, system-ui;
+
+    /* OTHER */
+    --radius-interactive: 0.4rem;
 }
 
 @layer base {

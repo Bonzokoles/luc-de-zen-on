@@ -54,13 +54,13 @@ const aboutCosmeticText: string = "ABOUT ME";
 
 			<!-- POSTS -->
 			<Section>
-				<div id="post-filter-container" class="flex gap-4 p-2 empty:hidden">
+				<div id="filter-container" class="flex gap-4 p-2 empty:hidden">
 				</div>
 
-				<div class="group grid grid-cols-2 gap-4 p-6 border border-accent bg-accent/10 pointer-events-none hover:border-primary-border duration-200">					
+				<div class="group grid grid-cols-2 gap-4 p-6 border rounded-interactive border-accent bg-accent/10 pointer-events-none hover:border-primary-border duration-200">					
 					{
 						posts.map((post: any) => (
-							<a href={post.id} class="min-h-32 h-min border rounded-xl border-primary-border bg-primary/80 pointer-events-auto hover:border-accent duration-200">
+							<a href={post.id} class="min-h-32 h-min border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/40 duration-200">
 								<div class="p-4">
 									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
@@ -76,11 +76,13 @@ const aboutCosmeticText: string = "ABOUT ME";
 
 			<!-- ABOUT -->
 			<Section class="flex flex-row gap-8 max-w-2xl min-h-72 m-auto">
-				<div class="aspect-square w-48 h-48 my-auto bg-accent/70 scale-110 -rotate-6 hover:scale-100 hover:-rotate-0 duration-200"></div>
+				<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent/70">
+					<img class="h-full overflow-clip -rotate-z-12 scale-110 border rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
+				</div>
 
 				<div class="text-pretty my-auto">
 					<CosmeticText text={ aboutCosmeticText } />
-					{ USER_INTRODUCTION }
+					<p>{ USER_INTRODUCTION }</p>
 				</div>
 			</Section>
 
@@ -92,8 +94,51 @@ const aboutCosmeticText: string = "ABOUT ME";
 	</body>
 </html>
 
+<script>
+	import { posts, filters } from "../store";
+
+	const filterContainer = document.getElementById('filter-container');
+
+	function addTagToFilters(tag) {
+		const currentFilters: string[] = filters.get() as string[];
+
+		if(currentFilters.includes(tag)) {
+			return;
+		}
+
+		filters.set(currentFilters.push(tag));
+		clearPostFilterContainer();
+		renderPostFilters();
+	}
+
+	function removeTagFromFilters(tag) {
+		const index = postFilters.indexOf(tag);
+
+		if (index !== -1) {
+			postFilters.splice(index, 1);
+		}
+
+		console.log(postFilters)
+
+		clearPostFilterContainer();
+		renderPostFilters();
+	}
+
+	function clearPostFilterContainer() {
+		postFilterContainer.innerHTML = "";
+	}
+
+	function renderPostFilters() {
+		postFilters.forEach((filter) => {
+			const newPostFilterElement = document.createElement('post-filter');
+    		newPostFilterElement.setAttribute('data-tag', filter);
+    		postFilterContainer.insertBefore(newPostFilterElement, postFilterContainer.firstChild);
+		})
+  	}
+</script>
+
 <!-- Script that handles adding and removing post filters -->
-<script is:inline>
+<!-- <script is:inline>
 	const postFilterContainer = document.getElementById('post-filter-container');
 	let postFilters = [];
 
@@ -141,4 +186,4 @@ const aboutCosmeticText: string = "ABOUT ME";
     		postFilterContainer.insertBefore(newPostFilterElement, postFilterContainer.firstChild);
 		})
   	}
-</script>
+</script> -->
