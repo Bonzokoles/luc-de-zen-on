@@ -4,9 +4,21 @@ import Arrow from "../components/Arrow.astro";
 
 import { USER_SOCIALS, USER_EMAIL } from "../data/user-contact";
 import { USER_NAME } from "../data/user-personal";
+import CosmeticText from "./CosmeticText.astro";
+
+interface Props {
+	cosmeticText?: string;
+}
+
+const { cosmeticText = "" } = Astro.props;
 ---
 
-<Section class='py-16' />
+<Section class='flex justify-between pt-32'>
+	<CosmeticText text={ cosmeticText } vertical />
+	<span class="mt-auto">
+		<CosmeticText text={ new Date().toLocaleDateString('en-us', {year: 'numeric', month: 'short'}).toUpperCase() } />
+	</span>
+</Section>
 <Section class='flex flex-row p-2'>
 	<a class="hover:text-white" href="/"><h1 class="text-5xl">{ USER_NAME }</h1></a>
 

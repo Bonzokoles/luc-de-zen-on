@@ -1,0 +1,10 @@
+---
+interface Props {
+    text: string;
+    vertical?: boolean;
+}
+
+const { text, vertical = false } = Astro.props;
+---
+
+<span style={vertical ? "writing-mode: vertical-rl;" : ""} class="block px-2 overflow-hidden text-nowrap text-xl tracking-[0.3em] text-primary-border font-semibold">{ text }</span>
