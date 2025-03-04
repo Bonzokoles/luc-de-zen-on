@@ -5,7 +5,6 @@ import Header from "../components/Header.astro";
 import Section from "../components/Section.astro";
 import Tag from '../components/Tag.astro';
 import Date from '../components/Date.astro';
-import XMark from "../components/XMark.astro";
 
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_NAME, USER_INTRODUCTION } from '../data/user-personal';
@@ -45,16 +44,15 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 			<Section class="p-6" />
 
 			<!-- POSTS -->
-			<Section class="p-2">
-
-				<div id="post-filter-container" class="flex gap-2 mb-2">
+			<Section>
+				<div id="post-filter-container" class="flex gap-4 p-2 empty:p-0">
 				</div>
 
-				<div class="group grid grid-cols-2 gap-4 p-8 border rounded-lg border-accent bg-linear-to-b from-accent/15 to-transparent pointer-events-none hover:border-primary-border duration-200">					
+				<div class="group grid grid-cols-2 gap-4 p-6 border border-accent bg-linear-to-b from-accent/15 to-transparent pointer-events-none hover:border-primary-border duration-200">					
 					{
 						posts.map((post: any) => (
 							<a href={post.id} class="min-h-32 h-min border rounded-xl border-primary-border bg-primary/80 pointer-events-auto hover:border-accent duration-200">
-								<div class="p-2">
+								<div class="p-4">
 									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
 									<p>{ post.data.description }</p>
@@ -68,8 +66,8 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 			<Section class="p-6" />
 
 			<!-- ABOUT -->
-			<Section class="flex flex-row gap-4 max-w-2xl mx-auto p-2">
-				<div class="aspect-square w-96 h-auto rounded-lg bg-accent/70"></div>
+			<Section class="flex flex-row gap-8 max-w-2xl min-h-72 m-auto">
+				<div class="aspect-square w-48 h-48 my-auto bg-accent/70 scale-110 -rotate-6"></div>
 
 				<div class="text-pretty my-auto">
 					{ USER_INTRODUCTION }
@@ -92,9 +90,8 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 	class PostFilter extends HTMLElement {
     	connectedCallback() {
       		const tag = this.getAttribute('data-tag');
-      		this.innerHTML = `<button onClick="removeTagFromFilters('${tag}')">${tag}</button>`;
+      		this.innerHTML = `<button class="text-accent hover:line-through hover:cursor-pointer" onClick="removeTagFromFilters('${tag}')">${tag}</button>`;
 			this.addEventListener("onClick", () => removeTagFromFilters(tag));
-			// console.log(this.innerHTML)
     	}
   	}
 
@@ -131,7 +128,7 @@ const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 		postFilters.forEach((filter) => {
 			const newPostFilterElement = document.createElement('post-filter');
     		newPostFilterElement.setAttribute('data-tag', filter);
-    		postFilterContainer.appendChild(newPostFilterElement);
+    		postFilterContainer.insertBefore(newPostFilterElement, postFilterContainer.firstChild);
 		})
   	}
 </script>
