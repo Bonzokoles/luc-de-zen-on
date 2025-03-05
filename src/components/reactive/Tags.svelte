@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { twMerge } from 'tailwind-merge';
-import { filters, toggleFilter } from '../../stores/filters.store.ts';
+    import { filters, toggleFilter } from '../../stores/filters.store.ts';
+    import { cn } from '../../styles/cn.ts';
 
     interface Props {
         tags: string[];
@@ -10,7 +10,7 @@ import { filters, toggleFilter } from '../../stores/filters.store.ts';
 </script>
 
 {#snippet tag(title: string)}
-    <button onclick={() => toggleFilter(title)} class={twMerge(selectedClass, "inline-block w-fit h-fit px-2 py-1 bg-primary border rounded-interactive border-accent text-accent font-semibold hover:bg-accent hover:text-primary hover:cursor-pointer duration-200")}>
+    <button onclick={() => toggleFilter(title)} class={cn($filters.includes(title) ? "opacity-65" : "", "inline-block w-fit h-fit px-2 py-1 bg-primary border rounded-interactive border-accent text-accent font-semibold hover:bg-accent hover:text-primary hover:cursor-pointer duration-200")}>
         {title}
     </button>
 {/snippet}
