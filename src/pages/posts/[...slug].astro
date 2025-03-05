@@ -18,8 +18,8 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout siteTitle={Astro.props.data.title} siteDescription={Astro.props.data.description} headerCosmeticText='POST'>
-	<Section class='p-8'>
+<Layout siteTitle={Astro.props.data.title} siteDescription={Astro.props.data.description} headerCosmeticText="POST">
+	<Section class='p-8 prose-lg'>
 		<Content />
 	</Section>
 </Layout>

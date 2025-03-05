@@ -1,4 +1,6 @@
 ---
+import { cn } from '../styles/cn';
+
 interface Props {
     text: string;
     vertical?: boolean;
@@ -7,6 +9,6 @@ interface Props {
 const { text, vertical = false } = Astro.props;
 ---
 
-<span style={vertical ? "writing-mode: vertical-rl;" : ""} class="block text-clip overflow-hidden px-2 text-xl tracking-[0.3em] text-primary-border font-semibold">
+<span style={vertical ? "writing-mode: vertical-lr;" : ""} class="block px-2 text-xl tracking-[0.3em] text-primary-border font-semibold">
     {text}
 </span>

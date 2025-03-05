@@ -14,7 +14,7 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
 
-const heroTags: string[] = allPosts.flatMap(post => post.data.tags);
+const heroTags: Set<string> = new Set(allPosts.flatMap(post => post.data.tags));
 
 const cosmeticTexts: {[section: string]: string} = {
 	header: "BACKSTAGE",
@@ -34,7 +34,7 @@ const cosmeticTexts: {[section: string]: string} = {
 	</Section>
 
 	<!-- POSTS -->
-	<Section>
+	<Section class=''>
 		<Posts client:load allPosts={allPosts} />
 	</Section>
 
