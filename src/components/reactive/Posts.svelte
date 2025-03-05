@@ -11,8 +11,8 @@
     let sortedPosts: CollectionEntry<'posts'>[] = $state(allPosts);
 
     function scorePostOnFilters(post: CollectionEntry<'posts'>): number {
-        const tagIntersection = post.data.tags.filter(tag => $filters.includes(tag));
-        return tagIntersection.length;
+        const intersection = post.data.tags.filter(value => filters.get().includes(value));
+        return intersection.length;
     }
 
     function sortPosts() {
@@ -21,7 +21,7 @@
             return;
         }
         
-        sortedPosts = allPosts.sort((a: any, b: any) => scorePostOnFilters(a) - scorePostOnFilters(b));
+        sortedPosts = allPosts.sort((a: any, b: any) => scorePostOnFilters(b) - scorePostOnFilters(a));
     }
 
     filters.subscribe(() => {
