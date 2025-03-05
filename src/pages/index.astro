@@ -4,18 +4,17 @@ import Section from "../components/Section.astro";
 import Posts from "../components/reactive/Posts.svelte";
 import Tags from "../components/reactive/Tags.svelte"
 import CosmeticText from '../components/CosmeticText.astro';
+import Image from 'astro/components/Image.astro';
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../data/site';
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
-import { USER_INTRODUCTION } from '../data/user-personal';
+import { USER_INTRODUCTION, USER_NAME } from '../data/user-personal';
+import USER_PICTURE from "../../public/user-picture.jpeg";
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
 
-const heroTags: string[] = ["Tag A", "Tag B", "Tag C",
-							"Tag D", "Tag E", "Tag F",
-							"Tag G", "Tag H", "Tag I",
-							"Tag J", "Tag K", "Tag L"];
+const heroTags: string[] = allPosts.flatMap(post => post.data.tags);
 
 const cosmeticTexts: {[section: string]: string} = {
 	header: "BACKSTAGE",
@@ -42,7 +41,11 @@ const cosmeticTexts: {[section: string]: string} = {
 	<!-- ABOUT -->
 	<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
 		<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
-			<img class="h-full overflow-clip -rotate-z-12 scale-110 rounded-interactive group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
+			<Image
+			 class="h-full overflow-clip object-cover -rotate-z-12 scale-110 border-2d rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border group-hover/image:border duration-200" 
+			 src={USER_PICTURE}
+			 alt={`${USER_NAME}'s profile picture.`}
+			 />
 		</div>
 
 		<div class="text-pretty my-auto">

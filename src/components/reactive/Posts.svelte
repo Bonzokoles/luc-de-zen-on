@@ -40,7 +40,7 @@
             <h2 class="text-lg font-semibold">{post.data.title}</h2>
             <p>{post.data.description}</p>
         </div>
-        <div class="flex flex-row gap-2 text-accent font-light">
+        <div class="flex flex-row gap-2 text-accent">
             {#each post.data.tags as tag}
                 <span>{tag}</span>
             {/each}

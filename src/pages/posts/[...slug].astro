@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Section from '../../components/Section.astro';
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';	
 import { render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -19,7 +19,7 @@ const { Content } = await render(post);
 ---
 
 <Layout siteTitle={Astro.props.data.title} siteDescription={Astro.props.data.description} headerCosmeticText='POST'>
-	<Section class='p-2'>
+	<Section class='p-8'>
 		<Content />
 	</Section>
 </Layout>
