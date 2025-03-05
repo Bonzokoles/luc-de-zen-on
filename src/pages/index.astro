@@ -1,11 +1,8 @@
 ---
-import Head from '../components/Head.astro';
-import Footer from '../components/Footer.astro';
-import Header from "../components/Header.astro";
+import Layout from '../layouts/Layout.astro';
 import Section from "../components/Section.astro";
-import Date from '../components/Date.astro';
+import Posts from "../components/reactive/Posts.svelte";
 import Tags from "../components/reactive/Tags.svelte"
-import Filters from "../components/reactive/Filters.svelte";
 import CosmeticText from '../components/CosmeticText.astro';
 
 import { SITE_TITLE, SITE_DESCRIPTION } from '../data/site';
@@ -13,11 +10,12 @@ import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
 import { USER_INTRODUCTION } from '../data/user-personal';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('posts')).sort(
-	(a: any, b: any) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const allPosts = await getCollection('posts');
 
-const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
+const heroTags: string[] = ["mdx", "Tag B", "Tag C",
+							"Tag D", "Tag E", "Tag F",
+							"Tag G", "Tag H", "Tag I",
+							"Tag J", "Tag K", "Tag L"];
 
 const cosmeticTexts: {[section: string]: string} = {
 	header: "PORTFOLIO",
@@ -26,59 +24,30 @@ const cosmeticTexts: {[section: string]: string} = {
 }
 ---
 
-<!doctype html>
-<html lang="en" class="bg-primary-desaturated">
-	<head>
-		<Head pageTitle={SITE_TITLE} pageDescription={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<main class="min-h-svh bg-linear-to-b from-primary-desaturated to-primary">
-			<!-- HEADER -->
-			<Header cosmeticText={ cosmeticTexts.header } />
+<Layout siteTitle={SITE_TITLE} siteDescription={SITE_DESCRIPTION} headerCosmeticText={cosmeticTexts.header}>
+	<!-- HERO -->
+	<Section class='relative flex min-h-72 pl-4'>		
+		<div class="max-w-md m-auto text-center">		
+			<span class="text-lg">{USER_PROFESSIONAL_DESCRIPTION}</span>
+			<Tags client:load tags={heroTags} />
+		</div>
+		<CosmeticText text={cosmeticTexts.hero} vertical />
+	</Section>
 
-			<!-- HERO -->
-			<Section class='flex min-h-72 h-72'>
-				<div class="m-auto">
-					<span class="text-lg">{ USER_PROFESSIONAL_DESCRIPTION }</span>
-					<Tags client:load tags={ heroTags } />
-				</div>
+	<!-- POSTS -->
+	<Section>
+		<Posts client:load allPosts={allPosts} />
+	</Section>
 
-				<CosmeticText text={ cosmeticTexts.hero } vertical />
-			</Section>
+	<!-- ABOUT -->
+	<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
+		<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
+			<img class="h-full overflow-clip -rotate-z-12 scale-110 rounded-interactive group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
+		</div>
 
-			<!-- POSTS -->
-			<Section>
-				<Filters client:load />
-
-				<div class="group grid grid-cols-2 gap-2 p-2 rounded-interactive pointer-events-none hover:border-primary-border duration-200">					
-					{
-						posts.map((post: any) => (
-							<a href={post.id} class="min-h-32 h-min border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/25 duration-200">
-								<div class="p-4">
-									<h3 class="text-primary-foreground/75"><Date date={post.data.date} /></h3>
-									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
-									<p>{ post.data.description }</p>
-								</div>
-							</a>
-						))
-					}
-				</div>
-			</Section>
-
-			<!-- ABOUT -->
-			<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
-				<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
-					<img class="h-full overflow-clip -rotate-z-12 scale-110 rounded-interactive group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
-				</div>
-
-				<div class="text-pretty my-auto">
-					<CosmeticText text={ cosmeticTexts.about } />
-					<p>{ USER_INTRODUCTION }</p>
-				</div>
-			</Section>
-
-			<!-- FOOTER -->
-			<Footer />
-		</main>
-	</body>
-</html>
+		<div class="text-pretty my-auto">
+			<CosmeticText text={ cosmeticTexts.about } />
+			<p>{ USER_INTRODUCTION }</p>
+		</div>
+	</Section>
+</Layout>

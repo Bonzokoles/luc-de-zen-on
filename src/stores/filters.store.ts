@@ -21,3 +21,12 @@ export function removeFilter(filter: string) {
   mutableFilters.splice(indexToRemove, 1);
   filters.set([...mutableFilters]); 
 }
+
+export function toggleFilter(filter: string) {
+  if (filters.get().includes(filter)) {
+    removeFilter(filter);
+    return;
+  }
+
+  addFilter(filter);
+}
