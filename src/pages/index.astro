@@ -3,12 +3,14 @@ import Head from '../components/Head.astro';
 import Footer from '../components/Footer.astro';
 import Header from "../components/Header.astro";
 import Section from "../components/Section.astro";
-import Tag from '../components/Tag.astro';
 import Date from '../components/Date.astro';
+import Tags from "../components/reactive/Tags.svelte"
+import Filters from "../components/reactive/Filters.svelte";
 import CosmeticText from '../components/CosmeticText.astro';
 
+import { SITE_TITLE, SITE_DESCRIPTION } from '../data/site';
 import { USER_PROFESSIONAL_DESCRIPTION } from "../data/user-professional";
-import { USER_NAME, USER_INTRODUCTION } from '../data/user-personal';
+import { USER_INTRODUCTION } from '../data/user-personal';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('posts')).sort(
@@ -17,52 +19,43 @@ const posts = (await getCollection('posts')).sort(
 
 const heroTags: string[] = ["Tag A", "Tag B", "Tag C"];
 
-const headerCosmeticText: string = `PORTFOLIO`;
-const heroCosmeticText: string = "CLICK ON A TAG";
-const postsCosmeticText: string = "CONTENT";
-const aboutCosmeticText: string = "ABOUT ME";
+const cosmeticTexts: {[section: string]: string} = {
+	header: "PORTFOLIO",
+	hero: "CLICK ON A TAG",
+	about: "ABOUT ME",
+}
 ---
 
 <!doctype html>
 <html lang="en" class="bg-primary-desaturated">
-	<head><Head pageTitle=`${ USER_NAME }'s Portfolio` pageDescription=`Home page of ${USER_NAME}'s portfolio.`  /></head>
+	<head>
+		<Head pageTitle={SITE_TITLE} pageDescription={SITE_DESCRIPTION} />
+	</head>
 	<body>
 		<main class="min-h-svh bg-linear-to-b from-primary-desaturated to-primary">
 			<!-- HEADER -->
-			<Header cosmeticText={ headerCosmeticText } />
-
-			<Section class="p-4" />
+			<Header cosmeticText={ cosmeticTexts.header } />
 
 			<!-- HERO -->
 			<Section class='flex min-h-72 h-72'>
 				<div class="m-auto">
 					<span class="text-lg">{ USER_PROFESSIONAL_DESCRIPTION }</span>
-					<div class="flex flex-row flex-wrap justify-center gap-2 mt-4">
-						{
-							heroTags.map((tag) => (
-								<Tag onClick={`addTagToFilters("${tag}")`} >{ tag }</Tag>
-							))
-						}
-					</div>
-				</div>	
-				<CosmeticText text={ heroCosmeticText } vertical />
-			</Section>
+					<Tags client:load tags={ heroTags } />
+				</div>
 
-			<Section class="p-1">
-				<CosmeticText text={ postsCosmeticText } />
+				<CosmeticText text={ cosmeticTexts.hero } vertical />
 			</Section>
 
 			<!-- POSTS -->
 			<Section>
-				<div id="filter-container" class="flex gap-4 p-2 empty:hidden">
-				</div>
+				<Filters client:load />
 
-				<div class="group grid grid-cols-2 gap-4 p-6 border rounded-interactive border-accent bg-accent/10 pointer-events-none hover:border-primary-border duration-200">					
+				<div class="group grid grid-cols-2 gap-2 p-2 rounded-interactive pointer-events-none hover:border-primary-border duration-200">					
 					{
 						posts.map((post: any) => (
-							<a href={post.id} class="min-h-32 h-min border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/40 duration-200">
+							<a href={post.id} class="min-h-32 h-min border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/25 duration-200">
 								<div class="p-4">
-									<h3 class="text-primary-foreground/50"><Date date={post.data.date} /></h3>
+									<h3 class="text-primary-foreground/75"><Date date={post.data.date} /></h3>
 									<h2 class="text-lg font-semibold">{ post.data.title }</h2>
 									<p>{ post.data.description }</p>
 								</div>
@@ -72,118 +65,20 @@ const aboutCosmeticText: string = "ABOUT ME";
 				</div>
 			</Section>
 
-			<Section class="p-4" />
-
 			<!-- ABOUT -->
-			<Section class="flex flex-row gap-8 max-w-2xl min-h-72 m-auto">
-				<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent/70">
-					<img class="h-full overflow-clip -rotate-z-12 scale-110 border rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
+			<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
+				<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
+					<img class="h-full overflow-clip -rotate-z-12 scale-110 rounded-interactive group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border duration-200" src="/blog-placeholder-1.jpg">
 				</div>
 
 				<div class="text-pretty my-auto">
-					<CosmeticText text={ aboutCosmeticText } />
+					<CosmeticText text={ cosmeticTexts.about } />
 					<p>{ USER_INTRODUCTION }</p>
 				</div>
 			</Section>
 
-			<Section class="p-4" />
-			
 			<!-- FOOTER -->
 			<Footer />
 		</main>
 	</body>
 </html>
-
-<script>
-	import { posts, filters } from "../store";
-
-	const filterContainer = document.getElementById('filter-container');
-
-	function addTagToFilters(tag) {
-		const currentFilters: string[] = filters.get() as string[];
-
-		if(currentFilters.includes(tag)) {
-			return;
-		}
-
-		filters.set(currentFilters.push(tag));
-		clearPostFilterContainer();
-		renderPostFilters();
-	}
-
-	function removeTagFromFilters(tag) {
-		const index = postFilters.indexOf(tag);
-
-		if (index !== -1) {
-			postFilters.splice(index, 1);
-		}
-
-		console.log(postFilters)
-
-		clearPostFilterContainer();
-		renderPostFilters();
-	}
-
-	function clearPostFilterContainer() {
-		postFilterContainer.innerHTML = "";
-	}
-
-	function renderPostFilters() {
-		postFilters.forEach((filter) => {
-			const newPostFilterElement = document.createElement('post-filter');
-    		newPostFilterElement.setAttribute('data-tag', filter);
-    		postFilterContainer.insertBefore(newPostFilterElement, postFilterContainer.firstChild);
-		})
-  	}
-</script>
-
-<!-- Script that handles adding and removing post filters -->
-<!-- <script is:inline>
-	const postFilterContainer = document.getElementById('post-filter-container');
-	let postFilters = [];
-
-	class PostFilter extends HTMLElement {
-    	connectedCallback() {
-      		const tag = this.getAttribute('data-tag');
-      		this.innerHTML = `<button class="text-accent hover:line-through hover:cursor-pointer" onClick="removeTagFromFilters('${tag}')">${tag}</button>`;
-			this.addEventListener("onClick", () => removeTagFromFilters(tag));
-    	}
-  	}
-
-	customElements.define('post-filter', PostFilter);
-
-	function addTagToFilters(tag) {
-		if(postFilters.includes(tag)) {
-			return;
-		}
-
-		postFilters.push(tag);
-		clearPostFilterContainer();
-		renderPostFilters();
-	}
-
-	function removeTagFromFilters(tag) {
-		const index = postFilters.indexOf(tag);
-
-		if (index !== -1) {
-			postFilters.splice(index, 1);
-		}
-
-		console.log(postFilters)
-
-		clearPostFilterContainer();
-		renderPostFilters();
-	}
-
-	function clearPostFilterContainer() {
-		postFilterContainer.innerHTML = "";
-	}
-
-	function renderPostFilters() {
-		postFilters.forEach((filter) => {
-			const newPostFilterElement = document.createElement('post-filter');
-    		newPostFilterElement.setAttribute('data-tag', filter);
-    		postFilterContainer.insertBefore(newPostFilterElement, postFilterContainer.firstChild);
-		})
-  	}
-</script> -->

@@ -11,6 +11,6 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
-	site: SITE_URL,
 	integrations: [svelte(), mdx(), sitemap()],
+	site: SITE_URL,
 });

@@ -18,6 +18,7 @@
 
     /* OTHER */
     --radius-interactive: 0.4rem;
+    --duration-interactive: 200ms;
 }
 
 @layer base {
