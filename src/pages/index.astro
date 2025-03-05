@@ -12,13 +12,13 @@ import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('posts');
 
-const heroTags: string[] = ["mdx", "Tag B", "Tag C",
+const heroTags: string[] = ["Tag A", "Tag B", "Tag C",
 							"Tag D", "Tag E", "Tag F",
 							"Tag G", "Tag H", "Tag I",
 							"Tag J", "Tag K", "Tag L"];
 
 const cosmeticTexts: {[section: string]: string} = {
-	header: "PORTFOLIO",
+	header: "BACKSTAGE",
 	hero: "CLICK ON A TAG",
 	about: "ABOUT ME",
 }

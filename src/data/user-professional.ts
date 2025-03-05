@@ -1,1 +1,1 @@
-export const USER_PROFESSIONAL_DESCRIPTION: string = "User's professinal description.";
+export const USER_PROFESSIONAL_DESCRIPTION: string = "User's professional description.";
