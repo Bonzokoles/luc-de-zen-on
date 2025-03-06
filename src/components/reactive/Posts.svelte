@@ -32,11 +32,11 @@
 {#snippet postCard(post: CollectionEntry<'posts'>)}
     <a href={`/posts/${post.id}`} class="flex flex-col justify-between gap-2 min-h-32 h-full p-2 border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/25 duration-200">
         <div>
-            <h3 class="text-sm text-primary-foreground/75">
+            <span class="text-sm text-primary-foreground/75">
                 <time datetime={post.data.date.toISOString()}>
                     {post.data.date.toLocaleDateString('en-us', {year: 'numeric', month: 'short', day: 'numeric'})}
                 </time>
-            </h3>
+            </span>
             <h2 class="text-lg font-semibold">{post.data.title}</h2>
             <p>{post.data.description}</p>
         </div>

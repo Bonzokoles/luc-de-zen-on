@@ -41,9 +41,9 @@ const cosmeticTexts: {[section: string]: string} = {
 	<!-- ABOUT -->
 	<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
 		<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
-			<Image
-			 class="h-full overflow-clip object-cover -rotate-z-12 scale-110 border-2d rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border group-hover/image:border duration-200" 
-			 src={USER_PICTURE}
+			<img
+			 class="w-48 h-48 overflow-clip object-cover -rotate-z-12 scale-110 border-2d rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border group-hover/image:border duration-200" 
+			 src={USER_PICTURE.src}
 			 alt={`${USER_NAME}'s profile picture.`}
 			 />
 		</div>

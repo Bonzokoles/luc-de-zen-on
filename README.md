@@ -10,7 +10,8 @@ pnpm run dev
 Features:
 
 - ✅ Auto populated project tags hero section.
-- ⚠️ 100/100 Lighthouse performance
+- ✅ Post gallery that can be sorted based on tags.
+- ✅ 100/100 Lighthouse performance
 - ✅ SEO-friendly with canonical URLs and OpenGraph data
 - ✅ Sitemap support
 - ✅ RSS Feed support
