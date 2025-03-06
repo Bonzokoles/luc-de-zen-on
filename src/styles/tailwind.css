@@ -8,7 +8,7 @@
 @theme {
   /* COLOR */
   --theme-hue: 210;
-  --color-primary: hsl(var(--theme-hue), 20%, 4%);
+  --color-primary: hsl(var(--theme-hue), 20%, 6%);
   --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
   --color-secondary: hsl(var(--theme-hue), 40%, 8%);
   --color-accent: hsl(var(--theme-hue), 100%, 50%);
