@@ -1,11 +1,6 @@
-# Astro Starter Kit: Blog
+# Backstage - A reactive portfolio template.
 
-```sh
-# Start development server.
-pnpm run dev
-```
-
-![page-top](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+![homepage-top](https://github.com/user-attachments/assets/655ebb7b-5b4d-4a9b-bf3a-ba0014c09f70)
 
 Features:
 
@@ -16,6 +11,9 @@ Features:
 - ✅ Sitemap support
 - ✅ RSS Feed support
 - ✅ Markdown & MDX support
+
+
+![homepage-bottom](https://github.com/user-attachments/assets/0aba7bd0-14a3-402f-a719-1ae247508dd8)
 
 ## 🧞 Commands
 
