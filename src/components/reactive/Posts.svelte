@@ -27,6 +27,18 @@
     filters.subscribe((value) => {
         sortPosts([...value]);
     })
+
+    function compareTags(a: string, b: string): number {
+        const includesA: boolean = $filters.includes(a);
+        const includesB: boolean = $filters.includes(b);
+        return includesA && includesB ? 0 : includesA ? -1 : 1; 
+    }
+
+    function getSortedTags(post: CollectionEntry<'posts'>): string[] {
+        const sortedTags: string[] = [...post.data.tags];
+        sortedTags.sort((a, b) => compareTags(a, b));
+        return sortedTags;
+    }
 </script>
 
 {#snippet postCard(post: CollectionEntry<'posts'>)}
@@ -41,7 +53,7 @@
             <p>{post.data.description}</p>
         </div>
         <div class="flex flex-row gap-2 text-accent">
-            {#each post.data.tags as tag}
+            {#each getSortedTags(post) as tag}
                 <span class={($filters.length > 0 && !$filters.includes(tag)) ? "opacity-60" : ""}>{tag}</span>
             {/each}
         </div>
