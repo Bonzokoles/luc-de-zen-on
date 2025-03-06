@@ -1,6 +1,6 @@
 # Backstage - A reactive portfolio template.
 
-![homepage-top](https://github.com/user-attachments/assets/655ebb7b-5b4d-4a9b-bf3a-ba0014c09f70)
+![homepage-top](https://github.com/user-attachments/assets/c7684084-0943-458d-8598-addcdf2d1aa1)
 
 Features:
 
@@ -12,8 +12,7 @@ Features:
 - ✅ RSS Feed support
 - ✅ Markdown & MDX support
 
-
-![homepage-bottom](https://github.com/user-attachments/assets/0aba7bd0-14a3-402f-a719-1ae247508dd8)
+![homepage-bottom](https://github.com/user-attachments/assets/6b29a428-4272-4a8e-9e43-9147d77b7d0a)
 
 ## 🧞 Commands
 
