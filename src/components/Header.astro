@@ -27,21 +27,21 @@ const { cosmeticText = "" } = Astro.props;
   </span>
 </Section>
 
-<Section class="flex flex-row p-2">
-  <a class="hover:brightness-125" href="/"><h1 class="text-5xl">{USER_NAME}</h1></a>
+<Section class="flex flex-col md:flex-row p-2">
+  <a class="hover:brightness-125" href="/"><h1 class="text-4xl sm:text-5xl">{USER_NAME}</h1></a>
 
   <!-- USER CONTACT -->
-  <div class="ml-auto flex flex-col">
+  <div class="ml-auto md:flex flex-col gap-4 sm:gap-0 hidden md:block">
     <a
       class="ml-auto duration-200 hover:brightness-125"
       href={`mailto:${USER_EMAIL}`}>{USER_EMAIL}<Arrow rotate={-45} /></a
     >
-    <div class="flex flex-row-reverse flex-wrap gap-2">
+    <div class="flex flex-row-reverse flex-wrap gap-4 sm:gap-2">
       {
         USER_SOCIALS.map((social) => (
           <a class="duration-200 hover:brightness-125" href={social.href}>
             {social.title}
-            <Arrow rotate={-45} />
+            <Arrow class="stroke-primary-foreground" rotate={-45} />
           </a>
         ))
       }

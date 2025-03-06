@@ -34,7 +34,7 @@ const cosmeticTexts: { [section: string]: string } = {
     class="from-accent/10 relative flex min-h-72 bg-radial-[at_50%_10%] to-transparent pl-4"
   >
     <div class="m-auto max-w-md text-center">
-      <span class="text-lg">{USER_PROFESSIONAL_DESCRIPTION}</span>
+      <span class="text-xl">{USER_PROFESSIONAL_DESCRIPTION}</span>
       <Tags client:load tags={heroTags} />
     </div>
     <CosmeticText text={cosmeticTexts.hero} vertical />
@@ -49,9 +49,9 @@ const cosmeticTexts: { [section: string]: string } = {
   <Section class="relative flex min-h-96">
     <span class="absolute"><CosmeticText text={cosmeticTexts.about} vertical /></span>
 
-    <div class="flex flex-row gap-16 max-w-2xl mx-auto">
+    <div class="flex flex-col md:flex-row gap-16 max-w-2xl mx-auto px-8 pt-32 pb-16">
       <div
-        class="group/image rounded-interactive bg-accent my-auto aspect-square h-48 w-48"
+        class="group/image rounded-interactive bg-accent mx-auto md:mx-0 my-auto aspect-square h-48 w-48"
       >
         <img
           class="border-2d rounded-interactive h-48 w-48 scale-110 -rotate-z-12 overflow-clip object-cover duration-200 group-hover/image:scale-[101%] group-hover/image:-rotate-z-0"
@@ -61,7 +61,7 @@ const cosmeticTexts: { [section: string]: string } = {
       </div>
 
       <div class="my-auto text-pretty">
-        <h1></h1>
+        <h1 class="text-xl">Hi.</h1>
         <p>{USER_INTRODUCTION}</p>
       </div>
     </div>
