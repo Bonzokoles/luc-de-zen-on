@@ -42,7 +42,7 @@
 </script>
 
 {#snippet postCard(post: CollectionEntry<'posts'>)}
-    <a href={`/posts/${post.id}`} class="flex flex-col justify-between gap-2 min-h-32 h-full p-2 border rounded-interactive border-primary-border bg-primary pointer-events-auto hover:border-accent hover:bg-accent/25 duration-200">
+    <a href={`/posts/${post.id}`} class="flex flex-col justify-between gap-2 min-h-32 h-full p-2 border rounded-interactive border-edge bg-linear-to-b from-secondary to-secondary/60 pointer-events-auto hover:border-accent hover:bg-accent/10 duration-200">
         <div>
             <span class="text-sm text-primary-foreground/75">
                 <time datetime={post.data.date.toISOString()}>
@@ -62,7 +62,7 @@
 
 <Filters />
 
-<div class="group grid grid-cols-3 gap-2 p-4 rounded-interactive pointer-events-none hover:border-primary-border duration-200">					
+<div class="group grid grid-cols-3 gap-2 p-4 rounded-interactive pointer-events-none hover:border-edge duration-200">					
     {#each sortedPosts as post}
         {@render postCard(post)}
     {/each}

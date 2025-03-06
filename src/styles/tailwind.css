@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
 
 @import "tailwindcss";
 @import "tailwindcss/preflight.css" layer(base);
@@ -6,25 +6,25 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-    /* COLOR */
-    --theme-hue: 210;
-    --color-primary: hsl(var(--theme-hue), 30%, 15%);
-    --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
-    --color-primary-desaturated: hsl(var(--theme-hue), 20%, 4%);
-    --color-primary-border: hsl(var(--theme-hue), 30%, 18%);
-    --color-accent: hsl(var(--theme-hue), 100%, 50%);
-    
-    /* FONT */
-    --font-primary: Rajdhani, system-ui;
+  /* COLOR */
+  --theme-hue: 210;
+  --color-primary: hsl(var(--theme-hue), 20%, 4%);
+  --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
+  --color-secondary: hsl(var(--theme-hue), 40%, 8%);
+  --color-accent: hsl(var(--theme-hue), 100%, 50%);
+  --color-edge: hsl(var(--theme-hue), 30%, 18%);
 
-    /* OTHER */
-    --radius-interactive: 0.4rem;
-    --duration-interactive: 200ms;
+  /* FONT */
+  --font-primary: Rajdhani, system-ui;
+
+  /* OTHER */
+  --radius-interactive: 0.4rem;
+  --duration-interactive: 200ms;
 }
 
 @layer base {
-    :root {
-        color: var(--color-primary-foreground); 
-        font-family: var(--font-primary);
-    }
+  :root {
+    color: var(--color-primary-foreground);
+    font-family: var(--font-primary);
+  }
 }

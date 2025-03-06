@@ -1,14 +1,15 @@
 ---
-import { cn } from '../styles/cn';
-
 interface Props {
-    text: string;
-    vertical?: boolean;
+  text: string;
+  vertical?: boolean;
 }
 
 const { text, vertical = false } = Astro.props;
 ---
 
-<span style={vertical ? "writing-mode: vertical-lr;" : ""} class="block px-2 text-xl tracking-[0.3em] text-primary-border font-semibold">
-    {text}
+<span
+  style={vertical ? "writing-mode: vertical-lr;" : ""}
+  class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+>
+  {text}
 </span>

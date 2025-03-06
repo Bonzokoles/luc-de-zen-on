@@ -7,34 +7,44 @@ import { USER_NAME } from "../data/user-personal";
 import CosmeticText from "./CosmeticText.astro";
 
 interface Props {
-	cosmeticText?: string;
+  cosmeticText?: string;
 }
 
 const { cosmeticText = "" } = Astro.props;
 ---
 
-<Section class='flex justify-between min-h-64 max-h-72'>
-	<div class="mt-auto">
-		<CosmeticText text={cosmeticText} vertical />
-	</div>
+<Section class="flex max-h-72 min-h-64 justify-between">
+  <div class="mt-auto">
+    <CosmeticText text={cosmeticText} vertical />
+  </div>
 
-	<span class="mt-auto">
-		<CosmeticText text={new Date().toLocaleDateString('en-us', {year: 'numeric', month: 'short'}).toUpperCase()} />
-	</span>
+  <span class="mt-auto">
+    <CosmeticText
+      text={new Date()
+        .toLocaleDateString("en-us", { year: "numeric", month: "short" })
+        .toUpperCase()}
+    />
+  </span>
 </Section>
 
-<Section class='flex flex-row p-2'>
-	<a class="hover:text-white" href="/"><h1 class="text-5xl">{USER_NAME}</h1></a>
+<Section class="flex flex-row p-2">
+  <a class="hover:brightness-125" href="/"><h1 class="text-5xl">{USER_NAME}</h1></a>
 
-	<!-- USER CONTACT -->
-	<div class="flex flex-col ml-auto">
-		<a class="ml-auto hover:text-white duration-200" href={`mailto:${ USER_EMAIL }`}>{USER_EMAIL}<Arrow rotate={-45} /></a>
-		<div class="flex flex-row-reverse flex-wrap gap-2">
-			{ 
-				USER_SOCIALS.map((social) => (
-					<a class="hover:text-white duration-200" href={social.href}>{social.title}<Arrow rotate={-45} /></a>
-				))
-			}
-		</div>
-	</div>
+  <!-- USER CONTACT -->
+  <div class="ml-auto flex flex-col">
+    <a
+      class="ml-auto duration-200 hover:brightness-125"
+      href={`mailto:${USER_EMAIL}`}>{USER_EMAIL}<Arrow rotate={-45} /></a
+    >
+    <div class="flex flex-row-reverse flex-wrap gap-2">
+      {
+        USER_SOCIALS.map((social) => (
+          <a class="duration-200 hover:brightness-125" href={social.href}>
+            {social.title}
+            <Arrow rotate={-45} />
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </Section>
