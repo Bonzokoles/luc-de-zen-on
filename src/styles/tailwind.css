@@ -10,7 +10,7 @@
     --theme-hue: 210;
     --color-primary: hsl(var(--theme-hue), 30%, 15%);
     --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
-    --color-primary-desaturated: hsl(var(--theme-hue), 10%, 6%);
+    --color-primary-desaturated: hsl(var(--theme-hue), 20%, 4%);
     --color-primary-border: hsl(var(--theme-hue), 30%, 18%);
     --color-accent: hsl(var(--theme-hue), 100%, 50%);
     

@@ -42,7 +42,7 @@
         </div>
         <div class="flex flex-row gap-2 text-accent">
             {#each post.data.tags as tag}
-                <span>{tag}</span>
+                <span class={($filters.length > 0 && !$filters.includes(tag)) ? "opacity-60" : ""}>{tag}</span>
             {/each}
         </div>
     </a>
