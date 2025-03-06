@@ -25,7 +25,7 @@ const cosmeticTexts: {[section: string]: string} = {
 
 <Layout siteTitle={SITE_TITLE} siteDescription={SITE_DESCRIPTION} headerCosmeticText={cosmeticTexts.header}>
 	<!-- HERO -->
-	<Section class='relative flex min-h-72 pl-4'>		
+	<Section class='relative flex min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent'>		
 		<div class="max-w-md m-auto text-center">		
 			<span class="text-lg">{USER_PROFESSIONAL_DESCRIPTION}</span>
 			<Tags client:load tags={heroTags} />
@@ -42,10 +42,10 @@ const cosmeticTexts: {[section: string]: string} = {
 	<Section class="flex flex-row gap-8 max-w-2xl min-h-96 m-auto">
 		<div class="group/image aspect-square w-48 h-48 my-auto rounded-interactive bg-accent">
 			<img
-			 class="w-48 h-48 overflow-clip object-cover -rotate-z-12 scale-110 border-2d rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border group-hover/image:border duration-200" 
-			 src={USER_PICTURE.src}
-			 alt={`${USER_NAME}'s profile picture.`}
-			 />
+			class="w-48 h-48 overflow-clip object-cover -rotate-z-12 scale-110 border-2d rounded-interactive border-accent group-hover/image:-rotate-z-0 group-hover/image:scale-[101%] group-hover/image:border-primary-border group-hover/image:border duration-200" 
+			src={USER_PICTURE.src}
+			alt={`${USER_NAME}'s profile picture.`}
+			/>
 		</div>
 
 		<div class="text-pretty my-auto">
