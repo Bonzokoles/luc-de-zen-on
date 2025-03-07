@@ -1,21 +1,20 @@
 ---
-import { cn } from '../styles/cn';
+import { cn } from "../styles/cn";
 
 interface Props {
   class?: string;
   rotate?: number;
 }
 
-const {
-  rotate,
-  class:
-    className = "",
-} = Astro.props;
+const { rotate, class: className = "" } = Astro.props;
 ---
 
 <svg
   style=`--rotation: ${rotate}deg`
-  class={cn(className, "inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]")}
+  class={cn(
+    className,
+    "inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]",
+  )}
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
 >

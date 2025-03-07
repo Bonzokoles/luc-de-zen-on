@@ -47,11 +47,15 @@ const cosmeticTexts: { [section: string]: string } = {
 
   <!-- ABOUT -->
   <Section class="relative flex min-h-96">
-    <span class="absolute"><CosmeticText text={cosmeticTexts.about} vertical /></span>
+    <span class="absolute"
+      ><CosmeticText text={cosmeticTexts.about} vertical /></span
+    >
 
-    <div class="flex flex-col md:flex-row gap-16 max-w-3xl mx-auto px-8 pt-32 pb-16 md:p-16">
+    <div
+      class="mx-auto flex max-w-3xl flex-col gap-16 px-8 pt-32 pb-16 md:flex-row md:p-16"
+    >
       <div
-        class="group/image rounded-interactive bg-accent mx-auto md:mx-0 my-auto aspect-square h-48 w-48"
+        class="group/image rounded-interactive bg-accent mx-auto my-auto aspect-square h-48 w-48 md:mx-0"
       >
         <img
           class="border-2d rounded-interactive h-48 w-48 scale-110 -rotate-z-12 overflow-clip object-cover duration-200 group-hover/image:scale-[101%] group-hover/image:-rotate-z-0"

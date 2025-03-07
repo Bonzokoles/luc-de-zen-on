@@ -29,12 +29,14 @@ const { cosmeticText = "" } = Astro.props;
 </Section>
 
 <Section class="flex flex-row p-2">
-  <a class="hover:brightness-125" href="/"><h1 class="text-4xl sm:text-5xl">{USER_NAME}</h1></a>
+  <a class="hover:brightness-125" href="/"
+    ><h1 class="text-4xl sm:text-5xl">{USER_NAME}</h1></a
+  >
 
   <Menu client:load />
 
   <!-- USER CONTACT -->
-  <div class="ml-auto md:flex flex-col gap-4 sm:gap-0 hidden md:block">
+  <div class="ml-auto hidden flex-col gap-4 sm:gap-0 md:block md:flex">
     <a
       class="ml-auto duration-200 hover:brightness-125"
       href={`mailto:${USER_EMAIL}`}>{USER_EMAIL}<Arrow rotate={-45} /></a
@@ -55,7 +57,5 @@ const { cosmeticText = "" } = Astro.props;
 <script>
   let dropDownActive: boolean = false;
 
-  function toggleDropDownMenu() {
-
-  }
+  function toggleDropDownMenu() {}
 </script>

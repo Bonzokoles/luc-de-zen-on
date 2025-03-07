@@ -10,7 +10,7 @@ import { USER_NAME } from "../data/user-personal";
   <a class="my-auto hover:brightness-125" href="/"><h1>{USER_NAME}</h1></a>
 
   <!-- USER CONTACT -->
-  <div class="ml-auto md:flex flex-col hidden">
+  <div class="ml-auto hidden flex-col md:flex">
     <div class="flex flex-row-reverse flex-wrap gap-4">
       <a class="duration-200 hover:brightness-125" href={`mailto:${USER_EMAIL}`}
         >{USER_EMAIL}<Arrow rotate={-45} /></a
@@ -26,7 +26,9 @@ import { USER_NAME } from "../data/user-personal";
     </div>
   </div>
 
-  <a class="ml-auto px-2 md:hidden text-primary-foreground hover:brightness-125 hover:cursor-pointer">
+  <a
+    class="text-primary-foreground ml-auto px-2 hover:cursor-pointer hover:brightness-125 md:hidden"
+  >
     {USER_EMAIL}
     <Arrow class="stroke-primary-foreground" rotate={-45} />
   </a>
@@ -39,7 +41,10 @@ import { USER_NAME } from "../data/user-personal";
     target="_blank"
     rel="noopener noreferrer"
     href="https://github.com/kadirlofca/backstage"
-    >Site template by Kadir Lofca <Arrow class="stroke-primary-foreground" rotate={-45} /></a
+    >Site template by Kadir Lofca <Arrow
+      class="stroke-primary-foreground"
+      rotate={-45}
+    /></a
   >
   <div
     class="group rounded-interactive border-primary-foreground text-primary-foreground w-24 border p-1 text-xs font-black text-nowrap opacity-60"
