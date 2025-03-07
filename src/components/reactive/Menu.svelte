@@ -3,6 +3,10 @@
     import { slide, blur } from "svelte/transition";
 
     let droppedDown: boolean = $state(false);
+
+    $effect(() => {
+        document.body.style["overflow"] = droppedDown ? "hidden" : "visible";
+    })
 </script>
 
 <button class="ml-auto my-auto cursor-pointer hover:brightness-125 md:hidden" aria-label="Drop Down Menu" onclick={() => droppedDown = !droppedDown}>
@@ -11,10 +15,8 @@
     </svg>
 </button>
 
-
-
 {#if droppedDown}
-<div transition:blur class="absolute scroll-none flex flex-row top-0 left-0 z-40 h-full backdrop-blur-sm">
+<div transition:blur class="fixed top-0 left-0 flex flex-row z-40 h-lvh backdrop-blur-sm">
     <div transition:slide={{axis: "x"}} class="flex w-[70svw] border-r border-accent bg-primary/95">
         <div class="flex flex-col gap-8 my-auto ml-auto p-8 text-2xl text-right">
             <a
