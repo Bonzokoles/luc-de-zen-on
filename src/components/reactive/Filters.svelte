@@ -14,7 +14,7 @@
 {#if $filters.length > 0}
     <div transition:slide class="flex gap-4 p-4 pb-0">
         <svg class="w-6 h-6 my-auto stroke-edge" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 10L2 10 M10 14H2 M6 18H2 M18 6L2 6 M19 10V20M19 20L22 17M19 20L16 17" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M3 5H11 M3 12H16 M3 19H21" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
 
         <div class="flex gap-4 opacity-60">

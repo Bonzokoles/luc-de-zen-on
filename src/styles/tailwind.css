@@ -7,10 +7,10 @@
 
 @theme {
   /* COLOR */
-  --theme-hue: 220;
+  --theme-hue: 200;
   --color-primary: hsl(var(--theme-hue), 20%, 6%);
   --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
-  --color-secondary: hsl(var(--theme-hue), 40%, 8%);
+  --color-secondary: hsl(var(--theme-hue), 40%, 10%);
   --color-accent: hsl(var(--theme-hue), 100%, 50%);
   --color-edge: hsl(var(--theme-hue), 30%, 18%);
 

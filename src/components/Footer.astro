@@ -11,7 +11,7 @@ import { USER_NAME } from "../data/user-personal";
 
   <!-- USER CONTACT -->
   <div class="ml-auto md:flex flex-col hidden">
-    <div class="flex flex-row-reverse flex-wrap gap-2">
+    <div class="flex flex-row-reverse flex-wrap gap-4">
       <a class="duration-200 hover:brightness-125" href={`mailto:${USER_EMAIL}`}
         >{USER_EMAIL}<Arrow rotate={-45} /></a
       >
@@ -26,11 +26,10 @@ import { USER_NAME } from "../data/user-personal";
     </div>
   </div>
 
-  <button id="back-to-top-button" class="ml-auto rounded-interactive px-2 md:hidden border border-accent text-accent hover:brightness-125 hover:cursor-pointer">
-    <Arrow class="stroke-accent" rotate={-90} />
-    Back To Top
-    <Arrow class="stroke-accent" rotate={-90} />
-  </button>
+  <a class="ml-auto px-2 md:hidden text-primary-foreground hover:brightness-125 hover:cursor-pointer">
+    {USER_EMAIL}
+    <Arrow class="stroke-primary-foreground" rotate={-45} />
+  </a>
 </Section>
 
 <!-- CREDITS -->
@@ -49,16 +48,3 @@ import { USER_NAME } from "../data/user-personal";
     <span class="hidden group-hover:inline">0% AI</span>
   </div>
 </Section>
-
-<script>
-  let backToTopButton = document.getElementById("back-to-top-button");
-
-  backToTopButton?.addEventListener("click", () => {
-    scrollBackToTop();
-  })
-
-  function scrollBackToTop() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  } 
-</script>
