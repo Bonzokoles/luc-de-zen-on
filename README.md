@@ -1,4 +1,4 @@
-# Backstage - A reactive portfolio template.
+# Backroom - A reactive portfolio template.
 
 ![homepage-top](https://github.com/user-attachments/assets/c7684084-0943-458d-8598-addcdf2d1aa1)
 
