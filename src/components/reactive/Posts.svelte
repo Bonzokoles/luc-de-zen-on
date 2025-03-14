@@ -2,6 +2,7 @@
     import { type CollectionEntry } from 'astro:content';
     import { filters } from '../../stores/filters.store';
     import Filters from './Filters.svelte';
+    import { cn } from '../../styles/cn';
 
     interface Props {
         allPosts: CollectionEntry<'posts'>[];
@@ -52,9 +53,9 @@
             <h2 class="text-lg font-semibold">{post.data.title}</h2>
             <p>{post.data.description}</p>
         </div>
-        <div class="flex flex-row gap-2 text-accent">
+        <div class="flex flex-row gap-2 overflow-hidden text-accent">
             {#each getSortedTags(post) as tag}
-                <span class={($filters.length > 0 && !$filters.includes(tag)) ? "opacity-60" : ""}>{tag}</span>
+                <span class={cn(($filters.length > 0 && !$filters.includes(tag)) && "opacity-60")}>{tag}</span>
             {/each}
         </div>
     </a>
@@ -62,7 +63,7 @@
 
 <Filters />
 
-<div class="group grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-interactive pointer-events-none hover:border-edge duration-200">					
+<div class="group grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 rounded-interactive pointer-events-none hover:border-edge duration-200">					
     {#each sortedPosts as post}
         {@render postCard(post)}
     {/each}

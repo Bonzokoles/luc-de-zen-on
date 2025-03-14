@@ -17,7 +17,7 @@
             <path d="M3 5H11 M3 12H16 M3 19H21" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
 
-        <div class="flex gap-4 opacity-60">
+        <div class="flex flex-wrap gap-4 opacity-60">
             {#each $filters as title}
                 {@render filter(title)}
             {/each}
