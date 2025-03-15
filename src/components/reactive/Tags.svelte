@@ -9,7 +9,6 @@
     }
 
     const { tags }: Props = $props();
-
     let isMounted: boolean = $state(false);
 
     onMount(() => {
