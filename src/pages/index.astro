@@ -8,10 +8,10 @@ import CosmeticText from "../components/CosmeticText.astro";
 import { siteTitle, SiteDescription } from "../data/site.json";
 import { userProfessionalDescription } from "../data/user-professional.json";
 import { userIntroduction, userName } from "../data/user-personal.json";
-import USER_PICTURE from "../../public/user-picture.jpeg";
+import userPicture from "../../public/user-picture.jpeg";
 import { getCollection } from "astro:content";
 
-const allPosts = (await getCollection("posts")).filter(post => post.data.published == true);
+const allPosts = (await getCollection("posts")).filter((post) => post.data.published);
 
 const heroTags: Set<string> = new Set(
   allPosts.flatMap((post) => post.data.tags),
@@ -30,10 +30,8 @@ const cosmeticTexts: { [section: string]: string } = {
   headerCosmeticText={cosmeticTexts.header}
 >
   <!-- HERO -->
-  <Section
-    class="from-accent/10 relative flex min-h-72 bg-radial-[at_50%_10%] to-transparent pl-4"
-  >
-    <div class="m-auto max-w-md text-center">
+  <Section class="relative flex min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent">
+    <div class="max-w-md m-auto text-center">
       <span class="text-xl">{userProfessionalDescription}</span>
       <Tags client:load tags={heroTags} />
     </div>
@@ -41,25 +39,17 @@ const cosmeticTexts: { [section: string]: string } = {
   </Section>
 
   <!-- POSTS -->
-  <Section class="">
+  <Section>
     <Posts client:load allPosts={allPosts} />
   </Section>
 
   <!-- ABOUT -->
   <Section class="relative flex min-h-96 bg-radial-[at_50%_90%] from-accent/10 to-transparent">
-    <span class="absolute"
-      ><CosmeticText text={cosmeticTexts.about} vertical /></span
-    >
-
-    <div
-      class="mx-auto flex max-w-3xl flex-col gap-16 px-8 pt-32 pb-16 md:flex-row md:p-16"
-    >
-      <div
-        class="group/image rounded-interactive bg-accent mx-auto my-auto aspect-square h-48 w-48 md:mx-0"
-      >
-        <img
-          class="rounded-interactive h-48 w-48 scale-110 -rotate-z-12 overflow-clip object-cover duration-200 group-hover/image:scale-[101%] group-hover/image:-rotate-z-0"
-          src={USER_PICTURE.src}
+    <span class="absolute"><CosmeticText text={cosmeticTexts.about} vertical /></span>
+    <div class="flex flex-col gap-16 max-w-3xl mx-auto px-8 pt-32 pb-16 md:flex-row md:p-16">
+      <div class="group/image aspect-square h-48 w-48 mx-auto my-auto rounded-interactive bg-accent md:mx-0">
+        <img class="h-48 w-48 scale-110 -rotate-z-12 overflow-clip object-cover rounded-interactive group-hover/image:scale-[101%] group-hover/image:-rotate-z-0 duration-200"
+          src={userPicture.src}
           alt={`${userName}'s profile picture.`}
         />
       </div>

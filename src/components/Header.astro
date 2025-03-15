@@ -14,7 +14,7 @@ interface Props {
 const { cosmeticText = "" } = Astro.props;
 ---
 
-<Section class="flex max-h-72 min-h-64 justify-between">
+<Section class="flex justify-between max-h-72 min-h-64">
   <div class="mt-auto">
     <CosmeticText text={cosmeticText} vertical />
   </div>
@@ -36,7 +36,7 @@ const { cosmeticText = "" } = Astro.props;
   <Menu client:load />
 
   <!-- USER CONTACT -->
-  <div class="ml-auto hidden flex-col gap-4 sm:gap-0 md:block md:flex">
+  <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
     <a
       class="ml-auto duration-200 hover:brightness-125"
       href={`mailto:${userEmail}`}>{userEmail}<Arrow class="stroke-primary-foreground" rotate={-45} /></a

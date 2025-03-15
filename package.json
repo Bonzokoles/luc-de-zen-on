@@ -1,5 +1,9 @@
 {
-  "name": "backstage",
+  "name": "backroom",
+  "author": {
+    "name": "Kadir Lofca",
+    "url": "https://kadirlofca.com"
+  },
   "type": "module",
   "version": "0.0.1",
   "scripts": {

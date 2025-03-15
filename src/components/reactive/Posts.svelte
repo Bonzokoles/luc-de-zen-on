@@ -55,7 +55,7 @@
         </div>
         <div class="flex flex-row gap-2 overflow-hidden text-accent">
             {#each getSortedTags(post) as tag}
-                <span class={cn(($filters.length > 0 && !$filters.includes(tag)) && "opacity-60")}>{tag}</span>
+                <span class={($filters.length > 0 && !$filters.includes(tag)) ? "opacity-60" : "font-black"}>{tag}</span>
             {/each}
         </div>
     </a>
