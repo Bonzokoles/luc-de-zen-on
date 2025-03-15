@@ -1,6 +1,6 @@
 # Backroom - A reactive portfolio template.
 
-![homepage-top](https://github.com/user-attachments/assets/c7684084-0943-458d-8598-addcdf2d1aa1)
+![homepage-top](https://github.com/user-attachments/assets/b1b8ed1c-4575-452d-8420-36b0d46b31bb)
 
 Features:
 
@@ -12,7 +12,7 @@ Features:
 - ✅ RSS Feed support
 - ✅ Markdown & MDX support
 
-![homepage-bottom](https://github.com/user-attachments/assets/6b29a428-4272-4a8e-9e43-9147d77b7d0a)
+![homepage-bottom](https://github.com/user-attachments/assets/041b2062-094e-483e-b37c-ccca537eeddc)
 
 ## 🧞 Commands
 
