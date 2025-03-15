@@ -20,10 +20,10 @@
     <div transition:slide={{axis: "x"}} class="flex w-[70svw] border-r border-accent bg-primary/95">
         <div class="flex flex-col gap-8 my-auto ml-auto p-8 text-2xl text-right">
             <a
-            class="duration-200 hover:brightness-125"
+            class="hover:brightness-125 duration-200"
             href={`mailto:${userEmail}`}>{userEmail}</a>
             {#each userSocials as social}
-                <a class="duration-200 hover:brightness-125" href={social.link}>
+                <a class="hover:brightness-125 duration-200" href={social.link}>
                     {social.title}
                 </a>
             {/each}

@@ -10,14 +10,14 @@ import { userName } from "../data/user-personal.json";
   <a class="my-auto hover:brightness-125" href="/"><h1>{userName}</h1></a>
 
   <!-- USER CONTACT -->
-  <div class="ml-auto hidden flex-col md:flex">
+  <div class="hidden ml-auto md:flex md:flex-col">
     <div class="flex flex-row-reverse flex-wrap gap-4">
-      <a class="duration-200 hover:brightness-125" href={`mailto:${userEmail}`}
+      <a class="hover:brightness-125 duration-200" href={`mailto:${userEmail}`}
         >{userEmail}<Arrow class="stroke-primary-foreground" rotate={-45} /></a
       >
       {
         userSocials.map((social) => (
-          <a class="duration-200 hover:brightness-125" href={social.link}>
+          <a class="hover:brightness-125 duration-200" href={social.link}>
             {social.title}<Arrow class="stroke-primary-foreground" rotate={-45} />
           </a>
         ))
@@ -26,7 +26,7 @@ import { userName } from "../data/user-personal.json";
   </div>
 
   <a
-    class="text-primary-foreground ml-auto px-2 hover:cursor-pointer hover:brightness-125 md:hidden"
+    class="ml-auto px-2 text-primary-foreground hover:cursor-pointer hover:brightness-125 md:hidden"
   >
     {userEmail}
     <Arrow class="stroke-primary-foreground" rotate={-45} />
@@ -34,19 +34,16 @@ import { userName } from "../data/user-personal.json";
 </Section>
 
 <!-- CREDITS -->
-<Section class="m-auto flex flex-row justify-center gap-8 py-16 text-center">
-  <a
-    class="duration-200 hover:brightness-125"
+<Section class="flex flex-row justify-center gap-8 m-auto py-16 text-center">
+  <a class="hover:brightness-125 duration-200"
     target="_blank"
     rel="noopener noreferrer"
-    href="https://github.com/kadirlofca/backstage"
-    >Site template by Kadir Lofca <Arrow
-      class="stroke-primary-foreground"
+    href="https://github.com/kadirlofca/backroom"
+    >Site template by Kadir Lofca <Arrow class="stroke-primary-foreground"
       rotate={-45}
     /></a
   >
-  <div
-    class="group rounded-interactive border-primary-foreground text-primary-foreground w-24 border p-1 text-xs font-black text-nowrap opacity-60"
+  <div class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60"
   >
     <span class="group-hover:hidden">100% HANDMADE</span>
     <span class="hidden group-hover:inline">0% AI</span>

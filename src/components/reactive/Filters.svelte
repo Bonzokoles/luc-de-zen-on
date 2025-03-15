@@ -5,7 +5,7 @@
 
 {#snippet filter(title: string)}
     <button onclick={() => removeFilter(title)} out:blur class="group hover:cursor-pointer hover:opacity-60 duration-200">
-        <div class="px-2 w-fit bg-primary border rounded-interactive border-primary-foreground group-hover:-translate-y-1/4 group-hover:-rotate-2 duration-200">
+        <div class="w-fit px-2 bg-primary border rounded-interactive border-primary-foreground group-hover:-translate-y-1/4 group-hover:-rotate-2 duration-200">
             <span class="text-primary-foreground font-semibold">{ title }</span>
         </div>    
     </button>
