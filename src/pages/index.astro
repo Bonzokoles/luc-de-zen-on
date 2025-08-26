@@ -1,50 +1,74 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import Posts from "../components/reactive/Posts.svelte";
+import Tags from "../components/reactive/Tags.svelte";
+import CosmeticText from "../components/CosmeticText.astro";
+
+import { siteTitle, SiteDescription } from "../data/site.json";
+import { userProfessionalDescription } from "../data/user-professional.json";
+import { userIntroduction, userName } from "../data/user-personal.json";
+import profileImage from "../../public/profile-image.png";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("posts")).filter(
+  (post) => post.data.published
+);
+
+const heroTags: Set<string> = new Set(
+  allPosts.flatMap((post) => post.data.tags)
+);
+
+const cosmeticTexts: { [section: string]: string } = {
+  header: "BACKROOM",
+  hero: "CLICK ON A TAG",
+  about: "ABOUT ME",
+};
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Layout
+  siteTitle={siteTitle}
+  siteDescription={SiteDescription}
+  headerCosmeticText={cosmeticTexts.header}
+>
+  <!-- HERO -->
+  <Section
+    class="relative flex min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent"
+  >
+    <div class="max-w-md m-auto text-center">
+      <span class="text-2xl">{userProfessionalDescription}</span>
+      <Tags client:load tags={heroTags} />
+    </div>
+    <CosmeticText text={cosmeticTexts.hero} vertical />
+  </Section>
+
+  <!-- SYSTEM AGENTS LINK -->
+  <Section>
+    <div class="max-w-md m-auto text-center my-8">
+      <a
+        href="/agent-builder-23"
+        class="inline-block px-6 py-3 text-lg font-semibold rounded-lg bg-accent text-primary hover:bg-accent/80 transition-colors duration-200"
+      >
+        System Agents
+      </a>
+    </div>
+    <Posts client:load allPosts={allPosts} />
+  </Section>
+
+  <!-- ABOUT -->
+  <Section
+    class="relative flex min-h-96 bg-radial-[at_50%_90%] from-accent/10 to-transparent"
+  >
+    <span class="absolute"
+      ><CosmeticText text={cosmeticTexts.about} vertical /></span
+    >
+    <div
+      class="flex flex-col gap-16 max-w-3xl mx-auto px-8 pt-32 pb-16 md:flex-row md:p-16"
+    >
+      <div class="my-auto text-pretty">
+        <h1 class="text-3xl font-bold">Hi.</h1>
+        <p class="text-2xl">{userIntroduction}</p>
+      </div>
+    </div>
+  </Section>
+</Layout>
