@@ -1,4 +1,28 @@
-# Backroom - A reactive portfolio template.
+# MyBonzo - Reaktywny szablon portfolio
+
+Szablon MyBonzo to nowoczesna strona portfolio z automatycznym tagowaniem projektów, galerią postów i pełnym wsparciem SEO. Wszystkie sekcje, kolory i grafika są zgodne z oryginalnym stylem.
+
+## Najważniejsze funkcje
+
+- Automatyczne tagowanie projektów w sekcji hero
+- Galeria postów z sortowaniem po tagach
+- 100/100 w Lighthouse (wydajność)
+- SEO, kanoniczne adresy URL, OpenGraph
+- Sitemap i RSS
+- Obsługa Markdown i MDX
+
+## Instrukcja uruchomienia
+
+1. Zainstaluj zależności:
+	pnpm install
+2. Uruchom serwer deweloperski:
+	pnpm dev
+3. Buduj wersję produkcyjną:
+	pnpm build
+4. Podgląd produkcyjny:
+	pnpm preview
+
+Wszystkie polecenia uruchamiaj w katalogu głównym projektu.
 
 ![homepage-top](https://github.com/user-attachments/assets/b1b8ed1c-4575-452d-8420-36b0d46b31bb)
 
