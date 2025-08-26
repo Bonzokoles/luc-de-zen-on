@@ -50,8 +50,16 @@
                     {post.data.date.toLocaleDateString('en-us', {year: 'numeric', month: 'short', day: 'numeric'})}
                 </time>
             </span>
-            <h2 class="text-lg font-semibold">{post.data.title}</h2>
-            <p>{post.data.description}</p>
+            <h2 class="text-lg font-semibold">
+              {post.data.title === "Empty Example" ? "Agent Demo" :
+               post.data.title === "Markdown Style Guide" ? "Agent Testowy" :
+               post.data.title === "Using MDX" ? "Agent MDX" : post.data.title}
+            </h2>
+            <p>
+              {post.data.title === "Empty Example" ? "Automatyczny agent do monitorowania i raportowania. Status: Aktywny." :
+               post.data.title === "Markdown Style Guide" ? "Manualny agent do analizy danych i generowania raportów. Status: Nieaktywny." :
+               post.data.title === "Using MDX" ? "Hybrydowy agent do integracji API i obsługi użytkownika. Status: W trakcie konfiguracji." : post.data.description}
+            </p>
         </div>
         <div class="flex flex-row gap-2 overflow-hidden text-accent">
             {#each getSortedTags(post) as tag}
