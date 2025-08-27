@@ -8,9 +8,19 @@ pages_build_output_dir = "./dist"
 [assets]
 directory = "./dist"
 
-# KV Storage for agents
+# KV Storage for agents (existing)
 [[kv_namespaces]]
 binding = "AGENTS"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for AI Agents Management System
+[[kv_namespaces]]
+binding = "AI_AGENTS"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for AI Models Configuration
+[[kv_namespaces]]
+binding = "AI_MODELS"
 id = "6e7d56f0c13e4859b6d071b8b508fce6"
 
 # KV Storage for sessions (required by Astro Cloudflare adapter)

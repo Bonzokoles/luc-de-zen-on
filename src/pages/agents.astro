@@ -1,108 +1,150 @@
----
+﻿---
 import Layout from "../layouts/Layout.astro";
-import AgentsList from "../components/AgentsList.astro";
-import AgentEditor from "../components/AgentEditor.astro";
-import ImageGenerator from "../components/ImageGenerator.astro";
-import UserSVG from "../components/UserSVG.astro";
-
-// Mock data - TODO: Replace with real API data
-let agents = [
-  {
-    id: "1",
-    name: "Agent Cloudflare",
-    description: "Zarządza infrastrukturą Cloudflare",
-    model: "gpt-4o",
-    tools: ["cloudflare-api", "dns-management"],
-    status: "active",
-    createdAt: "2024-01-15T10:00:00Z",
-    updatedAt: "2024-01-15T10:00:00Z",
-    isRunning: true,
-    permanentTasks: ["monitor-uptime", "optimize-cache"],
-  },
-  {
-    id: "2",
-    name: "Agent Kreacyjny",
-    description: "Tworzy treści marketingowe",
-    model: "gpt-4o",
-    tools: ["dalle-3", "content-generator"],
-    status: "active",
-    createdAt: "2024-01-10T08:00:00Z",
-    updatedAt: "2024-01-15T12:00:00Z",
-    isRunning: true,
-    permanentTasks: ["generate-social-content", "create-blog-posts"],
-  },
-];
-
-let userIsAdmin = true; // TODO: Implement proper auth
+import AgentManager from "../components/AgentManager.svelte";
 ---
 
 <Layout
-  siteTitle="BACKROOM // AGENT PANEL"
-  siteDescription="Zarządzaj swoimi agentami AI w stylu cyberpunk"
-  headerCosmeticText="AGENT_PANEL.EXE"
+  siteTitle="ZENON AI // Zarządzanie Agentami"
+  siteDescription="Zaawansowany system zarządzania agentami AI z integrowanymi agentami ZENON"
+  headerCosmeticText="AGENT_MANAGEMENT_SYSTEM.EXE"
 >
-  <main class="min-h-screen p-6">
+  <main class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900">
     <!-- HEADER -->
-    <header class="mb-8 border-b border-gray-800 pb-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <h1 class="text-4xl font-bold text-blue-400 font-mono">
-            AGENT PANEL
-          </h1>
-          <p class="text-gray-400 text-sm mt-2">Zarządzaj swoimi agentami AI</p>
-        </div>
-        <div class="flex items-center space-x-4">
-          <a
-            href="/dashboard"
-            class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-          >
-            DASHBOARD
-          </a>
+    <header class="border-b border-blue-500/30 bg-black/20 backdrop-blur-sm sticky top-0 z-10">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-4xl font-bold text-blue-400 font-mono tracking-wider">
+               ZENON AI SYSTEM
+            </h1>
+            <p class="text-blue-300/80 text-sm mt-1 font-mono">
+              Advanced Agent Management Interface v2.0
+            </p>
+          </div>
+          <nav class="flex items-center space-x-4">
+            <a
+              href="/"
+              class="px-4 py-2 bg-blue-600 text-white hover:bg-blue-500 transition-all duration-200 rounded-lg font-mono text-sm border border-blue-400"
+            >
+              &lt; BACK TO HOME
+            </a>
+            <a
+              href="/dashboard"
+              class="px-4 py-2 bg-gray-700 text-blue-300 hover:bg-gray-600 transition-all duration-200 rounded-lg font-mono text-sm border border-gray-500"
+            >
+              DASHBOARD
+            </a>
+          </nav>
         </div>
       </div>
     </header>
 
-    <!-- AGENTS LIST -->
-    <section class="mb-8">
-      <h2 class="text-2xl font-bold text-blue-400 mb-4 font-mono">
-        AKTYWNE AGENTY
-      </h2>
-      <AgentsList agents={agents} />
-    </section>
+    <!-- MAIN CONTENT -->
+    <div class="container mx-auto">
+      <AgentManager client:load />
+    </div>
 
-    <!-- ADMIN SECTION -->
-    {
-      userIsAdmin && (
-        <section class="mb-8 border border-gray-800 bg-gray-900/50">
-          <div class="border-b border-gray-800 p-4">
-            <h2 class="text-xl font-bold text-blue-400 font-mono">
-              PANEL ADMINISTRATORA
-            </h2>
+    <!-- FOOTER -->
+    <footer class="border-t border-blue-500/30 bg-black/20 backdrop-blur-sm mt-16">
+      <div class="container mx-auto px-6 py-8">
+        <div class="text-center">
+          <p class="text-blue-300/60 font-mono text-sm">
+            ZENON AI System  2025 | Advanced Agent Management Platform
+          </p>
+          <div class="flex justify-center space-x-6 mt-4">
+            <span class="text-green-400 font-mono text-xs">STATUS: ONLINE</span>
+            <span class="text-blue-400 font-mono text-xs">VERSION: 2.0.1</span>
+            <span class="text-yellow-400 font-mono text-xs">AGENTS: ACTIVE</span>
           </div>
-          <div class="p-6">
-            <AgentEditor />
-          </div>
-        </section>
-      )
-    }
-
-    <!-- GRAPHICS GENERATOR -->
-    <section class="border border-gray-800 bg-gray-900/50">
-      <div class="border-b border-gray-800 p-4">
-        <h2 class="text-xl font-bold text-blue-400 font-mono">
-          GENERATOR GRAFIKI AI
-        </h2>
-        <p class="text-gray-400 text-sm">
-          Twórz obrazy za pomocą sztucznej inteligencji
-        </p>
+        </div>
       </div>
-      <div class="p-6">
-        <ImageGenerator />
-      </div>
-    </section>
+    </footer>
   </main>
 </Layout>
-<section>
-  <h2>Twój dynamiczny Avatar SVG</h2>
-  <UserSVG color={"#0af"} initials={"AI"} />
-</section>
+
+<style>
+  /* Global cyberpunk styles */
+  :global(body) {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #e2e8f0;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Scrollbar styling */
+  :global(::-webkit-scrollbar) {
+    width: 8px;
+  }
+
+  :global(::-webkit-scrollbar-track) {
+    background: #1a1a2e;
+  }
+
+  :global(::-webkit-scrollbar-thumb) {
+    background: #3b82f6;
+    border-radius: 4px;
+  }
+
+  :global(::-webkit-scrollbar-thumb:hover) {
+    background: #2563eb;
+  }
+
+  /* Glow effects */
+  .container {
+    position: relative;
+  }
+
+  .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  /* Animated border effect */
+  header {
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Button glow effects */
+  nav a {
+    position: relative;
+    overflow: hidden;
+  }
+
+  nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.4), transparent);
+    transition: left 0.5s;
+  }
+
+  nav a:hover::before {
+    left: 100%;
+  }
+</style>
