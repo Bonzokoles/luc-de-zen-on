@@ -1,0 +1,35 @@
+---
+import AgentsList from "../components/AgentsList.astro";
+import AgentEditor from "../components/AgentEditor.astro";
+import ImageGenerator from "../components/ImageGenerator.astro";
+import UserSVG from "../components/UserSVG.astro";
+let agents = [];
+let userIsAdmin = false;
+if (typeof window !== "undefined") {
+  userIsAdmin = window.localStorage.getItem("role") === "admin";
+}
+try {
+  const response = await fetch("/api/agents");
+  agents = await response.json();
+} catch {}
+---
+
+<main>
+  <h1>Panel agentów</h1>
+  <AgentsList agents={agents} />
+  {
+    userIsAdmin && (
+      <section>
+        <AgentEditor />
+      </section>
+    )
+  }
+  <section>
+    <h2>Generator grafiki AI</h2>
+    <ImageGenerator />
+  </section>
+  <section>
+    <h2>Twój dynamiczny Avatar SVG</h2>
+    <UserSVG color={"#0af"} initials={"AI"} />
+  </section>
+</main>

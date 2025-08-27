@@ -24,5 +24,69 @@ import Section from "../components/Section.astro";
         <li>Prosty interfejs użytkownika</li>
       </ul>
     </div>
+    <div
+      style="max-width:700px;margin:2rem auto 0 auto;padding:2rem;background:#19223b;border-radius:12px;color:white;"
+    >
+      <h2 style="font-size:1.5rem;margin-bottom:1rem;">Panel Agentów</h2>
+      <div id="agent-panel">
+        <div
+          style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem;border-bottom:1px solid #2e3a59;"
+        >
+          <span>Agent Demo</span>
+          <span
+            style="background:#3fbf7f;padding:0 0.5rem;border-radius:7px;font-weight:600;"
+            >Aktywny</span
+          >
+          <button
+            style="margin-left:8px;background:#3fbf7f;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Aktywuj
+          </button>
+          <button
+            style="margin-left:4px;background:#cd5a4a;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Dezaktywuj
+          </button>
+        </div>
+        <div
+          style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem;border-bottom:1px solid #2e3a59;"
+        >
+          <span>Agent Testowy</span>
+          <span
+            style="background:#cd5a4a;padding:0 0.5rem;border-radius:7px;font-weight:600;"
+            >Nieaktywny</span
+          >
+          <button
+            style="margin-left:8px;background:#3fbf7f;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Aktywuj
+          </button>
+          <button
+            style="margin-left:4px;background:#cd5a4a;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Dezaktywuj
+          </button>
+        </div>
+        <div
+          style="display:flex;align-items:center;justify-content:space-between;padding:0.6rem;border-bottom:1px solid #2e3a59;"
+        >
+          <span>Agent MDX</span>
+          <span
+            style="background:#f8bb3b;padding:0 0.5rem;border-radius:7px;font-weight:600;"
+            >W trakcie konfiguracji</span
+          >
+          <button
+            style="margin-left:8px;background:#3fbf7f;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Aktywuj
+          </button>
+          <button
+            style="margin-left:4px;background:#cd5a4a;color:white;border:none;border-radius:8px;padding:0.3rem 0.8rem;cursor:pointer;font-weight:700;"
+          >
+            Dezaktywuj
+          </button>
+        </div>
+      </div>
+    </div>
   </Section>
 </Layout>

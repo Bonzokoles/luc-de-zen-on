@@ -31,3 +31,6 @@ pnpm-debug.log*
 # vscode settings
 .vscode/
 >>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
+pnpm-lock.yaml
+.cache/
+*.local

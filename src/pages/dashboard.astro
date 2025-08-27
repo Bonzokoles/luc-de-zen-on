@@ -1,0 +1,25 @@
+---
+import AgentsPanel from "../components/AgentsPanel.svelte";
+import Chatbot from "../components/Chatbot.svelte";
+// Tu możesz później pobierać dane z API czy Workerów
+---
+
+<style>
+  main {
+    max-width: 900px;
+    margin: auto;
+    font-family: "Inter", sans-serif;
+    background: #141c2f;
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgb(20 34 80 / 0.25);
+  }
+</style>
+
+<main>
+  <h1>Dashboard Administratora</h1>
+  <AgentsPanel client:only="svelte" />
+  <hr style="margin: 2rem 0; border-color: #2e3a59;" />
+  <Chatbot client:only="svelte" />
+</main>
