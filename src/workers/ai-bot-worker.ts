@@ -1,7 +1,7 @@
 export default {
   async fetch(request: Request) {
     if (request.method === "POST") {
-      const { prompt } = await request.json();
+      const { prompt }: any = await request.json();
       // Replace with your AI API endpoint and key
       const apiUrl = "https://api.openai.com/v1/chat/completions";
       const apiKey = "YOUR_OPENAI_API_KEY";
@@ -16,7 +16,7 @@ export default {
           messages: [{ role: "user", content: prompt }],
         }),
       });
-      const data = await res.json();
+      const data: any = await res.json();
       return new Response(
         JSON.stringify({ answer: data.choices[0].message.content }),
         { headers: { "Content-Type": "application/json" } }
