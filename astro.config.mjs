@@ -1,4 +1,4 @@
-// @ts-check
+﻿// @ts-check
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import svelte from "@astrojs/svelte";
@@ -9,10 +9,7 @@ import { siteUrl } from "./src/data/site.json";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Required for Cloudflare adapter with API routes
-  experimental: {
-    session: true  // Enable session support for Cloudflare adapter
-  },
+  output: 'server', // Required for Cloudflare adapter with API routes     
   vite: {
     plugins: [tailwindcss()],
   },
@@ -21,7 +18,7 @@ export default defineConfig({
     platformProxy: {
       enabled: true,
     },
-    // Remove session config to avoid experimental flag requirement
+    // Remove session config to avoid experimental flag requirement        
   }),
   site: siteUrl,
   redirects: {
