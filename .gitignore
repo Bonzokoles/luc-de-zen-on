@@ -23,14 +23,12 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-<<<<<<< HEAD
 # wrangler files
 .wrangler
 .dev.vars
-=======
+
 # vscode settings
 .vscode/
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
-pnpm-lock.yaml
+
 .cache/
 *.local

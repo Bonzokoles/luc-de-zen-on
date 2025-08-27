@@ -9,6 +9,7 @@ import { siteUrl } from "./src/data/site.json";
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server', // Required for Cloudflare adapter with API routes
   vite: {
     plugins: [tailwindcss()],
   },

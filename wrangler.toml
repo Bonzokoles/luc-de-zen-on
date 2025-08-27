@@ -6,3 +6,12 @@ main = "./dist/_worker.js/index.js"
 
 [assets]
 directory = "./dist"
+
+# KV Storage for agents
+[[kv_namespaces]]
+binding = "AGENTS"
+id = "agents_namespace"
+
+# AI binding for Cloudflare Workers AI
+[ai]
+binding = "AI"

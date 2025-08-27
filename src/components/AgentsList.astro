@@ -4,12 +4,16 @@ const { agents } = Astro.props;
 ---
 
 <section>
-  <h2>Agenci AI</h2>
   {
     agents.length === 0 ? (
-      <p>Brak agentów do wyświetlenia.</p>
+      <div class="border border-gray-800 bg-gray-900/50 p-8 text-center">
+        <p class="text-gray-400 text-lg">BRAK AGENTÓW DO WYŚWIETLENIA</p>
+        <p class="text-gray-500 text-sm mt-2">
+          Utwórz swojego pierwszego agenta AI
+        </p>
+      </div>
     ) : (
-      agents.map((agent) => <AgentCard agent={agent.data} />)
+      agents.map((agent) => <AgentCard agent={agent} />)
     )
   }
 </section>

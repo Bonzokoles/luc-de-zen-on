@@ -1,35 +1,108 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import AgentsList from "../components/AgentsList.astro";
 import AgentEditor from "../components/AgentEditor.astro";
 import ImageGenerator from "../components/ImageGenerator.astro";
 import UserSVG from "../components/UserSVG.astro";
-let agents = [];
-let userIsAdmin = false;
-if (typeof window !== "undefined") {
-  userIsAdmin = window.localStorage.getItem("role") === "admin";
-}
-try {
-  const response = await fetch("/api/agents");
-  agents = await response.json();
-} catch {}
+
+// Mock data - TODO: Replace with real API data
+let agents = [
+  {
+    id: "1",
+    name: "Agent Cloudflare",
+    description: "Zarządza infrastrukturą Cloudflare",
+    model: "gpt-4o",
+    tools: ["cloudflare-api", "dns-management"],
+    status: "active",
+    createdAt: "2024-01-15T10:00:00Z",
+    updatedAt: "2024-01-15T10:00:00Z",
+    isRunning: true,
+    permanentTasks: ["monitor-uptime", "optimize-cache"],
+  },
+  {
+    id: "2",
+    name: "Agent Kreacyjny",
+    description: "Tworzy treści marketingowe",
+    model: "gpt-4o",
+    tools: ["dalle-3", "content-generator"],
+    status: "active",
+    createdAt: "2024-01-10T08:00:00Z",
+    updatedAt: "2024-01-15T12:00:00Z",
+    isRunning: true,
+    permanentTasks: ["generate-social-content", "create-blog-posts"],
+  },
+];
+
+let userIsAdmin = true; // TODO: Implement proper auth
 ---
 
-<main>
-  <h1>Panel agentów</h1>
-  <AgentsList agents={agents} />
-  {
-    userIsAdmin && (
-      <section>
-        <AgentEditor />
-      </section>
-    )
-  }
-  <section>
-    <h2>Generator grafiki AI</h2>
-    <ImageGenerator />
-  </section>
-  <section>
-    <h2>Twój dynamiczny Avatar SVG</h2>
-    <UserSVG color={"#0af"} initials={"AI"} />
-  </section>
-</main>
+<Layout
+  siteTitle="BACKROOM // AGENT PANEL"
+  siteDescription="Zarządzaj swoimi agentami AI w stylu cyberpunk"
+  headerCosmeticText="AGENT_PANEL.EXE"
+>
+  <main class="min-h-screen p-6">
+    <!-- HEADER -->
+    <header class="mb-8 border-b border-gray-800 pb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold text-blue-400 font-mono">
+            AGENT PANEL
+          </h1>
+          <p class="text-gray-400 text-sm mt-2">Zarządzaj swoimi agentami AI</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a
+            href="/dashboard"
+            class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+          >
+            DASHBOARD
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- AGENTS LIST -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-blue-400 mb-4 font-mono">
+        AKTYWNE AGENTY
+      </h2>
+      <AgentsList agents={agents} />
+    </section>
+
+    <!-- ADMIN SECTION -->
+    {
+      userIsAdmin && (
+        <section class="mb-8 border border-gray-800 bg-gray-900/50">
+          <div class="border-b border-gray-800 p-4">
+            <h2 class="text-xl font-bold text-blue-400 font-mono">
+              PANEL ADMINISTRATORA
+            </h2>
+          </div>
+          <div class="p-6">
+            <AgentEditor />
+          </div>
+        </section>
+      )
+    }
+
+    <!-- GRAPHICS GENERATOR -->
+    <section class="border border-gray-800 bg-gray-900/50">
+      <div class="border-b border-gray-800 p-4">
+        <h2 class="text-xl font-bold text-blue-400 font-mono">
+          GENERATOR GRAFIKI AI
+        </h2>
+        <p class="text-gray-400 text-sm">
+          Twórz obrazy za pomocą sztucznej inteligencji
+        </p>
+      </div>
+      <div class="p-6">
+        <ImageGenerator />
+      </div>
+    </section>
+  </main>
+</Layout>
+<section>
+  <h2>Twój dynamiczny Avatar SVG</h2>
+  <UserSVG color={"#0af"} initials={"AI"} />
+</section>

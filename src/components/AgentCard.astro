@@ -3,23 +3,65 @@ import ActionButton from "./ActionButton.astro";
 const { agent } = Astro.props;
 ---
 
-<div
-  class="agent-card"
-  style="border:1px solid #123; border-radius:8px; padding:1rem; margin-bottom:1rem;"
->
-  <h3>{agent.title}</h3>
-  <p>{agent.description}</p>
-  <p>Status: <b>{agent.status}</b></p>
-  <p>
-    {
-      agent.tags &&
-        agent.tags.map((tag) => (
-          <span style="background:#1e293b;color:#fff;border-radius:5px;padding:0.2rem 0.5rem;font-size:0.85em;margin-right:0.5em;">
+<div class="border border-gray-800 bg-gray-900/50 p-4 mb-4">
+  <div class="flex justify-between items-start mb-3">
+    <div>
+      <h3 class="text-lg font-bold text-blue-400 font-mono">
+        {agent.name || agent.title}
+      </h3>
+      <p class="text-gray-400 text-sm">{agent.description}</p>
+    </div>
+    <div class="flex items-center space-x-2">
+      <span
+        class={`px-2 py-1 text-xs font-mono ${
+          agent.status === "active" || agent.isRunning
+            ? "bg-green-500 text-white"
+            : "bg-gray-600 text-gray-300"
+        }`}
+      >
+        {agent.status === "active" || agent.isRunning ? "ACTIVE" : "INACTIVE"}
+      </span>
+    </div>
+  </div>
+
+  {
+    agent.model && (
+      <div class="mb-2">
+        <span class="text-gray-500 text-sm">Model: </span>
+        <span class="text-white text-sm font-mono">{agent.model}</span>
+      </div>
+    )
+  }
+
+  {
+    agent.tools && agent.tools.length > 0 && (
+      <div class="mb-3">
+        <span class="text-gray-500 text-sm">Tools: </span>
+        <div class="flex flex-wrap gap-1 mt-1">
+          {agent.tools.map((tool) => (
+            <span class="bg-blue-900 text-blue-300 px-2 py-1 text-xs font-mono">
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    agent.tags && agent.tags.length > 0 && (
+      <div class="mb-3">
+        {agent.tags.map((tag) => (
+          <span class="bg-gray-700 text-gray-300 px-2 py-1 text-xs font-mono mr-1">
             {tag}
           </span>
-        ))
-    }
-  </p>
-  <ActionButton label="Aktywuj" color="success" />
-  <ActionButton label="Dezaktywuj" color="secondary" />
+        ))}
+      </div>
+    )
+  }
+
+  <div class="flex space-x-2">
+    <ActionButton label="AKTYWUJ" color="success" />
+    <ActionButton label="DEZAKTYWUJ" color="secondary" />
+  </div>
 </div>
