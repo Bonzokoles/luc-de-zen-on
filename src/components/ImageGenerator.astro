@@ -1,0 +1,24 @@
+---
+let prompt = "";
+let imageUrl = "";
+async function generate() {
+  const res = await fetch("/api/generate-image", {
+    method: "POST",
+    body: JSON.stringify({ prompt }),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await res.json();
+  imageUrl = data.imageUrl;
+}
+---
+
+<div>
+  <input
+    type="text"
+    value={prompt}
+    oninput={(e) => (prompt = e.target.value)}
+    placeholder="Opis grafiki"
+  />
+  <button onclick={generate}>Generuj grafikę</button>
+  {imageUrl && <img src={imageUrl} alt="Wygenerowany obraz" />}
+</div>
