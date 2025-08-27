@@ -8,7 +8,7 @@
   async function sendMessage() {
     if (!$input) return;
     messages.update(msgs => [...msgs, { from: 'user', text: $input }]);
-    const res = await fetch('/api/ai-bot-worker', {
+    const res = await fetch('/api/chat', {
       method: 'POST',
       body: JSON.stringify({ prompt: $input }),
       headers: { 'Content-Type': 'application/json' },

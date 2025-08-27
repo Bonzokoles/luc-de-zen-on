@@ -1,0 +1,86 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import AgentDetails from "../../../components/AgentDetails.svelte";
+
+// Get agent ID from params
+const { id } = Astro.params;
+
+// Fetch agent data from API
+let agentData = null;
+let error = null;
+
+try {
+  const response = await fetch(`${Astro.url.origin}/api/agent?id=${id}`);
+  if (response.ok) {
+    agentData = await response.json();
+  } else {
+    error = "Agent nie został znaleziony";
+  }
+} catch (e) {
+  error = "Błąd podczas pobierania danych agenta";
+}
+
+// Redirect to agents list if agent not found
+if (!agentData || error) {
+  return Astro.redirect("/agents");
+}
+---
+
+<Layout
+  siteTitle="BACKROOM // AGENT DETAILS"
+  siteDescription="Szczegóły agenta AI"
+  headerCosmeticText="SYSTEM AGENT VIEWER AKTYWNY"
+>
+  <main
+    class="min-h-screen pt-20 pb-12 px-4"
+    style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);"
+  >
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="mb-12 text-center">
+        <div
+          class="inline-block p-4 border border-cyan-400 mb-6"
+          style="background: rgba(0, 217, 255, 0.05);"
+        >
+          <h1 class="text-4xl font-bold text-cyan-400 font-mono tracking-wider">
+            [ AGENT #{id} ]
+          </h1>
+        </div>
+        <p class="text-xl text-gray-300 font-mono">
+          Szczegółowe informacje o agencie
+        </p>
+      </div>
+
+      <!-- Agent Details -->
+      <div class="bg-black/30 border border-cyan-400/30 p-8 mb-8">
+        <div
+          id="agent-details-container"
+          data-agent={JSON.stringify(agentData)}
+        >
+          <AgentDetails client:load />
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="flex justify-center space-x-6 mt-8">
+        <a
+          href="/agents"
+          class="px-6 py-3 bg-cyan-400 text-black font-bold uppercase tracking-wider hover:bg-cyan-300 transition-colors duration-200 border-2 border-cyan-400"
+        >
+          Powrót do listy
+        </a>
+        <a
+          href={`/agents/${id}/edit`}
+          class="px-6 py-3 bg-transparent border-2 border-cyan-400 text-cyan-400 font-bold uppercase tracking-wider hover:bg-cyan-400 hover:text-black transition-colors duration-200"
+        >
+          Edytuj agenta
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  body {
+    font-family: "Rajdhani", "Courier New", monospace;
+  }
+</style>
