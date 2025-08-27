@@ -1,19 +1,29 @@
-export const GET = async () => {
+export const GET = async ({ locals }: { locals: any }) => {
   try {
-    // Wywołaj Worker do pobrania agentów
-    const workerUrl = 'https://mybonzo-worker.bonzokoles.workers.dev/api/agents';
+    // Użyj bezpośrednio KV storage z Cloudflare Pages
+    const env = locals.runtime.env;
     
-    const response = await fetch(workerUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    if (!env.AGENTS) {
+      return new Response(JSON.stringify({ 
+        error: 'KV storage AGENTS nie jest dostępny',
+        agents: []
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+    }
 
-    const data = await response.json();
-    
-    return new Response(JSON.stringify(data), {
-      status: response.status,
+    const keys = await env.AGENTS.list();
+    const agents = await Promise.all(keys.keys.map(async (key: any) => {
+      const value = await env.AGENTS.get(key.name);
+      return value ? JSON.parse(value) : null;
+    }));
+
+    return new Response(JSON.stringify(agents.filter(Boolean)), {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
