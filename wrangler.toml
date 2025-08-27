@@ -10,7 +10,12 @@ directory = "./dist"
 # KV Storage for agents
 [[kv_namespaces]]
 binding = "AGENTS"
-id = "agents_namespace"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for sessions (required by Astro Cloudflare adapter)
+[[kv_namespaces]]
+binding = "SESSION"
+id = "77d84c01758a4064be011acc35b2c344"
 
 # AI binding for Cloudflare Workers AI
 [ai]
