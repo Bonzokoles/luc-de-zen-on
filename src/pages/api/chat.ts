@@ -1,22 +1,39 @@
-export const POST = async ({ request }: { request: Request }) => {
+export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
   try {
     const body = await request.json() as { prompt: string };
+    const env = locals.runtime.env;
     
-    // Call the Cloudflare Worker for AI chat
-    const workerUrl = 'https://ai-bot-worker.bonzokoles.workers.dev/chat';
-    
-    const response = await fetch(workerUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ prompt: body.prompt }),
+    if (!env.AI) {
+      return new Response(JSON.stringify({ 
+        error: 'Cloudflare AI nie jest dostępny',
+        answer: 'Przepraszam, system AI jest obecnie niedostępny.'
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+      });
+    }
+
+    // Użyj bezpośrednio Cloudflare Workers AI
+    const response = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+      messages: [
+        {
+          role: "system", 
+          content: "Jesteś pomocnym asystentem AI. Odpowiadaj w języku polskim, zwięźle i konkretnie."
+        },
+        {
+          role: "user", 
+          content: body.prompt
+        }
+      ]
     });
 
-    const data = await response.json();
-    
-    return new Response(JSON.stringify(data), {
-      status: response.status,
+    return new Response(JSON.stringify({ 
+      answer: response.response || "Przepraszam, nie udało się wygenerować odpowiedzi."
+    }), {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',

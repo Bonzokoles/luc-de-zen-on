@@ -1,4 +1,4 @@
-export const GET = async ({ url }: { url: URL }) => {
+export const GET = async ({ url, locals }: { url: URL; locals: any }) => {
   try {
     const id = url.searchParams.get('id');
     
@@ -9,14 +9,27 @@ export const GET = async ({ url }: { url: URL }) => {
       });
     }
 
-    // Wywołaj Worker do pobrania agenta
-    const workerUrl = `https://mybonzo-worker.bonzokoles.workers.dev/api/agent?id=${id}`;
+    // Użyj bezpośrednio KV storage
+    const env = locals.runtime.env;
     
-    const response = await fetch(workerUrl);
-    const data = await response.json();
+    if (!env.AGENTS) {
+      return new Response(JSON.stringify({ error: 'KV storage not available' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    const agentData = await env.AGENTS.get(id);
     
-    return new Response(JSON.stringify(data), {
-      status: response.status,
+    if (!agentData) {
+      return new Response(JSON.stringify({ error: 'Agent not found' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    return new Response(agentData, {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -35,25 +48,30 @@ export const GET = async ({ url }: { url: URL }) => {
   }
 };
 
-export const POST = async ({ request }: { request: Request }) => {
+export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
   try {
-    const body = await request.json();
+    const body = await request.json() as { id: string; [key: string]: any };
+    const env = locals.runtime.env;
     
-    // Wywołaj Worker do zapisania agenta
-    const workerUrl = 'https://mybonzo-worker.bonzokoles.workers.dev/api/agent';
-    
-    const response = await fetch(workerUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+    if (!env.AGENTS) {
+      return new Response(JSON.stringify({ error: 'KV storage not available' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
-    const data = await response.json();
+    if (!body.id) {
+      return new Response(JSON.stringify({ error: 'Agent ID is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Zapisz agenta do KV storage
+    await env.AGENTS.put(body.id, JSON.stringify(body));
     
-    return new Response(JSON.stringify(data), {
-      status: response.status,
+    return new Response(JSON.stringify({ success: true, agent: body }), {
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -62,12 +80,8 @@ export const POST = async ({ request }: { request: Request }) => {
 
   } catch (error) {
     console.error('Agent Save API Error:', error);
-    
-    return new Response(JSON.stringify({ 
-      success: true,
-      message: 'Agent zapisany lokalnie (mock)'
-    }), {
-      status: 200,
+    return new Response(JSON.stringify({ error: 'Failed to save agent' }), {
+      status: 500,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
