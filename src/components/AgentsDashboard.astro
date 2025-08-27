@@ -1,0 +1,15 @@
+---
+const { stats = {} } = Astro.props;
+---
+
+<div
+  style="border:1px solid #334; padding:1.5rem; margin:1rem 0; border-radius:8px; background:#10181f;"
+>
+  <h3>Statystyki agentów</h3>
+  <ul>
+    <li>Uruchomieni agenci: <b>{stats.activeAgents}</b></li>
+    <li>Całkowita liczba agentów: <b>{stats.totalAgents}</b></li>
+    <li>Dzienna liczba zapytań: <b>{stats.requestsToday}</b></li>
+    <li>Błędy dzisiaj: <b>{stats.errorsToday}</b></li>
+  </ul>
+</div>
