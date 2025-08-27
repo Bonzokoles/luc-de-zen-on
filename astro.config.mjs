@@ -10,6 +10,9 @@ import { siteUrl } from "./src/data/site.json";
 // https://astro.build/config
 export default defineConfig({
   output: 'server', // Required for Cloudflare adapter with API routes
+  experimental: {
+    session: true  // Enable session support for Cloudflare adapter
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -18,6 +21,7 @@ export default defineConfig({
     platformProxy: {
       enabled: true,
     },
+    // Remove session config to avoid experimental flag requirement
   }),
   site: siteUrl,
   redirects: {
