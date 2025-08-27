@@ -1,0 +1,40 @@
+name: Website Monitoring & Keep-Alive
+
+on:
+  schedule:
+    # Ping co 15 minut
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health Check
+        run: |
+          echo "Checking website health..."
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://www.mybonzo.com/api/health)
+          
+          if [ $RESPONSE -eq 200 ]; then
+            echo " Website is healthy (HTTP $RESPONSE)"
+          else
+            echo " Website health check failed (HTTP $RESPONSE)"
+            exit 1
+          fi
+
+      - name: Keep AI Services Warm
+        run: |
+          echo "Warming up AI services..."
+          curl -X POST https://www.mybonzo.com/api/chat \
+            -H "Content-Type: application/json" \
+            -d '{"message":"ping","keepWarm":true}' \
+            --max-time 30 || echo "AI warmup completed"
+
+      - name: Monitor Performance
+        run: |
+          echo "Performance check..."
+          START_TIME=$(date +%s%N)
+          curl -s https://www.mybonzo.com > /dev/null
+          END_TIME=$(date +%s%N)
+          DURATION=$((($END_TIME - $START_TIME) / 1000000))
+          echo "Response time: ${DURATION}ms"
