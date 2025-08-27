@@ -1,0 +1,28 @@
+---
+const { agent, onSave } = Astro.props;
+let name = agent?.name ?? "";
+let status = agent?.status ?? "Aktywny";
+function handleSave(e) {
+  e.preventDefault();
+  fetch("/api/agent", {
+    method: "POST",
+    body: JSON.stringify({ ...agent, name, status }),
+    headers: { "Content-Type": "application/json" },
+  }).then(() => onSave && onSave());
+}
+---
+
+<form onsubmit={handleSave}>
+  <input
+    type="text"
+    value={name}
+    oninput={(e) => (name = e.target.value)}
+    placeholder="Nazwa agenta"
+  />
+  <select value={status} oninput={(e) => (status = e.target.value)}>
+    <option>Aktywny</option>
+    <option>Nieaktywny</option>
+    <option>W trakcie konfiguracji</option>
+  </select>
+  <button type="submit">Zapisz</button>
+</form>

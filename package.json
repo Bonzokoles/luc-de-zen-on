@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "luc-de-zen-on",
   "description": "Build a personal website, blog, or portfolio with Astro.",
   "private": true,
@@ -17,22 +16,6 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "12.6.0",
-=======
-  "name": "backroom",
-  "author": {
-    "name": "Kadir Lofca",
-    "url": "https://kadirlofca.com"
-  },
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
     "@astrojs/mdx": "^4.2.0",
     "@astrojs/rss": "^4.0.11",
     "@astrojs/sitemap": "^3.2.1",
@@ -47,9 +30,8 @@
     "typescript": "^5.8.2"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@tailwindcss/typography": "^0.5.16",
-    "wrangler": "4.21.x"
+    "wrangler": "^4.21.0"
   },
   "scripts": {
     "astro": "astro",
@@ -61,8 +43,4 @@
     "preview": "astro build && wrangler dev"
   },
   "type": "module"
-=======
-    "@tailwindcss/typography": "^0.5.16"
-  }
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
 }

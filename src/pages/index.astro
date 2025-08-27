@@ -2,8 +2,15 @@
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import Posts from "../components/reactive/Posts.svelte";
+import Chatbot from "../components/Chatbot.svelte";
 import Tags from "../components/reactive/Tags.svelte";
 import CosmeticText from "../components/CosmeticText.astro";
+import AgentPreview from "../components/AgentPreview.astro";
+import AgentsDashboard from "../components/AgentsDashboard.astro";
+import AgentsList from "../components/AgentsList.astro";
+import AgentEditor from "../components/AgentEditor.astro";
+import ImageGenerator from "../components/ImageGenerator.astro";
+// ...existing code...
 
 import { siteTitle, SiteDescription } from "../data/site.json";
 import { userProfessionalDescription } from "../data/user-professional.json";
@@ -23,6 +30,14 @@ const cosmeticTexts: { [section: string]: string } = {
   header: "BACKROOM",
   hero: "CLICK ON A TAG",
   about: "ABOUT ME",
+};
+
+const agents = await getCollection("posts", (post) => post.data.published);
+const stats = {
+  activeAgents: agents.filter((a) => a.data.published).length,
+  totalAgents: agents.length,
+  requestsToday: 15,
+  errorsToday: 1,
 };
 ---
 
@@ -55,6 +70,14 @@ const cosmeticTexts: { [section: string]: string } = {
     <Posts client:load allPosts={allPosts} />
   </Section>
 
+  <!-- AGENTS PREVIEW -->
+  <Section>
+    <h2 class="text-3xl font-bold text-center my-8">Agenci</h2>
+    <div class="flex flex-col gap-8">
+      {allPosts.map((agent) => <AgentPreview agent={agent} />)}
+    </div>
+  </Section>
+
   <!-- ABOUT -->
   <Section
     class="relative flex min-h-96 bg-radial-[at_50%_90%] from-accent/10 to-transparent"
@@ -69,6 +92,31 @@ const cosmeticTexts: { [section: string]: string } = {
         <h1 class="text-3xl font-bold">Hi.</h1>
         <p class="text-2xl">{userIntroduction}</p>
       </div>
+    </div>
+  </Section>
+
+  <!-- AGENTS DASHBOARD -->
+  <Section>
+    <h2>Panel agentów</h2>
+    <AgentsDashboard stats={stats} />
+    <AgentsList agents={agents} />
+    {agents.map((agent) => <AgentEditor agent={agent.data} />)}
+  </Section>
+  <Section>
+    <h2>AI Generator</h2>
+    <ImageGenerator />
+  </Section>
+  <Section>
+    <h2>Chatbot AI</h2>
+    <Chatbot client:only="svelte" />
+    <div style="margin-top:2rem;">
+      <a href="/agents" class="btn btn-primary">Panel agentów</a>
+      <a href="/dashboard" class="btn btn-secondary" style="margin-left:1rem;"
+        >Dashboard admina</a
+      >
+      <a href="#AI-Generator" class="btn btn-accent" style="margin-left:1rem;"
+        >Generator grafiki AI</a
+      >
     </div>
   </Section>
 </Layout>
