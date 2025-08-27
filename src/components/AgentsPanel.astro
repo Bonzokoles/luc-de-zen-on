@@ -1,0 +1,25 @@
+---
+const agents = [
+  { name: "Agent 1", active: false },
+  { name: "Agent 2", active: false },
+];
+const toggleAgent = (index) => {
+  agents[index].active = !agents[index].active;
+};
+---
+
+<div>
+  <h2>Panel Agentów</h2>
+  <ul>
+    {
+      agents.map((agent, i) => (
+        <li>
+          <span>{agent.name}</span>
+          <button onClick={() => toggleAgent(i)}>
+            {agent.active ? "Dezaktywuj" : "Aktywuj"}
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</div>
