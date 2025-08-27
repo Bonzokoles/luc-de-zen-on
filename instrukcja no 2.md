@@ -182,4 +182,3 @@ wygenerowane pliki :
 1. Worker API AI – /src/workers/ai-bot-worker.ts
 2. Komponent Chatbot – /src/components/Chatbot.astro
 3. Panel Agentów – /src/components/AgentsPanel.astro
-
