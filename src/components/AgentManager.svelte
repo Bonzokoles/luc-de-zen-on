@@ -591,7 +591,7 @@
           </div>
 
           <div class="modal-actions">
-            <button type="button" class="btn-secondary" on:click={() => showEditForm = false">
+            <button type="button" class="btn-secondary" on:click={() => showEditForm = false}>
                ANULUJ
             </button>
             <button type="submit" class="btn-primary" disabled={loading}>

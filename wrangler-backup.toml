@@ -1,6 +1,12 @@
-name = "luc-de-zen-on"
+name = "mybonzo-worker"
+account_id = "7f490d58a478c6baccb0ae01ea1d87c3"
+workers_dev = true
 compatibility_date = "2025-08-27"
+main = "./dist/_worker.js/index.js"
 pages_build_output_dir = "./dist"
+
+[assets]
+directory = "./dist"
 
 # KV Storage for agents (existing)
 [[kv_namespaces]]
