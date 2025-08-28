@@ -22,6 +22,11 @@ id = "6e7d56f0c13e4859b6d071b8b508fce6"
 binding = "SESSION"
 id = "77d84c01758a4064be011acc35b2c344"
 
+# KV Storage for generated images and gallery
+[[kv_namespaces]]
+binding = "IMAGES"
+id = "3275b55560da4c588e1ddf39f3479c0a"
+
 # AI binding for Cloudflare Workers AI - Enhanced Configuration
 [ai]
 binding = "AI"

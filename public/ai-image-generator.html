@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBonzo AI - Generator Obrazów</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #00d9ff;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .header p {
+            color: #888;
+            font-size: 1.1em;
+        }
+        
+        .generator-form {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00d9ff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        input, select, textarea {
+            padding: 12px;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 16px;
+            font-family: 'Rajdhani', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #00d9ff;
+            box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #888;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .generate-btn {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            padding: 15px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .generate-btn:hover:not(:disabled) {
+            background: rgba(0, 217, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+        
+        .generate-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 217, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #00d9ff;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .result-container.active {
+            display: block;
+        }
+        
+        .generated-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .generated-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+        
+        .image-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: #00d9ff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .action-btn:hover {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+        }
+        
+        .gallery-section {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            padding: 30px;
+        }
+        
+        .gallery-section h3 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .gallery-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .gallery-item:hover {
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+            border-color: #00d9ff;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .gallery-item-info {
+            padding: 15px;
+        }
+        
+        .gallery-item-prompt {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+        
+        .gallery-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .gallery-item-actions a {
+            background: rgba(0, 217, 255, 0.1);
+            color: #00d9ff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .gallery-item-actions a:hover {
+            background: rgba(0, 217, 255, 0.2);
+        }
+        
+        .error-message {
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+            border: 1px solid rgba(255, 68, 68, 0.3);
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        .quick-prompt-indicator {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            color: #00d9ff;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-actions {
+                flex-direction: column;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1> MyBonzo AI Generator</h1>
+            <p>Twórz niesamowite obrazy za pomoc¹ Cloudflare Workers AI</p>
+        </div>
+
+        <div id="quickPromptIndicator" class="quick-prompt-indicator" style="display: none;">
+             U¿ywasz szybkiego prompt z g³ównej strony
+        </div>
+
+        <form class="generator-form" id="imageForm">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label for="prompt">Opis obrazu (prompt) *</label>
+                    <textarea 
+                        id="prompt" 
+                        name="prompt" 
+                        placeholder="Opisz obraz, który chcesz wygenerowaæ... np. 'Piêkny zachód s³oñca nad górami'"
+                        required
+                        minlength="5"
+                    ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="style">Styl artystyczny</label>
+                    <select id="style" name="style">
+                        <option value="">Brak (domyœlny)</option>
+                        <option value="realistyczny">Realistyczny</option>
+                        <option value="surrealistyczny">Surrealistyczny</option>
+                        <option value="abstrakcyjny">Abstrakcyjny</option>
+                        <option value="retro">Retro</option>
+                        <option value="nowoczesny">Nowoczesny</option>
+                        <option value="akwarela">Akwarela</option>
+                        <option value="olej">Malarstwo olejne</option>
+                        <option value="anime">Anime</option>
+                        <option value="fotograficzny">Fotograficzny</option>
+                        <option value="fantasy">Fantasy</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="model">Model AI</label>
+                    <select id="model" name="model">
+                        <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell (Szybki)</option>
+                        <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+                        <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper LCM</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="width">Szerokoœæ (256-1024px)</label>
+                    <input type="number" id="width" name="width" min="256" max="1024" value="512" step="64">
+                </div>
+                
+                <div class="form-group">
+                    <label for="height">Wysokoœæ (256-1024px)</label>
+                    <input type="number" id="height" name="height" min="256" max="1024" value="512" step="64">
+                </div>
+                
+                <div class="form-group">
+                    <label for="steps">Kroki inferencji (1-20)</label>
+                    <input type="number" id="steps" name="steps" min="1" max="20" value="8">
+                </div>
+            </div>
+            
+            <button type="submit" class="generate-btn" id="generateBtn">
+                 Generuj Obraz
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Generowanie obrazu... To mo¿e potrwaæ chwilê.</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="result-container" id="resultContainer">
+            <h3> Twój wygenerowany obraz:</h3>
+            <div class="generated-image" id="generatedImage"></div>
+            <div class="image-actions" id="imageActions"></div>
+        </div>
+
+        <div class="gallery-section">
+            <h3> Galeria wygenerowanych obrazów</h3>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Galeria bêdzie ³adowana dynamicznie -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('imageForm');
+        const loading = document.getElementById('loading');
+        const errorMessage = document.getElementById('errorMessage');
+        const resultContainer = document.getElementById('resultContainer');
+        const generatedImage = document.getElementById('generatedImage');
+        const imageActions = document.getElementById('imageActions');
+        const generateBtn = document.getElementById('generateBtn');
+        const galleryGrid = document.getElementById('galleryGrid');
+        const quickPromptIndicator = document.getElementById('quickPromptIndicator');
+
+        // Generate image
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const prompt = formData.get('prompt');
+            
+            if (!prompt || prompt.trim().length < 5) {
+                showError('Prompt musi mieæ co najmniej 5 znaków');
+                return;
+            }
+
+            showLoading(true);
+            hideError();
+            hideResult();
+
+            const requestData = {
+                prompt: prompt.trim(),
+                style: formData.get('style') || undefined,
+                model: formData.get('model'),
+                width: parseInt(formData.get('width')) || 512,
+                height: parseInt(formData.get('height')) || 512,
+                steps: parseInt(formData.get('steps')) || 8
+            };
+
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.image) {
+                    showResult(result.image);
+                    loadGallery(); // Refresh gallery
+                } else {
+                    showError(result.error || 'Wyst¹pi³ b³¹d podczas generowania obrazu');
+                }
+            } catch (error) {
+                showError('B³¹d po³¹czenia: ' + error.message);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        function showLoading(show) {
+            loading.classList.toggle('active', show);
+            generateBtn.disabled = show;
+            generateBtn.textContent = show ? ' Generowanie...' : ' Generuj Obraz';
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('active');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('active');
+        }
+
+        function showResult(imageData) {
+            generatedImage.innerHTML = `
+                <img src="${imageData.data_url}" alt="Wygenerowany obraz" />
+                <p style="margin-top: 15px; color: #888;"><strong>Prompt:</strong> ${imageData.prompt}</p>
+                ${imageData.style ? `<p style="color: #888;"><strong>Styl:</strong> ${imageData.style}</p>` : ''}
+                <p style="color: #888;"><strong>Parametry:</strong> ${imageData.parameters.width}x${imageData.parameters.height}, ${imageData.parameters.steps} kroków</p>
+            `;
+
+            imageActions.innerHTML = `
+                <a href="${imageData.download_url}" class="action-btn" download>
+                     Pobierz
+                </a>
+                <button class="action-btn" onclick="copyImageUrl('${imageData.data_url}')">
+                     Kopiuj URL
+                </button>
+                <button class="action-btn" onclick="shareImage('${imageData.data_url}', '${imageData.prompt}')">
+                     Udostêpnij
+                </button>
+                <button class="action-btn" onclick="saveToDevice('${imageData.data_url}', '${imageData.originalPrompt || imageData.prompt}')">
+                     Zapisz
+                </button>
+            `;
+
+            resultContainer.classList.add('active');
+        }
+
+        function hideResult() {
+            resultContainer.classList.remove('active');
+        }
+
+        function copyImageUrl(dataUrl) {
+            navigator.clipboard.writeText(dataUrl).then(() => {
+                alert('URL obrazu skopiowany do schowka!');
+            });
+        }
+
+        function shareImage(dataUrl, prompt) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'MyBonzo AI - Wygenerowany obraz',
+                    text: `Obraz wygenerowany przez AI: ${prompt}`,
+                    url: window.location.href
+                });
+            } else {
+                copyImageUrl(dataUrl);
+                alert('URL skopiowany do schowka (udostêpnianie nie jest dostêpne)');
+            }
+        }
+
+        function saveToDevice(dataUrl, prompt) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            
+            const cleanPrompt = prompt.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_').substring(0, 30);
+            const timestamp = new Date().toISOString().split('T')[0];
+            link.download = `mybonzo_ai_${cleanPrompt}_${timestamp}.png`;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('Obraz zosta³ zapisany w bibliotece pobierania!');
+        }
+
+        // Load gallery
+        async function loadGallery() {
+            try {
+                const response = await fetch('/api/images/gallery?limit=12');
+                const result = await response.json();
+
+                if (result.success && result.images) {
+                    galleryGrid.innerHTML = result.images.map(image => `
+                        <div class="gallery-item">
+                            <img src="${image.view_url}" alt="Obraz AI" loading="lazy" />
+                            <div class="gallery-item-info">
+                                <div class="gallery-item-prompt">${image.originalPrompt || image.prompt}</div>
+                                <div class="gallery-item-actions">
+                                    <a href="${image.download_url}" download>Pobierz</a>
+                                    <a href="${image.view_url}" target="_blank">Zobacz</a>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    galleryGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">Brak obrazów w galerii</p>';
+                }
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+                galleryGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #888;">B³¹d ³adowania galerii</p>';
+            }
+        }
+
+        // Load gallery on page load and check for quick prompt
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGallery();
+            
+            // Check if there's a quick prompt from main page
+            const quickPrompt = localStorage.getItem('quickPrompt');
+            if (quickPrompt) {
+                document.getElementById('prompt').value = quickPrompt;
+                localStorage.removeItem('quickPrompt');
+                quickPromptIndicator.style.display = 'block';
+                
+                // Auto-focus on generate button
+                document.getElementById('generateBtn').scrollIntoView({ behavior: 'smooth' });
+                
+                // Hide indicator after 5 seconds
+                setTimeout(() => {
+                    quickPromptIndicator.style.display = 'none';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
