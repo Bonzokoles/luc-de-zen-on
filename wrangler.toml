@@ -22,6 +22,18 @@ id = "6e7d56f0c13e4859b6d071b8b508fce6"
 binding = "SESSION"
 id = "77d84c01758a4064be011acc35b2c344"
 
-# AI binding for Cloudflare Workers AI
+# AI binding for Cloudflare Workers AI - Enhanced Configuration
 [ai]
 binding = "AI"
+
+# AI Model Presets for different use cases
+[vars]
+DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+FAST_TEXT_MODEL = "@cf/qwen/qwen1.5-0.5b-chat"  
+ADVANCED_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+CODE_MODEL = "@cf/qwen/qwen2.5-coder-32b-instruct"
+MATH_MODEL = "@cf/deepseek-ai/deepseek-math-7b-instruct"
+VISION_MODEL = "@cf/meta/llama-3.2-11b-vision-instruct"
+IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"
+SPEECH_MODEL = "@cf/openai/whisper-large-v3-turbo"
+TTS_MODEL = "@cf/deepgram/aura-1"
