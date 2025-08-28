@@ -1,0 +1,365 @@
+---
+// AI Workers Navigation Component
+---
+
+<section class="ai-workers-section" id="ai-workers">
+  <div class="section-container">
+    <h2 class="section-title">AI WORKERS</h2>
+    <p class="section-description">Zaawansowane narzêdzia AI dostêpne na platformie MyBonzo</p>
+    
+    <div class="workers-grid">
+      <!-- Image Generator -->
+      <div class="worker-card" data-worker="image">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">Generator Obrazów</h3>
+        <p class="worker-description">Twórz niesamowite obrazy z tekstu u¿ywaj¹c Flux-1 Schnell</p>
+        <div class="worker-features">
+          <span class="feature-tag">Flux AI</span>
+          <span class="feature-tag">512-1024px</span>
+          <span class="feature-tag">Style</span>
+        </div>
+        <div class="worker-actions">
+          <input type="text" placeholder="Opisz obraz..." class="quick-prompt" id="imagePrompt">
+          <button class="action-btn primary" onclick="openImageGenerator()">Generuj</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-image-generator.html', '_blank')">Otwórz</button>
+        </div>
+      </div>
+
+      <!-- Text Generator -->
+      <div class="worker-card" data-worker="text">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">Generator Tekstu</h3>
+        <p class="worker-description">80+ modeli AI do generowania tekstu, kodu i analiz</p>
+        <div class="worker-features">
+          <span class="feature-tag">Llama 3.3</span>
+          <span class="feature-tag">Qwen Coder</span>
+          <span class="feature-tag">DeepSeek</span>
+        </div>
+        <div class="worker-actions">
+          <input type="text" placeholder="Zadaj pytanie..." class="quick-prompt" id="textPrompt">
+          <button class="action-btn primary" onclick="openTextGenerator()">Generuj</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-models-test.html', '_blank')">Test</button>
+        </div>
+      </div>
+
+      <!-- Code Assistant -->
+      <div class="worker-card" data-worker="code">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">Asystent Kodu</h3>
+        <p class="worker-description">Specjalizowany model do pisania i analizy kodu</p>
+        <div class="worker-features">
+          <span class="feature-tag">Qwen Coder</span>
+          <span class="feature-tag">Python</span>
+          <span class="feature-tag">JavaScript</span>
+        </div>
+        <div class="worker-actions">
+          <input type="text" placeholder="Opisz funkcjê..." class="quick-prompt" id="codePrompt">
+          <button class="action-btn primary" onclick="openCodeAssistant()">Koduj</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-code-assistant.html', '_blank')">Otwórz</button>
+        </div>
+      </div>
+
+      <!-- Vision Analyzer -->
+      <div class="worker-card" data-worker="vision">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">Analiza Obrazów</h3>
+        <p class="worker-description">Analizuj i opisuj obrazy za pomoc¹ Llama Vision</p>
+        <div class="worker-features">
+          <span class="feature-tag">Llama Vision</span>
+          <span class="feature-tag">Opis</span>
+          <span class="feature-tag">Analiza</span>
+        </div>
+        <div class="worker-actions">
+          <input type="file" accept="image/*" class="file-input" id="visionFile">
+          <button class="action-btn primary" onclick="openVisionAnalyzer()">Analizuj</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-vision-analyzer.html', '_blank')">Otwórz</button>
+        </div>
+      </div>
+
+      <!-- Math Solver -->
+      <div class="worker-card" data-worker="math">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">Rozwi¹zywanie Matematyki</h3>
+        <p class="worker-description">Rozwi¹zuj problemy matematyczne z DeepSeek Math</p>
+        <div class="worker-features">
+          <span class="feature-tag">DeepSeek Math</span>
+          <span class="feature-tag">Algebra</span>
+          <span class="feature-tag">Kalkulus</span>
+        </div>
+        <div class="worker-actions">
+          <input type="text" placeholder="Problem matematyczny..." class="quick-prompt" id="mathPrompt">
+          <button class="action-btn primary" onclick="openMathSolver()">Rozwi¹¿</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-math-solver.html', '_blank')">Otwórz</button>
+        </div>
+      </div>
+
+      <!-- Chat Assistant -->
+      <div class="worker-card" data-worker="chat">
+        <div class="worker-icon"></div>
+        <h3 class="worker-title">AI Asystent</h3>
+        <p class="worker-description">Uniwersalny chatbot z ró¿nymi modelami AI</p>
+        <div class="worker-features">
+          <span class="feature-tag">Multi-model</span>
+          <span class="feature-tag">Kontekst</span>
+          <span class="feature-tag">Historia</span>
+        </div>
+        <div class="worker-actions">
+          <input type="text" placeholder="Rozpocznij rozmowê..." class="quick-prompt" id="chatPrompt">
+          <button class="action-btn primary" onclick="openChatAssistant()">Chat</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-chat-assistant.html', '_blank')">Otwórz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ai-workers-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    margin: 2rem 0;
+    padding: 2rem;
+  }
+
+  .section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    color: #00d9ff;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .section-description {
+    color: #888;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .worker-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .worker-card:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .worker-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .worker-title {
+    color: #00d9ff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .worker-description {
+    color: #ccc;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .worker-features {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .feature-tag {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d9ff;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .worker-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .quick-prompt,
+  .file-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: white;
+    padding: 0.75rem;
+    font-family: 'Rajdhani', sans-serif;
+    transition: border-color 0.3s;
+  }
+
+  .quick-prompt:focus,
+  .file-input:focus {
+    outline: none;
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+  }
+
+  .quick-prompt::placeholder {
+    color: #888;
+  }
+
+  .action-btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: #00d9ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .action-btn.primary {
+    background: rgba(0, 217, 255, 0.1);
+  }
+
+  .action-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+  }
+
+  .action-btn.secondary {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .workers-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .worker-card {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Image Generator
+  function openImageGenerator() {
+    const prompt = document.getElementById('imagePrompt').value.trim();
+    if (prompt) {
+      localStorage.setItem('quickPrompt', prompt);
+      window.open('/ai-image-generator.html', '_blank');
+    } else {
+      window.open('/ai-image-generator.html', '_blank');
+    }
+  }
+
+  // Text Generator
+  function openTextGenerator() {
+    const prompt = document.getElementById('textPrompt').value.trim();
+    if (prompt) {
+      localStorage.setItem('quickTextPrompt', prompt);
+      window.open('/ai-models-test.html', '_blank');
+    } else {
+      window.open('/ai-models-test.html', '_blank');
+    }
+  }
+
+  // Code Assistant
+  function openCodeAssistant() {
+    const prompt = document.getElementById('codePrompt').value.trim();
+    if (prompt) {
+      localStorage.setItem('quickCodePrompt', prompt);
+      window.open('/ai-code-assistant.html', '_blank');
+    } else {
+      window.open('/ai-code-assistant.html', '_blank');
+    }
+  }
+
+  // Vision Analyzer
+  function openVisionAnalyzer() {
+    const file = document.getElementById('visionFile').files[0];
+    if (file) {
+      // Convert file to base64 and store
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        localStorage.setItem('quickVisionImage', e.target.result);
+        window.open('/ai-vision-analyzer.html', '_blank');
+      };
+      reader.readAsDataURL(file);
+    } else {
+      window.open('/ai-vision-analyzer.html', '_blank');
+    }
+  }
+
+  // Math Solver
+  function openMathSolver() {
+    const prompt = document.getElementById('mathPrompt').value.trim();
+    if (prompt) {
+      localStorage.setItem('quickMathPrompt', prompt);
+      window.open('/ai-math-solver.html', '_blank');
+    } else {
+      window.open('/ai-math-solver.html', '_blank');
+    }
+  }
+
+  // Chat Assistant
+  function openChatAssistant() {
+    const prompt = document.getElementById('chatPrompt').value.trim();
+    if (prompt) {
+      localStorage.setItem('quickChatPrompt', prompt);
+      window.open('/ai-chat-assistant.html', '_blank');
+    } else {
+      window.open('/ai-chat-assistant.html', '_blank');
+    }
+  }
+
+  // Add enter key support for quick prompts
+  document.addEventListener('DOMContentLoaded', function() {
+    const prompts = document.querySelectorAll('.quick-prompt');
+    prompts.forEach(prompt => {
+      prompt.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const workerId = this.id.replace('Prompt', '');
+          const funcName = 'open' + workerId.charAt(0).toUpperCase() + workerId.slice(1) + 
+                          (workerId === 'image' ? 'Generator' : 
+                           workerId === 'text' ? 'Generator' :
+                           workerId === 'code' ? 'Assistant' :
+                           workerId === 'vision' ? 'Analyzer' :
+                           workerId === 'math' ? 'Solver' :
+                           workerId === 'chat' ? 'Assistant' : '');
+          
+          if (window[funcName]) {
+            window[funcName]();
+          }
+        }
+      });
+    });
+  });
+</script>

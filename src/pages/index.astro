@@ -10,6 +10,7 @@ import AgentsDashboard from "../components/AgentsDashboard.astro";
 import AgentsList from "../components/AgentsList.astro";
 import AgentEditor from "../components/AgentEditor.astro";
 import ImageGenerator from "../components/ImageGenerator.astro";
+import AIWorkersNav from "../components/AIWorkersNav.astro";
 // ...existing code...
 
 import { siteTitle, SiteDescription } from "../data/site.json";
@@ -57,66 +58,6 @@ const stats = {
     <CosmeticText text={cosmeticTexts.hero} vertical />
   </Section>
 
-  <!-- SYSTEM AGENTS LINK -->
-  <Section>
-    <div class="max-w-md m-auto text-center my-8">
-      <a
-        href="/agent-builder-23"
-        class="inline-block px-6 py-3 text-lg font-semibold rounded-lg bg-accent text-primary hover:bg-accent/80 transition-colors duration-200"
-      >
-        System Agents
-      </a>
-    </div>
-    <Posts client:load allPosts={allPosts} />
-  </Section>
-
-  <!-- AGENTS PREVIEW -->
-  <Section>
-    <h2 class="text-3xl font-bold text-center my-8">Agenci</h2>
-    <div class="flex flex-col gap-8">
-      {allPosts.map((agent) => <AgentPreview agent={agent} />)}
-    </div>
-  </Section>
-
-  <!-- ABOUT -->
-  <Section
-    class="relative flex min-h-96 bg-radial-[at_50%_90%] from-accent/10 to-transparent"
-  >
-    <span class="absolute"
-      ><CosmeticText text={cosmeticTexts.about} vertical /></span
-    >
-    <div
-      class="flex flex-col gap-16 max-w-3xl mx-auto px-8 pt-32 pb-16 md:flex-row md:p-16"
-    >
-      <div class="my-auto text-pretty">
-        <h1 class="text-3xl font-bold">Hi.</h1>
-        <p class="text-2xl">{userIntroduction}</p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- AGENTS DASHBOARD -->
-  <Section>
-    <h2>Panel agentów</h2>
-    <AgentsDashboard stats={stats} />
-    <AgentsList agents={agents} />
-    {agents.map((agent) => <AgentEditor agent={agent.data} />)}
-  </Section>
-  <Section>
-    <h2>AI Generator</h2>
-    <ImageGenerator />
-  </Section>
-  <Section>
-    <h2>Chatbot AI</h2>
-    <Chatbot client:only="svelte" />
-    <div style="margin-top:2rem;">
-      <a href="/agents" class="btn btn-primary">Panel agentów</a>
-      <a href="/dashboard" class="btn btn-secondary" style="margin-left:1rem;"
-        >Dashboard admina</a
-      >
-      <a href="#AI-Generator" class="btn btn-accent" style="margin-left:1rem;"
-        >Generator grafiki AI</a
-      >
-    </div>
-  </Section>
+  <!-- AI WORKERS NAVIGATION -->
+  <AIWorkersNav />
 </Layout>
