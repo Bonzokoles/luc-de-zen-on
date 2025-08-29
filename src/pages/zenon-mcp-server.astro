@@ -1,0 +1,660 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="ZENON MCP SERVER - LUC de ZEN ON">
+  <div class="header-with-help">
+    <h1 class="page-title">⚡ ZENON MCP SERVER</h1>
+    <button id="helpButton" class="help-icon">?</button>
+  </div>
+
+  <!-- Server Status -->
+  <div class="server-status">
+    <div class="status-header">
+      <h2>Model Context Protocol Server</h2>
+      <div class="server-indicator online"></div>
+    </div>
+    
+    <div class="status-grid">
+      <div class="status-card">
+        <h3>🔌 Connections</h3>
+        <div class="status-value">8</div>
+        <p>Active clients</p>
+      </div>
+      
+      <div class="status-card">
+        <h3>📊 Requests/min</h3>
+        <div class="status-value">247</div>
+        <p>Last 5 minutes</p>
+      </div>
+      
+      <div class="status-card">
+        <h3>⚡ Response Time</h3>
+        <div class="status-value">12ms</div>
+        <p>Average latency</p>
+      </div>
+      
+      <div class="status-card">
+        <h3>💾 Memory Usage</h3>
+        <div class="status-value">342MB</div>
+        <p>Current usage</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCP Tools -->
+  <div class="mcp-tools">
+    <h2>Available MCP Tools</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">🗂️</span>
+          <h3>filesystem</h3>
+          <span class="tool-status active">ACTIVE</span>
+        </div>
+        <p>Read, write, and manage files on the server</p>
+        <div class="tool-methods">
+          <span class="method">read_file</span>
+          <span class="method">write_file</span>
+          <span class="method">list_directory</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">🌐</span>
+          <h3>brave-search</h3>
+          <span class="tool-status active">ACTIVE</span>
+        </div>
+        <p>Search the web using Brave Search API</p>
+        <div class="tool-methods">
+          <span class="method">web_search</span>
+          <span class="method">local_search</span>
+          <span class="method">news_search</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">💾</span>
+          <h3>memory</h3>
+          <span class="tool-status active">ACTIVE</span>
+        </div>
+        <p>Persistent memory and knowledge graph</p>
+        <div class="tool-methods">
+          <span class="method">create_entities</span>
+          <span class="method">search_nodes</span>
+          <span class="method">add_relations</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">🐙</span>
+          <h3>github</h3>
+          <span class="tool-status connecting">CONNECTING</span>
+        </div>
+        <p>Interact with GitHub repositories</p>
+        <div class="tool-methods">
+          <span class="method">get_file_contents</span>
+          <span class="method">create_pull_request</span>
+          <span class="method">search_code</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">🧠</span>
+          <h3>perplexity</h3>
+          <span class="tool-status active">ACTIVE</span>
+        </div>
+        <p>Advanced AI research and reasoning</p>
+        <div class="tool-methods">
+          <span class="method">search</span>
+          <span class="method">reason</span>
+          <span class="method">deep_research</span>
+        </div>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-header">
+          <span class="tool-icon">🖥️</span>
+          <h3>desktop-commander</h3>
+          <span class="tool-status active">ACTIVE</span>
+        </div>
+        <p>Desktop automation and file management</p>
+        <div class="tool-methods">
+          <span class="method">execute_command</span>
+          <span class="method">start_process</span>
+          <span class="method">read_file</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configuration -->
+  <div class="mcp-config">
+    <h2>Server Configuration</h2>
+    <div class="config-grid">
+      <div class="config-section">
+        <h3>Connection Settings</h3>
+        <div class="config-item">
+          <label>Host:</label>
+          <span>localhost</span>
+        </div>
+        <div class="config-item">
+          <label>Port:</label>
+          <span>3000</span>
+        </div>
+        <div class="config-item">
+          <label>Protocol:</label>
+          <span>stdio</span>
+        </div>
+      </div>
+
+      <div class="config-section">
+        <h3>Security</h3>
+        <div class="config-item">
+          <label>Authentication:</label>
+          <span class="status-enabled">Enabled</span>
+        </div>
+        <div class="config-item">
+          <label>Rate Limiting:</label>
+          <span class="status-enabled">Enabled</span>
+        </div>
+        <div class="config-item">
+          <label>CORS:</label>
+          <span class="status-enabled">Enabled</span>
+        </div>
+      </div>
+
+      <div class="config-section">
+        <h3>Performance</h3>
+        <div class="config-item">
+          <label>Max Connections:</label>
+          <span>100</span>
+        </div>
+        <div class="config-item">
+          <label>Timeout:</label>
+          <span>30s</span>
+        </div>
+        <div class="config-item">
+          <label>Buffer Size:</label>
+          <span>8KB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Examples -->
+  <div class="api-examples">
+    <h2>MCP API Examples</h2>
+    <div class="examples-grid">
+      <div class="example-card">
+        <h3>📁 File Operations</h3>
+        <pre><code>// Read file via MCP
+const response = await mcp.call(&#123;
+  method: "tools/call",
+  params: &#123;
+    name: "filesystem/read_file",
+    arguments: &#123;
+      path: "/path/to/file.txt"
+    &#125;
+  &#125;
+&#125;);</code></pre>
+      </div>
+
+      <div class="example-card">
+        <h3>🌐 Web Search</h3>
+        <pre><code>// Search web via MCP
+const results = await mcp.call(&#123;
+  method: "tools/call",
+  params: &#123;
+    name: "brave-search/web_search",
+    arguments: &#123;
+      query: "AI development trends 2025"
+    &#125;
+  &#125;
+&#125;);</code></pre>
+      </div>
+
+      <div class="example-card">
+        <h3>💾 Memory Operations</h3>
+        <pre><code>// Create knowledge entity
+const entity = await mcp.call(&#123;
+  method: "tools/call",
+  params: &#123;
+    name: "memory/create_entities",
+    arguments: &#123;
+      entities: [&#123;
+        name: "ZENON_SERVER",
+        type: "system"
+      &#125;]
+    &#125;
+  &#125;
+&#125;);</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Logs -->
+  <div class="live-logs">
+    <h2>Live Server Logs</h2>
+    <div class="logs-container">
+      <div class="log-entry">
+        <span class="timestamp">2025-08-30 14:35:22</span>
+        <span class="level info">INFO</span>
+        <span class="message">MCP server started on port 3000</span>
+      </div>
+      <div class="log-entry">
+        <span class="timestamp">2025-08-30 14:35:18</span>
+        <span class="level info">INFO</span>
+        <span class="message">Tool 'filesystem' registered successfully</span>
+      </div>
+      <div class="log-entry">
+        <span class="timestamp">2025-08-30 14:35:15</span>
+        <span class="level success">SUCCESS</span>
+        <span class="message">Client connection established from 127.0.0.1</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>ZENON MCP SERVER - Szczegółowy opis</h2>
+        <span id="closeModal" class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>
+          <strong>ZENON MCP SERVER to implementacja Model Context Protocol (MCP) zapewniająca zunifikowany dostęp do narzędzi AI.</strong>
+        </p>
+
+        <h3>Model Context Protocol (MCP):</h3>
+        <ul>
+          <li><strong>Unified Interface</strong> - standardowy protokół komunikacji z narzędziami</li>
+          <li><strong>Tool Management</strong> - centralne zarządzanie dostępnymi narzędziami</li>
+          <li><strong>Context Sharing</strong> - współdzielenie kontekstu między aplikacjami</li>
+          <li><strong>Scalability</strong> - łatwe dodawanie nowych funkcji</li>
+        </ul>
+
+        <h3>Dostępne narzędzia:</h3>
+        <ul>
+          <li><strong>Filesystem</strong> - operacje na plikach i katalogach</li>
+          <li><strong>Brave Search</strong> - wyszukiwanie internetowe</li>
+          <li><strong>Memory</strong> - persistent knowledge graph</li>
+          <li><strong>GitHub</strong> - integracja z repozytoriami</li>
+          <li><strong>Perplexity</strong> - zaawansowane wyszukiwanie AI</li>
+        </ul>
+
+        <div class="feature-highlight">
+          <h3>Zalety ZENON MCP:</h3>
+          <ul>
+            <li>🔌 Pluggable architecture</li>
+            <li>⚡ High performance protocol</li>
+            <li>🔒 Security-first design</li>
+            <li>📊 Real-time monitoring</li>
+            <li>🌐 Cross-platform compatibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Help modal functionality
+    const helpButton = document.getElementById("helpButton");
+    const helpModal = document.getElementById("helpModal");
+    const closeModal = document.getElementById("closeModal");
+
+    if (helpButton && helpModal && closeModal) {
+      helpButton.addEventListener("click", () => {
+        helpModal.style.display = "flex";
+      });
+
+      closeModal.addEventListener("click", () => {
+        helpModal.style.display = "none";
+      });
+
+      helpModal.addEventListener("click", (e) => {
+        if (e.target === helpModal) {
+          helpModal.style.display = "none";
+        }
+      });
+    }
+
+    // Simulate real-time updates
+    setInterval(() => {
+      // Update request count
+      const requestsValue = document.querySelector('.status-grid .status-value');
+      if (requestsValue && requestsValue.textContent !== undefined) {
+        const current = parseInt(requestsValue.textContent);
+        requestsValue.textContent = (current + Math.floor(Math.random() * 10)).toString();
+      }
+
+      // Add new log entry
+      const logsContainer = document.querySelector('.logs-container');
+      if (logsContainer) {
+        const newLog = document.createElement('div');
+        newLog.className = 'log-entry';
+        
+        const now = new Date();
+        const timestamp = now.toISOString().replace('T', ' ').split('.')[0];
+        
+        newLog.innerHTML = `
+          <span class="timestamp">${timestamp}</span>
+          <span class="level info">INFO</span>
+          <span class="message">Tool request processed successfully</span>
+        `;
+        
+        logsContainer.insertBefore(newLog, logsContainer.firstChild);
+        
+        // Keep only last 10 entries
+        const entries = logsContainer.querySelectorAll('.log-entry');
+        if (entries.length > 10) {
+          entries[entries.length - 1].remove();
+        }
+      }
+    }, 5000);
+
+    // Server indicator animation
+    setInterval(() => {
+      const indicator = document.querySelector('.server-indicator') as HTMLElement;
+      if (indicator) {
+        indicator.style.opacity = indicator.style.opacity === '0.5' ? '1' : '0.5';
+      }
+    }, 1000);
+  </script>
+</Layout>
+
+<style>
+  .server-status {
+    margin-bottom: 40px;
+  }
+
+  .status-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .status-header h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .server-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    animation: pulse 2s infinite;
+  }
+
+  .server-indicator.online {
+    background: #10b981;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .status-card {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(124, 58, 237, 0.05) 100%);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .status-card h3 {
+    color: #a855f7;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+
+  .status-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  .status-card p {
+    color: #cccccc;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .mcp-tools, .mcp-config, .api-examples, .live-logs {
+    margin-bottom: 40px;
+  }
+
+  .mcp-tools h2, .mcp-config h2, .api-examples h2, .live-logs h2 {
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .tool-card {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .tool-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.2);
+  }
+
+  .tool-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .tool-icon {
+    font-size: 1.5rem;
+  }
+
+  .tool-header h3 {
+    color: #ffffff;
+    flex: 1;
+    margin: 0;
+  }
+
+  .tool-status {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .tool-status.active {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .tool-status.connecting {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+  }
+
+  .tool-card p {
+    color: #cccccc;
+    margin-bottom: 15px;
+  }
+
+  .tool-methods {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .method {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .config-section {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .config-section h3 {
+    color: #a855f7;
+    margin-bottom: 15px;
+  }
+
+  .config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .config-item:last-child {
+    border-bottom: none;
+  }
+
+  .config-item label {
+    color: #cccccc;
+    font-weight: 500;
+  }
+
+  .config-item span {
+    color: #ffffff;
+  }
+
+  .status-enabled {
+    color: #10b981 !important;
+  }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+  }
+
+  .example-card {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .example-card h3 {
+    color: #a855f7;
+    margin-bottom: 15px;
+  }
+
+  .example-card pre {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .example-card code {
+    color: #a855f7;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .logs-container {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .log-entry {
+    display: flex;
+    gap: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: monospace;
+    font-size: 0.9rem;
+  }
+
+  .log-entry:last-child {
+    border-bottom: none;
+  }
+
+  .timestamp {
+    color: #999999;
+    min-width: 150px;
+  }
+
+  .level {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .level.info {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+  }
+
+  .level.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .message {
+    color: #e0e0e0;
+    flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    .status-grid, .tools-grid, .config-grid, .examples-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .log-entry {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+</style>

@@ -5,14 +5,48 @@
 <section class="ai-workers-section" id="ai-workers">
   <div class="section-container">
     <h2 class="section-title">AI WORKERS</h2>
-    <p class="section-description">Zaawansowane narzêdzia AI dostêpne na platformie MyBonzo</p>
-    
+    <p class="section-description">Zaawansowane narzÄ™dzia AI dostÄ™pne na platformie MyBonzo</p>
+
+    <!-- SYSTEM CONTROL PANEL -->
+    <div class="system-control-panel">
+      <h3 class="system-title">SYSTEM CONTROL PANEL</h3>
+      <div class="system-buttons">
+        <a href="/polaczek-agents-system" class="system-btn">
+          <div class="system-icon">ðŸ¤–</div>
+          <h4>POLÄ„CZEK AGENTS SYSTEM</h4>
+          <p>ZarzÄ…dzanie agentami AI i automatyzacja procesÃ³w</p>
+          <span class="status-badge active">Aktywny</span>
+        </a>
+
+        <a href="/bielik-enon-dev" class="system-btn">
+          <div class="system-icon">ðŸ‡µðŸ‡±</div>
+          <h4>BIELIK ENON DEV</h4>
+          <p>Åšrodowisko deweloperskie dla polskiego modelu AI</p>
+          <span class="status-badge beta">Beta</span>
+        </a>
+
+        <a href="/zenon-mcp-server" class="system-btn">
+          <div class="system-icon">ðŸ–§</div>
+          <h4>ZENON MCP SERVER</h4>
+          <p>Serwer Model Context Protocol</p>
+          <span class="status-badge production">Produkcja</span>
+        </a>
+
+        <a href="/klf-sheed-shop" class="system-btn">
+          <div class="system-icon">ðŸ›’</div>
+          <h4>KLF SHEED SHOP</h4>
+          <p>Platforma e-commerce dla narzÄ™dzi AI</p>
+          <span class="status-badge coming">WkrÃ³tce</span>
+        </a>
+      </div>
+    </div>
+
     <div class="workers-grid">
       <!-- Image Generator -->
       <div class="worker-card" data-worker="image">
         <div class="worker-icon"></div>
-        <h3 class="worker-title">Generator Obrazów</h3>
-        <p class="worker-description">Twórz niesamowite obrazy z tekstu u¿ywaj¹c Flux-1 Schnell</p>
+        <h3 class="worker-title">Generator ObrazÃ³w</h3>
+        <p class="worker-description">TwÃ³rz niesamowite obrazy z tekstu uÅ¼ywajÄ…c Flux-1 Schnell</p>
         <div class="worker-features">
           <span class="feature-tag">Flux AI</span>
           <span class="feature-tag">512-1024px</span>
@@ -21,7 +55,7 @@
         <div class="worker-actions">
           <input type="text" placeholder="Opisz obraz..." class="quick-prompt" id="imagePrompt">
           <button class="action-btn primary" onclick="openImageGenerator()">Generuj</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-image-generator.html', '_blank')">Otwórz</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-image-generator.html', '_blank')">OtwÃ³rz</button> 
         </div>
       </div>
 
@@ -38,7 +72,7 @@
         <div class="worker-actions">
           <input type="text" placeholder="Zadaj pytanie..." class="quick-prompt" id="textPrompt">
           <button class="action-btn primary" onclick="openTextGenerator()">Generuj</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-models-test.html', '_blank')">Test</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-models-test.html', '_blank')">Test</button>       
         </div>
       </div>
 
@@ -53,17 +87,17 @@
           <span class="feature-tag">JavaScript</span>
         </div>
         <div class="worker-actions">
-          <input type="text" placeholder="Opisz funkcjê..." class="quick-prompt" id="codePrompt">
+          <input type="text" placeholder="Opisz funkcjÄ™..." class="quick-prompt" id="codePrompt">
           <button class="action-btn primary" onclick="openCodeAssistant()">Koduj</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-code-assistant.html', '_blank')">Otwórz</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-code-assistant.html', '_blank')">OtwÃ³rz</button>  
         </div>
       </div>
 
       <!-- Vision Analyzer -->
       <div class="worker-card" data-worker="vision">
         <div class="worker-icon"></div>
-        <h3 class="worker-title">Analiza Obrazów</h3>
-        <p class="worker-description">Analizuj i opisuj obrazy za pomoc¹ Llama Vision</p>
+        <h3 class="worker-title">Analiza ObrazÃ³w</h3>
+        <p class="worker-description">Analizuj i opisuj obrazy za pomocÄ… Llama Vision</p>
         <div class="worker-features">
           <span class="feature-tag">Llama Vision</span>
           <span class="feature-tag">Opis</span>
@@ -72,15 +106,15 @@
         <div class="worker-actions">
           <input type="file" accept="image/*" class="file-input" id="visionFile">
           <button class="action-btn primary" onclick="openVisionAnalyzer()">Analizuj</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-vision-analyzer.html', '_blank')">Otwórz</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-vision-analyzer.html', '_blank')">OtwÃ³rz</button> 
         </div>
       </div>
 
       <!-- Math Solver -->
       <div class="worker-card" data-worker="math">
         <div class="worker-icon"></div>
-        <h3 class="worker-title">Rozwi¹zywanie Matematyki</h3>
-        <p class="worker-description">Rozwi¹zuj problemy matematyczne z DeepSeek Math</p>
+        <h3 class="worker-title">RozwiÄ…zywanie Matematyki</h3>
+        <p class="worker-description">RozwiÄ…zuj problemy matematyczne z DeepSeek Math</p>
         <div class="worker-features">
           <span class="feature-tag">DeepSeek Math</span>
           <span class="feature-tag">Algebra</span>
@@ -88,8 +122,8 @@
         </div>
         <div class="worker-actions">
           <input type="text" placeholder="Problem matematyczny..." class="quick-prompt" id="mathPrompt">
-          <button class="action-btn primary" onclick="openMathSolver()">Rozwi¹¿</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-math-solver.html', '_blank')">Otwórz</button>
+          <button class="action-btn primary" onclick="openMathSolver()">RozwiÄ…Å¼</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-math-solver.html', '_blank')">OtwÃ³rz</button>     
         </div>
       </div>
 
@@ -97,16 +131,16 @@
       <div class="worker-card" data-worker="chat">
         <div class="worker-icon"></div>
         <h3 class="worker-title">AI Asystent</h3>
-        <p class="worker-description">Uniwersalny chatbot z ró¿nymi modelami AI</p>
+        <p class="worker-description">Uniwersalny chatbot z rÃ³Å¼nymi modelami AI</p>
         <div class="worker-features">
           <span class="feature-tag">Multi-model</span>
           <span class="feature-tag">Kontekst</span>
           <span class="feature-tag">Historia</span>
         </div>
         <div class="worker-actions">
-          <input type="text" placeholder="Rozpocznij rozmowê..." class="quick-prompt" id="chatPrompt">
+          <input type="text" placeholder="Rozpocznij rozmowÄ™..." class="quick-prompt" id="chatPrompt">
           <button class="action-btn primary" onclick="openChatAssistant()">Chat</button>
-          <button class="action-btn secondary" onclick="window.open('/ai-chat-assistant.html', '_blank')">Otwórz</button>
+          <button class="action-btn secondary" onclick="window.open('/ai-chat-assistant.html', '_blank')">OtwÃ³rz</button>  
         </div>
       </div>
     </div>
@@ -142,6 +176,112 @@
     text-align: center;
     margin-bottom: 2rem;
     font-size: 1.1rem;
+  }
+
+  /* SYSTEM CONTROL PANEL STYLES */
+  .system-control-panel {
+    background: rgba(0, 217, 255, 0.05);
+    border: 2px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .system-title {
+    color: #00d9ff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .system-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .system-btn {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    border-radius: 6px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    position: relative;
+    display: block;
+  }
+
+  .system-btn:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .system-icon {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .system-btn h4 {
+    color: #00d9ff;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .system-btn p {
+    color: #ccc;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .status-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 12px;
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .status-badge.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .status-badge.beta {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+  }
+
+  .status-badge.production {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .status-badge.coming {
+    background: rgba(107, 114, 128, 0.2);
+    color: #6b7280;
+    border: 1px solid rgba(107, 114, 128, 0.3);
   }
 
   .workers-grid {
@@ -258,11 +398,15 @@
   }
 
   @media (max-width: 768px) {
-    .workers-grid {
+    .workers-grid, .system-buttons {
       grid-template-columns: 1fr;
     }
-    
-    .worker-card {
+
+    .worker-card, .system-btn {
+      padding: 1rem;
+    }
+
+    .system-control-panel {
       padding: 1rem;
     }
   }
@@ -347,14 +491,14 @@
       prompt.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           const workerId = this.id.replace('Prompt', '');
-          const funcName = 'open' + workerId.charAt(0).toUpperCase() + workerId.slice(1) + 
-                          (workerId === 'image' ? 'Generator' : 
+          const funcName = 'open' + workerId.charAt(0).toUpperCase() + workerId.slice(1) +
+                          (workerId === 'image' ? 'Generator' :
                            workerId === 'text' ? 'Generator' :
                            workerId === 'code' ? 'Assistant' :
                            workerId === 'vision' ? 'Analyzer' :
                            workerId === 'math' ? 'Solver' :
                            workerId === 'chat' ? 'Assistant' : '');
-          
+
           if (window[funcName]) {
             window[funcName]();
           }
