@@ -1,0 +1,385 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="BigQuery Analytics - LUC de ZEN ON">
+  <div class="header-with-help">
+    <h1 class="page-title">BigQuery Analytics</h1>
+    <button
+      id="helpButton"
+      class="help-icon"
+      title="Kliknij aby uzyskać szczegółowe informacje"
+    >
+      ?
+    </button>
+  </div>
+  <p style="color: #ccc; margin-bottom: 30px;">
+    Analizuj dane z Google BigQuery. Wykonuj zapytania SQL i generuj raporty
+    analityczne.
+  </p>
+
+  <div class="analytics-container">
+    <div class="query-section">
+      <h3>Zapytanie SQL</h3>
+      <div class="form-group">
+        <label for="projectId">Project ID:</label>
+        <input
+          type="text"
+          id="projectId"
+          value="zenon-project-467918"
+          placeholder="Wprowadź BigQuery Project ID"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="sqlQuery">Zapytanie SQL:</label>
+        <textarea
+          id="sqlQuery"
+          rows="6"
+          placeholder="SELECT * FROM analytics_data WHERE date >= '2025-01-01' LIMIT 10"
+          >SELECT * FROM analytics_data WHERE date >= '2025-01-01' LIMIT 10</textarea
+        >
+      </div>
+
+      <button id="executeButton" class="execute-btn">
+        Wykonaj zapytanie
+      </button>
+
+      <div id="loadingIndicator" class="loading" style="display: none;">
+        Wykonywanie zapytania BigQuery...
+      </div>
+    </div>
+
+    <div class="results-section">
+      <h3>Wyniki analizy</h3>
+      <div id="resultsContainer" class="results-container">
+        <p style="color: #999;">Wykonaj zapytanie aby zobaczyć wyniki</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .analytics-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .analytics-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .query-section,
+    .results-section {
+      background: #111;
+      border: 1px solid #333;
+      padding: 30px;
+    }
+
+    .query-section h3,
+    .results-section h3 {
+      color: #fff;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .execute-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #2d4a2d;
+      border-color: #4a7c4a;
+    }
+
+    .execute-btn:hover {
+      background: #3d5a3d;
+      border-color: #5a8c5a;
+    }
+
+    .results-container {
+      background: #0a0a0a;
+      border: 1px solid #333;
+      padding: 20px;
+      min-height: 400px;
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .data-table th,
+    .data-table td {
+      border: 1px solid #333;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .data-table th {
+      background: #1a1a1a;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .data-table td {
+      color: #ccc;
+    }
+
+    .data-table tr:nth-child(even) {
+      background: #111;
+    }
+
+    .summary-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card h4 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      color: #ccc;
+    }
+
+    .metric-value {
+      color: #4a9eff;
+      font-weight: bold;
+    }
+
+    .query-info {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-family: monospace;
+      color: #ccc;
+    }
+  </style>
+
+  <script>
+    const projectIdInput = document.getElementById(
+      "projectId"
+    ) as HTMLInputElement;
+    const sqlQueryInput = document.getElementById(
+      "sqlQuery"
+    ) as HTMLTextAreaElement;
+    const executeButton = document.getElementById(
+      "executeButton"
+    ) as HTMLButtonElement;
+    const loadingIndicator = document.getElementById(
+      "loadingIndicator"
+    ) as HTMLElement;
+    const resultsContainer = document.getElementById(
+      "resultsContainer"
+    ) as HTMLElement;
+
+    async function executeQuery() {
+      if (!sqlQueryInput?.value.trim()) {
+        alert("Proszę wprowadzić zapytanie SQL");
+        return;
+      }
+
+      const projectId = projectIdInput?.value.trim();
+      const query = sqlQueryInput?.value.trim();
+
+      if (executeButton) executeButton.disabled = true;
+      if (loadingIndicator) loadingIndicator.style.display = "block";
+
+      try {
+        const response = await fetch("/api/bigquery", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            projectId: projectId,
+            query: query,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        displayResults(data);
+      } catch (error) {
+        console.error("Error:", error);
+        if (resultsContainer) {
+          resultsContainer.innerHTML = `
+            <div class="error">
+              <h4>Błąd wykonania zapytania</h4>
+              <p>${error instanceof Error ? error.message : "Nieznany błąd"}</p>
+            </div>
+          `;
+        }
+      } finally {
+        if (executeButton) executeButton.disabled = false;
+        if (loadingIndicator) loadingIndicator.style.display = "none";
+      }
+    }
+
+    function displayResults(data: any) {
+      if (!resultsContainer || !data.success) return;
+
+      const { data: analyticsData } = data;
+
+      let html = `
+        <div class="query-info">
+          <strong>Project ID:</strong> ${analyticsData.projectId}<br>
+          <strong>Executed Query:</strong> ${analyticsData.query}<br>
+          <strong>Timestamp:</strong> ${new Date(analyticsData.timestamp).toLocaleString()}
+        </div>
+      `;
+
+      // Summary card
+      if (analyticsData.summary) {
+        html += `
+          <div class="summary-card">
+            <h4>Podsumowanie</h4>
+            <div class="metric">
+              <span>Łączne odsłony:</span>
+              <span class="metric-value">${analyticsData.summary.total_pageviews.toLocaleString()}</span>
+            </div>
+            <div class="metric">
+              <span>Unikalni użytkownicy:</span>
+              <span class="metric-value">${analyticsData.summary.total_unique_visitors.toLocaleString()}</span>
+            </div>
+            <div class="metric">
+              <span>Średni bounce rate:</span>
+              <span class="metric-value">${(analyticsData.summary.average_bounce_rate * 100).toFixed(1)}%</span>
+            </div>
+            <div class="metric">
+              <span>Średni czas sesji:</span>
+              <span class="metric-value">${analyticsData.summary.average_session_duration}s</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Data table
+      if (analyticsData.results && analyticsData.results.length > 0) {
+        const columns = Object.keys(analyticsData.results[0]);
+
+        html += `
+          <table class="data-table">
+            <thead>
+              <tr>
+                ${columns.map((col) => `<th>${col}</th>`).join("")}
+              </tr>
+            </thead>
+            <tbody>
+              ${analyticsData.results
+                .map(
+                  (row: any) => `
+                <tr>
+                  ${columns.map((col) => `<td>${row[col]}</td>`).join("")}
+                </tr>
+              `
+                )
+                .join("")}
+            </tbody>
+          </table>
+        `;
+      }
+
+      resultsContainer.innerHTML = html;
+    }
+
+    if (executeButton) {
+      executeButton.addEventListener("click", executeQuery);
+    }
+
+    // Help modal functionality
+    const helpButton = document.getElementById("helpButton");
+    const helpModal = document.getElementById("helpModal");
+    const closeModal = document.getElementById("closeModal");
+
+    if (helpButton && helpModal && closeModal) {
+      helpButton.addEventListener("click", () => {
+        helpModal.style.display = "flex";
+      });
+
+      closeModal.addEventListener("click", () => {
+        helpModal.style.display = "none";
+      });
+
+      helpModal.addEventListener("click", (e) => {
+        if (e.target === helpModal) {
+          helpModal.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>BigQuery Analytics - Szczegółowy opis</h2>
+        <span id="closeModal" class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>
+          <strong
+            >BigQuery to potężne, w pełni zarządzane rozwiązanie analityczne w
+            chmurze pozwalające na błyskawiczne przetwarzanie ogromnych zbiorów
+            danych.</strong>
+        </p>
+
+        <h3>Dzięki BigQuery można:</h3>
+        <ul>
+          <li>
+            <strong>Wykonywać szybkie i skalowalne zapytania SQL</strong> na bardzo
+            dużych bazach danych.
+          </li>
+          <li>
+            <strong>Łatwo integrować dane z różnych źródeł</strong> i analizować
+            je w czasie rzeczywistym.
+          </li>
+          <li>
+            <strong>Tworzyć raporty, dashboardy i przewidywania</strong> na podstawie
+            zaawansowanej analityki.
+          </li>
+          <li>
+            <strong>Automatyzować przetwarzanie i raportowanie danych</strong> dzięki
+            harmonogramom i integracjom API.
+          </li>
+        </ul>
+
+        <h3>Optymalne wykorzystanie:</h3>
+        <p>
+          Optymalne wykorzystanie BigQuery polega na łączeniu go z narzędziami
+          do wizualizacji danych i automatyzacji przepływów pracy, aby generować
+          szybkie i precyzyjne analizy dla zespołów biznesowych.
+        </p>
+
+        <div class="feature-highlight">
+          <h3>Kluczowe zalety:</h3>
+          <ul>
+            <li>🚀 Błyskawiczna prędkość zapytań</li>
+            <li>📊 Analiza petabajtów danych</li>
+            <li>🔄 Integracja z wieloma źródłami</li>
+            <li>⚡ Automatyzacja procesów</li>
+            <li>📈 Zaawansowana analityka predykcyjna</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
