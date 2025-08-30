@@ -1,26 +1,26 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Section from "../../components/Section.astro";
-import { getCollection, render } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
+import { render } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  return posts.map((post) => ({ params: { slug: post.id } }));
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
 
-// Resolve post by slug at render time using Astro.params
-const allPosts = await getCollection("posts");
-const post = allPosts.find((p) => p.id === Astro.params.slug);
-if (!post) {
-  throw new Error(`Post not found for slug: ${Astro.params.slug}`);
-}
+type Props = CollectionEntry<"posts">;
+const post = Astro.props;
 
 const { Content } = await render(post);
 ---
 
 <Layout
-  siteTitle={post.data.title}
-  siteDescription={post.data.description}
+  siteTitle={Astro.props.data.title}
+  siteDescription={Astro.props.data.description}
   headerCosmeticText="POST"
 >
   <Section class="prose-lg p-8">
