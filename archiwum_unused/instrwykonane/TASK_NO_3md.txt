@@ -1,0 +1,42 @@
+Etap 3: Rozszerzenie panelu agentów i dodawanie własnych agentów
+Krok 1: Rozszerzenie backendu API Workers
+Dodaj nowe endpointy API do zarządzania agentami AI:
+
+GET /api/agents — pobiera listę agentów,
+
+POST /api/agents — tworzy nowego agenta,
+
+PUT /api/agents/:id — edytuje agenta o podanym ID,
+
+DELETE /api/agents/:id — usuwa agenta.
+
+Dane agentów mogą być przechowywane w Cloudflare R1 lub KV, w zależności od decyzji o strukturze danych.
+
+Przykładowa struktura agenta:
+
+json
+{
+  "id": "agent1",
+  "name": "Agent Nazwa",
+  "model": "gpt-4",
+  "description": "Opis agenta",
+  "config": { ... }
+}
+Krok 2: Rozszerzenie frontendowego panelu agentów
+Dodaj interfejs do:
+
+listowania wszystkich agentów,
+
+formularza tworzenia nowego agenta (nazwa, opis, wybór modelu, inne ustawienia),
+
+edycji istniejącego agenta,
+
+usuwania agenta.
+
+Zapewnij odświeżanie listy po operacjach CRUD oraz wyświetlanie feedbacku użytkownikowi (np. komunikaty o sukcesie/błędzie).
+
+Krok 3: Integracja z modelem AI i innymi funkcjami
+Upewnij się, że po wybraniu agenta API używa właściwej konfiguracji modelu przypisanego do danego agenta.
+
+Możesz rozszerzyć funkcje agentów o integracje z innymi usługami, webhookami lub eventami.
+

@@ -1,0 +1,12 @@
+---
+import { getCollection } from 'astro:content';
+import AgentPreview from '../components/AgentPreview.astro';
+
+const agents = await getCollection('posts', (post) => post.data.published);
+---
+
+<section>
+  {agents.map((agent) => (
+    <AgentPreview agent={agent} />
+  ))}
+</section>
