@@ -1,0 +1,465 @@
+---
+// No imports needed for standalone page
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>POLACZEK_SYS_T - System Monitor</title>
+  </head>
+  <body>
+    <main class="system-interface">
+      <div class="container">
+        <div class="header">
+          <h1 class="system-title">⚙️ POLACZEK_SYS_T</h1>
+          <p class="system-subtitle">
+            Advanced System Monitoring and Management Agent
+          </p>
+        </div>
+
+        <div class="control-panel">
+          <h3 class="panel-title">System Commands</h3>
+          <div class="controls">
+            <button class="cmd-btn" data-command="monitor"
+              >📊 Monitor System</button
+            >
+            <button class="cmd-btn" data-command="analyze"
+              >🔬 Analyze Performance</button
+            >
+            <button class="cmd-btn" data-command="optimize"
+              >⚡ Optimize System</button
+            >
+            <button class="cmd-btn" data-command="status">📋 Get Status</button>
+            <button class="cmd-btn" data-command="help">❓ Help</button>
+          </div>
+        </div>
+
+        <div class="terminal-panel">
+          <div class="terminal-header">
+            <span class="terminal-title">POLACZEK_SYS_T Terminal</span>
+            <div class="terminal-controls">
+              <button id="clearTerminal" class="control-btn">Clear</button>
+              <button id="saveLog" class="control-btn">Save Log</button>
+            </div>
+          </div>
+          <div id="terminal" class="terminal">
+            POLACZEK_SYS_T v2.3.1 - System Monitoring Agent
+            ================================================== Ready for
+            commands. Click buttons above or type commands. Available commands:
+            monitor, analyze, optimize, status, help >
+          </div>
+          <div class="terminal-input">
+            <span class="prompt">polaczek@system:~$</span>
+            <input
+              type="text"
+              id="commandInput"
+              class="command-input"
+              placeholder="Enter command..."
+            />
+            <button id="executeBtn" class="execute-btn">Execute</button>
+          </div>
+        </div>
+
+        <div class="system-stats">
+          <div class="stat-card">
+            <h4>🖥️ CPU Usage</h4>
+            <div class="stat-value" id="cpuStat">23%</div>
+            <div class="stat-bar">
+              <div class="stat-fill" style="width: 23%"></div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <h4>💾 Memory</h4>
+            <div class="stat-value" id="memoryStat">6.2GB/16GB</div>
+            <div class="stat-bar">
+              <div class="stat-fill" style="width: 38%"></div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <h4>💾 Disk I/O</h4>
+            <div class="stat-value" id="diskStat">145 MB/s</div>
+            <div class="stat-bar">
+              <div class="stat-fill" style="width: 65%"></div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <h4>🌐 Network</h4>
+            <div class="stat-value" id="networkStat">15.7 Mbps</div>
+            <div class="stat-bar">
+              <div class="stat-fill" style="width: 45%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      .system-interface {
+        padding: 2rem 0;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .system-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #3fc8ff, #0d3b66);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      .system-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+      }
+
+      .control-panel {
+        background: linear-gradient(
+          135deg,
+          rgba(13, 59, 102, 0.1),
+          rgba(4, 17, 38, 0.2)
+        );
+        border: 2px solid rgba(13, 59, 102, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .panel-title {
+        color: #3fc8ff;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .controls {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .cmd-btn {
+        background: rgba(13, 59, 102, 0.3);
+        color: #3fc8ff;
+        border: 2px solid rgba(13, 59, 102, 0.5);
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .cmd-btn:hover {
+        background: rgba(13, 59, 102, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(13, 59, 102, 0.3);
+      }
+
+      .terminal-panel {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid rgba(13, 59, 102, 0.4);
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+
+      .terminal-header {
+        background: rgba(13, 59, 102, 0.2);
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(13, 59, 102, 0.3);
+      }
+
+      .terminal-title {
+        color: #3fc8ff;
+        font-weight: 600;
+      }
+
+      .terminal-controls {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .control-btn {
+        background: rgba(13, 59, 102, 0.3);
+        color: #3fc8ff;
+        border: 1px solid rgba(13, 59, 102, 0.5);
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+      }
+
+      .terminal {
+        font-family: "Courier New", monospace;
+        color: #00ff00;
+        padding: 1.5rem;
+        min-height: 350px;
+        background: rgba(4, 17, 38, 0.6);
+        overflow-y: auto;
+        white-space: pre-wrap;
+        line-height: 1.4;
+      }
+
+      .terminal-input {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        background: rgba(4, 17, 38, 0.8);
+        border-top: 1px solid rgba(13, 59, 102, 0.3);
+      }
+
+      .prompt {
+        color: #3fc8ff;
+        font-family: "Courier New", monospace;
+        margin-right: 0.5rem;
+        font-weight: bold;
+      }
+
+      .command-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #00ff00;
+        font-family: "Courier New", monospace;
+        font-size: 1rem;
+        padding: 0.5rem;
+        outline: none;
+      }
+
+      .execute-btn {
+        background: rgba(13, 59, 102, 0.5);
+        color: #3fc8ff;
+        border: 1px solid rgba(13, 59, 102, 0.7);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 0.5rem;
+      }
+
+      .system-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .stat-card {
+        background: linear-gradient(
+          135deg,
+          rgba(13, 59, 102, 0.1),
+          rgba(4, 17, 38, 0.2)
+        );
+        border: 2px solid rgba(13, 59, 102, 0.3);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .stat-card h4 {
+        color: #3fc8ff;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1rem;
+      }
+
+      .stat-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .stat-fill {
+        height: 100%;
+        background: linear-gradient(45deg, #3fc8ff, #0d3b66);
+        transition: width 0.3s ease;
+      }
+
+      @media (max-width: 768px) {
+        .system-title {
+          font-size: 2.5rem;
+        }
+
+        .controls {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .terminal-input {
+          flex-direction: column;
+          gap: 0.5rem;
+          align-items: stretch;
+        }
+      }
+    </style>
+
+    <script>
+      interface ApiResponse {
+        success: boolean;
+        response?: string;
+        error?: string;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const terminal = document.getElementById("terminal");
+        const commandInput = document.getElementById("commandInput");
+        const executeBtn = document.getElementById("executeBtn");
+        const clearBtn = document.getElementById("clearTerminal");
+        const cmdButtons = document.querySelectorAll(".cmd-btn");
+
+        let commandHistory: string[] = [];
+        let historyIndex = -1;
+
+        // Command execution function
+        async function executeCommand(command: string, target = "all") {
+          if (!terminal) return;
+
+          terminal.innerHTML += `\n> polaczek@system:~$ ${command}`;
+          terminal.innerHTML += "\nExecuting command...\n";
+          terminal.scrollTop = terminal.scrollHeight;
+
+          try {
+            const response = await fetch("/api/polaczek-sys-t", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ command, target, parameters: {} }),
+            });
+
+            const data = (await response.json()) as ApiResponse;
+
+            if (data.success) {
+              terminal.innerHTML += `\n${data.response}\n`;
+              terminal.innerHTML += "\n[Command completed]\n";
+            } else {
+              terminal.innerHTML += `\nERROR: ${data.error}\n`;
+            }
+          } catch (error) {
+            terminal.innerHTML += `\nCONNECTION ERROR: ${(error as Error).message}\n`;
+          }
+
+          terminal.scrollTop = terminal.scrollHeight;
+
+          // Update stats based on command
+          if (command === "monitor") {
+            updateSystemStats();
+          }
+        }
+
+        // Update system stats with random values
+        function updateSystemStats() {
+          const cpuStat = document.getElementById("cpuStat");
+          const memoryStat = document.getElementById("memoryStat");
+          const diskStat = document.getElementById("diskStat");
+          const networkStat = document.getElementById("networkStat");
+
+          if (cpuStat) {
+            const cpu = Math.floor(Math.random() * 40) + 15;
+            cpuStat.textContent = `${cpu}%`;
+            const cpuBar = cpuStat.parentElement?.querySelector(
+              ".stat-fill"
+            ) as HTMLElement;
+            if (cpuBar) cpuBar.style.width = `${cpu}%`;
+          }
+
+          if (memoryStat) {
+            const memory = Math.floor(Math.random() * 8) + 4;
+            memoryStat.textContent = `${memory}.${Math.floor(Math.random() * 9)}GB/16GB`;
+            const memBar = memoryStat.parentElement?.querySelector(
+              ".stat-fill"
+            ) as HTMLElement;
+            if (memBar) memBar.style.width = `${(memory / 16) * 100}%`;
+          }
+        }
+
+        // Button event listeners
+        cmdButtons.forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const command = this.getAttribute("data-command");
+            if (command) {
+              executeCommand(command);
+              commandHistory.push(command);
+              historyIndex = commandHistory.length;
+            }
+          });
+        });
+
+        // Execute button
+        executeBtn?.addEventListener("click", function () {
+          const input = commandInput as HTMLInputElement;
+          if (input?.value.trim()) {
+            executeCommand(input.value.trim());
+            commandHistory.push(input.value.trim());
+            historyIndex = commandHistory.length;
+            input.value = "";
+          }
+        });
+
+        // Enter key for command input
+        commandInput?.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            executeBtn?.click();
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            if (historyIndex > 0) {
+              historyIndex--;
+              (this as HTMLInputElement).value = commandHistory[historyIndex];
+            }
+          } else if (e.key === "ArrowDown") {
+            e.preventDefault();
+            if (historyIndex < commandHistory.length - 1) {
+              historyIndex++;
+              (this as HTMLInputElement).value = commandHistory[historyIndex];
+            } else {
+              historyIndex = commandHistory.length;
+              (this as HTMLInputElement).value = "";
+            }
+          }
+        });
+
+        // Clear terminal
+        clearBtn?.addEventListener("click", function () {
+          if (terminal) {
+            terminal.innerHTML = `POLACZEK_SYS_T v2.3.1 - System Monitoring Agent
+==================================================
+Ready for commands. Click buttons above or type commands.
+
+Available commands: monitor, analyze, optimize, status, help
+> `;
+          }
+        });
+
+        // Auto-execute monitor command on load
+        setTimeout(() => executeCommand("monitor"), 1500);
+
+        // Auto-update stats every 10 seconds
+        setInterval(updateSystemStats, 10000);
+      });
+    </script>
+  </body>
+</html>

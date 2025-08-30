@@ -4,24 +4,25 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
-  siteTitle: string;
-  siteDescription: string;
-  headerCosmeticText: string;
+  siteTitle?: string;
+  siteDescription?: string;
 }
 
-const { siteTitle, siteDescription, headerCosmeticText } = Astro.props;
+const { siteTitle = "", siteDescription = "" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="bg-primary">
+<html lang="en">
   <head>
     <Head pageTitle={siteTitle} pageDescription={siteDescription} />
+    <!-- Import Backroom visual styles -->
+    <link rel="stylesheet" href="/src/styles/backroom-tailwind.css" />
   </head>
   <body class="bg-cyber-dark text-cyber-text font-sans">
+    <Header cosmeticText="Backroom Interface" />
     <main class="min-h-svh">
-      <Header cosmeticText={headerCosmeticText} />
       <slot />
-      <Footer />
     </main>
+    <Footer />
   </body>
 </html>

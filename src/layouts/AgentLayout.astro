@@ -8,7 +8,7 @@ const { frontmatter, Content } = Astro.props;
     <meta name="description" content={frontmatter.description} />
     <!-- Dodaj meta SEO, linki CSS itd. -->
   </head>
-  <body>
+  <body class="bg-cyber-dark text-cyber-text font-sans">
     <header>
       <h1>{frontmatter.title}</h1>
       <p>Status: {frontmatter.status}</p>

@@ -1,4 +1,30 @@
-﻿/**
+﻿export default {
+  async fetch(request: Request, env: any) {
+    const url = new URL(request.url);
+    try {
+      if (request.method === 'GET' && url.pathname === '/api/agents') {
+        const list = await env.AGENTS.list();
+        const agents = await Promise.all(list.keys.map(async (k: any) => {
+          const v = await env.AGENTS.get(k.name);
+          try { return JSON.parse(v); } catch { return v; }
+        }));
+        return new Response(JSON.stringify(agents.filter(Boolean)), { headers: { 'Content-Type': 'application/json' } });
+      }
+
+      if (request.method === 'POST' && url.pathname === '/api/agent') {
+        const data = await request.json();
+        if (!data?.id) return new Response(JSON.stringify({ error: 'Missing id' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+        await env.AGENTS.put(data.id, JSON.stringify(data));
+        return new Response(JSON.stringify({ ok: true }), { headers: { 'Content-Type': 'application/json' } });
+      }
+
+      return new Response('Not found', { status: 404 });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message ?? String(err) }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
+}
+/**
  * Extended Cloudflare Workers API for Agent Management
  * Includes predefined agents from ZENON AI System
  */

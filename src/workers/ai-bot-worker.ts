@@ -1,4 +1,31 @@
-﻿export interface Env {
+﻿export default {
+  async fetch(request: Request, env: any) {
+    const url = new URL(request.url);
+    // Simple CORS preflight support
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' } });
+    }
+
+    try {
+      if (request.method !== 'POST' || url.pathname !== '/api/ai-bot-worker') return new Response('Not found', { status: 404 });
+      const data = await request.json();
+      const prompt = data?.prompt || '';
+      if (!prompt) return new Response(JSON.stringify({ error: 'Missing prompt' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+
+      if (!env.AI) {
+        // Mocked response when AI binding is absent
+        return new Response(JSON.stringify({ answer: `Echo: ${prompt}` }), { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } });
+      }
+
+      // Example call shape for Workers AI or other provider
+      const aiResp = await env.AI.run({ model: 'gpt-4o-mini', input: prompt });
+      return new Response(JSON.stringify({ answer: aiResp }), { headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' } });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message ?? String(err) }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
+}
+export interface Env {
   AI: any;
   AI_MODELS: KVNamespace;
   AI_FILES: KVNamespace;
