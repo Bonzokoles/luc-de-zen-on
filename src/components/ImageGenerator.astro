@@ -1,4 +1,46 @@
 ---
+const { } = Astro.props;
+---
+
+<div class="p-4 bg-cyber-surface border border-cyber-border rounded">
+  <label class="block text-cyber-text mb-2">Prompt</label>
+  <input id="img-prompt" class="w-full p-2 rounded bg-black/10 text-cyber-text" />
+  <div class="mt-3 flex gap-2">
+    <button id="gen-btn" class="px-4 py-2 border border-cyber-border text-cyber-blue">Generuj</button>
+    <span id="gen-status" class="text-cyber-text-dim">Gotowy</span>
+  </div>
+
+  <div id="gen-result" class="mt-4"></div>
+
+  <script type="module">
+    const btn = document.getElementById('gen-btn');
+    const promptIn = document.getElementById('img-prompt');
+    const status = document.getElementById('gen-status');
+    const result = document.getElementById('gen-result');
+
+    btn.addEventListener('click', async () => {
+      const prompt = promptIn.value.trim();
+      if (!prompt) return alert('Wpisz prompt');
+      status.textContent = 'Generowanie...';
+      try {
+        const res = await fetch('/api/generate-image', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }) });
+        const data = await res.json();
+        status.textContent = 'Gotowe';
+        if (data.imageUrl) {
+          result.innerHTML = `<img src="${data.imageUrl}" alt="generated" class="max-w-full rounded"/>`;
+        } else if (data.result) {
+          result.innerHTML = `<pre class="text-sm">${JSON.stringify(data.result, null, 2)}</pre>`;
+        } else {
+          result.textContent = 'Brak obrazu';
+        }
+      } catch (e) {
+        status.textContent = 'Błąd';
+        result.textContent = String(e);
+      }
+    });
+  </script>
+</div>
+---
 let prompt = "";
 let imageUrl = "";
 async function generate() {

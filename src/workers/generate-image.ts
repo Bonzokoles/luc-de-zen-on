@@ -1,3 +1,28 @@
+export default {
+  async fetch(request: Request, env: any) {
+    const url = new URL(request.url);
+    try {
+      if (request.method !== 'POST' || url.pathname !== '/api/generate-image') {
+        return new Response('Not found', { status: 404 });
+      }
+      const data = await request.json();
+      const prompt = data?.prompt || '';
+      if (!prompt) return new Response(JSON.stringify({ error: 'Missing prompt' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
+
+      if (!env.AI) {
+        // Fallback: return a placeholder data URL or message
+        return new Response(JSON.stringify({ imageUrl: '/placeholder-image.png', note: 'AI binding not configured' }), { headers: { 'Content-Type': 'application/json' } });
+      }
+
+      // Example for Workers AI (pseudo): env.AI.run(model, options)
+      const resp = await env.AI.run({ model: '@cf/flux-1-schnell', input: prompt });
+      // resp handling depends on provider; adapt accordingly
+      return new Response(JSON.stringify({ result: resp }), { headers: { 'Content-Type': 'application/json' } });
+    } catch (err: any) {
+      return new Response(JSON.stringify({ error: err?.message ?? String(err) }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    }
+  }
+}
 export interface Env {
   AI: any;
   IMAGES: KVNamespace;
@@ -34,7 +59,7 @@ export default {
         // Enhanced validation (from user's example)
         if (!prompt || typeof prompt !== "string" || prompt.trim().length < 5) {
           return new Response(JSON.stringify({ 
-            error: "Prompt musi mieæ co najmniej 5 znaków",
+            error: "Prompt musi mieï¿½ co najmniej 5 znakï¿½w",
             success: false 
           }), { 
             status: 400, 
@@ -276,7 +301,7 @@ export default {
       console.error(' Enhanced image generation error:', error);
       return new Response(JSON.stringify({
         error: 'Failed to process request',
-        details: error instanceof Error ? error.message : 'Nieznany b³¹d',
+        details: error instanceof Error ? error.message : 'Nieznany bï¿½ï¿½d',
         success: false
       }), {
         status: 500,

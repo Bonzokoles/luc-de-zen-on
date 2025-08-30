@@ -205,20 +205,66 @@
         </div>
       </div>
     </div>
+
+    <!-- Advanced Agent Systems -->
+    <div class="advanced-agents-section">
+      <h3 class="agents-title">ZAAWANSOWANE SYSTEMY AGENTÓW</h3>
+      <div class="agent-buttons">
+        <button class="agent-btn ai-agent-s" onclick="openAIAgentS()">
+          <div class="agent-icon">🧠</div>
+          <div class="agent-label">AI_AGENT_S</div>
+          <div class="agent-desc">Advanced AI Reasoning</div>
+        </button>
+        <button class="agent-btn polaczek-sys-t" onclick="openPolaczekSysT()">
+          <div class="agent-icon">⚙️</div>
+          <div class="agent-label">POLACZEK_SYS_T</div>
+          <div class="agent-desc">System Monitoring</div>
+        </button>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Backroom dark base with subtle navy gradient and grid lines */
   .ai-workers-section {
-    padding: 4rem 0;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    padding: 4rem 0 6rem 0;
+    background: linear-gradient(180deg, #000000 0%, #041126 100%);
     color: white;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Add repeated subtle vertical and horizontal lines for texture */
+  .ai-workers-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.02) 0 1px,
+        transparent 1px 120px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.02) 0 1px,
+        transparent 1px 80px
+      );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+    z-index: 0;
   }
 
   .section-container {
-    max-width: 1200px;
+    position: relative; /* sit above the ::before grid */
+    z-index: 1;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
+    /* extend edges beyond viewport to create "cut-off" effect */
+    width: calc(100% + 240px);
+    left: -120px;
   }
 
   .section-title {
@@ -226,7 +272,7 @@
     font-weight: bold;
     text-align: center;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #00d4ff, #5b73ff);
+    background: linear-gradient(45deg, #3fc8ff, #5b73ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -234,87 +280,246 @@
 
   .section-description {
     text-align: center;
-    font-size: 1.2rem;
-    opacity: 0.8;
-    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-bottom: 2.4rem;
   }
 
+  /* Thin navy pill buttons */
   .tags-section {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    gap: 0.75rem;
+    margin-bottom: 2.4rem;
     flex-wrap: wrap;
   }
 
   .tag-btn {
-    background: linear-gradient(45deg, #ff6b35, #f7931e);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    font-weight: bold;
-    font-size: 0.9rem;
+    background: transparent;
+    color: #0d3b66; /* navy text */
+    border: 1px solid rgba(13, 59, 102, 0.9);
+    padding: 0.35rem 1.05rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
+    box-shadow: none;
   }
 
   .tag-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 6px 18px rgba(5, 28, 60, 0.18);
   }
 
+  /* Workers grid and cards - Larger and more rectangular */
   .workers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    gap: 2.5rem;
     margin-top: 2rem;
+    margin-bottom: 4rem;
   }
 
   .worker-card {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(2, 6, 12, 0.95),
+      rgba(4, 8, 18, 0.85)
+    );
+    border: 2px solid rgba(13, 59, 102, 0.3);
+    border-radius: 8px;
+    padding: 2.5rem;
+    min-height: 320px;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+    backdrop-filter: blur(12px);
+    overflow: visible;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Enhanced window edges with stronger frame lines */
+  .worker-card::before,
+  .worker-card::after {
+    content: "";
+    position: absolute;
+    left: -120px;
+    width: calc(100% + 240px);
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 59, 102, 0.4),
+      rgba(13, 59, 102, 0.8) 20%,
+      rgba(13, 59, 102, 0.8) 80%,
+      rgba(13, 59, 102, 0.4)
+    );
+    top: -1px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .worker-card::after {
+    bottom: -1px;
+    top: auto;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 59, 102, 0.3),
+      rgba(13, 59, 102, 0.6) 20%,
+      rgba(13, 59, 102, 0.6) 80%,
+      rgba(13, 59, 102, 0.3)
+    );
+  }
+
+  /* Add side frame lines for stronger rectangle effect */
+  .worker-card:before {
+    box-shadow:
+      -120px 0 0 -119px rgba(13, 59, 102, 0.25),
+      calc(100% + 120px) 0 0 -119px rgba(13, 59, 102, 0.25);
   }
 
   .worker-card:hover {
-    transform: translateY(-5px);
-    border-color: #00d4ff;
-    box-shadow: 0 15px 35px rgba(0, 212, 255, 0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(2, 10, 20, 0.6);
+    border-color: rgba(13, 59, 102, 0.5);
+  }
+
+  /* Advanced Agents Section */
+  .advanced-agents-section {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px solid rgba(13, 59, 102, 0.3);
+    position: relative;
+  }
+
+  .agents-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #0d3b66, #3fc8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .agent-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-btn {
+    background: linear-gradient(
+      135deg,
+      rgba(13, 59, 102, 0.2),
+      rgba(4, 17, 38, 0.4)
+    );
+    border: 2px solid rgba(13, 59, 102, 0.4);
+    border-radius: 12px;
+    padding: 2rem;
+    min-width: 200px;
+    min-height: 140px;
+    cursor: pointer;
+    transition: all 250ms ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 6px 25px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .agent-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(13, 59, 102, 0.1) 50%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  .agent-btn:hover::before {
+    opacity: 1;
+  }
+
+  .agent-btn:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(13, 59, 102, 0.7);
+    box-shadow:
+      0 20px 50px rgba(2, 10, 20, 0.8),
+      0 0 30px rgba(13, 59, 102, 0.3);
+  }
+
+  .agent-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .agent-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3fc8ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+
+  .agent-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    line-height: 1.3;
   }
 
   .worker-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #00d4ff;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #3fc8ff;
   }
 
   .worker-description {
-    opacity: 0.8;
-    margin-bottom: 1.5rem;
+    opacity: 0.85;
+    margin-bottom: 1rem;
     line-height: 1.6;
   }
 
   .worker-features {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     flex-wrap: wrap;
   }
 
   .feature-tag {
-    background: rgba(0, 212, 255, 0.2);
-    color: #00d4ff;
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
+    background: rgba(11, 42, 74, 0.12);
+    color: #6fd1ff;
+    padding: 0.28rem 0.7rem;
+    border-radius: 12px;
     font-size: 0.8rem;
-    border: 1px solid rgba(0, 212, 255, 0.3);
+    border: 1px solid rgba(11, 42, 74, 0.12);
   }
 
   .worker-actions {
@@ -324,64 +529,57 @@
   }
 
   .quick-prompt {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(11, 42, 74, 0.12);
     border-radius: 8px;
     padding: 0.8rem;
-    color: white;
+    color: #cfefff;
     font-size: 1rem;
     width: 100%;
   }
 
   .quick-prompt:focus {
     outline: none;
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
-  }
-
-  .quick-prompt::placeholder {
-    color: #888;
+    border-color: rgba(11, 42, 74, 0.28);
+    box-shadow: 0 0 0 2px rgba(11, 42, 74, 0.06);
   }
 
   .action-btn {
-    padding: 0.8rem 1.5rem;
+    padding: 0.7rem 1.25rem;
     border: none;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .action-btn.primary {
-    background: linear-gradient(45deg, #00d4ff, #5b73ff);
-    color: white;
+    background: linear-gradient(90deg, #0e4a76, #164e7a);
+    color: #e6f9ff;
   }
-
   .action-btn.primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 8px 24px rgba(3, 15, 30, 0.6);
   }
 
   .action-btn.secondary {
     background: transparent;
-    color: #00d4ff;
-    border: 1px solid #00d4ff;
+    color: #9fd6ff;
+    border: 1px solid rgba(15, 60, 100, 0.12);
   }
-
   .action-btn.secondary:hover {
-    background: #00d4ff;
-    color: white;
+    background: rgba(11, 42, 74, 0.14);
+    color: #cfefff;
   }
 
   .status-indicator {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.3);
+    padding: 0.6rem;
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(11, 42, 74, 0.1);
   }
 
   .status-dot {
@@ -406,13 +604,15 @@
     .workers-grid {
       grid-template-columns: 1fr;
     }
-
     .section-title {
       font-size: 2rem;
     }
-
     .worker-card {
-      padding: 1.5rem;
+      padding: 1.25rem;
+    }
+    .section-container {
+      width: calc(100% + 40px);
+      left: -20px;
     }
   }
 </style>
@@ -499,11 +699,21 @@
     }, 2000);
   }
 
+  // AI Agent S - Advanced AI System
+  function openAIAgentS() {
+    window.open("/hub/ai-agent-s", "_blank");
+  }
+
+  // POLACZEK_SYS_T - System Monitoring Agent
+  function openPolaczekSysT() {
+    window.open("/hub/polaczek-sys-t", "_blank");
+  }
+
   // Quick action handlers
   document.addEventListener("DOMContentLoaded", function () {
     const prompts = document.querySelectorAll(".quick-prompt");
     prompts.forEach((prompt) => {
-      prompt.addEventListener("keypress", function (e) {
+      prompt.addEventListener("keypress", function (e: KeyboardEvent) {
         if (e.key === "Enter") {
           const workerId = (e.target as HTMLElement)
             .closest(".worker-card")

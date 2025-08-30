@@ -1,0 +1,322 @@
+---
+// No imports needed for standalone page
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI_AGENT_S - Advanced AI System</title>
+  </head>
+  <body>
+    <main class="agent-interface">
+      <div class="container">
+        <div class="header">
+          <h1 class="agent-title">🧠 AI_AGENT_S</h1>
+          <p class="agent-subtitle">Advanced AI System for Complex Reasoning</p>
+        </div>
+
+        <div class="interface-panel">
+          <div class="input-section">
+            <label for="agentPrompt" class="input-label"
+              >Complex Problem or Question:</label
+            >
+            <textarea
+              id="agentPrompt"
+              class="prompt-area"
+              placeholder="Enter your complex problem or question for advanced AI analysis...
+            
+Examples:
+- Analyze the implications of quantum computing on cryptography
+- Design a scalable architecture for a distributed system
+- Solve multi-step mathematical problems
+- Provide strategic analysis for business decisions"
+            ></textarea>
+            <button id="analyzeBtn" class="analyze-btn"
+              >🔍 Analyze with AI_AGENT_S</button
+            >
+          </div>
+
+          <div class="response-section">
+            <h3 class="response-title">AI_AGENT_S Analysis</h3>
+            <div id="response" class="response-area">
+              <div class="capabilities">
+                <h4>🎯 Advanced Capabilities:</h4>
+                <ul>
+                  <li>
+                    <strong>Complex Reasoning:</strong> Multi-layered problem analysis
+                  </li>
+                  <li>
+                    <strong>Problem Decomposition:</strong> Breaking down complex
+                    issues
+                  </li>
+                  <li>
+                    <strong>Knowledge Synthesis:</strong> Cross-domain insights
+                  </li>
+                  <li>
+                    <strong>Creative Solutions:</strong> Innovative problem-solving
+                    approaches
+                  </li>
+                  <li>
+                    <strong>Technical Expertise:</strong> Deep domain knowledge
+                  </li>
+                </ul>
+                <p class="instruction">
+                  Enter a prompt above to see advanced AI analysis in action.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <style>
+      .agent-interface {
+        padding: 2rem 0;
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .agent-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #3fc8ff, #0d3b66);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      .agent-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+      }
+
+      .interface-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .input-section,
+      .response-section {
+        background: linear-gradient(
+          135deg,
+          rgba(13, 59, 102, 0.1),
+          rgba(4, 17, 38, 0.2)
+        );
+        border: 2px solid rgba(13, 59, 102, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .input-label {
+        display: block;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #3fc8ff;
+        margin-bottom: 1rem;
+      }
+
+      .prompt-area {
+        width: 100%;
+        min-height: 300px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(13, 59, 102, 0.4);
+        border-radius: 8px;
+        padding: 1.5rem;
+        color: #ffffff;
+        font-family: "Rajdhani", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        resize: vertical;
+        transition: border-color 0.3s ease;
+      }
+
+      .prompt-area:focus {
+        outline: none;
+        border-color: #3fc8ff;
+        box-shadow: 0 0 0 3px rgba(63, 200, 255, 0.1);
+      }
+
+      .prompt-area::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .analyze-btn {
+        width: 100%;
+        background: linear-gradient(45deg, #0d3b66, #3fc8ff);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .analyze-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(13, 59, 102, 0.4);
+      }
+
+      .response-title {
+        font-size: 1.5rem;
+        color: #3fc8ff;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .response-area {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(13, 59, 102, 0.2);
+        border-radius: 8px;
+        padding: 1.5rem;
+        min-height: 400px;
+        color: #ffffff;
+        line-height: 1.6;
+      }
+
+      .capabilities {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .capabilities h4 {
+        color: #3fc8ff;
+        margin-bottom: 1rem;
+      }
+
+      .capabilities ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .capabilities li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(13, 59, 102, 0.2);
+      }
+
+      .capabilities li:last-child {
+        border-bottom: none;
+      }
+
+      .instruction {
+        margin-top: 1.5rem;
+        padding: 1rem;
+        background: rgba(13, 59, 102, 0.1);
+        border-radius: 6px;
+        color: #3fc8ff;
+        font-style: italic;
+      }
+
+      .analysis-result {
+        white-space: pre-wrap;
+        font-family: "Courier New", monospace;
+        background: rgba(4, 17, 38, 0.4);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid rgba(13, 59, 102, 0.3);
+      }
+
+      @media (max-width: 768px) {
+        .interface-panel {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .agent-title {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
+
+    <script>
+      interface ApiResponse {
+        success: boolean;
+        response?: string;
+        agent?: string;
+        capabilities?: string[];
+        error?: string;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const analyzeBtn = document.getElementById("analyzeBtn");
+        const promptArea = document.getElementById("agentPrompt");
+        const responseArea = document.getElementById("response");
+
+        analyzeBtn?.addEventListener("click", async function () {
+          const prompt = (promptArea as HTMLTextAreaElement)?.value.trim();
+
+          if (!prompt) {
+            alert("Please enter a prompt for analysis.");
+            return;
+          }
+
+          // Update button and show loading
+          analyzeBtn.textContent = "🔄 Analyzing...";
+          analyzeBtn.style.opacity = "0.7";
+
+          responseArea!.innerHTML =
+            '<div class="analysis-result">🧠 AI_AGENT_S is processing your request...\n\nAnalyzing complex patterns and generating comprehensive response...</div>';
+
+          try {
+            const response = await fetch("/api/ai-agent-s", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                prompt,
+                context: "advanced_analysis",
+                agentId: "ai-agent-s",
+              }),
+            });
+
+            const data = (await response.json()) as ApiResponse;
+
+            if (data.success) {
+              responseArea!.innerHTML = `
+            <h4>🧠 AI_AGENT_S Advanced Analysis:</h4>
+            <div class="analysis-result">${data.response}</div>
+            <div class="meta-info" style="margin-top: 1rem; padding: 1rem; background: rgba(13, 59, 102, 0.1); border-radius: 6px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">
+              <strong>Agent:</strong> ${data.agent}<br>
+              <strong>Capabilities Used:</strong> ${data.capabilities?.join(", ") || "Advanced AI Processing"}
+            </div>
+          `;
+            } else {
+              responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Error: ${data.error}</div>`;
+            }
+          } catch (error) {
+            responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Connection Error: ${(error as Error).message}</div>`;
+          } finally {
+            // Reset button
+            analyzeBtn.textContent = "🔍 Analyze with AI_AGENT_S";
+            analyzeBtn.style.opacity = "1";
+          }
+        });
+
+        // Enter key support
+        promptArea?.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" && e.ctrlKey) {
+            analyzeBtn?.click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

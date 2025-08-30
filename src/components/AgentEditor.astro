@@ -1,4 +1,40 @@
 ---
+interface Props { agent?: any }
+const { agent = null } = Astro.props;
+---
+
+<div class="p-4 bg-cyber-surface border border-cyber-border rounded">
+  <label class="block text-cyber-text">ID</label>
+  <input id="agent-id" value={agent?.id || ''} class="w-full p-2 rounded bg-black/10 text-cyber-text mb-2" />
+
+  <label class="block text-cyber-text">Nazwa</label>
+  <input id="agent-name" value={agent?.name || ''} class="w-full p-2 rounded bg-black/10 text-cyber-text mb-2" />
+
+  <div class="mt-2">
+    <button id="save-agent" class="px-4 py-2 border border-cyber-border text-cyber-blue">Zapisz</button>
+    <span id="save-status" class="ml-3 text-cyber-text-dim"></span>
+  </div>
+
+  <script type="module">
+    const btn = document.getElementById('save-agent');
+    const idIn = document.getElementById('agent-id');
+    const nameIn = document.getElementById('agent-name');
+    const status = document.getElementById('save-status');
+
+    btn.addEventListener('click', async () => {
+      const id = idIn.value.trim();
+      const name = nameIn.value.trim();
+      if (!id) return alert('ID wymagane');
+      status.textContent = 'Zapisywanie...';
+      try {
+        const res = await fetch('/api/agent', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, name }) });
+        const data = await res.json();
+        status.textContent = data?.ok ? 'Zapisano' : JSON.stringify(data);
+      } catch (e) { status.textContent = 'Błąd'; }
+    });
+  </script>
+</div>
+---
 const { agent, onSave } = Astro.props;
 let name = agent?.name ?? "";
 let status = agent?.status ?? "Aktywny";
