@@ -1,0 +1,584 @@
+﻿---
+// AI Workers Navigation Component
+---
+
+<section class="ai-workers-section" id="ai-workers">
+  <div class="section-container">
+    <h2 class="section-title">AI WORKERS</h2>
+    <p class="section-description">
+      Zaawansowane narzędzia AI dostępne na platformie
+    </p>
+
+    <!-- Small Tags Section -->
+    <div class="tags-section">
+      <button
+        class="tag-btn"
+        onclick="window.open('/polaczek-agents-system', '_blank')"
+      >
+        🤖 POŁĄCZEK
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/bielik-enon-dev', '_blank')"
+      >
+        🇵🇱 BIELIK
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/zenon-mcp-server', '_blank')"
+      >
+        🖧 ZENON
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/klf-sheed-shop', '_blank')"
+      >
+        🛒 KLF
+      </button>
+    </div>
+
+    <div class="workers-grid">
+      <!-- Image Generator -->
+      <div class="worker-card" data-worker="image">
+        <h3 class="worker-title">Generator Obrazów</h3>
+        <p class="worker-description">
+          Twórz niesamowite obrazy z tekstu używając Flux-1 Schnell
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Flux AI</span>
+          <span class="feature-tag">512-1024px</span>
+          <span class="feature-tag">Tłumaczenie PL</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="Opisz obraz..."
+            class="quick-prompt"
+            id="imagePrompt"
+          />
+          <button class="action-btn primary" onclick="openImageGenerator()"
+            >Generuj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/image-generator', '_blank')">Otwórz</button
+          >
+        </div>
+      </div>
+
+      <!-- AI Chatbot -->
+      <div class="worker-card" data-worker="chat">
+        <h3 class="worker-title">AI Chatbot</h3>
+        <p class="worker-description">
+          Inteligentny asystent do rozmów i odpowiadania na pytania
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">OpenAI GPT</span>
+          <span class="feature-tag">Język polski</span>
+          <span class="feature-tag">Kontekst</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="Zadaj pytanie..."
+            class="quick-prompt"
+            id="chatPrompt"
+          />
+          <button class="action-btn primary" onclick="openChatbot()"
+            >Chat</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/chatbot', '_blank')">Otwórz</button
+          >
+        </div>
+      </div>
+
+      <!-- BigQuery Analytics -->
+      <div class="worker-card" data-worker="bigquery">
+        <h3 class="worker-title">BigQuery Analytics</h3>
+        <p class="worker-description">
+          Analizuj dane z Google BigQuery, wykonuj zapytania SQL
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Google Cloud</span>
+          <span class="feature-tag">SQL Query</span>
+          <span class="feature-tag">Analytics</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="SELECT * FROM..."
+            class="quick-prompt"
+            id="bigqueryPrompt"
+          />
+          <button class="action-btn primary" onclick="openBigQuery()"
+            >Analizuj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/bigquery-analytics', '_blank')"
+            >Otwórz</button
+          >
+        </div>
+      </div>
+
+      <!-- Kaggle Datasets -->
+      <div class="worker-card" data-worker="kaggle">
+        <h3 class="worker-title">Kaggle Datasets</h3>
+        <p class="worker-description">
+          Przeszukuj zbiory danych, konkursy i profile Kaggle
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Machine Learning</span>
+          <span class="feature-tag">Datasets</span>
+          <span class="feature-tag">Competitions</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="machine learning..."
+            class="quick-prompt"
+            id="kagglePrompt"
+          />
+          <button class="action-btn primary" onclick="openKaggle()"
+            >Wyszukaj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/kaggle-datasets', '_blank')">Otwórz</button
+          >
+        </div>
+      </div>
+
+      <!-- Tavily Search -->
+      <div class="worker-card" data-worker="tavily">
+        <h3 class="worker-title">Tavily AI Search</h3>
+        <p class="worker-description">
+          Zaawansowane wyszukiwanie internetowe powered by AI
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">AI Search</span>
+          <span class="feature-tag">Real-time</span>
+          <span class="feature-tag">Deep Analysis</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="wyszukaj w sieci..."
+            class="quick-prompt"
+            id="tavilyPrompt"
+          />
+          <button class="action-btn primary" onclick="openTavily()"
+            >Szukaj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/tavily-search', '_blank')">Otwórz</button
+          >
+        </div>
+      </div>
+
+      <!-- Status Monitor -->
+      <div class="worker-card" data-worker="status">
+        <h3 class="worker-title">Status Workerów</h3>
+        <p class="worker-description">
+          Sprawdź status i dostępność wszystkich API workerów
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Health Check</span>
+          <span class="feature-tag">Monitoring</span>
+          <span class="feature-tag">API Status</span>
+        </div>
+        <div class="worker-actions">
+          <div class="status-indicator" id="overallStatus">
+            <span class="status-dot"></span>
+            <span>Sprawdzanie...</span>
+          </div>
+          <button class="action-btn primary" onclick="checkAllStatus()"
+            >Sprawdź wszystkie</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/worker-status', '_blank')">Monitor</button
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Agent Builder Button -->
+    <div class="agent-builder-section">
+      <button
+        class="agent-builder-btn"
+        onclick="window.open('/agent-builder', '_blank')"
+      >
+        POLACZEK_AGENT_BUILDER_23
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ai-workers-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    margin: 2rem 0;
+    padding: 2rem;
+  }
+
+  .section-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    color: #00d9ff;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .section-description {
+    color: #888;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Tags Section */
+  .tags-section {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag-btn {
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .tag-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: #00d9ff;
+    box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+  }
+
+  .workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .worker-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .worker-card:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .worker-title {
+    color: #00d9ff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .worker-description {
+    color: #ccc;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  .worker-features {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .feature-tag {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d9ff;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  .worker-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .quick-prompt {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: white;
+    padding: 0.75rem;
+    font-family: "Rajdhani", sans-serif;
+    transition: border-color 0.3s;
+  }
+
+  .quick-prompt:focus {
+    outline: none;
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+  }
+
+  .quick-prompt::placeholder {
+    color: #888;
+  }
+
+  .action-btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: #00d9ff;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 0.9rem;
+  }
+
+  .action-btn.primary {
+    background: rgba(0, 217, 255, 0.1);
+  }
+
+  .action-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
+  }
+
+  .action-btn.secondary {
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #888;
+    animation: pulse 2s infinite;
+  }
+
+  .status-dot.online {
+    background: #4ade80;
+  }
+
+  .status-dot.offline {
+    background: #ef4444;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Agent Builder Section */
+  .agent-builder-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .agent-builder-btn {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 217, 255, 0.2),
+      rgba(0, 217, 255, 0.1)
+    );
+    border: 2px solid rgba(0, 217, 255, 0.5);
+    color: #00d9ff;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Rajdhani", sans-serif;
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+  }
+
+  .agent-builder-btn:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 217, 255, 0.3),
+      rgba(0, 217, 255, 0.2)
+    );
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .workers-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .worker-card {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Image Generator
+  function openImageGenerator() {
+    const prompt = document.getElementById("imagePrompt").value.trim();
+    if (prompt) {
+      localStorage.setItem("quickPrompt", prompt);
+    }
+    window.open("/image-generator", "_blank");
+  }
+
+  // Chatbot
+  function openChatbot() {
+    const prompt = document.getElementById("chatPrompt").value.trim();
+    if (prompt) {
+      localStorage.setItem("quickChatPrompt", prompt);
+    }
+    window.open("/chatbot", "_blank");
+  }
+
+  // BigQuery
+  function openBigQuery() {
+    const prompt = document.getElementById("bigqueryPrompt").value.trim();
+    if (prompt) {
+      localStorage.setItem("quickSQLQuery", prompt);
+    }
+    window.open("/bigquery-analytics", "_blank");
+  }
+
+  // Kaggle
+  function openKaggle() {
+    const prompt = document.getElementById("kagglePrompt").value.trim();
+    if (prompt) {
+      localStorage.setItem("quickKaggleSearch", prompt);
+    }
+    window.open("/kaggle-datasets", "_blank");
+  }
+
+  // Tavily
+  function openTavily() {
+    const prompt = document.getElementById("tavilyPrompt").value.trim();
+    if (prompt) {
+      localStorage.setItem("quickTavilySearch", prompt);
+    }
+    window.open("/tavily-search", "_blank");
+  }
+
+  // Status check
+  async function checkAllStatus() {
+    const statusIndicator = document.getElementById("overallStatus");
+    const statusDot = statusIndicator.querySelector(".status-dot");
+    const statusText = statusIndicator.querySelector("span:last-child");
+
+    statusText.textContent = "Sprawdzanie...";
+    statusDot.className = "status-dot";
+
+    try {
+      const apis = [
+        "/api/generate-image",
+        "/api/chat",
+        "/api/bigquery",
+        "/api/kaggle",
+        "/api/tavi",
+      ];
+
+      const results = await Promise.allSettled(
+        apis.map((api) => fetch(api).then((r) => ({ api, ok: r.ok })))
+      );
+
+      const online = results.filter(
+        (r) => r.status === "fulfilled" && r.value.ok
+      ).length;
+      const total = apis.length;
+
+      if (online === total) {
+        statusDot.className = "status-dot online";
+        statusText.textContent = `Wszystkie online (${online}/${total})`;
+      } else if (online > 0) {
+        statusDot.className = "status-dot";
+        statusText.textContent = `Częściowo online (${online}/${total})`;
+      } else {
+        statusDot.className = "status-dot offline";
+        statusText.textContent = `Offline (${online}/${total})`;
+      }
+    } catch (error) {
+      statusDot.className = "status-dot offline";
+      statusText.textContent = "Błąd sprawdzania";
+    }
+  }
+
+  // Add enter key support for quick prompts
+  document.addEventListener("DOMContentLoaded", function () {
+    const prompts = document.querySelectorAll(".quick-prompt");
+    prompts.forEach((prompt) => {
+      prompt.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const workerId = this.id.replace("Prompt", "");
+          const functions = {
+            image: openImageGenerator,
+            chat: openChatbot,
+            bigquery: openBigQuery,
+            kaggle: openKaggle,
+            tavily: openTavily,
+          };
+
+          if (functions[workerId]) {
+            functions[workerId]();
+          }
+        }
+      });
+    });
+
+    // Initial status check
+    checkAllStatus();
+  });
+</script>
