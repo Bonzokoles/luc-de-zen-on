@@ -68,9 +68,26 @@
       <h4 class="text-cyber-text-dim text-xs uppercase mb-2">Osiągnięcia</h4>
       <div class="flex gap-3">
           {#each allAchievements as achievement}
-              <div class="text-center transition-all duration-300" class:opacity-40={intelligenceLevel < achievement.threshold} title="{achievement.name} (Próg: {achievement.threshold})">
-                  <div class="w-10 h-10 border flex items-center justify-center" class:border-cyber-blue={intelligenceLevel >= achievement.threshold} class:border-cyber-border/50={intelligenceLevel < achievement.threshold}>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" class:text-cyber-blue={intelligenceLevel >= achievement.threshold} class:text-cyber-text-dim={intelligenceLevel < achievement.threshold}>
+              <div 
+                class="text-center transition-all duration-300" 
+                class:opacity-40={intelligenceLevel < achievement.threshold} 
+                title="{achievement.name} (Próg: {achievement.threshold})"
+              >
+                  <div 
+                    class="w-10 h-10 border flex items-center justify-center" 
+                    class:border-cyber-blue={intelligenceLevel >= achievement.threshold} 
+                    class:border-cyber-border={intelligenceLevel < achievement.threshold}
+                  >
+                       <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke-width="1.5" 
+                        stroke="currentColor" 
+                        class="w-6 h-6" 
+                        class:text-cyber-blue={intelligenceLevel >= achievement.threshold} 
+                        class:text-cyber-text-dim={intelligenceLevel < achievement.threshold}
+                      >
                            <path stroke-linecap="round" stroke-linejoin="round" d={achievement.icon} />
                        </svg>
                   </div>
@@ -80,7 +97,7 @@
   </div>
 
   <textarea 
-    class="w-full bg-cyber-dark border border-cyber-border/50 text-cyber-text p-2 rounded-none focus:outline-none focus:border-cyber-blue resize-none mt-2"
+    class="w-full bg-cyber-dark border border-cyber-border text-cyber-text p-2 rounded-none focus:outline-none focus:border-cyber-blue resize-none mt-2"
     placeholder="Wprowadź wskazówkę lub poprawkę dla Bielika..."
     bind:value={newDialogue} 
     rows="2"
@@ -101,7 +118,7 @@
         <div class="text-cyber-blue animate-pulse">ANALIZA HISTORII...</div>
     {/if}
     {#each dialogues.slice().reverse() as d}
-      <div class="border-b border-cyber-border/30 pb-1 text-cyber-text">{d}</div>
+      <div class="border-b border-cyber-border pb-1 text-cyber-text">{d}</div>
     {/each}
     {#if dialogues.length === 0 && status === 'idle'}
         <div class="text-cyber-text-dim">Brak wpisów w historii rozwoju.</div>
