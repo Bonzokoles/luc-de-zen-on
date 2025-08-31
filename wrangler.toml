@@ -1,4 +1,4 @@
-name = "mybonzo-worker"
+name = "my-luc-zen-on-worker"
 compatibility_date = "2025-08-27"
 pages_build_output_dir = "./dist"
 
@@ -34,7 +34,7 @@ binding = "AI"
 # AI Model Presets for different use cases
 [vars]
 DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.1-8b-instruct"
-FAST_TEXT_MODEL = "@cf/qwen/qwen1.5-0.5b-chat"  
+FAST_TEXT_MODEL = "@cf/qwen/qwen1.5-0.5b-chat"
 ADVANCED_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 CODE_MODEL = "@cf/qwen/qwen2.5-coder-32b-instruct"
 MATH_MODEL = "@cf/deepseek-ai/deepseek-math-7b-instruct"

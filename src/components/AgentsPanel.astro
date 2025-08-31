@@ -1,25 +1,39 @@
 ---
-const agents = [
-  { name: "Agent 1", active: false },
-  { name: "Agent 2", active: false },
-];
-const toggleAgent = (index) => {
-  agents[index].active = !agents[index].active;
-};
+import AgentCard from './AgentCard.astro';
+import AgentEditor from './AgentEditor.astro';
+
+let agents = [];
+try {
+  const response = await fetch('http://127.0.0.1:8787/api/agents'); // Assuming worker runs on default port
+  if(response.ok) {
+    agents = await response.json();
+  }
+} catch (e) {
+  console.error(e);
+  // Handle fetch error, maybe show a message
+}
 ---
 
-<div>
+<section>
   <h2>Panel Agentów</h2>
-  <ul>
-    {
-      agents.map((agent, i) => (
-        <li>
-          <span>{agent.name}</span>
-          <button onClick={() => toggleAgent(i)}>
-            {agent.active ? "Dezaktywuj" : "Aktywuj"}
-          </button>
-        </li>
-      ))
-    }
-  </ul>
-</div>
+  
+  <h3>Dodaj nowego agenta</h3>
+  <AgentEditor agent={{ id: crypto.randomUUID() }} onSave={() => {
+    // This is a simple way to refresh, a more advanced implementation
+    // would use client-side framework to re-fetch and re-render.
+    Astro.redirect(Astro.url.pathname);
+  }} />
+
+  <hr />
+
+  <h3>Lista Agentów</h3>
+  {agents.length === 0 ? (
+    <p>Brak agentów do wyświetlenia.</p>
+  ) : (
+    agents.map(agent => <AgentCard agent={agent} />)
+  )}
+</section>
+
+<script>
+  // This script is for client-side interactions if needed in the future.
+</script>

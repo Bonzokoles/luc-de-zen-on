@@ -1,122 +1,26 @@
 ---
-import DashboardLayout from "../layouts/BackroomInterface.astro";
-import Filters from "../components/dashboard/Filters.svelte";
-import AgentManager from "../components/dashboard/AgentManager.svelte";
-import Chatbot from "../components/dashboard/Chatbot.svelte";
-import WildcardsSelector from "../components/dashboard/WildcardsSelector.svelte";
-import PricingCard from "../components/dashboard/PricingCard.svelte";
-import SystemMonitor from "../components/dashboard/SystemMonitor.svelte";
-import VoiceAssistant from "../components/dashboard/VoiceAssistant.svelte";
-import LearningModule from "../components/dashboard/LearningModule.svelte";
-import CalendarManager from "../components/dashboard/CalendarManager.svelte";
-import SearchPanel from "../components/dashboard/SearchPanel.svelte";
-import DataAnalysis from "../components/dashboard/DataAnalysis.svelte";
-import UsageStats from "../components/dashboard/UsageStats.svelte";
+import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+import AgentsPanel from '../components/AgentsPanel.astro';
+import Chatbot from '../components/Chatbot.astro';
+import ImageGenerator from '../components/ImageGenerator.astro';
 ---
 
-<DashboardLayout siteTitle="AI Workers Dashboard | Karol Lisson">
-  <div class="space-y-12">
-    <header class="text-center">
-      <h1 class="text-4xl font-bold text-cyber-blue tracking-wider">
-        SUPER ASYSTENT BIELIK
-      </h1>
-      <p class="text-cyber-text-dim font-mono text-sm mt-2">
-        [TWOJA PRZYGODA W ROZWOJU INTELIGENCJI]
-      </p>
-    </header>
-
-    <!-- Main Interaction & Learning Section -->
-    <section id="main-deck" class="grid grid-cols-1 lg:grid-cols-5 gap-6">
-      <div class="lg:col-span-3 flex flex-col gap-6">
-        <div class="h-[600px]">
-          <Chatbot client:load />
-        </div>
-        <div class="h-[350px]">
-          <VoiceAssistant client:load />
-        </div>
+<MyBonzoLayout siteTitle="Dashboard">
+  <div class="container mx-auto p-4">
+    <h1 class="text-4xl font-bold my-4">Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <Chatbot />
       </div>
-      <div class="lg:col-span-2 flex flex-col gap-6">
-        <LearningModule client:load userId="user_123" />
-        <WildcardsSelector client:load />
+      <div>
+        <ImageGenerator />
       </div>
-    </section>
+    </div>
 
-    <!-- Productivity Tools Section -->
-    <section id="productivity-deck">
-      <h2 class="text-2xl font-bold text-cyber-blue mb-4">
-        NARZĘDZIA PRODUKTYWNOŚCI
-      </h2>
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="h-[400px]">
-          <CalendarManager client:load userId="user_123" />
-        </div>
-        <div class="h-[400px]"><SearchPanel client:load /></div>
-        <div class="h-[400px]"><DataAnalysis client:load /></div>
-      </div>
-    </section>
+    <div class="mt-8">
+      <AgentsPanel />
+    </div>
 
-    <!-- Analytics & Community Section -->
-    <section id="analytics-deck">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <SystemMonitor client:load />
-        <div
-          class="bg-cyber-surface border border-cyber-border rounded-none p-6 font-mono"
-        >
-          <h3 class="font-bold text-lg text-cyber-blue mb-4">
-            RANKING OPIEKUNÓW
-          </h3>
-          <div class="text-center text-cyber-text-dim py-10">
-            [KOMPONENT RANKINGU WKRÓTCE]
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Agent Management Section -->
-    <section id="agents-deck">
-      <h2 class="text-2xl font-bold text-cyber-blue mb-4">
-        ZARZĄDZANIE AGENTAMI
-      </h2>
-      <Filters client:load />
-      <AgentManager client:load />
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing">
-      <h2 class="text-2xl font-bold text-cyber-blue mb-6 text-center">
-        PLANY SUBSKRYPCYJNE
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        <PricingCard
-          tier="Free"
-          price="0 PLN"
-          features={[
-            "Podstawowy rozwój Bielika",
-            "Limit 10 interakcji głosowych",
-            "Dostęp do 3 agentów",
-          ]}
-        />
-        <PricingCard
-          tier="Pro"
-          price="49 PLN / mies."
-          features={[
-            "Pełny rozwój i personalizacja",
-            "Nielimitowane interakcje",
-            "Ranking opiekunów",
-            "Wsparcie priorytetowe",
-          ]}
-          isFeatured={true}
-        />
-        <PricingCard
-          tier="Enterprise"
-          price="Wycena indywidualna"
-          features={[
-            "Dedykowana instancja Bielika",
-            "Integracje firmowe",
-            "Własne modele analityczne",
-          ]}
-        />
-      </div>
-    </section>
   </div>
-</DashboardLayout>
+</MyBonzoLayout>
