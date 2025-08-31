@@ -195,7 +195,8 @@
   {#if isMinimized}
     <button
       on:click={toggleMinimized}
-      class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-200 flex items-center gap-2"
+      class="bg-gray-900 hover:bg-gray-800 text-white p-3 shadow-lg transition-all duration-200 flex items-center gap-2 border border-gray-700"
+      style="border-radius: 0;"
     >
       <span class="text-lg">🤖</span>
       <span class="hidden sm:inline">AI Asystent</span>
@@ -206,11 +207,13 @@
   {:else}
     <!-- Expanded View -->
     <div
-      class="bg-white rounded-lg shadow-xl border w-80 sm:w-96 h-96 flex flex-col"
+      class="bg-white shadow-xl border w-80 sm:w-96 h-96 flex flex-col border-gray-700"
+      style="border-radius: 0;"
     >
       <!-- Header -->
       <div
-        class="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center"
+        class="bg-gray-900 text-white p-3 flex justify-between items-center border-b border-gray-700"
+        style="border-radius: 0;"
       >
         <div class="flex items-center gap-2">
           <span class="text-lg">🤖</span>
@@ -240,9 +243,9 @@
             class={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              class={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+              class={`max-w-xs px-3 py-2 text-sm ${
                 message.type === "user"
-                  ? "bg-blue-600 text-white"
+                  ? "bg-gray-900 text-white border border-gray-700"
                   : message.type === "agent"
                     ? "bg-white text-gray-800 border"
                     : message.type === "system"
@@ -289,18 +292,18 @@
       </div>
 
       <!-- Input -->
-      <div class="p-3 border-t bg-white rounded-b-lg">
+      <div class="p-3 border-t bg-gray-800 border-gray-700">
         <div class="flex gap-2 mb-2">
           <button
             on:click={clearChat}
-            class="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 rounded"
+            class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
             disabled={messages.length === 0}
           >
             Wyczyść
           </button>
           <button
             on:click={reconnect}
-            class="text-xs text-gray-500 hover:text-gray-700 px-2 py-1 rounded"
+            class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
             disabled={isConnected}
           >
             Połącz ponownie
@@ -313,19 +316,21 @@
             on:keypress={handleKeyPress}
             placeholder="Zadaj pytanie agentowi..."
             disabled={!isConnected}
-            class="flex-1 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+            class="flex-1 px-3 py-2 border border-gray-600 bg-gray-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:bg-gray-600"
+            style="border-radius: 0;"
           />
           <button
             on:click={sendMessage}
             disabled={!isConnected || !inputValue.trim()}
-            class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white px-3 py-2 rounded-lg text-sm transition-colors"
+            class="bg-gray-900 hover:bg-gray-800 disabled:bg-gray-600 text-white px-3 py-2 text-sm transition-colors border border-gray-700"
+            style="border-radius: 0;"
           >
             Wyślij
           </button>
         </div>
 
         {#if capabilities.length > 0}
-          <div class="mt-2 text-xs text-gray-500">
+          <div class="mt-2 text-xs text-gray-400">
             Funkcje: {capabilities.join(", ")}
           </div>
         {/if}

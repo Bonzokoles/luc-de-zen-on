@@ -1,0 +1,1034 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+---
+
+<MyBonzoLayout title="Tavily Search | AI Workers">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              TAVILY
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              SEARCH
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">TAVILY SEARCH</h1>
+            <h2 class="text-2xl sm:text-3xl">AI-Powered Web Search</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tavily Search Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="tavily"
+    >
+      <div class="section-container max-w-6xl mx-auto">
+        <h2 class="section-title">TAVILY SEARCH</h2>
+        <p class="section-description">
+          Zaawansowane wyszukiwanie internetowe z AI, wyciąganie treści i
+          analiza wyników
+        </p>
+
+        <!-- Search Interface -->
+        <div
+          class="search-container border border-edge rounded-lg mt-8"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >
+          <!-- Search Header -->
+          <div
+            class="search-header border-b border-edge p-4 flex items-center justify-between"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
+              </div>
+              <span class="text-primary-foreground font-semibold"
+                >Tavily AI Search Engine</span
+              >
+            </div>
+            <div class="flex gap-2">
+              <button
+                onclick="saveSearch()"
+                class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+              >
+                Zapisz
+              </button>
+              <button
+                onclick="exportResults()"
+                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+              >
+                Export
+              </button>
+              <button
+                onclick="clearResults()"
+                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+              >
+                Wyczyść
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Search Form -->
+          <div class="search-form p-6">
+            <div class="main-search mb-6">
+              <label
+                for="searchQuery"
+                class="block text-lg font-semibold mb-3 text-primary-foreground"
+              >
+                Wyszukaj w internecie:
+              </label>
+              <div class="search-input-group flex gap-3">
+                <input
+                  id="searchQuery"
+                  type="text"
+                  placeholder="Wprowadź zapytanie... np. 'najnowsze wiadomości o AI', 'jak działają LLM'"
+                  class="flex-1 p-4 bg-black/40 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none text-lg"
+                />
+                <button
+                  id="searchBtn"
+                  onclick="performSearch()"
+                  class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
+                >
+                  🔍 Szukaj
+                </button>
+              </div>
+            </div>
+
+            <!-- Advanced Options -->
+            <div class="advanced-options border-t border-edge pt-6">
+              <h4 class="text-lg font-semibold mb-4 text-primary-foreground">
+                Opcje zaawansowane:
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Głębokość wyszukiwania:</label
+                  >
+                  <select
+                    id="searchDepth"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="basic">Podstawowa</option>
+                    <option value="advanced" selected>Zaawansowana</option>
+                    <option value="deep">Głęboka</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Maksymalna liczba wyników:</label
+                  >
+                  <select
+                    id="maxResults"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="5">5 wyników</option>
+                    <option value="10" selected>10 wyników</option>
+                    <option value="20">20 wyników</option>
+                    <option value="50">50 wyników</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Język wyników:</label
+                  >
+                  <select
+                    id="language"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="auto">Automatyczny</option>
+                    <option value="pl">Polski</option>
+                    <option value="en">Angielski</option>
+                    <option value="de">Niemiecki</option>
+                    <option value="fr">Francuski</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Typ treści:</label
+                  >
+                  <select
+                    id="contentType"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="all">Wszystkie</option>
+                    <option value="news">Wiadomości</option>
+                    <option value="academic">Akademickie</option>
+                    <option value="technical">Techniczne</option>
+                    <option value="social">Media społecznościowe</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Include/Exclude Domains -->
+              <div
+                class="domains-filter mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Uwzględnij domeny:</label
+                  >
+                  <input
+                    id="includeDomains"
+                    type="text"
+                    placeholder="google.com, wikipedia.org, github.com"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground placeholder-gray-400"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Wyklucz domeny:</label
+                  >
+                  <input
+                    id="excludeDomains"
+                    type="text"
+                    placeholder="facebook.com, twitter.com"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground placeholder-gray-400"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading Section -->
+          <div
+            id="loadingSection"
+            class="loading-section hidden p-4 border-t border-edge"
+          >
+            <div class="bg-black/40 border border-edge rounded-lg p-4">
+              <div class="flex items-center justify-center gap-3 mb-3">
+                <div class="w-4 h-4 bg-green-400 rounded-full animate-bounce">
+                </div>
+                <div
+                  class="w-4 h-4 bg-green-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.1s"
+                >
+                </div>
+                <div
+                  class="w-4 h-4 bg-green-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.2s"
+                >
+                </div>
+                <span class="text-primary-foreground ml-3"
+                  >Przeszukiwanie internetu...</span
+                >
+              </div>
+              <div class="text-center">
+                <div id="searchStatus" class="text-gray-400 text-sm">
+                  Inicjalizacja wyszukiwania...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Summary Section -->
+        <div id="summarySection" class="summary-section hidden mt-8">
+          <div class="bg-black/20 border border-edge rounded-lg">
+            <div class="summary-header bg-black/40 border-b border-edge p-4">
+              <h3 class="text-xl font-semibold text-green-400">
+                🤖 Podsumowanie AI
+              </h3>
+            </div>
+            <div
+              id="aiSummary"
+              class="summary-content p-6 text-primary-foreground"
+            >
+              <!-- AI summary will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden mt-8">
+          <div class="bg-black/20 border border-edge rounded-lg">
+            <!-- Results Header -->
+            <div
+              class="results-header bg-black/40 border-b border-edge p-4 flex items-center justify-between"
+            >
+              <div>
+                <h3 class="text-xl font-semibold text-primary-foreground">
+                  Wyniki wyszukiwania
+                </h3>
+                <p id="resultsInfo" class="text-gray-400 text-sm"></p>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  onclick="generateReport()"
+                  class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                >
+                  Raport
+                </button>
+                <button
+                  onclick="analyzeResults()"
+                  class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm"
+                >
+                  Analiza
+                </button>
+              </div>
+            </div>
+
+            <!-- Results List -->
+            <div id="resultsList" class="results-list p-4">
+              <!-- Results will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Searches -->
+        <div class="quick-searches mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Popularne wyszukiwania:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('najnowsze wiadomości AI')"
+            >
+              🤖 Wiadomości AI
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('jak działa ChatGPT')"
+            >
+              💭 Jak działa AI
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('machine learning tutorial 2024')"
+            >
+              📚 ML Tutorial
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('najnowsze technologie programowanie')"
+            >
+              💻 Tech News
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('cryptocurrency bitcoin ethereum')"
+            >
+              💰 Krypto
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('klimat zmiany środowisko')"
+            >
+              🌍 Klimat
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('przestrzeń kosmiczna NASA')"
+            >
+              🚀 Kosmos
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('zdrowie medycyna badania')"
+            >
+              🏥 Medycyna
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Analytics -->
+        <div
+          class="search-analytics mt-8 bg-black/20 border border-edge rounded-lg p-6"
+        >
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Analityka wyszukiwań:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div id="totalSearches" class="text-2xl font-bold text-green-400">
+                0
+              </div>
+              <div class="text-sm text-gray-400">Wszystkich wyszukiwań</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div id="avgResults" class="text-2xl font-bold text-blue-400">
+                0
+              </div>
+              <div class="text-sm text-gray-400">Średnio wyników</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div id="avgTime" class="text-2xl font-bold text-purple-400">
+                0s
+              </div>
+              <div class="text-sm text-gray-400">Średni czas</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div id="topDomain" class="text-2xl font-bold text-orange-400">
+                -
+              </div>
+              <div class="text-sm text-gray-400">Najczęstsza domena</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search History -->
+        <div class="search-history mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Historia wyszukiwań:
+          </h3>
+          <div id="searchHistoryList" class="space-y-2">
+            <!-- History items will be populated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Help Assistant Integration -->
+  <AiHelpAssistant client:load />
+</MyBonzoLayout>
+
+<style>
+  /* Base styles matching main page */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  .quick-search-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .quick-search-btn:hover {
+    background-color: #374151;
+    border-color: #10b981;
+    color: #10b981;
+  }
+
+  .ai-workers-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(30, 41, 59, 0.75) 100%
+    );
+    min-height: 100vh;
+  }
+
+  .search-result {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .search-result:hover {
+    border-color: #10b981;
+    background-color: rgba(16, 185, 129, 0.1);
+  }
+
+  .result-title {
+    color: #10b981;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+  }
+
+  .result-title:hover {
+    text-decoration: underline;
+  }
+
+  .result-url {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-snippet {
+    color: #d1d5db;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .meta-tag {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #9ca3af;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+  }
+
+  /* Scrollbar styling */
+  .results-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .results-list::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .results-list::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  let searchHistory = JSON.parse(
+    localStorage.getItem("tavilySearchHistory") || "[]"
+  );
+  let searchStats = JSON.parse(
+    localStorage.getItem("tavilySearchStats") ||
+      "{ totalSearches: 0, totalResults: 0, totalTime: 0, domains: {} }"
+  );
+  let currentResults = [];
+  let searchStartTime = null;
+
+  function quickSearch(query) {
+    document.getElementById("searchQuery").value = query;
+    performSearch();
+  }
+
+  async function performSearch() {
+    const query = document.getElementById("searchQuery").value.trim();
+    if (!query) {
+      alert("Proszę wprowadzić zapytanie");
+      return;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const loadingSection = document.getElementById("loadingSection");
+    const resultsSection = document.getElementById("resultsSection");
+    const summarySection = document.getElementById("summarySection");
+    const searchStatus = document.getElementById("searchStatus");
+
+    // Start search
+    searchBtn.disabled = true;
+    searchBtn.textContent = "Wyszukiwanie...";
+    loadingSection.classList.remove("hidden");
+    resultsSection.classList.add("hidden");
+    summarySection.classList.add("hidden");
+
+    searchStartTime = Date.now();
+
+    // Update status messages
+    const statusMessages = [
+      "Inicjalizacja wyszukiwania...",
+      "Przeszukiwanie stron internetowych...",
+      "Analizowanie treści...",
+      "Wyciąganie kluczowych informacji...",
+      "Generowanie podsumowania AI...",
+      "Finalizowanie wyników...",
+    ];
+
+    let statusIndex = 0;
+    const statusInterval = setInterval(() => {
+      if (statusIndex < statusMessages.length) {
+        searchStatus.textContent = statusMessages[statusIndex];
+        statusIndex++;
+      }
+    }, 1000);
+
+    try {
+      const searchDepth = document.getElementById("searchDepth").value;
+      const maxResults = parseInt(document.getElementById("maxResults").value);
+      const language = document.getElementById("language").value;
+      const contentType = document.getElementById("contentType").value;
+      const includeDomains = document.getElementById("includeDomains").value;
+      const excludeDomains = document.getElementById("excludeDomains").value;
+
+      const response = await fetch("/api/tavi", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query,
+          searchDepth,
+          maxResults,
+          language,
+          contentType,
+          includeDomains: includeDomains
+            ? includeDomains.split(",").map((d) => d.trim())
+            : [],
+          excludeDomains: excludeDomains
+            ? excludeDomains.split(",").map((d) => d.trim())
+            : [],
+        }),
+      });
+
+      const data = await response.json();
+
+      clearInterval(statusInterval);
+
+      if (data.success) {
+        const searchTime = (Date.now() - searchStartTime) / 1000;
+        currentResults = data.results;
+
+        // Display AI summary if available
+        if (data.summary) {
+          displayAISummary(data.summary);
+        }
+
+        // Display search results
+        displayResults(data.results, searchTime);
+
+        // Update statistics
+        updateSearchStats(query, data.results.length, searchTime, data.results);
+
+        // Add to search history
+        addToSearchHistory(query, data.results.length, searchTime);
+      } else {
+        throw new Error(data.error || "Błąd wyszukiwania");
+      }
+    } catch (error) {
+      clearInterval(statusInterval);
+      console.error("Search error:", error);
+      displayError(error.message);
+    } finally {
+      // Reset UI
+      searchBtn.disabled = false;
+      searchBtn.textContent = "🔍 Szukaj";
+      loadingSection.classList.add("hidden");
+    }
+  }
+
+  function displayAISummary(summary) {
+    const summarySection = document.getElementById("summarySection");
+    const aiSummary = document.getElementById("aiSummary");
+
+    aiSummary.innerHTML = `
+      <div class="ai-summary-content">
+        <p class="text-lg leading-relaxed">${summary}</p>
+        <div class="mt-4 text-sm text-gray-400">
+          <em>Podsumowanie wygenerowane przez AI na podstawie znalezionych wyników</em>
+        </div>
+      </div>
+    `;
+
+    summarySection.classList.remove("hidden");
+  }
+
+  function displayResults(results, searchTime) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsList = document.getElementById("resultsList");
+    const resultsInfo = document.getElementById("resultsInfo");
+
+    resultsInfo.textContent = `Znaleziono ${results.length} wyników w ${searchTime.toFixed(2)} sekund`;
+
+    if (results.length === 0) {
+      resultsList.innerHTML =
+        '<div class="text-gray-400 text-center py-8">Brak wyników dla tego zapytania</div>';
+    } else {
+      resultsList.innerHTML = "";
+
+      results.forEach((result, index) => {
+        const resultDiv = document.createElement("div");
+        resultDiv.className = "search-result";
+        resultDiv.onclick = () => window.open(result.url, "_blank");
+
+        // Extract domain from URL
+        const domain = new URL(result.url).hostname;
+
+        // Calculate relevance score
+        const relevanceScore = result.score || 100 - index * 5;
+
+        resultDiv.innerHTML = `
+          <div class="result-header mb-3">
+            <a href="${result.url}" target="_blank" class="result-title">${result.title}</a>
+            <div class="result-url">${result.url}</div>
+          </div>
+          <div class="result-snippet mb-3">${result.content || result.snippet || "Brak opisu dostępnego"}</div>
+          <div class="result-meta">
+            <span class="meta-tag">🌐 ${domain}</span>
+            <span class="meta-tag">📊 ${relevanceScore.toFixed(0)}% trafność</span>
+            <span class="meta-tag">📅 ${result.published_date || "Nieznana data"}</span>
+            ${result.language ? `<span class="meta-tag">🗣️ ${result.language}</span>` : ""}
+            ${result.content_type ? `<span class="meta-tag">📄 ${result.content_type}</span>` : ""}
+          </div>
+        `;
+
+        resultsList.appendChild(resultDiv);
+      });
+    }
+
+    resultsSection.classList.remove("hidden");
+  }
+
+  function displayError(error) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsList = document.getElementById("resultsList");
+    const resultsInfo = document.getElementById("resultsInfo");
+
+    resultsInfo.textContent = "Błąd wyszukiwania";
+    resultsList.innerHTML = `<div class="bg-red-600/20 border border-red-400/30 rounded p-4">
+      <div class="text-red-400 font-semibold mb-2">Błąd wyszukiwania:</div>
+      <div class="text-primary-foreground">${error}</div>
+    </div>`;
+
+    resultsSection.classList.remove("hidden");
+  }
+
+  function updateSearchStats(query, resultCount, searchTime, results) {
+    searchStats.totalSearches++;
+    searchStats.totalResults += resultCount;
+    searchStats.totalTime += searchTime;
+
+    // Count domains
+    results.forEach((result) => {
+      try {
+        const domain = new URL(result.url).hostname;
+        searchStats.domains[domain] = (searchStats.domains[domain] || 0) + 1;
+      } catch (e) {
+        // Invalid URL, skip
+      }
+    });
+
+    localStorage.setItem("tavilySearchStats", JSON.stringify(searchStats));
+    updateStatsDisplay();
+  }
+
+  function updateStatsDisplay() {
+    document.getElementById("totalSearches").textContent =
+      searchStats.totalSearches;
+
+    const avgResults =
+      searchStats.totalSearches > 0
+        ? (searchStats.totalResults / searchStats.totalSearches).toFixed(1)
+        : "0";
+    document.getElementById("avgResults").textContent = avgResults;
+
+    const avgTime =
+      searchStats.totalSearches > 0
+        ? (searchStats.totalTime / searchStats.totalSearches).toFixed(1) + "s"
+        : "0s";
+    document.getElementById("avgTime").textContent = avgTime;
+
+    // Find most common domain
+    const domains = Object.entries(searchStats.domains);
+    if (domains.length > 0) {
+      const topDomain = domains.sort((a, b) => b[1] - a[1])[0][0];
+      document.getElementById("topDomain").textContent = topDomain;
+    }
+  }
+
+  function generateReport() {
+    if (currentResults.length === 0) {
+      alert("Brak wyników do wygenerowania raportu");
+      return;
+    }
+
+    const query = document.getElementById("searchQuery").value;
+    let report = `RAPORT WYSZUKIWANIA TAVILY\n`;
+    report += `${"=".repeat(50)}\n\n`;
+    report += `Zapytanie: ${query}\n`;
+    report += `Data: ${new Date().toLocaleDateString("pl-PL")}\n`;
+    report += `Liczba wyników: ${currentResults.length}\n\n`;
+
+    report += `WYNIKI:\n`;
+    report += `${"-".repeat(30)}\n\n`;
+
+    currentResults.forEach((result, index) => {
+      report += `${index + 1}. ${result.title}\n`;
+      report += `   URL: ${result.url}\n`;
+      report += `   Opis: ${(result.content || result.snippet || "Brak opisu").substring(0, 200)}...\n\n`;
+    });
+
+    const blob = new Blob([report], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `tavily_raport_${new Date().toISOString().split("T")[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function analyzeResults() {
+    if (currentResults.length === 0) {
+      alert("Brak wyników do analizy");
+      return;
+    }
+
+    // Simple analysis
+    const domains = {};
+    const contentTypes = {};
+    let totalContentLength = 0;
+
+    currentResults.forEach((result) => {
+      try {
+        const domain = new URL(result.url).hostname;
+        domains[domain] = (domains[domain] || 0) + 1;
+      } catch (e) {}
+
+      if (result.content_type) {
+        contentTypes[result.content_type] =
+          (contentTypes[result.content_type] || 0) + 1;
+      }
+
+      if (result.content) {
+        totalContentLength += result.content.length;
+      }
+    });
+
+    const topDomains = Object.entries(domains)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+    const topContentTypes = Object.entries(contentTypes)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3);
+    const avgContentLength = totalContentLength / currentResults.length;
+
+    let analysis = `ANALIZA WYNIKÓW\n`;
+    analysis += `${"-".repeat(30)}\n\n`;
+    analysis += `Najczęściej występujące domeny:\n`;
+    topDomains.forEach(([domain, count]) => {
+      analysis += `  • ${domain}: ${count} wyników\n`;
+    });
+
+    analysis += `\nTypy treści:\n`;
+    topContentTypes.forEach(([type, count]) => {
+      analysis += `  • ${type}: ${count} wyników\n`;
+    });
+
+    analysis += `\nŚrednia długość treści: ${avgContentLength.toFixed(0)} znaków\n`;
+
+    alert(analysis);
+  }
+
+  function saveSearch() {
+    const query = document.getElementById("searchQuery").value.trim();
+    if (!query) {
+      alert("Brak zapytania do zapisania");
+      return;
+    }
+
+    const name = prompt("Nazwa wyszukiwania:");
+    if (name) {
+      const savedSearches = JSON.parse(
+        localStorage.getItem("savedTavilySearches") || "[]"
+      );
+      savedSearches.push({
+        id: Date.now(),
+        name,
+        query,
+        settings: {
+          searchDepth: document.getElementById("searchDepth").value,
+          maxResults: document.getElementById("maxResults").value,
+          language: document.getElementById("language").value,
+          contentType: document.getElementById("contentType").value,
+          includeDomains: document.getElementById("includeDomains").value,
+          excludeDomains: document.getElementById("excludeDomains").value,
+        },
+        timestamp: new Date().toISOString(),
+      });
+      localStorage.setItem(
+        "savedTavilySearches",
+        JSON.stringify(savedSearches)
+      );
+      alert("Wyszukiwanie zostało zapisane");
+    }
+  }
+
+  function exportResults() {
+    if (currentResults.length === 0) {
+      alert("Brak wyników do eksportu");
+      return;
+    }
+
+    const csv = convertResultsToCSV(currentResults);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "tavily_search_results.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function convertResultsToCSV(results) {
+    const headers = ["Title", "URL", "Content", "Published Date", "Score"];
+    let csv = headers.join(",") + "\n";
+
+    results.forEach((result) => {
+      const row = [
+        `"${(result.title || "").replace(/"/g, '""')}"`,
+        `"${result.url || ""}"`,
+        `"${(result.content || result.snippet || "").replace(/"/g, '""')}"`,
+        `"${result.published_date || ""}"`,
+        `"${result.score || ""}"`,
+      ];
+      csv += row.join(",") + "\n";
+    });
+
+    return csv;
+  }
+
+  function clearResults() {
+    document.getElementById("resultsSection").classList.add("hidden");
+    document.getElementById("summarySection").classList.add("hidden");
+    currentResults = [];
+  }
+
+  function addToSearchHistory(query, resultCount, searchTime) {
+    const historyItem = {
+      id: Date.now(),
+      query,
+      resultCount,
+      searchTime: searchTime.toFixed(2),
+      timestamp: new Date().toISOString(),
+    };
+
+    searchHistory.unshift(historyItem);
+    if (searchHistory.length > 20) {
+      searchHistory = searchHistory.slice(0, 20);
+    }
+
+    localStorage.setItem("tavilySearchHistory", JSON.stringify(searchHistory));
+    updateSearchHistoryDisplay();
+  }
+
+  function updateSearchHistoryDisplay() {
+    const historyList = document.getElementById("searchHistoryList");
+    historyList.innerHTML = "";
+
+    searchHistory.forEach((item) => {
+      const historyItem = document.createElement("div");
+      historyItem.className =
+        "history-item bg-black/20 border border-edge rounded-lg p-3 cursor-pointer hover:border-green-400 transition-colors";
+
+      const date = new Date(item.timestamp).toLocaleDateString("pl-PL");
+      const time = new Date(item.timestamp).toLocaleTimeString("pl-PL");
+
+      historyItem.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <p class="text-primary-foreground text-sm font-medium">${item.query}</p>
+            <p class="text-gray-400 text-xs">${date} ${time} • ${item.resultCount} wyników • ${item.searchTime}s</p>
+          </div>
+          <button onclick="deleteFromSearchHistory(${item.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+        </div>
+      `;
+
+      historyItem.onclick = (e) => {
+        if (e.target.tagName !== "BUTTON") {
+          document.getElementById("searchQuery").value = item.query;
+        }
+      };
+
+      historyList.appendChild(historyItem);
+    });
+  }
+
+  function deleteFromSearchHistory(id) {
+    event.stopPropagation();
+    if (confirm("Czy na pewno chcesz usunąć to wyszukiwanie z historii?")) {
+      searchHistory = searchHistory.filter((item) => item.id !== id);
+      localStorage.setItem(
+        "tavilySearchHistory",
+        JSON.stringify(searchHistory)
+      );
+      updateSearchHistoryDisplay();
+    }
+  }
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    updateSearchHistoryDisplay();
+    updateStatsDisplay();
+
+    // Load quick search if available
+    const quickSearch = localStorage.getItem("quickTavilySearch");
+    if (quickSearch) {
+      document.getElementById("searchQuery").value = quickSearch;
+      localStorage.removeItem("quickTavilySearch");
+    }
+
+    // Add enter key support for search
+    document.getElementById("searchQuery").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        performSearch();
+      }
+    });
+  });
+</script>
