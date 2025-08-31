@@ -1,0 +1,673 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+---
+
+<MyBonzoLayout title="AI Chatbot | AI Workers">
+  <main class="min-h-svh">
+    <!-- Chat Settings Panel               <select
+                id="chatTemperature"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+        <div
+          class="settings-panel mt-8 border border-edge rounded-lg p-6"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AI_CHAT
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              GPT_BOT
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">AI CHATBOT</h1>
+            <h2 class="text-2xl sm:text-3xl">Inteligentny Asystent</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chatbot Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="chatbot"
+    >
+      <div class="section-container max-w-4xl mx-auto">
+        <h2 class="section-title">AI CHATBOT</h2>
+        <p class="section-description">
+          Inteligentny asystent AI do rozmów, odpowiadania na pytania i pomocy w
+          zadaniach
+        </p>
+
+        <!-- Chat Interface -->
+        <div
+          class="chat-container border border-edge rounded-lg overflow-hidden mt-8"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >
+          <!-- Chat Header -->
+          <div
+            class="chat-header border-b border-edge p-4 flex items-center justify-between"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
+              </div>
+              <span class="text-primary-foreground font-semibold"
+                >AI Assistant Online</span
+              >
+            </div>
+            <div class="flex gap-2">
+              <button
+                onclick="clearChat()"
+                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+              >
+                Wyczyść
+              </button>
+              <button
+                onclick="exportChat()"
+                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+              >
+                Eksport
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat Messages -->
+          <div
+            id="chatMessages"
+            class="chat-messages h-96 overflow-y-auto p-4 space-y-4"
+          >
+            <div class="message assistant-message">
+              <div
+                class="message-content bg-cyan-600/20 border border-cyan-400/30 rounded-lg p-3"
+              >
+                <div class="message-header flex items-center gap-2 mb-2">
+                  <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                  <span class="text-cyan-400 text-sm font-medium"
+                    >AI Assistant</span
+                  >
+                  <span class="text-gray-400 text-xs ml-auto">Teraz</span>
+                </div>
+                <div class="message-text text-primary-foreground">
+                  Cześć! Jestem AI Assistant. Mogę pomóc Ci w różnych zadaniach
+                  - odpowiadać na pytania, pisać kod, tłumaczyć, analizować
+                  tekst i wiele więcej. O czym chcesz porozmawiać?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input -->
+          <div class="chat-input border-t border-edge p-4">
+            <div class="flex gap-3">
+              <textarea
+                id="messageInput"
+                rows="2"
+                placeholder="Napisz swoją wiadomość..."
+                class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
+                style="background: rgba(0, 0, 0, 0.5);"
+                onkeypress="handleKeyPress(event)"></textarea>
+              <button
+                id="sendButton"
+                onclick="sendMessage()"
+                class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50"
+              >
+                Wyślij
+              </button>
+            </div>
+            <div id="typingIndicator" class="hidden mt-2 text-gray-400 text-sm">
+              <span
+                class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              ></span>
+              <span
+                class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                style="animation-delay: 0.1s"></span>
+              <span
+                class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                style="animation-delay: 0.2s"></span>
+              <span class="ml-2">AI pisze odpowiedź...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Szybkie akcje:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Jak napisać funkcję w JavaScript?')"
+            >
+              💻 Programowanie
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Przetłumacz ten tekst na angielski')"
+            >
+              🌐 Tłumaczenie
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Napisz kreatywną historię o kosmosie')"
+            >
+              ✍️ Pisanie
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Wyjaśnij mi podstawy uczenia maszynowego')"
+            >
+              🧠 Nauka
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Pomóż mi z matematyką')"
+            >
+              🔢 Matematyka
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Stwórz plan diety')"
+            >
+              🥗 Zdrowie
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Doradź mi książkę do czytania')"
+            >
+              📚 Książki
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Co nowego w technologii?')"
+            >
+              🔬 Technologia
+            </button>
+          </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div
+          class="settings-panel mt-8 bg-black/20 border border-edge rounded-lg p-6"
+        >
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Ustawienia czatu:
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Model AI:</label
+              >
+              <select
+                id="aiModel"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <option value="gpt-4">GPT-4 (Zalecany)</option>
+                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                <option value="claude">Claude</option>
+                <option value="bielik">Bielik</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Temperatura:</label
+              >
+              <select
+                id="temperature"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <option value="0.1">Precyzyjny (0.1)</option>
+                <option value="0.7" selected>Zbalansowany (0.7)</option>
+                <option value="1.0">Kreatywny (1.0)</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Język:</label
+              >
+              <select
+                id="language"
+                class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+              >
+                <option value="pl">Polski</option>
+                <option value="en">English</option>
+                <option value="auto">Automatyczny</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat History -->
+        <div class="chat-history mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Ostatnie rozmowy:
+          </h3>
+          <div id="chatHistoryList" class="space-y-2">
+            <!-- History items will be populated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Help Assistant Integration -->
+  <AiHelpAssistant client:load />
+</MyBonzoLayout>
+
+<style>
+  /* Base styles matching main page */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  .quick-action-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .quick-action-btn:hover {
+    background-color: #374151;
+    border-color: #00bcd4;
+    color: #00bcd4;
+  }
+
+  .ai-workers-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(30, 41, 59, 0.75) 100%
+    );
+    min-height: 100vh;
+  }
+
+  .message {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .user-message {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .user-message .message-content {
+    background-color: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    max-width: 80%;
+  }
+
+  .assistant-message {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .assistant-message .message-content {
+    max-width: 80%;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scrollbar styling */
+  .chat-messages::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .chat-messages::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .chat-messages::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+
+  .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+  }
+</style>
+
+<script>
+  let chatHistory = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+  let currentChatId = null;
+
+  function handleKeyPress(event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function askQuestion(question) {
+    document.getElementById("messageInput").value = question;
+    sendMessage();
+  }
+
+  async function sendMessage() {
+    const messageInput = document.getElementById("messageInput");
+    const message = messageInput.value.trim();
+
+    if (!message) return;
+
+    const sendButton = document.getElementById("sendButton");
+    const typingIndicator = document.getElementById("typingIndicator");
+
+    // Add user message
+    addMessage(message, "user");
+    messageInput.value = "";
+
+    // Disable input
+    sendButton.disabled = true;
+    sendButton.textContent = "Wysyłanie...";
+    typingIndicator.classList.remove("hidden");
+
+    try {
+      const aiModel = document.getElementById("aiModel").value;
+      const temperature = parseFloat(
+        document.getElementById("temperature").value
+      );
+      const language = document.getElementById("language").value;
+
+      const response = await fetch("/api/ai-bot-worker", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: message,
+          model: aiModel,
+          temperature: temperature,
+          language: language,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.response) {
+        // Add AI response
+        addMessage(data.response, "assistant");
+
+        // Save to history
+        saveChatToHistory(message, data.response);
+      } else {
+        throw new Error(data.error || "Błąd odpowiedzi AI");
+      }
+    } catch (error) {
+      console.error("Chat error:", error);
+      addMessage(
+        "Przepraszam, wystąpił błąd podczas przetwarzania Twojej wiadomości. Spróbuj ponownie.",
+        "assistant",
+        true
+      );
+    } finally {
+      // Re-enable input
+      sendButton.disabled = false;
+      sendButton.textContent = "Wyślij";
+      typingIndicator.classList.add("hidden");
+    }
+  }
+
+  function addMessage(content, type, isError = false) {
+    const chatMessages = document.getElementById("chatMessages");
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `message ${type}-message`;
+
+    const timestamp = new Date().toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const bgColor =
+      type === "user"
+        ? "bg-blue-600/20 border-blue-400/30"
+        : isError
+          ? "bg-red-600/20 border-red-400/30"
+          : "bg-cyan-600/20 border-cyan-400/30";
+
+    const headerColor =
+      type === "user"
+        ? "text-blue-400"
+        : isError
+          ? "text-red-400"
+          : "text-cyan-400";
+
+    const dotColor =
+      type === "user" ? "bg-blue-400" : isError ? "bg-red-400" : "bg-cyan-400";
+
+    messageDiv.innerHTML = `
+      <div class="message-content ${bgColor} rounded-lg p-3">
+        <div class="message-header flex items-center gap-2 mb-2">
+          <span class="w-2 h-2 ${dotColor} rounded-full"></span>
+          <span class="${headerColor} text-sm font-medium">${type === "user" ? "Ty" : "AI Assistant"}</span>
+          <span class="text-gray-400 text-xs ml-auto">${timestamp}</span>
+        </div>
+        <div class="message-text text-primary-foreground whitespace-pre-wrap">${content}</div>
+      </div>
+    `;
+
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function clearChat() {
+    if (confirm("Czy na pewno chcesz wyczyścić czat?")) {
+      const chatMessages = document.getElementById("chatMessages");
+      chatMessages.innerHTML = `
+        <div class="message assistant-message">
+          <div class="message-content bg-cyan-600/20 border border-cyan-400/30 rounded-lg p-3">
+            <div class="message-header flex items-center gap-2 mb-2">
+              <span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+              <span class="text-cyan-400 text-sm font-medium">AI Assistant</span>
+              <span class="text-gray-400 text-xs ml-auto">Teraz</span>
+            </div>
+            <div class="message-text text-primary-foreground">
+              Czat został wyczyszczony. W czym mogę Ci pomóc?
+            </div>
+          </div>
+        </div>
+      `;
+      currentChatId = null;
+    }
+  }
+
+  function exportChat() {
+    const messages = document.querySelectorAll(".message");
+    let chatText = "Export czatu AI Assistant\n";
+    chatText += "=".repeat(50) + "\n\n";
+
+    messages.forEach((message) => {
+      const header = message.querySelector(".message-header");
+      const text = message.querySelector(".message-text");
+      const user = header.textContent.includes("Ty")
+        ? "Użytkownik"
+        : "AI Assistant";
+      chatText += `${user}: ${text.textContent}\n\n`;
+    });
+
+    const blob = new Blob([chatText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `czat_ai_${new Date().toISOString().split("T")[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function saveChatToHistory(userMessage, aiResponse) {
+    const chatItem = {
+      id: currentChatId || Date.now(),
+      timestamp: new Date().toISOString(),
+      messages: [
+        { type: "user", content: userMessage },
+        { type: "assistant", content: aiResponse },
+      ],
+    };
+
+    if (!currentChatId) {
+      currentChatId = chatItem.id;
+      chatHistory.unshift(chatItem);
+    } else {
+      const existingChat = chatHistory.find(
+        (chat) => chat.id === currentChatId
+      );
+      if (existingChat) {
+        existingChat.messages.push(...chatItem.messages);
+      }
+    }
+
+    // Keep only last 10 chats
+    if (chatHistory.length > 10) {
+      chatHistory = chatHistory.slice(0, 10);
+    }
+
+    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+    updateHistoryDisplay();
+  }
+
+  function updateHistoryDisplay() {
+    const historyList = document.getElementById("chatHistoryList");
+    historyList.innerHTML = "";
+
+    chatHistory.forEach((chat) => {
+      const historyItem = document.createElement("div");
+      historyItem.className =
+        "history-item border border-edge rounded-lg p-3 cursor-pointer hover:border-cyan-400 transition-colors";
+      historyItem.style.background = "rgba(0, 0, 0, 0.5)";
+
+      const firstMessage =
+        chat.messages.find((m) => m.type === "user")?.content || "Rozmowa";
+      const date = new Date(chat.timestamp).toLocaleDateString("pl-PL");
+
+      historyItem.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <p class="text-primary-foreground text-sm font-medium truncate">${firstMessage}</p>
+            <p class="text-gray-400 text-xs">${date} • ${chat.messages.length} wiadomości</p>
+          </div>
+          <button onclick="deleteChat(${chat.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+        </div>
+      `;
+
+      historyItem.onclick = (e) => {
+        if (e.target.tagName !== "BUTTON") {
+          loadChat(chat.id);
+        }
+      };
+
+      historyList.appendChild(historyItem);
+    });
+  }
+
+  function loadChat(chatId) {
+    const chat = chatHistory.find((c) => c.id === chatId);
+    if (!chat) return;
+
+    const chatMessages = document.getElementById("chatMessages");
+    chatMessages.innerHTML = "";
+
+    chat.messages.forEach((message) => {
+      addMessage(message.content, message.type);
+    });
+
+    currentChatId = chatId;
+  }
+
+  function deleteChat(chatId) {
+    event.stopPropagation();
+    if (confirm("Czy na pewno chcesz usunąć tę rozmowę?")) {
+      chatHistory = chatHistory.filter((chat) => chat.id !== chatId);
+      localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+      updateHistoryDisplay();
+
+      if (currentChatId === chatId) {
+        clearChat();
+      }
+    }
+  }
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    updateHistoryDisplay();
+
+    // Load quick prompt if available
+    const quickPrompt = localStorage.getItem("quickChatPrompt");
+    if (quickPrompt) {
+      document.getElementById("messageInput").value = quickPrompt;
+      localStorage.removeItem("quickChatPrompt");
+    }
+  });
+</script>

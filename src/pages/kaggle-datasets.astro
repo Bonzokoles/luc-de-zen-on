@@ -1,0 +1,1002 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+---
+
+<MyBonzoLayout title="Kaggle Datasets | AI Workers">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              KAGGLE
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              DATASETS
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">KAGGLE DATASETS</h1>
+            <h2 class="text-2xl sm:text-3xl">Machine Learning Data Explorer</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kaggle Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="kaggle"
+    >
+      <div class="section-container max-w-6xl mx-auto">
+        <h2 class="section-title">KAGGLE DATASETS</h2>
+        <p class="section-description">
+          Przeszukuj zbiory danych, konkursy i profile na platformie Kaggle
+        </p>
+
+        <!-- Search Interface -->
+        <div
+          class="search-container border border-edge rounded-lg mt-8"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >
+          <!-- Search Header -->
+          <div
+            class="search-header border-b border-edge p-4 flex items-center justify-between"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-orange-400 rounded-full animate-pulse">
+              </div>
+              <span class="text-primary-foreground font-semibold"
+                >Kaggle Explorer</span
+              >
+            </div>
+            <div class="flex gap-2">
+              <button
+                onclick="saveSearch()"
+                class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+              >
+                Zapisz
+              </button>
+              <button
+                onclick="clearResults()"
+                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+              >
+                Wyczyść
+              </button>
+            </div>
+          </div>
+
+          <!-- Search Form -->
+          <div class="search-form p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label
+                  for="searchQuery"
+                  class="block text-lg font-semibold mb-3 text-primary-foreground"
+                >
+                  Wyszukaj:
+                </label>
+                <input
+                  id="searchQuery"
+                  type="text"
+                  placeholder="machine learning, image classification, covid-19..."
+                  class="w-full p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none"
+                  style="background: rgba(0, 0, 0, 0.5);"
+                />
+              </div>
+              <div>
+                <label
+                  for="searchType"
+                  class="block text-lg font-semibold mb-3 text-primary-foreground"
+                >
+                  Typ wyszukiwania:
+                </label>
+                <select
+                  id="searchType"
+                  class="w-full p-3 bg-black/40 border border-edge rounded text-primary-foreground"
+                >
+                  <option value="datasets">Zbiory danych</option>
+                  <option value="competitions">Konkursy</option>
+                  <option value="kernels">Kernels/Notebooks</option>
+                  <option value="users">Użytkownicy</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Advanced Filters -->
+            <div class="advanced-filters border-t border-edge pt-4">
+              <h4 class="text-lg font-semibold mb-3 text-primary-foreground">
+                Filtry zaawansowane:
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Kategoria:</label
+                  >
+                  <select
+                    id="category"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="">Wszystkie</option>
+                    <option value="computer-science">Informatyka</option>
+                    <option value="health">Zdrowie</option>
+                    <option value="business">Biznes</option>
+                    <option value="earth-and-nature">Przyroda</option>
+                    <option value="social-science">Nauki społeczne</option>
+                    <option value="education">Edukacja</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Rozmiar:</label
+                  >
+                  <select
+                    id="fileSize"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="">Dowolny</option>
+                    <option value="small">< 100 MB</option>
+                    <option value="medium">100 MB - 1 GB</option>
+                    <option value="large">1 GB - 10 GB</option>
+                    <option value="huge">> 10 GB</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Format:</label
+                  >
+                  <select
+                    id="fileType"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="">Wszystkie</option>
+                    <option value="csv">CSV</option>
+                    <option value="json">JSON</option>
+                    <option value="sqlite">SQLite</option>
+                    <option value="zip">ZIP</option>
+                    <option value="images">Obrazy</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-medium mb-2 text-primary-foreground"
+                    >Sortuj:</label
+                  >
+                  <select
+                    id="sortBy"
+                    class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                  >
+                    <option value="relevance">Trafność</option>
+                    <option value="newest">Najnowsze</option>
+                    <option value="votes">Głosy</option>
+                    <option value="downloads">Pobrania</option>
+                    <option value="size">Rozmiar</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="search-action mt-4">
+              <button
+                id="searchBtn"
+                onclick="performSearch()"
+                class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
+              >
+                🔍 Wyszukaj na Kaggle
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading Section -->
+          <div
+            id="loadingSection"
+            class="loading-section hidden p-4 border-t border-edge"
+          >
+            <div class="bg-black/40 border border-edge rounded-lg p-4">
+              <div class="flex items-center justify-center gap-3">
+                <div class="w-4 h-4 bg-orange-400 rounded-full animate-bounce">
+                </div>
+                <div
+                  class="w-4 h-4 bg-orange-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.1s"
+                >
+                </div>
+                <div
+                  class="w-4 h-4 bg-orange-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.2s"
+                >
+                </div>
+                <span class="text-primary-foreground ml-3"
+                  >Wyszukiwanie na Kaggle...</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden mt-8">
+          <div class="bg-black/20 border border-edge rounded-lg">
+            <!-- Results Header -->
+            <div
+              class="results-header bg-black/40 border-b border-edge p-4 flex items-center justify-between"
+            >
+              <div>
+                <h3 class="text-xl font-semibold text-primary-foreground">
+                  Wyniki wyszukiwania
+                </h3>
+                <p id="resultsInfo" class="text-gray-400 text-sm"></p>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  onclick="exportResults()"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                >
+                  Export CSV
+                </button>
+                <button
+                  onclick="viewFavorites()"
+                  class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                >
+                  Ulubione
+                </button>
+              </div>
+            </div>
+
+            <!-- Results Grid -->
+            <div id="resultsGrid" class="results-grid p-4">
+              <!-- Results will be populated here -->
+            </div>
+
+            <!-- Pagination -->
+            <div
+              id="paginationSection"
+              class="pagination-section hidden border-t border-edge p-4"
+            >
+              <div class="flex items-center justify-between">
+                <button
+                  id="prevPage"
+                  onclick="changePage(-1)"
+                  class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded disabled:opacity-50"
+                >
+                  ← Poprzednia
+                </button>
+                <span id="pageInfo" class="text-primary-foreground"></span>
+                <button
+                  id="nextPage"
+                  onclick="changePage(1)"
+                  class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded disabled:opacity-50"
+                >
+                  Następna →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Searches -->
+        <div class="quick-searches mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Popularne wyszukiwania:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('machine learning')"
+            >
+              🤖 Machine Learning
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('image classification')"
+            >
+              🖼️ Klasyfikacja obrazów
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('nlp natural language')"
+            >
+              💬 NLP
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('covid coronavirus')"
+            >
+              🦠 COVID-19
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('stock market finance')"
+            >
+              📈 Finanse
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('climate weather')"
+            >
+              🌡️ Klimat
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('house prices real estate')"
+            >
+              🏠 Nieruchomości
+            </button>
+            <button
+              class="quick-search-btn"
+              onclick="quickSearch('sports football soccer')"
+            >
+              ⚽ Sport
+            </button>
+          </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div
+          class="stats-dashboard mt-8 bg-black/20 border border-edge rounded-lg p-6"
+        >
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Statystyki Kaggle:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div class="text-2xl font-bold text-orange-400">2.5M+</div>
+              <div class="text-sm text-gray-400">Zbiory danych</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div class="text-2xl font-bold text-blue-400">150K+</div>
+              <div class="text-sm text-gray-400">Konkursy</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div class="text-2xl font-bold text-green-400">8M+</div>
+              <div class="text-sm text-gray-400">Użytkowników</div>
+            </div>
+            <div
+              class="stat-card bg-black/40 border border-edge rounded p-4 text-center"
+            >
+              <div class="text-2xl font-bold text-purple-400">500K+</div>
+              <div class="text-sm text-gray-400">Notebooks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search History -->
+        <div class="search-history mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Historia wyszukiwań:
+          </h3>
+          <div id="searchHistoryList" class="space-y-2">
+            <!-- History items will be populated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Help Assistant Integration -->
+  <AiHelpAssistant client:load />
+</MyBonzoLayout>
+
+<style>
+  /* Base styles matching main page */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  .quick-search-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .quick-search-btn:hover {
+    background-color: #374151;
+    border-color: #f97316;
+    color: #f97316;
+  }
+
+  .ai-workers-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(30, 41, 59, 0.75) 100%
+    );
+    min-height: 100vh;
+  }
+
+  .dataset-card {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .dataset-card:hover {
+    border-color: #f97316;
+    background-color: rgba(249, 115, 22, 0.1);
+  }
+
+  .dataset-title {
+    color: #f97316;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .dataset-description {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .dataset-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .meta-tag {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #9ca3af;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .dataset-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  /* Scrollbar styling */
+  .results-grid::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .results-grid::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .results-grid::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  let searchHistory = JSON.parse(
+    localStorage.getItem("kaggleSearchHistory") || "[]"
+  );
+  let favorites = JSON.parse(localStorage.getItem("kaggleFavorites") || "[]");
+  let currentResults = [];
+  let currentPage = 1;
+  let totalPages = 1;
+
+  function quickSearch(query) {
+    document.getElementById("searchQuery").value = query;
+    performSearch();
+  }
+
+  async function performSearch() {
+    const query = document.getElementById("searchQuery").value.trim();
+    if (!query) {
+      alert("Proszę wprowadzić zapytanie");
+      return;
+    }
+
+    const searchBtn = document.getElementById("searchBtn");
+    const loadingSection = document.getElementById("loadingSection");
+    const resultsSection = document.getElementById("resultsSection");
+
+    // Start search
+    searchBtn.disabled = true;
+    searchBtn.textContent = "Wyszukiwanie...";
+    loadingSection.classList.remove("hidden");
+    resultsSection.classList.add("hidden");
+
+    try {
+      const searchType = document.getElementById("searchType").value;
+      const category = document.getElementById("category").value;
+      const fileSize = document.getElementById("fileSize").value;
+      const fileType = document.getElementById("fileType").value;
+      const sortBy = document.getElementById("sortBy").value;
+
+      const response = await fetch("/api/kaggle", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query,
+          searchType,
+          category,
+          fileSize,
+          fileType,
+          sortBy,
+          page: currentPage,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        currentResults = data.results;
+        totalPages = data.totalPages || 1;
+        displayResults(data.results, data.totalResults);
+
+        // Add to search history
+        addToSearchHistory(query, searchType, data.totalResults);
+      } else {
+        throw new Error(data.error || "Błąd wyszukiwania");
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+      displayError(error.message);
+    } finally {
+      // Reset UI
+      searchBtn.disabled = false;
+      searchBtn.textContent = "🔍 Wyszukaj na Kaggle";
+      loadingSection.classList.add("hidden");
+    }
+  }
+
+  function displayResults(results, totalResults) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsGrid = document.getElementById("resultsGrid");
+    const resultsInfo = document.getElementById("resultsInfo");
+    const paginationSection = document.getElementById("paginationSection");
+
+    resultsInfo.textContent = `Znaleziono ${totalResults} wyników`;
+
+    if (results.length === 0) {
+      resultsGrid.innerHTML =
+        '<div class="text-gray-400 text-center py-8">Brak wyników dla tego zapytania</div>';
+    } else {
+      const searchType = document.getElementById("searchType").value;
+
+      if (searchType === "datasets") {
+        displayDatasetResults(results, resultsGrid);
+      } else if (searchType === "competitions") {
+        displayCompetitionResults(results, resultsGrid);
+      } else if (searchType === "kernels") {
+        displayKernelResults(results, resultsGrid);
+      } else if (searchType === "users") {
+        displayUserResults(results, resultsGrid);
+      }
+    }
+
+    // Update pagination
+    if (totalPages > 1) {
+      updatePagination();
+      paginationSection.classList.remove("hidden");
+    } else {
+      paginationSection.classList.add("hidden");
+    }
+
+    resultsSection.classList.remove("hidden");
+  }
+
+  function displayDatasetResults(results, container) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+
+    results.forEach((dataset) => {
+      const card = document.createElement("div");
+      card.className = "dataset-card";
+      card.onclick = () => openDataset(dataset.url);
+
+      const isFavorite = favorites.some((fav) => fav.id === dataset.id);
+
+      card.innerHTML = `
+        <div class="flex justify-between items-start mb-2">
+          <div class="dataset-title">${dataset.title}</div>
+          <button onclick="toggleFavorite('${dataset.id}', '${dataset.title}', '${dataset.url}'); event.stopPropagation();" 
+                  class="text-${isFavorite ? "yellow" : "gray"}-400 hover:text-yellow-300">
+            ${isFavorite ? "★" : "☆"}
+          </button>
+        </div>
+        <div class="dataset-description">${dataset.description}</div>
+        <div class="dataset-meta">
+          <span class="meta-tag">📊 ${dataset.size || "Nieznany rozmiar"}</span>
+          <span class="meta-tag">📁 ${dataset.fileTypes || "CSV"}</span>
+          <span class="meta-tag">📅 ${dataset.lastUpdated || "Nieznana data"}</span>
+        </div>
+        <div class="dataset-stats">
+          <span>👍 ${dataset.votes || 0} głosów</span>
+          <span>⬇️ ${dataset.downloads || 0} pobrań</span>
+          <span>📝 ${dataset.tasks || 0} zadań</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  }
+
+  function displayCompetitionResults(results, container) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+
+    results.forEach((competition) => {
+      const card = document.createElement("div");
+      card.className = "dataset-card";
+      card.onclick = () => openDataset(competition.url);
+
+      card.innerHTML = `
+        <div class="dataset-title">🏆 ${competition.title}</div>
+        <div class="dataset-description">${competition.description}</div>
+        <div class="dataset-meta">
+          <span class="meta-tag">💰 ${competition.prize || "Brak nagrody"}</span>
+          <span class="meta-tag">👥 ${competition.participants || 0} uczestników</span>
+          <span class="meta-tag">📅 ${competition.deadline || "Brak terminu"}</span>
+        </div>
+        <div class="dataset-stats">
+          <span>📊 ${competition.submissions || 0} zgłoszeń</span>
+          <span>⭐ ${competition.rating || "N/A"} ocena</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  }
+
+  function displayKernelResults(results, container) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+
+    results.forEach((kernel) => {
+      const card = document.createElement("div");
+      card.className = "dataset-card";
+      card.onclick = () => openDataset(kernel.url);
+
+      card.innerHTML = `
+        <div class="dataset-title">📓 ${kernel.title}</div>
+        <div class="dataset-description">${kernel.description}</div>
+        <div class="dataset-meta">
+          <span class="meta-tag">👤 ${kernel.author || "Nieznany autor"}</span>
+          <span class="meta-tag">🔧 ${kernel.language || "Python"}</span>
+          <span class="meta-tag">📅 ${kernel.lastUpdated || "Nieznana data"}</span>
+        </div>
+        <div class="dataset-stats">
+          <span>👍 ${kernel.votes || 0} głosów</span>
+          <span>💬 ${kernel.comments || 0} komentarzy</span>
+          <span>🔍 ${kernel.views || 0} wyświetleń</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  }
+
+  function displayUserResults(results, container) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "grid grid-cols-1 md:grid-cols-3 gap-4";
+
+    results.forEach((user) => {
+      const card = document.createElement("div");
+      card.className = "dataset-card";
+      card.onclick = () => openDataset(user.url);
+
+      card.innerHTML = `
+        <div class="dataset-title">👤 ${user.username}</div>
+        <div class="dataset-description">${user.bio || "Brak opisu profilu"}</div>
+        <div class="dataset-meta">
+          <span class="meta-tag">🏆 ${user.tier || "Novice"}</span>
+          <span class="meta-tag">📊 ${user.datasets || 0} zbiorów</span>
+          <span class="meta-tag">📓 ${user.kernels || 0} notebooks</span>
+        </div>
+        <div class="dataset-stats">
+          <span>⭐ ${user.rank || "N/A"} pozycja</span>
+          <span>🏅 ${user.medals || 0} medali</span>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    container.appendChild(grid);
+  }
+
+  function displayError(error) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsGrid = document.getElementById("resultsGrid");
+    const resultsInfo = document.getElementById("resultsInfo");
+
+    resultsInfo.textContent = "Błąd wyszukiwania";
+    resultsGrid.innerHTML = `<div class="bg-red-600/20 border border-red-400/30 rounded p-4">
+      <div class="text-red-400 font-semibold mb-2">Błąd wyszukiwania:</div>
+      <div class="text-primary-foreground">${error}</div>
+    </div>`;
+
+    resultsSection.classList.remove("hidden");
+  }
+
+  function openDataset(url) {
+    window.open(url, "_blank");
+  }
+
+  function toggleFavorite(id, title, url) {
+    const existingIndex = favorites.findIndex((fav) => fav.id === id);
+
+    if (existingIndex >= 0) {
+      favorites.splice(existingIndex, 1);
+    } else {
+      favorites.push({
+        id,
+        title,
+        url,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
+    localStorage.setItem("kaggleFavorites", JSON.stringify(favorites));
+
+    // Refresh current results to update star icons
+    if (currentResults.length > 0) {
+      displayResults(currentResults, currentResults.length);
+    }
+  }
+
+  function viewFavorites() {
+    if (favorites.length === 0) {
+      alert("Brak ulubionych elementów");
+      return;
+    }
+
+    const favoritesWindow = window.open("", "_blank");
+    let html =
+      '<html><head><title>Ulubione - Kaggle</title></head><body style="background:#000;color:#fff;font-family:Arial">';
+    html += "<h1>Twoje ulubione elementy z Kaggle</h1>";
+
+    favorites.forEach((fav) => {
+      html += `<div style="border:1px solid #333;margin:10px;padding:10px;">`;
+      html += `<h3><a href="${fav.url}" target="_blank" style="color:#f97316">${fav.title}</a></h3>`;
+      html += `<p>Dodano: ${new Date(fav.timestamp).toLocaleDateString("pl-PL")}</p>`;
+      html += `</div>`;
+    });
+
+    html += "</body></html>";
+    favoritesWindow.document.write(html);
+  }
+
+  function exportResults() {
+    if (currentResults.length === 0) {
+      alert("Brak wyników do eksportu");
+      return;
+    }
+
+    const csv = convertResultsToCSV(currentResults);
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "kaggle_search_results.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function convertResultsToCSV(results) {
+    if (results.length === 0) return "";
+
+    const headers = Object.keys(results[0]).join(",");
+    const rows = results
+      .map((row) =>
+        Object.values(row)
+          .map((value) => `"${value || ""}"`)
+          .join(",")
+      )
+      .join("\n");
+
+    return headers + "\n" + rows;
+  }
+
+  function saveSearch() {
+    const query = document.getElementById("searchQuery").value.trim();
+    if (!query) {
+      alert("Brak zapytania do zapisania");
+      return;
+    }
+
+    const name = prompt("Nazwa wyszukiwania:");
+    if (name) {
+      const savedSearches = JSON.parse(
+        localStorage.getItem("savedKaggleSearches") || "[]"
+      );
+      savedSearches.push({
+        id: Date.now(),
+        name,
+        query,
+        filters: {
+          searchType: document.getElementById("searchType").value,
+          category: document.getElementById("category").value,
+          fileSize: document.getElementById("fileSize").value,
+          fileType: document.getElementById("fileType").value,
+          sortBy: document.getElementById("sortBy").value,
+        },
+        timestamp: new Date().toISOString(),
+      });
+      localStorage.setItem(
+        "savedKaggleSearches",
+        JSON.stringify(savedSearches)
+      );
+      alert("Wyszukiwanie zostało zapisane");
+    }
+  }
+
+  function clearResults() {
+    document.getElementById("resultsSection").classList.add("hidden");
+    currentResults = [];
+    currentPage = 1;
+  }
+
+  function changePage(direction) {
+    const newPage = currentPage + direction;
+    if (newPage >= 1 && newPage <= totalPages) {
+      currentPage = newPage;
+      performSearch();
+    }
+  }
+
+  function updatePagination() {
+    document.getElementById("pageInfo").textContent =
+      `Strona ${currentPage} z ${totalPages}`;
+    document.getElementById("prevPage").disabled = currentPage === 1;
+    document.getElementById("nextPage").disabled = currentPage === totalPages;
+  }
+
+  function addToSearchHistory(query, type, results) {
+    const historyItem = {
+      id: Date.now(),
+      query,
+      type,
+      results,
+      timestamp: new Date().toISOString(),
+    };
+
+    searchHistory.unshift(historyItem);
+    if (searchHistory.length > 10) {
+      searchHistory = searchHistory.slice(0, 10);
+    }
+
+    localStorage.setItem("kaggleSearchHistory", JSON.stringify(searchHistory));
+    updateSearchHistoryDisplay();
+  }
+
+  function updateSearchHistoryDisplay() {
+    const historyList = document.getElementById("searchHistoryList");
+    historyList.innerHTML = "";
+
+    searchHistory.forEach((item) => {
+      const historyItem = document.createElement("div");
+      historyItem.className =
+        "history-item bg-black/20 border border-edge rounded-lg p-3 cursor-pointer hover:border-orange-400 transition-colors";
+
+      const date = new Date(item.timestamp).toLocaleDateString("pl-PL");
+
+      historyItem.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <p class="text-primary-foreground text-sm font-medium">${item.query}</p>
+            <p class="text-gray-400 text-xs">${date} • ${item.type} • ${item.results} wyników</p>
+          </div>
+          <button onclick="deleteFromSearchHistory(${item.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+        </div>
+      `;
+
+      historyItem.onclick = (e) => {
+        if (e.target.tagName !== "BUTTON") {
+          document.getElementById("searchQuery").value = item.query;
+          document.getElementById("searchType").value = item.type;
+        }
+      };
+
+      historyList.appendChild(historyItem);
+    });
+  }
+
+  function deleteFromSearchHistory(id) {
+    event.stopPropagation();
+    if (confirm("Czy na pewno chcesz usunąć to wyszukiwanie z historii?")) {
+      searchHistory = searchHistory.filter((item) => item.id !== id);
+      localStorage.setItem(
+        "kaggleSearchHistory",
+        JSON.stringify(searchHistory)
+      );
+      updateSearchHistoryDisplay();
+    }
+  }
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    updateSearchHistoryDisplay();
+
+    // Load quick search if available
+    const quickSearch = localStorage.getItem("quickKaggleSearch");
+    if (quickSearch) {
+      document.getElementById("searchQuery").value = quickSearch;
+      localStorage.removeItem("quickKaggleSearch");
+    }
+  });
+</script>

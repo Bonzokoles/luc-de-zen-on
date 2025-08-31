@@ -1,385 +1,895 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 ---
 
-<Layout title="BigQuery Analytics - LUC de ZEN ON">
-  <div class="header-with-help">
-    <h1 class="page-title">BigQuery Analytics</h1>
-    <button
-      id="helpButton"
-      class="help-icon"
-      title="Kliknij aby uzyskać szczegółowe informacje"
+<MyBonzoLayout title="BigQuery Analytics | AI Workers">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              BIG_QUERY
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              ANALYTICS
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">BIGQUERY ANALYTICS</h1>
+            <h2 class="text-2xl sm:text-3xl">Google Cloud Data Analysis</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BigQuery Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      id="bigquery"
     >
-      ?
-    </button>
-  </div>
-  <p style="color: #ccc; margin-bottom: 30px;">
-    Analizuj dane z Google BigQuery. Wykonuj zapytania SQL i generuj raporty
-    analityczne.
-  </p>
+      <div class="section-container max-w-6xl mx-auto">
+        <h2 class="section-title">BIGQUERY ANALYTICS</h2>
+        <p class="section-description">
+          Analizuj dane z Google BigQuery, wykonuj zapytania SQL i generuj
+          raporty
+        </p>
 
-  <div class="analytics-container">
-    <div class="query-section">
-      <h3>Zapytanie SQL</h3>
-      <div class="form-group">
-        <label for="projectId">Project ID:</label>
-        <input
-          type="text"
-          id="projectId"
-          value="zenon-project-467918"
-          placeholder="Wprowadź BigQuery Project ID"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="sqlQuery">Zapytanie SQL:</label>
-        <textarea
-          id="sqlQuery"
-          rows="6"
-          placeholder="SELECT * FROM analytics_data WHERE date >= '2025-01-01' LIMIT 10"
-          >SELECT * FROM analytics_data WHERE date >= '2025-01-01' LIMIT 10</textarea
+        <!-- Query Interface -->
+        <div
+          class="query-container border border-edge rounded-lg mt-8"
+          style="background: rgba(0, 0, 0, 0.5);"
         >
-      </div>
-
-      <button id="executeButton" class="execute-btn">
-        Wykonaj zapytanie
-      </button>
-
-      <div id="loadingIndicator" class="loading" style="display: none;">
-        Wykonywanie zapytania BigQuery...
-      </div>
-    </div>
-
-    <div class="results-section">
-      <h3>Wyniki analizy</h3>
-      <div id="resultsContainer" class="results-container">
-        <p style="color: #999;">Wykonaj zapytanie aby zobaczyć wyniki</p>
-      </div>
-    </div>
-  </div>
-
-  <style>
-    .analytics-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .analytics-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-    }
-
-    .query-section,
-    .results-section {
-      background: #111;
-      border: 1px solid #333;
-      padding: 30px;
-    }
-
-    .query-section h3,
-    .results-section h3 {
-      color: #fff;
-      margin-bottom: 20px;
-      font-size: 20px;
-    }
-
-    .execute-btn {
-      width: 100%;
-      padding: 15px;
-      font-size: 16px;
-      font-weight: bold;
-      background: #2d4a2d;
-      border-color: #4a7c4a;
-    }
-
-    .execute-btn:hover {
-      background: #3d5a3d;
-      border-color: #5a8c5a;
-    }
-
-    .results-container {
-      background: #0a0a0a;
-      border: 1px solid #333;
-      padding: 20px;
-      min-height: 400px;
-      overflow-x: auto;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    .data-table th,
-    .data-table td {
-      border: 1px solid #333;
-      padding: 12px;
-      text-align: left;
-    }
-
-    .data-table th {
-      background: #1a1a1a;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .data-table td {
-      color: #ccc;
-    }
-
-    .data-table tr:nth-child(even) {
-      background: #111;
-    }
-
-    .summary-card {
-      background: #1a1a1a;
-      border: 1px solid #333;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .summary-card h4 {
-      color: #fff;
-      margin-bottom: 15px;
-    }
-
-    .metric {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      color: #ccc;
-    }
-
-    .metric-value {
-      color: #4a9eff;
-      font-weight: bold;
-    }
-
-    .query-info {
-      background: #1a1a1a;
-      border: 1px solid #333;
-      padding: 15px;
-      margin-bottom: 20px;
-      font-family: monospace;
-      color: #ccc;
-    }
-  </style>
-
-  <script>
-    const projectIdInput = document.getElementById(
-      "projectId"
-    ) as HTMLInputElement;
-    const sqlQueryInput = document.getElementById(
-      "sqlQuery"
-    ) as HTMLTextAreaElement;
-    const executeButton = document.getElementById(
-      "executeButton"
-    ) as HTMLButtonElement;
-    const loadingIndicator = document.getElementById(
-      "loadingIndicator"
-    ) as HTMLElement;
-    const resultsContainer = document.getElementById(
-      "resultsContainer"
-    ) as HTMLElement;
-
-    async function executeQuery() {
-      if (!sqlQueryInput?.value.trim()) {
-        alert("Proszę wprowadzić zapytanie SQL");
-        return;
-      }
-
-      const projectId = projectIdInput?.value.trim();
-      const query = sqlQueryInput?.value.trim();
-
-      if (executeButton) executeButton.disabled = true;
-      if (loadingIndicator) loadingIndicator.style.display = "block";
-
-      try {
-        const response = await fetch("/api/bigquery", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            projectId: projectId,
-            query: query,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        displayResults(data);
-      } catch (error) {
-        console.error("Error:", error);
-        if (resultsContainer) {
-          resultsContainer.innerHTML = `
-            <div class="error">
-              <h4>Błąd wykonania zapytania</h4>
-              <p>${error instanceof Error ? error.message : "Nieznany błąd"}</p>
+          <!-- Query Header -->
+          <div
+            class="query-header border-b border-edge p-4 flex items-center justify-between"
+            style="background: rgba(0, 0, 0, 0.3);"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+              <span class="text-primary-foreground font-semibold"
+                >BigQuery Console</span
+              >
             </div>
-          `;
-        }
-      } finally {
-        if (executeButton) executeButton.disabled = false;
-        if (loadingIndicator) loadingIndicator.style.display = "none";
+            <div class="flex gap-2">
+              <button
+                onclick="saveQuery()"
+                class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+              >
+                Zapisz
+              </button>
+              <button
+                onclick="loadQuery()"
+                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+              >
+                Wczytaj
+              </button>
+              <button
+                onclick="clearQuery()"
+                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+              >
+                Wyczyść
+              </button>
+            </div>
+          </div>
+
+          <!-- SQL Editor -->
+          <div class="sql-editor p-4">
+            <label
+              for="sqlQuery"
+              class="block text-lg font-semibold mb-3 text-primary-foreground"
+            >
+              Zapytanie SQL:
+            </label>
+            <div class="relative">
+              <textarea
+                id="sqlQuery"
+                rows="8"
+                class="w-full p-4 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none font-mono text-sm"
+                style="background: rgba(0, 0, 0, 0.5);"
+                placeholder="SELECT * FROM `project.dataset.table` WHERE ..."
+              ></textarea>
+              <div
+                class="absolute top-2 right-2 text-xs text-gray-400"
+                id="lineCounter"
+              >
+                Linia: 1, Kolumna: 1
+              </div>
+            </div>
+          </div>
+
+          <!-- Query Settings -->
+          <div
+            class="query-settings p-4 border-t border-edge"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-primary-foreground"
+                  >Projekt:</label
+                >
+                <input
+                  id="projectId"
+                  type="text"
+                  placeholder="project-id"
+                  class="w-full p-2 border border-edge rounded text-primary-foreground"
+                  style="background: rgba(0, 0, 0, 0.5);"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-primary-foreground"
+                  >Dataset:</label
+                >
+                <input
+                  id="datasetId"
+                  type="text"
+                  placeholder="dataset_name"
+                  class="w-full p-2 border border-edge rounded text-primary-foreground"
+                  style="background: rgba(0, 0, 0, 0.5);"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-primary-foreground"
+                  >Limit wyników:</label
+                >
+                <select
+                  id="rowLimit"
+                  class="w-full p-2 border border-edge rounded text-primary-foreground"
+                  style="background: rgba(0, 0, 0, 0.5);"
+                >
+                  <option value="100">100 wierszy</option>
+                  <option value="1000">1,000 wierszy</option>
+                  <option value="10000">10,000 wierszy</option>
+                  <option value="0">Bez limitu</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  class="block text-sm font-medium mb-2 text-primary-foreground"
+                  >Format:</label
+                >
+                <select
+                  id="outputFormat"
+                  class="w-full p-2 border border-edge rounded text-primary-foreground"
+                  style="background: rgba(0, 0, 0, 0.5);"
+                >
+                  <option value="table">Tabela</option>
+                  <option value="json">JSON</option>
+                  <option value="csv">CSV</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Execute Button -->
+          <div class="execute-section p-4 border-t border-edge">
+            <button
+              id="executeBtn"
+              onclick="executeQuery()"
+              class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
+            >
+              🚀 Wykonaj Zapytanie
+            </button>
+          </div>
+
+          <!-- Progress Section -->
+          <div
+            id="progressSection"
+            class="progress-section hidden p-4 border-t border-edge"
+          >
+            <div
+              class="border border-edge rounded-lg p-4"
+              style="background: rgba(0, 0, 0, 0.5);"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-primary-foreground"
+                  >Wykonywanie zapytania...</span
+                >
+                <span id="queryTime" class="text-cyan-400">0s</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div
+                  id="progressBar"
+                  class="bg-cyan-400 h-2 rounded-full transition-all duration-300 animate-pulse"
+                  style="width: 100%"
+                >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden mt-8">
+          <div
+            class="border border-edge rounded-lg"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <!-- Results Header -->
+            <div
+              class="results-header border-b border-edge p-4 flex items-center justify-between"
+              style="background: rgba(0, 0, 0, 0.3);"
+            >
+              <div>
+                <h3 class="text-xl font-semibold text-primary-foreground">
+                  Wyniki zapytania
+                </h3>
+                <p id="resultsInfo" class="text-gray-400 text-sm"></p>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  onclick="exportResults('csv')"
+                  class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                >
+                  Export CSV
+                </button>
+                <button
+                  onclick="exportResults('json')"
+                  class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                >
+                  Export JSON
+                </button>
+                <button
+                  onclick="createChart()"
+                  class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                >
+                  Wykres
+                </button>
+              </div>
+            </div>
+
+            <!-- Results Content -->
+            <div
+              id="resultsContent"
+              class="results-content p-4 max-h-96 overflow-auto"
+            >
+              <!-- Results will be populated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Queries -->
+        <div class="quick-queries mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Przykładowe zapytania:
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              class="quick-query-btn text-left"
+              onclick="setQuery(exampleQueries.basic)"
+            >
+              <div class="font-semibold text-cyan-400">
+                📊 Podstawowe zapytanie
+              </div>
+              <div class="text-sm text-gray-300">
+                SELECT * FROM table LIMIT 100
+              </div>
+            </button>
+            <button
+              class="quick-query-btn text-left"
+              onclick="setQuery(exampleQueries.aggregate)"
+            >
+              <div class="font-semibold text-cyan-400">📈 Agregacja danych</div>
+              <div class="text-sm text-gray-300">COUNT, SUM, AVG, GROUP BY</div>
+            </button>
+            <button
+              class="quick-query-btn text-left"
+              onclick="setQuery(exampleQueries.join)"
+            >
+              <div class="font-semibold text-cyan-400">🔗 JOIN tabeli</div>
+              <div class="text-sm text-gray-300">LEFT JOIN, INNER JOIN</div>
+            </button>
+            <button
+              class="quick-query-btn text-left"
+              onclick="setQuery(exampleQueries.analytics)"
+            >
+              <div class="font-semibold text-cyan-400">🧮 Analityka</div>
+              <div class="text-sm text-gray-300">
+                Window functions, RANK, LAG
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Query History -->
+        <div class="query-history mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Historia zapytań:
+          </h3>
+          <div id="queryHistoryList" class="space-y-2">
+            <!-- History items will be populated here -->
+          </div>
+        </div>
+
+        <!-- Schema Browser -->
+        <div
+          class="schema-browser mt-8 border border-edge rounded-lg p-6"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            Przeglądarka schematów:
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Projekty:</label
+              >
+              <div
+                id="projectsList"
+                class="border border-edge rounded p-3 h-32 overflow-y-auto"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <div class="text-gray-400 text-sm">Wczytaj projekty...</div>
+              </div>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Datasety:</label
+              >
+              <div
+                id="datasetsList"
+                class="border border-edge rounded p-3 h-32 overflow-y-auto"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <div class="text-gray-400 text-sm">Wybierz projekt</div>
+              </div>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Tabele:</label
+              >
+              <div
+                id="tablesList"
+                class="border border-edge rounded p-3 h-32 overflow-y-auto"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <div class="text-gray-400 text-sm">Wybierz dataset</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Help Assistant Integration -->
+  <AiHelpAssistant client:load />
+</MyBonzoLayout>
+
+<style>
+  /* Base styles matching main page */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  .quick-query-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .quick-query-btn:hover {
+    background-color: #374151;
+    border-color: #00bcd4;
+  }
+
+  .ai-workers-section {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    min-height: 100vh;
+  }
+
+  /* Table styles for results */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .results-table th,
+  .results-table td {
+    border: 1px solid #374151;
+    padding: 0.5rem;
+    text-align: left;
+  }
+
+  .results-table th {
+    background-color: #1e293b;
+    color: #00bcd4;
+    font-weight: bold;
+  }
+
+  .results-table td {
+    color: #d1d5db;
+  }
+
+  .results-table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Scrollbar styling */
+  .results-content::-webkit-scrollbar,
+  #projectsList::-webkit-scrollbar,
+  #datasetsList::-webkit-scrollbar,
+  #tablesList::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .results-content::-webkit-scrollbar-track,
+  #projectsList::-webkit-scrollbar-track,
+  #datasetsList::-webkit-scrollbar-track,
+  #tablesList::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  .results-content::-webkit-scrollbar-thumb,
+  #projectsList::-webkit-scrollbar-thumb,
+  #datasetsList::-webkit-scrollbar-thumb,
+  #tablesList::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  let queryHistory = JSON.parse(
+    localStorage.getItem("bigqueryHistory") || "[]"
+  );
+  let currentResults = null;
+  let queryStartTime = null;
+
+  const exampleQueries = {
+    basic: `SELECT 
+  column1,
+  column2,
+  column3
+FROM \`project.dataset.table\`
+LIMIT 100;`,
+
+    aggregate: `SELECT 
+  category,
+  COUNT(*) as total_count,
+  AVG(value) as avg_value,
+  SUM(amount) as total_amount
+FROM \`project.dataset.table\`
+GROUP BY category
+ORDER BY total_count DESC;`,
+
+    join: `SELECT 
+  a.id,
+  a.name,
+  b.description
+FROM \`project.dataset.table_a\` a
+LEFT JOIN \`project.dataset.table_b\` b
+  ON a.id = b.table_a_id
+WHERE a.status = 'active';`,
+
+    analytics: `SELECT 
+  date,
+  value,
+  LAG(value) OVER (ORDER BY date) as prev_value,
+  RANK() OVER (ORDER BY value DESC) as rank
+FROM \`project.dataset.table\`
+WHERE date >= '2023-01-01'
+ORDER BY date;`,
+  };
+
+  function setQuery(query) {
+    document.getElementById("sqlQuery").value = query;
+  }
+
+  async function executeQuery() {
+    const query = document.getElementById("sqlQuery").value.trim();
+    if (!query) {
+      alert("Proszę wprowadzić zapytanie SQL");
+      return;
+    }
+
+    const executeBtn = document.getElementById("executeBtn");
+    const progressSection = document.getElementById("progressSection");
+    const resultsSection = document.getElementById("resultsSection");
+
+    // Start execution
+    executeBtn.disabled = true;
+    executeBtn.textContent = "Wykonywanie...";
+    progressSection.classList.remove("hidden");
+    resultsSection.classList.add("hidden");
+
+    queryStartTime = Date.now();
+
+    // Update timer
+    const timerInterval = setInterval(() => {
+      const elapsed = ((Date.now() - queryStartTime) / 1000).toFixed(1);
+      document.getElementById("queryTime").textContent = elapsed + "s";
+    }, 100);
+
+    try {
+      const projectId = document.getElementById("projectId").value;
+      const datasetId = document.getElementById("datasetId").value;
+      const rowLimit = parseInt(document.getElementById("rowLimit").value);
+      const format = document.getElementById("outputFormat").value;
+
+      const response = await fetch("/api/bigquery", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query,
+          projectId,
+          datasetId,
+          rowLimit,
+          format,
+        }),
+      });
+
+      const data = await response.json();
+
+      clearInterval(timerInterval);
+
+      if (data.success) {
+        currentResults = data.results;
+        displayResults(data.results, data.metadata);
+
+        // Add to history
+        addToHistory(query, data.metadata);
+      } else {
+        throw new Error(data.error || "Błąd wykonania zapytania");
+      }
+    } catch (error) {
+      clearInterval(timerInterval);
+      console.error("Query error:", error);
+      displayError(error.message);
+    } finally {
+      // Reset UI
+      executeBtn.disabled = false;
+      executeBtn.textContent = "🚀 Wykonaj Zapytanie";
+      setTimeout(() => {
+        progressSection.classList.add("hidden");
+      }, 500);
+    }
+  }
+
+  function displayResults(results, metadata) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsContent = document.getElementById("resultsContent");
+    const resultsInfo = document.getElementById("resultsInfo");
+
+    resultsInfo.textContent = `${metadata.rowCount} wierszy, ${metadata.columnCount} kolumn, czas: ${metadata.executionTime}s`;
+
+    if (results.length === 0) {
+      resultsContent.innerHTML =
+        '<div class="text-gray-400 text-center py-8">Brak wyników</div>';
+    } else {
+      const format = document.getElementById("outputFormat").value;
+
+      if (format === "table") {
+        displayTableResults(results, resultsContent);
+      } else if (format === "json") {
+        displayJsonResults(results, resultsContent);
+      } else if (format === "csv") {
+        displayCsvResults(results, resultsContent);
       }
     }
 
-    function displayResults(data: any) {
-      if (!resultsContainer || !data.success) return;
+    resultsSection.classList.remove("hidden");
+  }
 
-      const { data: analyticsData } = data;
+  function displayTableResults(results, container) {
+    if (results.length === 0) return;
 
-      let html = `
-        <div class="query-info">
-          <strong>Project ID:</strong> ${analyticsData.projectId}<br>
-          <strong>Executed Query:</strong> ${analyticsData.query}<br>
-          <strong>Timestamp:</strong> ${new Date(analyticsData.timestamp).toLocaleString()}
+    const columns = Object.keys(results[0]);
+    let html = '<table class="results-table"><thead><tr>';
+
+    columns.forEach((col) => {
+      html += `<th>${col}</th>`;
+    });
+    html += "</tr></thead><tbody>";
+
+    results.forEach((row) => {
+      html += "<tr>";
+      columns.forEach((col) => {
+        const value = row[col];
+        html += `<td>${value !== null && value !== undefined ? value : '<span class="text-gray-500">NULL</span>'}</td>`;
+      });
+      html += "</tr>";
+    });
+
+    html += "</tbody></table>";
+    container.innerHTML = html;
+  }
+
+  function displayJsonResults(results, container) {
+    const json = JSON.stringify(results, null, 2);
+    container.innerHTML = `<pre class="text-green-400 text-sm overflow-auto"><code>${json}</code></pre>`;
+  }
+
+  function displayCsvResults(results, container) {
+    if (results.length === 0) return;
+
+    const columns = Object.keys(results[0]);
+    let csv = columns.join(",") + "\n";
+
+    results.forEach((row) => {
+      const values = columns.map((col) => {
+        const value = row[col];
+        return value !== null && value !== undefined ? `"${value}"` : "";
+      });
+      csv += values.join(",") + "\n";
+    });
+
+    container.innerHTML = `<pre class="text-blue-400 text-sm overflow-auto"><code>${csv}</code></pre>`;
+  }
+
+  function displayError(error) {
+    const resultsSection = document.getElementById("resultsSection");
+    const resultsContent = document.getElementById("resultsContent");
+    const resultsInfo = document.getElementById("resultsInfo");
+
+    resultsInfo.textContent = "Błąd wykonania zapytania";
+    resultsContent.innerHTML = `<div class="bg-red-600/20 border border-red-400/30 rounded p-4">
+      <div class="text-red-400 font-semibold mb-2">Błąd SQL:</div>
+      <div class="text-primary-foreground">${error}</div>
+    </div>`;
+
+    resultsSection.classList.remove("hidden");
+  }
+
+  function saveQuery() {
+    const query = document.getElementById("sqlQuery").value.trim();
+    if (!query) {
+      alert("Brak zapytania do zapisania");
+      return;
+    }
+
+    const name = prompt("Nazwa zapytania:");
+    if (name) {
+      const savedQueries = JSON.parse(
+        localStorage.getItem("savedQueries") || "[]"
+      );
+      savedQueries.push({
+        id: Date.now(),
+        name,
+        query,
+        timestamp: new Date().toISOString(),
+      });
+      localStorage.setItem("savedQueries", JSON.stringify(savedQueries));
+      alert("Zapytanie zostało zapisane");
+    }
+  }
+
+  function loadQuery() {
+    const savedQueries = JSON.parse(
+      localStorage.getItem("savedQueries") || "[]"
+    );
+    if (savedQueries.length === 0) {
+      alert("Brak zapisanych zapytań");
+      return;
+    }
+
+    const options = savedQueries.map((q, i) => `${i}: ${q.name}`).join("\n");
+    const choice = prompt(`Wybierz zapytanie:\n${options}`);
+
+    if (choice !== null) {
+      const index = parseInt(choice);
+      if (index >= 0 && index < savedQueries.length) {
+        document.getElementById("sqlQuery").value = savedQueries[index].query;
+      }
+    }
+  }
+
+  function clearQuery() {
+    if (confirm("Czy na pewno chcesz wyczyścić zapytanie?")) {
+      document.getElementById("sqlQuery").value = "";
+    }
+  }
+
+  function exportResults(format) {
+    if (!currentResults) {
+      alert("Brak wyników do eksportu");
+      return;
+    }
+
+    let content, filename, mimeType;
+
+    if (format === "csv") {
+      content = convertToCSV(currentResults);
+      filename = "bigquery_results.csv";
+      mimeType = "text/csv";
+    } else if (format === "json") {
+      content = JSON.stringify(currentResults, null, 2);
+      filename = "bigquery_results.json";
+      mimeType = "application/json";
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function convertToCSV(data) {
+    if (data.length === 0) return "";
+
+    const columns = Object.keys(data[0]);
+    let csv = columns.join(",") + "\n";
+
+    data.forEach((row) => {
+      const values = columns.map((col) => {
+        const value = row[col];
+        return value !== null && value !== undefined ? `"${value}"` : "";
+      });
+      csv += values.join(",") + "\n";
+    });
+
+    return csv;
+  }
+
+  function createChart() {
+    if (!currentResults || currentResults.length === 0) {
+      alert("Brak danych do stworzenia wykresu");
+      return;
+    }
+
+    // This would open a chart creation interface
+    alert("Funkcja tworzenia wykresów będzie dostępna wkrótce");
+  }
+
+  function addToHistory(query, metadata) {
+    const historyItem = {
+      id: Date.now(),
+      query: query.substring(0, 100) + (query.length > 100 ? "..." : ""),
+      fullQuery: query,
+      timestamp: new Date().toISOString(),
+      metadata,
+    };
+
+    queryHistory.unshift(historyItem);
+    if (queryHistory.length > 20) {
+      queryHistory = queryHistory.slice(0, 20);
+    }
+
+    localStorage.setItem("bigqueryHistory", JSON.stringify(queryHistory));
+    updateHistoryDisplay();
+  }
+
+  function updateHistoryDisplay() {
+    const historyList = document.getElementById("queryHistoryList");
+    historyList.innerHTML = "";
+
+    queryHistory.forEach((item) => {
+      const historyItem = document.createElement("div");
+      historyItem.className =
+        "history-item border border-edge rounded-lg p-3 cursor-pointer hover:border-cyan-400 transition-colors";
+      item.style.background = "rgba(0, 0, 0, 0.5)";
+
+      const date = new Date(item.timestamp).toLocaleDateString("pl-PL");
+      const time = new Date(item.timestamp).toLocaleTimeString("pl-PL");
+
+      historyItem.innerHTML = `
+        <div class="flex justify-between items-start">
+          <div class="flex-1">
+            <p class="text-primary-foreground text-sm font-medium">${item.query}</p>
+            <p class="text-gray-400 text-xs">${date} ${time} • ${item.metadata.rowCount} wierszy</p>
+          </div>
+          <button onclick="deleteFromHistory(${item.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
         </div>
       `;
 
-      // Summary card
-      if (analyticsData.summary) {
-        html += `
-          <div class="summary-card">
-            <h4>Podsumowanie</h4>
-            <div class="metric">
-              <span>Łączne odsłony:</span>
-              <span class="metric-value">${analyticsData.summary.total_pageviews.toLocaleString()}</span>
-            </div>
-            <div class="metric">
-              <span>Unikalni użytkownicy:</span>
-              <span class="metric-value">${analyticsData.summary.total_unique_visitors.toLocaleString()}</span>
-            </div>
-            <div class="metric">
-              <span>Średni bounce rate:</span>
-              <span class="metric-value">${(analyticsData.summary.average_bounce_rate * 100).toFixed(1)}%</span>
-            </div>
-            <div class="metric">
-              <span>Średni czas sesji:</span>
-              <span class="metric-value">${analyticsData.summary.average_session_duration}s</span>
-            </div>
-          </div>
-        `;
-      }
-
-      // Data table
-      if (analyticsData.results && analyticsData.results.length > 0) {
-        const columns = Object.keys(analyticsData.results[0]);
-
-        html += `
-          <table class="data-table">
-            <thead>
-              <tr>
-                ${columns.map((col) => `<th>${col}</th>`).join("")}
-              </tr>
-            </thead>
-            <tbody>
-              ${analyticsData.results
-                .map(
-                  (row: any) => `
-                <tr>
-                  ${columns.map((col) => `<td>${row[col]}</td>`).join("")}
-                </tr>
-              `
-                )
-                .join("")}
-            </tbody>
-          </table>
-        `;
-      }
-
-      resultsContainer.innerHTML = html;
-    }
-
-    if (executeButton) {
-      executeButton.addEventListener("click", executeQuery);
-    }
-
-    // Help modal functionality
-    const helpButton = document.getElementById("helpButton");
-    const helpModal = document.getElementById("helpModal");
-    const closeModal = document.getElementById("closeModal");
-
-    if (helpButton && helpModal && closeModal) {
-      helpButton.addEventListener("click", () => {
-        helpModal.style.display = "flex";
-      });
-
-      closeModal.addEventListener("click", () => {
-        helpModal.style.display = "none";
-      });
-
-      helpModal.addEventListener("click", (e) => {
-        if (e.target === helpModal) {
-          helpModal.style.display = "none";
+      historyItem.onclick = (e) => {
+        if (e.target.tagName !== "BUTTON") {
+          document.getElementById("sqlQuery").value = item.fullQuery;
         }
-      });
+      };
+
+      historyList.appendChild(historyItem);
+    });
+  }
+
+  function deleteFromHistory(id) {
+    event.stopPropagation();
+    if (confirm("Czy na pewno chcesz usunąć to zapytanie z historii?")) {
+      queryHistory = queryHistory.filter((item) => item.id !== id);
+      localStorage.setItem("bigqueryHistory", JSON.stringify(queryHistory));
+      updateHistoryDisplay();
     }
-  </script>
+  }
 
-  <!-- Help Modal -->
-  <div id="helpModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>BigQuery Analytics - Szczegółowy opis</h2>
-        <span id="closeModal" class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p>
-          <strong
-            >BigQuery to potężne, w pełni zarządzane rozwiązanie analityczne w
-            chmurze pozwalające na błyskawiczne przetwarzanie ogromnych zbiorów
-            danych.</strong>
-        </p>
+  // Line counter for SQL editor
+  function updateLineCounter() {
+    const textarea = document.getElementById("sqlQuery");
+    const counter = document.getElementById("lineCounter");
 
-        <h3>Dzięki BigQuery można:</h3>
-        <ul>
-          <li>
-            <strong>Wykonywać szybkie i skalowalne zapytania SQL</strong> na bardzo
-            dużych bazach danych.
-          </li>
-          <li>
-            <strong>Łatwo integrować dane z różnych źródeł</strong> i analizować
-            je w czasie rzeczywistym.
-          </li>
-          <li>
-            <strong>Tworzyć raporty, dashboardy i przewidywania</strong> na podstawie
-            zaawansowanej analityki.
-          </li>
-          <li>
-            <strong>Automatyzować przetwarzanie i raportowanie danych</strong> dzięki
-            harmonogramom i integracjom API.
-          </li>
-        </ul>
+    const text = textarea.value;
+    const lines = text.split("\n").length;
+    const cursorPos = textarea.selectionStart;
+    const textBeforeCursor = text.substring(0, cursorPos);
+    const currentLine = textBeforeCursor.split("\n").length;
+    const currentCol = textBeforeCursor.split("\n").pop().length + 1;
 
-        <h3>Optymalne wykorzystanie:</h3>
-        <p>
-          Optymalne wykorzystanie BigQuery polega na łączeniu go z narzędziami
-          do wizualizacji danych i automatyzacji przepływów pracy, aby generować
-          szybkie i precyzyjne analizy dla zespołów biznesowych.
-        </p>
+    counter.textContent = `Linia: ${currentLine}, Kolumna: ${currentCol}`;
+  }
 
-        <div class="feature-highlight">
-          <h3>Kluczowe zalety:</h3>
-          <ul>
-            <li>🚀 Błyskawiczna prędkość zapytań</li>
-            <li>📊 Analiza petabajtów danych</li>
-            <li>🔄 Integracja z wieloma źródłami</li>
-            <li>⚡ Automatyzacja procesów</li>
-            <li>📈 Zaawansowana analityka predykcyjna</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</Layout>
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    updateHistoryDisplay();
+
+    // Add line counter event listener
+    const sqlQuery = document.getElementById("sqlQuery");
+    sqlQuery.addEventListener("input", updateLineCounter);
+    sqlQuery.addEventListener("click", updateLineCounter);
+    sqlQuery.addEventListener("keyup", updateLineCounter);
+
+    // Load quick query if available
+    const quickQuery = localStorage.getItem("quickSQLQuery");
+    if (quickQuery) {
+      document.getElementById("sqlQuery").value = quickQuery;
+      localStorage.removeItem("quickSQLQuery");
+    }
+  });
+</script>
