@@ -15,21 +15,24 @@
     "publish": true
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.6.7",
     "@astrojs/mdx": "^4.3.4",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
     "@astrojs/svelte": "^7.1.0",
-    "@tailwindcss/vite": "^4.0.9",
+    "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.13.5",
+    "babylonjs": "^7.26.1",
     "clsx": "^2.1.1",
     "nanostores": "^0.11.4",
     "svelte": "^5.22.1",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.9",
-    "typescript": "^5.8.2"
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250831.0",
     "@tailwindcss/typography": "^0.5.16",
     "wrangler": "^4.21.0"
   },
@@ -37,10 +40,11 @@
     "astro": "astro",
     "build": "astro build",
     "cf-typegen": "wrangler types",
-    "check": "astro build && tsc && wrangler deploy --dry-run",
-    "deploy": "wrangler deploy",
+    "check": "astro build && tsc",
+    "deploy": "wrangler pages deploy ./dist",
     "dev": "astro dev",
-    "preview": "astro build && wrangler dev"
+    "preview": "astro build && wrangler dev",
+    "generate-types": "wrangler types"
   },
   "type": "module"
 }

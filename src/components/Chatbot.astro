@@ -1,0 +1,59 @@
+---
+// This component is client-side only because it uses state.
+---
+
+<div class="chatbot-window" style="max-width:500px;margin:auto;background:#19223b;border-radius:8px;padding:1.5rem;" client:load>
+  <div id="chat-messages" style="min-height:180px;max-height:220px;overflow-y:auto;">
+    <div style='text-align:left;color:#f1f5f9;'>Cześć! W czym mogę pomóc?</div>
+  </div>
+  <input 
+    type="text" 
+    id="chat-input"
+    placeholder="Zadaj pytanie agentowi AI..." 
+    style="margin-top:12px;width:76%;"
+  />
+  <button id="chat-send" style="width:22%;margin-left:2%;">Wyślij</button>
+</div>
+
+<script>
+  const messagesDiv = document.getElementById('chat-messages');
+  const input = document.getElementById('chat-input');
+  const sendButton = document.getElementById('chat-send');
+
+  async function sendMessage() {
+    const prompt = input.value;
+    if (!prompt) return;
+
+    // Add user message to chat
+    const userMessage = document.createElement('div');
+    userMessage.style.textAlign = 'right';
+    userMessage.style.color = '#5eead4';
+    userMessage.textContent = prompt;
+    messagesDiv.appendChild(userMessage);
+
+    input.value = '';
+
+    // Fetch response from bot
+    const res = await fetch('/api/ai-bot-worker', { // Assuming a route is set up for this worker
+      method: 'POST',
+      body: JSON.stringify({ prompt }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const { answer } = await res.json();
+
+    // Add bot message to chat
+    const botMessage = document.createElement('div');
+    botMessage.style.textAlign = 'left';
+    botMessage.style.color = '#f1f5f9';
+    botMessage.textContent = answer;
+    messagesDiv.appendChild(botMessage);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+
+  sendButton.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+</script>

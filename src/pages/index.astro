@@ -1,8 +1,630 @@
-﻿---
-import Layout from "../layouts/BackroomInterface.astro";
-import AIWorkersNav from "../components/AIWorkersNav.astro";
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 ---
 
-<Layout siteTitle="LUC de ZEN ON - AI Workers & Agents">
-  <AIWorkersNav />
-</Layout>
+<MyBonzoLayout title="AI Workers Platform | KAROL LISSON">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AUG 2025
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">KAROL LISSON</h1>
+            <h2 class="text-2xl sm:text-3xl">Zażółć gęślą jaźń</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a
+              class="ml-auto hover:brightness-125 duration-200"
+              href="mailto:LissonKarol.msa@gmail.com"
+            >
+              LissonKarol.msa@gmail.com
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <div class="flex flex-row-reverse flex-wrap gap-4">
+              <a
+                class="hover:brightness-125 duration-200"
+                href="https://www.linkedin.com/in/linkedinHandle"
+              >
+                LinkedIn
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="https://www.github.com/githubUsername"
+              >
+                GitHub
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Workers Section - Centered -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      id="ai-workers"
+      data-astro-cid-my52qgmw
+    >
+      <div class="section-container" data-astro-cid-my52qgmw>
+        <h2 class="section-title" data-astro-cid-my52qgmw>AI WORKERS</h2>
+        <p class="section-description" data-astro-cid-my52qgmw>
+          Zaawansowane narzędzia AI dostępne na platformie
+        </p>
+
+        <!-- Small Tags Section -->
+        <div class="tags-section" data-astro-cid-my52qgmw>
+          <button
+            class="tag-btn"
+            onclick="window.open('/hub/agent-builder', '_blank')"
+            data-astro-cid-my52qgmw>POLACZEK_AGENT_SYS_23</button
+          >
+          <button
+            class="tag-btn"
+            onclick="window.open('/hub/ai-agent-s', '_blank')"
+            data-astro-cid-my52qgmw>BIELIK</button
+          >
+          <button
+            class="tag-btn"
+            onclick="window.open('/workers', '_blank')"
+            data-astro-cid-my52qgmw>ZENON</button
+          >
+          <button
+            class="tag-btn"
+            onclick="window.open('/dashboard', '_blank')"
+            data-astro-cid-my52qgmw>KLF_SHEED_SHOOP</button
+          >
+        </div>
+
+        <div class="workers-grid" data-astro-cid-my52qgmw>
+          <!-- Image Generator -->
+          <div class="worker-card" data-worker="image" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              Generator Obrazów
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Twórz niesamowite obrazy z tekstu używając Flux-1 Schnell
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Flux AI</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>512-1024px</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Tłumaczenie PL</span
+              >
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="Opisz obraz..."
+                class="quick-prompt"
+                id="imagePrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openImageGenerator()"
+                data-astro-cid-my52qgmw>Generuj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/image-generator', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- AI Chatbot -->
+          <div class="worker-card" data-worker="chat" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>AI Chatbot</h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Inteligentny asystent do rozmów i odpowiadania na pytania
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>OpenAI GPT</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Język polski</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>Kontekst</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="Zadaj pytanie..."
+                class="quick-prompt"
+                id="chatPrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openChatbot()"
+                data-astro-cid-my52qgmw>Chat</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/chatbot', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- BigQuery Analytics -->
+          <div
+            class="worker-card"
+            data-worker="bigquery"
+            data-astro-cid-my52qgmw
+          >
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              BigQuery Analytics
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Analizuj dane z Google BigQuery, wykonuj zapytania SQL
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Google Cloud</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>SQL Query</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="SELECT * FROM..."
+                class="quick-prompt"
+                id="bigqueryPrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openBigQuery()"
+                data-astro-cid-my52qgmw>Analizuj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/bigquery-analytics', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- Kaggle Datasets -->
+          <div class="worker-card" data-worker="kaggle" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              Kaggle Datasets
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Przeszukuj zbiory danych, konkursy i profile Kaggle
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Machine Learning</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>Datasets</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Competitions</span
+              >
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="machine learning..."
+                class="quick-prompt"
+                id="kagglePrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openKaggle()"
+                data-astro-cid-my52qgmw>Wyszukaj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/kaggle-datasets', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- Tavily Search -->
+          <div class="worker-card" data-worker="tavily" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              Tavily AI Search
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Zaawansowane wyszukiwanie internetowe powered by AI
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>AI Search</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Deep Analysis</span
+              >
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="wyszukaj w sieci..."
+                class="quick-prompt"
+                id="tavilyPrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openTavily()"
+                data-astro-cid-my52qgmw>Szukaj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/tavily-search', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- Status Monitor -->
+          <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              Status Workerów
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Sprawdź status i dostępność wszystkich API workerów
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Health Check</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>API Status</span
+              >
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <div
+                class="status-indicator"
+                id="overallStatus"
+                data-astro-cid-my52qgmw
+              >
+                <span class="status-dot" data-astro-cid-my52qgmw></span>
+                <span data-astro-cid-my52qgmw>Częściowo online (1/5)</span>
+              </div>
+              <button
+                class="action-btn primary"
+                onclick="checkAllStatus()"
+                data-astro-cid-my52qgmw>Sprawdź wszystkie</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('/dashboard', '_blank')"
+                data-astro-cid-my52qgmw>Monitor</button
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Functions Grid -->
+        <div class="additional-functions-section" data-astro-cid-my52qgmw>
+          <h3 class="additional-title" data-astro-cid-my52qgmw>
+            SYSTEM MANAGEMENT
+          </h3>
+          <div class="additional-grid" data-astro-cid-my52qgmw>
+            <!-- Row 1 -->
+            <button
+              class="additional-btn"
+              onclick="window.open('/dashboard', '_blank')"
+              data-function="dashboard"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw></div>
+              <h4 data-astro-cid-my52qgmw>DASHBOARD</h4>
+              <p data-astro-cid-my52qgmw>Panel administracyjny i monitoring</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="window.open('/workers', '_blank')"
+              data-function="workers"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>⚙️</div>
+              <h4 data-astro-cid-my52qgmw>WORKERS CENTER</h4>
+              <p data-astro-cid-my52qgmw>Centrum automatyzacji AI</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="window.open('/hub/agent-builder', '_blank')"
+              data-function="agent-builder"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>🛠️</div>
+              <h4 data-astro-cid-my52qgmw>AGENT BUILDER</h4>
+              <p data-astro-cid-my52qgmw>Kreator agentów AI</p>
+            </button>
+
+            <!-- Row 2 -->
+            <button
+              class="additional-btn"
+              onclick="window.open('/analytics', '_blank')"
+              data-function="analytics"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw></div>
+              <h4 data-astro-cid-my52qgmw>ANALYTICS</h4>
+              <p data-astro-cid-my52qgmw>Analityka i raporty</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="window.open('/hub', '_blank')"
+              data-function="hub"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>🌐</div>
+              <h4 data-astro-cid-my52qgmw>AI HUB</h4>
+              <p data-astro-cid-my52qgmw>Centrum AI Services</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="window.open('/settings', '_blank')"
+              data-function="settings"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>⚙️</div>
+              <h4 data-astro-cid-my52qgmw>SETTINGS</h4>
+              <p data-astro-cid-my52qgmw>Konfiguracja systemu</p>
+            </button>
+
+            <!-- Row 3 -->
+            <button
+              class="additional-btn"
+              onclick="window.open('/reports', '_blank')"
+              data-function="reports"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw></div>
+              <h4 data-astro-cid-my52qgmw>REPORTS</h4>
+              <p data-astro-cid-my52qgmw>Raporty systemowe</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="window.open('/hub/ai-agent-s', '_blank')"
+              data-function="ai-agents"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>🤖</div>
+              <h4 data-astro-cid-my52qgmw>AI AGENTS</h4>
+              <p data-astro-cid-my52qgmw>Zarządzanie agentami</p>
+            </button>
+            <button
+              class="additional-btn"
+              onclick="openCloudflareWorkers()"
+              data-function="cloudflare"
+              data-astro-cid-my52qgmw
+            >
+              <div class="additional-icon" data-astro-cid-my52qgmw>☁️</div>
+              <h4 data-astro-cid-my52qgmw>CLOUDFLARE</h4>
+              <p data-astro-cid-my52qgmw>Workers deployment</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div
+          class="flex flex-row justify-center gap-8 m-auto py-16 text-center"
+        >
+          <a
+            class="hover:brightness-125 duration-200"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="/workers"
+          >
+            SYSTEM AGENTS
+            <svg
+              style="--rotation: -45deg"
+              class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </a>
+          <div
+            class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60"
+          >
+            <span class="group-hover:hidden">100% HANDMADE</span>
+            <span class="hidden group-hover:inline">0% AI</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<!-- JavaScript Functions -->
+<script>
+  // Worker Functions
+  function openImageGenerator() {
+    const prompt = document.getElementById("imagePrompt")?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickPrompt", prompt);
+    }
+    window.open("/image-generator", "_blank");
+  }
+
+  function openChatbot() {
+    const prompt = document.getElementById("chatPrompt")?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickChatPrompt", prompt);
+    }
+    window.open("/chatbot", "_blank");
+  }
+
+  function openBigQuery() {
+    const prompt = document.getElementById("bigqueryPrompt")?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickSQLQuery", prompt);
+    }
+    window.open("/bigquery-analytics", "_blank");
+  }
+
+  function openKaggle() {
+    const prompt = document.getElementById("kagglePrompt")?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickKaggleSearch", prompt);
+    }
+    window.open("/kaggle-datasets", "_blank");
+  }
+
+  function openTavily() {
+    const prompt = document.getElementById("tavilyPrompt")?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickTavilySearch", prompt);
+    }
+    window.open("/tavily-search", "_blank");
+  }
+
+  // Cloudflare Workers Integration
+  function openCloudflareWorkers() {
+    // Check if workers dashboard is available
+    const cloudflareUrl = "https://dash.cloudflare.com/";
+    window.open(cloudflareUrl, "_blank");
+  }
+
+  // Status Check Function
+  async function checkAllStatus() {
+    const statusElement = document.getElementById("overallStatus");
+    if (!statusElement) return;
+
+    const statusDot = statusElement.querySelector(".status-dot");
+    const statusText = statusElement.querySelector("span:last-child");
+
+    if (!statusDot || !statusText) return;
+
+    statusText.textContent = "Sprawdzanie...";
+    statusDot.className = "status-dot";
+
+    try {
+      const apis = [
+        "/api/generate-image",
+        "/api/chat",
+        "/api/bigquery",
+        "/api/kaggle",
+        "/api/tavi",
+      ];
+
+      const results = await Promise.allSettled(
+        apis.map((api) => fetch(api).then((res) => ({ api, ok: res.ok })))
+      );
+
+      const onlineCount = results.filter(
+        (result) => result.status === "fulfilled" && result.value.ok
+      ).length;
+
+      const totalCount = apis.length;
+
+      if (onlineCount === totalCount) {
+        statusDot.className = "status-dot online";
+        statusText.textContent = `Wszystkie online (${onlineCount}/${totalCount})`;
+      } else if (onlineCount > 0) {
+        statusDot.className = "status-dot";
+        statusText.textContent = `Częściowo online (${onlineCount}/${totalCount})`;
+      } else {
+        statusDot.className = "status-dot offline";
+        statusText.textContent = `Offline (${onlineCount}/${totalCount})`;
+      }
+    } catch (error) {
+      statusDot.className = "status-dot offline";
+      statusText.textContent = "Błąd sprawdzania";
+    }
+  }
+
+  // Auto-check status on load and add Enter key handlers
+  document.addEventListener("DOMContentLoaded", function () {
+    // Add quick prompt handlers
+    document.querySelectorAll(".quick-prompt").forEach((input) => {
+      input.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          const type = this.id.replace("Prompt", "");
+          const functions = {
+            image: openImageGenerator,
+            chat: openChatbot,
+            bigquery: openBigQuery,
+            kaggle: openKaggle,
+            tavily: openTavily,
+          };
+          if (functions[type]) {
+            functions[type]();
+          }
+        }
+      });
+    });
+
+    // Check status on load
+    checkAllStatus();
+  });
+</script>
