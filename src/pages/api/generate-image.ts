@@ -1,3 +1,18 @@
+export const GET = async () => {
+  return new Response(JSON.stringify({
+    message: 'Image Generator API is running',
+    status: 'active',
+    methods: ['POST'],
+    description: 'Send POST request with { prompt: "your description" }'
+  }), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+};
+
 export const POST = async ({ request }: { request: Request }) => {
   try {
     const body = await request.json();

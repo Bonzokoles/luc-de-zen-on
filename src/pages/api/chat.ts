@@ -1,3 +1,18 @@
+export const GET = async () => {
+  return new Response(JSON.stringify({
+    message: 'Chat API is running',
+    status: 'active',
+    methods: ['POST'],
+    description: 'Send POST request with { prompt: "your message" }'
+  }), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+};
+
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
   try {
     const body = await request.json() as { prompt: string };

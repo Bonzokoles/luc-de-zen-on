@@ -1,0 +1,118 @@
+Integracja Babylon.js w Astro
+1. Instalacja Babylon.js w Astro
+W katalogu projektu wykonaj:
+
+bash
+npm install babylonjs
+2. Tworzymy komponent Astro do renderowania sceny Babylon.js
+Utwórz np. plik src/components/BabylonScene.jsx (lub .tsx):
+
+jsx
+---
+import { useEffect, useRef } from 'react'; // Astro wspiera React, Svelte i inne
+
+export default function BabylonScene() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    import('babylonjs').then((BABYLON) => {
+      const canvas = canvasRef.current;
+      const engine = new BABYLON.Engine(canvas, true);
+      const scene = new BABYLON.Scene(engine);
+
+      const camera = new BABYLON.ArcRotateCamera("Camera", 
+        Math.PI / 2, Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+      camera.attachControl(canvas, true);
+
+      const light = new BABYLON.HemisphericLight("light", 
+        new BABYLON.Vector3(1, 1, 0), scene);
+
+      const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+
+      scene.registerBeforeRender(() => {
+        sphere.rotation.y += 0.01;
+      });
+
+      engine.runRenderLoop(() => {
+        scene.render();
+      });
+
+      window.addEventListener("resize", () => {
+        engine.resize();
+      });
+
+      return () => engine.dispose();
+    });
+  }, []);
+
+  return <canvas ref={canvasRef} style="width: 100%; height: 400px;"></canvas>;
+}
+---
+3. Użycie komponentu BabylonScene w pliku Astro np. src/pages/index.astro
+text
+---
+import BabylonScene from '../components/BabylonScene.jsx';
+---
+
+<html>
+  <head>
+    <title>Strona z Babylon.js</title>
+  </head>
+  <body>
+    <h1>Moja strona z animacją 3D Babylon.js</h1>
+    <BabylonScene />
+  </body>
+</html>
+4. Uwagi
+Import Babylon.js dynamicznie w useEffect zapobiega ładowaniu silnika na serwerze (SSR),
+
+Canvas ma stałą wysokość, możesz dostosować style CSS,
+
+Możesz łatwo rozszerzyć komponent dodając inne geometrie lub interakcje,
+
+Jeśli używasz innego frameworka niż React (np. Svelte), integracja jest podobna — wykorzystaj odpowiedni lifecycle hook i ref na canvas.
+
+5. Alternatywa dla Svelte w Astro
+W pliku src/components/Babylon.svelte:
+
+text
+<script>
+  import { onMount } from 'svelte';
+  let canvas;
+
+  onMount(async () => {
+    const BABYLON = await import('babylonjs');
+    const engine = new BABYLON.Engine(canvas, true);
+    const scene = new BABYLON.Scene(engine);
+    
+    const camera = new BABYLON.ArcRotateCamera("Camera",
+      Math.PI / 2, Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+    camera.attachControl(canvas, true);
+
+    const light = new BABYLON.HemisphericLight("light",
+      new BABYLON.Vector3(1, 1, 0), scene);
+
+    const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 2 }, scene);
+
+    scene.registerBeforeRender(() => {
+      sphere.rotation.y += 0.01;
+    });
+
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
+
+    window.addEventListener("resize", () => {
+      engine.resize();
+    });
+
+    return () => {
+      engine.dispose();
+    };
+  });
+</script>
+
+<canvas bind:this={canvas} style="width: 100%; height: 400px;"></canvas>
+A następnie użyj Babylon.svelte w pliku .astro.
+
+Po tej integracji na Twojej stronie Astro pojawi się animowana kula 3D Babylon.js, którą możesz rozbudowywać wedle potrzeb.
