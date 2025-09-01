@@ -1,0 +1,36 @@
+import { defineConfig } from 'wrangler';
+
+export default defineConfig({
+  name: 'polaczek-websocket-worker',
+  main: './src/workers/polaczek-websocket.js',
+  compatibility_date: '2024-01-01',
+  
+  // WebSocket support
+  websockets: true,
+  
+  // Environment variables
+  vars: {
+    ENVIRONMENT: 'production'
+  },
+  
+  // Routes for the worker
+  routes: [
+    { pattern: "*/api/polaczek/*", zone_name: "your-domain.com" },
+    { pattern: "*/ws/polaczek", zone_name: "your-domain.com" }
+  ],
+
+  // KV bindings for storing connections state
+  kv_namespaces: [
+    { binding: "POLACZEK_KV", id: "polaczek-connections-kv", preview_id: "preview-polaczek-kv" }
+  ],
+
+  // Durable Objects for managing WebSocket connections
+  durable_objects: {
+    bindings: [
+      {
+        name: "POLACZEK_CONNECTIONS",
+        class_name: "PolaczekConnections"
+      }
+    ]
+  }
+});
