@@ -420,15 +420,21 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
   }
 
   async function sendMessage() {
+    console.log("🚀 sendMessage() wywołana");
     const messageInput = document.getElementById("messageInput");
     const message = messageInput.value.trim();
+    console.log("📝 Wiadomość do wysłania:", message);
 
-    if (!message) return;
+    if (!message) {
+      console.log("❌ Pusta wiadomość - przerywanie");
+      return;
+    }
 
     const sendButton = document.getElementById("sendButton");
     const typingIndicator = document.getElementById("typingIndicator");
 
     // Add user message
+    console.log("➕ Dodawanie wiadomości użytkownika do czatu");
     addMessage(message, "user");
     messageInput.value = "";
 
@@ -436,6 +442,7 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
     sendButton.disabled = true;
     sendButton.textContent = "Wysyłanie...";
     typingIndicator.classList.remove("hidden");
+    console.log("🔒 Przycisk zablokowany, rozpoczynanie wysyłania");
 
     try {
       const aiModel = document.getElementById("aiModel").value;
@@ -444,40 +451,96 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
       );
       const language = document.getElementById("language").value;
 
+      console.log("⚙️ Parametry:", { aiModel, temperature, language });
+
+      const requestData = {
+        prompt: message,
+        model: aiModel,
+        temperature: temperature,
+        language: language,
+      };
+      console.log("📤 Wysyłanie żądania do /api/ai-bot-worker:", requestData);
+
       const response = await fetch("/api/ai-bot-worker", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: message,
-          model: aiModel,
-          temperature: temperature,
-          language: language,
-        }),
+        body: JSON.stringify(requestData),
       });
 
-      const data = await response.json();
+      console.log(
+        "📥 Odpowiedź otrzymana:",
+        response.status,
+        response.statusText
+      );
 
-      if (data.response) {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("📊 Dane z API:", data);
+
+      if (data.answer || data.response) {
         // Add AI response
-        addMessage(data.response, "assistant");
+        const aiResponse = data.answer || data.response;
+        console.log("✅ Dodawanie odpowiedzi AI:", aiResponse);
+        addMessage(aiResponse, "assistant");
 
         // Save to history
-        saveChatToHistory(message, data.response);
+        saveChatToHistory(message, aiResponse);
       } else {
         throw new Error(data.error || "Błąd odpowiedzi AI");
       }
     } catch (error) {
-      console.error("Chat error:", error);
+      console.error("❌ Chat error:", error);
       addMessage(
-        "Przepraszam, wystąpił błąd podczas przetwarzania Twojej wiadomości. Spróbuj ponownie.",
+        "Przepraszam, wystąpił błąd podczas przetwarzania Twojej wiadomości. Spróbuj ponownie. Błąd: " +
+          error.message,
         "assistant",
         true
       );
     } finally {
       // Re-enable input
+      console.log("🔓 Odblokowanie przycisku");
       sendButton.disabled = false;
       sendButton.textContent = "Wyślij";
       typingIndicator.classList.add("hidden");
+    }
+  }
+
+  // Test API connectivity function
+  async function testAPI() {
+    console.log("🧪 Testowanie API...");
+    try {
+      const response = await fetch("/api/ai-bot-worker", {
+        method: "GET",
+      });
+      console.log(
+        "📡 GET test response:",
+        response.status,
+        response.statusText
+      );
+      const data = await response.json();
+      console.log("📊 GET test data:", data);
+
+      // Test POST
+      const postResponse = await fetch("/api/ai-bot-worker", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: "test message",
+          model: "gpt-4",
+        }),
+      });
+      console.log(
+        "📡 POST test response:",
+        postResponse.status,
+        postResponse.statusText
+      );
+      const postData = await postResponse.json();
+      console.log("📊 POST test data:", postData);
+    } catch (error) {
+      console.error("❌ API test error:", error);
     }
   }
 
@@ -661,13 +724,23 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 
   // Initialize
   document.addEventListener("DOMContentLoaded", () => {
+    console.log("🚀 Chatbot DOM załadowany");
     updateHistoryDisplay();
+
+    // Test API connectivity
+    testAPI();
 
     // Load quick prompt if available
     const quickPrompt = localStorage.getItem("quickChatPrompt");
     if (quickPrompt) {
+      console.log("💾 Załadowano szybki prompt:", quickPrompt);
       document.getElementById("messageInput").value = quickPrompt;
       localStorage.removeItem("quickChatPrompt");
     }
+
+    // Make functions globally available for debugging
+    window.testAPI = testAPI;
+    window.sendMessage = sendMessage;
+    console.log("✅ Funkcje chatbot dostępne globalnie");
   });
 </script>

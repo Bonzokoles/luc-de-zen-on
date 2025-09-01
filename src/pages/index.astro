@@ -509,43 +509,70 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 <script>
   // Worker Functions
   function openImageGenerator() {
+    console.log("🖼️ openImageGenerator() wywołana");
     const prompt = document.getElementById("imagePrompt")?.value.trim();
+    console.log("Image prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickPrompt", prompt);
+      console.log("✅ Prompt zapisany w localStorage");
     }
+    console.log("📂 Otwieranie /image-generator");
     window.open("/image-generator", "_blank");
   }
 
   function openChatbot() {
+    console.log("💬 openChatbot() wywołana");
     const prompt = document.getElementById("chatPrompt")?.value.trim();
+    console.log("Chat prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickChatPrompt", prompt);
+      console.log("✅ Prompt zapisany w localStorage");
     }
+    console.log("📂 Otwieranie /chatbot");
     window.open("/chatbot", "_blank");
   }
 
   function openBigQuery() {
+    console.log("📊 openBigQuery() wywołana");
     const prompt = document.getElementById("bigqueryPrompt")?.value.trim();
+    console.log("BigQuery prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickSQLQuery", prompt);
+      console.log("✅ SQL Query zapisane w localStorage");
     }
+    console.log("📂 Otwieranie /bigquery-analytics");
     window.open("/bigquery-analytics", "_blank");
   }
 
   function openKaggle() {
+    console.log("🔍 openKaggle() wywołana");
     const prompt = document.getElementById("kagglePrompt")?.value.trim();
+    console.log("Kaggle prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickKaggleSearch", prompt);
+      console.log("✅ Kaggle search zapisane w localStorage");
     }
+    console.log("📂 Otwieranie /kaggle-datasets");
     window.open("/kaggle-datasets", "_blank");
   }
 
   function openTavily() {
+    console.log("🌐 openTavily() wywołana");
     const prompt = document.getElementById("tavilyPrompt")?.value.trim();
+    console.log("Tavily prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickTavilySearch", prompt);
+      console.log("✅ Tavily search zapisane w localStorage");
     }
+    console.log("📂 Otwieranie /tavily-search");
     window.open("/tavily-search", "_blank");
+  }
+
+  // Test function without popup (to test if buttons respond)
+  function testButtonFunction(buttonType) {
+    console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
+    alert(`Test udany! Przycisk ${buttonType} działa.`);
+    return false; // Prevent actual navigation
   }
 
   // Cloudflare Workers Integration
@@ -605,6 +632,24 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
   // Auto-check status on load and add Enter key handlers
   document.addEventListener("DOMContentLoaded", function () {
+    console.log("🚀 DOM załadowany, inicjalizacja funkcji");
+    
+    // Test czy wszystkie funkcje są dostępne
+    console.log("🧪 Test dostępności funkcji:");
+    console.log("- openImageGenerator:", typeof openImageGenerator);
+    console.log("- openChatbot:", typeof openChatbot);
+    console.log("- openBigQuery:", typeof openBigQuery);
+    console.log("- openKaggle:", typeof openKaggle);
+    console.log("- openTavily:", typeof openTavily);
+    
+    // Test czy wszystkie elementy input istnieją
+    console.log("🧪 Test dostępności elementów input:");
+    console.log("- imagePrompt:", document.getElementById("imagePrompt"));
+    console.log("- chatPrompt:", document.getElementById("chatPrompt"));
+    console.log("- bigqueryPrompt:", document.getElementById("bigqueryPrompt"));
+    console.log("- kagglePrompt:", document.getElementById("kagglePrompt"));
+    console.log("- tavilyPrompt:", document.getElementById("tavilyPrompt"));
+
     // Add quick prompt handlers
     document.querySelectorAll(".quick-prompt").forEach((input) => {
       input.addEventListener("keypress", function (e) {
@@ -626,5 +671,15 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
     // Check status on load
     checkAllStatus();
+    
+    // Make functions globally available for debugging
+    window.openImageGenerator = openImageGenerator;
+    window.openChatbot = openChatbot;
+    window.openBigQuery = openBigQuery;
+    window.openKaggle = openKaggle;
+    window.openTavily = openTavily;
+    window.testButtonFunction = testButtonFunction;
+    
+    console.log("✅ Wszystkie funkcje przypisane do window object");
   });
 </script>
