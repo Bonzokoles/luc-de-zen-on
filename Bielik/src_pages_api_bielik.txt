@@ -1,0 +1,39 @@
+export async function post({ request }) {
+  const { prompt } = await request.json()
+
+  if (!prompt || prompt.trim() === '') {
+    return new Response(JSON.stringify({ error: 'Prompt jest wymagany' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
+  try {
+    // Zamień URL na adres Twojego Cloudflare Workera
+    const WORKER_URL = 'https://bielik-worker.your-subdomain.workers.dev'
+
+    const workerResponse = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt }),
+    })
+
+    if (!workerResponse.ok) {
+      const errText = await workerResponse.text()
+      throw new Error(`Worker error: ${workerResponse.status} ${errText}`)
+    }
+
+    const data = await workerResponse.json()
+
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+}

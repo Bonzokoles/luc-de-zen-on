@@ -68,7 +68,7 @@ import APIDemo from "../components/APIDemo.svelte";
       });
       response = result.message;
     } catch (error) {
-      response = \`Error: \${error.message}\`;
+      response = 'Error: ' + error.message;
     } finally {
       loading = false;
     }
