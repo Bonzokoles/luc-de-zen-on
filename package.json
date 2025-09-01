@@ -22,6 +22,7 @@
     "@astrojs/sitemap": "^3.5.1",
     "@astrojs/svelte": "^7.1.0",
     "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.5",
     "babylonjs": "^7.26.1",
     "clsx": "^2.1.1",

@@ -1,44 +1,13 @@
-name = "my-luc-zen-on-worker"
-compatibility_date = "2025-08-27"
-pages_build_output_dir = "./dist"
+name = "luc-de-zen-on"
+compatibility_date = "2024-08-01"
 
-# KV Storage for agents (existing)
-[[kv_namespaces]]
-binding = "AGENTS"
-id = "6e7d56f0c13e4859b6d071b8b508fce6"
+[build]
+command = "npm run build"
+publish = "dist"
 
-# KV Storage for AI Agents Management System
-[[kv_namespaces]]
-binding = "AI_AGENTS"
-id = "6e7d56f0c13e4859b6d071b8b508fce6"
+[dev]
+command = "npm run dev"
 
-# KV Storage for AI Models Configuration
-[[kv_namespaces]]
-binding = "AI_MODELS"
-id = "6e7d56f0c13e4859b6d071b8b508fce6"
-
-# KV Storage for sessions (required by Astro Cloudflare adapter)
 [[kv_namespaces]]
 binding = "SESSION"
-id = "77d84c01758a4064be011acc35b2c344"
-
-# KV Storage for generated images and gallery
-[[kv_namespaces]]
-binding = "IMAGES"
-id = "3275b55560da4c588e1ddf39f3479c0a"
-
-# AI binding for Cloudflare Workers AI - Enhanced Configuration
-[ai]
-binding = "AI"
-
-# AI Model Presets for different use cases
-[vars]
-DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.1-8b-instruct"
-FAST_TEXT_MODEL = "@cf/qwen/qwen1.5-0.5b-chat"
-ADVANCED_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
-CODE_MODEL = "@cf/qwen/qwen2.5-coder-32b-instruct"
-MATH_MODEL = "@cf/deepseek-ai/deepseek-math-7b-instruct"
-VISION_MODEL = "@cf/meta/llama-3.2-11b-vision-instruct"
-IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"
-SPEECH_MODEL = "@cf/openai/whisper-large-v3-turbo"
-TTS_MODEL = "@cf/deepgram/aura-1"
+id = "your-session-kv-id"

@@ -38,7 +38,7 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
       <nav class="mb-8">
         <div class="flex space-x-1 bg-gray-800 p-1 rounded-lg">
           <button
-            class="tab-button active bg-gray-600 text-white px-4 py-2 rounded-md font-medium transition-colors"
+            class="tab-button active bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition-colors"
             data-tab="dashboard"
           >
             Dashboard
@@ -80,7 +80,7 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
             <!-- POLACZEK_T Agent -->
             <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
               <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold text-gray-600">POLACZEK_T</h3>
+                <h3 class="text-xl font-semibold text-gray-200">POLACZEK_T</h3>
                 <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
                 </div>
               </div>
@@ -173,7 +173,7 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- System Stats -->
             <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <h3 class="text-xl font-semibold text-gray-600 mb-4">
+              <h3 class="text-xl font-semibold text-gray-200 mb-4">
                 Statystyki Systemu
               </h3>
               <div class="space-y-4">
@@ -199,8 +199,8 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
                 </div>
 
                 <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Active Connections</span>
-                  <span class="text-gray-600">3</span>
+                  <span class="text-gray-200">Active Connections</span>
+                  <span class="text-gray-200">3</span>
                 </div>
               </div>
             </div>
@@ -227,7 +227,7 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
                     <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
                     <span class="text-gray-300">HTTP API</span>
                   </div>
-                  <span class="text-gray-600">Listening</span>
+                  <span class="text-gray-200">Listening</span>
                 </div>
               </div>
             </div>
@@ -247,20 +247,20 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
                 [20:30:59] INFO: POLACZEK_T WebSocket server starting on port
                 3008
               </div>
-              <div class="text-gray-600">
+              <div class="text-gray-200">
                 [20:30:59] INFO: Capabilities: translation, context_qa,
                 function_help, system_status
               </div>
               <div class="text-green-400">
                 [20:30:59] INFO: ✅ POLACZEK_T server is ready and listening
               </div>
-              <div class="text-gray-600">
+              <div class="text-gray-200">
                 [20:39:37] INFO: Client connected: ('127.0.0.1', 54102)
               </div>
-              <div class="text-gray-600">
+              <div class="text-gray-200">
                 [20:39:48] INFO: Client connected: ('127.0.0.1', 52252)
               </div>
-              <div class="text-gray-600">
+              <div class="text-gray-200">
                 [20:43:23] INFO: Client connected: ('127.0.0.1', 60302)
               </div>
               <div class="text-yellow-400">
@@ -279,7 +279,8 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
 
 <style>
   .tab-button.active {
-    @apply bg-gray-600 text-white;
+    background-color: rgb(75 85 99);
+    color: white;
   }
 
   .tab-content.hidden {
@@ -299,12 +300,12 @@ import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
 
         // Remove active class from all buttons
         tabButtons.forEach((btn) => {
-          btn.classList.remove("active", "bg-gray-600", "text-white");
+          btn.classList.remove("active", "bg-gray-700", "text-white");
           btn.classList.add("text-gray-400");
         });
 
         // Add active class to clicked button
-        this.classList.add("active", "bg-gray-600", "text-white");
+        this.classList.add("active", "bg-gray-700", "text-white");
         this.classList.remove("text-gray-400");
 
         // Hide all tab contents
