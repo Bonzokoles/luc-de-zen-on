@@ -12,7 +12,7 @@
   let ws = null;
   let messagesContainer;
 
-  const WS_URL = "ws://localhost:3008";
+  const WS_URL = "wss://luc-de-zen-on.pages.dev/ws/polaczek";
 
   onMount(() => {
     connectToWebSocket();
