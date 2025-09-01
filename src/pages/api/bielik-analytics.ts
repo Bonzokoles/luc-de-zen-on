@@ -1,5 +1,8 @@
 
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'OPTIONS']);
 
 // API provided by BIELIK Orchestrator
 // In a real-world scenario, Bielik would connect to a database or a KV store

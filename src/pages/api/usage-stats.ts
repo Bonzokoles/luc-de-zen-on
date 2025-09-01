@@ -1,5 +1,8 @@
 
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'OPTIONS']);
 
 // This mock API simulates reading from a USAGE_LOGS_KV and aggregating the data.
 const mockLogs = [

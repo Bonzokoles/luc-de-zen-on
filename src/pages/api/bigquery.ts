@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
@@ -107,13 +108,4 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 };
 
-export const OPTIONS: APIRoute = async () => {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
-    }
-  });
-};
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);

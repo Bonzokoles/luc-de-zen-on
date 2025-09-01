@@ -1,3 +1,7 @@
+import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
+
 export async function POST({ request }: { request: Request }) {
   try {
     const body = await request.json();
@@ -112,16 +116,10 @@ export async function POST({ request }: { request: Request }) {
 }
 
 export async function GET() {
-  return new Response(
-    JSON.stringify({ 
-      message: 'AI Chatbot Worker is running',
-      status: 'active',
-      methods: ['POST'],
-      description: 'Send POST request with { prompt: "your message" }'
-    }),
-    { 
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    }
-  );
+  return createSuccessResponse({ 
+    message: 'AI Chatbot Worker is running',
+    status: 'active',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    description: 'Send POST request with { prompt: "your message", model?: "model-name", temperature?: 0.7 }'
+  });
 }

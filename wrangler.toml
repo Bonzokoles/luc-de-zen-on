@@ -7,9 +7,9 @@ command = "npm run build"
 [assets]
 directory = "dist"
 
-[dev]
-command = "npm run dev"
-
 [[kv_namespaces]]
 binding = "SESSION"
-id = "your-session-kv-id"
+id = "77d84c01758a4064be011acc35b2c344"
+
+[ai]
+binding = "AI"

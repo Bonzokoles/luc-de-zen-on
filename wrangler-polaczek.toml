@@ -1,36 +1,25 @@
-import { defineConfig } from 'wrangler';
+name = "polaczek-chat-assistant"
+main = "./src/workers/polaczek-websocket.js"
+compatibility_date = "2024-01-01"
 
-export default defineConfig({
-  name: 'polaczek-websocket-worker',
-  main: './src/workers/polaczek-websocket.js',
-  compatibility_date: '2024-01-01',
-  
-  // WebSocket support
-  websockets: true,
-  
-  // Environment variables
-  vars: {
-    ENVIRONMENT: 'production'
-  },
-  
-  // Routes for the worker
-  routes: [
-    { pattern: "*/api/polaczek/*", zone_name: "your-domain.com" },
-    { pattern: "*/ws/polaczek", zone_name: "your-domain.com" }
-  ],
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+AI_MODEL_PROVIDER = "openai"  # Options: openai, huggingface, anthropic
+DEFAULT_LANGUAGE = "pl"
 
-  // KV bindings for storing connections state
-  kv_namespaces: [
-    { binding: "POLACZEK_KV", id: "polaczek-connections-kv", preview_id: "preview-polaczek-kv" }
-  ],
+# KV namespace for knowledge base storage
+[[kv_namespaces]]
+binding = "KNOWLEDGE_BASE"
+id = "polaczek-knowledge-base"  # Replace with your actual KV namespace ID
+preview_id = "preview-polaczek-knowledge"  # For development preview
 
-  // Durable Objects for managing WebSocket connections
-  durable_objects: {
-    bindings: [
-      {
-        name: "POLACZEK_CONNECTIONS",
-        class_name: "PolaczekConnections"
-      }
-    ]
-  }
-});
+# Durable Objects for session management (optional)
+# [[durable_objects.bindings]]
+# name = "CHAT_SESSIONS"
+# class_name = "ChatSessions"
+
+# R2 bucket for file storage (optional)
+# [[r2_buckets]]
+# binding = "FILES_STORAGE"
+# bucket_name = "polaczek-files"
