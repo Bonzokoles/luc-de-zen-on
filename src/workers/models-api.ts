@@ -4,8 +4,20 @@ export interface Env {
   AI: any;
 }
 
+interface ModelConfig {
+  name: string;
+  provider: string;
+  endpoint: string;
+  model: string;
+  parameters: any;
+  category: string;
+  speed: string;
+  cost: string;
+  language?: string;
+}
+
 // Enhanced AI Models Configuration for MyBonzo
-const ENHANCED_AI_MODELS = {
+const ENHANCED_AI_MODELS: { [key: string]: ModelConfig } = {
   // Cloudflare AI Models (Primary - No API keys needed)
   'cf-llama-3.1-8b': {
     name: 'Llama 3.1 8B (Balanced)',
@@ -87,6 +99,21 @@ const ENHANCED_AI_MODELS = {
     speed: 'fast',
     cost: 'free'
   },
+  'cf-gemma-3-12b': {
+    name: 'Gemma 3 12B IT (Polish Chat)',
+    provider: 'Cloudflare',
+    endpoint: 'cloudflare-ai',
+    model: '@cf/google/gemma-3-12b-it',
+    parameters: { 
+      temperature: 0.7, 
+      max_tokens: 1000,
+      top_p: 0.9
+    },
+    category: 'chat',
+    speed: 'medium',
+    cost: 'free',
+    language: 'polish'
+  },
   // External API Models (Require API keys)
   'gpt-3.5-turbo': {
     name: 'GPT-3.5 Turbo',
@@ -120,7 +147,7 @@ const ENHANCED_AI_MODELS = {
   }
 };
 
-// Interfejs dla przes³anego pliku
+// Interfejs dla przesÂ³anego pliku
 interface UploadedFile {
   id: string;
   name: string;
@@ -147,11 +174,11 @@ export default {
     const path = url.pathname;
 
     try {
-      // GET /api/models - Lista modeli i ustawieñ
+      // GET /api/models - Lista modeli i ustawieÃ±
       if (request.method === 'GET' && path === '/api/models') {
         const modelsConfig = await env.AI_MODELS?.get('models_config', { type: 'json' });
-        const selectedModel = await env.AI_MODELS?.get('selected_model') || 'cf-llama-3.1-8b';
-        const systemPrompt = await env.AI_MODELS?.get('system_prompt') || 'Jesteœ zaawansowanym asystentem AI dla MyBonzo - firmy specjalizuj¹cej siê w projektowaniu graficznym i nowoczesnych rozwi¹zaniach AI. Odpowiadaj po polsku, b¹dŸ kreatywny i pomocny.';
+        const selectedModel = await env.AI_MODELS?.get('selected_model') || 'cf-gemma-3-12b';
+        const systemPrompt = await env.AI_MODELS?.get('system_prompt') || 'JesteÅ“ zaawansowanym asystentem AI dla MyBonzo - firmy specjalizujÂ¹cej siÃª w projektowaniu graficznym i nowoczesnych rozwiÂ¹zaniach AI. Odpowiadaj po polsku, bÂ¹dÅ¸ kreatywny i pomocny.';
         const uploadedFiles = await env.AI_FILES?.get('uploaded_files', { type: 'json' }) || [];
 
         // Use enhanced models or fall back to basic ones
@@ -164,15 +191,15 @@ export default {
           system_prompt: systemPrompt,
           uploaded_files: uploadedFiles,
           model_categories: {
-            general: 'Ogólne zastosowanie',
+            general: 'OgÃ³lne zastosowanie',
             advanced: 'Zaawansowane zadania',
             code: 'Programowanie',
             math: 'Matematyka',
-            vision: 'Analiza obrazów',
+            vision: 'Analiza obrazÃ³w',
             fast: 'Szybkie odpowiedzi',
             precise: 'Precyzyjne zadania',
-            image: 'Generowanie obrazów',
-            external: 'Zewnêtrzne API'
+            image: 'Generowanie obrazÃ³w',
+            external: 'ZewnÃªtrzne API'
           },
           features: {
             cloudflare_ai: true,
@@ -238,7 +265,7 @@ export default {
         }
 
         const modelConfig = ENHANCED_AI_MODELS[model];
-        const testPrompt = prompt || 'Napisz krótkie powitanie dla u¿ytkowników MyBonzo.';
+        const testPrompt = prompt || 'Napisz krÃ³tkie powitanie dla uÂ¿ytkownikÃ³w MyBonzo.';
 
         try {
           if (modelConfig.endpoint === 'cloudflare-ai') {
@@ -281,7 +308,7 @@ export default {
         }
       }
 
-      // Pozosta³e endpointy pozostaj¹ bez zmian...
+      // PozostaÂ³e endpointy pozostajÂ¹ bez zmian...
       // POST /api/models/system-prompt - Zapisz prompt systemowy
       if (request.method === 'POST' && path === '/api/models/system-prompt') {
         const { system_prompt } = await request.json() as { system_prompt: string };

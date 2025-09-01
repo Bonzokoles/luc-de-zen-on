@@ -46,7 +46,7 @@
     isLoading = true;
     
     try {
-      const response = await fetch('https://polaczek-chat-assistant.YOUR_WORKER.workers.dev/api/chat', {
+      const response = await fetch('https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

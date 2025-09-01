@@ -1,0 +1,23 @@
+ Użycie komponentów w Astro
+Wstaw na dowolnej stronie lub w layoucie:
+
+text
+---
+import FlowiseButton from '../components/FlowiseButton.astro'
+import ActivePiecesButton from '../components/ActivePiecesButton.astro'
+---
+
+<h2>Flowise AI</h2>
+<FlowiseButton />
+
+<h2>ActivePieces</h2>
+<ActivePiecesButton />
+Ta rozbudowa zapewnia:
+
+Informacje dla użytkownika o statusie (ładowanie, błąd, sukces),
+
+Walidację danych JSON dla ActivePieces,
+
+Przejrzysty i estetyczny UI z podstawową stylizacją,
+
+Obsługę błędów zarówno po stronie API, jak i frontend.
