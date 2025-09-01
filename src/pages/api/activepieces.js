@@ -1,7 +1,7 @@
 export async function POST({ request }) {
   const inputData = await request.json()
 
-  const ACTIVEPIECES_API_URL = 'https://twoj-activepieces-endpoint/api/workflows/TWOJ_WORKFLOW_ID/run'
+  const ACTIVEPIECES_API_URL = import.meta.env.PUBLIC_ACTIVEPIECES_API_URL || 'https://your-activepieces-instance.com/api/v1/flows/your-flow-id/run'
   const ACTIVEPIECES_API_TOKEN = import.meta.env.PUBLIC_ACTIVEPIECES_API_TOKEN
 
   try {

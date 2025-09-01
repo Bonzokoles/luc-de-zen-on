@@ -5,14 +5,13 @@ compatibility_date = "2024-01-01"
 # Environment variables
 [vars]
 ENVIRONMENT = "production"
-AI_MODEL_PROVIDER = "openai"  # Options: openai, huggingface, anthropic
+AI_MODEL_PROVIDER = "cloudflare"  # Options: cloudflare, openai, huggingface, anthropic
 DEFAULT_LANGUAGE = "pl"
 
 # KV namespace for knowledge base storage
 [[kv_namespaces]]
 binding = "KNOWLEDGE_BASE"
-id = "polaczek-knowledge-base"  # Replace with your actual KV namespace ID
-preview_id = "preview-polaczek-knowledge"  # For development preview
+id = "23e11c0a4015498d9e199c529cbf3133"
 
 # Durable Objects for session management (optional)
 # [[durable_objects.bindings]]

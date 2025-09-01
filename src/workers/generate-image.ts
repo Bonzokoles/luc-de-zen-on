@@ -1,3 +1,7 @@
+interface Env {
+  AI: any;
+}
+
 interface PromptRequest {
   prompt: string;
   width?: number;
@@ -25,7 +29,8 @@ export default {
     }
 
     try {
-      const { prompt, width = 1024, height = 1024, steps = 4 } = await request.json<PromptRequest>();
+      const requestData = await request.json();
+      const { prompt, width = 1024, height = 1024, steps = 4 } = requestData as PromptRequest;
 
       if (!prompt || prompt.trim().length === 0) {
         return new Response(JSON.stringify({ error: "Prompt is required" }), {

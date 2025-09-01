@@ -92,7 +92,7 @@ async function handleChatRequest(request, env) {
     }
 
     // 2. Call external AI model API if no cached answer
-    const aiResponse = await callPolishAIModelAPI(prompt);
+    const aiResponse = await callPolishAIModelAPI(prompt, env);
     
     // 3. Save the new answer to knowledge base for future use
     await saveAnswerToStorage(env, prompt, aiResponse);
@@ -145,36 +145,6 @@ async function saveAnswerToStorage(env, prompt, answer) {
   }
 }
 
-async function callPolishAIModelAPI(prompt) {
-  // Placeholder for external AI API call
-  // Replace with actual API integration (Hugging Face, OpenAI, etc.)
-  
-  // Mock responses for demonstration
-  const responses = {
-    "help": "Dostępne komendy: 'system status', 'ai workers', 'translation', 'agents'. Jestem asystentem AI opartym na Cloudflare Workers!",
-    "system status": "System aktywny przez Cloudflare Workers. Baza wiedzy: dostępna. Model AI: gotowy do użycia.",
-    "ai workers": "Workers: Generator Obrazów (Flux), Chatbot (GPT), Analytics, Kaggle, Search, Monitor - wszystko przez Cloudflare!",
-    "translation": "Obsługuję tłumaczenia: pl, en, de, fr, es. Użyj komendy z tekstem do tłumaczenia.",
-    "agents": "Dostępne agenty: POLACZEK_T (Translation), POLACZEK_AI (Art), POLACZEK_S1/S2 (Search) - działają przez Workers!"
-  };
-  
-  const lowerPrompt = prompt.toLowerCase().trim();
-  
-  // Check for exact matches first
-  if (responses[lowerPrompt]) {
-    return responses[lowerPrompt];
-  }
-  
-  // Check for partial matches
-  for (const [key, response] of Object.entries(responses)) {
-    if (lowerPrompt.includes(key)) {
-      return response;
-    }
-  }
-  
-  // Default response for unknown prompts
-  return `Pytanie: "${prompt}" - uczę się odpowiadać! Spróbuj: help, system status, ai workers, translation, agents.`;
-}
 
 async function handleStatus(env) {
   try {
@@ -307,7 +277,7 @@ async function searchKnowledgeBase(request, env) {
 // Enhanced AI model integration with real API support
 async function callPolishAIModelAPI(prompt, env) {
   try {
-    const provider = env.AI_MODEL_PROVIDER || 'openai';
+    const provider = env.AI_MODEL_PROVIDER || 'cloudflare';
     
     switch (provider) {
       case 'openai':
@@ -316,8 +286,10 @@ async function callPolishAIModelAPI(prompt, env) {
         return await callHuggingFaceAPI(prompt, env);
       case 'anthropic':
         return await callAnthropicAPI(prompt, env);
+      case 'cloudflare':
+        return await callCloudflareAI(prompt, env);
       default:
-        return await callOpenAIAPI(prompt, env);
+        return await callCloudflareAI(prompt, env);
     }
   } catch (error) {
     console.error("AI API call failed:", error);
@@ -483,7 +455,7 @@ async function callAnthropicAPI(prompt, env) {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'json',
       'x-api-key': apiKey,
       'anthropic-version': '2023-06-01'
     },
@@ -505,6 +477,34 @@ async function callAnthropicAPI(prompt, env) {
   
   const data = await response.json();
   return data.content[0].text;
+}
+
+// Cloudflare AI integration with Gemma 3 12B IT model
+async function callCloudflareAI(prompt, env) {
+  try {
+    // Use Gemma 3 12B IT model for Polish language support
+    const response = await env.AI.run('@cf/google/gemma-3-12b-it', {
+      messages: [
+        {
+          role: 'system',
+          content: 'Jesteś pomocnym asystentem AI mówiącym po polsku. Odpowiadaj w języku polskim w sposób naturalny i pomocny.'
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      max_tokens: 1000,
+      temperature: 0.7
+    });
+    
+    return response.response || response;
+    
+  } catch (error) {
+    console.error('Cloudflare AI call failed:', error);
+    // Fallback to mock response
+    return getMockResponse(prompt);
+  }
 }
 
 function getMockResponse(prompt) {

@@ -1,6 +1,7 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
+import ChatWidget from "../components/ChatWidget.svelte";
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -589,11 +590,23 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
         </div>
       </div>
     </section>
+
+    <!-- Chat Widget -->
+    <ChatWidget />
   </main>
 </MyBonzoLayout>
 
 <!-- JavaScript Functions -->
 <script>
+  // Type declarations for window object
+  window.apiTests = window.apiTests || {};
+  window.openImageGenerator = window.openImageGenerator || function() {};
+  window.openChatbot = window.openChatbot || function() {};
+  window.openBigQuery = window.openBigQuery || function() {};
+  window.openKaggle = window.openKaggle || function() {};
+  window.openTavily = window.openTavily || function() {};
+  window.testButtonFunction = window.testButtonFunction || function() {};
+
   // Init when page loads
   window.addEventListener("DOMContentLoaded", async () => {
     console.log("Loading API test functions...");
@@ -612,7 +625,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
   // Worker Functions
   function openImageGenerator() {
     console.log("openImageGenerator() called");
-    const prompt = document.getElementById("imagePrompt")?.value.trim();
+    const prompt = (document.getElementById("imagePrompt") as HTMLInputElement)?.value.trim();
     console.log("Image prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickPrompt", prompt);
@@ -624,7 +637,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 
   function openChatbot() {
     console.log("💬 openChatbot() wywołana");
-    const prompt = document.getElementById("chatPrompt")?.value.trim();
+    const prompt = (document.getElementById("chatPrompt") as HTMLInputElement)?.value.trim();
     console.log("Chat prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickChatPrompt", prompt);
@@ -636,7 +649,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 
   function openBigQuery() {
     console.log("📊 openBigQuery() wywołana");
-    const prompt = document.getElementById("bigqueryPrompt")?.value.trim();
+    const prompt = (document.getElementById("bigqueryPrompt") as HTMLInputElement)?.value.trim();
     console.log("BigQuery prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickSQLQuery", prompt);
@@ -648,7 +661,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 
   function openKaggle() {
     console.log("🔍 openKaggle() wywołana");
-    const prompt = document.getElementById("kagglePrompt")?.value.trim();
+    const prompt = (document.getElementById("kagglePrompt") as HTMLInputElement)?.value.trim();
     console.log("Kaggle prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickKaggleSearch", prompt);
@@ -660,7 +673,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 
   function openTavily() {
     console.log("🌐 openTavily() wywołana");
-    const prompt = document.getElementById("tavilyPrompt")?.value.trim();
+    const prompt = (document.getElementById("tavilyPrompt") as HTMLInputElement)?.value.trim();
     console.log("Tavily prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickTavilySearch", prompt);
@@ -671,7 +684,7 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
   }
 
   // Test function without popup (to test if buttons respond)
-  function testButtonFunction(buttonType) {
+  function testButtonFunction(buttonType: string) {
     console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
     alert(`Test udany! Przycisk ${buttonType} działa.`);
     return false; // Prevent actual navigation
@@ -791,10 +804,10 @@ import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 
     // Add quick prompt handlers
     document.querySelectorAll(".quick-prompt").forEach((input) => {
-      input.addEventListener("keypress", function (e) {
+      input.addEventListener("keypress", function (e: KeyboardEvent) {
         if (e.key === "Enter") {
-          const type = this.id.replace("Prompt", "");
-          const functions = {
+          const type = (this as HTMLInputElement).id.replace("Prompt", "");
+          const functions: Record<string, () => void> = {
             image: openImageGenerator,
             chat: openChatbot,
             bigquery: openBigQuery,

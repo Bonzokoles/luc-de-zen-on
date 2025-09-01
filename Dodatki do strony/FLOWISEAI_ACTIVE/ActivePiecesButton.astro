@@ -1,0 +1,97 @@
+---
+import { useState } from 'react'
+let inputJson = ''
+let status = 'idle' // 'idle' | 'loading' | 'success' | 'error'
+let responseText = ''
+---
+
+<style>
+  .container {
+    max-width: 400px;
+    padding: 1rem;
+    border: 1px solid #cc9900;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    background: #fff8e1;
+  }
+  textarea {
+    width: 100%;
+    height: 120px;
+    padding: 8px;
+    font-family: monospace;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #cc9900;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #ffec99;
+    cursor: not-allowed;
+  }
+  .status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  .status.error {
+    color: #cc3300;
+    white-space: pre-wrap;
+  }
+  .status.success {
+    color: #228822;
+    white-space: pre-wrap;
+  }
+</style>
+
+<div class="container">
+  <textarea
+    placeholder='Wprowadź JSON jako dane wejściowe'
+    value={inputJson}
+    onInput={(e) => inputJson = e.currentTarget.value}
+    disabled={status === 'loading'}
+  />
+  <button
+    onClick={async () => {
+      try {
+        JSON.parse(inputJson)
+      } catch {
+        alert('Nieprawidłowy JSON')
+        return
+      }
+      status = 'loading'
+      responseText = ''
+      try {
+        const res = await fetch('/api/activepieces', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: inputJson,
+        })
+        const data = await res.json()
+        if (data.error) {
+          status = 'error'
+          responseText = data.error
+        } else {
+          status = 'success'
+          responseText = JSON.stringify(data, null, 2)
+        }
+      } catch (error) {
+        status = 'error'
+        responseText = 'Błąd połączenia: ' + error.message
+      }
+    }}
+    disabled={status === 'loading'}
+  >
+    {status === 'loading' ? 'Ładowanie...' : 'Uruchom ActivePieces'}
+  </button>
+
+  {status === 'error' && <pre class="status error">{responseText}</pre>}
+  {status === 'success' && <pre class="status success">{responseText}</pre>}
+</div>
