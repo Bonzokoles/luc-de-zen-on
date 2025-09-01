@@ -1,17 +1,15 @@
+import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
+
 export const GET = async () => {
-  return new Response(JSON.stringify({
+  return createSuccessResponse({
     message: 'Chat API is running',
     status: 'active',
-    methods: ['POST'],
+    methods: ['GET', 'POST', 'OPTIONS'],
     description: 'Send POST request with { prompt: "your message" }'
-  }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
   });
 };
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
 
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
   try {
@@ -69,15 +67,4 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
       },
     });
   }
-};
-
-export const OPTIONS = () => {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
 };

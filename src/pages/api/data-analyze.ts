@@ -1,5 +1,17 @@
 
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
+
+export const GET: APIRoute = async () => {
+  return createSuccessResponse({
+    message: 'Data Analysis API is running',
+    status: 'active',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    description: 'Send POST request with data array for analysis'
+  });
+};
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
 
 export const POST: APIRoute = async ({ request }) => {
   try {

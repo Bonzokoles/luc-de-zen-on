@@ -1,0 +1,16 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import SvelteAnimationsShowcase from "../components/AnimationsShowcase.svelte";
+---
+
+<MyBonzoLayout siteTitle="Svelte Animations Showcase - Demonstracja Animacji">
+  <div class="animations-page">
+    <SvelteAnimationsShowcase client:load />
+  </div>
+</MyBonzoLayout>
+
+<style>
+  .animations-page {
+    min-height: 100vh;
+  }
+</style>

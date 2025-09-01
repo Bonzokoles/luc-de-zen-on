@@ -1,5 +1,8 @@
 
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'OPTIONS']);
 
 // Mock data simulating a large YAML file
 const wildcardsData = {

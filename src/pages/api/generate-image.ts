@@ -1,15 +1,11 @@
+import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
+
 export const GET = async () => {
-  return new Response(JSON.stringify({
+  return createSuccessResponse({
     message: 'Image Generator API is running',
     status: 'active',
-    methods: ['POST'],
+    methods: ['GET', 'POST', 'OPTIONS'],
     description: 'Send POST request with { prompt: "your description" }'
-  }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
   });
 };
 
@@ -100,13 +96,4 @@ export const POST = async ({ request }: { request: Request }) => {
   }
 };
 
-export const OPTIONS = () => {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
-};
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);

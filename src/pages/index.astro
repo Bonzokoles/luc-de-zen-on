@@ -359,6 +359,35 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               >
             </div>
           </div>
+
+          <!-- API Testing Card -->
+          <div
+            class="worker-card"
+            data-worker="api-tests"
+            data-astro-cid-my52qgmw
+          >
+            <h3 class="worker-title" data-astro-cid-my52qgmw>🧪 API Tests</h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Testuj wszystkie Workers API endpoints i sprawdź połączenia
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Testing</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>API</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Debug</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="runAllAPITests()"
+                data-astro-cid-my52qgmw>Testuj wszystkie API</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="openAPITestConsole()"
+                data-astro-cid-my52qgmw>Konsola testów</button
+              >
+            </div>
+          </div>
         </div>
 
         <!-- Additional Functions Grid -->
@@ -507,16 +536,31 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
 <!-- JavaScript Functions -->
 <script>
+  // Init when page loads
+  window.addEventListener("DOMContentLoaded", async () => {
+    console.log("Loading API test functions...");
+    try {
+      const module = await import("../utils/apiTests.js");
+      window.apiTests = module;
+      console.log(
+        "API Tests module loaded, available functions:",
+        Object.keys(module)
+      );
+    } catch (error) {
+      console.log("Failed to load API tests:", error);
+    }
+  });
+
   // Worker Functions
   function openImageGenerator() {
-    console.log("🖼️ openImageGenerator() wywołana");
+    console.log("openImageGenerator() called");
     const prompt = document.getElementById("imagePrompt")?.value.trim();
     console.log("Image prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickPrompt", prompt);
-      console.log("✅ Prompt zapisany w localStorage");
+      console.log("Prompt saved in localStorage");
     }
-    console.log("📂 Otwieranie /image-generator");
+    console.log("Opening /image-generator");
     window.open("/image-generator", "_blank");
   }
 
@@ -526,9 +570,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log("Chat prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickChatPrompt", prompt);
-      console.log("✅ Prompt zapisany w localStorage");
+      console.log("Prompt saved in localStorage");
     }
-    console.log("📂 Otwieranie /chatbot");
+    console.log("Opening /chatbot");
     window.open("/chatbot", "_blank");
   }
 
@@ -538,9 +582,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log("BigQuery prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickSQLQuery", prompt);
-      console.log("✅ SQL Query zapisane w localStorage");
+      console.log("SQL Query saved in localStorage");
     }
-    console.log("📂 Otwieranie /bigquery-analytics");
+    console.log("Opening /bigquery-analytics");
     window.open("/bigquery-analytics", "_blank");
   }
 
@@ -550,9 +594,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log("Kaggle prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickKaggleSearch", prompt);
-      console.log("✅ Kaggle search zapisane w localStorage");
+      console.log("Kaggle search saved in localStorage");
     }
-    console.log("📂 Otwieranie /kaggle-datasets");
+    console.log("Opening /kaggle-datasets");
     window.open("/kaggle-datasets", "_blank");
   }
 
@@ -562,9 +606,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log("Tavily prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickTavilySearch", prompt);
-      console.log("✅ Tavily search zapisane w localStorage");
+      console.log("Tavily search saved in localStorage");
     }
-    console.log("📂 Otwieranie /tavily-search");
+    console.log("Opening /tavily-search");
     window.open("/tavily-search", "_blank");
   }
 
@@ -573,6 +617,43 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
     alert(`Test udany! Przycisk ${buttonType} działa.`);
     return false; // Prevent actual navigation
+  }
+
+  // API Testing Functions
+  async function runAllAPITests() {
+    console.log("Rozpoczynam testy wszystkich API...");
+
+    if (window.apiTests && window.apiTests.testAllAPIs) {
+      try {
+        await window.apiTests.testAllAPIs();
+        console.log("All API tests completed");
+      } catch (error) {
+        console.log("Error during API tests:", error);
+      }
+    } else {
+      console.log(
+        "⏳ API tests nie są jeszcze załadowane, próbuję ponownie..."
+      );
+      setTimeout(runAllAPITests, 1000);
+    }
+  }
+
+  function openAPITestConsole() {
+    console.log("Opening API test console...");
+    console.log("Available API tests:");
+    console.log("- window.apiTests.testChatAPI()");
+    console.log("- window.apiTests.testImageGeneration()");
+    console.log("- window.apiTests.testAIBot()");
+    console.log("- window.apiTests.testAllAPIs()");
+
+    if (window.apiTests) {
+      console.log(
+        "API Tests module loaded, available functions:",
+        Object.keys(window.apiTests)
+      );
+    } else {
+      console.log("API Tests module not loaded yet");
+    }
   }
 
   // Cloudflare Workers Integration
@@ -633,7 +714,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   // Auto-check status on load and add Enter key handlers
   document.addEventListener("DOMContentLoaded", function () {
     console.log("🚀 DOM załadowany, inicjalizacja funkcji");
-    
+
     // Test czy wszystkie funkcje są dostępne
     console.log("🧪 Test dostępności funkcji:");
     console.log("- openImageGenerator:", typeof openImageGenerator);
@@ -641,7 +722,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     console.log("- openBigQuery:", typeof openBigQuery);
     console.log("- openKaggle:", typeof openKaggle);
     console.log("- openTavily:", typeof openTavily);
-    
+
     // Test czy wszystkie elementy input istnieją
     console.log("🧪 Test dostępności elementów input:");
     console.log("- imagePrompt:", document.getElementById("imagePrompt"));
@@ -671,7 +752,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
     // Check status on load
     checkAllStatus();
-    
+
     // Make functions globally available for debugging
     window.openImageGenerator = openImageGenerator;
     window.openChatbot = openChatbot;
@@ -679,7 +760,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     window.openKaggle = openKaggle;
     window.openTavily = openTavily;
     window.testButtonFunction = testButtonFunction;
-    
-    console.log("✅ Wszystkie funkcje przypisane do window object");
+
+    console.log("All functions assigned to window object");
   });
 </script>

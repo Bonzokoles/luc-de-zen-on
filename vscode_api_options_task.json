@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Add OPTIONS to API endpoints",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "Get-ChildItem -Path 'src/pages/api/*.ts' | ForEach-Object { $content = Get-Content $_.FullName -Raw; if ($content -notmatch 'export const OPTIONS') { $optionsHandler = \"`n`nexport const OPTIONS = async () => {`n  return new Response(null, {`n    status: 200,`n    headers: {`n      'Access-Control-Allow-Origin': '*',`n      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',`n      'Access-Control-Allow-Headers': 'Content-Type, Authorization',`n      'Access-Control-Max-Age': '86400',`n    },`n  });`n};\"; $newContent = $content + $optionsHandler; Set-Content -Path $_.FullName -Value $newContent; Write-Host \"Added OPTIONS to $($_.Name)\" } }"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Deploy after OPTIONS fix",
+      "type": "shell", 
+      "command": "wrangler",
+      "args": ["deploy"],
+      "group": "build",
+      "dependsOn": "Add OPTIONS to API endpoints",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

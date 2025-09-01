@@ -13,25 +13,26 @@ class PolaczekDeployManager:
         self.wrangler_config = self.project_dir / "wrangler-polaczek.toml"
 
     def check_wrangler_installed(self):
-        """Check if Wrangler CLI is installed"""
+        """Check if Wrangler CLI is available via npx"""
         try:
-            result = subprocess.run(['wrangler', '--version'], 
+            result = subprocess.run(['npx', 'wrangler', '--version'], 
                                   capture_output=True, text=True)
             if result.returncode == 0:
-                print(f"✅ Wrangler found: {result.stdout.strip()}")
+                print(f"✅ Wrangler available via npx: {result.stdout.strip()}")
                 return True
             else:
-                print("❌ Wrangler not found")
+                print("❌ Wrangler not available via npx")
                 return False
         except FileNotFoundError:
-            print("❌ Wrangler CLI not installed")
+            print("❌ npx not found")
             return False
 
     def deploy_worker(self):
-        """Deploy the WebSocket worker to Cloudflare"""
+        """Deploy the WebSocket worker to Cloudflare using npx"""
         if not self.check_wrangler_installed():
-            print("📦 Installing Wrangler CLI...")
-            subprocess.run(['npm', 'install', '-g', 'wrangler'], check=True)
+            print("📦 Wrangler not available via npx, checking local installation...")
+            # Try to install wrangler locally if not available
+            subprocess.run(['npm', 'install', 'wrangler'], check=True)
         
         print("🚀 Deploying POLACZEK WebSocket Worker...")
         
@@ -39,9 +40,9 @@ class PolaczekDeployManager:
             # Change to project directory
             os.chdir(self.project_dir)
             
-            # Deploy using wrangler
+            # Deploy using npx wrangler
             result = subprocess.run([
-                'wrangler', 'deploy', 
+                'npx', 'wrangler', 'deploy', 
                 '--config', str(self.wrangler_config),
                 '--compatibility-date', '2024-01-01'
             ], capture_output=True, text=True)

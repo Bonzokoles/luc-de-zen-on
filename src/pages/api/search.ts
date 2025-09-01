@@ -1,5 +1,17 @@
 
 import type { APIRoute } from 'astro';
+import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
+
+export const GET: APIRoute = async () => {
+  return createSuccessResponse({
+    message: 'Search API is running',
+    status: 'active',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    description: 'Send POST request with { query: "search terms" }'
+  });
+};
+
+export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
 
 export const POST: APIRoute = async ({ request }) => {
   const { query } = await request.json();
