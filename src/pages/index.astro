@@ -1,31 +1,32 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 ---
 
-<MyBonzoLayout title="AI Workers Platform | KAROL LISSON">
+<MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
   <main class="min-h-svh">
-    <!-- Header Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
-        <div class="flex justify-between max-h-72 min-h-64">
-          <div class="mt-auto">
-            <span
-              style="writing-mode: vertical-lr;"
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-            >
-            </span>
+  <!-- Header Section -->
+  <section class="border border-edge">
+    <div class="max-w-6xl mx-auto border-x border-edge">
+      <div class="flex justify-between max-h-72 min-h-64">
+        <!-- Left corner - O_MNIE content -->
+        <div class="mt-auto max-w-xs">
+          <div class="text-edge text-sm italic px-2">
+            Tworzę nowoczesne rozwiązania, które łączą sztuczną inteligencję z automatyzacją, aby użytkownicy mogli korzystać z mocy AI w prosty i intuicyjny sposób.
           </div>
-          <span class="mt-auto">
-            <span
-              style=""
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-            >
-              AUG 2025
-            </span>
-          </span>
         </div>
+        <span class="mt-auto">
+          <RandomQuote />
+          <span
+            style=""
+            class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+          >
+            AUG 2025
+          </span>
+        </span>
       </div>
-    </section>
+    </div>
+  </section>
 
     <!-- Navigation Section -->
     <section class="border border-edge">
@@ -33,7 +34,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         <div class="flex flex-row p-2">
           <a class="hover:brightness-125" href="/">
             <h1 class="text-4xl sm:text-5xl">KAROL LISSON</h1>
-            <h2 class="text-2xl sm:text-3xl">Zażółć gęślą jaźń</h2>
+            <h2 class="text-2xl sm:text-3xl">MY_Bonzo_AI_ZEnon_HuB</h2>
           </a>
 
           <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
@@ -114,7 +115,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         <div class="tags-section" data-astro-cid-my52qgmw>
           <button
             class="tag-btn"
-            onclick="window.open('/hub/agent-builder', '_blank')"
+            onclick="window.open('/polaczek-agents-system', '_blank')"
             data-astro-cid-my52qgmw>POLACZEK_AGENT_SYS_23</button
           >
           <button
@@ -129,7 +130,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           >
           <button
             class="tag-btn"
-            onclick="window.open('/dashboard', '_blank')"
+            onclick="window.open('/klf-sheed-shop', '_blank')"
             data-astro-cid-my52qgmw>KLF_SHEED_SHOOP</button
           >
         </div>
@@ -388,6 +389,56 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               >
             </div>
           </div>
+
+          <!-- Flowise AI Card -->
+          <div class="worker-card" data-worker="flowise" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>🧠 Flowise AI</h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Visual AI workflow builder with drag-and-drop interface
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Visual Builder</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Integration</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="window.open('https://flowise.ai', '_blank')"
+                data-astro-cid-my52qgmw>Open Flowise</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="launchFlowise()"
+                data-astro-cid-my52qgmw>Launch</button
+              >
+            </div>
+          </div>
+
+          <!-- Activepieces Card -->
+          <div class="worker-card" data-worker="activepieces" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>⚡ Activepieces</h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Open-source automation platform for workflow automation
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Automation</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Open Source</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="window.open('https://activepieces.com', '_blank')"
+                data-astro-cid-my52qgmw>Open Activepieces</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="launchActivepieces()"
+                data-astro-cid-my52qgmw>Launch</button
+              >
+            </div>
+          </div>
         </div>
 
         <!-- Additional Functions Grid -->
@@ -499,34 +550,41 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     <!-- Footer Section -->
     <section class="border border-edge">
       <div class="max-w-6xl mx-auto border-x border-edge">
-        <div
-          class="flex flex-row justify-center gap-8 m-auto py-16 text-center"
-        >
-          <a
-            class="hover:brightness-125 duration-200"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="/workers"
-          >
-            SYSTEM AGENTS
-            <svg
-              style="--rotation: -45deg"
-              class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+        <div class="flex flex-row justify-between items-center py-16 px-8">
+          <!-- Left corner - O_MNIE content -->
+          <div class="max-w-xs text-left">
+            <div class="text-edge text-sm italic">
+              W mojej pracy skupiam się na integracji technologii w chmurze, nowoczesnych frameworków i AI, aby stworzyć asystenta, który rozumie i wspiera użytkownika w jego potrzebach.
+            </div>
+          </div>
+          
+          <div class="flex flex-row justify-center gap-8 text-center">
+            <a
+              class="hover:brightness-125 duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="/workers"
             >
-              <path
-                d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </a>
-          <div
-            class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60"
-          >
-            <span class="group-hover:hidden">100% HANDMADE</span>
-            <span class="hidden group-hover:inline">0% AI</span>
+              SYSTEM AGENTS
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <div
+              class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60"
+            >
+              <span class="group-hover:hidden">100% HANDMADE</span>
+              <span class="hidden group-hover:inline">0% AI</span>
+            </div>
           </div>
         </div>
       </div>

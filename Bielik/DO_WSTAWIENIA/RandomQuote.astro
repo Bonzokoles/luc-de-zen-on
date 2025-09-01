@@ -1,0 +1,58 @@
+---
+import { onMount } from 'astro/client';
+
+const quotes = [
+  // Kino
+  "„Nie ma nic bardziej potężnego niż idea, której czas nadszedł.” – Victor Hugo",
+  "„Życie to nie problem do rozwiązania, lecz rzeczywistość do doświadczenia.” – Søren Kierkegaard",
+  "„Wielkość człowieka polega na jego wolności wyboru.” – Jean-Paul Sartre",
+  // Filozofia
+  "„Poznaj samego siebie.” – Sokrates",
+  "„Rzeczywistość jest jedynie iluzją, choć bardzo uporczywą.” – Albert Einstein",
+  "„To, co mnie nie zabije, czyni mnie silniejszym.” – Friedrich Nietzsche",
+  // Sztuka
+  "„Sztuka nigdy nie jest ukończona, tylko porzucona.” – Leonardo da Vinci",
+  "„Kreatywność wymaga odwagi.” – Henri Matisse",
+  "„Kolor to miejsce, gdzie nasze oko spotyka się z duszą.” – Van Gogh",
+  // Science Fiction
+  "„Nie wolno się bać zmian, bo one tworzą przyszłość.” – z filmu 'Blade Runner'",
+  "„Człowiek jest tym, czym są jego decyzje.” – z książki 'Dune' Frank Herbert",
+  "„Granice mojego języka są granicami mojego świata.” – Ludwig Wittgenstein (często cytowany w sci-fi)"
+];
+
+let currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+function getRandomQuote() {
+  return quotes[Math.floor(Math.random() * quotes.length)];
+}
+---
+
+<div id="quote-box" style="font-style: italic; padding: 10px; border-left: 3px solid #4a90e2; margin: 15px 0; min-height: 3em; font-size: 1.5em;">
+  {currentQuote}
+</div>
+
+<script type="module" is:inline>
+  import { onMount } from 'astro/client';
+
+  onMount(() => {
+    const quoteBox = document.getElementById('quote-box');
+    setInterval(() => {
+      const quotes = [
+        "„Nie ma nic bardziej potężnego niż idea, której czas nadszedł.” – Victor Hugo",
+        "„Życie to nie problem do rozwiązania, lecz rzeczywistość do doświadczenia.” – Søren Kierkegaard",
+        "„Wielkość człowieka polega na jego wolności wyboru.” – Jean-Paul Sartre",
+        "„Poznaj samego siebie.” – Sokrates",
+        "„Rzeczywistość jest jedynie iluzją, choć bardzo uporczywą.” – Albert Einstein",
+        "„To, co mnie nie zabije, czyni mnie silniejszym.” – Friedrich Nietzsche",
+        "„Sztuka nigdy nie jest ukończona, tylko porzucona.” – Leonardo da Vinci",
+        "„Kreatywność wymaga odwagi.” – Henri Matisse",
+        "„Kolor to miejsce, gdzie nasze oko spotyka się z duszą.” – Van Gogh",
+        "„Nie wolno się bać zmian, bo one tworzą przyszłość.” – z filmu 'Blade Runner'",
+        "„Człowiek jest tym, czym są jego decyzje.” – z książki 'Dune' Frank Herbert",
+        "„Granice mojego języka są granicami mojego świata.” – Ludwig Wittgenstein (często cytowany w sci-fi)"
+      ];
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteBox.textContent = quotes[randomIndex];
+    }, 60000);
+  });
+</script>
