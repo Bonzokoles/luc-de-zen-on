@@ -1,115 +1,88 @@
-<<<<<<< HEAD
-# Astro Starter Kit: Blog
-
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
-
-![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
-
-<!-- dash-content-start -->
-
-Create a blog with Astro and deploy it on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-=======
 # MyBonzo - Reaktywny szablon portfolio
 
-Szablon MyBonzo to nowoczesna strona portfolio z automatycznym tagowaniem projektów, galerią postów i pełnym wsparciem SEO. Wszystkie sekcje, kolory i grafika są zgodne z oryginalnym stylem.
-
-## Najważniejsze funkcje
-
-- Automatyczne tagowanie projektów w sekcji hero
-- Galeria postów z sortowaniem po tagach
-- 100/100 w Lighthouse (wydajność)
-- SEO, kanoniczne adresy URL, OpenGraph
-- Sitemap i RSS
-- Obsługa Markdown i MDX
-
-## Instrukcja uruchomienia
-
-1. Zainstaluj zależności:
-	pnpm install
-2. Uruchom serwer deweloperski:
-	pnpm dev
-3. Buduj wersję produkcyjną:
-	pnpm build
-4. Podgląd produkcyjny:
-	pnpm preview
-
-Wszystkie polecenia uruchamiaj w katalogu głównym projektu.
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Bonzokoles/luc-de-zen-on)
 
 ![homepage-top](https://github.com/user-attachments/assets/b1b8ed1c-4575-452d-8420-36b0d46b31bb)
 
-Features:
+<!-- dash-content-start -->
 
-- ✅ Auto populated project tags hero section.
-- ✅ Post gallery that can be sorted based on tags.
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-<<<<<<< HEAD
+Szablon MyBonzo to nowoczesna strona portfolio z automatycznym tagowaniem projektów, galerią postów i pełnym wsparciem SEO. Zbudowany w Astro i wdrażany na Cloudflare Workers jako [static website](https://developers.cloudflare.com/workers/static-assets/).
+
+![homepage-bottom](https://github.com/user-attachments/assets/041b2062-094e-483e-b37c-ccca537eeddc)
+
+## Najważniejsze funkcje
+
+- ✅ Automatyczne tagowanie projektów w sekcji hero
+- ✅ Galeria postów z sortowaniem po tagach
+- ✅ 100/100 w Lighthouse (wydajność)
+- ✅ SEO, kanoniczne adresy URL, OpenGraph
+- ✅ Sitemap i RSS
+- ✅ Obsługa Markdown i MDX
 - ✅ Built-in Observability logging
 
 <!-- dash-content-end -->
 
-## Getting Started
+## Instrukcja uruchomienia
 
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
+Wszystkie polecenia uruchamiaj w katalogu głównym projektu:
+
+1. **Zainstaluj zależności:**
+   ```bash
+   pnpm install
+   ```
+
+2. **Uruchom serwer deweloperski:**
+   ```bash
+   pnpm dev
+   ```
+
+3. **Buduj wersję produkcyjną:**
+   ```bash
+   pnpm build
+   ```
+
+4. **Podgląd produkcyjny:**
+   ```bash
+   pnpm preview
+   ```
+
+## 🚀 Struktura projektu
+
+Astro szuka plików `.astro` lub `.md` w katalogu `src/pages/`. Każda strona jest eksponowana jako trasa na podstawie nazwy pliku.
+
+W katalogu `src/components/` znajdziesz komponenty Astro/React/Vue/Svelte/Preact.
+
+Katalog `src/content/` zawiera "kolekcje" powiązanych dokumentów Markdown i MDX. Użyj `getCollection()` aby pobrać posty z `src/content/blog/` i sprawdzić frontmatter używając opcjonalnego schematu. Zobacz [dokumentację Content Collections Astro](https://docs.astro.build/en/guides/content-collections/).
+
+Wszelkie zasoby statyczne, takie jak obrazy, można umieścić w katalogu `public/`.
+
+## Wdrażanie
+
+Szablon można wdrożyć na Cloudflare Workers używając [C3](https://developers.cloudflare.com/pages/get-started/c3/) (narzędzie CLI `create-cloudflare`):
 
 ```bash
 npm create cloudflare@latest -- --template=cloudflare/templates/astro-blog-starter-template
 ```
 
-A live public deployment of this template is available at [https://astro-blog-starter-template.templates.workers.dev](https://astro-blog-starter-template.templates.workers.dev)
+## 🧞 Polecenia
 
-## 🚀 Project Structure
+Wszystkie polecenia uruchamiane są z głównego katalogu projektu w terminalu:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-=======
-
-![homepage-bottom](https://github.com/user-attachments/assets/041b2062-094e-483e-b37c-ccca537eeddc)
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-<<<<<<< HEAD
-| Command                           | Action                                           |
+| Polecenie                         | Akcja                                            |
 | :-------------------------------- | :----------------------------------------------- |
-| `npm install`                     | Installs dependencies                            |
-| `npm run dev`                     | Starts local dev server at `localhost:4321`      |
-| `npm run build`                   | Build your production site to `./dist/`          |
-| `npm run preview`                 | Preview your build locally, before deploying     |
-| `npm run astro ...`               | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help`         | Get help using the Astro CLI                     |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare        |
-| `npm wrangler tail`               | View real-time logs for all Workers              |
+| `pnpm install`                    | Instaluje zależności                            |
+| `pnpm dev`                        | Uruchamia lokalny serwer dev na `localhost:4321`|
+| `pnpm build`                      | Buduje stronę produkcyjną do `./dist/`          |
+| `pnpm preview`                    | Podgląd buildu lokalnie, przed wdrożeniem       |
+| `pnpm astro ...`                  | Uruchamia polecenia CLI jak `astro add`, `astro check` |
+| `pnpm astro -- --help`            | Pomoc dla Astro CLI                              |
+| `pnpm build && pnpm deploy`       | Wdróż stronę produkcyjną na Cloudflare          |
+| `npm wrangler tail`               | Zobacz logi w czasie rzeczywistym dla Workers   |
 
-## 👀 Want to learn more?
+## 👀 Chcesz dowiedzieć się więcej?
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Sprawdź [dokumentację Astro](https://docs.astro.build) lub dołącz na [serwer Discord](https://astro.build/chat).
 
-## Credit
+## Kredyty
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
-=======
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
->>>>>>> 2eebbf4225c94f91c5954ea9e6dd27355101c62f
+Ten szablon bazuje na pięknym [Bear Blog](https://github.com/HermanMartinus/bearblog/).
