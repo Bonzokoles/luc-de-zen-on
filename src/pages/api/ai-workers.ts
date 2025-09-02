@@ -6,16 +6,17 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createSuccessResponse, createErrorResponse } from '../../utils/corsUtils';
 
-// Mock storage - w produkcji używałbyś KV lub Durable Objects
+// Real workers storage - using actual Cloudflare Workers
 let workersStorage: any[] = [
   {
-    id: 'worker-1',
-    name: 'Chat Assistant Pro',
+    id: 'worker-multi-ai',
+    name: 'Multi-AI Assistant',
     type: 'chat',
     endpoint: '/api/chat',
+    workerUrl: 'https://multi-ai-assistant.stolarnia-ams.workers.dev',
     status: 'active',
     config: {
-      model: 'llama-3.1-8b-instant',
+      model: '@cf/qwen/qwen1.5-0.5b-chat',
       maxTokens: 1000,
       temperature: 0.7
     },
@@ -23,13 +24,29 @@ let workersStorage: any[] = [
     lastUsed: new Date().toISOString()
   },
   {
-    id: 'worker-2',
-    name: 'Image Generator AI',
-    type: 'image',
-    endpoint: '/api/generate-image',
+    id: 'worker-bielik',
+    name: 'Bielik Polish AI',
+    type: 'chat', 
+    endpoint: '/api/bielik-chat',
+    workerUrl: 'https://bielik-chat-assistant.stolarnia-ams.workers.dev',
     status: 'active',
     config: {
-      model: 'stable-diffusion',
+      model: 'bielik-7b',
+      maxTokens: 1500,
+      temperature: 0.6
+    },
+    created: new Date().toISOString(),
+    lastUsed: new Date().toISOString()
+  },
+  {
+    id: 'worker-image-gen',
+    name: 'Image Generator',
+    type: 'image',
+    endpoint: '/api/generate-image',
+    workerUrl: 'https://generate-image.stolarnia-ams.workers.dev',
+    status: 'active',
+    config: {
+      model: '@cf/black-forest-labs/flux-1-schnell',
       maxTokens: 500,
       temperature: 0.8
     },
@@ -206,54 +223,73 @@ async function testWorker(data: any) {
   // Update last used timestamp
   worker.lastUsed = new Date().toISOString();
 
-  // Simulate worker test based on type
-  let testResult;
-  switch (worker.type) {
-    case 'chat':
-      testResult = {
-        response: `Cześć! Jestem ${worker.name} i działam poprawnie! 🤖`,
-        model: worker.config.model,
-        tokensUsed: 12
-      };
-      break;
+  try {
+    // Test actual worker endpoint instead of mock response
+    let testResult;
+    
+    if (worker.workerUrl) {
+      // Test real Cloudflare Worker
+      const testResponse = await fetch(worker.workerUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: testData?.message || 'Test connectivity',
+          prompt: testData?.prompt || 'Odpowiedz krótko: czy działasz poprawnie?'
+        }),
+      });
 
-    case 'image':
-      testResult = {
-        response: 'Test generowania obrazu zakończony pomyślnie',
-        imageUrl: 'https://via.placeholder.com/512x512?text=Test+Image',
-        model: worker.config.model
-      };
-      break;
+      if (testResponse.ok) {
+        const responseData = await testResponse.json();
+        testResult = {
+          response: responseData.response || responseData.answer || 'Worker działa poprawnie',
+          model: worker.config.model,
+          source: 'real_worker',
+          workerUrl: worker.workerUrl,
+          status: 'success'
+        };
+      } else {
+        throw new Error(`Worker responded with status ${testResponse.status}`);
+      }
+    } else {
+      // Test local API endpoint
+      const testResponse = await fetch(`${worker.endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: testData?.prompt || 'Test connectivity'
+        }),
+      });
 
-    case 'analyze':
-      testResult = {
-        response: 'Analiza danych dostępna i działająca',
-        dataProcessed: true,
-        capabilities: ['text', 'csv', 'json']
-      };
-      break;
+      if (testResponse.ok) {
+        const responseData = await testResponse.json();
+        testResult = {
+          response: responseData.answer || responseData.response || 'API endpoint działa poprawnie',
+          model: worker.config.model,
+          source: 'local_api',
+          endpoint: worker.endpoint,
+          status: 'success'
+        };
+      } else {
+        throw new Error(`API endpoint responded with status ${testResponse.status}`);
+      }
+    }
 
-    case 'search':
-      testResult = {
-        response: 'Wyszukiwarka gotowa do działania',
-        indexSize: 10000,
-        avgResponseTime: '250ms'
-      };
-      break;
+    console.log(`✅ Test worker: ${worker.name} (${workerId}) - sukces`);
 
-    default:
-      testResult = {
-        response: 'Worker test completed',
-        status: 'active'
-      };
+    return createSuccessResponse({
+      message: 'Test worker zakończony pomyślnie',
+      worker: worker.name,
+      result: testResult,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error: any) {
+    console.error(`❌ Test worker failed: ${worker.name} (${workerId})`, error);
+    
+    return createErrorResponse(`Test worker nieudany: ${error.message}`, 500);
   }
-
-  console.log(`✅ Test worker: ${worker.name} (${workerId}) - sukces`);
-
-  return createSuccessResponse({
-    message: 'Test worker zakończony pomyślnie',
-    worker: worker.name,
-    result: testResult,
-    timestamp: new Date().toISOString()
-  });
 }

@@ -1,0 +1,365 @@
+name: 🤖 MyBonzo Automation Deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'workflows/**'
+      - 'scripts/**'
+      - 'src/utils/loadEnv.js'
+      - '.env.example'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'workflows/**'
+      - 'scripts/**'
+  workflow_dispatch:
+    inputs:
+      deployment_type:
+        description: 'Type of deployment'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - workflows-only
+          - workers-only
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - development
+
+env:
+  NODE_VERSION: '18'
+  DEPLOYMENT_TIMEOUT: 300
+
+jobs:
+  # ===============================================
+  # JOB 1: VALIDATION AND TESTING
+  # ===============================================
+  validate:
+    name: 🔍 Validate Configuration
+    runs-on: ubuntu-latest
+    outputs:
+      workflows-changed: ${{ steps.changes.outputs.workflows }}
+      workers-changed: ${{ steps.changes.outputs.workers }}
+      should-deploy: ${{ steps.decision.outputs.deploy }}
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: |
+          npm ci
+          npm install node-fetch dotenv
+
+      - name: 📋 Detect Changes
+        id: changes
+        run: |
+          if git diff --quiet HEAD^ HEAD -- workflows/; then
+            echo "workflows=false" >> $GITHUB_OUTPUT
+          else
+            echo "workflows=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if git diff --quiet HEAD^ HEAD -- src/workers/ wrangler*.toml; then
+            echo "workers=false" >> $GITHUB_OUTPUT
+          else
+            echo "workers=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: ✅ Validate JSON Workflows
+        run: |
+          echo "🔍 Validating workflow JSON files..."
+          for file in workflows/*.json; do
+            if [ -f "$file" ]; then
+              echo "Validating $file"
+              node -e "
+                const fs = require('fs');
+                const content = fs.readFileSync('$file', 'utf8');
+                try {
+                  JSON.parse(content);
+                  console.log('✅ $file is valid JSON');
+                } catch (error) {
+                  console.error('❌ $file is invalid JSON:', error.message);
+                  process.exit(1);
+                }
+              "
+            fi
+          done
+
+      - name: 🔑 Validate Environment Variables
+        run: |
+          echo "🔍 Checking required environment variables..."
+          node -e "
+            const required = ['OPENAI_API_KEY', 'FLOWISE_API_TOKEN', 'ACTIVEPIECES_API_KEY'];
+            const missing = required.filter(key => !process.env[key]);
+            if (missing.length > 0) {
+              console.log('⚠️ Missing optional keys:', missing.join(', '));
+              console.log('Deployment will continue but some features may not work');
+            } else {
+              console.log('✅ All API keys are configured');
+            }
+          "
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          FLOWISE_API_TOKEN: ${{ secrets.FLOWISE_API_TOKEN }}
+          ACTIVEPIECES_API_KEY: ${{ secrets.ACTIVEPIECES_API_KEY }}
+
+      - name: 🎯 Deployment Decision
+        id: decision
+        run: |
+          DEPLOY="false"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            DEPLOY="true"
+          elif [[ "${{ steps.changes.outputs.workflows }}" == "true" ]] || [[ "${{ steps.changes.outputs.workers }}" == "true" ]]; then
+            DEPLOY="true"
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            DEPLOY="true"
+          fi
+          echo "deploy=$DEPLOY" >> $GITHUB_OUTPUT
+          echo "🎯 Deployment decision: $DEPLOY"
+
+  # ===============================================
+  # JOB 2: DEPLOY CLOUDFLARE WORKERS
+  # ===============================================
+  deploy-workers:
+    name: ☁️ Deploy Cloudflare Workers
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.should-deploy == 'true' && (needs.validate.outputs.workers-changed == 'true' || github.event.inputs.deployment_type == 'full' || github.event.inputs.deployment_type == 'workers-only')
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm ci
+
+      - name: 🚀 Deploy Workers
+        run: |
+          echo "🚀 Deploying Cloudflare Workers..."
+          
+          # Deploy main API workers
+          npx wrangler publish --config wrangler.toml
+          
+          # Deploy specialized workers if they exist
+          if [ -f "wrangler-models-api.toml" ]; then
+            npx wrangler publish --config wrangler-models-api.toml
+          fi
+          
+          if [ -f "wrangler-polaczek.toml" ]; then
+            npx wrangler publish --config wrangler-polaczek.toml
+          fi
+          
+          echo "✅ Workers deployment completed"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+  # ===============================================
+  # JOB 3: DEPLOY WORKFLOWS
+  # ===============================================
+  deploy-workflows:
+    name: 🔄 Deploy Automation Workflows
+    runs-on: ubuntu-latest
+    needs: validate
+    if: needs.validate.outputs.should-deploy == 'true' && (needs.validate.outputs.workflows-changed == 'true' || github.event.inputs.deployment_type == 'full' || github.event.inputs.deployment_type == 'workflows-only')
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: |
+          npm ci
+          npm install node-fetch dotenv
+
+      - name: 🔄 Deploy Workflows
+        run: |
+          echo "🔄 Deploying automation workflows..."
+          timeout ${{ env.DEPLOYMENT_TIMEOUT }} node scripts/deployWorkflows.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          FLOWISE_API_TOKEN: ${{ secrets.FLOWISE_API_TOKEN }}
+          ACTIVEPIECES_API_KEY: ${{ secrets.ACTIVEPIECES_API_KEY }}
+          FLOWISE_API_URL: ${{ secrets.FLOWISE_API_URL }}
+          ACTIVEPIECES_API_URL: ${{ secrets.ACTIVEPIECES_API_URL }}
+          MYBONZO_API_KEY: ${{ secrets.MYBONZO_API_KEY }}
+          EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
+          SMS_API_KEY: ${{ secrets.SMS_API_KEY }}
+
+  # ===============================================
+  # JOB 4: NOTIFICATION AND VERIFICATION
+  # ===============================================
+  notify-and-verify:
+    name: 📢 Notify & Verify Deployment
+    runs-on: ubuntu-latest
+    needs: [validate, deploy-workers, deploy-workflows]
+    if: always() && needs.validate.outputs.should-deploy == 'true'
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: |
+          npm ci
+          npm install node-fetch
+
+      - name: 🔍 Verify Deployment
+        id: verify
+        run: |
+          echo "🔍 Verifying deployment..."
+          
+          # Test API endpoints
+          ENDPOINTS=(
+            "https://api.mybonzo.com/api/activity-monitor"
+            "https://api.mybonzo.com/api/reminders"
+            "https://api.mybonzo.com/api/faq-generator"
+          )
+          
+          FAILED=0
+          for endpoint in "${ENDPOINTS[@]}"; do
+            echo "Testing $endpoint..."
+            if curl -f -s --connect-timeout 30 "$endpoint" > /dev/null; then
+              echo "✅ $endpoint - OK"
+            else
+              echo "❌ $endpoint - FAILED"
+              FAILED=$((FAILED + 1))
+            fi
+          done
+          
+          echo "failed_endpoints=$FAILED" >> $GITHUB_OUTPUT
+          
+          if [ $FAILED -eq 0 ]; then
+            echo "✅ All endpoints verified successfully"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ $FAILED endpoints failed verification"
+            echo "status=partial" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📢 Send Success Notification
+        if: steps.verify.outputs.status == 'success'
+        run: |
+          echo "📢 Sending success notification..."
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "🚀 MyBonzo Automation Deployment Success",
+                "description": "All workflows and workers deployed successfully",
+                "color": 65280,
+                "fields": [
+                  {"name": "Repository", "value": "${{ github.repository }}", "inline": true},
+                  {"name": "Branch", "value": "${{ github.ref_name }}", "inline": true},
+                  {"name": "Commit", "value": "`${{ github.sha }}`", "inline": true},
+                  {"name": "Environment", "value": "${{ github.event.inputs.environment || 'production' }}", "inline": true}
+                ],
+                "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+              }]
+            }' || echo "Discord notification failed (non-critical)"
+
+      - name: ⚠️ Send Failure Notification
+        if: steps.verify.outputs.status != 'success'
+        run: |
+          echo "⚠️ Sending failure notification..."
+          curl -X POST "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "embeds": [{
+                "title": "⚠️ MyBonzo Automation Deployment Issues",
+                "description": "Deployment completed with ${{ steps.verify.outputs.failed_endpoints }} endpoint failures",
+                "color": 16776960,
+                "fields": [
+                  {"name": "Repository", "value": "${{ github.repository }}", "inline": true},
+                  {"name": "Branch", "value": "${{ github.ref_name }}", "inline": true},
+                  {"name": "Failed Endpoints", "value": "${{ steps.verify.outputs.failed_endpoints }}", "inline": true}
+                ],
+                "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"
+              }]
+            }' || echo "Discord notification failed (non-critical)"
+
+      - name: 📊 Generate Deployment Report
+        run: |
+          echo "# 🤖 MyBonzo Automation Deployment Report" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployment Time:** $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Repository:** ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📋 Deployment Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **Workers Status:** ${{ needs.deploy-workers.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Workflows Status:** ${{ needs.deploy-workflows.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Verification Status:** ${{ steps.verify.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Failed Endpoints:** ${{ steps.verify.outputs.failed_endpoints }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔗 Links" >> $GITHUB_STEP_SUMMARY
+          echo "- [MyBonzo Dashboard](https://www.mybonzo.com/funkcje-biznesowe-ai)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Activity Monitor](https://api.mybonzo.com/api/activity-monitor)" >> $GITHUB_STEP_SUMMARY
+          echo "- [Reminders API](https://api.mybonzo.com/api/reminders)" >> $GITHUB_STEP_SUMMARY
+          echo "- [FAQ Generator](https://api.mybonzo.com/api/faq-generator)" >> $GITHUB_STEP_SUMMARY
+
+  # ===============================================
+  # JOB 5: CLEANUP AND MAINTENANCE
+  # ===============================================
+  cleanup:
+    name: 🧹 Cleanup & Maintenance
+    runs-on: ubuntu-latest
+    needs: [deploy-workers, deploy-workflows]
+    if: always()
+    
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🧹 Clean Temporary Files
+        run: |
+          echo "🧹 Cleaning up temporary files..."
+          # Cleanup any temporary deployment files
+          rm -f /tmp/deployment-*.log
+          rm -f /tmp/workflow-*.json
+          echo "✅ Cleanup completed"
+
+      - name: 📈 Update Deployment Metrics
+        run: |
+          echo "📈 Recording deployment metrics..."
+          echo "DEPLOYMENT_TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
+          echo "DEPLOYMENT_COMMIT=${{ github.sha }}" >> $GITHUB_ENV
+          echo "DEPLOYMENT_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV

@@ -1,0 +1,1 @@
+import"./_virtual_wxt-html-plugins-DPbbfBKe.js";(async()=>window.addEventListener("message",async a=>{if(a.data==="TRIGGER_IFRAME_MEDIA_PERMISSIONS")try{(await navigator.mediaDevices.getUserMedia({audio:!0})).getTracks().forEach(s=>s.stop()),window.parent.postMessage({type:"MEDIA_ACCESS_GRANTED"},"*")}catch(e){console.error("Media access request failed:",e)}}))();

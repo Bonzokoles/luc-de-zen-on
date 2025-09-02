@@ -125,12 +125,16 @@
 
 <style>
   .image-generator-widget {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    border: 1px solid #3d4f7a;
-    border-radius: 12px;
+    border: 1px solid var(--color-edge, #ccc);
     padding: 20px;
     margin: 16px 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    background: var(--color-background, transparent);
+    transition: all 0.3s ease;
+  }
+
+  .image-generator-widget:hover {
+    filter: brightness(1.05);
+    border-color: var(--color-primary, #666);
   }
 
   .widget-header {
@@ -139,23 +143,24 @@
     justify-content: space-between;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #3d4f7a;
+    border-bottom: 1px solid var(--color-edge, #ccc);
   }
 
   .widget-header h3 {
     margin: 0;
-    color: #e1e8f0;
+    color: #00d9ff;
     font-size: 1.1rem;
     font-weight: 600;
   }
 
   .badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--color-primary, #666);
+    color: var(--color-primary-foreground, #fff);
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 500;
+    border: 1px solid var(--color-edge, #ccc);
   }
 
   .widget-content {
@@ -172,11 +177,10 @@
 
   .prompt-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #3d4f7a;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
     padding: 12px;
-    color: #e1e8f0;
+    color: #e0e0e0;
     font-size: 0.9rem;
     resize: vertical;
     min-height: 80px;
@@ -185,12 +189,12 @@
 
   .prompt-input:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
   }
 
   .prompt-input::placeholder {
-    color: #8892b0;
+    color: #888;
   }
 
   .action-buttons {
@@ -201,8 +205,7 @@
   .generate-btn,
   .full-btn {
     padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
+    border: 1px solid var(--color-edge, #ccc);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -210,8 +213,8 @@
   }
 
   .generate-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--color-primary, #666);
+    color: var(--color-primary-foreground, #fff);
     flex: 1;
     display: flex;
     align-items: center;
@@ -220,26 +223,22 @@
   }
 
   .generate-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    filter: brightness(1.1);
   }
 
   .generate-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    transform: none;
   }
 
   .full-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #e1e8f0;
-    border: 1px solid #3d4f7a;
-    padding: 10px 12px;
+    background: var(--color-secondary, #f5f5f5);
+    color: var(--color-secondary-foreground, #000);
   }
 
   .full-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: #667eea;
+    filter: brightness(1.05);
+    border-color: var(--color-primary, #666);
   }
 
   .spinner {
@@ -252,11 +251,10 @@
   }
 
   .error-message {
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    color: #fca5a5;
+    background: var(--color-destructive-background, #fee);
+    border: 1px solid var(--color-destructive, #dc2626);
+    color: var(--color-destructive-foreground, #dc2626);
     padding: 12px;
-    border-radius: 6px;
     font-size: 0.9rem;
   }
 
@@ -269,8 +267,7 @@
   .generated-image {
     width: 100%;
     max-width: 300px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-edge, #ccc);
     margin: 0 auto;
     display: block;
   }
@@ -281,19 +278,18 @@
   }
 
   .download-btn {
-    background: rgba(34, 197, 94, 0.15);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+    background: var(--color-secondary, #f5f5f5);
+    color: var(--color-secondary-foreground, #000);
+    border: 1px solid var(--color-edge, #ccc);
     padding: 8px 12px;
-    border-radius: 6px;
     text-decoration: none;
     font-size: 0.85rem;
     transition: all 0.3s ease;
   }
 
   .download-btn:hover {
-    background: rgba(34, 197, 94, 0.25);
-    border-color: #4ade80;
+    filter: brightness(1.05);
+    border-color: var(--color-primary, #666);
   }
 
   @keyframes spin {

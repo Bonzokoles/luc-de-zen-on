@@ -20,7 +20,7 @@
     connectionStatus = "checking";
     try {
       const response = await fetch(
-        "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/health",
+        "https://multi-ai-assistant.stolarnia-ams.workers.dev/health",
         {
           method: "GET",
           signal: AbortSignal.timeout(5000), // 5 second timeout
@@ -34,7 +34,7 @@
         throw new Error("Health check failed");
       }
     } catch (error) {
-      console.warn("POLACZEK Worker offline, using local fallback:", error);
+      console.warn("Multi-AI Worker offline, using local fallback:", error);
       isConnected = false;
       connectionStatus = "disconnected";
     }
@@ -63,14 +63,14 @@
       let requestBody;
 
       if (isConnected) {
-        // Use external POLACZEK Worker
+        // Use Multi-AI Worker with DeepSeek model for programming tasks
         apiUrl =
-          "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat";
+          "https://multi-ai-assistant.stolarnia-ams.workers.dev/deepseek";
         requestBody = JSON.stringify({
           message: userMessage,
           sessionId: sessionId,
           context: {
-            source: "main_page_widget",
+            source: "polaczek_widget",
             timestamp: new Date().toISOString(),
           },
         });
@@ -265,17 +265,20 @@
 
 <style>
   .polaczek-widget {
-    background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);
-    border: 1px solid #4c6ef5;
-    border-radius: 12px;
+    border: 1px solid var(--color-edge, #ccc);
     padding: 20px;
     margin: 16px 0;
-    box-shadow: 0 8px 32px rgba(45, 27, 105, 0.3);
+    background: var(--color-background, transparent);
     transition: all 0.3s ease;
   }
 
+  .polaczek-widget:hover {
+    filter: brightness(1.05);
+    border-color: var(--color-primary, #666);
+  }
+
   .polaczek-widget.expanded {
-    box-shadow: 0 12px 48px rgba(45, 27, 105, 0.4);
+    border-color: var(--color-primary, #666);
   }
 
   .widget-header {
@@ -284,7 +287,7 @@
     justify-content: space-between;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 1px solid #4c6ef5;
+    border-bottom: 1px solid var(--color-edge, #ccc);
   }
 
   .title-section {
@@ -295,14 +298,14 @@
 
   .title-section h3 {
     margin: 0;
-    color: #e1e8f0;
+    color: #00d9ff;
     font-size: 1.1rem;
     font-weight: 600;
   }
 
   .status-badge {
     padding: 3px 8px;
-    border-radius: 12px;
+    border: 1px solid var(--color-edge, #ccc);
     font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -311,33 +314,24 @@
   }
 
   .status-badge:hover {
-    opacity: 0.8;
-    transform: scale(1.05);
+    filter: brightness(1.05);
   }
 
-  .status-badge.connected {
-    background: rgba(34, 197, 94, 0.2);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.3);
+  .status-badge.connected,
+  .status-badge.online {
+    background: var(--color-success, #22c55e);
+    color: var(--color-success-foreground, #fff);
   }
 
   .status-badge.disconnected {
-    background: rgba(245, 101, 101, 0.2);
-    color: #f56565;
-    border: 1px solid rgba(245, 101, 101, 0.3);
+    background: var(--color-destructive, #dc2626);
+    color: var(--color-destructive-foreground, #fff);
   }
 
   .status-badge.checking {
-    background: rgba(251, 191, 36, 0.2);
-    color: #fbbf24;
-    border: 1px solid rgba(251, 191, 36, 0.3);
+    background: var(--color-warning, #f59e0b);
+    color: var(--color-warning-foreground, #fff);
     animation: pulse 2s infinite;
-  }
-
-  .status-badge.online {
-    background: rgba(34, 197, 94, 0.2);
-    color: #4ade80;
-    border: 1px solid rgba(34, 197, 94, 0.3);
   }
 
   .header-actions {
@@ -347,12 +341,11 @@
 
   .expand-btn,
   .full-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #4c6ef5;
-    color: #e1e8f0;
+    background: var(--color-secondary, #f5f5f5);
+    border: 1px solid var(--color-edge, #ccc);
+    color: var(--color-secondary-foreground, #000);
     width: 32px;
     height: 32px;
-    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -362,8 +355,8 @@
 
   .expand-btn:hover,
   .full-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-1px);
+    filter: brightness(1.05);
+    border-color: var(--color-primary, #666);
   }
 
   .widget-content {
@@ -382,14 +375,13 @@
     max-height: 300px;
     overflow-y: auto;
     padding: 12px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    border: 1px solid rgba(76, 110, 245, 0.3);
+    background: var(--color-muted, #f5f5f5);
+    border: 1px solid var(--color-edge, #ccc);
   }
 
   .welcome-message {
     text-align: center;
-    color: #cbd5e1;
+    color: var(--color-muted-foreground, #666);
     padding: 20px;
   }
 
@@ -426,28 +418,30 @@
   }
 
   .text-content {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-background, transparent);
+    border: 1px solid var(--color-edge, #ccc);
     padding: 8px 12px;
-    border-radius: 8px;
-    color: #e1e8f0;
+    color: var(--color-foreground, #000);
     font-size: 0.9rem;
     line-height: 1.4;
     max-width: calc(100% - 40px);
   }
 
   .message.user .text-content {
-    background: rgba(76, 110, 245, 0.3);
+    background: var(--color-primary, #666);
+    color: var(--color-primary-foreground, #fff);
     margin-left: auto;
   }
 
   .message.assistant .text-content {
-    background: rgba(17, 153, 142, 0.3);
+    background: var(--color-secondary, #f5f5f5);
+    color: var(--color-secondary-foreground, #000);
   }
 
   .message.error .text-content {
-    background: rgba(220, 38, 38, 0.2);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    color: #fca5a5;
+    background: var(--color-destructive-background, #fee);
+    border: 1px solid var(--color-destructive, #dc2626);
+    color: var(--color-destructive-foreground, #dc2626);
   }
 
   .typing-indicator {
@@ -478,18 +472,17 @@
   }
 
   .clear-btn {
-    background: rgba(220, 38, 38, 0.1);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    color: #fca5a5;
+    background: var(--color-destructive-background, #fee);
+    border: 1px solid var(--color-destructive, #dc2626);
+    color: var(--color-destructive-foreground, #dc2626);
     padding: 6px 10px;
-    border-radius: 6px;
     cursor: pointer;
     font-size: 0.8rem;
     transition: all 0.3s ease;
   }
 
   .clear-btn:hover {
-    background: rgba(220, 38, 38, 0.2);
+    filter: brightness(1.05);
   }
 
   .input-section {
@@ -504,11 +497,10 @@
 
   .chat-input {
     flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #4c6ef5;
-    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
     padding: 10px 12px;
-    color: #e1e8f0;
+    color: #e0e0e0;
     font-size: 0.9rem;
     resize: none;
     transition: all 0.3s ease;
@@ -516,21 +508,20 @@
 
   .chat-input:focus {
     outline: none;
-    border-color: #11998e;
-    box-shadow: 0 0 0 2px rgba(17, 153, 142, 0.2);
+    border-color: #00d9ff;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
   }
 
   .chat-input::placeholder {
-    color: #8892b0;
+    color: #888;
   }
 
   .send-btn {
-    background: linear-gradient(135deg, #4c6ef5 0%, #11998e 100%);
-    border: none;
-    color: white;
+    background: var(--color-primary, #666);
+    border: 1px solid var(--color-edge, #ccc);
+    color: var(--color-primary-foreground, #fff);
     width: 40px;
     height: 40px;
-    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -539,14 +530,12 @@
   }
 
   .send-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(76, 110, 245, 0.4);
+    filter: brightness(1.1);
   }
 
   .send-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
   }
 
   .spinner {
