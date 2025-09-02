@@ -11,24 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Install dependencies
         run: npm install
-        
+
       - name: Load env vars
         run: |
           echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> $GITHUB_ENV
           echo "FLOWISE_API_TOKEN=${{ secrets.FLOWISE_API_TOKEN }}" >> $GITHUB_ENV
           echo "ACTIVEPIECES_API_KEY=${{ secrets.ACTIVEPIECES_API_KEY }}" >> $GITHUB_ENV
-          
+
       - name: Build project
         run: npm run build
-        
+
       - name: Deploy Cloudflare Workers
         run: npx wrangler publish
         env:
@@ -37,18 +37,18 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ACTIVEPIECES_API_KEY: ${{ secrets.ACTIVEPIECES_API_KEY }}
           FLOWISE_API_TOKEN: ${{ secrets.FLOWISE_API_TOKEN }}
-          
+
       - name: Deploy workflows to Flowise and ActivePieces
         run: node scripts/deployMybonzo.js
         env:
           ACTIVEPIECES_API_KEY: ${{ secrets.ACTIVEPIECES_API_KEY }}
           FLOWISE_API_TOKEN: ${{ secrets.FLOWISE_API_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          
+
       - name: Run system tests
         run: npm run test
         continue-on-error: true
-        
+
       - name: Notify deployment status
         if: always()
         run: |

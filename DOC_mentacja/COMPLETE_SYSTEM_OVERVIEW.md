@@ -453,7 +453,40 @@ Components not styled correctly
 ```
 **Solution:**
 - Verify CSS imports
-- Check border-radius: 0px !important
-- Validate color variables
+- Check border-radius: 0px !important (CYBERPUNK: zero rounded corners)
+- Validate color variables (cyan #00d9ff primary)
+- Ensure glow effects and box-shadow animations
 
-###
+---
+
+## Design System Update (CYBERPUNK THEME)
+
+### Aktualne wymagania wizualne
+
+#### Kolory
+
+- **Primary:** #00d9ff (cyan)
+- **Background:** #000000 (pure black)
+- **Borders:** rgba(0, 217, 255, 0.3)
+- **Text:** #e0e0e0 (light gray)
+- **Surface:** rgba(0, 0, 0, 0.3)
+
+#### Kształty
+
+- **ZERO ROUNDED CORNERS:** `border-radius: 0px !important`
+- **Ostre, geometryczne kształty** zamiast zaokrąglonych
+- **Cyberpunk aesthetic** z glow effects
+
+#### Animacje
+
+- **Hover effects:** transform: translateY(-2px)
+- **Glow effects:** box-shadow z cyan colors
+- **Smooth transitions:** all 0.3s ease
+
+#### Typography
+
+- **Font:** Rajdhani (primary), system-ui fallback
+- **Weights:** 600 (semi-bold) dla headings
+- **Letter-spacing:** 1px dla buttons i labels
+
+---
