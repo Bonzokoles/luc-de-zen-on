@@ -35,7 +35,7 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: userMessage,
+          message: userMessage,
           sessionId: sessionId,
           context: {
             source: "main_chat_widget",
@@ -50,16 +50,16 @@
 
       const result = await response.json();
 
-      if (result.answer) {
+      if (result.success && result.response) {
         messages = [
           ...messages,
           {
             type: "assistant",
-            content: result.answer,
+            content: result.response,
             timestamp: new Date().toISOString(),
           },
         ];
-        dispatch("messageReceived", { response: result.answer });
+        dispatch("messageReceived", { response: result.response });
       } else {
         throw new Error(result.error || "Nie udało się uzyskać odpowiedzi");
       }

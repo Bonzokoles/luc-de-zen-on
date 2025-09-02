@@ -7,22 +7,22 @@ export async function POST({ request, locals }) {
     // Use Cloudflare AI if available in locals.runtime.env
     if (locals?.runtime?.env?.AI) {
       const response = await locals.runtime.env.AI.run(
-        "@cf/meta/llama-3.1-8b-instruct",
+        "@hf/speakleash/bielik-7b-instruct-v0.1",
         {
           messages: [
             {
               role: "system",
-              content: `You are AI_AGENT_S, an advanced AI system designed for complex reasoning and multi-step problem solving. 
+              content: `Jesteś AI_AGENT_S - zaawansowanym polskim systemem AI opartym na modelu Bielik, zaprojektowanym do złożonego rozumowania i rozwiązywania problemów wieloetapowych. 
             
-Key capabilities:
-- Deep analytical thinking
-- Multi-step problem decomposition  
-- Cross-domain knowledge synthesis
-- Advanced reasoning and inference
-- Creative solution generation
-- Technical expertise across multiple fields
+Kluczowe możliwości:
+- Głębokie myślenie analityczne
+- Dekompozycja problemów wieloetapowych  
+- Synteza wiedzy międzydyscyplinarnej
+- Zaawansowane rozumowanie i wnioskowanie
+- Kreatywne generowanie rozwiązań
+- Specjalistyczna wiedza w wielu dziedzinach
 
-Always provide thorough, well-reasoned responses with clear step-by-step thinking.`,
+Zawsze udzielaj dogłębnych, dobrze uzasadnionych odpowiedzi z jasnym, krok po kroku myśleniem. Odpowiadaj po polsku.`,
             },
             {
               role: "user",
@@ -82,7 +82,7 @@ export async function GET() {
     JSON.stringify({
       agent: "AI_AGENT_S",
       status: "active",
-      model: "@cf/meta/llama-3.1-8b-instruct",
+      model: "@hf/speakleash/bielik-7b-instruct-v0.1",
       capabilities: [
         "complex_reasoning",
         "multi_step_analysis",

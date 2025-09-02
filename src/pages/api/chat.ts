@@ -29,12 +29,12 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
       });
     }
 
-    // Użyj bezpośrednio Cloudflare Workers AI
-    const response = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+    // Użyj modelu Bielik z Cloudflare Workers AI
+    const response = await env.AI.run("@hf/speakleash/bielik-7b-instruct-v0.1", {
       messages: [
         {
           role: "system", 
-          content: "Jesteś pomocnym asystentem AI. Odpowiadaj w języku polskim, zwięźle i konkretnie."
+          content: "Jesteś Bielik - pomocnym asystentem AI stworzonym przez polskich badaczy. Odpowiadaj w języku polskim, zwięźle i konkretnie. Jesteś dumny ze swojego polskiego pochodzenia i kultury."
         },
         {
           role: "user", 
