@@ -1,10 +1,10 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  
+  import { createEventDispatcher } from "svelte";
+
   const dispatch = createEventDispatcher();
-  
+
   let messages = [];
-  let inputText = '';
+  let inputText = "";
   let isLoading = false;
   let isExpanded = false;
   let sessionId = Math.random().toString(36).substring(2, 15);
@@ -13,64 +13,73 @@
     if (!inputText.trim() || isLoading) return;
 
     const userMessage = inputText.trim();
-    inputText = '';
-    
+    inputText = "";
+
     // Add user message
-    messages = [...messages, { 
-      type: 'user', 
-      content: userMessage, 
-      timestamp: new Date().toISOString() 
-    }];
-    
+    messages = [
+      ...messages,
+      {
+        type: "user",
+        content: userMessage,
+        timestamp: new Date().toISOString(),
+      },
+    ];
+
     isLoading = true;
-    
+
     try {
       // Użyj lokalnego API lub Cloudflare Worker
-      const response = await fetch('/api/chat', {
-        method: 'POST',
+      const response = await fetch("/api/chat", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: userMessage,
           sessionId: sessionId,
           context: {
-            source: 'main_chat_widget',
-            timestamp: new Date().toISOString()
-          }
-        })
+            source: "main_chat_widget",
+            timestamp: new Date().toISOString(),
+          },
+        }),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const result = await response.json();
-      
+
       if (result.success && result.response) {
-        messages = [...messages, {
-          type: 'assistant',
-          content: result.response,
-          timestamp: new Date().toISOString()
-        }];
-        dispatch('messageReceived', { response: result.response });
+        messages = [
+          ...messages,
+          {
+            type: "assistant",
+            content: result.response,
+            timestamp: new Date().toISOString(),
+          },
+        ];
+        dispatch("messageReceived", { response: result.response });
       } else {
-        throw new Error(result.error || 'Nie udało się uzyskać odpowiedzi');
+        throw new Error(result.error || "Nie udało się uzyskać odpowiedzi");
       }
     } catch (error) {
-      messages = [...messages, {
-        type: 'error',
-        content: 'Przepraszam, wystąpił błąd podczas komunikacji z AI.',
-        timestamp: new Date().toISOString()
-      }];
-      console.error('Main chat error:', error);
+      messages = [
+        ...messages,
+        {
+          type: "error",
+          content: "Przepraszam, wystąpił błąd podczas komunikacji z AI.",
+          timestamp: new Date().toISOString(),
+        },
+      ];
+      console.error("Main chat error:", error);
     } finally {
       isLoading = false;
     }
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -81,7 +90,7 @@
   }
 
   function openFullChat() {
-    window.open('/chatbot', '_blank');
+    window.open("/chatbot", "_blank");
   }
 
   function clearChat() {
@@ -98,14 +107,18 @@
     </div>
     <div class="header-actions">
       <button on:click={toggleExpanded} class="expand-btn" title="Rozwiń/Zwiń">
-        {isExpanded ? '▼' : '▲'}
+        {isExpanded ? "▼" : "▲"}
       </button>
-      <button on:click={openFullChat} class="full-btn" title="Otwórz pełny chat">
+      <button
+        on:click={openFullChat}
+        class="full-btn"
+        title="Otwórz pełny chat"
+      >
         🔗
       </button>
     </div>
   </div>
-  
+
   <div class="widget-content">
     {#if isExpanded}
       <div class="chat-container">
@@ -114,16 +127,18 @@
             <div class="welcome-message">
               <div class="welcome-icon">💬</div>
               <p>Witaj! Jestem Twoim AI Assistantem.</p>
-              <p>Mogę pomóc Ci z różnymi zadaniami i odpowiedzieć na pytania.</p>
+              <p>
+                Mogę pomóc Ci z różnymi zadaniami i odpowiedzieć na pytania.
+              </p>
             </div>
           {/if}
-          
+
           {#each messages as message}
             <div class="message {message.type}">
               <div class="message-content">
-                {#if message.type === 'user'}
+                {#if message.type === "user"}
                   <div class="user-avatar">👤</div>
-                {:else if message.type === 'assistant'}
+                {:else if message.type === "assistant"}
                   <div class="bot-avatar">🤖</div>
                 {:else}
                   <div class="error-avatar">⚠️</div>
@@ -134,7 +149,7 @@
               </div>
             </div>
           {/each}
-          
+
           {#if isLoading}
             <div class="message assistant loading">
               <div class="message-content">
@@ -148,7 +163,7 @@
             </div>
           {/if}
         </div>
-        
+
         <div class="chat-actions">
           <button on:click={clearChat} class="clear-btn" title="Wyczyść czat">
             🗑️
@@ -156,10 +171,10 @@
         </div>
       </div>
     {/if}
-    
+
     <div class="input-section">
       <div class="input-container">
-        <textarea 
+        <textarea
           bind:value={inputText}
           on:keypress={handleKeyPress}
           placeholder="Zadaj pytanie AI Assistant..."
@@ -167,8 +182,8 @@
           disabled={isLoading}
           class="chat-input"
         ></textarea>
-        
-        <button 
+
+        <button
           on:click={sendMessage}
           disabled={!inputText.trim() || isLoading}
           class="send-btn"
@@ -237,7 +252,8 @@
     gap: 6px;
   }
 
-  .expand-btn, .full-btn {
+  .expand-btn,
+  .full-btn {
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: white;
@@ -251,7 +267,8 @@
     justify-content: center;
   }
 
-  .expand-btn:hover, .full-btn:hover {
+  .expand-btn:hover,
+  .full-btn:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: translateY(-1px);
   }
@@ -303,7 +320,9 @@
     align-items: flex-start;
   }
 
-  .user-avatar, .bot-avatar, .error-avatar {
+  .user-avatar,
+  .bot-avatar,
+  .error-avatar {
     width: 24px;
     height: 24px;
     display: flex;
@@ -447,7 +466,9 @@
   }
 
   @keyframes typing {
-    0%, 60%, 100% {
+    0%,
+    60%,
+    100% {
       transform: translateY(0);
       opacity: 0.4;
     }
@@ -458,23 +479,25 @@
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 768px) {
     .main-chat-widget {
       padding: 16px;
     }
-    
+
     .messages-area {
       max-height: 200px;
     }
-    
+
     .input-container {
       flex-direction: column;
       gap: 8px;
     }
-    
+
     .send-btn {
       width: 100%;
       height: 36px;

@@ -1,55 +1,58 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  
+  import { createEventDispatcher } from "svelte";
+
   const dispatch = createEventDispatcher();
-  
-  let prompt = '';
+
+  let prompt = "";
   let isGenerating = false;
   let generatedImage = null;
   let error = null;
 
   async function generateImage() {
     if (!prompt.trim() || isGenerating) return;
-    
+
     isGenerating = true;
     error = null;
     generatedImage = null;
-    
+
     try {
-      const response = await fetch('/api/generate-image', {
-        method: 'POST',
+      const response = await fetch("/api/generate-image", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: prompt.trim() })
+        body: JSON.stringify({ prompt: prompt.trim() }),
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const result = await response.json();
-      
+
       if (result.success && result.imageUrl) {
         generatedImage = result.imageUrl;
-        dispatch('imageGenerated', { url: result.imageUrl, prompt: prompt.trim() });
+        dispatch("imageGenerated", {
+          url: result.imageUrl,
+          prompt: prompt.trim(),
+        });
       } else {
-        throw new Error(result.error || 'Nie udało się wygenerować obrazu');
+        throw new Error(result.error || "Nie udało się wygenerować obrazu");
       }
     } catch (err) {
       error = err.message;
-      console.error('Image generation error:', err);
+      console.error("Image generation error:", err);
     } finally {
       isGenerating = false;
     }
   }
 
   function openFullGenerator() {
-    window.open('/image-generator', '_blank');
+    window.open("/image-generator", "_blank");
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       generateImage();
     }
@@ -61,10 +64,10 @@
     <h3>🎨 Generator Obrazów</h3>
     <span class="badge">Flux-1 Schnell</span>
   </div>
-  
+
   <div class="widget-content">
     <div class="input-section">
-      <textarea 
+      <textarea
         bind:value={prompt}
         on:keypress={handleKeyPress}
         placeholder="Opisz obraz, który chcesz wygenerować..."
@@ -72,9 +75,9 @@
         disabled={isGenerating}
         class="prompt-input"
       ></textarea>
-      
+
       <div class="action-buttons">
-        <button 
+        <button
           on:click={generateImage}
           disabled={!prompt.trim() || isGenerating}
           class="generate-btn"
@@ -86,28 +89,32 @@
             🚀 Generuj
           {/if}
         </button>
-        
+
         <button on:click={openFullGenerator} class="full-btn">
           Pełny Generator
         </button>
       </div>
     </div>
-    
+
     {#if error}
       <div class="error-message">
         ❌ {error}
       </div>
     {/if}
-    
+
     {#if generatedImage}
       <div class="result-section">
-        <img 
-          src={generatedImage} 
+        <img
+          src={generatedImage}
           alt="Wygenerowany obraz"
           class="generated-image"
         />
         <div class="image-actions">
-          <a href={generatedImage} download="generated-image.png" class="download-btn">
+          <a
+            href={generatedImage}
+            download="generated-image.png"
+            class="download-btn"
+          >
             💾 Pobierz
           </a>
         </div>
@@ -191,7 +198,8 @@
     gap: 8px;
   }
 
-  .generate-btn, .full-btn {
+  .generate-btn,
+  .full-btn {
     padding: 10px 16px;
     border: none;
     border-radius: 6px;
@@ -289,18 +297,20 @@
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 768px) {
     .image-generator-widget {
       padding: 16px;
     }
-    
+
     .action-buttons {
       flex-direction: column;
     }
-    
+
     .full-btn {
       order: 2;
     }
