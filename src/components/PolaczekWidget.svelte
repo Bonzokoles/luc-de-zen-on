@@ -1,75 +1,136 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
-  
+  import { createEventDispatcher, onMount } from "svelte";
+
   const dispatch = createEventDispatcher();
-  
+
   let messages = [];
-  let inputText = '';
+  let inputText = "";
   let isLoading = false;
   let isExpanded = false;
+  let isConnected = false;
+  let connectionStatus = "checking";
   let sessionId = Math.random().toString(36).substring(2, 15);
+
+  // Check connection status on mount
+  onMount(async () => {
+    await checkConnection();
+  });
+
+  async function checkConnection() {
+    connectionStatus = "checking";
+    try {
+      const response = await fetch(
+        "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/health",
+        {
+          method: "GET",
+          signal: AbortSignal.timeout(5000), // 5 second timeout
+        }
+      );
+      
+      if (response.ok) {
+        isConnected = true;
+        connectionStatus = "connected";
+      } else {
+        throw new Error("Health check failed");
+      }
+    } catch (error) {
+      console.warn("POLACZEK Worker offline, using local fallback:", error);
+      isConnected = false;
+      connectionStatus = "disconnected";
+    }
+  }
 
   async function sendMessage() {
     if (!inputText.trim() || isLoading) return;
 
     const userMessage = inputText.trim();
-    inputText = '';
-    
+    inputText = "";
+
     // Add user message
-    messages = [...messages, { 
-      type: 'user', 
-      content: userMessage, 
-      timestamp: new Date().toISOString() 
-    }];
-    
+    messages = [
+      ...messages,
+      {
+        type: "user",
+        content: userMessage,
+        timestamp: new Date().toISOString(),
+      },
+    ];
+
     isLoading = true;
-    
+
     try {
-      const response = await fetch('https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      let apiUrl;
+      let requestBody;
+
+      if (isConnected) {
+        // Use external POLACZEK Worker
+        apiUrl = "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat";
+        requestBody = JSON.stringify({
           message: userMessage,
           sessionId: sessionId,
           context: {
-            source: 'main_page_widget',
-            timestamp: new Date().toISOString()
-          }
-        })
+            source: "main_page_widget",
+            timestamp: new Date().toISOString(),
+          },
+        });
+      } else {
+        // Use local API as fallback
+        apiUrl = "/api/chat";
+        requestBody = JSON.stringify({
+          prompt: userMessage,
+          sessionId: sessionId,
+        });
+      }
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: requestBody,
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const result = await response.json();
       
-      if (result.success && result.response) {
-        messages = [...messages, {
-          type: 'assistant',
-          content: result.response,
-          timestamp: new Date().toISOString()
-        }];
-        dispatch('messageReceived', { response: result.response });
+      let responseText;
+      if (isConnected && result.success && result.response) {
+        responseText = result.response;
+      } else if (!isConnected && result.answer) {
+        responseText = result.answer;
       } else {
-        throw new Error(result.error || 'Nie udało się uzyskać odpowiedzi');
+        throw new Error(result.error || "Nie udało się uzyskać odpowiedzi");
       }
+
+      messages = [
+        ...messages,
+        {
+          type: "assistant",
+          content: responseText,
+          timestamp: new Date().toISOString(),
+        },
+      ];
+      dispatch("messageReceived", { response: responseText });
     } catch (error) {
-      messages = [...messages, {
-        type: 'error',
-        content: 'Przepraszam, wystąpił błąd podczas komunikacji z asystentem.',
-        timestamp: new Date().toISOString()
-      }];
-      console.error('POLACZEK chat error:', error);
+      messages = [
+        ...messages,
+        {
+          type: "error",
+          content: "Przepraszam, wystąpił błąd podczas komunikacji z asystentem.",
+          timestamp: new Date().toISOString(),
+        },
+      ];
+      console.error("POLACZEK chat error:", error);
     } finally {
       isLoading = false;
     }
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -80,7 +141,7 @@
   }
 
   function openFullChat() {
-    window.open('/polaczek-agents-system', '_blank');
+    window.open("/polaczek-agents-system", "_blank");
   }
 
   function clearChat() {
@@ -93,18 +154,30 @@
   <div class="widget-header">
     <div class="title-section">
       <h3>🤖 POLACZEK Assistant</h3>
-      <span class="status-badge online">Online</span>
+      <button class="status-badge {connectionStatus}" on:click={checkConnection} title="Kliknij aby sprawdzić połączenie">
+        {#if connectionStatus === "checking"}
+          ⏳ Checking...
+        {:else if connectionStatus === "connected"}
+          🟢 Online
+        {:else}
+          🔴 Local Mode
+        {/if}
+      </button>
     </div>
     <div class="header-actions">
       <button on:click={toggleExpanded} class="expand-btn" title="Rozwiń/Zwiń">
-        {isExpanded ? '▼' : '▲'}
+        {isExpanded ? "▼" : "▲"}
       </button>
-      <button on:click={openFullChat} class="full-btn" title="Otwórz pełny system">
+      <button
+        on:click={openFullChat}
+        class="full-btn"
+        title="Otwórz pełny system"
+      >
         🔗
       </button>
     </div>
   </div>
-  
+
   <div class="widget-content">
     {#if isExpanded}
       <div class="chat-container">
@@ -116,13 +189,13 @@
               <p>Możesz zadać mi pytanie lub poprosić o pomoc!</p>
             </div>
           {/if}
-          
+
           {#each messages as message}
             <div class="message {message.type}">
               <div class="message-content">
-                {#if message.type === 'user'}
+                {#if message.type === "user"}
                   <div class="user-avatar">👤</div>
-                {:else if message.type === 'assistant'}
+                {:else if message.type === "assistant"}
                   <div class="bot-avatar">🤖</div>
                 {:else}
                   <div class="error-avatar">⚠️</div>
@@ -133,7 +206,7 @@
               </div>
             </div>
           {/each}
-          
+
           {#if isLoading}
             <div class="message assistant loading">
               <div class="message-content">
@@ -147,7 +220,7 @@
             </div>
           {/if}
         </div>
-        
+
         <div class="chat-actions">
           <button on:click={clearChat} class="clear-btn" title="Wyczyść czat">
             🗑️
@@ -155,10 +228,10 @@
         </div>
       </div>
     {/if}
-    
+
     <div class="input-section">
       <div class="input-container">
-        <textarea 
+        <textarea
           bind:value={inputText}
           on:keypress={handleKeyPress}
           placeholder="Zadaj pytanie POLACZEK Assistant..."
@@ -166,8 +239,8 @@
           disabled={isLoading}
           class="chat-input"
         ></textarea>
-        
-        <button 
+
+        <button
           on:click={sendMessage}
           disabled={!inputText.trim() || isLoading}
           class="send-btn"
@@ -227,6 +300,32 @@
     font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .status-badge:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+
+  .status-badge.connected {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .status-badge.disconnected {
+    background: rgba(245, 101, 101, 0.2);
+    color: #f56565;
+    border: 1px solid rgba(245, 101, 101, 0.3);
+  }
+
+  .status-badge.checking {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    animation: pulse 2s infinite;
   }
 
   .status-badge.online {
@@ -240,7 +339,8 @@
     gap: 6px;
   }
 
-  .expand-btn, .full-btn {
+  .expand-btn,
+  .full-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #4c6ef5;
     color: #e1e8f0;
@@ -254,7 +354,8 @@
     justify-content: center;
   }
 
-  .expand-btn:hover, .full-btn:hover {
+  .expand-btn:hover,
+  .full-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
   }
@@ -306,7 +407,9 @@
     align-items: flex-start;
   }
 
-  .user-avatar, .bot-avatar, .error-avatar {
+  .user-avatar,
+  .bot-avatar,
+  .error-avatar {
     width: 24px;
     height: 24px;
     display: flex;
@@ -450,7 +553,9 @@
   }
 
   @keyframes typing {
-    0%, 60%, 100% {
+    0%,
+    60%,
+    100% {
       transform: translateY(0);
       opacity: 0.4;
     }
@@ -461,23 +566,34 @@
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
   }
 
   @media (max-width: 768px) {
     .polaczek-widget {
       padding: 16px;
     }
-    
+
     .messages-area {
       max-height: 200px;
     }
-    
+
     .input-container {
       flex-direction: column;
       gap: 8px;
     }
-    
+
     .send-btn {
       width: 100%;
       height: 36px;

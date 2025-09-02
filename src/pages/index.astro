@@ -9,28 +9,30 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
   <main class="min-h-svh">
-  <!-- Header Section -->
-  <section class="border border-edge">
-    <div class="max-w-6xl mx-auto border-x border-edge">
-      <div class="flex justify-between max-h-72 min-h-64">
-        <!-- Left corner - O_MNIE content -->
-        <div class="mt-auto max-w-xs">
-          <div class="text-edge text-sm italic px-2">
-            Tworzę nowoczesne rozwiązania, które łączą sztuczną inteligencję z automatyzacją, aby użytkownicy mogli korzystać z mocy AI w prosty i intuicyjny sposób.
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <!-- Left corner - O_MNIE content -->
+          <div class="mt-auto max-w-xs">
+            <div class="text-edge text-sm italic px-2">
+              Tworzę nowoczesne rozwiązania, które łączą sztuczną inteligencję z
+              automatyzacją, aby użytkownicy mogli korzystać z mocy AI w prosty
+              i intuicyjny sposób.
+            </div>
           </div>
-        </div>
-        <span class="mt-auto">
-          <RandomQuote />
-          <span
-            style=""
-            class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-          >
-            AUG 2025
+          <span class="mt-auto">
+            <RandomQuote />
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AUG 2025
+            </span>
           </span>
-        </span>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
     <!-- Navigation Section -->
     <section class="border border-edge">
@@ -395,15 +397,23 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
           </div>
 
           <!-- Flowise AI Card -->
-          <div class="worker-card" data-worker="flowise" data-astro-cid-my52qgmw>
+          <div
+            class="worker-card"
+            data-worker="flowise"
+            data-astro-cid-my52qgmw
+          >
             <h3 class="worker-title" data-astro-cid-my52qgmw>🧠 Flowise AI</h3>
             <p class="worker-description" data-astro-cid-my52qgmw>
               Visual AI workflow builder with drag-and-drop interface
             </p>
             <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Visual Builder</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Visual Builder</span
+              >
               <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Integration</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Integration</span
+              >
             </div>
             <div class="worker-actions" data-astro-cid-my52qgmw>
               <button
@@ -420,14 +430,23 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
           </div>
 
           <!-- Activepieces Card -->
-          <div class="worker-card" data-worker="activepieces" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>⚡ Activepieces</h3>
+          <div
+            class="worker-card"
+            data-worker="activepieces"
+            data-astro-cid-my52qgmw
+          >
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              ⚡ Activepieces
+            </h3>
             <p class="worker-description" data-astro-cid-my52qgmw>
               Open-source automation platform for workflow automation
             </p>
             <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Automation</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Open Source</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Automation</span
+              >
+              <span class="feature-tag" data-astro-cid-my52qgmw
+                >Open Source</span
+              >
               <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
             </div>
             <div class="worker-actions" data-astro-cid-my52qgmw>
@@ -555,21 +574,25 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
     <section class="bg-gradient-to-r from-slate-900 to-slate-800 py-16">
       <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-white mb-4">🚀 Interaktywne Narzędzia</h2>
-          <p class="text-gray-300 text-lg">Przetestuj nasze AI Workers bezpośrednio ze strony głównej</p>
+          <h2 class="text-3xl font-bold text-white mb-4">
+            🚀 Interaktywne Narzędzia
+          </h2>
+          <p class="text-gray-300 text-lg">
+            Przetestuj nasze AI Workers bezpośrednio ze strony głównej
+          </p>
         </div>
-        
+
         <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           <!-- Image Generator Widget -->
           <div class="widget-container">
             <ImageGeneratorWidget client:load />
           </div>
-          
+
           <!-- POLACZEK Assistant Widget -->
           <div class="widget-container">
             <PolaczekWidget client:load />
           </div>
-          
+
           <!-- Main AI Chat Widget -->
           <div class="widget-container">
             <MainChatWidget client:load />
@@ -585,10 +608,12 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
           <!-- Left corner - O_MNIE content -->
           <div class="max-w-xs text-left">
             <div class="text-edge text-sm italic">
-              W mojej pracy skupiam się na integracji technologii w chmurze, nowoczesnych frameworków i AI, aby stworzyć asystenta, który rozumie i wspiera użytkownika w jego potrzebach.
+              W mojej pracy skupiam się na integracji technologii w chmurze,
+              nowoczesnych frameworków i AI, aby stworzyć asystenta, który
+              rozumie i wspiera użytkownika w jego potrzebach.
             </div>
           </div>
-          
+
           <div class="flex flex-row justify-center gap-8 text-center">
             <a
               class="hover:brightness-125 duration-200"
@@ -630,12 +655,12 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 <script>
   // Type declarations for window object
   window.apiTests = window.apiTests || {};
-  window.openImageGenerator = window.openImageGenerator || function() {};
-  window.openChatbot = window.openChatbot || function() {};
-  window.openBigQuery = window.openBigQuery || function() {};
-  window.openKaggle = window.openKaggle || function() {};
-  window.openTavily = window.openTavily || function() {};
-  window.testButtonFunction = window.testButtonFunction || function() {};
+  window.openImageGenerator = window.openImageGenerator || function () {};
+  window.openChatbot = window.openChatbot || function () {};
+  window.openBigQuery = window.openBigQuery || function () {};
+  window.openKaggle = window.openKaggle || function () {};
+  window.openTavily = window.openTavily || function () {};
+  window.testButtonFunction = window.testButtonFunction || function () {};
 
   // Init when page loads
   window.addEventListener("DOMContentLoaded", async () => {
@@ -655,7 +680,9 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
   // Worker Functions
   function openImageGenerator() {
     console.log("openImageGenerator() called");
-    const prompt = (document.getElementById("imagePrompt") as HTMLInputElement)?.value.trim();
+    const prompt = (
+      document.getElementById("imagePrompt") as HTMLInputElement
+    )?.value.trim();
     console.log("Image prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickPrompt", prompt);
@@ -667,7 +694,9 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 
   function openChatbot() {
     console.log("💬 openChatbot() wywołana");
-    const prompt = (document.getElementById("chatPrompt") as HTMLInputElement)?.value.trim();
+    const prompt = (
+      document.getElementById("chatPrompt") as HTMLInputElement
+    )?.value.trim();
     console.log("Chat prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickChatPrompt", prompt);
@@ -679,7 +708,9 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 
   function openBigQuery() {
     console.log("📊 openBigQuery() wywołana");
-    const prompt = (document.getElementById("bigqueryPrompt") as HTMLInputElement)?.value.trim();
+    const prompt = (
+      document.getElementById("bigqueryPrompt") as HTMLInputElement
+    )?.value.trim();
     console.log("BigQuery prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickSQLQuery", prompt);
@@ -691,7 +722,9 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 
   function openKaggle() {
     console.log("🔍 openKaggle() wywołana");
-    const prompt = (document.getElementById("kagglePrompt") as HTMLInputElement)?.value.trim();
+    const prompt = (
+      document.getElementById("kagglePrompt") as HTMLInputElement
+    )?.value.trim();
     console.log("Kaggle prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickKaggleSearch", prompt);
@@ -703,7 +736,9 @@ import MainChatWidget from "../components/MainChatWidget.svelte";
 
   function openTavily() {
     console.log("🌐 openTavily() wywołana");
-    const prompt = (document.getElementById("tavilyPrompt") as HTMLInputElement)?.value.trim();
+    const prompt = (
+      document.getElementById("tavilyPrompt") as HTMLInputElement
+    )?.value.trim();
     console.log("Tavily prompt:", prompt);
     if (prompt) {
       localStorage.setItem("quickTavilySearch", prompt);
