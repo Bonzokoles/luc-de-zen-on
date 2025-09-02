@@ -26,7 +26,7 @@
           signal: AbortSignal.timeout(5000), // 5 second timeout
         }
       );
-      
+
       if (response.ok) {
         isConnected = true;
         connectionStatus = "connected";
@@ -64,7 +64,8 @@
 
       if (isConnected) {
         // Use external POLACZEK Worker
-        apiUrl = "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat";
+        apiUrl =
+          "https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat";
         requestBody = JSON.stringify({
           message: userMessage,
           sessionId: sessionId,
@@ -95,7 +96,7 @@
       }
 
       const result = await response.json();
-      
+
       let responseText;
       if (isConnected && result.success && result.response) {
         responseText = result.response;
@@ -119,7 +120,8 @@
         ...messages,
         {
           type: "error",
-          content: "Przepraszam, wystąpił błąd podczas komunikacji z asystentem.",
+          content:
+            "Przepraszam, wystąpił błąd podczas komunikacji z asystentem.",
           timestamp: new Date().toISOString(),
         },
       ];
@@ -154,7 +156,11 @@
   <div class="widget-header">
     <div class="title-section">
       <h3>🤖 POLACZEK Assistant</h3>
-      <button class="status-badge {connectionStatus}" on:click={checkConnection} title="Kliknij aby sprawdzić połączenie">
+      <button
+        class="status-badge {connectionStatus}"
+        on:click={checkConnection}
+        title="Kliknij aby sprawdzić połączenie"
+      >
         {#if connectionStatus === "checking"}
           ⏳ Checking...
         {:else if connectionStatus === "connected"}
@@ -572,7 +578,8 @@
   }
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
