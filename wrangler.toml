@@ -1,5 +1,6 @@
 name = "luc-de-zen-on"
 compatibility_date = "2024-08-01"
+pages_build_output_dir = "dist"
 
 [build]
 command = "npm run build"

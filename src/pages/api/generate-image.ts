@@ -10,9 +10,11 @@ export const GET = async () => {
 };
 
 export const POST = async ({ request }: { request: Request }) => {
-  try {
-    const body = await request.json();
-    
+  // Parse the request body once and store it
+  const body = await request.json();
+  const prompt = body.prompt || '';
+  
+  try {    
     // Najpierw spróbuj nowy agents-backend worker
     const agentsBackendUrl = 'https://agents-backend.stolarnia-ams.workers.dev/api/generate-image';
     
@@ -31,7 +33,7 @@ export const POST = async ({ request }: { request: Request }) => {
         return new Response(JSON.stringify({
           success: true,
           imageUrl: data.imageUrl || data.r2Key || data.image,
-          prompt: body.prompt,
+          prompt: prompt,
           message: 'Obraz wygenerowany przez agents-backend'
         }), {
           status: 200,
@@ -62,7 +64,7 @@ export const POST = async ({ request }: { request: Request }) => {
       return new Response(JSON.stringify({
         success: true,
         imageUrl: data.imageUrl || data.image,
-        prompt: body.prompt,
+        prompt: prompt,
         message: 'Obraz wygenerowany przez mybonzo-worker'
       }), {
         status: response.status,
@@ -79,12 +81,10 @@ export const POST = async ({ request }: { request: Request }) => {
     console.error('Image Generation API Error:', error);
     
     // Zwróć mock image URL jeśli żaden worker nie działa
-    const requestBody = await request.json() as { prompt?: string };
-    
     return new Response(JSON.stringify({ 
       success: true,
-      imageUrl: `https://via.placeholder.com/1024x1024/001122/00d9ff?text=${encodeURIComponent(requestBody.prompt?.slice(0, 50) || 'Generated Image')}`,
-      prompt: requestBody.prompt || 'Mock prompt',
+      imageUrl: `https://via.placeholder.com/1024x1024/001122/00d9ff?text=${encodeURIComponent(prompt.slice(0, 50) || 'Generated Image')}`,
+      prompt: prompt || 'Mock prompt',
       message: 'Mock obraz (workery niedostępne)'
     }), {
       status: 200,
