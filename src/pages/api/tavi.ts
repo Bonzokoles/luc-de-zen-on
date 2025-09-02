@@ -44,36 +44,37 @@ export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const query = url.searchParams.get('query') || url.searchParams.get('q') || 'AI technology';
   
-  // Return demo search results for GET requests
-  const mockResponse: TavilyResponse = {
-    status: 'success',
-    query,
-    answer: `Based on the search for "${query}", here are the latest findings from web sources.`,
-    results: [
-      {
-        title: `Latest news about ${query}`,
-        url: `https://example.com/search?q=${encodeURIComponent(query)}`,
-        content: `Recent developments in ${query} show significant progress in various applications...`,
-        score: 0.95,
-        publishedDate: new Date().toISOString()
-      },
-      {
-        title: `${query} - Research and Development`,
-        url: `https://research.example.com/${query.toLowerCase().replace(' ', '-')}`,
-        content: `Comprehensive analysis of ${query} reveals emerging trends and future opportunities...`,
-        score: 0.88,
-        publishedDate: new Date(Date.now() - 86400000).toISOString()
+  // Check for Tavily API key
+  const tavilyApiKey = process.env.TAVILY_API_KEY;
+  
+  if (!tavilyApiKey) {
+    return new Response(JSON.stringify({
+      status: 'error',
+      error: 'Tavily API nie jest skonfigurowane',
+      message: 'Brak wymaganej zmiennej środowiskowej: TAVILY_API_KEY',
+      required_config: ['TAVILY_API_KEY'],
+      query: query,
+      note: 'Uzyskaj klucz API z https://tavily.com/',
+      timestamp: new Date().toISOString()
+    }), {
+      status: 503,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
-    ],
-    usage: {
-      tokensUsed: 150,
-      requestsRemaining: 850
-    },
-    timestamp: new Date().toISOString()
-  };
+    });
+  }
 
-  return new Response(JSON.stringify(mockResponse), {
-    status: 200,
+  // Would implement real Tavily API call here
+  return new Response(JSON.stringify({
+    status: 'error',
+    error: 'Implementacja Tavily API wymaga bibliotek klienta',
+    message: 'Prawdziwe wyszukiwanie wymaga implementacji Tavily API client library',
+    query: query,
+    note: 'Zaimplementuj prawdziwe połączenie z Tavily API dla pełnej funkcjonalności',
+    timestamp: new Date().toISOString()
+  }), {
+    status: 501,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*'
@@ -106,37 +107,40 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Generate enhanced mock response for demo
-    const mockResponse: TavilyResponse = {
-      status: 'success',
-      query,
-      answer: includeAnswer ? `Based on my analysis of "${query}", here's what I found: This search reveals current trends and developments in this area. The information below provides detailed insights from various sources.` : undefined,
-      results: Array.from({ length: Math.min(maxResults, 5) }, (_, i) => ({
-        title: `${query} - Result ${i + 1}`,
-        url: `https://example${i + 1}.com/article-about-${query.toLowerCase().replace(/\s+/g, '-')}`,
-        content: `This comprehensive article discusses ${query} and its implications. The research shows significant developments in this field with practical applications across various industries. Key findings include innovative approaches and emerging trends.`,
-        score: 0.9 - (i * 0.1),
-        publishedDate: new Date(Date.now() - (i * 86400000)).toISOString()
-      })),
-      images: includeImages ? [
-        {
-          url: `https://images.example.com/${query.toLowerCase().replace(/\s+/g, '-')}-1.jpg`,
-          description: `Image related to ${query}`
-        },
-        {
-          url: `https://images.example.com/${query.toLowerCase().replace(/\s+/g, '-')}-2.jpg`,
-          description: `Infographic about ${query}`
+    // Check for Tavily API key
+    const tavilyApiKey = process.env.TAVILY_API_KEY;
+    
+    if (!tavilyApiKey) {
+      return new Response(JSON.stringify({
+        status: 'error',
+        error: 'Tavily API nie jest skonfigurowane',
+        message: 'Brak wymaganej zmiennej środowiskowej: TAVILY_API_KEY',
+        required_config: ['TAVILY_API_KEY'],
+        query: query,
+        searchType: searchType,
+        note: 'Uzyskaj klucz API z https://tavily.com/',
+        timestamp: new Date().toISOString()
+      }), {
+        status: 503,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
-      ] : undefined,
-      usage: {
-        tokensUsed: Math.floor(Math.random() * 500) + 100,
-        requestsRemaining: Math.floor(Math.random() * 900) + 100
-      },
-      timestamp: new Date().toISOString()
-    };
+      });
+    }
 
-    return new Response(JSON.stringify(mockResponse), {
-      status: 200,
+    // Would implement real Tavily API call here
+    return new Response(JSON.stringify({
+      status: 'error',
+      error: 'Implementacja Tavily API wymaga bibliotek klienta',
+      message: 'Prawdziwe wyszukiwanie wymaga implementacji Tavily API client library',
+      query: query,
+      searchType: searchType,
+      maxResults: maxResults,
+      note: 'Zaimplementuj prawdziwe połączenie z Tavily API dla pełnej funkcjonalności',
+      timestamp: new Date().toISOString()
+    }), {
+      status: 501,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'

@@ -1,44 +1,56 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
-export const GET: APIRoute = async ({ request, locals }) => {
+export const GET: APIRoute = async ({ request }) => {
   try {
     const url = new URL(request.url);
     const query = url.searchParams.get('query') || 'SELECT 1 as test';
-    const projectId = locals.runtime?.env?.GOOGLE_CLOUD_PROJECT_ID || 'zenon-project-467918';
+    
+    // Check environment variables
+    const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
 
-    // BigQuery API integration with actual project ID
-    const bigqueryResponse = {
-      status: 'success',
-      service: 'BigQuery',
-      projectId: projectId,
-      query: query,
-      results: [
-        { id: 1, name: 'Analytics Data', value: 100, date: '2025-08-28' },
-        { id: 2, name: 'User Events', value: 250, date: '2025-08-27' },
-        { id: 3, name: 'Performance Metrics', value: 350, date: '2025-08-26' }
-      ],
-      rowCount: 3,
-      executionTime: '0.234s',
-      bytesProcessed: '2.5 MB',
-      location: 'us-central1',
-      timestamp: new Date().toISOString()
-    };
+    // Check if BigQuery credentials are configured
+    if (!projectId || !serviceAccountKey) {
+      return new Response(JSON.stringify({
+        status: 'error',
+        service: 'BigQuery',
+        error: 'BigQuery nie jest skonfigurowane',
+        message: 'Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY',
+        required_config: ['GOOGLE_CLOUD_PROJECT_ID', 'GOOGLE_SERVICE_ACCOUNT_KEY'],
+        query: query
+      }), {
+        status: 503,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      });
+    }
 
-    return new Response(JSON.stringify(bigqueryResponse), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      }
-    });
-  } catch (error) {
+    // Return error indicating real implementation needed
     return new Response(JSON.stringify({
       status: 'error',
       service: 'BigQuery',
-      message: error.message
+      error: 'Implementacja BigQuery wymaga Google Cloud SDK',
+      message: 'Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library',
+      projectId: projectId,
+      query: query,
+      note: 'Skonfiguruj Google Cloud BigQuery SDK dla pełnej funkcjonalności'
+    }), {
+      status: 501,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({
+      status: 'error',
+      service: 'BigQuery',
+      message: error?.message || 'Nieznany błąd BigQuery'
     }), {
       status: 500,
       headers: {
@@ -49,55 +61,57 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const { query, dataset } = body;
-    const projectId = locals.runtime?.env?.GOOGLE_CLOUD_PROJECT_ID || 'zenon-project-467918';
+    
+    // Check environment variables
+    const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
 
-    // Advanced BigQuery operations with project configuration
-    const response = {
-      status: 'success',
-      operation: 'query_execution',
+    // Check if BigQuery credentials are configured
+    if (!projectId || !serviceAccountKey) {
+      return new Response(JSON.stringify({
+        status: 'error',
+        service: 'BigQuery',
+        error: 'BigQuery nie jest skonfigurowane',
+        message: 'Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY',
+        required_config: ['GOOGLE_CLOUD_PROJECT_ID', 'GOOGLE_SERVICE_ACCOUNT_KEY'],
+        query: query,
+        dataset: dataset
+      }), {
+        status: 503,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
+
+    // Return error indicating real implementation needed
+    return new Response(JSON.stringify({
+      status: 'error',
       service: 'BigQuery',
+      operation: 'query_execution',
+      error: 'Implementacja BigQuery wymaga Google Cloud SDK',
+      message: 'Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library',
       projectId: projectId,
       query: query,
       dataset: dataset || 'analytics',
-      results: {
-        rows: [
-          { metric: 'Page Views', count: 15420, trend: '+12%' },
-          { metric: 'Unique Users', count: 8340, trend: '+8%' },
-          { metric: 'Session Duration', count: 245, trend: '+15%' },
-          { metric: 'Bounce Rate', count: 32, trend: '-5%' }
-        ],
-        schema: [
-          { name: 'metric', type: 'STRING' },
-          { name: 'count', type: 'INTEGER' },
-          { name: 'trend', type: 'STRING' }
-        ]
-      },
-      metadata: {
-        totalRows: 4,
-        bytesProcessed: '15.6 MB',
-        executionTime: '1.234s',
-        cacheHit: false,
-        location: 'us-central1'
-      },
-      timestamp: new Date().toISOString()
-    };
-
-    return new Response(JSON.stringify(response), {
-      status: 200,
+      note: 'Skonfiguruj Google Cloud BigQuery SDK i biblioteki dla pełnej funkcjonalności'
+    }), {
+      status: 501,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     return new Response(JSON.stringify({
       status: 'error',
       service: 'BigQuery',
-      message: error.message
+      message: error?.message || 'Nieznany błąd BigQuery'
     }), {
       status: 500,
       headers: {

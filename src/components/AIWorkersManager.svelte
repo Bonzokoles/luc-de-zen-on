@@ -1,10 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import {
-    fetchFromWorker,
-    postToWorker,
-    getFromWorker,
-  } from "../cloudflareApi";
+  // Removed cloudflareApi import, using local fetch instead
 
   // State management
   let workers: any[] = [];
@@ -40,14 +36,23 @@
     error = "";
 
     try {
-      // Load workers from our API
-      const response = await getFromWorker("/api/ai-workers", {
-        action: "list",
+      // Load workers from local API endpoint
+      const response = await fetch("/api/ai-workers?action=list", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      workers = response.workers || [];
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      workers = data.workers || [];
       console.log("✅ Załadowano workers:", workers.length);
-    } catch (err) {
-      error = `Błąd ładowania workers: ${err.message}`;
+    } catch (err: any) {
+      error = `Błąd ładowania workers: ${err.message || err}`;
       console.error("❌ Błąd:", err);
     } finally {
       loading = false;
@@ -73,15 +78,26 @@
         endpoint: workerTypes.find((t) => t.id === newWorkerType)?.endpoint,
       };
 
-      const response = await postToWorker("/api/ai-workers", workerData);
+      const response = await fetch("/api/ai-workers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(workerData),
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
       success = `Worker "${newWorkerName}" został utworzony pomyślnie!`;
       newWorkerName = "";
 
       // Reload workers list
       await loadWorkers();
-    } catch (err) {
-      error = `Błąd tworzenia worker: ${err.message}`;
+    } catch (err: any) {
+      error = `Błąd tworzenia worker: ${err.message || err}`;
     } finally {
       loading = false;
     }
@@ -101,11 +117,22 @@
         },
       };
 
-      const response = await postToWorker("/api/ai-workers", testData);
+      const response = await fetch("/api/ai-workers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testData),
+      });
 
-      success = `Worker "${worker.name}" odpowiada poprawnie: ${response.result || response.message}`;
-    } catch (err) {
-      error = `Worker "${worker.name}" błąd: ${err.message}`;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      success = `Worker "${worker.name}" odpowiada poprawnie: ${data.result?.response || data.message}`;
+    } catch (err: any) {
+      error = `Worker "${worker.name}" błąd: ${err.message || err}`;
     } finally {
       loading = false;
     }
@@ -118,14 +145,25 @@
     error = "";
 
     try {
-      await postToWorker("/api/ai-workers", {
-        action: "delete",
-        workerId,
+      const response = await fetch("/api/ai-workers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "delete",
+          workerId,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
       success = "Worker został usunięty pomyślnie";
       await loadWorkers();
-    } catch (err) {
-      error = `Błąd usuwania worker: ${err.message}`;
+    } catch (err: any) {
+      error = `Błąd usuwania worker: ${err.message || err}`;
     } finally {
       loading = false;
     }

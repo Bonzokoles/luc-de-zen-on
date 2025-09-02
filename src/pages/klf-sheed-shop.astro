@@ -1,8 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 ---
 
-<Layout title="KLF SHEED SHOP - LUC de ZEN ON">
+<MyBonzoLayout 
+  siteTitle="KLF SHEED SHOP - LUC de ZEN ON" 
+  description="Zaawansowana platforma e-commerce dedykowana sprzedaży narzędzi AI i rozwiązań technologicznych"
+  themeColor="25"
+>
   <div class="header-with-help">
     <h1 class="page-title">🛒 KLF SHEED SHOP</h1>
     <button id="helpButton" class="help-icon">?</button>
@@ -391,7 +395,7 @@ const order = await createOrder(&#123;
         const apiName = integrationCard.querySelector("h3")?.textContent;
         
         target.textContent = "Testing...";
-        target.disabled = true;
+        (target as HTMLButtonElement).disabled = true;
         
         setTimeout(() => {
           target.textContent = "Test Success ✓";
@@ -400,7 +404,7 @@ const order = await createOrder(&#123;
           setTimeout(() => {
             target.textContent = "Test API";
             target.style.background = "";
-            target.disabled = false;
+            (target as HTMLButtonElement).disabled = false;
           }, 3000);
         }, 2000);
       });
@@ -416,7 +420,7 @@ const order = await createOrder(&#123;
       }
     }, 10000);
   </script>
-</Layout>
+</MyBonzoLayout>
 
 <style>
   .shop-dashboard {

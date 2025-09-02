@@ -1,15 +1,12 @@
 ---
-// No imports needed for standalone page
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI_AGENT_S - Advanced AI System</title>
-  </head>
-  <body>
+<MyBonzoLayout 
+  siteTitle="BIELIK AI AGENT - Advanced AI System" 
+  description="Zaawansowany system AI do kompleksowego rozumowania i analizy"
+  themeColor="220"
+>
     <main class="agent-interface">
       <div class="container">
         <div class="header">
@@ -318,5 +315,4 @@ Examples:
         });
       });
     </script>
-  </body>
-</html>
+</MyBonzoLayout>

@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
 
   let isConnected = false;
   let messages = [];
@@ -9,25 +9,8 @@
   let capabilities = [];
   let isMinimized = true;
 
-  let ws = null;
   let messagesContainer;
-
-  const WS_URL = "wss://luc-de-zen-on.pages.dev/ws/polaczek";
-
-  onMount(() => {
-    connectToWebSocket();
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
-  });
-
-  onDestroy(() => {
-    if (ws) {
-      ws.close();
-    }
-  });
+  let sessionId = Math.random().toString(36).substring(2, 15);
 
   $: if (messages.length > 0) {
     setTimeout(() => scrollToBottom(), 50);
@@ -39,68 +22,38 @@
     }
   }
 
-  function connectToWebSocket() {
+  onMount(async () => {
+    await checkConnection();
+  });
+
+  async function checkConnection() {
+    agentStatus = "checking";
     try {
-      ws = new WebSocket(WS_URL);
-
-      ws.onopen = () => {
-        isConnected = true;
-        agentStatus = "connected";
-        console.log("Connected to POLACZEK_T Agent");
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-
-          switch (data.type) {
-            case "welcome":
-              agentStatus = "ready";
-              capabilities = data.capabilities || [];
-              addMessage(
-                "system",
-                `Połączono z ${data.agent_name}. Dostępne funkcje: ${data.capabilities?.join(", ")}`
-              );
-              break;
-
-            case "response":
-              setIsTyping(false);
-              addMessage("agent", data.message);
-              break;
-
-            case "error":
-              setIsTyping(false);
-              addMessage("error", `Błąd: ${data.message}`);
-              break;
-
-            case "status":
-              agentStatus = data.status;
-              break;
-
-            default:
-              addMessage("agent", data.message || "Nieznana odpowiedź");
-          }
-        } catch (error) {
-          console.error("Error parsing WebSocket message:", error);
-          addMessage("error", "Błąd parsowania odpowiedzi");
+      // Prefer Multi-AI Worker health
+      const resp = await fetch(
+        "https://multi-ai-assistant.stolarnia-ams.workers.dev/health",
+        {
+          method: "GET",
+          signal: AbortSignal.timeout(4000),
         }
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        setIsConnected(false);
-        agentStatus = "error";
-        addMessage("error", "Błąd połączenia WebSocket");
-      };
-
-      ws.onclose = () => {
-        setIsConnected(false);
-        agentStatus = "disconnected";
-        addMessage("system", "Połączenie zostało zamknięte");
-      };
-    } catch (error) {
-      console.error("Failed to connect:", error);
-      addMessage("error", "Nie można nawiązać połączenia");
+      );
+      if (resp.ok) {
+        isConnected = true;
+        agentStatus = "ready";
+        capabilities = ["chat", "gemma", "qwen", "deepseek"];
+        addMessage("system", "Połączono z POLACZEK (Gemma). Zadaj pytanie.");
+        return;
+      }
+      throw new Error("health failed");
+    } catch (e) {
+      // Local fallback still works
+      isConnected = true; // HTTP nie wymaga stałego połączenia
+      agentStatus = "ready";
+      capabilities = ["chat", "fallback"];
+      addMessage(
+        "system",
+        "Tryb lokalny. POLACZEK dostępny przez /api/polaczek-chat."
+      );
     }
   }
 
@@ -116,26 +69,37 @@
     ];
   }
 
-  function sendMessage() {
-    if (!inputValue.trim() || !isConnected) return;
+  async function sendMessage() {
+    if (!inputValue.trim()) return;
 
     const message = inputValue.trim();
     addMessage("user", message);
-    setInputValue("");
-    setIsTyping(true);
+    inputValue = "";
+    isTyping = true;
 
     try {
-      ws.send(
-        JSON.stringify({
-          type: "message",
-          content: message,
-          timestamp: new Date().toISOString(),
-        })
-      );
-    } catch (error) {
-      console.error("Error sending message:", error);
-      addMessage("error", "Błąd wysyłania wiadomości");
-      setIsTyping(false);
+      // Use unified HTTP API with Gemma by default
+      const resp = await fetch("/api/polaczek-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: message,
+          sessionId,
+          model: "gemma",
+          context: { source: "ai_help_assistant" },
+        }),
+      });
+
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}`);
+      }
+      const data = await resp.json();
+      addMessage("agent", data?.answer || "(brak odpowiedzi)");
+    } catch (err) {
+      console.error("POLACZEK HTTP error:", err);
+      addMessage("error", "Przepraszam, wystąpił błąd komunikacji.");
+    } finally {
+      isTyping = false;
     }
   }
 
@@ -143,20 +107,6 @@
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
-    }
-  }
-
-  function getStatusColor(status) {
-    switch (status) {
-      case "connected":
-      case "ready":
-        return "text-green-500";
-      case "error":
-        return "text-red-500";
-      case "disconnected":
-        return "text-gray-500";
-      default:
-        return "text-yellow-500";
     }
   }
 
@@ -174,6 +124,20 @@
     }
   }
 
+  function getStatusColor(status) {
+    switch (status) {
+      case "connected":
+      case "ready":
+        return "text-green-500";
+      case "error":
+        return "text-red-500";
+      case "disconnected":
+        return "text-gray-500";
+      default:
+        return "text-yellow-500";
+    }
+  }
+
   function toggleMinimized() {
     isMinimized = !isMinimized;
   }
@@ -182,11 +146,8 @@
     messages = [];
   }
 
-  function reconnect() {
-    if (ws) {
-      ws.close();
-    }
-    connectToWebSocket();
+  async function reconnect() {
+    await checkConnection();
   }
 </script>
 
@@ -315,13 +276,13 @@
             bind:value={inputValue}
             on:keypress={handleKeyPress}
             placeholder="Zadaj pytanie agentowi..."
-            disabled={!isConnected}
+            disabled={false}
             class="flex-1 px-3 py-2 border border-gray-600 bg-gray-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:bg-gray-600"
             style="border-radius: 0;"
           />
           <button
             on:click={sendMessage}
-            disabled={!isConnected || !inputValue.trim()}
+            disabled={!inputValue.trim()}
             class="bg-gray-900 hover:bg-gray-800 disabled:bg-gray-600 text-white px-3 py-2 text-sm transition-colors border border-gray-700"
             style="border-radius: 0;"
           >

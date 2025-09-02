@@ -293,8 +293,8 @@ async function callPolishAIModelAPI(prompt, env) {
     }
   } catch (error) {
     console.error("AI API call failed:", error);
-    // Fallback to mock response
-    return getMockResponse(prompt);
+  // Return error instead of mock response
+  throw new Error('API key not configured - cannot provide real AI response');
   }
 }
 
@@ -302,8 +302,8 @@ async function callOpenAIAPI(prompt, env) {
   // Requires OPENAI_API_KEY secret
   const apiKey = env.OPENAI_API_KEY;
   if (!apiKey) {
-    console.warn("OPENAI_API_KEY not set, using mock response");
-    return getMockResponse(prompt);
+    console.warn("OPENAI_API_KEY not set, unable to provide AI response");
+    throw new Error('OpenAI API key not configured');
   }
   
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -341,8 +341,8 @@ async function callHuggingFaceAPI(prompt, env) {
   // Requires HUGGINGFACE_API_KEY secret
   const apiKey = env.HUGGINGFACE_API_KEY;
   if (!apiKey) {
-    console.warn("HUGGINGFACE_API_KEY not set, using mock response");
-    return getMockResponse(prompt);
+    console.warn("HUGGINGFACE_API_KEY not set, unable to provide AI response");
+    throw new Error('HuggingFace API key not configured');
   }
 
   // Try Bielik model first, fallback to general Polish model
@@ -448,8 +448,8 @@ async function callAnthropicAPI(prompt, env) {
   // Requires ANTHROPIC_API_KEY secret
   const apiKey = env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    console.warn("ANTHROPIC_API_KEY not set, using mock response");
-    return getMockResponse(prompt);
+    console.warn("ANTHROPIC_API_KEY not set, unable to provide AI response");
+    throw new Error('Anthropic API key not configured');
   }
   
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -502,8 +502,8 @@ async function callCloudflareAI(prompt, env) {
     
   } catch (error) {
     console.error('Cloudflare AI call failed:', error);
-    // Fallback to mock response
-    return getMockResponse(prompt);
+    // Return error instead of mock response
+    throw new Error('Cloudflare AI not available - unable to provide AI response');
   }
 }
 

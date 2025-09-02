@@ -19,12 +19,51 @@ export async function POST({ request }: { request: Request }) {
 
     const selectedModel = model || 'llama-3.1-70b-instruct';
 
-    // Check for OpenAI API key from environment
+    // Try Multi-AI Worker first (primary AI source)
+    try {
+      const workerResponse = await fetch('https://multi-ai-assistant.stolarnia-ams.workers.dev/qwen', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: prompt,
+          sessionId: 'chatbot-session',
+          context: {
+            source: 'ai_bot_worker',
+            timestamp: new Date().toISOString(),
+          },
+        }),
+      });
+
+      if (workerResponse.ok) {
+        const workerData = await workerResponse.json();
+        if (workerData.success && workerData.response) {
+          return new Response(
+            JSON.stringify({ 
+              answer: workerData.response,
+              model: workerData.model_name || '@cf/qwen/qwen1.5-0.5b-chat',
+              status: 'multi_ai_worker_success',
+              source: 'cloudflare_worker'
+            }),
+            { 
+              status: 200,
+              headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+              }
+            }
+          );
+        }
+      }
+    } catch (workerError) {
+      console.warn('Multi-AI Worker failed, trying OpenAI fallback:', workerError);
+    }
+
+    // Fallback to OpenAI if available
     const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-    
     if (OPENAI_API_KEY) {
       try {
-        // Real OpenAI API call
         const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -58,8 +97,9 @@ export async function POST({ request }: { request: Request }) {
             JSON.stringify({ 
               answer: aiResponse,
               model: selectedModel,
-              status: 'api_success',
-              tokens_used: openaiData.usage?.total_tokens || 0
+              status: 'openai_api_success',
+              tokens_used: openaiData.usage?.total_tokens || 0,
+              source: 'openai'
             }),
             { 
               status: 200,
@@ -72,26 +112,20 @@ export async function POST({ request }: { request: Request }) {
         }
       } catch (apiError) {
         console.error('OpenAI API error:', apiError);
-        // Fall through to demo mode
       }
     }
 
-    // Fallback response gdy brak klucza API lub błąd - używamy demo mode
-    const fallbackResponses = [
-      `Rozumiem Twoje pytanie: "${prompt}". To jest demo odpowiedź z modelu ${selectedModel}. Aby uzyskać pełną funkcjonalność, skonfiguruj klucz OpenAI API w zmiennych środowiskowych (OPENAI_API_KEY).`,
-      `Dziękuję za pytanie dotyczące: "${prompt}". System AI używa modelu ${selectedModel} w trybie demonstracyjnym. Pełne odpowiedzi wymagają konfiguracji API.`,
-      `Twoje zapytanie "${prompt}" zostało przetworzone przez model ${selectedModel}. Chatbot pracuje w trybie demo - aby uzyskać prawdziwe odpowiedzi AI, wymagana jest konfiguracja API.`
-    ];
-    
+    // If all AI sources fail, return error instead of demo response
     return new Response(
       JSON.stringify({ 
-        answer: fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)],
+        error: 'Systemy AI są obecnie niedostępne',
+        answer: 'Przepraszam, nie mogę obecnie przetworzyć Twojego zapytania. Spróbuj ponownie za chwilę.',
         model: selectedModel,
-        status: 'demo_mode',
-        note: 'Chatbot działa w trybie demo. Skonfiguruj OPENAI_API_KEY dla pełnej funkcjonalności.'
+        status: 'ai_unavailable',
+        note: 'Wszystkie systemy AI (Multi-AI Worker i OpenAI) są niedostępne.'
       }),
       { 
-        status: 200,
+        status: 503,
         headers: { 
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'

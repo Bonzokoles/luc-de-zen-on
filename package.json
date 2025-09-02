@@ -26,6 +26,8 @@
     "babylonjs": "^7.26.1",
     "clsx": "^2.1.1",
     "nanostores": "^0.11.4",
+    "openai": "^5.16.0",
+    "react-markdown": "^10.1.0",
     "svelte": "^5.22.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.1.12",
@@ -44,7 +46,13 @@
     "deploy": "wrangler pages deploy ./dist",
     "dev": "astro dev",
     "preview": "astro build && wrangler dev",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "deploy:workflows": "node scripts/deployWorkflows.js",
+    "deploy:all": "npm run build && npm run deploy && npm run deploy:workflows",
+    "validate:workflows": "node -e \"const fs = require('fs'); const files = fs.readdirSync('workflows'); files.forEach(file => { if(file.endsWith('.json')) { try { JSON.parse(fs.readFileSync('workflows/'+file, 'utf8')); console.log('✅', file); } catch(e) { console.error('❌', file, e.message); process.exit(1); } } })\"",
+    "test:api-keys": "node -e \"import('./src/utils/loadEnv.js').then(m => { m.validateRequiredKeys(); console.log('✅ API Keys validation completed'); }).catch(e => { console.error('❌ API Keys error:', e.message); process.exit(1); })\"",
+    "automation:setup": "npm install node-fetch dotenv && npm run test:api-keys && npm run validate:workflows",
+    "automation:deploy": "npm run automation:setup && npm run deploy:workflows"
   },
   "type": "module"
 }

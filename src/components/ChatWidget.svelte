@@ -1,32 +1,32 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let isOpen = false;
   let messages = [];
-  let inputText = '';
+  let inputText = "";
   let isLoading = false;
   let sessionId = Math.random().toString(36).substring(2, 15);
-  
+
   // Load messages from localStorage on component mount
   onMount(() => {
-    const savedMessages = localStorage.getItem('chat_messages');
-    const savedSession = localStorage.getItem('chat_session');
-    
+    const savedMessages = localStorage.getItem("chat_messages");
+    const savedSession = localStorage.getItem("chat_session");
+
     if (savedMessages) {
       messages = JSON.parse(savedMessages);
     }
-    
+
     if (savedSession) {
       sessionId = savedSession;
     } else {
-      localStorage.setItem('chat_session', sessionId);
+      localStorage.setItem("chat_session", sessionId);
     }
   });
 
   // Save messages to localStorage whenever they change
   $: {
     if (messages.length > 0) {
-      localStorage.setItem('chat_messages', JSON.stringify(messages));
+      localStorage.setItem("chat_messages", JSON.stringify(messages));
     }
   }
 
@@ -34,51 +34,67 @@
     if (!inputText.trim() || isLoading) return;
 
     const userMessage = inputText.trim();
-    inputText = '';
-    
+    inputText = "";
+
     // Add user message to chat
-    messages = [...messages, { 
-      type: 'user', 
-      content: userMessage, 
-      timestamp: new Date().toISOString() 
-    }];
-    
+    messages = [
+      ...messages,
+      {
+        type: "user",
+        content: userMessage,
+        timestamp: new Date().toISOString(),
+      },
+    ];
+
     isLoading = true;
-    
+
     try {
-      const response = await fetch('https://polaczek-chat-assistant.stolarnia-ams.workers.dev/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: userMessage,
-          sessionId: sessionId
-        })
-      });
-      
+      const response = await fetch(
+        "https://multi-ai-assistant.stolarnia-ams.workers.dev/qwen",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            sessionId: sessionId,
+            context: {
+              source: "chat_widget",
+              timestamp: new Date().toISOString(),
+            },
+          }),
+        }
+      );
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       // Add AI response to chat
-      messages = [...messages, { 
-        type: 'ai', 
-        content: data.answer, 
-        timestamp: new Date().toISOString(),
-        source: data.source
-      }];
-      
+      messages = [
+        ...messages,
+        {
+          type: "ai",
+          content: data.response,
+          timestamp: new Date().toISOString(),
+          source: data.model_name,
+        },
+      ];
     } catch (error) {
-      console.error('Error sending message:', error);
-      messages = [...messages, { 
-        type: 'ai', 
-        content: 'Przepraszam, wystąpił błąd podczas przetwarzania Twojego zapytania. Spróbuj ponownie później.',
-        timestamp: new Date().toISOString(),
-        error: true
-      }];
+      console.error("Error sending message:", error);
+      messages = [
+        ...messages,
+        {
+          type: "ai",
+          content:
+            "Przepraszam, wystąpił błąd podczas przetwarzania Twojego zapytania. Spróbuj ponownie później.",
+          timestamp: new Date().toISOString(),
+          error: true,
+        },
+      ];
     } finally {
       isLoading = false;
     }
@@ -86,11 +102,11 @@
 
   function clearChat() {
     messages = [];
-    localStorage.removeItem('chat_messages');
+    localStorage.removeItem("chat_messages");
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter' && !event.shiftKey) {
+    if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
     }
@@ -105,16 +121,23 @@
           <span class="ai-icon">🤖</span>
           POLACZEK AI Asystent
         </div>
-        <button class="close-btn" on:click={() => isOpen = false} title="Zamknij chat">
+        <button
+          class="close-btn"
+          on:click={() => (isOpen = false)}
+          title="Zamknij chat"
+        >
           ×
         </button>
       </div>
-      
+
       <div class="chat-messages">
         {#if messages.length === 0}
           <div class="welcome-message">
             <p>👋 Cześć! Jestem Twoim asystentem AI. Jak mogę pomóc?</p>
-            <p class="hint">Możesz zapytać o status systemu, workersy AI, tłumaczenia lub dostępne agenty.</p>
+            <p class="hint">
+              Możesz zapytać o status systemu, workersy AI, tłumaczenia lub
+              dostępne agenty.
+            </p>
           </div>
         {:else}
           {#each messages as message}
@@ -124,19 +147,19 @@
               </div>
               <div class="message-meta">
                 <span class="timestamp">
-                  {new Date(message.timestamp).toLocaleTimeString('pl-PL')}
+                  {new Date(message.timestamp).toLocaleTimeString("pl-PL")}
                 </span>
-                {#if message.source === 'knowledge_base'}
+                {#if message.source === "knowledge_base"}
                   <span class="source-badge">📚 Baza wiedzy</span>
                 {/if}
-                {#if message.source === 'ai_model'}
+                {#if message.source === "ai_model"}
                   <span class="source-badge">🧠 AI Model</span>
                 {/if}
               </div>
             </div>
           {/each}
         {/if}
-        
+
         {#if isLoading}
           <div class="message ai loading">
             <div class="message-content">
@@ -149,7 +172,7 @@
           </div>
         {/if}
       </div>
-      
+
       <div class="chat-input-container">
         <div class="input-wrapper">
           <textarea
@@ -158,25 +181,33 @@
             placeholder="Napisz wiadomość..."
             rows="1"
             disabled={isLoading}
-          />
-          <button 
-            on:click={sendMessage} 
+          ></textarea>
+          <button
+            on:click={sendMessage}
             disabled={!inputText.trim() || isLoading}
             class="send-btn"
             title="Wyślij wiadomość"
           >
-            {isLoading ? '⏳' : '📤'}
+            {isLoading ? "⏳" : "📤"}
           </button>
         </div>
         <div class="chat-actions">
-          <button on:click={clearChat} class="clear-btn" title="Wyczyść historię">
+          <button
+            on:click={clearChat}
+            class="clear-btn"
+            title="Wyczyść historię"
+          >
             🗑️ Wyczyść
           </button>
         </div>
       </div>
     </div>
   {:else}
-    <button class="chat-toggle-btn" on:click={() => isOpen = true} title="Otwórz chat">
+    <button
+      class="chat-toggle-btn"
+      on:click={() => (isOpen = true)}
+      title="Otwórz chat"
+    >
       <span class="ai-icon">🤖</span>
       <span class="chat-label">Chat AI</span>
     </button>
@@ -189,7 +220,7 @@
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-    font-family: 'Rajdhani', system-ui, sans-serif;
+    font-family: "Rajdhani", system-ui, sans-serif;
   }
 
   .chat-toggle-btn {
@@ -270,7 +301,7 @@
     padding: 15px;
     overflow-y: auto;
     background: rgba(0, 0, 0, 0.7);
-    background-image: 
+    background-image:
       linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
@@ -359,16 +390,24 @@
     animation: typing 1.4s infinite ease-in-out;
   }
 
-  .typing-indicator span:nth-child(1) { animation-delay: 0s; }
-  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+  .typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
 
   @keyframes typing {
-    0%, 60%, 100% { 
+    0%,
+    60%,
+    100% {
       opacity: 1;
       transform: translateY(0);
     }
-    30% { 
+    30% {
       opacity: 0.5;
       transform: translateY(-5px);
     }
