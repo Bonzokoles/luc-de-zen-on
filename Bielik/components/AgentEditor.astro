@@ -1,0 +1,27 @@
+---
+const { agent, onSave } = Astro.props;
+---
+
+<form on:submit={async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const updatedAgent = {
+    ...agent,
+    name: formData.get('name'),
+    status: formData.get('status'),
+  };
+  await fetch("/api/agent", {
+    method: "POST",
+    body: JSON.stringify(updatedAgent),
+    headers: { "Content-Type": "application/json" },
+  });
+  if (onSave) onSave();
+}}>
+  <input type="text" name="name" value={agent?.name ?? ""} placeholder="Nazwa agenta" />
+  <select name="status" value={agent?.status ?? "Aktywny"}>
+    <option>Aktywny</option>
+    <option>Nieaktywny</option>
+    <option>W trakcie konfiguracji</option>
+  </select>
+  <button type="submit">Zapisz</button>
+</form>
