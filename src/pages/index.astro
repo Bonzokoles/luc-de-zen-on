@@ -5,6 +5,10 @@ import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
 import PolaczekWidget from "../components/PolaczekWidget.svelte";
 import MainChatWidget from "../components/MainChatWidget.svelte";
 import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
+import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
+import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
+import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -335,41 +339,29 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
             </div>
           </div>
 
-          <!-- Status Monitor -->
+          <!-- STATUS WORKERS - Basic Opening Element -->
           <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>
-              Status Workerów
+              🔧 STATUS WORKERS
             </h3>
             <p class="worker-description" data-astro-cid-my52qgmw>
-              Sprawdź status i dostępność wszystkich API workerów
+              Zaawansowany system monitorowania statusu wszystkich Cloudflare Workers
             </p>
             <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Health Check</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>API Status</span
-              >
+              <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
             </div>
             <div class="worker-actions" data-astro-cid-my52qgmw>
-              <div
-                class="status-indicator"
-                id="overallStatus"
-                data-astro-cid-my52qgmw
-              >
-                <span class="status-dot" data-astro-cid-my52qgmw></span>
-                <span data-astro-cid-my52qgmw>Częściowo online (1/5)</span>
-              </div>
               <button
                 class="action-btn primary"
                 onclick="checkAllStatus()"
-                data-astro-cid-my52qgmw>Sprawdź wszystkie</button
+                data-astro-cid-my52qgmw>Sprawdź Status</button
               >
               <button
                 class="action-btn secondary"
-                onclick="window.open('/dashboard', '_blank')"
-                data-astro-cid-my52qgmw>Monitor</button
+                onclick="window.open('/status-workers', '_blank')"
+                data-astro-cid-my52qgmw>Otwórz Dashboard</button
               >
             </div>
           </div>
@@ -469,57 +461,57 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
         </h3>
         <div class="additional-grid" data-astro-cid-my52qgmw>
           <!-- Row 1 -->
-          <div class="feature-tile" data-function="function2" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function2" onclick="openFunction('rekomendacje')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>🎯</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Personalizowane rekomendacje</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>System rekomendacyjny produktów i usług z analizą preferencji użytkowników</div>
           </div>
           
-          <div class="feature-tile" data-function="function3" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function3" onclick="openFunction('obsługa-klienta')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>📞</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Automatyzacja obsługi klienta</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>AI do kwalifikacji leadów i automatycznych odpowiedzi z integracją CRM</div>
           </div>
           
-          <div class="feature-tile" data-function="function4" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function4" onclick="openFunction('monitorowanie')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>📊</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Monitorowanie i raportowanie</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>Dashboard z automatycznym generowaniem raportów i alertami o anomaliach</div>
           </div>
 
           <!-- Row 2 -->
-          <div class="feature-tile" data-function="function6" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function6" onclick="openFunction('przypomnienia')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>🔔</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Harmonogramowanie i przypomnienia</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>Inteligentny system przypomnień z integracją z kalendarzami i AI przewidywaniem</div>
           </div>
           
-          <div class="feature-tile" data-function="function7" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function7" onclick="openFunction('faq-generator')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>❓</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Generator FAQ dynamiczny</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy wiedzy</div>
           </div>
           
-          <div class="feature-tile" data-function="function8" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function8" onclick="openFunction('edukacja')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>📚</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Rekomendacje edukacyjne</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>System rekomendacji kursów i materiałów edukacyjnych z profilowaniem użytkownika</div>
           </div>
 
           <!-- Row 3 -->
-          <div class="feature-tile" data-function="function9" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="function9" onclick="openFunction('tickety')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>🎫</div>
             <div class="feature-title" data-astro-cid-my52qgmw>System ticketów AI</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>Automatyczna klasyfikacja zgłoszeń z integracją Jira/Zendesk</div>
           </div>
           
-          <div class="feature-tile" data-function="quiz" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="quiz" onclick="openFunction('quizy')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>🧠</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Quizy i testy interaktywne</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>Framework do tworzenia quizów z AI oceną i spersonalizowanym feedbackiem</div>
           </div>
           
-          <div class="feature-tile" data-function="marketing" data-astro-cid-my52qgmw>
+          <div class="feature-tile" data-function="marketing" onclick="openFunction('marketing')" data-astro-cid-my52qgmw>
             <div class="feature-icon" data-astro-cid-my52qgmw>✍️</div>
             <div class="feature-title" data-astro-cid-my52qgmw>Generator treści marketingowych</div>
             <div class="feature-desc" data-astro-cid-my52qgmw>Automatyczne generowanie i publikacja treści marketingowych przez AI</div>
@@ -559,6 +551,41 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
         <!-- Main AI Chat Widget -->
         <div class="widget-container">
           <MainChatWidget client:load />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEW AI FUNCTIONS Section -->
+  <section
+    class="ai-workers-section flex items-center justify-center py-16"
+    id="new-ai-functions"
+    data-astro-cid-my52qgmw
+  >
+    <div class="section-container" data-astro-cid-my52qgmw>
+      <div class="text-center mb-12">
+        <h2 class="section-title" data-astro-cid-my52qgmw>
+          🤖 Nowe Funkcje AI
+        </h2>
+        <p class="section-description" data-astro-cid-my52qgmw>
+          Zaawansowane narzędzia AI gotowe do użycia
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <!-- FAQ Generator Widget -->
+        <div class="widget-container">
+          <FAQGeneratorWidget client:load />
+        </div>
+
+        <!-- Education Recommendations Widget -->
+        <div class="widget-container">
+          <EducationRecommendationsWidget client:load />
+        </div>
+
+        <!-- Ticket Submission Widget -->
+        <div class="widget-container">
+          <TicketSubmissionWidget client:load />
         </div>
       </div>
     </div>
@@ -659,6 +686,7 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
       openTavily: () => void;
       testButtonFunction: (buttonType: string) => boolean;
       checkDashboardLogin: () => void;
+      openFunction: (functionName: string) => void;
     }
   }
 
@@ -876,6 +904,32 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
     }
   }
 
+  // Open Function for 9 AI Functions
+  function openFunction(functionName: string) {
+    console.log(`🎯 Otwieranie funkcji: ${functionName}`);
+    
+    const functionRoutes: { [key: string]: string } = {
+      'rekomendacje': '/ai-functions/personalized-recommendations',
+      'obsługa-klienta': '/ai-functions/customer-automation', 
+      'monitorowanie': '/ai-functions/activity-monitoring',
+      'przypomnienia': '/ai-functions/reminders-calendar',
+      'faq-generator': '/ai-functions/dynamic-faq',
+      'edukacja': '/ai-functions/education-recommendations',
+      'tickety': '/ai-functions/ai-tickets',
+      'quizy': '/ai-functions/interactive-quizzes',
+      'marketing': '/ai-functions/marketing-content'
+    };
+
+    const route = functionRoutes[functionName];
+    if (route) {
+      console.log(`Przekierowanie do: ${route}`);
+      window.open(route, '_blank');
+    } else {
+      console.error(`Nieznana funkcja: ${functionName}`);
+      alert(`Funkcja "${functionName}" jest w trakcie implementacji. Spróbuj ponownie później.`);
+    }
+  }
+
   // Auto-check status on load and add Enter key handlers
   document.addEventListener("DOMContentLoaded", function () {
     console.log("🚀 DOM załadowany, inicjalizacja funkcji");
@@ -933,6 +987,7 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
     window.openTavily = openTavily;
     window.testButtonFunction = testButtonFunction;
     window.checkDashboardLogin = checkDashboardLogin;
+    window.openFunction = openFunction;
 
     console.log("All functions assigned to window object");
   });

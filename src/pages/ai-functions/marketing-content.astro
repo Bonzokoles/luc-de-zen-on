@@ -1,0 +1,935 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import MarketingContentGenerator from "../../components/MarketingContentGenerator.svelte";
+---
+
+<MyBonzoLayout siteTitle="Marketing Content Generator | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                📝 Marketing Content Generator
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                Inteligentny generator treści marketingowych powered by AI
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED MARKETING
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #9
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="marketing-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">Generator Treści Marketingowych AI</h2>
+          <p class="function-description">
+            Zaawansowany system wykorzystujący sztuczną inteligencję do automatycznego generowania 
+            wysokiej jakości treści marketingowych, postów social media, kampanii reklamowych i content marketingu.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">✍️</div>
+              <div class="feature-content">
+                <h3>Automatyczne Pisanie</h3>
+                <p>Generowanie treści marketingowych w sekundach z zachowaniem tonu marki</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Targeting & Personalizacja</h3>
+                <p>Dostosowywanie treści do konkretnych grup docelowych i personas</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📊</div>
+              <div class="feature-content">
+                <h3>Optymalizacja SEO</h3>
+                <p>Automatyczne wbudowywanie słów kluczowych i optymalizacja pod SEO</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🚀</div>
+              <div class="feature-content">
+                <h3>Multi-Platform</h3>
+                <p>Generowanie treści dostosowanych do różnych platform społecznościowych</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Generator Treści AI</h2>
+            <p class="section-description">
+              Stwórz profesjonalną treść marketingową w kilku kliknięciach
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <MarketingContentGenerator client:load />
+          </div>
+        </div>
+
+        <!-- Content Types -->
+        <div class="content-types-section">
+          <h2 class="content-types-title">📋 Typy Generowanej Treści</h2>
+          
+          <div class="content-types-grid">
+            <div class="content-type-card social">
+              <h3>📱 SOCIAL MEDIA</h3>
+              <div class="content-description">
+                <p>Posty dostosowane do platform społecznościowych</p>
+                <ul class="content-features">
+                  <li>Facebook & Instagram posts</li>
+                  <li>Twitter threads</li>
+                  <li>LinkedIn articles</li>
+                  <li>TikTok descriptions</li>
+                  <li>YouTube descriptions</li>
+                </ul>
+              </div>
+              <div class="content-metrics">Engagement: +85%</div>
+            </div>
+            
+            <div class="content-type-card email">
+              <h3>📧 EMAIL MARKETING</h3>
+              <div class="content-description">
+                <p>Kompleksowe kampanie emailowe</p>
+                <ul class="content-features">
+                  <li>Subject lines & headlines</li>
+                  <li>Newsletter content</li>
+                  <li>Email sequences</li>
+                  <li>Product announcements</li>
+                  <li>Welcome emails</li>
+                </ul>
+              </div>
+              <div class="content-metrics">Open Rate: +42%</div>
+            </div>
+            
+            <div class="content-type-card ads">
+              <h3>🎯 REKLAMY</h3>
+              <div class="content-description">
+                <p>Skuteczne teksty reklamowe</p>
+                <ul class="content-features">
+                  <li>Google Ads copy</li>
+                  <li>Facebook Ads</li>
+                  <li>Display ads</li>
+                  <li>Landing page copy</li>
+                  <li>Product descriptions</li>
+                </ul>
+              </div>
+              <div class="content-metrics">CTR: +67%</div>
+            </div>
+            
+            <div class="content-type-card blog">
+              <h3>📝 BLOG & ARTYKUŁY</h3>
+              <div class="content-description">
+                <p>Długie formy treści SEO</p>
+                <ul class="content-features">
+                  <li>Blog posts</li>
+                  <li>Artykuły eksperckie</li>
+                  <li>Guides & tutorials</li>
+                  <li>Case studies</li>
+                  <li>White papers</li>
+                </ul>
+              </div>
+              <div class="content-metrics">SEO Score: +78%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform Optimization -->
+        <div class="platforms-section">
+          <h2 class="platforms-title">🌐 Optymalizacja Platform</h2>
+          
+          <div class="platforms-grid">
+            <div class="platform-card">
+              <div class="platform-icon">📘</div>
+              <h3>Facebook</h3>
+              <p>Optymalne długości postów, hashtagi, timing publikacji</p>
+              <div class="platform-specs">
+                <span>Max: 500 znaków</span>
+                <span>Best: 40-80 znaków</span>
+              </div>
+            </div>
+            
+            <div class="platform-card">
+              <div class="platform-icon">📷</div>
+              <h3>Instagram</h3>
+              <p>Engaging captions, story content, IGTV descriptions</p>
+              <div class="platform-specs">
+                <span>Max: 2,200 znaków</span>
+                <span>Best: 138-150 znaków</span>
+              </div>
+            </div>
+            
+            <div class="platform-card">
+              <div class="platform-icon">🐦</div>
+              <h3>Twitter</h3>
+              <p>Thread content, engaging tweets, optimal hashtags</p>
+              <div class="platform-specs">
+                <span>Max: 280 znaków</span>
+                <span>Best: 71-100 znaków</span>
+              </div>
+            </div>
+            
+            <div class="platform-card">
+              <div class="platform-icon">💼</div>
+              <h3>LinkedIn</h3>
+              <p>Professional content, thought leadership, B2B posts</p>
+              <div class="platform-specs">
+                <span>Max: 3,000 znaków</span>
+                <span>Best: 150-300 znaków</span>
+              </div>
+            </div>
+            
+            <div class="platform-card">
+              <div class="platform-icon">🎵</div>
+              <h3>TikTok</h3>
+              <p>Viral content ideas, trending hashtags, video descriptions</p>
+              <div class="platform-specs">
+                <span>Max: 150 znaków</span>
+                <span>Best: 100-150 znaków</span>
+              </div>
+            </div>
+            
+            <div class="platform-card">
+              <div class="platform-icon">📺</div>
+              <h3>YouTube</h3>
+              <p>Video titles, descriptions, channel content strategy</p>
+              <div class="platform-specs">
+                <span>Max: 5,000 znaków</span>
+                <span>Best: 200-350 znaków</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Features -->
+        <div class="ai-features-section">
+          <h2 class="ai-features-title">🤖 Zaawansowane Funkcje AI</h2>
+          
+          <div class="ai-features-grid">
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🎨</div>
+              <h3>Brand Voice Matching</h3>
+              <p>AI analizuje ton marki i automatycznie dostosowuje styl pisania do guidelines firmy</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🔍</div>
+              <h3>SEO Optimization</h3>
+              <p>Automatyczne wbudowywanie słów kluczowych i optymalizacja treści pod wyszukiwarki</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">📈</div>
+              <h3>Performance Prediction</h3>
+              <p>Przewidywanie skuteczności treści na podstawie historycznych danych kampanii</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🎯</div>
+              <h3>A/B Testing Variants</h3>
+              <p>Automatyczne generowanie wariantów treści do testów A/B i optymalizacji kampanii</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketing Strategies -->
+        <div class="strategies-section">
+          <h2 class="strategies-title">📊 Strategie Marketingowe</h2>
+          
+          <div class="strategies-grid">
+            <div class="strategy-card">
+              <h3>🔥 Content Marketing</h3>
+              <ul class="strategy-list">
+                <li>Blog posts z wysokim SEO</li>
+                <li>Ebooks i white papers</li>
+                <li>Infografiki i visual content</li>
+                <li>Video content strategy</li>
+              </ul>
+            </div>
+            
+            <div class="strategy-card">
+              <h3>📱 Social Media</h3>
+              <ul class="strategy-list">
+                <li>Cross-platform campaigns</li>
+                <li>Influencer collaborations</li>
+                <li>User-generated content</li>
+                <li>Community management</li>
+              </ul>
+            </div>
+            
+            <div class="strategy-card">
+              <h3>📧 Email Automation</h3>
+              <ul class="strategy-list">
+                <li>Drip campaigns</li>
+                <li>Behavioral triggers</li>
+                <li>Segmentation strategies</li>
+                <li>A/B testing sequences</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🔧 AI Models</h3>
+              <ul class="tech-list">
+                <li>OpenAI GPT-4 dla copywriting</li>
+                <li>BERT dla SEO analysis</li>
+                <li>Custom NLP models</li>
+                <li>Sentiment analysis AI</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📈 Performance</h3>
+              <ul class="tech-list">
+                <li>Generation speed: &lt;3s</li>
+                <li>SEO score improvement: +85%</li>
+                <li>Content quality: 96.3%</li>
+                <li>Brand consistency: 94.7%</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔄 Integrations</h3>
+              <ul class="tech-list">
+                <li>Hootsuite & Buffer</li>
+                <li>Mailchimp & Constant Contact</li>
+                <li>WordPress & CMS platforms</li>
+                <li>Analytics & tracking tools</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Analytics</h3>
+              <ul class="tech-list">
+                <li>Performance tracking</li>
+                <li>Engagement metrics</li>
+                <li>A/B test results</li>
+                <li>ROI measurement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="use-cases-section">
+          <h2 class="use-cases-title">💡 Przypadki Użycia</h2>
+          
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <div class="use-case-icon">🏢</div>
+              <h3>Enterprise</h3>
+              <p>Skalowanie content marketingu w dużych organizacjach z zachowaniem spójności marki</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🚀</div>
+              <h3>Startupy</h3>
+              <p>Szybkie tworzenie treści marketingowych z ograniczonym budżetem i zasobami</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🛍️</div>
+              <h3>E-commerce</h3>
+              <p>Automatyzacja opisów produktów, kampanii promocyjnych i content dla sklepów online</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">📱</div>
+              <h3>Agencje</h3>
+              <p>Zwiększenie produktywności zespołów kreatywnych i obsługi większej liczby klientów</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Main Layout Styles */
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Widget Section */
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Content Types */
+  .content-types-section {
+    margin-bottom: 3rem;
+  }
+
+  .content-types-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .content-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .content-type-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid;
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .content-type-card.social {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+  
+  .content-type-card.email {
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+  
+  .content-type-card.ads {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  
+  .content-type-card.blog {
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  .content-type-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .content-type-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .content-type-card.social h3 { color: #3b82f6; }
+  .content-type-card.email h3 { color: #22c55e; }
+  .content-type-card.ads h3 { color: #ef4444; }
+  .content-type-card.blog h3 { color: #a855f7; }
+
+  .content-description p {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .content-features li {
+    color: #94aec4;
+    font-size: 0.9rem;
+    padding: 0.2rem 0;
+  }
+
+  .content-features li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .content-metrics {
+    color: #00d7ef;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  /* Platform Optimization */
+  .platforms-section {
+    margin-bottom: 3rem;
+  }
+
+  .platforms-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .platform-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .platform-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .platform-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .platform-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .platform-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .platform-specs {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #1be1ff;
+    font-weight: 600;
+  }
+
+  /* AI Features */
+  .ai-features-section {
+    margin-bottom: 3rem;
+  }
+
+  .ai-features-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .ai-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ai-feature-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .ai-feature-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .ai-feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Marketing Strategies */
+  .strategies-section {
+    margin-bottom: 3rem;
+  }
+
+  .strategies-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .strategies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .strategy-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .strategy-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .strategy-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .strategy-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .strategy-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .strategy-list li:last-child {
+    border-bottom: none;
+  }
+
+  .strategy-list li:before {
+    content: "🎯 ";
+    margin-right: 0.5rem;
+  }
+
+  /* Technical Specs */
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Use Cases */
+  .use-cases-section {
+    margin-bottom: 3rem;
+  }
+
+  .use-cases-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .use-case-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .use-case-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Return Section */
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .tech-title,
+    .use-cases-title,
+    .platforms-title,
+    .content-types-title,
+    .ai-features-title,
+    .strategies-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .specs-grid,
+    .use-cases-grid,
+    .content-types-grid,
+    .ai-features-grid,
+    .platforms-grid,
+    .strategies-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Force zero border radius on all elements */
+  * {
+    border-radius: 0px !important;
+  }
+</style>

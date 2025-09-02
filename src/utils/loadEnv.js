@@ -1,11 +1,24 @@
 /**
  * System automatycznego wczytywania kluczy API
  * Centralny punkt zarządzania konfiguracją środowiska
+ * 
+ * UWAGA: Ten moduł jest przeznaczony tylko do użycia serwerowego!
+ * W przeglądarce zmienne środowiskowe nie są dostępne.
  */
-import dotenv from 'dotenv';
 
-// Wczytaj zmienne środowiskowe z pliku .env
-dotenv.config();
+// Sprawdź czy działamy w środowisku Node.js
+const isNodeEnvironment = typeof process !== 'undefined' && process.env;
+
+// Dynamicznie importuj dotenv tylko w środowisku Node.js
+let dotenv = null;
+if (isNodeEnvironment) {
+  try {
+    dotenv = await import('dotenv');
+    dotenv.config();
+  } catch (error) {
+    console.warn('Nie można załadować dotenv:', error.message);
+  }
+}
 
 // Klucze API dla różnych platform
 export const API_KEYS = {

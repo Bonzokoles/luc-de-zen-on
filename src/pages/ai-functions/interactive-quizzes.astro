@@ -1,0 +1,931 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import InteractiveQuizWidget from "../../components/InteractiveQuizWidget.svelte";
+---
+
+<MyBonzoLayout siteTitle="Interactive Quizzes | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                🧠 Interactive Quizzes
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                Inteligentne quizy adaptacyjne z personalizowanymi ścieżkami nauki
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED QUIZZES
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #8
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="quizzes-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Interaktywnych Quizów AI</h2>
+          <p class="function-description">
+            Zaawansowana platforma wykorzystująca sztuczną inteligencję do tworzenia adaptacyjnych quizów 
+            z automatycznym dostosowywaniem poziomu trudności i personalizowanymi ścieżkami nauki.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Adaptacyjna Trudność</h3>
+                <p>Automatyczne dostosowywanie poziomu pytań do umiejętności ucznia</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📚</div>
+              <div class="feature-content">
+                <h3>Spersonalizowana Nauka</h3>
+                <p>Indywidualne ścieżki edukacyjne oparte na analizie wyników</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📊</div>
+              <div class="feature-content">
+                <h3>Analityka Wydajności</h3>
+                <p>Szczegółowe raporty postępów i obszarów do poprawy</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🤖</div>
+              <div class="feature-content">
+                <h3>AI Content Generation</h3>
+                <p>Automatyczne generowanie pytań i wyjaśnień przez AI</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Interaktywny Quiz AI</h2>
+            <p class="section-description">
+              Przetestuj nasz adaptacyjny system quizów z AI
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <InteractiveQuizWidget client:load />
+          </div>
+        </div>
+
+        <!-- Quiz Types -->
+        <div class="quiz-types-section">
+          <h2 class="quiz-types-title">🎓 Typy Quizów</h2>
+          
+          <div class="quiz-types-grid">
+            <div class="quiz-type-card beginner">
+              <h3>🌱 POCZĄTKUJĄCY</h3>
+              <div class="quiz-description">
+                <p>Podstawowe pytania wprowadzające</p>
+                <ul class="quiz-features">
+                  <li>Proste definicje i pojęcia</li>
+                  <li>Wsparcie wizualne</li>
+                  <li>Dodatkowe wskazówki</li>
+                  <li>Pozytywne wzmocnienia</li>
+                </ul>
+              </div>
+              <div class="difficulty-level">Trudność: ⭐</div>
+            </div>
+            
+            <div class="quiz-type-card intermediate">
+              <h3>🚀 ŚREDNIOZAAWANSOWANY</h3>
+              <div class="quiz-description">
+                <p>Pytania wymagające analizy</p>
+                <ul class="quiz-features">
+                  <li>Przypadki praktyczne</li>
+                  <li>Pytania wielokrotnego wyboru</li>
+                  <li>Scenariusze problemowe</li>
+                  <li>Feedback z wyjaśnieniami</li>
+                </ul>
+              </div>
+              <div class="difficulty-level">Trudność: ⭐⭐⭐</div>
+            </div>
+            
+            <div class="quiz-type-card advanced">
+              <h3>🎯 ZAAWANSOWANY</h3>
+              <div class="quiz-description">
+                <p>Złożone problemy i analiza</p>
+                <ul class="quiz-features">
+                  <li>Pytania otwarte</li>
+                  <li>Analiza przypadków</li>
+                  <li>Krytyczne myślenie</li>
+                  <li>Peer review</li>
+                </ul>
+              </div>
+              <div class="difficulty-level">Trudność: ⭐⭐⭐⭐⭐</div>
+            </div>
+            
+            <div class="quiz-type-card adaptive">
+              <h3>🧠 ADAPTACYJNY</h3>
+              <div class="quiz-description">
+                <p>Dostosowuje się do umiejętności</p>
+                <ul class="quiz-features">
+                  <li>AI-driven difficulty</li>
+                  <li>Personalized path</li>
+                  <li>Real-time adaptation</li>
+                  <li>Performance tracking</li>
+                </ul>
+              </div>
+              <div class="difficulty-level">Trudność: 🤖 Dynamic</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject Areas -->
+        <div class="subjects-section">
+          <h2 class="subjects-title">📖 Obszary Tematyczne</h2>
+          
+          <div class="subjects-grid">
+            <div class="subject-card">
+              <div class="subject-icon">💻</div>
+              <h3>Programowanie</h3>
+              <p>JavaScript, Python, React, Node.js, algorytmy, struktury danych</p>
+              <div class="subject-stats">
+                <span>1,247 pytań</span>
+                <span>85% accuracy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card">
+              <div class="subject-icon">🎨</div>
+              <h3>Design & UX</h3>
+              <p>UI/UX design, design thinking, prototyping, user research</p>
+              <div class="subject-stats">
+                <span>689 pytań</span>
+                <span>91% accuracy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card">
+              <div class="subject-icon">📊</div>
+              <h3>Data Science</h3>
+              <p>Machine learning, statystyka, Python, R, visualization</p>
+              <div class="subject-stats">
+                <span>932 pytań</span>
+                <span>78% accuracy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card">
+              <div class="subject-icon">🚀</div>
+              <h3>Business</h3>
+              <p>Marketing, management, strategy, finanse, przedsiębiorczość</p>
+              <div class="subject-stats">
+                <span>1,456 pytań</span>
+                <span>88% accuracy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card">
+              <div class="subject-icon">🔒</div>
+              <h3>Cybersecurity</h3>
+              <p>Network security, ethical hacking, compliance, risk management</p>
+              <div class="subject-stats">
+                <span>567 pytań</span>
+                <span>82% accuracy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card">
+              <div class="subject-icon">🌐</div>
+              <h3>Web Development</h3>
+              <p>HTML, CSS, frameworks, responsive design, performance</p>
+              <div class="subject-stats">
+                <span>1,123 pytań</span>
+                <span>89% accuracy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Features -->
+        <div class="ai-features-section">
+          <h2 class="ai-features-title">🤖 Funkcje AI</h2>
+          
+          <div class="ai-features-grid">
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🧩</div>
+              <h3>Automatyczne Generowanie Pytań</h3>
+              <p>AI tworzy pytania na podstawie materiałów źródłowych i dostosowuje je do poziomu ucznia</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">📈</div>
+              <h3>Adaptacyjna Trudność</h3>
+              <p>System automatycznie dostosowuje poziom trudności na podstawie odpowiedzi ucznia</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">💡</div>
+              <h3>Inteligentny Feedback</h3>
+              <p>Personalizowane wyjaśnienia i wskazówki generowane przez AI dla każdej odpowiedzi</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🎯</div>
+              <h3>Rekomendacje Nauki</h3>
+              <p>AI analizuje wyniki i sugeruje obszary do dalszej nauki oraz dodatkowe zasoby</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🔧 Technologie Core</h3>
+              <ul class="tech-list">
+                <li>OpenAI GPT dla generowania treści</li>
+                <li>Machine Learning algorithms</li>
+                <li>Real-time adaptation engine</li>
+                <li>Advanced analytics tracking</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Metryki Systemu</h3>
+              <ul class="tech-list">
+                <li>Response time: &lt;150ms</li>
+                <li>Adaptation accuracy: 94.2%</li>
+                <li>User engagement: +67%</li>
+                <li>Learning retention: +45%</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🎯 Algorytmy AI</h3>
+              <ul class="tech-list">
+                <li>Item Response Theory (IRT)</li>
+                <li>Bayesian Knowledge Tracing</li>
+                <li>Content-based filtering</li>
+                <li>Collaborative filtering</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📱 Platform Support</h3>
+              <ul class="tech-list">
+                <li>Web browsers (Chrome, Firefox, Safari)</li>
+                <li>Mobile responsive design</li>
+                <li>Offline mode capabilities</li>
+                <li>Multi-language support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning Analytics -->
+        <div class="analytics-section">
+          <h2 class="analytics-title">📊 Learning Analytics</h2>
+          
+          <div class="analytics-grid">
+            <div class="analytics-card">
+              <h3>👤 Individual Progress</h3>
+              <ul class="analytics-list">
+                <li>Knowledge mastery tracking</li>
+                <li>Skill gap identification</li>
+                <li>Learning velocity analysis</li>
+                <li>Personalized recommendations</li>
+              </ul>
+            </div>
+            
+            <div class="analytics-card">
+              <h3>👥 Group Analytics</h3>
+              <ul class="analytics-list">
+                <li>Class performance overview</li>
+                <li>Common misconceptions</li>
+                <li>Collaborative learning insights</li>
+                <li>Peer comparison metrics</li>
+              </ul>
+            </div>
+            
+            <div class="analytics-card">
+              <h3>📈 Performance Metrics</h3>
+              <ul class="analytics-list">
+                <li>Success rate trends</li>
+                <li>Time-to-completion analysis</li>
+                <li>Difficulty progression</li>
+                <li>Retention rate tracking</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="use-cases-section">
+          <h2 class="use-cases-title">💡 Przypadki Użycia</h2>
+          
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <div class="use-case-icon">🏫</div>
+              <h3>Edukacja Szkolna</h3>
+              <p>Wspieranie nauczycieli w ocenie postępów uczniów i personalizacji procesu nauki</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🎓</div>
+              <h3>Szkolnictwo Wyższe</h3>
+              <p>Quizy przygotowawcze do egzaminów i ocena wiedzy studentów na poziomie uniwersyteckim</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">💼</div>
+              <h3>Corporate Training</h3>
+              <p>Szkolenia pracowników, onboarding, certyfikacje i rozwój kompetencji zawodowych</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🌐</div>
+              <h3>E-learning Platforms</h3>
+              <p>Integracja z platformami online do tworzenia interaktywnych kursów</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Main Layout Styles */
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Widget Section */
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Quiz Types */
+  .quiz-types-section {
+    margin-bottom: 3rem;
+  }
+
+  .quiz-types-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .quiz-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .quiz-type-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid;
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .quiz-type-card.beginner {
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+  
+  .quiz-type-card.intermediate {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+  
+  .quiz-type-card.advanced {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  
+  .quiz-type-card.adaptive {
+    border-color: rgba(168, 85, 247, 0.5);
+  }
+
+  .quiz-type-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .quiz-type-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-type-card.beginner h3 { color: #22c55e; }
+  .quiz-type-card.intermediate h3 { color: #3b82f6; }
+  .quiz-type-card.advanced h3 { color: #ef4444; }
+  .quiz-type-card.adaptive h3 { color: #a855f7; }
+
+  .quiz-description p {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .quiz-features li {
+    color: #94aec4;
+    font-size: 0.9rem;
+    padding: 0.2rem 0;
+  }
+
+  .quiz-features li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .difficulty-level {
+    color: #00d7ef;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  /* Subject Areas */
+  .subjects-section {
+    margin-bottom: 3rem;
+  }
+
+  .subjects-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .subject-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .subject-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .subject-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .subject-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .subject-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .subject-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: #1be1ff;
+    font-weight: 600;
+  }
+
+  /* AI Features */
+  .ai-features-section {
+    margin-bottom: 3rem;
+  }
+
+  .ai-features-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .ai-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ai-feature-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .ai-feature-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .ai-feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Technical Specs */
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Learning Analytics */
+  .analytics-section {
+    margin-bottom: 3rem;
+  }
+
+  .analytics-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .analytics-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .analytics-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .analytics-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .analytics-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .analytics-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .analytics-list li:last-child {
+    border-bottom: none;
+  }
+
+  .analytics-list li:before {
+    content: "📊 ";
+    margin-right: 0.5rem;
+  }
+
+  /* Use Cases */
+  .use-cases-section {
+    margin-bottom: 3rem;
+  }
+
+  .use-cases-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .use-case-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .use-case-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Return Section */
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .tech-title,
+    .use-cases-title,
+    .subjects-title,
+    .quiz-types-title,
+    .ai-features-title,
+    .analytics-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .specs-grid,
+    .use-cases-grid,
+    .quiz-types-grid,
+    .ai-features-grid,
+    .subjects-grid,
+    .analytics-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Force zero border radius on all elements */
+  * {
+    border-radius: 0px !important;
+  }
+</style>

@@ -1,0 +1,26 @@
+name = "mybonzo-marketing-workers"
+main = "./src/workers/marketing-content.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[[kv_namespaces]]
+binding = "MARKETING_CACHE"
+id = "placeholder_id_to_be_replaced"
+
+[triggers]
+crons = ["0 9 * * *"]  # codzienny cron job o 9 rano
+
+[vars]
+OPENAI_API_KEY = "placeholder_for_openai_key"
+PUBLIC_SITE_URL = "https://www.mybonzo.com"
+MARKETING_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+
+[env.production]
+name = "mybonzo-marketing-workers-prod"
+route = "mybonzo.com/api/marketing/*"
+
+[env.staging]
+name = "mybonzo-marketing-workers-staging"

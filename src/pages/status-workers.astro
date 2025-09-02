@@ -1,0 +1,264 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
+---
+
+<MyBonzoLayout siteTitle="STATUS WORKERS - Monitoring Dashboard | KAROL LISSON">
+  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-8">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-bold text-[#00d7ef] mb-2">
+              STATUS WORKERS
+            </h1>
+            <h2 class="text-2xl sm:text-3xl text-gray-300">
+              Zaawansowany System Monitorowania
+            </h2>
+          </div>
+          <div class="flex gap-4">
+            <a 
+              href="/" 
+              class="px-6 py-3 bg-[#164e63] hover:bg-[#1be1ff] hover:text-black text-white font-semibold border border-[#00d7ef] transition-all duration-200 transform hover:-translate-y-1"
+            >
+              ← Powrót do głównej
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workers Status Dashboard Section -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-[#00d7ef] mb-4">
+            🔧 Dashboard Monitorowania Workerów
+          </h2>
+          <p class="text-lg text-gray-400 max-w-3xl mx-auto">
+            Kompleksowy system monitorowania statusu wszystkich Cloudflare Workers, 
+            API endpoints, oraz zasobów systemowych w czasie rzeczywistym.
+          </p>
+        </div>
+
+        <!-- Full Dashboard Container -->
+        <div class="bg-black/30 border border-[#00d7ef]/30 p-8 shadow-2xl">
+          <WorkersStatusDashboard client:load />
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Monitoring Features -->
+          <div class="bg-black/40 border border-[#00d7ef]/20 p-6">
+            <h3 class="text-xl font-bold text-[#00d7ef] mb-4">📊 Funkcje Monitorowania</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Status wszystkich Workers w czasie rzeczywistym</li>
+              <li>• Monitoring API endpoints i połączeń</li>
+              <li>• Wykrywanie błędów i anomalii</li>
+              <li>• Historia aktywności i logów</li>
+              <li>• Alerty o nieprawidłowościach</li>
+            </ul>
+          </div>
+
+          <!-- Performance Metrics -->
+          <div class="bg-black/40 border border-[#00d7ef]/20 p-6">
+            <h3 class="text-xl font-bold text-[#00d7ef] mb-4">⚡ Metryki Wydajności</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Czas odpowiedzi API</li>
+              <li>• Wykorzystanie zasobów CPU/RAM</li>
+              <li>• Przepustowość sieciowa</li>
+              <li>• Liczba aktywnych połączeń</li>
+              <li>• Statystyki błędów i powodzeń</li>
+            </ul>
+          </div>
+
+          <!-- System Integration -->
+          <div class="bg-black/40 border border-[#00d7ef]/20 p-6">
+            <h3 class="text-xl font-bold text-[#00d7ef] mb-4">🔗 Integracje Systemowe</h3>
+            <ul class="space-y-2 text-gray-300">
+              <li>• Cloudflare Workers Analytics</li>
+              <li>• GitHub Actions deployment</li>
+              <li>• Slack/Discord notifications</li>
+              <li>• Email alerts system</li>
+              <li>• Custom webhooks support</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Quick Actions Panel -->
+        <div class="mt-12 bg-black/40 border border-[#00d7ef]/30 p-8">
+          <h3 class="text-2xl font-bold text-[#00d7ef] mb-6 text-center">
+            🛠️ Szybkie Akcje Systemowe
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <button 
+              onclick="refreshAllWorkers()" 
+              class="bg-[#164e63] hover:bg-[#1be1ff] hover:text-black text-white font-semibold py-3 px-6 border border-[#00d7ef]/50 transition-all duration-200 transform hover:-translate-y-1"
+            >
+              🔄 Odśwież Status
+            </button>
+            <button 
+              onclick="testAllConnections()" 
+              class="bg-[#164e63] hover:bg-[#1be1ff] hover:text-black text-white font-semibold py-3 px-6 border border-[#00d7ef]/50 transition-all duration-200 transform hover:-translate-y-1"
+            >
+              🧪 Test Połączeń
+            </button>
+            <button 
+              onclick="downloadLogs()" 
+              class="bg-[#164e63] hover:bg-[#1be1ff] hover:text-black text-white font-semibold py-3 px-6 border border-[#00d7ef]/50 transition-all duration-200 transform hover:-translate-y-1"
+            >
+              📋 Pobierz Logi
+            </button>
+            <button 
+              onclick="generateReport()" 
+              class="bg-[#164e63] hover:bg-[#1be1ff] hover:text-black text-white font-semibold py-3 px-6 border border-[#00d7ef]/50 transition-all duration-200 transform hover:-translate-y-1"
+            >
+              📊 Generuj Raport
+            </button>
+          </div>
+        </div>
+
+        <!-- Technical Documentation -->
+        <div class="mt-12 bg-black/40 border border-[#00d7ef]/20 p-8">
+          <h3 class="text-2xl font-bold text-[#00d7ef] mb-6">📚 Dokumentacja Techniczna</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300">
+            <div>
+              <h4 class="text-lg font-semibold text-[#1be1ff] mb-3">API Endpoints Monitoring:</h4>
+              <ul class="space-y-1 text-sm">
+                <li>• <code class="text-[#00d7ef]">/api/workers-status</code> - Status wszystkich workerów</li>
+                <li>• <code class="text-[#00d7ef]">/api/generate-image</code> - Generator obrazów Flux</li>
+                <li>• <code class="text-[#00d7ef]">/api/chat</code> - OpenAI Chat API</li>
+                <li>• <code class="text-[#00d7ef]">/api/bigquery</code> - Google BigQuery integration</li>
+                <li>• <code class="text-[#00d7ef]">/api/kaggle</code> - Kaggle datasets API</li>
+                <li>• <code class="text-[#00d7ef]">/api/tavi</code> - Tavily search API</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-[#1be1ff] mb-3">Worker Services:</h4>
+              <ul class="space-y-1 text-sm">
+                <li>• <strong>Image Worker</strong> - Flux-1 Schnell AI image generation</li>
+                <li>• <strong>Chat Worker</strong> - OpenAI GPT conversational AI</li>
+                <li>• <strong>Analytics Worker</strong> - BigQuery data processing</li>
+                <li>• <strong>Search Worker</strong> - Kaggle & Tavily integration</li>
+                <li>• <strong>Status Worker</strong> - System monitoring & health checks</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Navigation -->
+    <section class="border border-edge mt-16">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row justify-between items-center py-8 px-8">
+          <div class="text-left">
+            <div class="text-gray-400 text-sm italic max-w-md">
+              System monitorowania STATUS WORKERS zapewnia pełną kontrolę nad 
+              infrastrukturą Cloudflare Workers i związanymi z nią usługami AI.
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <a
+              href="/ai-workers-manager"
+              class="hover:brightness-125 duration-200 text-[#00d7ef]"
+            >
+              AI Workers Manager →
+            </a>
+            <a
+              href="/api-demo"
+              class="hover:brightness-125 duration-200 text-[#00d7ef]"
+            >
+              API Demo →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<script>
+  // Status Workers specific functions
+  function refreshAllWorkers() {
+    console.log('🔄 Refreshing all workers status...');
+    // Implement refresh logic
+    window.location.reload();
+  }
+
+  function testAllConnections() {
+    console.log('🧪 Testing all connections...');
+    // Implement connection testing
+    alert('Testing all API connections...');
+  }
+
+  function downloadLogs() {
+    console.log('📋 Downloading system logs...');
+    // Implement log download
+    alert('Preparing logs for download...');
+  }
+
+  function generateReport() {
+    console.log('📊 Generating system report...');
+    // Implement report generation
+    alert('Generating comprehensive system report...');
+  }
+
+  // Auto-refresh every 30 seconds
+  setInterval(() => {
+    console.log('Auto-refreshing workers status...');
+    // Implement auto-refresh logic for the dashboard
+  }, 30000);
+</script>
+
+<style>
+  /* Force zero border radius throughout */
+  * {
+    border-radius: 0px !important;
+  }
+
+  /* Custom scrollbar for logs/data sections */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 217, 255, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d7ef;
+  }
+
+  /* Code styling */
+  code {
+    background: rgba(0, 217, 255, 0.1);
+    padding: 2px 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .grid-cols-1.sm\\:grid-cols-2.lg\\:grid-cols-4 {
+      grid-template-columns: 1fr;
+    }
+    
+    .grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+      grid-template-columns: 1fr;
+    }
+    
+    h1 {
+      font-size: 2.5rem !important;
+    }
+    
+    h2 {
+      font-size: 1.8rem !important;
+    }
+  }
+</style>

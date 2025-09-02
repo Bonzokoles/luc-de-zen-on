@@ -1,0 +1,793 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import LeadQualificationForm from "../../components/LeadQualificationForm.svelte";
+---
+
+<MyBonzoLayout siteTitle="Automatyzacja Obsługi Klienta | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                📞 Automatyzacja Obsługi Klienta
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                AI do kwalifikacji leadów i automatycznych odpowiedzi z integracją CRM
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED CUSTOMER SERVICE
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #3
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="customer-automation-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Automatyzacji Obsługi Klienta</h2>
+          <p class="function-description">
+            Zaawansowany system AI do automatyzacji obsługi klientów, kwalifikacji leadów, 
+            automatycznych odpowiedzi oraz integracji z systemami CRM.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🤖</div>
+              <div class="feature-content">
+                <h3>Automatyczne Odpowiedzi</h3>
+                <p>AI generuje personalizowane odpowiedzi na zapytania klientów</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Kwalifikacja Leadów</h3>
+                <p>Inteligentna ocena potencjału klientów i klasyfikacja zapytań</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🔄</div>
+              <div class="feature-content">
+                <h3>Integracja CRM</h3>
+                <p>Bezpośrednia integracja z popularnymi systemami CRM</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📈</div>
+              <div class="feature-content">
+                <h3>Analytics & Raporting</h3>
+                <p>Szczegółowe raporty wydajności i analizy konwersji</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Test Kwalifikacji Leadów</h2>
+            <p class="section-description">
+              Wypróbuj nasz system kwalifikacji leadów z wykorzystaniem AI
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <LeadQualificationForm client:load />
+          </div>
+        </div>
+
+        <!-- Workflow Process -->
+        <div class="workflow-section">
+          <h2 class="workflow-title">⚙️ Proces Automatyzacji</h2>
+          
+          <div class="workflow-steps">
+            <div class="workflow-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h3>Otrzymanie Zapytania</h3>
+                <p>System odbiera zapytanie przez email, czat, formularz lub API</p>
+              </div>
+            </div>
+            
+            <div class="workflow-arrow">→</div>
+            
+            <div class="workflow-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h3>Analiza AI</h3>
+                <p>Sztuczna inteligencja analizuje treść, kontekst i intencję</p>
+              </div>
+            </div>
+            
+            <div class="workflow-arrow">→</div>
+            
+            <div class="workflow-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h3>Kwalifikacja</h3>
+                <p>System ocenia potencjał leada i klasyfikuje priorytet</p>
+              </div>
+            </div>
+            
+            <div class="workflow-arrow">→</div>
+            
+            <div class="workflow-step">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h3>Automatyczna Odpowiedź</h3>
+                <p>Generowanie i wysłanie spersonalizowanej odpowiedzi</p>
+              </div>
+            </div>
+            
+            <div class="workflow-arrow">→</div>
+            
+            <div class="workflow-step">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h3>Integracja CRM</h3>
+                <p>Zapisanie danych i utworzenie zadania w systemie CRM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">🔧 Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🤖 AI Technologies</h3>
+              <ul class="tech-list">
+                <li>OpenAI GPT-4 dla analizy tekstu</li>
+                <li>Natural Language Processing</li>
+                <li>Sentiment Analysis</li>
+                <li>Intent Recognition</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔗 Integracje CRM</h3>
+              <ul class="tech-list">
+                <li>HubSpot CRM</li>
+                <li>Salesforce</li>
+                <li>Pipedrive</li>
+                <li>Custom REST APIs</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📨 Kanały Komunikacji</h3>
+              <ul class="tech-list">
+                <li>Email (SMTP/IMAP)</li>
+                <li>Live Chat Integration</li>
+                <li>Contact Forms</li>
+                <li>WhatsApp Business API</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Analityka</h3>
+              <ul class="tech-list">
+                <li>Response Time Tracking</li>
+                <li>Lead Conversion Rates</li>
+                <li>Customer Satisfaction</li>
+                <li>Performance Metrics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lead Scoring System -->
+        <div class="scoring-section">
+          <h2 class="scoring-title">🎯 System Oceny Leadów</h2>
+          
+          <div class="scoring-grid">
+            <div class="scoring-card hot">
+              <div class="score-indicator">🔥</div>
+              <h3>Hot Lead (80-100%)</h3>
+              <ul>
+                <li>Wysoka intencja zakupu</li>
+                <li>Konkretne zapytanie o produkt</li>
+                <li>Podany budżet/timeline</li>
+                <li>Dane kontaktowe firmowe</li>
+              </ul>
+              <div class="action">Natychmiastowy kontakt sprzedażowy</div>
+            </div>
+            
+            <div class="scoring-card warm">
+              <div class="score-indicator">🟡</div>
+              <h3>Warm Lead (50-79%)</h3>
+              <ul>
+                <li>Zainteresowanie produktem</li>
+                <li>Pytania o specyfikację</li>
+                <li>Prośba o więcej informacji</li>
+                <li>Kompletne dane kontaktowe</li>
+              </ul>
+              <div class="action">Follow-up w ciągu 24h</div>
+            </div>
+            
+            <div class="scoring-card cold">
+              <div class="score-indicator">❄️</div>
+              <h3>Cold Lead (20-49%)</h3>
+              <ul>
+                <li>Ogólne zainteresowanie</li>
+                <li>Pytania informacyjne</li>
+                <li>Newsletter/materiały</li>
+                <li>Podstawowe dane kontaktowe</li>
+              </ul>
+              <div class="action">Email nurturing campaign</div>
+            </div>
+            
+            <div class="scoring-card spam">
+              <div class="score-indicator">🚫</div>
+              <h3>Spam/Low Quality (0-19%)</h3>
+              <ul>
+                <li>Brak konkretnych pytań</li>
+                <li>Niepełne dane kontaktowe</li>
+                <li>Podejrzana treść</li>
+                <li>Automatyczne zapytania</li>
+              </ul>
+              <div class="action">Automatyczne odrzucenie</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Documentation -->
+        <div class="api-docs-section">
+          <h2 class="api-title">🔗 API Documentation</h2>
+          
+          <div class="api-card">
+            <h3>POST /api/qualify-lead</h3>
+            <div class="api-description">
+              Endpoint do kwalifikacji leadów i automatycznego przetwarzania zapytań
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Request:</h4>
+              <pre><code>{
+  "name": "Jan Kowalski",
+  "email": "jan@firma.pl",
+  "phone": "+48123456789",
+  "company": "ABC Sp. z o.o.",
+  "message": "Szukam rozwiązania CRM dla 50 pracowników",
+  "source": "website_form",
+  "utm_campaign": "google_ads_crm"
+}</code></pre>
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Response:</h4>
+              <pre><code>{
+  "leadId": "lead_123",
+  "score": 85,
+  "classification": "hot",
+  "confidence": 0.92,
+  "intent": "purchase_inquiry",
+  "sentiment": "positive",
+  "priority": "high",
+  "nextAction": "immediate_sales_contact",
+  "estimatedValue": 5000,
+  "autoResponse": {
+    "sent": true,
+    "template": "hot_lead_response",
+    "personalizedMessage": "Dziękujemy za zainteresowanie..."
+  },
+  "crmIntegration": {
+    "system": "hubspot",
+    "contactId": "contact_456",
+    "dealId": "deal_789",
+    "status": "created"
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Main Layout Styles */
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Widget Section */
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Workflow Section */
+  .workflow-section {
+    margin-bottom: 3rem;
+  }
+
+  .workflow-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .workflow-steps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .workflow-step {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    text-align: center;
+    min-width: 200px;
+    max-width: 220px;
+    transition: all 0.3s ease;
+  }
+
+  .workflow-step:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .step-number {
+    background: #00d7ef;
+    color: #000;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+  }
+
+  .step-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-content p {
+    color: #94aec4;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .workflow-arrow {
+    color: #1be1ff;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  /* Technical Specs */
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Lead Scoring Section */
+  .scoring-section {
+    margin-bottom: 3rem;
+  }
+
+  .scoring-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .scoring-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .scoring-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .scoring-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .scoring-card.hot {
+    border-color: #ff4444;
+    box-shadow: 0 4px 20px rgba(255, 68, 68, 0.2);
+  }
+
+  .scoring-card.hot:hover {
+    box-shadow: 0 6px 25px rgba(255, 68, 68, 0.3);
+  }
+
+  .scoring-card.warm {
+    border-color: #ffaa00;
+    box-shadow: 0 4px 20px rgba(255, 170, 0, 0.2);
+  }
+
+  .scoring-card.warm:hover {
+    box-shadow: 0 6px 25px rgba(255, 170, 0, 0.3);
+  }
+
+  .scoring-card.cold {
+    border-color: #4488ff;
+    box-shadow: 0 4px 20px rgba(68, 136, 255, 0.2);
+  }
+
+  .scoring-card.cold:hover {
+    box-shadow: 0 6px 25px rgba(68, 136, 255, 0.3);
+  }
+
+  .scoring-card.spam {
+    border-color: #888888;
+    box-shadow: 0 4px 20px rgba(136, 136, 136, 0.2);
+  }
+
+  .scoring-card.spam:hover {
+    box-shadow: 0 6px 25px rgba(136, 136, 136, 0.3);
+  }
+
+  .score-indicator {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .scoring-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .scoring-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .scoring-card ul li {
+    color: #94aec4;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    line-height: 1.3;
+  }
+
+  .scoring-card ul li:before {
+    content: "• ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .action {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+  }
+
+  /* API Documentation */
+  .api-docs-section {
+    margin-bottom: 3rem;
+  }
+
+  .api-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .api-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+  }
+
+  .api-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .api-description {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .api-example {
+    margin-bottom: 2rem;
+  }
+
+  .api-example h4 {
+    color: #1be1ff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .api-example pre {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .api-example code {
+    color: #94aec4;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* Return Section */
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .tech-title,
+    .workflow-title,
+    .scoring-title,
+    .api-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .specs-grid,
+    .scoring-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-steps {
+      flex-direction: column;
+    }
+
+    .workflow-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* Force zero border radius on all elements */
+  * {
+    border-radius: 0px !important;
+  }
+</style>
