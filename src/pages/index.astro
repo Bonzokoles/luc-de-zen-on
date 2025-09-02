@@ -2,6 +2,9 @@
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
 import ChatWidget from "../components/ChatWidget.svelte";
+import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
+import PolaczekWidget from "../components/PolaczekWidget.svelte";
+import MainChatWidget from "../components/MainChatWidget.svelte";
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -548,6 +551,33 @@ import ChatWidget from "../components/ChatWidget.svelte";
       </div>
     </section>
 
+    <!-- Interactive Widgets Section -->
+    <section class="bg-gradient-to-r from-slate-900 to-slate-800 py-16">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-white mb-4">🚀 Interaktywne Narzędzia</h2>
+          <p class="text-gray-300 text-lg">Przetestuj nasze AI Workers bezpośrednio ze strony głównej</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          <!-- Image Generator Widget -->
+          <div class="widget-container">
+            <ImageGeneratorWidget client:load />
+          </div>
+          
+          <!-- POLACZEK Assistant Widget -->
+          <div class="widget-container">
+            <PolaczekWidget client:load />
+          </div>
+          
+          <!-- Main AI Chat Widget -->
+          <div class="widget-container">
+            <MainChatWidget client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer Section -->
     <section class="border border-edge">
       <div class="max-w-6xl mx-auto border-x border-edge">
@@ -804,9 +834,11 @@ import ChatWidget from "../components/ChatWidget.svelte";
 
     // Add quick prompt handlers
     document.querySelectorAll(".quick-prompt").forEach((input) => {
-      input.addEventListener("keypress", function (e: KeyboardEvent) {
-        if (e.key === "Enter") {
-          const type = (this as HTMLInputElement).id.replace("Prompt", "");
+      const inputElement = input as HTMLInputElement;
+      inputElement.addEventListener("keypress", function (e) {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === "Enter") {
+          const type = inputElement.id.replace("Prompt", "");
           const functions: Record<string, () => void> = {
             image: openImageGenerator,
             chat: openChatbot,
@@ -835,3 +867,39 @@ import ChatWidget from "../components/ChatWidget.svelte";
     console.log("All functions assigned to window object");
   });
 </script>
+
+<style>
+  .widget-container {
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+
+  .widget-container:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(148, 163, 184, 0.4);
+  }
+
+  @media (max-width: 1024px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
