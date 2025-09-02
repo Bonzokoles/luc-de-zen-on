@@ -1,0 +1,739 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import TicketSubmissionWidget from "../../components/TicketSubmissionWidget.svelte";
+---
+
+<MyBonzoLayout siteTitle="AI Ticket System | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                🎫 AI Ticket System
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                Inteligentny system zarządzania zgłoszeniami z automatyczną klasyfikacją
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED TICKETS
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #7
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="tickets-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Zarządzania Zgłoszeniami AI</h2>
+          <p class="function-description">
+            Zaawansowany system wykorzystujący sztuczną inteligencję do automatycznej klasyfikacji, 
+            routingu i zarządzania zgłoszeniami z integracją z popularnymi platformami helpdesk.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Inteligentna Klasyfikacja</h3>
+                <p>Automatyczne kategoryzowanie i priorytetyzacja na podstawie analizy treści</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🔄</div>
+              <div class="feature-content">
+                <h3>Smart Routing</h3>
+                <p>Inteligentne przekierowywanie do odpowiednich zespołów i działów</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🔗</div>
+              <div class="feature-content">
+                <h3>Integracje</h3>
+                <p>Bezproblemowa integracja z Jira, Zendesk, ServiceNow</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🤖</div>
+              <div class="feature-content">
+                <h3>AI Responses</h3>
+                <p>Sugestie odpowiedzi generowane przez sztuczną inteligencję</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 System Zgłaszania Ticketów</h2>
+            <p class="section-description">
+              Przetestuj nasz system AI do automatycznego zarządzania zgłoszeniami
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <TicketSubmissionWidget client:load />
+          </div>
+        </div>
+
+        <!-- Priority Classification -->
+        <div class="classification-section">
+          <h2 class="classification-title">⚡ Automatyczna Klasyfikacja Priorytetów</h2>
+          
+          <div class="priority-grid">
+            <div class="priority-card critical">
+              <h3>🚨 KRYTYCZNY</h3>
+              <ul class="priority-list">
+                <li>Awarie systemów</li>
+                <li>Naruszenia bezpieczeństwa</li>
+                <li>Utrata danych</li>
+                <li>Błędy płatności</li>
+              </ul>
+              <div class="sla-time">SLA: 15 minut</div>
+            </div>
+            
+            <div class="priority-card high">
+              <h3>⚡ WYSOKI</h3>
+              <ul class="priority-list">
+                <li>Funkcje nie działają</li>
+                <li>Problemy wydajności</li>
+                <li>Błędy integracji</li>
+                <li>Problemy dostępu</li>
+              </ul>
+              <div class="sla-time">SLA: 2 godziny</div>
+            </div>
+            
+            <div class="priority-card medium">
+              <h3>⚠️ ŚREDNI</h3>
+              <ul class="priority-list">
+                <li>Drobne błędy</li>
+                <li>Nowe funkcje</li>
+                <li>Aktualizacje dokumentacji</li>
+                <li>Ulepszenia UI</li>
+              </ul>
+              <div class="sla-time">SLA: 24 godziny</div>
+            </div>
+            
+            <div class="priority-card low">
+              <h3>📝 NISKI</h3>
+              <ul class="priority-list">
+                <li>Pytania ogólne</li>
+                <li>Pomysły usprawnień</li>
+                <li>Zapytania szkoleniowe</li>
+                <li>Opinie</li>
+              </ul>
+              <div class="sla-time">SLA: 72 godziny</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Features -->
+        <div class="ai-features-section">
+          <h2 class="ai-features-title">🤖 Funkcje AI</h2>
+          
+          <div class="ai-features-grid">
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">💡</div>
+              <h3>Sugestie Odpowiedzi</h3>
+              <p>AI analizuje treść zgłoszenia i proponuje optymalne odpowiedzi na podstawie podobnych przypadków</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">📊</div>
+              <h3>Predykcyjna Analityka</h3>
+              <p>Przewidywanie czasu rozwiązania i identyfikacja zgłoszeń zagrożonych eskalacją</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🔍</div>
+              <h3>Rozpoznawanie Wzorców</h3>
+              <p>Wykrywanie powtarzających się problemów i sugerowanie ulepszeń systemowych</p>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">😊</div>
+              <h3>Analiza Sentymentu</h3>
+              <p>Wykrywanie emocji klienta i dostosowywanie tonu odpowiedzi</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🔧 Technologie</h3>
+              <ul class="tech-list">
+                <li>OpenAI GPT dla analizy treści</li>
+                <li>Cloudflare Workers dla skalowalności</li>
+                <li>Machine Learning Classification</li>
+                <li>Natural Language Processing</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📈 Metryki Wydajności</h3>
+              <ul class="tech-list">
+                <li>Dokładność klasyfikacji: 94.7%</li>
+                <li>Czas odpowiedzi API: &lt;200ms</li>
+                <li>Przepustowość: 10K ticketów/godzinę</li>
+                <li>Dostępność: 99.9% uptime</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔄 Integracje</h3>
+              <ul class="tech-list">
+                <li>Jira (automatyczne tworzenie issues)</li>
+                <li>Zendesk (synchronizacja ticketów)</li>
+                <li>ServiceNow (zarządzanie incydentami)</li>
+                <li>Microsoft Teams (notyfikacje)</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Funkcjonalności</h3>
+              <ul class="tech-list">
+                <li>Automatyczna klasyfikacja</li>
+                <li>Intelligent routing</li>
+                <li>Response suggestions</li>
+                <li>Analytics dashboard</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="use-cases-section">
+          <h2 class="use-cases-title">💡 Przypadki Użycia</h2>
+          
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <div class="use-case-icon">🏢</div>
+              <h3>Enterprise Support</h3>
+              <p>Zarządzanie zgłoszeniami korporacyjnymi z automatyczną eskalacją i SLA tracking</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🛍️</div>
+              <h3>E-commerce</h3>
+              <p>Obsługa zapytań klientów dotyczących zamówień, zwrotów i problemów technicznych</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">💻</div>
+              <h3>IT Helpdesk</h3>
+              <p>Automatyczne kategoryzowanie zgłoszeń IT i przekierowywanie do specjalistów</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🎓</div>
+              <h3>Edukacja</h3>
+              <p>System zgłoszeń dla studentów i kadry z intelligent triage</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integration Guide -->
+        <div class="integration-section">
+          <h2 class="integration-title">🔗 Przewodnik Integracji</h2>
+          
+          <div class="integration-steps">
+            <div class="integration-step">
+              <h3>1. Konfiguracja API</h3>
+              <p>Zainstaluj bibliotekę i skonfiguruj klucze API dla dostępu do funkcji AI</p>
+            </div>
+            
+            <div class="integration-step">
+              <h3>2. Webhook Setup</h3>
+              <p>Skonfiguruj webhooks dla automatycznego powiadamiania o nowych zgłoszeniach</p>
+            </div>
+            
+            <div class="integration-step">
+              <h3>3. Platform Sync</h3>
+              <p>Połącz z istniejącymi systemami (Jira, Zendesk) dla synchronizacji danych</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Main Layout Styles */
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Widget Section */
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Priority Classification */
+  .classification-section {
+    margin-bottom: 3rem;
+  }
+
+  .classification-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .priority-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .priority-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid;
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .priority-card.critical {
+    border-color: rgba(239, 68, 68, 0.5);
+  }
+  
+  .priority-card.high {
+    border-color: rgba(245, 158, 11, 0.5);
+  }
+  
+  .priority-card.medium {
+    border-color: rgba(251, 191, 36, 0.5);
+  }
+  
+  .priority-card.low {
+    border-color: rgba(34, 197, 94, 0.5);
+  }
+
+  .priority-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .priority-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .priority-card.critical h3 { color: #ef4444; }
+  .priority-card.high h3 { color: #f59e0b; }
+  .priority-card.medium h3 { color: #fbbf24; }
+  .priority-card.low h3 { color: #22c55e; }
+
+  .priority-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .priority-list li {
+    color: #94aec4;
+    font-size: 0.9rem;
+    padding: 0.3rem 0;
+  }
+
+  .priority-list li:before {
+    content: "• ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .sla-time {
+    color: #00d7ef;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  /* AI Features */
+  .ai-features-section {
+    margin-bottom: 3rem;
+  }
+
+  .ai-features-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .ai-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ai-feature-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .ai-feature-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .ai-feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Use Cases */
+  .use-cases-section {
+    margin-bottom: 3rem;
+  }
+
+  .use-cases-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .use-case-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .use-case-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Integration */
+  .integration-section {
+    margin-bottom: 3rem;
+  }
+
+  .integration-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .integration-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .integration-step {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .integration-step h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .integration-step p {
+    color: #94aec4;
+    line-height: 1.5;
+  }
+
+  /* Return Section */
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .tech-title,
+    .use-cases-title,
+    .integration-title,
+    .classification-title,
+    .ai-features-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .specs-grid,
+    .use-cases-grid,
+    .priority-grid,
+    .ai-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Force zero border radius on all elements */
+  * {
+    border-radius: 0px !important;
+  }
+</style>

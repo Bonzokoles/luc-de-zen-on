@@ -1,0 +1,827 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import EducationRecommendationsWidget from "../../components/EducationRecommendationsWidget.svelte";
+---
+
+<MyBonzoLayout siteTitle="Rekomendacje Edukacyjne | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                📚 Rekomendacje Edukacyjne
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                System rekomendacji kursów i materiałów edukacyjnych z profilowaniem użytkownika
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED EDUCATION
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #8
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="education-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Rekomendacji Edukacyjnych AI</h2>
+          <p class="function-description">
+            Zaawansowany system wykorzystujący sztuczną inteligencję do personalizacji 
+            ścieżek nauki, rekomendacji kursów i materiałów edukacyjnych dostosowanych do profilu użytkownika.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🧠</div>
+              <div class="feature-content">
+                <h3>Adaptive Learning</h3>
+                <p>System dostosowuje się do stylu nauki i tempa rozwoju każdego użytkownika</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Skill Gap Analysis</h3>
+                <p>Identyfikacja luk w wiedzy i sugerowanie odpowiednich materiałów</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📈</div>
+              <div class="feature-content">
+                <h3>Progress Tracking</h3>
+                <p>Monitorowanie postępów i dostosowywanie rekomendacji w czasie rzeczywistym</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🌐</div>
+              <div class="feature-content">
+                <h3>Multi-platform Integration</h3>
+                <p>Integracja z popularnymi platformami edukacyjnymi i LMS</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Rekomendacje Edukacyjne</h2>
+            <p class="section-description">
+              Otrzymaj spersonalizowane rekomendacje kursów i materiałów edukacyjnych
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <EducationRecommendationsWidget client:load />
+          </div>
+        </div>
+
+        <!-- Learning Pathways -->
+        <div class="pathways-section">
+          <h2 class="pathways-title">🛤️ Ścieżki Nauki</h2>
+          
+          <div class="pathways-grid">
+            <div class="pathway-card beginner">
+              <div class="pathway-icon">🌱</div>
+              <h3>Beginner Path</h3>
+              <p>Ścieżka dla początkujących - podstawowe koncepty i fundamentalne umiejętności</p>
+              <div class="pathway-features">
+                <div class="feature">Interactive tutorials</div>
+                <div class="feature">Step-by-step guidance</div>
+                <div class="feature">Basic projects</div>
+                <div class="feature">Community support</div>
+              </div>
+              <div class="pathway-duration">Czas trwania: 2-3 miesiące</div>
+            </div>
+            
+            <div class="pathway-card intermediate">
+              <div class="pathway-icon">🚀</div>
+              <h3>Intermediate Path</h3>
+              <p>Dla osób z podstawową wiedzą - rozwijanie umiejętności i specjalizacja</p>
+              <div class="pathway-features">
+                <div class="feature">Advanced concepts</div>
+                <div class="feature">Real-world projects</div>
+                <div class="feature">Code reviews</div>
+                <div class="feature">Mentorship access</div>
+              </div>
+              <div class="pathway-duration">Czas trwania: 3-4 miesiące</div>
+            </div>
+            
+            <div class="pathway-card advanced">
+              <div class="pathway-icon">🎓</div>
+              <h3>Advanced Path</h3>
+              <p>Dla ekspertów - najnowsze technologie i advanced topics</p>
+              <div class="pathway-features">
+                <div class="feature">Cutting-edge topics</div>
+                <div class="feature">Research projects</div>
+                <div class="feature">Industry partnerships</div>
+                <div class="feature">Conference access</div>
+              </div>
+              <div class="pathway-duration">Czas trwania: 4-6 miesięcy</div>
+            </div>
+            
+            <div class="pathway-card custom">
+              <div class="pathway-icon">⚙️</div>
+              <h3>Custom Path</h3>
+              <p>Indywidualnie dostosowana ścieżka na podstawie Twoich potrzeb i celów</p>
+              <div class="pathway-features">
+                <div class="feature">Personalized curriculum</div>
+                <div class="feature">Flexible scheduling</div>
+                <div class="feature">Custom projects</div>
+                <div class="feature">1-on-1 coaching</div>
+              </div>
+              <div class="pathway-duration">Czas trwania: Elastyczny</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject Areas -->
+        <div class="subjects-section">
+          <h2 class="subjects-title">📖 Obszary Tematyczne</h2>
+          
+          <div class="subjects-grid">
+            <div class="subject-card programming">
+              <div class="subject-icon">💻</div>
+              <h3>Programowanie</h3>
+              <p>Języki programowania, frameworki, algorytmy</p>
+              <div class="subject-topics">
+                <span class="topic">Python</span>
+                <span class="topic">JavaScript</span>
+                <span class="topic">React</span>
+                <span class="topic">Node.js</span>
+                <span class="topic">Machine Learning</span>
+              </div>
+            </div>
+            
+            <div class="subject-card design">
+              <div class="subject-icon">🎨</div>
+              <h3>Design</h3>
+              <p>UI/UX design, grafika, narzędzia designerskie</p>
+              <div class="subject-topics">
+                <span class="topic">Figma</span>
+                <span class="topic">Adobe Creative</span>
+                <span class="topic">UI/UX Principles</span>
+                <span class="topic">Design Systems</span>
+                <span class="topic">Prototyping</span>
+              </div>
+            </div>
+            
+            <div class="subject-card business">
+              <div class="subject-icon">📊</div>
+              <h3>Business</h3>
+              <p>Zarządzanie, marketing, finanse</p>
+              <div class="subject-topics">
+                <span class="topic">Project Management</span>
+                <span class="topic">Digital Marketing</span>
+                <span class="topic">Analytics</span>
+                <span class="topic">Leadership</span>
+                <span class="topic">Strategy</span>
+              </div>
+            </div>
+            
+            <div class="subject-card data">
+              <div class="subject-icon">📈</div>
+              <h3>Data Science</h3>
+              <p>Analiza danych, AI, machine learning</p>
+              <div class="subject-topics">
+                <span class="topic">Data Analysis</span>
+                <span class="topic">Statistics</span>
+                <span class="topic">Deep Learning</span>
+                <span class="topic">Big Data</span>
+                <span class="topic">Visualization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Recommendation Engine -->
+        <div class="ai-engine-section">
+          <h2 class="ai-engine-title">🤖 Silnik Rekomendacji AI</h2>
+          
+          <div class="ai-engine-grid">
+            <div class="engine-feature">
+              <div class="engine-icon">🧩</div>
+              <h3>Content Analysis</h3>
+              <p>AI analizuje zawartość kursów, trudność i wymagane umiejętności dla każdego materiału</p>
+              <div class="engine-metrics">
+                <span class="metric">98% accuracy</span>
+                <span class="metric">5000+ courses analyzed</span>
+              </div>
+            </div>
+            
+            <div class="engine-feature">
+              <div class="engine-icon">👤</div>
+              <h3>User Profiling</h3>
+              <p>Tworzenie szczegółowych profili użytkowników na podstawie preferencji i postępów</p>
+              <div class="engine-metrics">
+                <span class="metric">50+ data points</span>
+                <span class="metric">Real-time updates</span>
+              </div>
+            </div>
+            
+            <div class="engine-feature">
+              <div class="engine-icon">🎯</div>
+              <h3>Smart Matching</h3>
+              <p>Dopasowywanie kursów do profilu użytkownika z wykorzystaniem zaawansowanych algorytmów</p>
+              <div class="engine-metrics">
+                <span class="metric">92% satisfaction</span>
+                <span class="metric">3.2s response time</span>
+              </div>
+            </div>
+            
+            <div class="engine-feature">
+              <div class="engine-icon">📊</div>
+              <h3>Continuous Learning</h3>
+              <p>System uczy się z każdej interakcji i poprawia swoje rekomendacje</p>
+              <div class="engine-metrics">
+                <span class="metric">Self-improving</span>
+                <span class="metric">ML algorithms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🤖 AI Technologies</h3>
+              <ul class="tech-list">
+                <li>Natural Language Processing</li>
+                <li>Collaborative Filtering</li>
+                <li>Content-based Filtering</li>
+                <li>Deep Learning Networks</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📚 Content Sources</h3>
+              <ul class="tech-list">
+                <li>Coursera, Udemy, edX</li>
+                <li>YouTube Educational</li>
+                <li>Technical Documentation</li>
+                <li>Academic Papers</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔗 Integrations</h3>
+              <ul class="tech-list">
+                <li>LMS Platforms</li>
+                <li>HR Systems</li>
+                <li>Learning Analytics</li>
+                <li>Progress Tracking APIs</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Analytics</h3>
+              <ul class="tech-list">
+                <li>Learning Progress Metrics</li>
+                <li>Skill Development Tracking</li>
+                <li>Engagement Analytics</li>
+                <li>Completion Rates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Documentation -->
+        <div class="api-docs-section">
+          <h2 class="api-title">🔗 API Documentation</h2>
+          
+          <div class="api-card">
+            <h3>GET /api/education-recommendations</h3>
+            <div class="api-description">
+              Endpoint do pobierania spersonalizowanych rekomendacji edukacyjnych
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Request:</h4>
+              <pre><code>{
+  "userId": "user_123",
+  "currentSkills": ["javascript", "html", "css"],
+  "targetSkills": ["react", "node.js"],
+  "learningStyle": "visual",
+  "timeAvailable": "2-3h/week",
+  "difficulty": "intermediate",
+  "goals": ["career-change", "salary-increase"]
+}</code></pre>
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Response:</h4>
+              <pre><code>{
+  "recommendations": [
+    {
+      "courseId": "react_101",
+      "title": "React Fundamentals for Beginners",
+      "provider": "TechEducation",
+      "duration": "6 weeks",
+      "difficulty": "intermediate",
+      "rating": 4.8,
+      "matchScore": 0.94,
+      "reasons": [
+        "Matches your JavaScript background",
+        "Aligns with React learning goal",
+        "Visual learning approach"
+      ],
+      "skillsGained": ["react", "jsx", "components"]
+    }
+  ],
+  "learningPath": {
+    "totalDuration": "3 months",
+    "milestones": [
+      "React Basics (2 weeks)",
+      "State Management (3 weeks)", 
+      "Advanced Patterns (3 weeks)"
+    ]
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .pathways-section,
+  .subjects-section,
+  .ai-engine-section {
+    margin-bottom: 3rem;
+  }
+
+  .pathways-title,
+  .subjects-title,
+  .ai-engine-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .pathways-grid,
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .pathway-card,
+  .subject-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .pathway-card:hover,
+  .subject-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.3);
+  }
+
+  .pathway-card.beginner {
+    border-color: #4CAF50;
+  }
+
+  .pathway-card.intermediate {
+    border-color: #FF9800;
+  }
+
+  .pathway-card.advanced {
+    border-color: #F44336;
+  }
+
+  .pathway-card.custom {
+    border-color: #9C27B0;
+  }
+
+  .subject-card.programming {
+    border-color: #2196F3;
+  }
+
+  .subject-card.design {
+    border-color: #E91E63;
+  }
+
+  .subject-card.business {
+    border-color: #FF5722;
+  }
+
+  .subject-card.data {
+    border-color: #607D8B;
+  }
+
+  .pathway-icon,
+  .subject-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .pathway-card h3,
+  .subject-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .pathway-card p,
+  .subject-card p {
+    color: #94aec4;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .pathway-features {
+    margin-bottom: 1.5rem;
+  }
+
+  .pathway-features .feature {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  .pathway-duration {
+    color: #1be1ff;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .subject-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .topic {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  .ai-engine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .engine-feature {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .engine-feature:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .engine-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .engine-feature h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .engine-feature p {
+    color: #94aec4;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .engine-metrics {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+
+  .engine-metrics .metric {
+    background: rgba(0, 217, 255, 0.1);
+    color: #1be1ff;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .api-docs-section {
+    margin-bottom: 3rem;
+  }
+
+  .api-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .api-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+  }
+
+  .api-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .api-description {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .api-example {
+    margin-bottom: 2rem;
+  }
+
+  .api-example h4 {
+    color: #1be1ff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .api-example pre {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .api-example code {
+    color: #94aec4;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title,
+    .pathways-title,
+    .subjects-title,
+    .ai-engine-title,
+    .tech-title,
+    .api-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid,
+    .pathways-grid,
+    .subjects-grid,
+    .ai-engine-grid,
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  * {
+    border-radius: 0px !important;
+  }
+</style>

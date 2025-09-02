@@ -1,0 +1,754 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import ActivityDashboard from "../../components/ActivityDashboard.svelte";
+---
+
+<MyBonzoLayout siteTitle="Monitorowanie i Raportowanie | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                📊 Monitorowanie i Raportowanie
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                Dashboard z automatycznym generowaniem raportów i alertami o anomaliach
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED MONITORING
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #4
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="activity-monitoring-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Monitorowania i Raportowania AI</h2>
+          <p class="function-description">
+            Zaawansowany system monitorowania aktywności z wykorzystaniem sztucznej inteligencji 
+            do automatycznego generowania raportów, wykrywania anomalii i alertowania.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">📊</div>
+              <div class="feature-content">
+                <h3>Real-time Monitoring</h3>
+                <p>Monitorowanie w czasie rzeczywistym z natychmiastowymi alertami</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🤖</div>
+              <div class="feature-content">
+                <h3>AI Anomaly Detection</h3>
+                <p>Automatyczne wykrywanie anomalii przez sztuczną inteligencję</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📈</div>
+              <div class="feature-content">
+                <h3>Automated Reporting</h3>
+                <p>Generowanie szczegółowych raportów automatycznie</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🔔</div>
+              <div class="feature-content">
+                <h3>Smart Alerts</h3>
+                <p>Inteligentne alerty dostosowane do priorytetów biznesowych</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Dashboard Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Dashboard Monitorowania</h2>
+            <p class="section-description">
+              Przegląd aktywności systemu w czasie rzeczywistym
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <ActivityDashboard client:load />
+          </div>
+        </div>
+
+        <!-- Monitoring Categories -->
+        <div class="categories-section">
+          <h2 class="categories-title">📋 Kategorie Monitorowania</h2>
+          
+          <div class="categories-grid">
+            <div class="category-card performance">
+              <div class="category-icon">⚡</div>
+              <h3>Performance Monitoring</h3>
+              <ul>
+                <li>Response time tracking</li>
+                <li>Throughput measurement</li>
+                <li>Resource utilization</li>
+                <li>Error rate analysis</li>
+              </ul>
+              <div class="category-status">Status: Active</div>
+            </div>
+            
+            <div class="category-card security">
+              <div class="category-icon">🔒</div>
+              <h3>Security Monitoring</h3>
+              <ul>
+                <li>Failed login attempts</li>
+                <li>Unusual access patterns</li>
+                <li>API rate limiting</li>
+                <li>Suspicious activities</li>
+              </ul>
+              <div class="category-status">Status: Active</div>
+            </div>
+            
+            <div class="category-card business">
+              <div class="category-icon">💼</div>
+              <h3>Business Metrics</h3>
+              <ul>
+                <li>User engagement</li>
+                <li>Conversion rates</li>
+                <li>Revenue tracking</li>
+                <li>Customer satisfaction</li>
+              </ul>
+              <div class="category-status">Status: Active</div>
+            </div>
+            
+            <div class="category-card infrastructure">
+              <div class="category-icon">🏗️</div>
+              <h3>Infrastructure</h3>
+              <ul>
+                <li>Server health</li>
+                <li>Database performance</li>
+                <li>Network connectivity</li>
+                <li>Storage capacity</li>
+              </ul>
+              <div class="category-status">Status: Active</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Features -->
+        <div class="ai-features-section">
+          <h2 class="ai-features-title">🤖 Funkcje AI</h2>
+          
+          <div class="ai-features-grid">
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🧠</div>
+              <h3>Predictive Analytics</h3>
+              <p>AI przewiduje potencjalne problemy na podstawie historycznych danych i trendów</p>
+              <div class="ai-feature-metrics">
+                <span class="metric">Accuracy: 94%</span>
+                <span class="metric">Lead Time: 2h</span>
+              </div>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🎯</div>
+              <h3>Smart Prioritization</h3>
+              <p>Automatyczne priorytetyzowanie alertów na podstawie wpływu na biznes</p>
+              <div class="ai-feature-metrics">
+                <span class="metric">Relevance: 89%</span>
+                <span class="metric">False Positives: 3%</span>
+              </div>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">📊</div>
+              <h3>Automated Insights</h3>
+              <p>AI generuje wnioski i rekomendacje na podstawie analizowanych danych</p>
+              <div class="ai-feature-metrics">
+                <span class="metric">Insights/Day: 15</span>
+                <span class="metric">Actionable: 78%</span>
+              </div>
+            </div>
+            
+            <div class="ai-feature-card">
+              <div class="ai-feature-icon">🔄</div>
+              <h3>Auto-Remediation</h3>
+              <p>Automatyczne rozwiązywanie typowych problemów bez ingerencji człowieka</p>
+              <div class="ai-feature-metrics">
+                <span class="metric">Success Rate: 85%</span>
+                <span class="metric">Time Saved: 4h/day</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🔧 Technologies</h3>
+              <ul class="tech-list">
+                <li>Prometheus for metrics collection</li>
+                <li>Grafana for visualization</li>
+                <li>Elasticsearch for log analysis</li>
+                <li>Machine Learning models</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Data Sources</h3>
+              <ul class="tech-list">
+                <li>Application logs</li>
+                <li>System metrics</li>
+                <li>Database performance</li>
+                <li>User activity events</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔔 Alert Channels</h3>
+              <ul class="tech-list">
+                <li>Email notifications</li>
+                <li>Slack integration</li>
+                <li>SMS alerts</li>
+                <li>Webhook callbacks</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📈 Reporting</h3>
+              <ul class="tech-list">
+                <li>Daily summaries</li>
+                <li>Weekly trends</li>
+                <li>Monthly reviews</li>
+                <li>Custom intervals</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Documentation -->
+        <div class="api-docs-section">
+          <h2 class="api-title">🔗 API Documentation</h2>
+          
+          <div class="api-card">
+            <h3>GET /api/activity-monitor</h3>
+            <div class="api-description">
+              Endpoint do pobierania danych monitorowania i metryk systemu
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Request:</h4>
+              <pre><code>{
+  "timeRange": "24h",
+  "metrics": ["performance", "errors", "users"],
+  "granularity": "1h",
+  "filters": {
+    "service": "api-gateway",
+    "environment": "production"
+  }
+}</code></pre>
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Response:</h4>
+              <pre><code>{
+  "timeRange": {
+    "from": "2025-02-08T00:00:00Z",
+    "to": "2025-02-09T00:00:00Z"
+  },
+  "metrics": {
+    "performance": {
+      "avgResponseTime": 245,
+      "p95ResponseTime": 850,
+      "throughput": 1250
+    },
+    "errors": {
+      "totalErrors": 23,
+      "errorRate": 0.018,
+      "criticalErrors": 2
+    },
+    "users": {
+      "activeUsers": 1847,
+      "newUsers": 156,
+      "userSessions": 2134
+    }
+  },
+  "anomalies": [
+    {
+      "type": "performance",
+      "severity": "medium",
+      "description": "Response time increase detected",
+      "timestamp": "2025-02-08T14:30:00Z",
+      "confidence": 0.87
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "performance",
+      "action": "Scale up API instances",
+      "priority": "high",
+      "expectedImpact": "30% response time improvement"
+    }
+  ]
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .categories-section {
+    margin-bottom: 3rem;
+  }
+
+  .categories-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .category-card.performance {
+    border-color: #00ff88;
+    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
+  }
+
+  .category-card.security {
+    border-color: #ff4444;
+    box-shadow: 0 4px 20px rgba(255, 68, 68, 0.1);
+  }
+
+  .category-card.business {
+    border-color: #ffaa00;
+    box-shadow: 0 4px 20px rgba(255, 170, 0, 0.1);
+  }
+
+  .category-card.infrastructure {
+    border-color: #4488ff;
+    box-shadow: 0 4px 20px rgba(68, 136, 255, 0.1);
+  }
+
+  .category-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .category-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .category-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .category-card ul li {
+    color: #94aec4;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+    line-height: 1.3;
+  }
+
+  .category-card ul li:before {
+    content: "• ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .category-status {
+    background: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+  }
+
+  .ai-features-section {
+    margin-bottom: 3rem;
+  }
+
+  .ai-features-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .ai-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ai-feature-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .ai-feature-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .ai-feature-icon {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .ai-feature-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .ai-feature-card p {
+    color: #94aec4;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .ai-feature-metrics {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+  }
+
+  .metric {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  .api-docs-section {
+    margin-bottom: 3rem;
+  }
+
+  .api-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .api-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 2rem;
+  }
+
+  .api-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .api-description {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .api-example {
+    margin-bottom: 2rem;
+  }
+
+  .api-example h4 {
+    color: #1be1ff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .api-example pre {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .api-example code {
+    color: #94aec4;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title,
+    .categories-title,
+    .ai-features-title,
+    .tech-title,
+    .api-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid,
+    .categories-grid,
+    .ai-features-grid,
+    .specs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  * {
+    border-radius: 0px !important;
+  }
+</style>

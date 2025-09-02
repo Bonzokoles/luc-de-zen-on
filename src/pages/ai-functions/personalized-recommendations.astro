@@ -1,0 +1,568 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import RecommendationsWidget from "../../components/RecommendationsWidget.svelte";
+---
+
+<MyBonzoLayout siteTitle="Personalizowane Rekomendacje | AI Functions">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-6">
+          <div class="flex items-center gap-4">
+            <a href="/" class="hover:brightness-125 duration-200">
+              <span class="text-2xl">←</span>
+            </a>
+            <div>
+              <h1 class="text-4xl font-bold text-primary-foreground">
+                🎯 Personalizowane Rekomendacje
+              </h1>
+              <p class="text-xl text-edge mt-2">
+                System rekomendacyjny produktów i usług z analizą preferencji użytkowników
+              </p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-edge block text-sm italic">
+              AI-POWERED RECOMMENDATIONS
+            </span>
+            <span class="text-edge block text-xl font-semibold tracking-[0.2em]">
+              FUNKCJA #2
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="ai-workers-section py-16" id="recommendations-main">
+      <div class="max-w-6xl mx-auto px-6">
+        
+        <!-- Function Overview -->
+        <div class="function-overview-card mb-12">
+          <h2 class="function-title">System Rekomendacyjny AI</h2>
+          <p class="function-description">
+            Zaawansowany system wykorzystujący sztuczną inteligencję do analizy preferencji użytkowników 
+            i generowania spersonalizowanych rekomendacji produktów, usług oraz treści.
+          </p>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-icon">🧠</div>
+              <div class="feature-content">
+                <h3>Analiza Behawioralna</h3>
+                <p>Uczenie się z zachowań użytkownika i historii interakcji</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">📊</div>
+              <div class="feature-content">
+                <h3>Machine Learning</h3>
+                <p>Zaawansowane algorytmy ML do przewidywania preferencji</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">⚡</div>
+              <div class="feature-content">
+                <h3>Real-time</h3>
+                <p>Aktualizacje rekomendacji w czasie rzeczywistym</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon">🎯</div>
+              <div class="feature-content">
+                <h3>Personalizacja</h3>
+                <p>Indywidualnie dostosowane rekomendacje dla każdego użytkownika</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Widget Section -->
+        <div class="widget-section">
+          <div class="section-header">
+            <h2 class="section-title">🚀 Przetestuj System Rekomendacji</h2>
+            <p class="section-description">
+              Wprowadź swoje preferencje i zobacz jak działa nasz system AI
+            </p>
+          </div>
+          
+          <div class="widget-container">
+            <RecommendationsWidget client:load />
+          </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="tech-specs-section">
+          <h2 class="tech-title">⚙️ Specyfikacje Techniczne</h2>
+          
+          <div class="specs-grid">
+            <div class="spec-card">
+              <h3>🔧 Technologie</h3>
+              <ul class="tech-list">
+                <li>OpenAI GPT dla analizy preferencji</li>
+                <li>Cloudflare Workers dla skalowalności</li>
+                <li>Vector Database dla podobieństw</li>
+                <li>Real-time Analytics</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📈 Algorytmy</h3>
+              <ul class="tech-list">
+                <li>Collaborative Filtering</li>
+                <li>Content-Based Filtering</li>
+                <li>Hybrid Recommendation</li>
+                <li>Deep Learning Models</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>🔄 Integracje</h3>
+              <ul class="tech-list">
+                <li>E-commerce Platforms</li>
+                <li>CRM Systems</li>
+                <li>Analytics Tools</li>
+                <li>Social Media APIs</li>
+              </ul>
+            </div>
+            
+            <div class="spec-card">
+              <h3>📊 Metryki</h3>
+              <ul class="tech-list">
+                <li>Click-Through Rate (CTR)</li>
+                <li>Conversion Rate</li>
+                <li>User Engagement</li>
+                <li>Recommendation Accuracy</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="use-cases-section">
+          <h2 class="use-cases-title">💡 Przypadki Użycia</h2>
+          
+          <div class="use-cases-grid">
+            <div class="use-case-card">
+              <div class="use-case-icon">🛍️</div>
+              <h3>E-commerce</h3>
+              <p>Rekomendacje produktów oparte na historii zakupów, przeglądanych kategoriach i podobnych użytkownikach</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">📚</div>
+              <h3>Edukacja</h3>
+              <p>Spersonalizowane ścieżki nauki i rekomendacje kursów dostosowane do poziomu i zainteresowań</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">🎬</div>
+              <h3>Streaming</h3>
+              <p>Sugestie filmów, seriali i treści multimedialnych na podstawie preferencji oglądania</p>
+            </div>
+            
+            <div class="use-case-card">
+              <div class="use-case-icon">📰</div>
+              <h3>Treści</h3>
+              <p>Personalizacja newsów, artykułów i treści w oparciu o zainteresowania i aktywność</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- API Documentation -->
+        <div class="api-docs-section">
+          <h2 class="api-title">🔗 API Documentation</h2>
+          
+          <div class="api-card">
+            <h3>GET /api/get-recommendations</h3>
+            <div class="api-description">
+              Endpoint do pobierania spersonalizowanych rekomendacji dla użytkownika
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Request:</h4>
+              <pre><code>{
+  "userId": "user123",
+  "category": "electronics",
+  "preferences": {
+    "priceRange": "medium",
+    "brand": "premium",
+    "features": ["wireless", "fast"]
+  },
+  "limit": 10
+}</code></pre>
+            </div>
+            
+            <div class="api-example">
+              <h4>Przykład Response:</h4>
+              <pre><code>{
+  "recommendations": [
+    {
+      "id": "prod_123",
+      "title": "Premium Wireless Headphones",
+      "score": 0.95,
+      "reason": "Based on your preference for wireless premium electronics",
+      "category": "electronics",
+      "price": 299.99
+    }
+  ],
+  "metadata": {
+    "algorithm": "hybrid",
+    "confidence": 0.92,
+    "totalItems": 1547
+  }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Return to Main -->
+        <div class="return-section">
+          <a href="/" class="return-btn">
+            ← Powrót do Głównej Strony
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Main Layout Styles */
+  .function-overview-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .function-title {
+    color: #00d7ef;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .function-description {
+    color: #94aec4;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    color: #1be1ff;
+    flex-shrink: 0;
+  }
+
+  .feature-content h3 {
+    color: #00d7ef;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-content p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Widget Section */
+  .widget-section {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .section-description {
+    color: #94aec4;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Technical Specs */
+  .tech-specs-section {
+    margin-bottom: 3rem;
+  }
+
+  .tech-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .spec-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .spec-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .spec-card h3 {
+    color: #00d7ef;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tech-list li {
+    color: #94aec4;
+    font-size: 0.95rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  }
+
+  .tech-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tech-list li:before {
+    content: "▸ ";
+    color: #1be1ff;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+
+  /* Use Cases */
+  .use-cases-section {
+    margin-bottom: 3rem;
+  }
+
+  .use-cases-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .use-case-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .use-case-card:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    transform: translateY(-3px);
+  }
+
+  .use-case-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card h3 {
+    color: #00d7ef;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .use-case-card p {
+    color: #94aec4;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* API Documentation */
+  .api-docs-section {
+    margin-bottom: 3rem;
+  }
+
+  .api-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .api-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    padding: 2rem;
+  }
+
+  .api-card h3 {
+    color: #00d7ef;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .api-description {
+    color: #94aec4;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .api-example {
+    margin-bottom: 2rem;
+  }
+
+  .api-example h4 {
+    color: #1be1ff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .api-example pre {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0px !important;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  .api-example code {
+    color: #94aec4;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  /* Return Section */
+  .return-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: #00d7ef;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px !important;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .return-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .function-title {
+      font-size: 2rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .tech-title,
+    .use-cases-title,
+    .api-title {
+      font-size: 1.5rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .specs-grid,
+    .use-cases-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Force zero border radius on all elements */
+  * {
+    border-radius: 0px !important;
+  }
