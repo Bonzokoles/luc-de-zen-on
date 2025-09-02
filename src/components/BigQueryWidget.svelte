@@ -26,7 +26,7 @@
         },
         body: JSON.stringify({
           query: sqlQuery,
-          dataset: "analytics"
+          dataset: "analytics",
         }),
       });
 
@@ -36,7 +36,7 @@
 
       const result = await response.json();
 
-      if (result.status === 'success') {
+      if (result.status === "success") {
         results = result;
         dispatch("queryExecuted", { results: result });
       } else {
@@ -103,21 +103,31 @@
         {:else if results}
           <div class="results-display">
             <div class="query-info">
-              <strong>Query:</strong> {results.query}
+              <strong>Query:</strong>
+              {results.query}
             </div>
             <div class="metadata">
-              <span>Rows: {results.metadata?.totalRows || results.rowCount}</span>
-              <span>Time: {results.metadata?.executionTime || results.executionTime}</span>
-              <span>Processed: {results.metadata?.bytesProcessed || results.bytesProcessed}</span>
+              <span
+                >Rows: {results.metadata?.totalRows || results.rowCount}</span
+              >
+              <span
+                >Time: {results.metadata?.executionTime ||
+                  results.executionTime}</span
+              >
+              <span
+                >Processed: {results.metadata?.bytesProcessed ||
+                  results.bytesProcessed}</span
+              >
             </div>
             <div class="data-grid">
               {#if results.results?.rows || results.results}
-                {#each (results.results?.rows || results.results) as row}
+                {#each results.results?.rows || results.results as row}
                   <div class="data-row">
-                    {#if typeof row === 'object'}
+                    {#if typeof row === "object"}
                       {#each Object.entries(row) as [key, value]}
                         <div class="data-cell">
-                          <strong>{key}:</strong> {value}
+                          <strong>{key}:</strong>
+                          {value}
                         </div>
                       {/each}
                     {:else}
@@ -133,7 +143,11 @@
         {/if}
 
         <div class="actions">
-          <button on:click={clearResults} class="clear-btn" title="Wyczyść wyniki">
+          <button
+            on:click={clearResults}
+            class="clear-btn"
+            title="Wyczyść wyniki"
+          >
             🗑️
           </button>
         </div>

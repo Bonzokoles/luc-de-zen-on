@@ -3,27 +3,27 @@
   export let onClose;
 
   let chartContainer;
-  let activeTab = 'overview';
+  let activeTab = "overview";
 
   // Prepare chart data
-  $: chartData = workers.map(worker => ({
-    name: worker.name.replace(/\s+/g, '').substring(0, 8), // Shorten names for chart
+  $: chartData = workers.map((worker) => ({
+    name: worker.name.replace(/\s+/g, "").substring(0, 8), // Shorten names for chart
     requests: worker.requests || 0,
     cpu: worker.cpu || 0,
     ram: worker.ram || 0,
     responseMs: worker.responseMs || 0,
-    status: worker.status
+    status: worker.status,
   }));
 
-  $: onlineWorkers = workers.filter(w => w.status === 'online');
-  $: offlineWorkers = workers.filter(w => w.status === 'offline');
-  $: partialWorkers = workers.filter(w => w.status === 'partial');
+  $: onlineWorkers = workers.filter((w) => w.status === "online");
+  $: offlineWorkers = workers.filter((w) => w.status === "offline");
+  $: partialWorkers = workers.filter((w) => w.status === "partial");
 
   // Simple SVG chart calculations
-  $: maxRequests = Math.max(...chartData.map(d => d.requests), 100);
-  $: maxCpu = Math.max(...chartData.map(d => d.cpu), 100);
-  $: maxRam = Math.max(...chartData.map(d => d.ram), 100);
-  $: maxResponse = Math.max(...chartData.map(d => d.responseMs), 200);
+  $: maxRequests = Math.max(...chartData.map((d) => d.requests), 100);
+  $: maxCpu = Math.max(...chartData.map((d) => d.cpu), 100);
+  $: maxRam = Math.max(...chartData.map((d) => d.ram), 100);
+  $: maxResponse = Math.max(...chartData.map((d) => d.responseMs), 200);
 
   function getBarHeight(value, max, chartHeight = 120) {
     return (value / max) * chartHeight;
@@ -31,15 +31,19 @@
 
   function getStatusColor(status) {
     switch (status) {
-      case 'online': return '#10b981'; // green
-      case 'partial': return '#f59e0b'; // yellow
-      case 'offline': return '#ef4444'; // red
-      default: return '#6b7280'; // gray
+      case "online":
+        return "#10b981"; // green
+      case "partial":
+        return "#f59e0b"; // yellow
+      case "offline":
+        return "#ef4444"; // red
+      default:
+        return "#6b7280"; // gray
     }
   }
 
   function handleKeydown(event) {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       onClose();
     }
   }
@@ -64,27 +68,27 @@
 
     <!-- Tab Navigation -->
     <div class="tab-nav">
-      <button 
-        class="tab-btn {activeTab === 'overview' ? 'active' : ''}" 
-        on:click={() => activeTab = 'overview'}
+      <button
+        class="tab-btn {activeTab === 'overview' ? 'active' : ''}"
+        on:click={() => (activeTab = "overview")}
       >
         🏠 PRZEGLĄD
       </button>
-      <button 
-        class="tab-btn {activeTab === 'requests' ? 'active' : ''}" 
-        on:click={() => activeTab = 'requests'}
+      <button
+        class="tab-btn {activeTab === 'requests' ? 'active' : ''}"
+        on:click={() => (activeTab = "requests")}
       >
         📈 ŻĄDANIA
       </button>
-      <button 
-        class="tab-btn {activeTab === 'performance' ? 'active' : ''}" 
-        on:click={() => activeTab = 'performance'}
+      <button
+        class="tab-btn {activeTab === 'performance' ? 'active' : ''}"
+        on:click={() => (activeTab = "performance")}
       >
         🔧 WYDAJNOŚĆ
       </button>
-      <button 
-        class="tab-btn {activeTab === 'response' ? 'active' : ''}" 
-        on:click={() => activeTab = 'response'}
+      <button
+        class="tab-btn {activeTab === 'response' ? 'active' : ''}"
+        on:click={() => (activeTab = "response")}
       >
         ⏱️ CZAS ODPOWIEDZI
       </button>
@@ -92,7 +96,7 @@
 
     <!-- Chart Content -->
     <div class="chart-content">
-      {#if activeTab === 'overview'}
+      {#if activeTab === "overview"}
         <div class="overview-stats">
           <div class="stat-card online">
             <h4>🟢 ONLINE</h4>
@@ -103,7 +107,7 @@
               {/each}
             </div>
           </div>
-          
+
           <div class="stat-card partial">
             <h4>🟡 CZĘŚCIOWO</h4>
             <div class="stat-number">{partialWorkers.length}</div>
@@ -113,7 +117,7 @@
               {/each}
             </div>
           </div>
-          
+
           <div class="stat-card offline">
             <h4>🔴 OFFLINE</h4>
             <div class="stat-number">{offlineWorkers.length}</div>
@@ -124,8 +128,7 @@
             </div>
           </div>
         </div>
-
-      {:else if activeTab === 'requests'}
+      {:else if activeTab === "requests"}
         <div class="chart-section">
           <h4 class="chart-subtitle">📈 Żądania na minutę</h4>
           <div class="bar-chart">
@@ -133,20 +136,30 @@
               {#each chartData as worker, i}
                 <g transform="translate({i * 65 + 40}, 140)">
                   <!-- Bar -->
-                  <rect 
-                    x="0" 
-                    y="{-getBarHeight(worker.requests, maxRequests, 120)}" 
-                    width="50" 
-                    height="{getBarHeight(worker.requests, maxRequests, 120)}" 
-                    fill="{getStatusColor(worker.status)}"
+                  <rect
+                    x="0"
+                    y={-getBarHeight(worker.requests, maxRequests, 120)}
+                    width="50"
+                    height={getBarHeight(worker.requests, maxRequests, 120)}
+                    fill={getStatusColor(worker.status)}
                     opacity="0.8"
                   />
                   <!-- Value label -->
-                  <text x="25" y="-5" text-anchor="middle" class="chart-label-value">
+                  <text
+                    x="25"
+                    y="-5"
+                    text-anchor="middle"
+                    class="chart-label-value"
+                  >
                     {worker.requests}
                   </text>
                   <!-- Name label -->
-                  <text x="25" y="15" text-anchor="middle" class="chart-label-name">
+                  <text
+                    x="25"
+                    y="15"
+                    text-anchor="middle"
+                    class="chart-label-name"
+                  >
                     {worker.name}
                   </text>
                 </g>
@@ -154,8 +167,7 @@
             </svg>
           </div>
         </div>
-
-      {:else if activeTab === 'performance'}
+      {:else if activeTab === "performance"}
         <div class="performance-charts">
           <!-- CPU Chart -->
           <div class="mini-chart">
@@ -163,18 +175,28 @@
             <svg width="100%" height="120" viewBox="0 0 500 120">
               {#each chartData as worker, i}
                 <g transform="translate({i * 55 + 30}, 100)">
-                  <rect 
-                    x="0" 
-                    y="{-getBarHeight(worker.cpu, maxCpu, 80)}" 
-                    width="40" 
-                    height="{getBarHeight(worker.cpu, maxCpu, 80)}" 
+                  <rect
+                    x="0"
+                    y={-getBarHeight(worker.cpu, maxCpu, 80)}
+                    width="40"
+                    height={getBarHeight(worker.cpu, maxCpu, 80)}
                     fill="#f59e0b"
                     opacity="0.7"
                   />
-                  <text x="20" y="-5" text-anchor="middle" class="mini-chart-label">
+                  <text
+                    x="20"
+                    y="-5"
+                    text-anchor="middle"
+                    class="mini-chart-label"
+                  >
                     {worker.cpu}%
                   </text>
-                  <text x="20" y="15" text-anchor="middle" class="mini-chart-name">
+                  <text
+                    x="20"
+                    y="15"
+                    text-anchor="middle"
+                    class="mini-chart-name"
+                  >
                     {worker.name}
                   </text>
                 </g>
@@ -188,18 +210,28 @@
             <svg width="100%" height="120" viewBox="0 0 500 120">
               {#each chartData as worker, i}
                 <g transform="translate({i * 55 + 30}, 100)">
-                  <rect 
-                    x="0" 
-                    y="{-getBarHeight(worker.ram, maxRam, 80)}" 
-                    width="40" 
-                    height="{getBarHeight(worker.ram, maxRam, 80)}" 
+                  <rect
+                    x="0"
+                    y={-getBarHeight(worker.ram, maxRam, 80)}
+                    width="40"
+                    height={getBarHeight(worker.ram, maxRam, 80)}
                     fill="#e91e63"
                     opacity="0.7"
                   />
-                  <text x="20" y="-5" text-anchor="middle" class="mini-chart-label">
+                  <text
+                    x="20"
+                    y="-5"
+                    text-anchor="middle"
+                    class="mini-chart-label"
+                  >
                     {worker.ram}%
                   </text>
-                  <text x="20" y="15" text-anchor="middle" class="mini-chart-name">
+                  <text
+                    x="20"
+                    y="15"
+                    text-anchor="middle"
+                    class="mini-chart-name"
+                  >
                     {worker.name}
                   </text>
                 </g>
@@ -207,26 +239,35 @@
             </svg>
           </div>
         </div>
-
-      {:else if activeTab === 'response'}
+      {:else if activeTab === "response"}
         <div class="chart-section">
           <h4 class="chart-subtitle">⏱️ Czas odpowiedzi (ms)</h4>
           <div class="bar-chart">
             <svg width="100%" height="160" viewBox="0 0 600 160">
               {#each chartData as worker, i}
                 <g transform="translate({i * 65 + 40}, 140)">
-                  <rect 
-                    x="0" 
-                    y="{-getBarHeight(worker.responseMs, maxResponse, 120)}" 
-                    width="50" 
-                    height="{getBarHeight(worker.responseMs, maxResponse, 120)}" 
+                  <rect
+                    x="0"
+                    y={-getBarHeight(worker.responseMs, maxResponse, 120)}
+                    width="50"
+                    height={getBarHeight(worker.responseMs, maxResponse, 120)}
                     fill="#00d7ef"
                     opacity="0.8"
                   />
-                  <text x="25" y="-5" text-anchor="middle" class="chart-label-value">
+                  <text
+                    x="25"
+                    y="-5"
+                    text-anchor="middle"
+                    class="chart-label-value"
+                  >
                     {worker.responseMs}ms
                   </text>
-                  <text x="25" y="15" text-anchor="middle" class="chart-label-name">
+                  <text
+                    x="25"
+                    y="15"
+                    text-anchor="middle"
+                    class="chart-label-name"
+                  >
                     {worker.name}
                   </text>
                 </g>
@@ -239,12 +280,13 @@
 
     <!-- Footer Actions -->
     <div class="chart-footer">
-      <button class="action-btn refresh" on:click={() => window.location.reload()}>
+      <button
+        class="action-btn refresh"
+        on:click={() => window.location.reload()}
+      >
         🔄 ODŚWIEŻ DANE
       </button>
-      <button class="action-btn close" on:click={onClose}>
-        ❌ ZAMKNIJ
-      </button>
+      <button class="action-btn close" on:click={onClose}> ❌ ZAMKNIJ </button>
     </div>
   </div>
 </div>
@@ -502,15 +544,15 @@
       margin: 10px;
       max-width: calc(100vw - 20px);
     }
-    
+
     .tab-nav {
       flex-direction: column;
     }
-    
+
     .performance-charts {
       grid-template-columns: 1fr;
     }
-    
+
     .chart-footer {
       flex-direction: column;
     }

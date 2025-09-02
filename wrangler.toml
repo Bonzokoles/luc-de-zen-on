@@ -10,8 +10,8 @@ id = "77d84c01758a4064be011acc35b2c344"
 binding = "AI"
 
 [vars]
-PUBLIC_FLOWISE_API_URL = "https://your-flowise-instance.com/api/v1/prediction/your-flow-id"
-PUBLIC_ACTIVEPIECES_API_URL = "https://your-activepieces-instance.com/api/v1/flows/your-flow-id/run"
+PUBLIC_FLOWISE_API_URL = "my-secrets"
+PUBLIC_ACTIVEPIECES_API_URL = "my-secrets"
 PUBLIC_SITE_URL = "https://www.mybonzo.com"
 PUBLIC_BIELIK_MODEL = "@hf/speakleash/bielik-7b-instruct-v0.1"
 PUBLIC_DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct"

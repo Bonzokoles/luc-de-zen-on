@@ -1,6 +1,6 @@
 <script>
-  import { onMount } from 'svelte';
-  import WorkersStatusChart from './WorkersStatusChart.svelte';
+  import { onMount } from "svelte";
+  import WorkersStatusChart from "./WorkersStatusChart.svelte";
 
   let workers = [];
   let loading = false;
@@ -10,39 +10,47 @@
   // Status color mapping
   function getStatusColor(status) {
     switch (status) {
-      case 'online': return 'text-green-400';
-      case 'partial': return 'text-yellow-400';
-      case 'offline': return 'text-red-400';
-      default: return 'text-gray-400';
+      case "online":
+        return "text-green-400";
+      case "partial":
+        return "text-yellow-400";
+      case "offline":
+        return "text-red-400";
+      default:
+        return "text-gray-400";
     }
   }
 
   function getStatusDot(status) {
     switch (status) {
-      case 'online': return 'bg-green-400';
-      case 'partial': return 'bg-yellow-400';
-      case 'offline': return 'bg-red-400';
-      default: return 'bg-gray-400';
+      case "online":
+        return "bg-green-400";
+      case "partial":
+        return "bg-yellow-400";
+      case "offline":
+        return "bg-red-400";
+      default:
+        return "bg-gray-400";
     }
   }
 
   async function fetchWorkersStatus() {
     loading = true;
     error = null;
-    
+
     try {
-      console.log('🔄 Fetching workers status...');
-      const response = await fetch('/api/workers-status');
-      
+      console.log("🔄 Fetching workers status...");
+      const response = await fetch("/api/workers-status");
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
       workers = data;
-      console.log('✅ Workers status loaded:', data);
+      console.log("✅ Workers status loaded:", data);
     } catch (err) {
-      console.error('❌ Error fetching workers status:', err);
+      console.error("❌ Error fetching workers status:", err);
       error = err.message;
     } finally {
       loading = false;
@@ -50,17 +58,17 @@
   }
 
   function formatTime(isoString) {
-    if (!isoString) return '-';
-    return new Date(isoString).toLocaleTimeString('pl-PL', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit' 
+    if (!isoString) return "-";
+    return new Date(isoString).toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     });
   }
 
   function getOnlineStats() {
-    if (workers.length === 0) return '0/0';
-    const online = workers.filter(w => w.status === 'online').length;
+    if (workers.length === 0) return "0/0";
+    const online = workers.filter((w) => w.status === "online").length;
     return `${online}/${workers.length}`;
   }
 
@@ -77,12 +85,21 @@
 <div class="workers-status-dashboard">
   <div class="dashboard-header">
     <h2 class="dashboard-title">🔧 STATUS WORKERÓW</h2>
-    <p class="dashboard-description">Zaawansowany monitoring API workerów z metrykami wydajności</p>
-    
+    <p class="dashboard-description">
+      Zaawansowany monitoring API workerów z metrykami wydajności
+    </p>
+
     <!-- Status Summary -->
     <div class="status-summary">
       <div class="status-indicator">
-        <span class="status-dot {workers.filter(w => w.status === 'online').length === workers.length ? 'bg-green-400' : workers.some(w => w.status === 'online') ? 'bg-yellow-400' : 'bg-red-400'}"></span>
+        <span
+          class="status-dot {workers.filter((w) => w.status === 'online')
+            .length === workers.length
+            ? 'bg-green-400'
+            : workers.some((w) => w.status === 'online')
+              ? 'bg-yellow-400'
+              : 'bg-red-400'}"
+        ></span>
         <span class="status-text">
           {#if loading}
             Sprawdzanie...
@@ -97,22 +114,22 @@
 
     <!-- Action Buttons -->
     <div class="action-buttons">
-      <button 
-        class="action-btn primary" 
+      <button
+        class="action-btn primary"
         on:click={fetchWorkersStatus}
         disabled={loading}
       >
-        {loading ? '🔄 SPRAWDZANIE...' : '🔍 HEALTH CHECK'}
+        {loading ? "🔄 SPRAWDZANIE..." : "🔍 HEALTH CHECK"}
       </button>
-      <button 
-        class="action-btn secondary" 
+      <button
+        class="action-btn secondary"
         on:click={toggleChart}
         disabled={workers.length === 0}
       >
         📊 MONITORING
       </button>
-      <button 
-        class="action-btn tertiary" 
+      <button
+        class="action-btn tertiary"
         on:click={fetchWorkersStatus}
         disabled={loading}
       >
@@ -152,21 +169,22 @@
               </td>
               <td class="worker-status">
                 <span class="status-badge {getStatusColor(worker.status)}">
-                  <span class="status-dot-small {getStatusDot(worker.status)}"></span>
+                  <span class="status-dot-small {getStatusDot(worker.status)}"
+                  ></span>
                   {worker.status}
                 </span>
               </td>
               <td class="metric">
-                {worker.cpu !== null ? `${worker.cpu}%` : '-'}
+                {worker.cpu !== null ? `${worker.cpu}%` : "-"}
               </td>
               <td class="metric">
-                {worker.ram !== null ? `${worker.ram}%` : '-'}
+                {worker.ram !== null ? `${worker.ram}%` : "-"}
               </td>
               <td class="metric">
                 {worker.requests || 0}
               </td>
               <td class="metric">
-                {worker.responseMs !== null ? worker.responseMs : '-'}
+                {worker.responseMs !== null ? worker.responseMs : "-"}
               </td>
               <td class="timestamp">
                 {formatTime(worker.lastCheck)}
@@ -184,15 +202,15 @@
 
   <!-- Main Action Buttons -->
   <div class="main-actions">
-    <button 
-      class="main-action-btn check-all" 
+    <button
+      class="main-action-btn check-all"
       on:click={fetchWorkersStatus}
       disabled={loading}
     >
-      {loading ? '🔄 SPRAWDZANIE...' : '🔍 SPRAWDŹ WSZYSTKIE'}
+      {loading ? "🔄 SPRAWDZANIE..." : "🔍 SPRAWDŹ WSZYSTKIE"}
     </button>
-    <button 
-      class="main-action-btn monitor" 
+    <button
+      class="main-action-btn monitor"
       on:click={toggleChart}
       disabled={workers.length === 0}
     >
@@ -202,10 +220,7 @@
 
   <!-- Chart Modal -->
   {#if showChart && workers.length > 0}
-    <WorkersStatusChart 
-      {workers} 
-      onClose={() => showChart = false} 
-    />
+    <WorkersStatusChart {workers} onClose={() => (showChart = false)} />
   {/if}
 </div>
 
@@ -216,7 +231,7 @@
     border-radius: 0px !important;
     padding: 24px;
     color: #00d7ef;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
   }
 
   .dashboard-header {
@@ -440,16 +455,16 @@
     .workers-table {
       font-size: 0.75rem;
     }
-    
+
     .workers-table th,
     .workers-table td {
       padding: 6px 4px;
     }
-    
+
     .action-buttons {
       flex-direction: column;
     }
-    
+
     .action-btn {
       width: 100%;
       justify-content: center;

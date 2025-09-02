@@ -28,7 +28,7 @@
           query: query,
           maxResults: 5,
           includeAnswer: true,
-          includeImages: false
+          includeImages: false,
         }),
       });
 
@@ -38,7 +38,7 @@
 
       const result = await response.json();
 
-      if (result.status === 'success') {
+      if (result.status === "success") {
         results = result;
         dispatch("searchCompleted", { results: result });
       } else {
@@ -109,9 +109,10 @@
         {:else if results}
           <div class="results-display">
             <div class="query-info">
-              <strong>Wyszukiwanie:</strong> {results.query}
+              <strong>Wyszukiwanie:</strong>
+              {results.query}
             </div>
-            
+
             {#if results.answer}
               <div class="ai-answer">
                 <h4>🤖 AI Odpowiedź:</h4>
@@ -122,16 +123,25 @@
             <div class="search-results">
               <h4>📝 Wyniki wyszukiwania:</h4>
               {#each results.results as result}
-                <div class="result-card" on:click={() => openResult(result.url)}>
+                <div
+                  class="result-card"
+                  on:click={() => openResult(result.url)}
+                >
                   <div class="result-header">
                     <h5 class="result-title">{result.title}</h5>
-                    <span class="result-score">Score: {(result.score * 100).toFixed(0)}%</span>
+                    <span class="result-score"
+                      >Score: {(result.score * 100).toFixed(0)}%</span
+                    >
                   </div>
                   <p class="result-content">{result.content}</p>
                   <div class="result-footer">
                     <span class="result-url">{result.url}</span>
                     {#if result.publishedDate}
-                      <span class="result-date">{new Date(result.publishedDate).toLocaleDateString('pl-PL')}</span>
+                      <span class="result-date"
+                        >{new Date(result.publishedDate).toLocaleDateString(
+                          "pl-PL"
+                        )}</span
+                      >
                     {/if}
                   </div>
                 </div>
@@ -148,7 +158,11 @@
         {/if}
 
         <div class="actions">
-          <button on:click={clearResults} class="clear-btn" title="Wyczyść wyniki">
+          <button
+            on:click={clearResults}
+            class="clear-btn"
+            title="Wyczyść wyniki"
+          >
             🗑️
           </button>
         </div>

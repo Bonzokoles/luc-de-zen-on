@@ -19,12 +19,15 @@
     error = null;
 
     try {
-      const response = await fetch(`/api/kaggle?search=${encodeURIComponent(query)}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `/api/kaggle?search=${encodeURIComponent(query)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -32,7 +35,7 @@
 
       const result = await response.json();
 
-      if (result.status === 'success') {
+      if (result.status === "success") {
         datasets = result;
         dispatch("datasetsFound", { datasets: result });
       } else {
@@ -103,16 +106,22 @@
         {:else if datasets}
           <div class="results-display">
             <div class="query-info">
-              <strong>Wyszukiwane:</strong> {datasets.query}
+              <strong>Wyszukiwane:</strong>
+              {datasets.query}
               <span class="mode-badge">Demo Mode</span>
             </div>
             <div class="datasets-grid">
               {#each datasets.data as dataset}
-                <div class="dataset-card" on:click={() => openDataset(dataset.ref)}>
+                <div
+                  class="dataset-card"
+                  on:click={() => openDataset(dataset.ref)}
+                >
                   <div class="dataset-header">
                     <h4 class="dataset-title">{dataset.title}</h4>
                     <div class="dataset-stats">
-                      <span class="stat">⬇️ {dataset.downloadCount.toLocaleString()}</span>
+                      <span class="stat"
+                        >⬇️ {dataset.downloadCount.toLocaleString()}</span
+                      >
                       <span class="stat">👍 {dataset.voteCount}</span>
                       <span class="stat">📦 {dataset.size}</span>
                     </div>
@@ -124,7 +133,9 @@
                     {/each}
                   </div>
                   <div class="dataset-footer">
-                    <span class="updated">Zaktualizowano: {dataset.lastUpdated}</span>
+                    <span class="updated"
+                      >Zaktualizowano: {dataset.lastUpdated}</span
+                    >
                     <span class="ref">{dataset.ref}</span>
                   </div>
                 </div>
@@ -134,7 +145,11 @@
         {/if}
 
         <div class="actions">
-          <button on:click={clearResults} class="clear-btn" title="Wyczyść wyniki">
+          <button
+            on:click={clearResults}
+            class="clear-btn"
+            title="Wyczyść wyniki"
+          >
             🗑️
           </button>
         </div>

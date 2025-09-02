@@ -40,6 +40,12 @@ const WORKFLOWS = [
     platform: 'activepieces',
     name: 'Smart Reminders Notification',
     description: 'Wielokanałowe powiadomienia przypomnień'
+  },
+  {
+    file: 'activepieces_ticket_assignment_workflow.json',
+    platform: 'activepieces',
+    name: 'AI Ticket Assignment System',
+    description: 'Automatyczne przypisywanie zgłoszeń z AI'
   }
 ];
 
@@ -73,9 +79,9 @@ function replaceApiKeyPlaceholders(content) {
 /**
  * Wczytaj i przetworz plik workflow
  */
-async function loadWorkflow(filename) {
+async function loadWorkflow(filename, platform) {
   try {
-    const workflowPath = path.join(process.cwd(), 'workflows', filename);
+    const workflowPath = path.join(process.cwd(), 'src', 'workflows', platform, filename);
     const content = await fs.readFile(workflowPath, 'utf8');
     const processedContent = replaceApiKeyPlaceholders(content);
     return JSON.parse(processedContent);
@@ -188,7 +194,7 @@ async function deployWorkflow(workflowInfo) {
     console.log(`🎯 Platforma: ${workflowInfo.platform}`);
     
     // Wczytaj workflow
-    const workflowData = await loadWorkflow(workflowInfo.file);
+    const workflowData = await loadWorkflow(workflowInfo.file, workflowInfo.platform);
     
     // Wdróż na odpowiednią platformę
     let result;
