@@ -9,43 +9,32 @@
 // Sprawdź czy działamy w środowisku Node.js
 const isNodeEnvironment = typeof process !== 'undefined' && process.env;
 
-// Dynamicznie importuj dotenv tylko w środowisku Node.js
-let dotenv = null;
-if (isNodeEnvironment) {
-  try {
-    dotenv = await import('dotenv');
-    dotenv.config();
-  } catch (error) {
-    console.warn('Nie można załadować dotenv:', error.message);
-  }
-}
-
 // Klucze API dla różnych platform
 export const API_KEYS = {
   // OpenAI dla generowania FAQ i AI funkcji
-  OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
+  OPENAI_API_KEY: isNodeEnvironment ? (process.env.OPENAI_API_KEY || '') : '',
   
   // Flowise dla automatyzacji workflow
-  FLOWISE_API_TOKEN: process.env.FLOWISE_API_TOKEN || '',
+  FLOWISE_API_TOKEN: isNodeEnvironment ? (process.env.FLOWISE_API_TOKEN || '') : '',
   
   // ActivePieces dla powiadomień i automatyzacji
-  ACTIVEPIECES_API_KEY: process.env.ACTIVEPIECES_API_KEY || '',
+  ACTIVEPIECES_API_KEY: isNodeEnvironment ? (process.env.ACTIVEPIECES_API_KEY || '') : '',
   
   // Cloudflare dla Workers i deployment
-  CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN || '',
-  CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID || '',
+  CLOUDFLARE_API_TOKEN: isNodeEnvironment ? (process.env.CLOUDFLARE_API_TOKEN || '') : '',
+  CLOUDFLARE_ACCOUNT_ID: isNodeEnvironment ? (process.env.CLOUDFLARE_ACCOUNT_ID || '') : '',
   
   // Inne integracje
-  GITHUB_TOKEN: process.env.GITHUB_TOKEN || '',
-  WEBHOOK_SECRET: process.env.WEBHOOK_SECRET || '',
+  GITHUB_TOKEN: isNodeEnvironment ? (process.env.GITHUB_TOKEN || '') : '',
+  WEBHOOK_SECRET: isNodeEnvironment ? (process.env.WEBHOOK_SECRET || '') : '',
   
   // Email/SMS dla powiadomień
-  EMAIL_API_KEY: process.env.EMAIL_API_KEY || '',
-  SMS_API_KEY: process.env.SMS_API_KEY || '',
+  EMAIL_API_KEY: isNodeEnvironment ? (process.env.EMAIL_API_KEY || '') : '',
+  SMS_API_KEY: isNodeEnvironment ? (process.env.SMS_API_KEY || '') : '',
   
   // Database i storage
-  DATABASE_URL: process.env.DATABASE_URL || '',
-  STORAGE_API_KEY: process.env.STORAGE_API_KEY || ''
+  DATABASE_URL: isNodeEnvironment ? (process.env.DATABASE_URL || '') : '',
+  STORAGE_API_KEY: isNodeEnvironment ? (process.env.STORAGE_API_KEY || '') : ''
 };
 
 // Sprawdzanie czy wymagane klucze są ustawione
@@ -59,7 +48,7 @@ export function validateRequiredKeys() {
     }
   });
   
-  if (missing.length > 0) {
+  if (missing.length > 0 && isNodeEnvironment) {
     console.warn(`⚠️  Brakuje kluczy API: ${missing.join(', ')}`);
     console.warn('Niektóre funkcje mogą nie działać poprawnie.');
   }
@@ -81,7 +70,8 @@ export const OPENAI_API_KEY = API_KEYS.OPENAI_API_KEY;
 export const ACTIVEPIECES_API_KEY = API_KEYS.ACTIVEPIECES_API_KEY;
 export const FLOWISE_API_TOKEN = API_KEYS.FLOWISE_API_TOKEN;
 
-// Inicjalizacja przy imporcie
-validateRequiredKeys();
-
-console.log('🔑 System zarządzania kluczami API załadowany');
+// Inicjalizacja przy imporcie (tylko w środowisku Node.js)
+if (isNodeEnvironment) {
+  validateRequiredKeys();
+  console.log('🔑 System zarządzania kluczami API załadowany');
+}
