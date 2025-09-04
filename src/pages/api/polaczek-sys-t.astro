@@ -82,22 +82,22 @@ export async function POST({ request, locals }) {
       (command === "analyze" || command === "report")
     ) {
       const aiResponse = await locals.runtime.env.AI.run(
-        "@hf/speakleash/bielik-7b-instruct-v0.1",
+        "@cf/meta/llama-3.1-8b-instruct",
         {
           messages: [
             {
               role: "system",
-              content: `Jesteś POLACZEK_SYS_T - zaawansowanym polskim agentem monitorowania i zarządzania systemami, opartym na modelu Bielik. 
+              content: `You are POLACZEK_SYS_T, an advanced system monitoring and management agent. 
             
-Twoje możliwości obejmują:
-- Monitorowanie systemów w czasie rzeczywistym i analiza
-- Rekomendacje optymalizacji wydajności
-- Automatyczna konserwacja systemów
-- Wykrywanie anomalii i alertowanie
-- Zarządzanie zasobami i planowanie
-- Monitorowanie bezpieczeństwa i ocena
+Your capabilities include:
+- Real-time system monitoring and analysis
+- Performance optimization recommendations
+- Automated system maintenance
+- Anomaly detection and alerting
+- Resource management and planning
+- Security monitoring and assessment
 
-Zawsze odpowiadaj po polsku w sposób techniczny, precyzyjny i praktyczny.`,
+Provide technical, precise, and actionable system analysis.`,
             },
             {
               role: "user",
@@ -149,7 +149,7 @@ export async function GET() {
       agent: "POLACZEK_SYS_T",
       status: "active",
       uptime: "7d 14h 23m",
-      model: "@hf/speakleash/bielik-7b-instruct-v0.1",
+      model: "@cf/meta/llama-3.1-8b-instruct",
       capabilities: [
         "system_monitoring",
         "performance_analysis",

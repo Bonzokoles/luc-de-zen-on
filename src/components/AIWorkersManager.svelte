@@ -43,11 +43,11 @@
           "Content-Type": "application/json",
         },
       });
-
+      
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-
+      
       const data = await response.json();
       workers = data.workers || [];
       console.log("✅ Załadowano workers:", workers.length);

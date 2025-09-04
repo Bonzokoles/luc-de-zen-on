@@ -1,6 +1,32 @@
 /* Import Google Fonts before @tailwind directives */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
+/* Local fonts: Neuropol for headings/uppercase, Kenyan Coffee for body */
+@font-face {
+  font-family: 'Neuropol';
+  src: url('/fonts/Neuropol.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kenyan Coffee';
+  src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bold weight for Kenyan Coffee */
+@font-face {
+  font-family: 'Kenyan Coffee';
+  src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Tailwind directives - official order */
 @import "tailwindcss";
 
@@ -52,13 +78,29 @@
   
   /* Base font configuration */
   html {
-    font-family: 'Rajdhani', system-ui, sans-serif;
+  font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
   }
   
   body {
     @apply bg-black text-white;
     margin: 0;
     padding: 0;
+  }
+
+  /* Headings and prominent uppercase use Neuropol */
+  h1, h2, h3, h4, h5, h6,
+  .section-title,
+  .worker-title,
+  .widget-title,
+  .dashboard-title,
+  .additional-title {
+    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  /* Also prefer Neuropol on generic uppercase utility if present */
+  .uppercase, [class*="uppercase"] {
+    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
   }
 }
 
@@ -70,6 +112,26 @@
       linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
+  }
+
+  /* Subtle circuit-trace overlay: multiple thin 1px lines, slightly blurred, ~80% opacity */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0; /* behind page content which uses z-index > 0 */
+    /* layered, slightly different grid sizes and angles for a 'random' traces feel */
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(15deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(-20deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 120px 120px, 80px 80px, 220px 220px, 160px 160px;
+    mix-blend-mode: screen;
+    opacity: 0.8; /* overall requested transparency */
+    filter: blur(0.6px); /* soften edges so lines are not too sharp */
+    transform: translateZ(0); /* improve rendering on some browsers */
   }
   
   /* Glass effect components */
@@ -96,6 +158,107 @@
   }
 }
 
+/* Subtle circuit-trace overlay (three horizontal bands so traces don't cross) */
+html::before,
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: -1; /* keep behind UI */
+  opacity: 0.9; /* user requested brighter (~80% then +40% -> heavy visibility) */
+  mix-blend-mode: screen;
+  filter: blur(0.6px);
+}
+
+/* Solid white frame & cross lines: left (1) and right (2) verticals; horizontal cuts top, middle and two at bottom.
+   Placed in html::after to avoid colliding with existing band layers. */
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* bring above page background so lines are visible */
+  /* Multiple gradients: three verticals + four horizontals */
+  background-image:
+    /* Left vertical (1px) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Right vertical 1 (1px offset 0) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Right vertical 2 (1px offset 24px) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Top horizontal */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Middle horizontal */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Bottom horizontal 1 */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Bottom horizontal 2 (24px above bottom) */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px);
+
+  background-size:
+    1px 100%, /* left vertical */
+    1px 100%, /* right vertical 1 */
+    1px 100%, /* right vertical 2 */
+    100% 1px, /* top horizontal */
+    100% 1px, /* middle horizontal */
+    100% 1px, /* bottom horizontal 1 */
+    100% 1px; /* bottom horizontal 2 */
+
+  background-position:
+    left 0 top 0,
+    right 0 top 0,
+    right 24px top 0,
+    left 0 top 0,
+    left 0 center,
+    left 0 bottom 0,
+    left 0 calc(100% - 24px);
+
+  opacity: 1; /* full opacity for maximum contrast */
+  mix-blend-mode: normal; /* ensure white stays white on dark backgrounds */
+  filter: none; /* sharp lines */
+}
+
+/* Top band: mostly horizontal and short vertical turns */
+html::before {
+  top: 0;
+  height: 33vh;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 40px);
+  background-size: auto;
+}
+
+/* Middle band: diagonal traces, variable spacing */
+body::before {
+  top: 33vh;
+  height: 34vh;
+  clip-path: polygon(0 33%, 100% 33%, 100% 67%, 0 67%);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(6,182,212,0.2) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(60deg, rgba(6,182,212,0.14) 0 1px, transparent 1px 60px);
+}
+
+/* Bottom band: opposite diagonal / vertical accents */
+body::after {
+  top: 67vh;
+  height: 33vh;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  background-image:
+    repeating-linear-gradient(-45deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 48px);
+}
+
+/* Small responsive tweak so bands scale on short screens */
+@media (max-height: 600px) {
+  html::before { height: 34%; }
+  body::before { top: 34%; height: 33%; }
+  body::after { top: 67%; height: 33%; }
+}
+
 /* Utility classes */
 @layer utilities {
   .writing-vertical {
@@ -119,7 +282,7 @@
 
 .section-title[data-astro-cid-my52qgmw] {
   color: #00d9ff;
-  font-size: 2rem;
+  font-size: 2.8rem; /* increased ~40% from 2rem */
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -132,7 +295,7 @@
   color: #888;
   text-align: center;
   margin-bottom: 2rem;
-  font-size: 1.1rem;
+  font-size: 1.32rem; /* increased ~20% from 1.1rem */
 }
 
 .tags-section[data-astro-cid-my52qgmw] {
@@ -611,4 +774,39 @@
     align-self: stretch;
     text-align: center;
   }
+}
+
+/* Floating left nav (generic utility, if used elsewhere) */
+.floating-nav {
+  position: fixed;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 1000;
+}
+
+.floating-nav-btn {
+  background-color: rgba(23, 26, 35, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 50px;
+  height: 120px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  position: relative;
+  transform-origin: center center;
+}
+
+.floating-nav-btn:hover {
+  transform: scale(1.08);
+  background-color: rgba(30, 34, 46, 0.9);
+  border-color: #00aaff;
 }

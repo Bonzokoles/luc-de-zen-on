@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
 
   let isConnected = false;
   let messages = [];
@@ -9,11 +9,82 @@
   let capabilities = [];
   let isMinimized = true;
 
+  let ws = null;
   let messagesContainer;
-  let sessionId = Math.random().toString(36).substring(2, 15);
+
+  // Dynamic WS target: prefer env, then local dev, then production fallback
+  const DEFAULT_PROD = "wss://luc-de-zen-on.pages.dev/ws/polaczek";
+  let WS_URL = DEFAULT_PROD;
+
+  if (typeof window !== "undefined") {
+    const envUrl =
+      (import.meta.env &&
+        (import.meta.env.PUBLIC_WS_URL ||
+          import.meta.env.PUBLIC_POLACZEK_WS)) ||
+      "";
+    if (envUrl) {
+      WS_URL = envUrl;
+    } else if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      WS_URL = "ws://127.0.0.1:8787/ws/polaczek"; // wrangler dev default
+    } else {
+      const scheme = window.location.protocol === "https:" ? "wss://" : "ws://";
+      WS_URL = `${scheme}${window.location.host}/ws/polaczek`;
+    }
+  }
+
+  onMount(() => {
+    // Expose a small control API for global UI buttons
+    if (typeof window !== "undefined") {
+      window.POLACZEK = window.POLACZEK || {};
+      window.POLACZEK.openAssistant = () => {
+        isMinimized = false;
+        setTimeout(() => scrollToBottom(), 30);
+      };
+      window.POLACZEK.getStatus = () => agentStatus;
+
+      // Listen to quick actions from RightDock
+      try {
+        window.addEventListener("polaczek-clear-chat", clearChat);
+        window.addEventListener("polaczek-reconnect", reconnect);
+      } catch (e) {}
+    }
+
+    connectToWebSocket();
+    return () => {
+      if (ws) {
+        ws.close();
+      }
+    };
+  });
+
+  onDestroy(() => {
+    if (ws) {
+      ws.close();
+    }
+    if (typeof window !== "undefined") {
+      try {
+        window.removeEventListener("polaczek-clear-chat", clearChat);
+        window.removeEventListener("polaczek-reconnect", reconnect);
+      } catch (e) {}
+    }
+  });
 
   $: if (messages.length > 0) {
     setTimeout(() => scrollToBottom(), 50);
+  }
+
+  // Broadcast status changes to external UI (RightDock)
+  $: if (typeof window !== "undefined") {
+    window.POLACZEK = window.POLACZEK || {};
+    window.POLACZEK.status = agentStatus;
+    try {
+      window.dispatchEvent(
+        new CustomEvent("polaczek-status", { detail: { status: agentStatus } })
+      );
+    } catch (e) {}
   }
 
   function scrollToBottom() {
@@ -22,38 +93,68 @@
     }
   }
 
-  onMount(async () => {
-    await checkConnection();
-  });
-
-  async function checkConnection() {
-    agentStatus = "checking";
+  function connectToWebSocket() {
     try {
-      // Prefer Multi-AI Worker health
-      const resp = await fetch(
-        "https://multi-ai-assistant.stolarnia-ams.workers.dev/health",
-        {
-          method: "GET",
-          signal: AbortSignal.timeout(4000),
-        }
-      );
-      if (resp.ok) {
+      ws = new WebSocket(WS_URL);
+
+      ws.onopen = () => {
         isConnected = true;
-        agentStatus = "ready";
-        capabilities = ["chat", "gemma", "qwen", "deepseek"];
-        addMessage("system", "Połączono z POLACZEK (Gemma). Zadaj pytanie.");
-        return;
-      }
-      throw new Error("health failed");
-    } catch (e) {
-      // Local fallback still works
-      isConnected = true; // HTTP nie wymaga stałego połączenia
-      agentStatus = "ready";
-      capabilities = ["chat", "fallback"];
-      addMessage(
-        "system",
-        "Tryb lokalny. POLACZEK dostępny przez /api/polaczek-chat."
-      );
+        agentStatus = "connected";
+        console.log("Connected to POLACZEK_T Agent");
+      };
+
+      ws.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+
+          switch (data.type) {
+            case "welcome":
+              agentStatus = "ready";
+              capabilities = data.capabilities || [];
+              addMessage(
+                "system",
+                `Połączono z ${data.agent_name}. Dostępne funkcje: ${data.capabilities?.join(", ")}`
+              );
+              break;
+
+            case "response":
+              setIsTyping(false);
+              addMessage("agent", data.message);
+              break;
+
+            case "error":
+              setIsTyping(false);
+              addMessage("error", `Błąd: ${data.message}`);
+              break;
+
+            case "status":
+              agentStatus = data.status;
+              break;
+
+            default:
+              addMessage("agent", data.message || "Nieznana odpowiedź");
+          }
+        } catch (error) {
+          console.error("Error parsing WebSocket message:", error);
+          addMessage("error", "Błąd parsowania odpowiedzi");
+        }
+      };
+
+      ws.onerror = (error) => {
+        console.error("WebSocket error:", error);
+        setIsConnected(false);
+        agentStatus = "error";
+        addMessage("error", "Błąd połączenia WebSocket");
+      };
+
+      ws.onclose = () => {
+        setIsConnected(false);
+        agentStatus = "disconnected";
+        addMessage("system", "Połączenie zostało zamknięte");
+      };
+    } catch (error) {
+      console.error("Failed to connect:", error);
+      addMessage("error", "Nie można nawiązać połączenia");
     }
   }
 
@@ -69,37 +170,26 @@
     ];
   }
 
-  async function sendMessage() {
-    if (!inputValue.trim()) return;
+  function sendMessage() {
+    if (!inputValue.trim() || !isConnected) return;
 
     const message = inputValue.trim();
     addMessage("user", message);
-    inputValue = "";
-    isTyping = true;
+    setInputValue("");
+    setIsTyping(true);
 
     try {
-      // Use unified HTTP API with Gemma by default
-      const resp = await fetch("/api/polaczek-chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: message,
-          sessionId,
-          model: "gemma",
-          context: { source: "ai_help_assistant" },
-        }),
-      });
-
-      if (!resp.ok) {
-        throw new Error(`HTTP ${resp.status}`);
-      }
-      const data = await resp.json();
-      addMessage("agent", data?.answer || "(brak odpowiedzi)");
-    } catch (err) {
-      console.error("POLACZEK HTTP error:", err);
-      addMessage("error", "Przepraszam, wystąpił błąd komunikacji.");
-    } finally {
-      isTyping = false;
+      ws.send(
+        JSON.stringify({
+          type: "message",
+          content: message,
+          timestamp: new Date().toISOString(),
+        })
+      );
+    } catch (error) {
+      console.error("Error sending message:", error);
+      addMessage("error", "Błąd wysyłania wiadomości");
+      setIsTyping(false);
     }
   }
 
@@ -107,20 +197,6 @@
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
-    }
-  }
-
-  function getStatusIcon(status) {
-    switch (status) {
-      case "connected":
-      case "ready":
-        return "🟢";
-      case "error":
-        return "🔴";
-      case "disconnected":
-        return "⚪";
-      default:
-        return "🟡";
     }
   }
 
@@ -138,6 +214,20 @@
     }
   }
 
+  function getStatusIcon(status) {
+    switch (status) {
+      case "connected":
+      case "ready":
+        return "🟢";
+      case "error":
+        return "🔴";
+      case "disconnected":
+        return "⚪";
+      default:
+        return "🟡";
+    }
+  }
+
   function toggleMinimized() {
     isMinimized = !isMinimized;
   }
@@ -146,36 +236,33 @@
     messages = [];
   }
 
-  async function reconnect() {
-    await checkConnection();
+  function reconnect() {
+    if (ws) {
+      ws.close();
+    }
+    connectToWebSocket();
   }
 </script>
 
-<div class="fixed bottom-4 right-4 z-50">
+<div class="assistant-container">
   <!-- Minimized View -->
   {#if isMinimized}
     <button
       on:click={toggleMinimized}
-      class="bg-gray-900 hover:bg-gray-800 text-white p-3 shadow-lg transition-all duration-200 flex items-center gap-2 border border-gray-700"
-      style="border-radius: 0;"
+      class="polaczek-launcher"
+      aria-label="Otwórz POLACZEK AI"
     >
-      <span class="text-lg">🤖</span>
-      <span class="hidden sm:inline">AI Asystent</span>
-      <span class={`text-xs ${getStatusColor(agentStatus)}`}>
-        {getStatusIcon(agentStatus)}
-      </span>
+      <span class="icon">🤖</span>
+      <span class="label">POLACZEK AI</span>
+      <span class={`status ${getStatusColor(agentStatus)}`}
+        >{getStatusIcon(agentStatus)}</span
+      >
     </button>
   {:else}
     <!-- Expanded View -->
-    <div
-      class="bg-white shadow-xl border w-80 sm:w-96 h-96 flex flex-col border-gray-700"
-      style="border-radius: 0;"
-    >
+    <div class="assistant-panel">
       <!-- Header -->
-      <div
-        class="bg-gray-900 text-white p-3 flex justify-between items-center border-b border-gray-700"
-        style="border-radius: 0;"
-      >
+      <div class="assistant-header">
         <div class="flex items-center gap-2">
           <span class="text-lg">🤖</span>
           <span class="font-medium">POLACZEK_T Asystent</span>
@@ -195,22 +282,19 @@
       </div>
 
       <!-- Messages -->
-      <div
-        bind:this={messagesContainer}
-        class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50"
-      >
+      <div bind:this={messagesContainer} class="messages">
         {#each messages as message (message.id)}
           <div
             class={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              class={`max-w-xs px-3 py-2 text-sm ${
+              class={`bubble ${
                 message.type === "user"
-                  ? "bg-gray-900 text-white border border-gray-700"
+                  ? "bubble-user"
                   : message.type === "agent"
-                    ? "bg-white text-gray-800 border"
+                    ? "bubble-agent"
                     : message.type === "system"
-                      ? "bg-yellow-100 text-yellow-800 border border-yellow-200"
+                      ? "bubble-system"
                       : "bg-red-100 text-red-800 border border-red-200"
               }`}
             >
@@ -253,7 +337,7 @@
       </div>
 
       <!-- Input -->
-      <div class="p-3 border-t bg-gray-800 border-gray-700">
+      <div class="input-bar">
         <div class="flex gap-2 mb-2">
           <button
             on:click={clearChat}
@@ -276,15 +360,13 @@
             bind:value={inputValue}
             on:keypress={handleKeyPress}
             placeholder="Zadaj pytanie agentowi..."
-            disabled={false}
-            class="flex-1 px-3 py-2 border border-gray-600 bg-gray-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 disabled:bg-gray-600"
-            style="border-radius: 0;"
+            disabled={!isConnected}
+            class="assistant-input"
           />
           <button
             on:click={sendMessage}
-            disabled={!inputValue.trim()}
-            class="bg-gray-900 hover:bg-gray-800 disabled:bg-gray-600 text-white px-3 py-2 text-sm transition-colors border border-gray-700"
-            style="border-radius: 0;"
+            disabled={!isConnected || !inputValue.trim()}
+            class="assistant-send"
           >
             Wyślij
           </button>
@@ -301,6 +383,116 @@
 </div>
 
 <style>
+  .polaczek-launcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: 2px solid #8b0000;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0;
+    cursor: pointer;
+    box-shadow: 0 0 18px rgba(139, 0, 0, 0.35);
+    transition:
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+  .polaczek-launcher:hover {
+    border-color: #00e7ff;
+    box-shadow: 0 0 22px rgba(0, 231, 255, 0.4);
+  }
+  .polaczek-launcher .icon {
+    font-size: 1.1rem;
+  }
+  .polaczek-launcher .label {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .polaczek-launcher .status {
+    font-size: 0.8rem;
+  }
+  .assistant-container {
+    width: 100%;
+  }
+  .assistant-panel {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #8b0000;
+    border-radius: 0;
+    width: 100%;
+    max-width: 980px;
+    height: 26rem;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+  }
+  .assistant-header {
+    background: #111;
+    color: #fff;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #8b0000;
+  }
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.75rem;
+    background: #0b0b0b;
+  }
+  .bubble {
+    max-width: 70%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border: 2px solid #333;
+  }
+  .bubble-user {
+    background: #000;
+    color: #fff;
+    border-color: #8b0000;
+    margin-left: auto;
+  }
+  .bubble-agent {
+    background: #0f0f0f;
+    color: #ddd;
+    border-color: #333;
+  }
+  .bubble-system {
+    background: #332e00;
+    color: #ffd700;
+    border-color: #8b0000;
+  }
+  .input-bar {
+    padding: 0.75rem;
+    background: #111;
+    border-top: 2px solid #8b0000;
+  }
+  .assistant-input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: #1a1a1a;
+    color: #fff;
+    border: 2px solid #333;
+    border-radius: 0;
+    outline: none;
+  }
+  .assistant-input:focus {
+    border-color: #00e7ff;
+    box-shadow: 0 0 10px rgba(0, 231, 255, 0.3);
+  }
+  .assistant-send {
+    background: #000;
+    color: #fff;
+    border: 2px solid #8b0000;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0;
+  }
+  .assistant-send:hover {
+    border-color: #00e7ff;
+    box-shadow: 0 0 10px rgba(0, 231, 255, 0.3);
+  }
   @keyframes bounce {
     0%,
     80%,

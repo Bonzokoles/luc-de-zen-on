@@ -1,93 +1,8 @@
 import type { APIRoute } from 'astro';
+import { getApiKey } from '../../utils/loadEnv.js';
 
-interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  priority: number;
-  createdAt: number;
-  updatedAt: number;
-}
-
-// Simple in-memory storage (in production, use database)
-let faqDatabase: FAQItem[] = [
-  {
-    id: '1',
-    question: 'Jak mogę zacząć korzystać z systemu AI?',
-    answer: 'Aby rozpocząć korzystanie z naszego systemu AI, wystarczy utworzyć konto, skonfigurować klucze API i wybrać odpowiednie modele AI dla swoich potrzeb. System automatycznie poprowadzi Cię przez proces konfiguracji.',
-    category: 'getting-started',
-    priority: 1,
-    createdAt: Date.now() - 86400000,
-    updatedAt: Date.now() - 86400000
-  },
-  {
-    id: '2',
-    question: 'Jakie modele AI są dostępne?',
-    answer: 'Oferujemy integrację z najpopularniejszymi modelami AI: OpenAI GPT-4, Claude, Gemini, oraz lokalne modele przez Ollama. Każdy model ma swoje mocne strony i można je wykorzystać do różnych zadań.',
-    category: 'models',
-    priority: 2,
-    createdAt: Date.now() - 43200000,
-    updatedAt: Date.now() - 43200000
-  },
-  {
-    id: '3',
-    question: 'Czy moje dane są bezpieczne?',
-    answer: 'Bezpieczeństwo danych jest naszym priorytetem. Wszystkie komunikacja jest szyfrowana, klucze API są przechowywane bezpiecznie, a dane nie są udostępniane stronom trzecim. Możesz również hostować system lokalnie.',
-    category: 'security',
-    priority: 1,
-    createdAt: Date.now() - 21600000,
-    updatedAt: Date.now() - 21600000
-  }
-];
-
-export const GET: APIRoute = async ({ url }) => {
-  const params = new URL(url).searchParams;
-  const category = params.get('category');
-  const limit = parseInt(params.get('limit') || '20');
-  
-  try {
-    let filteredFAQ = faqDatabase;
-    
-    if (category) {
-      filteredFAQ = faqDatabase.filter(item => item.category === category);
-    }
-    
-    // Sort by priority and creation date
-    const sortedFAQ = filteredFAQ
-      .sort((a, b) => a.priority - b.priority || b.createdAt - a.createdAt)
-      .slice(0, limit);
-    
-    // Calculate statistics
-    const stats = {
-      total: faqDatabase.length,
-      categories: [...new Set(faqDatabase.map(item => item.category))],
-      lastUpdated: Math.max(...faqDatabase.map(item => item.updatedAt)),
-      averagePriority: faqDatabase.reduce((sum, item) => sum + item.priority, 0) / faqDatabase.length
-    };
-    
-    return new Response(JSON.stringify({
-      success: true,
-      faq: sortedFAQ,
-      stats
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: 'Failed to retrieve FAQ'
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
-};
+// In-memory "database" for demonstration purposes
+const faqDatabase: any[] = [];
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -106,7 +21,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
     
     // Check for OpenAI API key
-    const openaiApiKey = process.env.OPENAI_API_KEY;
+    const openaiApiKey = getApiKey('OPENAI_API_KEY');
     
     if (!openaiApiKey) {
       // Return mock FAQ when no API key is available
@@ -247,6 +162,54 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({
       success: false,
       message: `Failed to generate FAQ: ${error instanceof Error ? error.message : 'Unknown error'}`
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+};
+
+export const GET: APIRoute = async ({ url }) => {
+  const params = new URL(url).searchParams;
+  const category = params.get('category');
+  const limit = parseInt(params.get('limit') || '20');
+  
+  try {
+    let filteredFAQ = faqDatabase;
+    
+    if (category) {
+      filteredFAQ = faqDatabase.filter(item => item.category === category);
+    }
+    
+    // Sort by priority and creation date
+    const sortedFAQ = filteredFAQ
+      .sort((a, b) => a.priority - b.priority || b.createdAt - a.createdAt)
+      .slice(0, limit);
+    
+    // Calculate statistics
+    const stats = {
+      total: faqDatabase.length,
+      categories: [...new Set(faqDatabase.map(item => item.category))],
+      lastUpdated: Math.max(...faqDatabase.map(item => item.updatedAt)),
+      averagePriority: faqDatabase.reduce((sum, item) => sum + item.priority, 0) / faqDatabase.length
+    };
+    
+    return new Response(JSON.stringify({
+      success: true,
+      faq: sortedFAQ,
+      stats
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({
+      success: false,
+      message: 'Failed to retrieve FAQ'
     }), {
       status: 500,
       headers: {

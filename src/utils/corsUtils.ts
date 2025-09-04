@@ -48,9 +48,10 @@ export const addCORSHeaders = (response: Response): Response => {
 /**
  * Create a standardized error response with CORS headers
  */
-export const createErrorResponse = (message: string, status: number = 400) => {
+export const createErrorResponse = (message: string, status: number = 400, extra?: Record<string, any>) => {
+  const body = { error: message, ...(extra ?? {}) };
   return new Response(
-    JSON.stringify({ error: message }),
+    JSON.stringify(body),
     {
       status,
       headers: {

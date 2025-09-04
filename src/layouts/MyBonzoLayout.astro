@@ -15,6 +15,25 @@ const {
 import "../styles/global.css";
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.svelte";
+// Dynamic header (installed package)
+import Header from "@sofidevo/astro-dynamic-header/Header";
+
+// Simple navigation model; adjust as needed
+const menuItems = [
+  { link: "/", text: "Strona główna" },
+  {
+    link: "/#ai-workers",
+    text: "AI Workers",
+    submenu: [
+      { link: "/ai-workers-manager", text: "Manager" },
+      { link: "/agents", text: "Agenci" },
+      { link: "/agent-builder-23", text: "Builder" },
+    ],
+  },
+  { link: "/image-generator", text: "Generator obrazów" },
+  { link: "/quiz", text: "Quiz" },
+  { link: "/admin", text: "Panel" },
+];
 const pageKey = Astro.url.pathname;
 ---
 
@@ -61,14 +80,14 @@ const pageKey = Astro.url.pathname;
       html {
         background: hsl(var(--themeColor), 20%, 8%);
         color: hsl(var(--themeColor), 100%, 92%);
-        font-family: "Rajdhani", system-ui;
+        font-family: "Kenyan Coffee", "Rajdhani", system-ui;
         min-height: 100vh;
       }
 
       body {
         background: hsl(var(--themeColor), 20%, 8%);
         color: hsl(var(--themeColor), 100%, 92%);
-        font-family: "Rajdhani", system-ui;
+        font-family: "Kenyan Coffee", "Rajdhani", system-ui;
         margin: 0;
         padding: 0;
         min-height: 100vh;
@@ -79,7 +98,7 @@ const pageKey = Astro.url.pathname;
       .mybonzo-hero {
         background: linear-gradient(
           135deg,
-          hsl(var(--themeColor), 20%, 8%) 0%,
+          hsl(var(--themeColor), 20%, 10%) 0%,
           hsl(var(--themeColor), 40%, 12%) 100%
         );
         border: 1px solid hsl(var(--themeColor), 30%, 18%);
@@ -125,7 +144,8 @@ const pageKey = Astro.url.pathname;
       }
 
       .cyberpunk-grid {
-        background-image: linear-gradient(
+        background-image:
+          linear-gradient(
             hsl(var(--themeColor), 100%, 50%, 0.1) 1px,
             transparent 1px
           ),
@@ -186,7 +206,7 @@ const pageKey = Astro.url.pathname;
         font-weight: 700;
         text-align: center;
         margin-bottom: 1rem;
-        font-family: "Rajdhani", sans-serif;
+        font-family: "Neuropol", "Rajdhani", system-ui, sans-serif;
         letter-spacing: 0.1em;
       }
 
@@ -196,11 +216,42 @@ const pageKey = Astro.url.pathname;
         margin-bottom: 3rem;
         opacity: 0.8;
       }
+
+      /* Make the dynamic header about half as tall */
+      .compact-header :where(nav, header) {
+        --header-padding-y: 6px;
+        --header-padding-x: 10px;
+      }
+      .compact-header :where(.header-container) {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+      }
+      .compact-header :where(.logo img) {
+        height: 24px !important;
+        width: auto;
+      }
+      .compact-header :where(.menu, .mobile-trigger) {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
     </style>
   </head>
 
   <body>
     <BgAnimation client:load />
+    <div class="compact-header">
+      <Header
+        headerType="floating"
+        logoSrc="/favicon.svg"
+        logoAlt={siteTitle}
+        logoWidth="24px"
+        homeUrl="/"
+        menuItems={menuItems}
+        backgroundColor="#0d0d0dcc"
+        backdropBlur="blur(16px)"
+        zIndex={20}
+      />
+    </div>
     <PageTransition key={pageKey}>
       <main class="min-h-svh cyberpunk-grid">
         <slot />

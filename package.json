@@ -21,6 +21,7 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
     "@astrojs/svelte": "^7.1.0",
+    "@sofidevo/astro-dynamic-header": "^1.0.19",
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.5",
     "babylonjs": "^7.26.1",
@@ -31,8 +32,7 @@
     "svelte": "^5.22.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.1.12",
-    "typescript": "^5.9.2",
-    "dotenv": "^16.4.5"
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250831.0",
