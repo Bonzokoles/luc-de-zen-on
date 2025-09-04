@@ -1,106 +1,69 @@
+import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
-export const GET = async () => {
+export const GET: APIRoute = async () => {
   return createSuccessResponse({
     message: 'Image Generator API is running',
     status: 'active',
     methods: ['GET', 'POST', 'OPTIONS'],
-    description: 'Send POST request with { prompt: "your description" }'
+    description: 'Send POST with { prompt, model?, style?, width?, height?, steps? }'
   });
 };
 
-export const POST = async ({ request }: { request: Request }) => {
-  // Parse the request body once and store it
-  const body = await request.json();
-  const prompt = body.prompt || '';
-  
-  try {    
-    // Try the new image generation worker
-    const imageWorkerUrl = 'https://generate-image.stolarnia-ams.workers.dev';
-    
-    try {
-      const response = await fetch(imageWorkerUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
+export const POST: APIRoute = async ({ request, locals }) => {
+  // Sprawdzenie, czy środowisko Cloudflare jest dostępne
+  const runtime = (locals as any)?.runtime;
+  if (!runtime?.env?.AI) {
+    console.error('Cloudflare environment or AI binding not available');
+    return createErrorResponse('AI service is not configured on the server.', 500);
+  }
 
-      if (response.ok) {
-        const data = await response.json();
-        
-        return new Response(JSON.stringify({
-          success: true,
-          imageUrl: data.imageUrl || data.image,
-          prompt: prompt,
-          width: data.width || 1024,
-          height: data.height || 1024,
-          steps: data.steps || 4,
-          message: 'Obraz wygenerowany przez Cloudflare AI (FLUX-1-schnell)'
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        });
-      }
-    } catch (imageError) {
-      console.log('Image generation worker niedostępny, próbuję fallback...');
+  try {
+    const body = await request.json();
+    const { prompt: rawPrompt, model, style, width, height, steps } = body ?? {};
+
+    if (!rawPrompt || typeof rawPrompt !== 'string' || rawPrompt.trim().length < 3) {
+      return createErrorResponse('A valid prompt is required.', 400);
     }
 
-    // Fallback to agents-backend if available
-    const agentsBackendUrl = 'https://agents-backend.stolarnia-ams.workers.dev/api/generate-image';
-    
-    try {
-      const response = await fetch(agentsBackendUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      });
+    // Łączenie promptu ze stylem, jeśli styl jest podany
+    const prompt = style ? `${rawPrompt}, in a ${style} style` : rawPrompt;
 
-      if (response.ok) {
-        const data = await response.json();
-        
-        return new Response(JSON.stringify({
-          success: true,
-          imageUrl: data.imageUrl || data.r2Key || data.image,
-          prompt: prompt,
-          message: 'Obraz wygenerowany przez agents-backend (fallback)'
-        }), {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-        });
-      }
-    } catch (agentsError) {
-      console.log('agents-backend także niedostępny...');
-    }
+    // Lista dozwolonych modeli
+    const allowedModels = [
+      '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+      '@cf/lykon/dreamshaper-8-lcm',
+      '@cf/black-forest-labs/flux-1-schnell',
+    ];
 
-    throw new Error('Wszystkie workery niedostępne');
+    const selectedModel = model && allowedModels.includes(model)
+      ? model
+      : '@cf/stabilityai/stable-diffusion-xl-base-1.0';
 
-  } catch (error) {
-    console.error('Image Generation API Error:', error);
-    
-    // Return error instead of mock image
-    return new Response(JSON.stringify({ 
-      success: false,
-      error: 'Generatory obrazów są obecnie niedostępne',
-      message: 'Przepraszam, nie mogę obecnie wygenerować obrazu. Spróbuj ponownie za chwilę.',
-      prompt: prompt,
-      details: 'Wszystkie workery generowania obrazów (agents-backend i mybonzo-worker) są niedostępne.'
-    }), {
-      status: 503,
+  const ai = runtime.env.AI;
+
+    const inputs: Record<string, any> = {
+      prompt,
+    };
+
+    if (width) inputs.width = parseInt(String(width), 10);
+    if (height) inputs.height = parseInt(String(height), 10);
+    if (steps) inputs.num_steps = parseInt(String(steps), 10);
+
+    // Wywołanie modelu do generowania obrazów w Cloudflare AI
+    const response = await ai.run(selectedModel, inputs);
+
+    // Odpowiedź z obrazem jest bezpośrednio strumieniem danych binarnych
+    return new Response(response, {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'image/png',
         'Access-Control-Allow-Origin': '*',
       },
     });
+  } catch (error) {
+    console.error('Image generation API error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    return createErrorResponse('Failed to generate image.', 500, { details: errorMessage });
   }
 };
 

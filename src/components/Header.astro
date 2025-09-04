@@ -14,19 +14,25 @@ interface Props {
 const { cosmeticText = "" } = Astro.props;
 ---
 
-<Section class="flex justify-between max-h-72 min-h-64">
+<Section
+  class="flex justify-between items-center h-16 bg-primary/50 backdrop-blur-md"
+>
   <div class="mt-auto">
     <CosmeticText text={cosmeticText} vertical />
   </div>
 
   <span class="mt-auto">
     <CosmeticText
-      text={new Date().toLocaleDateString("en-us", { year: "numeric", month: "short" }).toUpperCase()}
+      text={new Date()
+        .toLocaleDateString("en-us", { year: "numeric", month: "short" })
+        .toUpperCase()}
     />
   </span>
 </Section>
 
-<Section class="flex flex-row p-2">
+<Section
+  class="flex flex-row items-center h-16 bg-primary/50 backdrop-blur-md p-2"
+>
   <a class="hover:brightness-125" href="/"
     ><h1 class="text-4xl sm:text-5xl">{userName}</h1></a
   >
@@ -35,14 +41,17 @@ const { cosmeticText = "" } = Astro.props;
 
   <!-- USER CONTACT -->
   <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
-    <a class="ml-auto hover:brightness-125 duration-200"
-      href={`mailto:${userEmail}`}>{userEmail}<Arrow class="stroke-primary-foreground" rotate={-45} /></a
+    <a
+      class="ml-auto hover:brightness-125 duration-200"
+      href={`mailto:${userEmail}`}
+      >{userEmail}<Arrow class="stroke-primary-foreground" rotate={-45} /></a
     >
     <div class="flex flex-row-reverse flex-wrap gap-4">
       {
         userSocials.map((social) => (
           <a class="hover:brightness-125 duration-200" href={social.link}>
-            {social.title}<Arrow class="stroke-primary-foreground" rotate={-45} />
+            {social.title}
+            <Arrow class="stroke-primary-foreground" rotate={-45} />
           </a>
         ))
       }

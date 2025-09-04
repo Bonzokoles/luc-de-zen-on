@@ -1,142 +1,71 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
-import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 ---
 
-<MyBonzoLayout title="Generator Obrazów | AI Workers">
+<MyBonzoLayout
+  siteTitle="Generator Obrazów | AI Workers"
+  description="Generuj obrazy z tekstu za pomocą Cloudflare AI."
+>
   <main class="min-h-svh">
-    <!-- Header Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
-        <div class="flex justify-between max-h-72 min-h-64">
-          <div class="mt-auto">
-            <span
-              style="writing-mode: vertical-lr;"
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-            >
-              IMAGE_GEN
-            </span>
-          </div>
-          <span class="mt-auto">
-            <span
-              style=""
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-            >
-              FLUX AI
-            </span>
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Navigation Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
-        <div class="flex flex-row p-2">
-          <a class="hover:brightness-125" href="/">
-            <h1 class="text-4xl sm:text-5xl">GENERATOR OBRAZÓW</h1>
-            <h2 class="text-2xl sm:text-3xl">Flux-1 Schnell AI</h2>
-          </a>
-
-          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
-            <a class="ml-auto hover:brightness-125 duration-200" href="/">
-              ← Powrót do strony głównej
-              <svg
-                style="--rotation: -45deg"
-                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Image Generator Section -->
-    <section
-      class="ai-workers-section flex items-center justify-center py-16"
-      id="image-generator"
-    >
+    <section class="ai-workers-section py-10">
       <div class="section-container max-w-4xl mx-auto">
-        <h2 class="section-title">GENERATOR OBRAZÓW AI</h2>
+        <h1 class="section-title">GENERATOR OBRAZÓW AI</h1>
         <p class="section-description">
-          Twórz niesamowite obrazy z tekstu używając najnowszego modelu Flux-1
-          Schnell
+          Podaj opis i wybierz parametry. Otrzymasz PNG bezpośrednio z serwera.
         </p>
 
-        <!-- Main Generator Interface -->
         <div
-          class="generator-container border border-edge rounded-lg p-6 mt-8"
-          style="background: rgba(0, 0, 0, 0.5);"
+          class="border border-edge rounded-lg p-6 mt-6"
+          style="background: rgba(0,0,0,0.5);"
         >
-          <!-- Input Section -->
-          <div class="input-section mb-6">
+          <!-- Prompt -->
+          <div class="mb-5">
             <label
               for="imagePrompt"
-              class="block text-lg font-semibold mb-3 text-primary-foreground"
+              class="block text-lg font-semibold mb-2 text-primary-foreground"
+              >Opis obrazu</label
             >
-              Opisz obraz który chcesz wygenerować:
-            </label>
             <textarea
               id="imagePrompt"
               rows="3"
-              class="w-full p-4 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
-              style="background: rgba(0, 0, 0, 0.5);"
-              placeholder="Np. Piękny krajobraz górski o zachodzie słońca, styl fotograficzny, wysoka jakość, 4K..."
+              class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
+              style="background: rgba(0,0,0,0.5);"
+              placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"
             ></textarea>
           </div>
 
-          <!-- Settings Section -->
-          <div
-            class="settings-section mb-6 grid grid-cols-1 md:grid-cols-3 gap-4"
-          >
+          <!-- Controls -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
             <div>
               <label
                 class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Rozmiar:</label
+                >Model</label
               >
               <select
-                id="imageSize"
+                id="imageModel"
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0, 0, 0, 0.5);"
+                style="background: rgba(0,0,0,0.5);"
               >
-                <option value="512x512">512×512 (kwadrat)</option>
-                <option value="768x512">768×512 (poziomo)</option>
-                <option value="512x768">512×768 (pionowo)</option>
-                <option value="1024x1024">1024×1024 (duży kwadrat)</option>
+                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
+                  >Stable Diffusion XL</option
+                >
+                <option value="@cf/lykon/dreamshaper-8-lcm"
+                  >DreamShaper 8 LCM</option
+                >
+                <option value="@cf/black-forest-labs/flux-1-schnell"
+                  >Flux-1 Schnell</option
+                >
               </select>
             </div>
             <div>
               <label
                 class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Jakość:</label
-              >
-              <select
-                id="imageQuality"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0, 0, 0, 0.5);"
-              >
-                <option value="standard">Standard</option>
-                <option value="high">Wysoka</option>
-                <option value="ultra">Ultra</option>
-              </select>
-            </div>
-            <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Styl:</label
+                >Styl</label
               >
               <select
                 id="imageStyle"
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0, 0, 0, 0.5);"
+                style="background: rgba(0,0,0,0.5);"
               >
                 <option value="photographic">Fotograficzny</option>
                 <option value="artistic">Artystyczny</option>
@@ -145,161 +74,115 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
                 <option value="abstract">Abstrakcyjny</option>
               </select>
             </div>
-          </div>
-
-          <!-- Generate Button -->
-          <div class="generate-section mb-6">
-            <button
-              id="generateBtn"
-              class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-4 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-              onclick="generateImage()"
-            >
-              🎨 Generuj Obraz
-            </button>
-          </div>
-
-          <!-- Progress Section -->
-          <div id="progressSection" class="progress-section hidden mb-6">
-            <div
-              class="border border-edge rounded-lg p-4"
-              style="background: rgba(0, 0, 0, 0.5);"
-            >
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-primary-foreground"
-                  >Generowanie obrazu...</span
-                >
-                <span id="progressPercent" class="text-cyan-400">0%</span>
-              </div>
-              <div class="w-full bg-gray-700 rounded-full h-2">
-                <div
-                  id="progressBar"
-                  class="bg-cyan-400 h-2 rounded-full transition-all duration-300"
-                  style="width: 0%"
-                >
-                </div>
-              </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Rozmiar</label
+              >
+              <select
+                id="imageSize"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0,0,0,0.5);"
+              >
+                <option value="512x512">512×512 (kwadrat)</option>
+                <option value="768x512">768×512 (poziomo)</option>
+                <option value="512x768">512×768 (pionowo)</option>
+                <option value="1024x1024">1024×1024 (duży)</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Kroki</label
+              >
+              <select
+                id="imageSteps"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0,0,0,0.5);"
+              >
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="35">35</option>
+                <option value="50">50</option>
+              </select>
             </div>
           </div>
 
-          <!-- Result Section -->
-          <div id="resultSection" class="result-section hidden">
-            <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
-              Wygenerowany obraz:
+          <!-- Action -->
+          <div class="mb-5">
+            <button
+              id="generateBtn"
+              class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              onclick="generateImage()">🎨 Generuj Obraz</button
+            >
+          </div>
+
+          <!-- Loading -->
+          <div id="loading" class="text-center py-3 hidden">
+            <div
+              class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"
+            >
+            </div>
+            <p class="mt-2 text-muted-foreground">Generowanie obrazu...</p>
+          </div>
+
+          <!-- Error -->
+          <div
+            id="errorBox"
+            class="mt-3 p-3 bg-red-900/50 border border-red-600 rounded hidden text-red-200"
+          >
+          </div>
+
+          <!-- Result -->
+          <div id="resultSection" class="hidden mt-5">
+            <h3 class="text-xl font-semibold mb-3 text-primary-foreground">
+              Wygenerowany obraz
             </h3>
             <div
-              class="border border-edge rounded-lg p-4"
-              style="background: rgba(0, 0, 0, 0.5);"
+              class="border border-edge rounded-lg p-3"
+              style="background: rgba(0,0,0,0.5);"
             >
               <img
                 id="generatedImage"
-                class="w-full rounded-lg mb-4"
+                class="w-full rounded mb-3"
                 alt="Wygenerowany obraz"
               />
               <div class="flex gap-2 flex-wrap">
                 <button
                   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="downloadImage()"
+                  onclick="downloadImage()">💾 Pobierz</button
                 >
-                  💾 Pobierz
-                </button>
                 <button
                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="shareImage()"
+                  onclick="shareImage()">📤 Udostępnij</button
                 >
-                  📤 Udostępnij
-                </button>
                 <button
                   class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="generateVariation()"
+                  onclick="generateVariation()">🔄 Wariacja</button
                 >
-                  🔄 Wariacja
-                </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Quick Prompts Section -->
-        <div class="quick-prompts-section mt-8">
-          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
-            Szybkie propozycje:
-          </h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Piękny krajobraz górski o zachodzie słońca, styl fotograficzny')"
-            >
-              🏔️ Krajobraz
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Futurystyczne miasto cyberpunk w nocy, neonowe światła')"
-            >
-              🌃 Cyberpunk
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Uroczy kot siedzący na książkach, styl akwareli')"
-            >
-              🐱 Zwierzęta
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Abstrakcyjna sztuka kolorowa, geometryczne kształty')"
-            >
-              🎨 Abstrakcja
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Vintage samochód na pustej drodze, złota godzina')"
-            >
-              🚗 Vintage
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Kosmiczna scena z planetami i gwiazdami, realistyczny styl')"
-            >
-              🌌 Kosmos
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Magiczny las z świetlikami, fantasy art')"
-            >
-              🧚 Fantasy
-            </button>
-            <button
-              class="quick-prompt-btn"
-              onclick="setPrompt('Minimalistyczny design logo, nowoczesny styl')"
-            >
-              ⚡ Logo
-            </button>
-          </div>
-        </div>
-
-        <!-- History Section -->
-        <div class="history-section mt-8">
-          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
-            Historia generacji:
+        <!-- History -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold mb-3 text-primary-foreground">
+            Historia
           </h3>
           <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- History items will be populated here -->
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <!-- AI Help Assistant Integration -->
-  <AiHelpAssistant client:load />
 </MyBonzoLayout>
 
 <style>
-  /* Base styles matching main page */
   .section-container {
     padding: 2rem;
     text-align: center;
   }
-
   .section-title {
     font-size: 3rem;
     font-weight: bold;
@@ -307,226 +190,244 @@ import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
     margin-bottom: 1rem;
     text-transform: uppercase;
   }
-
   .section-description {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: #d1d5db;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
   }
-
+  .ai-workers-section {
+    min-height: 100vh;
+  }
   .quick-prompt-btn {
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid #374151;
     color: #d1d5db;
-    padding: 0.75rem 1rem;
-    rounded: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
     font-size: 0.875rem;
     transition: all 0.2s;
     cursor: pointer;
   }
-
   .quick-prompt-btn:hover {
     background-color: #374151;
     border-color: #00bcd4;
     color: #00bcd4;
   }
-
-  .ai-workers-section {
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0.5) 100%
-    );
-    min-height: 100vh;
-  }
-
-  /* Scrollbar styling */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #1e293b;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #374151;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #4b5563;
-  }
 </style>
 
 <script>
-  let generationHistory = JSON.parse(
-    localStorage.getItem("imageHistory") || "[]"
-  );
+  // @ts-nocheck
+  // Frontend for binary PNG API with loading/error/history (no template literals)
+  var generationHistory = [];
+  try {
+    generationHistory = JSON.parse(
+      localStorage.getItem("imageHistory") || "[]"
+    );
+  } catch (e) {
+    generationHistory = [];
+  }
 
-  function setPrompt(prompt) {
-    document.getElementById("imagePrompt").value = prompt;
+  function parseSize(size) {
+    var parts = String(size || "").split("x");
+    var w = parseInt(parts[0], 10);
+    var h = parseInt(parts[1], 10);
+    if (isNaN(w) || isNaN(h)) {
+      w = 512;
+      h = 512;
+    }
+    return { width: w, height: h };
+  }
+
+  function setPrompt(p) {
+    var el = document.getElementById("imagePrompt");
+    if (el) el.value = p;
+  }
+
+  function blobToDataUrl(blob) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onloadend = function () {
+        resolve(String(r.result || ""));
+      };
+      r.onerror = reject;
+      r.readAsDataURL(blob);
+    });
   }
 
   async function generateImage() {
-    const prompt = document.getElementById("imagePrompt").value.trim();
+    var promptEl = document.getElementById("imagePrompt");
+    var modelEl = document.getElementById("imageModel");
+    var styleEl = document.getElementById("imageStyle");
+    var sizeEl = document.getElementById("imageSize");
+    var stepsEl = document.getElementById("imageSteps");
+    var loading = document.getElementById("loading");
+    var errorBox = document.getElementById("errorBox");
+    var btn = document.getElementById("generateBtn");
+    var result = document.getElementById("resultSection");
+
+    var prompt = promptEl ? String(promptEl.value).trim() : "";
     if (!prompt) {
       alert("Proszę wprowadzić opis obrazu");
       return;
     }
 
-    const generateBtn = document.getElementById("generateBtn");
-    const progressSection = document.getElementById("progressSection");
-    const resultSection = document.getElementById("resultSection");
-
-    // Start generation
-    generateBtn.disabled = true;
-    generateBtn.textContent = "Generowanie...";
-    progressSection.classList.remove("hidden");
-    resultSection.classList.add("hidden");
-
-    // Simulate progress
-    let progress = 0;
-    const progressInterval = setInterval(() => {
-      progress += Math.random() * 15;
-      if (progress > 90) progress = 90;
-
-      document.getElementById("progressBar").style.width = progress + "%";
-      document.getElementById("progressPercent").textContent =
-        Math.round(progress) + "%";
-    }, 500);
+    if (errorBox) {
+      errorBox.classList.add("hidden");
+      errorBox.textContent = "";
+    }
+    if (result) result.classList.add("hidden");
+    if (loading) loading.classList.remove("hidden");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Generowanie...";
+    }
 
     try {
-      const size = document.getElementById("imageSize").value;
-      const quality = document.getElementById("imageQuality").value;
-      const style = document.getElementById("imageStyle").value;
+      var model = modelEl ? String(modelEl.value) : "";
+      var style = styleEl ? String(styleEl.value) : "";
+      var steps = stepsEl ? parseInt(String(stepsEl.value), 10) : undefined;
+      var size = sizeEl ? String(sizeEl.value) : "512x512";
+      var dims = parseSize(size);
 
-      const response = await fetch("/api/generate-image", {
+      var res = await fetch("/api/generate-image", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          prompt,
-          size,
-          quality,
-          style,
+          prompt: prompt,
+          model: model,
+          style: style,
+          width: dims.width,
+          height: dims.height,
+          steps: steps,
         }),
       });
 
-      const data = await response.json();
+      if (!res.ok) {
+        var errMsg = "Błąd generacji obrazu";
+        try {
+          var j = await res.json();
+          if (j && j.error) errMsg = j.error;
+        } catch (e) {}
+        throw new Error(errMsg);
+      }
 
-      // Complete progress
-      clearInterval(progressInterval);
-      document.getElementById("progressBar").style.width = "100%";
-      document.getElementById("progressPercent").textContent = "100%";
+      var blob = await res.blob();
+      var objUrl = URL.createObjectURL(blob);
 
-      if (data.success && data.imageUrl) {
-        // Show result
-        document.getElementById("generatedImage").src = data.imageUrl;
-        resultSection.classList.remove("hidden");
+      var img = document.getElementById("generatedImage");
+      if (img) img.src = objUrl;
+      if (result) result.classList.remove("hidden");
 
-        // Add to history
-        const historyItem = {
+      // Persist history as data URL to survive reloads
+      try {
+        var dataUrl = await blobToDataUrl(blob);
+        var item = {
           id: Date.now(),
-          prompt,
-          imageUrl: data.imageUrl,
-          timestamp: new Date().toISOString(),
-          settings: { size, quality, style },
+          prompt: prompt,
+          imageUrl: dataUrl,
+          ts: new Date().toISOString(),
+          settings: {
+            model: model,
+            style: style,
+            width: dims.width,
+            height: dims.height,
+            steps: steps,
+          },
         };
-
-        generationHistory.unshift(historyItem);
-        if (generationHistory.length > 20) {
+        generationHistory.unshift(item);
+        if (generationHistory.length > 20)
           generationHistory = generationHistory.slice(0, 20);
-        }
-
         localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
         updateHistoryDisplay();
-      } else {
-        throw new Error(data.error || "Błąd generacji obrazu");
+      } catch (e) {}
+    } catch (err) {
+      console.error("Generation error:", err);
+      if (errorBox) {
+        errorBox.textContent = err && err.message ? err.message : String(err);
+        errorBox.classList.remove("hidden");
       }
-    } catch (error) {
-      console.error("Generation error:", error);
-      alert("Błąd podczas generowania obrazu: " + error.message);
     } finally {
-      // Reset UI
-      generateBtn.disabled = false;
-      generateBtn.textContent = "🎨 Generuj Obraz";
-      setTimeout(() => {
-        progressSection.classList.add("hidden");
-      }, 1000);
+      if (loading) loading.classList.add("hidden");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "🎨 Generuj Obraz";
+      }
     }
   }
 
   function downloadImage() {
-    const img = document.getElementById("generatedImage");
-    const link = document.createElement("a");
+    var img = document.getElementById("generatedImage");
+    if (!img || !img.src) return;
+    var link = document.createElement("a");
     link.download = "generated_image.png";
     link.href = img.src;
     link.click();
   }
 
   function shareImage() {
-    const img = document.getElementById("generatedImage");
+    var img = document.getElementById("generatedImage");
+    if (!img || !img.src) return;
     if (navigator.share) {
-      navigator.share({
-        title: "Wygenerowany obraz AI",
-        files: [
-          new File([img.src], "generated_image.png", { type: "image/png" }),
-        ],
-      });
-    } else {
+      navigator
+        .share({ title: "Wygenerowany obraz AI", url: img.src })
+        .catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(img.src);
       alert("Link do obrazu skopiowany do schowka!");
     }
   }
 
   function generateVariation() {
-    const currentPrompt = document.getElementById("imagePrompt").value;
-    const variations = [
+    var promptEl = document.getElementById("imagePrompt");
+    var currentPrompt = promptEl ? String(promptEl.value) : "";
+    var v = [
       ", w innym stylu",
       ", z innymi kolorami",
       ", z innej perspektywy",
       ", w wersji artystycznej",
       ", z dodatkowymi detalami",
     ];
-
-    const randomVariation =
-      variations[Math.floor(Math.random() * variations.length)];
-    document.getElementById("imagePrompt").value =
-      currentPrompt + randomVariation;
+    var add = v[Math.floor(Math.random() * v.length)];
+    if (promptEl) promptEl.value = currentPrompt + add;
     generateImage();
   }
 
-  function updateHistoryDisplay() {
-    const historyGrid = document.getElementById("historyGrid");
-    historyGrid.innerHTML = "";
-
-    generationHistory.slice(0, 8).forEach((item) => {
-      const historyItem = document.createElement("div");
-      historyItem.className =
-        "history-item border border-edge rounded-lg p-2 cursor-pointer hover:border-cyan-400 transition-colors";
-      historyItem.style.background = "rgba(0, 0, 0, 0.5)";
-      historyItem.innerHTML = `
-        <img src="${item.imageUrl}" alt="Historia" class="w-full aspect-square object-cover rounded mb-2" />
-        <p class="text-xs text-gray-400 truncate">${item.prompt}</p>
-      `;
-      historyItem.onclick = () => {
-        document.getElementById("imagePrompt").value = item.prompt;
-        document.getElementById("generatedImage").src = item.imageUrl;
-        document.getElementById("resultSection").classList.remove("hidden");
-      };
-      historyGrid.appendChild(historyItem);
-    });
+  function createHistoryCard(item) {
+    var wrap = document.createElement("div");
+    wrap.className =
+      "history-item border border-edge rounded-lg p-2 cursor-pointer hover:border-cyan-400 transition-colors";
+    wrap.style.background = "rgba(0,0,0,0.5)";
+    var image = document.createElement("img");
+    image.src = item.imageUrl;
+    image.alt = "Historia";
+    image.className = "w-full aspect-square object-cover rounded mb-2";
+    wrap.appendChild(image);
+    var p = document.createElement("p");
+    p.className = "text-xs text-gray-400 truncate";
+    p.textContent = item.prompt;
+    wrap.appendChild(p);
+    wrap.onclick = function () {
+      var el = document.getElementById("imagePrompt");
+      if (el) el.value = item.prompt;
+      var img = document.getElementById("generatedImage");
+      if (img) img.src = item.imageUrl;
+      var res = document.getElementById("resultSection");
+      if (res) res.classList.remove("hidden");
+    };
+    return wrap;
   }
 
-  // Initialize history display
-  document.addEventListener("DOMContentLoaded", () => {
-    updateHistoryDisplay();
-
-    // Load quick prompt if available
-    const quickPrompt = localStorage.getItem("quickPrompt");
-    if (quickPrompt) {
-      document.getElementById("imagePrompt").value = quickPrompt;
-      localStorage.removeItem("quickPrompt");
+  function updateHistoryDisplay() {
+    var grid = document.getElementById("historyGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    var items = generationHistory.slice(0, 8);
+    for (var i = 0; i < items.length; i++) {
+      grid.appendChild(createHistoryCard(items[i]));
     }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    updateHistoryDisplay();
   });
 </script>

@@ -31,8 +31,6 @@ declare global {
     openKaggle: () => void;
     openTavily: () => void;
     testButtonFunction: (buttonType: string) => boolean;
-  checkDashboardLogin: () => void;
-  openFunction: (functionName: string) => void;
   }
 }
 

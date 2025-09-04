@@ -1,0 +1,117 @@
+<section
+  id="quick-image-generator"
+  class="py-20 my-10"
+>
+  <div class="max-w-6xl mx-auto border-x border-gray-800 bg-black/50 backdrop-blur-sm">
+    <div class="container mx-auto text-center px-8">
+    <!-- top highlight line -->
+    <div
+      class="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mb-6"
+    >
+    </div>
+    <h2 class="text-4xl font-bold mb-4 text-white/85">
+      Szybki Generator Obrazów
+    </h2>
+    <p class="text-lg mb-8 max-w-2xl mx-auto text-gray-300">
+      Masz pomysł na obraz? Wpisz go poniżej i zobacz, co stworzy nasza AI.
+    </p>
+
+    <form
+      id="quick-generator-form"
+      class="max-w-xl mx-auto flex flex-col sm:flex-row gap-4"
+    >
+      <input
+        type="text"
+        id="quick-prompt"
+        name="prompt"
+        placeholder="np. 'Cyberpunkowe miasto w deszczu'"
+        class="w-full px-4 py-3 bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-accent focus:outline-none text-white placeholder-gray-500 transition-all duration-300"
+        minlength="5"
+        required
+      />
+      <button type="submit" class="mybonzo-btn text-sm px-4 py-2">
+        Generuj
+      </button>
+    </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var form = document.getElementById("quick-generator-form");
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var promptInput = document.getElementById("quick-prompt");
+      var value = "";
+      if (promptInput && promptInput instanceof HTMLInputElement) {
+        value = String(promptInput.value || "");
+      }
+      if (value.trim().length >= 5) {
+        window.location.href =
+          "/ai-image-generator.html?prompt=" + encodeURIComponent(value);
+      } else {
+        if (promptInput && promptInput.focus) promptInput.focus();
+        alert("Prompt musi mieć co najmniej 5 znaków.");
+      }
+    });
+  })();
+</script>
+
+<style>
+  /* Tone down heading glow to almost none */
+  #quick-image-generator h2 {
+    text-shadow: none;
+  }
+
+  /* Container with closed sides and black transparent background - no gradients */
+  #quick-image-generator .max-w-6xl {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Make the button gloss and transparency match the top banner */
+  #quick-image-generator .mybonzo-btn {
+    /* sharp corners, much glossier */
+    border-radius: 0;
+    background-color: rgba(13, 13, 13, 0.86);
+    color: hsl(var(--themeColor), 100%, 92%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    /* stronger gloss */
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0.05)
+      ),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 3px 14px rgba(0, 0, 0, 0.35);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  #quick-image-generator .mybonzo-btn:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 8px 22px rgba(0, 0, 0, 0.45);
+    background-color: rgba(13, 13, 13, 0.9);
+  }
+
+  #quick-image-generator .mybonzo-btn:active {
+    transform: translateY(0);
+  }
+</style>

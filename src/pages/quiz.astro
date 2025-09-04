@@ -1,0 +1,22 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import InteractiveQuizWidget from "../components/InteractiveQuizWidget.svelte";
+---
+
+<MyBonzoLayout
+  siteTitle="Interaktywny Quiz"
+  description="Quiz generowany przez AI"
+>
+  <section
+    class="section-container"
+    style="padding-top: 2rem; padding-bottom: 2rem;"
+  >
+    <h1 class="section-title">INTERAKTYWNY QUIZ</h1>
+    <p class="section-description">
+      Sprawdź swoją wiedzę – pytania generowane przez AI.
+    </p>
+    <div style="max-width: 980px; margin: 0 auto;">
+      <InteractiveQuizWidget client:load />
+    </div>
+  </section>
+</MyBonzoLayout>

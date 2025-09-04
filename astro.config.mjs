@@ -5,11 +5,10 @@ import svelte from "@astrojs/svelte";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
-import { siteUrl } from "./src/data/site.json";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // Required for Cloudflare adapter with API routes     
+  output: 'server', // Server for Workers deployment
   vite: {
     plugins: [tailwindcss()],
   },
@@ -18,9 +17,8 @@ export default defineConfig({
     platformProxy: {
       enabled: true,
     },
-    // Remove session config to avoid experimental flag requirement        
   }),
-  site: siteUrl,
+  site: "https://www.mybonzo.com",
   redirects: {
     "/posts": "/", // redirect from /posts because that page doesn't exist.
   },

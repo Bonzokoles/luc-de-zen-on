@@ -1,6 +1,6 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
-import RandomQuote from "../../Bielik/DO_WSTAWIENIA/RandomQuote.astro";
+import RandomQuote from "../components/RandomQuote.astro";
 import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
 import PolaczekWidget from "../components/PolaczekWidget.svelte";
 import MainChatWidget from "../components/MainChatWidget.svelte";
@@ -9,20 +9,26 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
+import QuickImageGenerator from "../components/QuickImageGenerator.astro";
+import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import DecorativeLines from "../components/DecorativeLines.astro";
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
+  <DecorativeLines />
   <main class="min-h-svh">
     <!-- Header Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
+    <section>
+      <div class="max-w-6xl mx-auto">
         <div class="flex justify-between max-h-72 min-h-64">
           <!-- Left corner - O_MNIE content -->
           <div class="mt-auto max-w-xs">
             <div class="text-edge text-sm italic px-2">
-              Tworzę nowoczesne rozwiązania, które łączą sztuczną inteligencję z
-              automatyzacją, aby użytkownicy mogli korzystać z mocy AI w prosty
-              i intuicyjny sposób.
+              Pasjonat technologii i programista z misją. Tworzę nowoczesne
+              rozwiązania, które łączą sztuczną inteligencję z automatyzacją,
+              aby użytkownicy mogli korzystać z mocy AI w prosty i intuicyjny
+              sposób. Moim celem jest budowanie narzędzi, które realnie
+              usprawniają pracę i otwierają nowe możliwości.
             </div>
           </div>
           <span class="mt-auto">
@@ -39,8 +45,8 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
     </section>
 
     <!-- Navigation Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
+    <section>
+      <div class="max-w-6xl mx-auto">
         <div class="flex flex-row p-2">
           <a class="hover:brightness-125" href="/">
             <h1 class="text-4xl sm:text-5xl">KAROL LISSON</h1>
@@ -113,23 +119,19 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
     <section
       class="ai-workers-section flex items-center justify-center py-16"
       id="ai-workers"
-      data-astro-cid-my52qgmw
     >
-      <div class="section-container" data-astro-cid-my52qgmw>
-        <h2 class="system-title" data-astro-cid-my52qgmw>
-          SYSTEM ZAAWANSOWANEJ AUTOMATYZACJI AI
-        </h2>
-        <p class="section-description" data-astro-cid-my52qgmw>
-          Kompleksowe rozwiązania automatyzacji z wykorzystaniem sztucznej
-          inteligencji
+      <div class="section-container">
+        <h2 class="system-title">SYSTEM ZAAWANSOWANEJ AUTOMATYZACJI AI</h2>
+        <p class="section-description">
+          Platforma integruje wyspecjalizowane Workery AI, działające w chmurze
+          Cloudflare, aby dostarczać kompleksowe rozwiązania automatyzacji z
+          wykorzystaniem sztucznej inteligencji.
         </p>
 
+        <QuickImageGenerator />
+
         <!-- Dashboard Buttons Section (only buttons after login) -->
-        <div
-          class="dashboard-buttons-section hidden"
-          id="dashboardButtons"
-          data-astro-cid-my52qgmw
-        >
+        <div class="dashboard-buttons-section hidden" id="dashboardButtons">
           <a
             href="/dashboard/klienci"
             class="dashboard-btn"
@@ -640,79 +642,44 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       </div>
     </section>
 
-    <!-- Interactive Widgets Section -->
-    <section
-      class="ai-workers-section flex items-center justify-center py-16"
-      id="interactive-tools"
-      data-astro-cid-my52qgmw
-    >
-      <div class="section-container" data-astro-cid-my52qgmw>
-        <div class="text-center mb-12">
-          <h2 class="section-title" data-astro-cid-my52qgmw>
-            🚀 Interaktywne Narzędzia
-          </h2>
-          <p class="section-description" data-astro-cid-my52qgmw>
-            Przetestuj nasze AI Workers bezpośrednio ze strony głównej
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          <!-- Image Generator Widget -->
-          <div class="widget-container">
-            <ImageGeneratorWidget client:load />
-          </div>
-
-          <!-- POLACZEK Assistant Widget -->
-          <div class="widget-container">
-            <PolaczekWidget client:load />
-          </div>
-
-          <!-- Main AI Chat Widget -->
-          <div class="widget-container">
-            <MainChatWidget client:load />
-          </div>
+    <!-- Right Floating Panel - Fixed Right Side -->
+    <div class="right-panel-fixed">
+      <div class="floating-widget-container">
+        <button
+          onclick="toggleMusicPlayer()"
+          class="right-btn"
+          id="musicPlayerBtn"
+        >
+          🎵 MUSIC PLAYER
+        </button>
+        <div id="musicPlayerWidget" class="floating-widget hidden">
+          <BackgroundMusicPlayerSimple client:load />
         </div>
       </div>
-    </section>
 
-    <!-- NEW AI FUNCTIONS Section -->
-    <section
-      class="ai-workers-section flex items-center justify-center py-16"
-      id="new-ai-functions"
-      data-astro-cid-my52qgmw
-    >
-      <div class="section-container" data-astro-cid-my52qgmw>
-        <div class="text-center mb-12">
-          <h2 class="section-title" data-astro-cid-my52qgmw>
-            🤖 Nowe Funkcje AI
-          </h2>
-          <p class="section-description" data-astro-cid-my52qgmw>
-            Zaawansowane narzędzia AI gotowe do użycia
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-          <!-- FAQ Generator Widget -->
-          <div class="widget-container">
-            <FAQGeneratorWidget client:load />
-          </div>
-
-          <!-- Education Recommendations Widget -->
-          <div class="widget-container">
-            <EducationRecommendationsWidget client:load />
-          </div>
-
-          <!-- Ticket Submission Widget -->
-          <div class="widget-container">
-            <TicketSubmissionWidget client:load />
-          </div>
+      <div class="floating-widget-container">
+        <button
+          onclick="togglePolaczekAssistant()"
+          class="right-btn"
+          id="polaczekBtn"
+          title="AI Assistant do wyjaśniania funkcji na stronie"
+        >
+          🤖 AI ASSISTANT
+        </button>
+        <div id="polaczekWidget" class="floating-widget hidden">
+          <AiHelpAssistant client:load />
         </div>
       </div>
-    </section>
+
+      <button onclick="openMainChat()" class="right-btn"> 💬 MAIN CHAT </button>
+      <button onclick="openRefresh()" class="right-btn"> 🔄 REFRESH </button>
+      <button onclick="openFolder()" class="right-btn"> 📁 FOLDER </button>
+      <button onclick="openClose()" class="right-btn"> ❌ CLOSE </button>
+    </div>
 
     <!-- Footer Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
+    <section>
+      <div class="max-w-6xl mx-auto">
         <div class="flex flex-row justify-between items-center py-16 px-8">
           <!-- Left corner - O_MNIE content -->
           <div class="max-w-xs text-left">
@@ -754,9 +721,6 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
         </div>
       </div>
     </section>
-
-    <!-- AI Help Assistant -->
-    <AiHelpAssistant client:load />
 
     <!-- Panel Administracyjny with Login - Fixed Left Side -->
     <div class="admin-panel-fixed">
@@ -1097,11 +1061,80 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       window.openKaggle = openKaggle;
       window.openTavily = openTavily;
       window.testButtonFunction = testButtonFunction;
-      window.checkDashboardLogin = checkDashboardLogin;
-      window.openFunction = openFunction;
+      (window as any).checkDashboardLogin = checkDashboardLogin;
+      (window as any).openFunction = openFunction;
+      (window as any).toggleMusicPlayer = toggleMusicPlayer;
+      (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
+      (window as any).openMainChat = openMainChat;
+      (window as any).openRefresh = openRefresh;
+      (window as any).openFolder = openFolder;
+      (window as any).openClose = openClose;
 
       console.log("All functions assigned to window object");
     });
+
+    // New Toggle Functions with Button Scaling
+    function toggleMusicPlayer() {
+      console.log("🎵 Toggling Music Player");
+      const btn = document.getElementById("musicPlayerBtn");
+      const widget = document.getElementById("musicPlayerWidget");
+
+      if (btn && widget) {
+        // Button scaling effect
+        btn.style.transform = "scale(1.1) translateY(-2px)";
+        setTimeout(() => {
+          btn.style.transform = "";
+        }, 200);
+
+        // Toggle widget visibility
+        widget.classList.toggle("hidden");
+        console.log("Music Player widget toggled");
+      }
+    }
+
+    function togglePolaczekAssistant() {
+      console.log("🤖 Toggling AI Assistant");
+      const btn = document.getElementById("polaczekBtn");
+      const widget = document.getElementById("polaczekWidget");
+
+      if (btn && widget) {
+        // Button scaling effect
+        btn.style.transform = "scale(1.1) translateY(-2px)";
+        setTimeout(() => {
+          btn.style.transform = "";
+        }, 200);
+
+        // Toggle widget visibility
+        widget.classList.toggle("hidden");
+        console.log("AI Assistant widget toggled");
+      }
+    }
+
+    function openMainChat() {
+      console.log("💬 Opening Main Chat");
+      window.open("/chatbot", "_blank");
+    }
+
+    function openRefresh() {
+      console.log("🔄 Refreshing page");
+      window.location.reload();
+    }
+
+    function openFolder() {
+      console.log("📁 Opening folder");
+      alert(
+        "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
+      );
+    }
+
+    function openClose() {
+      console.log("❌ Closing tab");
+      try {
+        window.close();
+      } catch (e) {
+        alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
+      }
+    }
   </script>
 
   <style>
@@ -1208,7 +1241,7 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       border-radius: 0px;
       box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
       padding: 34px 24px 24px 24px;
-      margin: 14px;
+      margin: 0; /* grid gap controls spacing now */
       text-align: left;
       min-width: 270px;
       transition: all 0.3s ease;
@@ -1241,16 +1274,54 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       display: block;
     }
 
-    /* Admin panel - fixed left side */
+    /* Admin panel - fixed left side - moved to bottom */
     .admin-panel-fixed {
       position: fixed;
-      top: 50%;
+      bottom: 20px;
       left: 20px;
-      transform: translateY(-50%);
       z-index: 100;
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+
+    /* Right panel - fixed right side - bottom */
+    .right-panel-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .right-btn {
+      background: rgba(0, 0, 0, 0.5);
+      color: #00d7ef;
+      padding: 12px 24px;
+      border-radius: 0px;
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 1px solid rgba(0, 217, 255, 0.4);
+      transition: all 0.2s ease;
+      display: block;
+      text-align: center;
+      min-width: 220px;
+      cursor: pointer;
+    }
+
+    .right-btn:hover {
+      background: #00d7ef;
+      color: #131e28;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+    }
+
+    .right-btn:active {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
     }
 
     .admin-btn {
@@ -1266,7 +1337,7 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       transition: all 0.2s ease;
       display: block;
       text-align: center;
-      min-width: 180px;
+      min-width: 220px;
     }
 
     .admin-btn:hover {
@@ -1354,13 +1425,118 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
     /* Force 0px border radius on specific elements */
     .additional-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
+      /* Force 3 columns on wide screens so the section is exactly 3x3 for 9 items */
+      grid-template-columns: repeat(3, 1fr);
+      /* tighter gap between items without changing tile internals */
+      gap: 0.75rem; /* ~12px */
       margin-top: 2rem;
+      /* match width of top sections (approx Tailwind max-w-6xl = 72rem = 1152px) */
+      max-width: 72rem; /* 1152px */
+      width: 100%;
+      padding: 0 1rem; /* keep small horizontal padding on narrow screens */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Responsive fallbacks: 2 columns on medium, 1 column on small */
+    @media (max-width: 1024px) {
+      .additional-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .additional-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .hidden {
       display: none !important;
+    }
+
+    /* Left-style buttons - same style as admin panel buttons */
+    .left-style-btn {
+      background: rgba(0, 0, 0, 0.5);
+      color: #00d7ef;
+      padding: 12px 24px;
+      border-radius: 0px;
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 1px solid rgba(0, 217, 255, 0.4);
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-align: center;
+      min-width: 180px;
+      cursor: pointer;
+    }
+
+    .left-style-btn:hover {
+      background: #00d7ef;
+      color: #131e28;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+    }
+
+    .left-style-btn:active {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
+    }
+
+    .left-style-buttons-section {
+      border-top: 1px solid rgba(0, 217, 255, 0.3);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+    }
+
+    /* Floating widget containers and widgets */
+    .floating-widget-container {
+      position: relative;
+      display: block;
+      width: 100%;
+    }
+
+    .floating-widget {
+      position: absolute;
+      bottom: 100%;
+      right: 0;
+      margin-bottom: 10px;
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(0, 217, 255, 0.4);
+      border-radius: 0px;
+      box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
+      backdrop-filter: blur(16px);
+      min-width: 350px;
+      max-width: 400px;
+      max-height: 500px;
+      overflow-y: auto;
+      z-index: 1000;
+      animation: slideUp 0.3s ease-out;
+      /* Ensure widget stays attached to its parent container */
+      transform-origin: bottom right;
+    }
+
+    /* Specific positioning for AI Assistant widget */
+    #polaczekWidget {
+      right: 0;
+      bottom: 100%;
+    }
+
+    /* Specific positioning for Music Player widget */
+    #musicPlayerWidget {
+      right: 0;
+      bottom: 100%;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 1024px) {
@@ -1374,15 +1550,20 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
       }
 
       .admin-panel-fixed {
-        top: auto;
         bottom: 20px;
         left: 10px;
-        transform: none;
         gap: 12px;
       }
 
-      .admin-btn {
-        min-width: 160px;
+      .right-panel-fixed {
+        bottom: 20px;
+        right: 10px;
+        gap: 12px;
+      }
+
+      .admin-btn,
+      .right-btn {
+        min-width: 180px;
         font-size: 1rem;
         padding: 10px 20px;
       }
@@ -1410,8 +1591,15 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
         gap: 10px;
       }
 
-      .admin-btn {
-        min-width: 140px;
+      .right-panel-fixed {
+        right: 8px;
+        bottom: 15px;
+        gap: 10px;
+      }
+
+      .admin-btn,
+      .right-btn {
+        min-width: 150px;
         font-size: 0.9rem;
         padding: 8px 16px;
       }
