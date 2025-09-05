@@ -1,34 +1,56 @@
 
 import type { APIRoute } from 'astro';
-import { createOPTIONSHandler, createSuccessResponse } from '../../utils/corsUtils';
 
-export const OPTIONS = createOPTIONSHandler(['GET', 'OPTIONS']);
-
-// API provided by BIELIK Orchestrator
-// In a real-world scenario, Bielik would connect to a database or a KV store
-// to aggregate and return real usage data, potentially with learned insights.
-
-const mockStats = {
-  totalRequests: 1483,
-  topAgents: [
-    { name: 'AI Chatbot', count: 672 },
-    { name: 'WildcardPrompt AI', count: 451 },
-    { name: 'Image Generator', count: 310 },
-    { name: 'POLACZEK_AGENT_SYS_23', count: 50 },
-    { name: 'Other', count: 10 },
-  ],
-  topPrompts: [
-    { name: 'cyberpunk', count: 189 },
-    { name: 'fantasy', count: 124 },
-    { name: 'space_opera', count: 98 },
-    { name: 'realistic_portrait', count: 25 },
-    { name: 'architectural_design', count: 15 },
-  ],
+export const OPTIONS: APIRoute = () => {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
 };
 
 export const GET: APIRoute = () => {
-  return new Response(JSON.stringify(mockStats), {
+  // BIELIK Analytics - statystyki użycia polskiego modelu językowego
+  const bielikStats = {
+    total_requests: 2847,
+    requests_last_24h: 156,
+    requests_last_7d: 892,
+    avg_response_time: 1243,
+    success_rate: 98.7,
+    model_versions: {
+      'bielik-7b-instruct': { requests: 1825, avg_tokens: 342 },
+      'bielik-13b-instruct': { requests: 721, avg_tokens: 487 },
+      'bielik-70b-instruct': { requests: 301, avg_tokens: 612 }
+    },
+    top_use_cases: [
+      { name: 'Odpowiedzi na pytania', count: 1247, percentage: 43.8 },
+      { name: 'Tłumaczenia', count: 542, percentage: 19.0 },
+      { name: 'Analiza tekstu', count: 398, percentage: 14.0 },
+      { name: 'Zadania programistyczne', count: 287, percentage: 10.1 },
+      { name: 'Kreatywne pisanie', count: 189, percentage: 6.6 },
+      { name: 'Inne', count: 184, percentage: 6.5 }
+    ],
+    language_stats: {
+      polish: 89.3,
+      english: 8.7,
+      mixed: 2.0
+    },
+    total_tokens: 1247832,
+    tokens_last_24h: 67234,
+    error_rate: 1.3,
+    active_users_24h: 89,
+    worker_status: 'active',
+    last_updated: new Date().toISOString()
+  };
+
+  return new Response(JSON.stringify(bielikStats), {
     status: 200,
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
   });
 };

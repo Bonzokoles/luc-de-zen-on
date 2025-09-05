@@ -1,324 +1,1068 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import EnhancedAgentsManager from "../components/EnhancedAgentsManager.astro";
+
+// Fetch user-created agents
+let userAgents = [];
+try {
+  const response = await fetch(new URL("/api/agents/list", Astro.url.origin));
+  if (response.ok) {
+    userAgents = await response.json();
+  }
+} catch (e) {
+  console.error("Could not fetch user agents:", e);
+}
 ---
 
-<MyBonzoLayout>
-  <div class="min-h-screen bg-gray-900 text-white">
-    <!-- Dark Theme Container -->
-    <div class="container mx-auto px-4 py-8">
-      <!-- Header -->
-      <header class="mb-8">
-        <div class="flex items-center justify-between">
-          <div>
-            <h1 class="text-4xl font-bold text-gray-400 mb-2">
-              🤖 AI Agents System
-            </h1>
-            <p class="text-gray-300 text-lg">
-              Centralny system zarządzania agentami POLACZEK
-            </p>
+<MyBonzoLayout title="Zarządzanie Agentami | AI Workers">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AGENTS_MGR
+            </span>
           </div>
-          <div class="flex items-center space-x-4">
-            <div
-              class="bg-green-900 text-green-300 px-3 py-1 rounded-full text-sm"
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
             >
-              ● System Active
-            </div>
-            <a
-              href="/"
-              class="text-gray-400 hover:text-gray-300 transition-colors"
-            >
+              MANAGEMENT
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">ZARZĄDZANIE AGENTAMI</h1>
+            <h2 class="text-2xl sm:text-3xl">System Centralnego Zarządzania</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
               ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
             </a>
           </div>
         </div>
-      </header>
+      </div>
+    </section>
 
-      <!-- Navigation Tabs -->
-      <nav class="mb-8">
-        <div class="flex space-x-1 bg-gray-800 p-1 rounded-lg">
-          <button
-            class="tab-button active bg-gray-700 text-white px-4 py-2 rounded-md font-medium transition-colors"
-            data-tab="dashboard"
-          >
-            Dashboard
-          </button>
-          <button
-            class="tab-button text-gray-400 hover:text-white px-4 py-2 rounded-md font-medium transition-colors"
-            data-tab="agents"
-          >
-            Agenci
-          </button>
-          <button
-            class="tab-button text-gray-400 hover:text-white px-4 py-2 rounded-md font-medium transition-colors"
-            data-tab="monitoring"
-          >
-            Monitoring
-          </button>
-          <button
-            class="tab-button text-gray-400 hover:text-white px-4 py-2 rounded-md font-medium transition-colors"
-            data-tab="logs"
-          >
-            Logi
-          </button>
-        </div>
-      </nav>
+    <!-- Main Content Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="agents-management"
+    >
+      <div class="section-container max-w-4xl mx-auto">
+        <h2 class="section-title">ZARZĄDZANIE AGENTAMI</h2>
+        <p class="section-description">
+          Centralny system zarządzania agentami AI POLACZEK z monitoringiem i
+          kontrolą
+        </p>
 
-      <!-- Content Sections -->
-      <div class="space-y-8">
-        <!-- Dashboard Tab -->
-        <div id="dashboard-content" class="tab-content">
-          <!-- Enhanced Agents Manager with Dark Theme -->
-          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-            <EnhancedAgentsManager />
-          </div>
-        </div>
-
-        <!-- Agents Tab -->
-        <div id="agents-content" class="tab-content hidden">
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- POLACZEK_T Agent -->
-            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold text-gray-200">POLACZEK_T</h3>
-                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse">
-                </div>
-              </div>
-              <p class="text-gray-300 mb-4">Agent tłumaczeń i asystent AI</p>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Port:</span>
-                  <span class="text-gray-300">3008</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Protokół:</span>
-                  <span class="text-gray-300">WebSocket</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Status:</span>
-                  <span class="text-green-400">Running</span>
-                </div>
-              </div>
-              <button
-                class="mt-4 w-full bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg transition-colors"
-              >
-                Połącz
-              </button>
+        <!-- Agents Management Interface -->
+        <div
+          class="agents-container border border-edge rounded-lg overflow-hidden mt-8"
+          style="background: rgba(0, 0, 0, 0.5);"
+        >
+          <!-- Agents Header -->
+          <div
+            class="agents-header border-b border-edge p-4 flex items-center justify-between"
+            style="background: rgba(0, 0, 0, 0.5);"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-blue-400 rounded-full"></div>
+              <span class="text-primary-foreground font-semibold">
+                Agents System Online
+              </span>
             </div>
-
-            <!-- POLACZEK_A Agent -->
-            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold text-yellow-400">
-                  POLACZEK_A
-                </h3>
-                <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
-              </div>
-              <p class="text-gray-300 mb-4">Agent analizujący dane</p>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Port:</span>
-                  <span class="text-yellow-300">3009</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Protokół:</span>
-                  <span class="text-yellow-300">HTTP/WebSocket</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Status:</span>
-                  <span class="text-yellow-400">Standby</span>
-                </div>
-              </div>
-              <button
-                class="mt-4 w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-lg transition-colors"
+            <div class="flex gap-2">
+              <a
+                href="/real-agent-creator"
+                class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
               >
-                Uruchom
-              </button>
-            </div>
-
-            <!-- POLACZEK_S Agent -->
-            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold text-purple-400">
-                  POLACZEK_S
-                </h3>
-                <div class="w-3 h-3 bg-red-400 rounded-full"></div>
-              </div>
-              <p class="text-gray-300 mb-4">Agent wyszukujący i zbierający</p>
-              <div class="space-y-2 text-sm">
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Port:</span>
-                  <span class="text-purple-300">3010</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Protokół:</span>
-                  <span class="text-purple-300">HTTP/API</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-gray-400">Status:</span>
-                  <span class="text-red-400">Stopped</span>
-                </div>
-              </div>
-              <button
-                class="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition-colors"
+                🚀 Prawdziwy Agent
+              </a>
+              <a
+                href="/polaczek-agents-system"
+                class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
               >
-                Uruchom
+                + Nowy Agent
+              </a>
+              <a
+                href="/DOC_mentacja/INSTRUKCJE_AGENTS_23.md"
+                target="_blank"
+                class="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm"
+              >
+                📖 Dokumentacja
+              </a>
+              <button
+                onclick="refreshAgents()"
+                class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+              >
+                Odśwież
               </button>
             </div>
           </div>
-        </div>
 
-        <!-- Monitoring Tab -->
-        <div id="monitoring-content" class="tab-content hidden">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- System Stats -->
-            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <h3 class="text-xl font-semibold text-gray-200 mb-4">
-                Statystyki Systemu
-              </h3>
-              <div class="space-y-4">
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">CPU Usage</span>
-                  <span class="text-green-400">23%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                  <div class="bg-green-400 h-2 rounded-full" style="width: 23%">
-                  </div>
-                </div>
+          <!-- Navigation Tabs -->
+          <div class="p-4 border-b border-edge">
+            <nav class="flex space-x-1 bg-transparent">
+              <button
+                class="tab-button active bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors"
+                data-tab="dashboard"
+              >
+                Dashboard
+              </button>
+              <button
+                class="tab-button text-primary-foreground hover:text-white px-4 py-2 rounded-md font-medium transition-colors bg-transparent border border-edge"
+                data-tab="agents"
+              >
+                Agenci
+              </button>
+              <button
+                class="tab-button text-primary-foreground hover:text-white px-4 py-2 rounded-md font-medium transition-colors bg-transparent border border-edge"
+                data-tab="monitoring"
+              >
+                Monitoring
+              </button>
+              <button
+                class="tab-button text-primary-foreground hover:text-white px-4 py-2 rounded-md font-medium transition-colors bg-transparent border border-edge"
+                data-tab="logs"
+              >
+                Logi
+              </button>
+            </nav>
+          </div>
 
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-300">Memory Usage</span>
-                  <span class="text-yellow-400">67%</span>
-                </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
+          <!-- Content Sections -->
+          <div class="agents-content p-6 space-y-8">
+            <!-- Dashboard Tab -->
+            <div id="dashboard-content" class="tab-content">
+              <!-- Enhanced Agents Manager with Dark Theme -->
+              <div
+                class="agent-card border border-edge rounded-lg p-6"
+                style="background: rgba(0, 0, 0, 0.3);"
+              >
+                <EnhancedAgentsManager />
+              </div>
+
+              <!-- AKCJE SYSTEMOWE Section -->
+              <div class="mt-8">
+                <h2
+                  class="text-3xl font-bold text-center mb-8 text-primary-foreground uppercase tracking-wider"
+                >
+                  AKCJE SYSTEMOWE
+                </h2>
+
+                <div
+                  class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto"
+                >
+                  <!-- Zarządzaj Agentami Card -->
                   <div
-                    class="bg-yellow-400 h-2 rounded-full"
-                    style="width: 67%"
+                    class="system-action-card bg-gradient-to-br from-purple-900/40 to-purple-700/20 border border-purple-500/30 rounded-xl p-8 hover:border-purple-400/60 transition-all duration-300 transform hover:scale-105"
                   >
+                    <div class="text-center mb-6">
+                      <div class="text-6xl mb-4">🤖</div>
+                      <h3 class="text-2xl font-bold text-purple-300 mb-4">
+                        Zarządzaj Agentami
+                      </h3>
+                      <p class="text-gray-300 text-lg leading-relaxed">
+                        Zarządzanie listą wszystkich agentów AI systemowych i
+                        ich konfiguracją oraz usuwaniem
+                      </p>
+                    </div>
+
+                    <div class="space-y-4">
+                      <button
+                        class="system-action-btn bg-purple-600/20 border border-purple-500/40 text-purple-300 hover:bg-purple-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Agents Report
+                      </button>
+                      <button
+                        class="system-action-btn bg-purple-600/20 border border-purple-500/40 text-purple-300 hover:bg-purple-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Management
+                      </button>
+                      <button
+                        class="system-action-btn bg-purple-600/20 border border-purple-500/40 text-purple-300 hover:bg-purple-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Monitoring
+                      </button>
+                    </div>
+
+                    <div class="mt-6 space-y-3">
+                      <a
+                        href="/real-agent-creator"
+                        class="block bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Kreator Panel
+                      </a>
+                      <a
+                        href="/agents"
+                        class="block bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Lista Agentów
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Dokumentacja Card -->
+                  <div
+                    class="system-action-card bg-gradient-to-br from-blue-900/40 to-blue-700/20 border border-blue-500/30 rounded-xl p-8 hover:border-blue-400/60 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <div class="text-center mb-6">
+                      <div class="text-6xl mb-4">📚</div>
+                      <h3 class="text-2xl font-bold text-blue-300 mb-4">
+                        Dokumentacja
+                      </h3>
+                      <p class="text-gray-300 text-lg leading-relaxed">
+                        Przewodnik tworzenia efektywnych promptów i konfiguracji
+                        agentów AI
+                      </p>
+                    </div>
+
+                    <div class="space-y-4">
+                      <button
+                        class="system-action-btn bg-blue-600/20 border border-blue-500/40 text-blue-300 hover:bg-blue-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Instrukcje
+                      </button>
+                      <button
+                        class="system-action-btn bg-blue-600/20 border border-blue-500/40 text-blue-300 hover:bg-blue-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Przykłady
+                      </button>
+                      <button
+                        class="system-action-btn bg-blue-600/20 border border-blue-500/40 text-blue-300 hover:bg-blue-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Best Practices
+                      </button>
+                    </div>
+
+                    <div class="mt-6 space-y-3">
+                      <a
+                        href="/DOC_mentacja/INSTRUKCJE_AGENTS_23.md"
+                        target="_blank"
+                        class="block bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Readme Docs
+                      </a>
+                      <a
+                        href="#tutorial-section"
+                        class="block bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Quick Guide
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Premium Features Card -->
+                  <div
+                    class="system-action-card bg-gradient-to-br from-cyan-900/40 to-cyan-700/20 border border-cyan-500/30 rounded-xl p-8 hover:border-cyan-400/60 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <div class="text-center mb-6">
+                      <div class="text-6xl mb-4">💎</div>
+                      <h3 class="text-2xl font-bold text-cyan-300 mb-4">
+                        Premium Features
+                      </h3>
+                      <p class="text-gray-300 text-lg leading-relaxed">
+                        Odkryj zaawansowane funkcje systemu z subskrypcją Pro
+                        lub Enterprise
+                      </p>
+                    </div>
+
+                    <div class="space-y-4">
+                      <button
+                        class="system-action-btn bg-cyan-600/20 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Pro Tools
+                      </button>
+                      <button
+                        class="system-action-btn bg-cyan-600/20 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Enterprise
+                      </button>
+                      <button
+                        class="system-action-btn bg-cyan-600/20 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-600/40 py-3 px-6 rounded-lg font-semibold uppercase tracking-wide w-full"
+                      >
+                        Advanced AI
+                      </button>
+                    </div>
+
+                    <div class="mt-6 space-y-3">
+                      <a
+                        href="/zaawansowane-funkcje-ai"
+                        class="block bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Zaawansowane Plany
+                      </a>
+                      <a
+                        href="/status-workers"
+                        class="block bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-200 py-3 px-4 rounded-lg text-center font-medium"
+                      >
+                        Status
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instrukcje Użytkowania Section -->
+              <div id="tutorial-section" class="mt-12">
+                <h2
+                  class="text-3xl font-bold text-center mb-8 text-primary-foreground uppercase tracking-wider"
+                >
+                  📖 INSTRUKCJE UŻYTKOWANIA
+                </h2>
+
+                <div
+                  class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8"
+                >
+                  <!-- Quick Start Guide -->
+                  <div
+                    class="tutorial-card bg-gradient-to-br from-green-900/40 to-green-700/20 border border-green-500/30 rounded-xl p-8"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-green-300 mb-6 flex items-center"
+                    >
+                      🚀 Quick Start Guide
+                    </h3>
+                    <div class="space-y-6">
+                      <div class="tutorial-step">
+                        <h4 class="text-lg font-semibold text-green-200 mb-3">
+                          1. Tworzenie Nowego Agenta
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                          Kliknij "🚀 Prawdziwy Agent" aby otworzyć kreator
+                          agentów AI
+                        </p>
+                        <ul class="text-sm text-gray-400 space-y-2 pl-4">
+                          <li>
+                            • Wpisz nazwę agenta (np. "Asystent_Marketingu")
+                          </li>
+                          <li>
+                            • Wybierz typ zadań (analiza, tworzenie,
+                            tłumaczenie)
+                          </li>
+                          <li>
+                            • Skonfiguruj parametry AI (temperatura, model)
+                          </li>
+                          <li>• Przetestuj działanie przed zapisem</li>
+                        </ul>
+                      </div>
+
+                      <div class="tutorial-step">
+                        <h4 class="text-lg font-semibold text-green-200 mb-3">
+                          2. Zarządzanie Agentami
+                        </h4>
+                        <p class="text-gray-300 mb-4">
+                          Użyj karty "Zarządzaj Agentami" do kontroli
+                        </p>
+                        <ul class="text-sm text-gray-400 space-y-2 pl-4">
+                          <li>• "Agents Report" - raport aktywności</li>
+                          <li>• "Management" - edycja i usuwanie</li>
+                          <li>• "Monitoring" - sprawdzanie statusu</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Best Practices -->
+                  <div
+                    class="tutorial-card bg-gradient-to-br from-orange-900/40 to-orange-700/20 border border-orange-500/30 rounded-xl p-8"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-orange-300 mb-6 flex items-center"
+                    >
+                      💡 Best Practices
+                    </h3>
+                    <div class="space-y-6">
+                      <div class="tutorial-step">
+                        <h4 class="text-lg font-semibold text-orange-200 mb-3">
+                          Efektywne Prompty
+                        </h4>
+                        <ul class="text-sm text-gray-400 space-y-2 pl-4">
+                          <li>• Bądź precyzyjny w opisie zadania</li>
+                          <li>• Podaj przykłady oczekiwanego wyniku</li>
+                          <li>
+                            • Określ format odpowiedzi (JSON, tekst, lista)
+                          </li>
+                          <li>• Ustaw ograniczenia i reguły</li>
+                        </ul>
+                      </div>
+
+                      <div class="tutorial-step">
+                        <h4 class="text-lg font-semibold text-orange-200 mb-3">
+                          Optymalizacja Wydajności
+                        </h4>
+                        <ul class="text-sm text-gray-400 space-y-2 pl-4">
+                          <li>• Używaj niższej temperatury dla precyzji</li>
+                          <li>• Wyższą temperaturę dla kreatywności</li>
+                          <li>• Testuj różne modele AI</li>
+                          <li>• Monitoruj zużycie tokenów</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Troubleshooting -->
+                  <div
+                    class="tutorial-card bg-gradient-to-br from-red-900/40 to-red-700/20 border border-red-500/30 rounded-xl p-8"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-red-300 mb-6 flex items-center"
+                    >
+                      🔧 Rozwiązywanie Problemów
+                    </h3>
+                    <div class="space-y-4">
+                      <div class="problem-solution">
+                        <h4 class="text-lg font-semibold text-red-200 mb-2">
+                          Agent nie odpowiada
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Sprawdź status w sekcji "Monitoring" i zrestartuj
+                          jeśli potrzeba
+                        </p>
+                      </div>
+                      <div class="problem-solution">
+                        <h4 class="text-lg font-semibold text-red-200 mb-2">
+                          Błędne odpowiedzi
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Udoskonal prompt lub zmień parametry temperatury AI
+                        </p>
+                      </div>
+                      <div class="problem-solution">
+                        <h4 class="text-lg font-semibold text-red-200 mb-2">
+                          Przekroczenie limitów
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Sprawdź użycie tokenów w Premium Features
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Advanced Features -->
+                  <div
+                    class="tutorial-card bg-gradient-to-br from-purple-900/40 to-purple-700/20 border border-purple-500/30 rounded-xl p-8"
+                  >
+                    <h3
+                      class="text-2xl font-bold text-purple-300 mb-6 flex items-center"
+                    >
+                      ⚡ Zaawansowane Funkcje
+                    </h3>
+                    <div class="space-y-4">
+                      <div class="advanced-feature">
+                        <h4 class="text-lg font-semibold text-purple-200 mb-2">
+                          Łączenie Agentów
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Twórz pipelines z wielu agentów dla złożonych zadań
+                        </p>
+                      </div>
+                      <div class="advanced-feature">
+                        <h4 class="text-lg font-semibold text-purple-200 mb-2">
+                          API Integracje
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Podłącz zewnętrzne serwisy przez REST API
+                        </p>
+                      </div>
+                      <div class="advanced-feature">
+                        <h4 class="text-lg font-semibold text-purple-200 mb-2">
+                          Harmonogramy
+                        </h4>
+                        <p class="text-gray-400 text-sm">
+                          Uruchamiaj agentów automatycznie w określonych
+                          godzinach
+                        </p>
+                      </div>
+                      <div class="mt-6">
+                        <a
+                          href="/DOC_mentacja/INSTRUKCJE_AGENTS_23.md"
+                          target="_blank"
+                          class="block bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 py-3 px-4 rounded-lg text-center font-medium"
+                        >
+                          📚 Pełna Dokumentacja
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="flex justify-between items-center">
-                  <span class="text-gray-200">Active Connections</span>
-                  <span class="text-gray-200">3</span>
+                <!-- Placeholder for Additional Tutorials -->
+                <div class="mt-12 text-center">
+                  <div
+                    class="inline-block bg-gray-800/40 border border-gray-600/30 rounded-xl p-8 max-w-2xl"
+                  >
+                    <h3 class="text-xl font-bold text-gray-300 mb-4">
+                      🔄 Sekcja w Rozwoju
+                    </h3>
+                    <p class="text-gray-400 mb-6">
+                      Ta sekcja będzie rozwijana o nowe tutoriale, przykłady
+                      kodu, video przewodniki i case studies. Kod jest otwarty
+                      do dodawania nowych instrukcji i materiałów szkoleniowych.
+                    </p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                      <span
+                        class="px-3 py-1 bg-blue-600/20 border border-blue-500/40 text-blue-300 rounded-full text-sm"
+                        >Video Tutorials</span
+                      >
+                      <span
+                        class="px-3 py-1 bg-green-600/20 border border-green-500/40 text-green-300 rounded-full text-sm"
+                        >Code Examples</span
+                      >
+                      <span
+                        class="px-3 py-1 bg-purple-600/20 border border-purple-500/40 text-purple-300 rounded-full text-sm"
+                        >Case Studies</span
+                      >
+                      <span
+                        class="px-3 py-1 bg-orange-600/20 border border-orange-500/40 text-orange-300 rounded-full text-sm"
+                        >API Docs</span
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Network Activity -->
-            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-              <h3 class="text-xl font-semibold text-purple-400 mb-4">
-                Aktywność Sieci
-              </h3>
-              <div class="space-y-3">
-                <div
-                  class="flex items-center justify-between p-3 bg-gray-700 rounded"
+            <!-- Agents Tab -->
+            <div id="agents-content" class="tab-content hidden">
+              <!-- User-Created Agents Section -->
+              <div class="mb-12">
+                <h2
+                  class="text-2xl font-bold text-primary-foreground mb-4 border-b border-edge pb-2"
                 >
-                  <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span class="text-gray-300">WebSocket</span>
+                  Agenci Stworzeni przez Użytkownika
+                </h2>
+                {
+                  userAgents.length > 0 ? (
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {userAgents.map((agent) => (
+                        <div
+                          class="agent-card border border-edge rounded-lg p-6"
+                          style="background: rgba(0, 0, 0, 0.3);"
+                        >
+                          <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-primary-foreground">
+                              {agent.name}
+                            </h3>
+                            <div
+                              class="w-3 h-3 bg-gray-500 rounded-full"
+                              title="Zapisany (nieaktywny)"
+                            />
+                          </div>
+                          <p
+                            class="text-gray-300 mb-4 truncate"
+                            title={agent.prompt}
+                          >
+                            {agent.prompt}
+                          </p>
+                          <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                              <span class="text-gray-400">Model:</span>
+                              <span class="text-gray-300 font-mono text-xs">
+                                {agent.model}
+                              </span>
+                            </div>
+                            <div class="flex justify-between">
+                              <span class="text-gray-400">Status:</span>
+                              <span class="text-gray-400">Zapisany</span>
+                            </div>
+                          </div>
+                          <button
+                            class="mt-4 w-full bg-blue-600/20 border border-blue-500/40 text-blue-400 hover:bg-blue-600/30 py-2 rounded-lg transition-colors cursor-not-allowed"
+                            disabled
+                          >
+                            Uruchom (wkrótce)
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div
+                      class="text-center py-8 px-4 border border-dashed border-edge rounded-lg"
+                      style="background: rgba(0, 0, 0, 0.2);"
+                    >
+                      <p class="text-gray-400">
+                        Nie stworzono jeszcze żadnych własnych agentów.
+                      </p>
+                      <a
+                        href="/polaczek-agents-system"
+                        class="mt-4 inline-block bg-blue-600/20 border border-blue-500/40 text-blue-400 hover:bg-blue-600/30 font-semibold px-4 py-2 rounded-lg transition-colors"
+                      >
+                        Stwórz swojego pierwszego agenta
+                      </a>
+                    </div>
+                  )
+                }
+              </div>
+
+              <!-- Pre-defined Agents Section -->
+              <h2
+                class="text-2xl font-bold text-primary-foreground mb-4 border-b border-edge pb-2"
+              >
+                Agenci Predefiniowani
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- POLACZEK_T Agent -->
+                <div
+                  class="agent-card border border-edge rounded-lg p-6"
+                  style="background: rgba(0, 0, 0, 0.3);"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-green-400">
+                      POLACZEK_T
+                    </h3>
+                    <div class="w-3 h-3 bg-green-400 rounded-full"></div>
                   </div>
-                  <span class="text-green-400">Active</span>
+                  <p class="text-gray-300 mb-4">
+                    Agent tłumaczeń i asystent AI
+                  </p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Protokół:</span>
+                      <span class="text-gray-300">WebSocket</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Status:</span>
+                      <span class="text-green-400">Running</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-4 w-full bg-green-600/20 border border-green-500/40 text-green-400 hover:bg-green-600/30 py-2 rounded-lg transition-colors"
+                  >
+                    Połącz
+                  </button>
                 </div>
+
+                <!-- POLACZEK_A Agent -->
                 <div
-                  class="flex items-center justify-between p-3 bg-gray-700 rounded"
+                  class="agent-card border border-edge rounded-lg p-6"
+                  style="background: rgba(0, 0, 0, 0.3);"
                 >
-                  <div class="flex items-center space-x-3">
-                    <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
-                    <span class="text-gray-300">HTTP API</span>
+                  <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-yellow-400">
+                      POLACZEK_A
+                    </h3>
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   </div>
-                  <span class="text-gray-200">Listening</span>
+                  <p class="text-gray-300 mb-4">Agent analizujący dane</p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Protokół:</span>
+                      <span class="text-yellow-300">HTTP/WebSocket</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Status:</span>
+                      <span class="text-yellow-400">Standby</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-4 w-full bg-yellow-600/20 border border-yellow-500/40 text-yellow-400 hover:bg-yellow-600/30 py-2 rounded-lg transition-colors"
+                  >
+                    Uruchom
+                  </button>
+                </div>
+
+                <!-- POLACZEK_S Agent -->
+                <div
+                  class="agent-card border border-edge rounded-lg p-6"
+                  style="background: rgba(0, 0, 0, 0.3);"
+                >
+                  <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-purple-400">
+                      POLACZEK_S
+                    </h3>
+                    <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                  </div>
+                  <p class="text-gray-300 mb-4">
+                    Agent wyszukujący i zbierający
+                  </p>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Protokół:</span>
+                      <span class="text-purple-300">HTTP/API</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Status:</span>
+                      <span class="text-red-400">Stopped</span>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-4 w-full bg-purple-600/20 border border-purple-500/40 text-purple-400 hover:bg-purple-600/30 py-2 rounded-lg transition-colors"
+                  >
+                    Uruchom
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Logs Tab -->
-        <div id="logs-content" class="tab-content hidden">
-          <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
-            <h3 class="text-xl font-semibold text-green-400 mb-4">
-              Logi Systemu
-            </h3>
-            <div
-              class="bg-black rounded p-4 font-mono text-sm space-y-1 max-h-96 overflow-y-auto"
-            >
-              <div class="text-green-400">
-                [20:30:59] INFO: POLACZEK_T WebSocket server starting on port
-                3008
+            <!-- Monitoring Tab -->
+            <div id="monitoring-content" class="tab-content hidden">
+              <div
+                class="agent-card border border-edge rounded-lg p-6"
+                style="background: rgba(0, 0, 0, 0.3);"
+              >
+                <h3 class="text-xl font-semibold text-primary-foreground mb-4">
+                  📊 Monitoring Systemu
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  <div
+                    class="border border-edge rounded p-4"
+                    style="background: rgba(0, 0, 0, 0.2);"
+                  >
+                    <h4 class="text-blue-400 font-semibold mb-2">
+                      Status Agentów
+                    </h4>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-400">Aktywne:</span>
+                      <span class="text-green-400">1/3</span>
+                    </div>
+                  </div>
+                  <div
+                    class="border border-edge rounded p-4"
+                    style="background: rgba(0, 0, 0, 0.2);"
+                  >
+                    <h4 class="text-yellow-400 font-semibold mb-2">
+                      Użycie Zasobów
+                    </h4>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-400">CPU:</span>
+                      <span class="text-yellow-400">23%</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-400">
+                  Rozszerzony monitoring będzie dostępny wkrótce...
+                </p>
               </div>
-              <div class="text-gray-200">
-                [20:30:59] INFO: Capabilities: translation, context_qa,
-                function_help, system_status
-              </div>
-              <div class="text-green-400">
-                [20:30:59] INFO: ✅ POLACZEK_T server is ready and listening
-              </div>
-              <div class="text-gray-200">
-                [20:39:37] INFO: Client connected: ('127.0.0.1', 54102)
-              </div>
-              <div class="text-gray-200">
-                [20:39:48] INFO: Client connected: ('127.0.0.1', 52252)
-              </div>
-              <div class="text-gray-200">
-                [20:43:23] INFO: Client connected: ('127.0.0.1', 60302)
-              </div>
-              <div class="text-yellow-400">
-                [20:45:12] WARN: High memory usage detected
-              </div>
-              <div class="text-green-400">
-                [20:46:30] INFO: System status check completed
+            </div>
+
+            <!-- Logs Tab -->
+            <div id="logs-content" class="tab-content hidden">
+              <div
+                class="agent-card border border-edge rounded-lg p-6"
+                style="background: rgba(0, 0, 0, 0.3);"
+              >
+                <h3 class="text-xl font-semibold text-primary-foreground mb-4">
+                  📋 Logi Systemu
+                </h3>
+                <div
+                  class="border border-edge rounded p-4 mb-4"
+                  style="background: rgba(0, 0, 0, 0.2);"
+                >
+                  <div class="font-mono text-sm space-y-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-green-400">[OK]</span>
+                      <span class="text-gray-400">19:12:29</span>
+                      <span class="text-gray-300"
+                        >POLACZEK_T: Connected successfully</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-yellow-400">[WARN]</span>
+                      <span class="text-gray-400">19:08:15</span>
+                      <span class="text-gray-300"
+                        >POLACZEK_A: Standby mode activated</span
+                      >
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-red-400">[ERROR]</span>
+                      <span class="text-gray-400">19:05:42</span>
+                      <span class="text-gray-300"
+                        >POLACZEK_S: Connection failed</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <p class="text-gray-400">
+                  Pełny system logowania będzie dostępny wkrótce...
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</MyBonzoLayout>
+    </section>
 
-<style>
-  .tab-button.active {
-    background-color: rgb(75 85 99);
-    color: white;
-  }
+    <style>
+      .ai-workers-section {
+        background: rgba(0, 0, 0, 0.5);
+        min-height: 100vh;
+      }
 
-  .tab-content.hidden {
-    display: none;
-  }
-</style>
+      .section-container {
+        padding: 2rem;
+        width: 100%;
+      }
 
-<script>
-  // Tab switching functionality
-  document.addEventListener("DOMContentLoaded", function () {
-    const tabButtons = document.querySelectorAll(".tab-button");
-    const tabContents = document.querySelectorAll(".tab-content");
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #ffffff;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+      }
 
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", function () {
-        const targetTab = this.getAttribute("data-tab");
+      .section-description {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #d1d5db;
+        margin-bottom: 2rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.6;
+      }
 
-        // Remove active class from all buttons
-        tabButtons.forEach((btn) => {
-          btn.classList.remove("active", "bg-gray-700", "text-white");
-          btn.classList.add("text-gray-400");
+      .agents-container {
+        width: 100%;
+        max-width: none;
+      }
+
+      .agents-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .agents-content {
+        min-height: 400px;
+      }
+
+      .tab-button.active {
+        background-color: rgb(37 99 235) !important;
+        color: white !important;
+        border-color: rgb(37 99 235) !important;
+      }
+
+      .tab-content.hidden {
+        display: none;
+      }
+
+      .agent-card {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .agent-card:hover {
+        border-color: rgba(0, 217, 255, 0.6);
+        background: rgba(0, 0, 0, 0.4);
+        transform: translateY(-2px);
+      }
+
+      /* System Action Cards Styles */
+      .system-action-card {
+        min-height: 480px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      .system-action-card:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        transform: translateY(-8px) scale(1.02);
+      }
+
+      .system-action-btn {
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+      }
+
+      .system-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Tutorial Cards Styles */
+      .tutorial-card {
+        min-height: 420px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .tutorial-card:hover {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        transform: translateY(-5px);
+      }
+
+      .tutorial-step {
+        padding: 1rem;
+        border-left: 3px solid rgba(255, 255, 255, 0.1);
+        margin-left: 0.5rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .tutorial-step:hover {
+        border-left-color: rgba(0, 217, 255, 0.6);
+      }
+
+      .problem-solution,
+      .advanced-feature {
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        background: rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease;
+      }
+
+      .problem-solution:hover,
+      .advanced-feature:hover {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    </style>
+
+    <script>
+      // Authentication check
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Agents page loaded, checking authentication...");
+
+        // Delay authentication check to prevent conflicts
+        setTimeout(() => {
+          // Check authentication
+          const authData = sessionStorage.getItem("mybonzo_auth");
+          console.log("Auth data from session:", authData);
+
+          if (!authData) {
+            console.log("No auth data found, redirecting to login");
+            window.location.replace("/login");
+            return;
+          }
+
+          try {
+            const parsed = JSON.parse(authData);
+            console.log("Parsed auth data:", parsed);
+
+            if (!parsed.authenticated) {
+              console.log("Not authenticated, redirecting to login");
+              window.location.replace("/login");
+              return;
+            }
+
+            // Wszystkie typy użytkowników mają dostęp (admin, client, demo)
+            console.log(
+              `Authentication successful for ${parsed.userType}, loading page...`
+            );
+
+            // Add logout functionality by adding button to header
+            addLogoutButton();
+
+            // Display user info
+            displayUserInfo(parsed);
+          } catch (e) {
+            console.error("Error parsing auth data:", e);
+            sessionStorage.removeItem("mybonzo_auth");
+            window.location.replace("/login");
+          }
+        }, 200);
+
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll(".tab-button");
+        const tabContents = document.querySelectorAll(".tab-content");
+
+        tabButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const targetTab = this.getAttribute("data-tab");
+
+            tabButtons.forEach((btn) => {
+              btn.classList.remove("active", "bg-blue-600", "text-white");
+              btn.classList.add("text-primary-foreground");
+            });
+
+            this.classList.add("active", "bg-blue-600", "text-white");
+            this.classList.remove("text-primary-foreground");
+
+            tabContents.forEach((content) => {
+              content.classList.add("hidden");
+            });
+
+            const targetContent = document.getElementById(
+              targetTab + "-content"
+            );
+            if (targetContent) {
+              targetContent.classList.remove("hidden");
+            }
+          });
         });
-
-        // Add active class to clicked button
-        this.classList.add("active", "bg-gray-700", "text-white");
-        this.classList.remove("text-gray-400");
-
-        // Hide all tab contents
-        tabContents.forEach((content) => {
-          content.classList.add("hidden");
-        });
-
-        // Show target tab content
-        const targetContent = document.getElementById(targetTab + "-content");
-        if (targetContent) {
-          targetContent.classList.remove("hidden");
-        }
       });
-    });
-  });
-</script>
+
+      // Add logout button to header
+      function addLogoutButton() {
+        const header = document.querySelector(".agents-header");
+        if (header) {
+          const rightButtons = header.querySelector(".flex.gap-2");
+          if (rightButtons) {
+            const logoutBtn = document.createElement("button");
+            logoutBtn.className =
+              "px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm";
+            logoutBtn.textContent = "Wyloguj";
+            logoutBtn.onclick = function () {
+              sessionStorage.removeItem("mybonzo_auth");
+              window.location.href = "/";
+            };
+            rightButtons.appendChild(logoutBtn);
+          }
+        }
+      }
+
+      // Display user info
+      function displayUserInfo(userData) {
+        const userTypes = {
+          admin: "Administrator - Pełny dostęp",
+          client: "Klient - Dostęp podstawowy",
+          demo: "Demo - Wersja demonstracyjna",
+        };
+
+        const userInfo =
+          userTypes[userData.userType as keyof typeof userTypes] ||
+          "Nieznany typ użytkownika";
+        console.log(`Zalogowany jako: ${userInfo}`);
+
+        // Dodaj badge z typem użytkownika
+        const titleElement = document.querySelector("h1");
+        if (titleElement && userData.userType) {
+          const badge = document.createElement("span");
+          badge.className =
+            "ml-3 px-2 py-1 text-xs bg-green-600 text-white rounded";
+          badge.textContent = userData.userType.toUpperCase();
+          titleElement.appendChild(badge);
+        }
+      }
+
+      // Refresh agents function
+      function refreshAgents() {
+        console.log("🔄 Odświeżanie listy agentów...");
+        location.reload();
+      }
+    </script>
+  </main></MyBonzoLayout
+>

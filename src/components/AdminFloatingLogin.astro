@@ -1,0 +1,416 @@
+---
+// Floating Admin Login Component
+---
+
+<!-- Floating Admin Login Buttons -->
+<div id="admin-floating-buttons" class="admin-floating-login">
+  <!-- Login Button -->
+  <button onclick="toggleLoginModal()" class="admin-float-btn login-btn">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11 7L9.6 8.4L12.2 11H2V13H12.2L9.6 15.6L11 17L16 12L11 7ZM20 19H12V21H20C21.1 21 22 20.1 22 19V5C22 3.9 21.1 3 20 3H12V5H20V19Z"
+        fill="currentColor"></path>
+    </svg>
+    LOGIN
+  </button>
+
+  <!-- Panel Administracyjny Button -->
+  <button onclick="toggleAdminLogin()" class="admin-float-btn panel-btn">
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"
+        fill="currentColor"></path>
+    </svg>
+    Panel Administracyjny
+  </button>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="admin-login-modal" class="admin-modal hidden">
+  <div class="admin-modal-content">
+    <div class="admin-modal-header">
+      <h3>Panel Administratora</h3>
+      <button onclick="closeAdminLogin()" class="admin-close-btn"
+        >&times;</button
+      >
+    </div>
+    <div class="admin-modal-body">
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)">
+        <div class="admin-form-group">
+          <label for="admin-password">Hasło administratora:</label>
+          <input
+            type="password"
+            id="admin-password"
+            placeholder="Wprowadź hasło administratora"
+            required
+          />
+        </div>
+        <div id="admin-error" class="admin-error hidden"></div>
+        <button type="submit" class="admin-submit-btn"
+          >Zaloguj jako Administrator</button
+        >
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="login-modal" class="admin-modal hidden">
+  <div class="admin-modal-content">
+    <div class="admin-modal-header">
+      <h3>Login - Panel Administratora</h3>
+      <button onclick="closeLoginModal()" class="admin-close-btn"
+        >&times;</button
+      >
+    </div>
+    <div class="admin-modal-body">
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="admin-form-group">
+          <label for="login-password">Hasło:</label>
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Wprowadź hasło"
+            required
+          />
+        </div>
+        <div id="login-error" class="admin-error hidden"></div>
+        <button type="submit" class="admin-submit-btn">Zaloguj do Panelu</button
+        >
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .admin-floating-login {
+    position: fixed;
+    bottom: 28px;
+    left: 30px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .admin-float-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: #00d7ef;
+    padding: 12px 24px;
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    min-width: 220px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .admin-float-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+  }
+
+  .admin-float-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .admin-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    backdrop-filter: blur(5px);
+  }
+
+  .admin-modal-content {
+    background: rgba(20, 20, 20, 0.95);
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  }
+
+  .admin-modal-header {
+    background: rgba(255, 0, 0, 0.1);
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-modal-header h3 {
+    color: #ff4444;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .admin-close-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .admin-close-btn:hover {
+    color: #ff6666;
+    transform: scale(1.2);
+  }
+
+  .admin-modal-body {
+    padding: 30px;
+  }
+
+  .admin-form-group {
+    margin-bottom: 20px;
+  }
+
+  .admin-form-group label {
+    display: block;
+    color: #ff4444;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .admin-form-group input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(30, 30, 30, 0.8);
+    border: 2px solid rgba(255, 0, 0, 0.3);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .admin-form-group input:focus {
+    outline: none;
+    border-color: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+  }
+
+  .admin-form-group input::placeholder {
+    color: #888;
+  }
+
+  .admin-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .admin-submit-btn:hover {
+    background: linear-gradient(135deg, #ff6666, #ff0000);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+  }
+
+  .admin-error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    color: #ff6666;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  // Login Functions - globalne funkcje
+  function toggleLoginModal() {
+    const modal = document.getElementById("login-modal");
+    if (modal) {
+      modal.classList.remove("hidden");
+      const passwordInput = document.getElementById("login-password");
+      if (passwordInput) passwordInput.focus();
+    }
+  }
+
+  function closeLoginModal() {
+    const modal = document.getElementById("login-modal");
+    if (modal) {
+      modal.classList.add("hidden");
+      const form = document.getElementById("login-form");
+      if (form) form.reset();
+      const error = document.getElementById("login-error");
+      if (error) error.classList.add("hidden");
+    }
+  }
+
+  function handleLogin(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("login-password").value;
+    const errorDiv = document.getElementById("login-error");
+
+    if (password === "HAOS77") {
+      // Zapisz dane administratora - zgodne z systemem na stronie admin
+      localStorage.setItem("adminAuthenticated", "true");
+      const adminData = {
+        authenticated: true,
+        userType: "admin",
+        loginTime: new Date().toISOString(),
+        system: "admin-panel",
+      };
+      sessionStorage.setItem("mybonzo_admin_auth", JSON.stringify(adminData));
+
+      // Ukryj modal
+      closeLoginModal();
+
+      // Przekieruj do panelu administratora
+      console.log("🔑 Administrator zalogowany:", adminData);
+      window.location.href = "/admin";
+    } else {
+      const errorDiv = document.getElementById("login-error");
+      if (errorDiv) {
+        errorDiv.textContent = "❌ Nieprawidłowe hasło!";
+        errorDiv.classList.remove("hidden");
+      }
+      const passwordInput = document.getElementById("login-password");
+      if (passwordInput) {
+        passwordInput.value = "";
+        passwordInput.focus();
+      }
+    }
+  }
+
+  // Admin Login Functions - globalne funkcje
+  function toggleAdminLogin() {
+    const modal = document.getElementById("admin-login-modal");
+    if (modal) {
+      modal.classList.remove("hidden");
+      const passwordInput = document.getElementById("admin-password");
+      if (passwordInput) passwordInput.focus();
+    }
+  }
+
+  function closeAdminLogin() {
+    const modal = document.getElementById("admin-login-modal");
+    if (modal) {
+      modal.classList.add("hidden");
+      const form = document.getElementById("admin-login-form");
+      if (form) form.reset();
+      const error = document.getElementById("admin-error");
+      if (error) error.classList.add("hidden");
+    }
+  }
+
+  function handleAdminLogin(event) {
+    event.preventDefault();
+
+    const password = document.getElementById("admin-password").value;
+    const errorDiv = document.getElementById("admin-error");
+
+    if (password === "HAOS77") {
+      // Zapisz dane administratora - zgodne z systemem na stronie admin
+      localStorage.setItem("adminAuthenticated", "true");
+      const adminData = {
+        authenticated: true,
+        userType: "admin",
+        loginTime: new Date().toISOString(),
+        system: "admin-panel",
+      };
+      sessionStorage.setItem("mybonzo_admin_auth", JSON.stringify(adminData));
+
+      // Ukryj modal
+      closeAdminLogin();
+
+      // Przekieruj do panelu administratora
+      console.log("🔑 Administrator zalogowany:", adminData);
+      window.location.href = "/admin";
+    } else {
+      const errorDiv = document.getElementById("admin-error");
+      if (errorDiv) {
+        errorDiv.textContent = "❌ Nieprawidłowe hasło administratora!";
+        errorDiv.classList.remove("hidden");
+      }
+      const passwordInput = document.getElementById("admin-password");
+      if (passwordInput) {
+        passwordInput.value = "";
+        passwordInput.focus();
+      }
+    }
+  }
+
+  // Zamknij modal gdy kliknięto poza nim
+  document.addEventListener("click", function (event) {
+    const loginModal = document.getElementById("login-modal");
+    if (event.target === loginModal) {
+      closeLoginModal();
+    }
+    const adminModal = document.getElementById("admin-login-modal");
+    if (event.target === adminModal) {
+      closeAdminLogin();
+    }
+  });
+
+  // Zamknij modal gdy naciśnięto ESC
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      const loginModal = document.getElementById("login-modal");
+      const adminModal = document.getElementById("admin-login-modal");
+      if (loginModal && !loginModal.classList.contains("hidden")) {
+        closeLoginModal();
+      }
+      if (adminModal && !adminModal.classList.contains("hidden")) {
+        closeAdminLogin();
+      }
+    }
+  });
+</script>

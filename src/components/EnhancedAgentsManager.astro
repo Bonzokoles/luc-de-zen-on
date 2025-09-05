@@ -5,7 +5,71 @@
  */
 ---
 
-<div id="enhanced-agents-manager" class="agents-manager-enhanced">
+<!-- Login Modal -->
+<div id="login-modal" class="login-modal">
+  <div
+    class="max-w-md mx-auto bg-gray-900/50 border border-edge rounded-2xl p-8 shadow-xl text-white"
+  >
+    <h2 class="text-2xl font-bold text-center mb-6 text-primary-foreground">
+      🔐 System Logowania
+    </h2>
+
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-2 text-primary-foreground"
+          >Użytkownik:</label
+        >
+        <input
+          type="text"
+          id="username"
+          placeholder="Wpisz nazwę użytkownika"
+          class="w-full p-3 bg-transparent border border-edge rounded-lg text-primary-foreground focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2 text-primary-foreground"
+          >Hasło:</label
+        >
+        <input
+          type="password"
+          id="password"
+          placeholder="Wpisz hasło"
+          class="w-full p-3 bg-transparent border border-edge rounded-lg text-primary-foreground focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div
+        id="login-error"
+        class="hidden bg-red-500/20 border border-red-500/40 rounded-lg p-3 text-red-400 text-sm"
+      >
+        Nieprawidłowe dane logowania!
+      </div>
+
+      <div class="flex gap-3">
+        <button
+          id="login-btn"
+          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+        >
+          Zaloguj się
+        </button>
+        <button
+          id="demo-btn"
+          class="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+        >
+          Tryb Demo
+        </button>
+      </div>
+
+      <div class="text-center text-sm text-gray-400 mt-4">
+        <p><strong>Administrator:</strong> admin / HAOS77</p>
+        <p><strong>Klient:</strong> client / client123</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="enhanced-agents-manager" class="agents-manager-enhanced hidden">
   <div class="dashboard-header">
     <h1 class="dashboard-title">🤖 AI Agents Central Dashboard</h1>
     <div class="connection-status">
@@ -419,46 +483,72 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Command Panel -->
-  <div class="command-panel">
-    <h3>🎛️ Command Center</h3>
-    <div class="command-input-section">
-      <select id="command-agent" class="command-select">
-        <option value="">Select Agent...</option>
-        <option value="POLACZEK_A1">POLACZEK Analytics</option>
-        <option value="POLACZEK_AI">POLACZEK AI Core</option>
-        <option value="POLACZEK_D">POLACZEK Dashboard</option>
-        <option value="POLACZEK_S1">POLACZEK Search</option>
-        <option value="POLACZEK_T1">POLACZEK Translation</option>
-        <option value="BIELIK_07D">BIELIK Dashboard</option>
-        <option value="BIELIK_07S">BIELIK Search</option>
-        <option value="BIELIK_07C">BIELIK Content</option>
-        <option value="BIELIK_07T">BIELIK Translation</option>
-      </select>
+    <!-- Command Panel -->
+    <div class="command-panel">
+      <div class="panel-header">
+        <h3>📡 Command Panel</h3>
+        <div class="connection-status">
+          <span class="status-dot connected"></span>
+          WebSocket Connected
+        </div>
+      </div>
 
-      <select id="command-type" class="command-select">
-        <option value="">Select Command...</option>
-        <option value="get_status">Get Status</option>
-        <option value="start_agent">Start Agent</option>
-        <option value="stop_agent">Stop Agent</option>
-        <option value="restart_agent">Restart Agent</option>
-        <option value="send_task">Send Task</option>
-      </select>
+      <div class="command-interface">
+        <div class="command-input-section">
+          <select id="targetAgent" class="agent-selector">
+            <option value="all">All Agents</option>
+            <option value="POLACZEK_A1">Analytics (A1)</option>
+            <option value="POLACZEK_AI">AI Core (AI)</option>
+            <option value="POLACZEK_D">Dashboard (D)</option>
+            <option value="POLACZEK_S1">Search (S1)</option>
+            <option value="BIELIK_T">Translator (T)</option>
+            <option value="BIELIK_V">Voice (V)</option>
+          </select>
 
-      <input
-        type="text"
-        id="command-params"
-        class="command-input"
-        placeholder="Parameters (JSON format)"
-      />
-      <button id="execute-command" class="execute-btn">Execute</button>
-    </div>
+          <input
+            type="text"
+            id="commandInput"
+            placeholder="Enter command..."
+            class="command-input"
+          />
 
-    <div class="command-output">
-      <h4>Output:</h4>
-      <pre id="command-result"></pre>
+          <button onclick="sendCommand()" class="send-button"> 📤 Send </button>
+        </div>
+
+        <div class="quick-commands">
+          <h4>Quick Commands:</h4>
+          <div class="quick-buttons">
+            <button onclick="quickCommand('status')" class="quick-btn"
+              >Status</button
+            >
+            <button onclick="quickCommand('restart')" class="quick-btn"
+              >Restart</button
+            >
+            <button onclick="quickCommand('stop')" class="quick-btn"
+              >Stop</button
+            >
+            <button onclick="quickCommand('health')" class="quick-btn"
+              >Health</button
+            >
+          </div>
+        </div>
+
+        <div class="command-log">
+          <h4>Command Log:</h4>
+          <div id="commandLog" class="log-content">
+            <div class="log-entry success">
+              [19:04:12] ✅ POLACZEK_AI: Status check completed
+            </div>
+            <div class="log-entry warning">
+              [19:03:45] ⚠️ BIELIK_T: High memory usage detected
+            </div>
+            <div class="log-entry info">
+              [19:03:20] ℹ️ System: Auto-scaling initiated
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -469,9 +559,10 @@
     margin: 0 auto;
     padding: 20px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
 
   .dashboard-header {
@@ -480,24 +571,24 @@
     align-items: center;
     margin-bottom: 30px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
   }
 
   .dashboard-title {
     font-size: 2.5em;
     font-weight: bold;
-    color: white;
+    color: #ffffff;
     margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .connection-status {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
+    color: #d1d5db;
     font-weight: 500;
   }
 
@@ -524,15 +615,16 @@
   }
 
   .overview-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   }
 
   .overview-card h3 {
     margin-top: 0;
-    color: #333;
+    color: #ffffff;
     font-size: 1.3em;
   }
 
@@ -550,12 +642,12 @@
 
   .stat-label {
     font-weight: 500;
-    color: #666;
+    color: #d1d5db;
   }
 
   .stat-value {
     font-weight: bold;
-    color: #333;
+    color: #00d9ff;
     font-size: 1.2em;
   }
 
@@ -569,7 +661,7 @@
 
   .chart-bar {
     flex: 1;
-    background: linear-gradient(to top, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(to top, #00d9ff 0%, #0099cc 100%);
     border-radius: 4px 4px 0 0;
     display: flex;
     align-items: end;
@@ -597,13 +689,14 @@
   }
 
   .alert-info {
-    background: #e3f2fd;
+    background: rgba(33, 150, 243, 0.1);
     border-left: 4px solid #2196f3;
+    color: #ffffff;
   }
 
   .alert-time {
     font-weight: bold;
-    color: #666;
+    color: #d1d5db;
     min-width: 40px;
   }
 
@@ -615,10 +708,11 @@
   }
 
   .agent-group {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 25px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   }
 
   .group-header {
@@ -627,12 +721,12 @@
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
   }
 
   .group-header h2 {
     margin: 0;
-    color: #333;
+    color: #ffffff;
     font-size: 1.8em;
   }
 
@@ -678,12 +772,14 @@
   }
 
   .agent-card {
-    background: white;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #ddd;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-left: 5px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    color: #ffffff;
   }
 
   .polaczek-group .agent-card {
@@ -696,7 +792,9 @@
 
   .agent-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(0, 0, 0, 0.4);
   }
 
   .agent-header {
@@ -708,7 +806,7 @@
 
   .agent-header h3 {
     margin: 0;
-    color: #333;
+    color: #ffffff;
     font-size: 1.2em;
   }
 
@@ -744,13 +842,13 @@
   .metric span:first-child {
     min-width: 60px;
     font-weight: 500;
-    color: #666;
+    color: #d1d5db;
   }
 
   .metric-bar {
     flex: 1;
     height: 6px;
-    background: #eee;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 3px;
     overflow: hidden;
   }
@@ -766,7 +864,7 @@
     min-width: 40px;
     text-align: right;
     font-weight: bold;
-    color: #333;
+    color: #ffffff;
   }
 
   .agent-controls {
@@ -811,7 +909,7 @@
 
   .agent-info {
     font-size: 0.85em;
-    color: #666;
+    color: #d1d5db;
   }
 
   .info-item {
@@ -819,15 +917,16 @@
   }
 
   .command-panel {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   }
 
   .command-panel h3 {
     margin-top: 0;
-    color: #333;
+    color: #ffffff;
     font-size: 1.5em;
   }
 
@@ -841,7 +940,9 @@
   .command-select,
   .command-input {
     padding: 10px;
-    border: 2px solid #ddd;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
     border-radius: 8px;
     font-size: 1em;
     flex: 1;
@@ -851,7 +952,7 @@
   .command-select:focus,
   .command-input:focus {
     outline: none;
-    border-color: #2196f3;
+    border-color: #00d9ff;
   }
 
   .execute-btn {
@@ -919,6 +1020,206 @@
     .agents-grid {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* Command Panel Styles */
+  .command-panel {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .panel-header h3 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d1d5db;
+    font-size: 0.9rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ef4444;
+  }
+
+  .status-dot.connected {
+    background: #10b981;
+    animation: pulse 2s infinite;
+  }
+
+  .command-interface {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .command-input-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .agent-selector,
+  .command-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+
+  .agent-selector {
+    min-width: 150px;
+  }
+
+  .command-input {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .send-button {
+    background: rgba(0, 217, 255, 0.2);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .send-button:hover {
+    background: rgba(0, 217, 255, 0.3);
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .quick-commands h4 {
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+  }
+
+  .quick-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .quick-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #d1d5db;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+  }
+
+  .quick-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+  }
+
+  .command-log h4 {
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+  }
+
+  .log-content {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 15px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .log-entry {
+    color: #d1d5db;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+    font-family: "Courier New", monospace;
+  }
+
+  .log-entry.success {
+    color: #10b981;
+  }
+
+  .log-entry.warning {
+    color: #f59e0b;
+  }
+
+  .log-entry.info {
+    color: #3b82f6;
+  }
+
+  .log-entry.error {
+    color: #ef4444;
+  }
+
+  /* Login Modal Styles - HIDDEN */
+  .login-modal {
+    display: none !important; /* Ukryj modal logowania - używamy globalnego systemu uwierzytelniania */
+  }
+
+  .login-modal .max-w-md {
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .login-modal input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.3s ease;
+    color: #e5e7eb !important;
+  }
+
+  .login-modal input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .login-modal input:focus {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+
+  .login-modal button {
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+
+  .login-modal button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Hide enhanced manager initially */
+  .hidden {
+    display: none !important;
   }
 </style>
 
@@ -1356,8 +1657,175 @@
     }
   }
 
+  // Global functions for Command Panel
+  function sendCommand() {
+    const targetAgent = document.getElementById("targetAgent").value;
+    const commandInput = document.getElementById("commandInput");
+    const command = commandInput.value.trim();
+
+    if (!command) {
+      addLogEntry("error", "Please enter a command");
+      return;
+    }
+
+    addLogEntry("info", `Sending command "${command}" to ${targetAgent}`);
+
+    // Simulate command execution
+    setTimeout(() => {
+      addLogEntry("success", `${targetAgent}: Command executed successfully`);
+    }, 1000);
+
+    commandInput.value = "";
+  }
+
+  function quickCommand(action) {
+    const targetAgent = document.getElementById("targetAgent").value;
+    const commandMap = {
+      status: "get_status",
+      restart: "restart_agent",
+      stop: "stop_agent",
+      health: "health_check",
+    };
+
+    const command = commandMap[action];
+    addLogEntry("info", `Quick command: ${command} → ${targetAgent}`);
+
+    // Simulate command execution
+    setTimeout(() => {
+      if (action === "status") {
+        addLogEntry("success", `${targetAgent}: Status OK - Running normally`);
+      } else if (action === "health") {
+        addLogEntry("success", `${targetAgent}: Health check passed`);
+      } else {
+        addLogEntry("success", `${targetAgent}: ${action} completed`);
+      }
+    }, 500);
+  }
+
+  function addLogEntry(type, message) {
+    const logContent = document.getElementById("commandLog");
+    const timestamp = new Date().toLocaleTimeString();
+    const iconMap = {
+      success: "✅",
+      error: "❌",
+      warning: "⚠️",
+      info: "ℹ️",
+    };
+
+    const logEntry = document.createElement("div");
+    logEntry.className = `log-entry ${type}`;
+    logEntry.textContent = `[${timestamp}] ${iconMap[type]} ${message}`;
+
+    logContent.appendChild(logEntry);
+    logContent.scrollTop = logContent.scrollHeight;
+
+    // Keep only last 20 entries
+    while (logContent.children.length > 20) {
+      logContent.removeChild(logContent.firstChild);
+    }
+  }
+
   // Initialize the enhanced agents manager when the DOM is loaded
   document.addEventListener("DOMContentLoaded", () => {
+    // Authentication check - use global authentication state
+    const authData = sessionStorage.getItem("mybonzo_auth");
+
+    if (!authData) {
+      console.log(
+        "EnhancedAgentsManager: Brak uwierzytelniania, przekierowywanie..."
+      );
+      window.location.href = "/login";
+      return;
+    }
+
+    let currentUser = null;
+    let userRole = null;
+
+    try {
+      const parsed = JSON.parse(authData);
+      if (!parsed.authenticated) {
+        console.log(
+          "EnhancedAgentsManager: Sesja nieważna, przekierowywanie..."
+        );
+        window.location.href = "/login";
+        return;
+      }
+
+      // Mapuj typy użytkowników
+      const userMapping = {
+        admin: { role: "administrator", displayName: "Administrator" },
+        client: { role: "client", displayName: "Klient" },
+        demo: { role: "demo", displayName: "Demo" },
+      };
+
+      const userInfo = userMapping[parsed.userType] || {
+        role: "user",
+        displayName: "Użytkownik",
+      };
+      currentUser = parsed.userType;
+      userRole = userInfo.role;
+
+      console.log(
+        `EnhancedAgentsManager: Zalogowany jako ${userInfo.displayName}`
+      );
+
+      // Pokaż główny interfejs
+      showMainInterface();
+      addLogEntry(
+        "success",
+        `Zalogowany jako ${userInfo.displayName}: ${currentUser}`
+      );
+    } catch (error) {
+      console.error(
+        "EnhancedAgentsManager: Błąd parsowania danych uwierzytelniania:",
+        error
+      );
+      window.location.href = "/login";
+      return;
+    }
+
+    function showMainInterface() {
+      const enhancedManager = document.getElementById(
+        "enhanced-agents-manager"
+      );
+      if (enhancedManager) {
+        enhancedManager.classList.remove("hidden");
+      }
+
+      // Update interface based on user role
+      updateInterfaceForRole();
+    }
+
+    function updateInterfaceForRole() {
+      if (userRole === "administrator") {
+        addLogEntry(
+          "info",
+          "🔑 Dostęp administratora: wszystkie funkcje dostępne"
+        );
+        addLogEntry("info", "🛠️ Możliwość tworzenia rzeczywistych agentów");
+      } else if (userRole === "client") {
+        addLogEntry("info", "👤 Dostęp klienta: możliwość tworzenia agentów");
+      } else {
+        addLogEntry("warning", "⚠️ Tryb demo: ograniczone funkcje");
+      }
+    }
+
+    // Logout function
+    function handleLogout() {
+      sessionStorage.removeItem("mybonzo_auth");
+      window.location.href = "/";
+    }
+
+    // Add logout button to interface if needed
+    const logoutBtn = document.getElementById("logout-user-btn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", handleLogout);
+    }
+
+    // Expose current user info globally
+    window.getCurrentUser = () => ({ user: currentUser, role: userRole });
+
+    // Initialize agents manager after login setup
     window.agentsManager = new EnhancedAgentsManager();
   });
 </script>

@@ -1,0 +1,40 @@
+{
+  "scripts": {
+    "test:workflows": "node scripts/testWorkflows.js",
+    "deploy:workflows": "node scripts/deployWorkflows.js", 
+    "monitor:workflows": "node scripts/monitorWorkflows.js",
+    "dev:workflows": "concurrently \"npm run dev\" \"npm run monitor:workflows\"",
+    "build:production": "npm run build && node scripts/deployWorkflows.js"
+  },
+  "workflow_config": {
+    "flowise": {
+      "monitoring_enabled": true,
+      "faq_generation_enabled": true,
+      "auto_deploy": false
+    },
+    "activepieces": {
+      "reminders_enabled": true,
+      "ticket_assignment_enabled": true,
+      "auto_deploy": false
+    },
+    "cloudflare": {
+      "bielik_worker_enabled": true,
+      "auto_deploy": true
+    }
+  },
+  "api_endpoints": {
+    "local": {
+      "base_url": "http://localhost:4321",
+      "timeout": 10000
+    },
+    "production": {
+      "base_url": "https://mybonzo.pl",
+      "timeout": 15000
+    }
+  },
+  "monitoring": {
+    "check_interval": 300000,
+    "report_retention_days": 30,
+    "alert_on_failure": true
+  }
+}

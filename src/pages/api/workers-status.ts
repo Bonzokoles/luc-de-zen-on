@@ -2,87 +2,124 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async ({ request }) => {
   try {
-    // Mock data for workers status - in production this would fetch real metrics
+    // Enhanced workers data - in production this would fetch real metrics from monitoring system
     const workers = [
       {
-        name: 'Generator Obrazów',
-        endpoint: '/api/generate-image',
+        name: 'Generator Treści Marketingowych',
+        endpoint: '/api/generate-marketing-content',
         status: 'online',
         cpu: 32,
         ram: 79,
         requests: 150,
         responseMs: 140,
-        lastCheck: new Date().toISOString()
+        lastCheck: new Date().toISOString(),
+        uptime: '99.8%',
+        version: '1.2.3',
+        region: 'EU-West'
       },
       {
-        name: 'AI Chatbot',
-        endpoint: '/api/chat',
+        name: 'Rekomendacje Personalizowane',
+        endpoint: '/api/get-recommendations',
         status: 'online',
-        cpu: 28,
-        ram: 65,
+        cpu: 25,
+        ram: 62,
         requests: 89,
-        responseMs: 120,
-        lastCheck: new Date().toISOString()
+        responseMs: 95,
+        lastCheck: new Date().toISOString(),
+        uptime: '99.9%',
+        version: '1.1.8',
+        region: 'EU-West'
       },
       {
-        name: 'BigQuery Analytics',
-        endpoint: '/api/bigquery',
-        status: 'offline',
-        cpu: null,
-        ram: null,
-        requests: 0,
-        responseMs: null,
-        lastCheck: new Date(Date.now() - 120000).toISOString()
-      },
-      {
-        name: 'Kaggle Datasets',
-        endpoint: '/api/kaggle',
-        status: 'offline',
-        cpu: null,
-        ram: null,
-        requests: 0,
-        responseMs: null,
-        lastCheck: new Date(Date.now() - 180000).toISOString()
-      },
-      {
-        name: 'Tavily AI Search',
-        endpoint: '/api/tavi',
-        status: 'offline',
-        cpu: null,
-        ram: null,
-        requests: 0,
-        responseMs: null,
-        lastCheck: new Date(Date.now() - 240000).toISOString()
-      },
-      {
-        name: 'FAQ Generator',
-        endpoint: '/api/faq',
+        name: 'Automatyzacja Obsługi Klienta',
+        endpoint: '/api/qualify-lead',
         status: 'partial',
         cpu: 67,
         ram: 39,
         requests: 69,
         responseMs: 200,
-        lastCheck: new Date(Date.now() - 60000).toISOString()
+        lastCheck: new Date(Date.now() - 30000).toISOString(),
+        uptime: '97.2%',
+        version: '1.0.5',
+        region: 'EU-West'
       },
       {
-        name: 'Education Recommendations',
+        name: 'Monitor Aktywności',
+        endpoint: '/api/activity-monitor',
+        status: 'online',
+        cpu: 18,
+        ram: 45,
+        requests: 124,
+        responseMs: 78,
+        lastCheck: new Date().toISOString(),
+        uptime: '99.5%',
+        version: '2.0.1',
+        region: 'EU-West'
+      },
+      {
+        name: 'System Przypominań',
+        endpoint: '/api/reminders',
+        status: 'offline',
+        cpu: null,
+        ram: null,
+        requests: 0,
+        responseMs: null,
+        lastCheck: new Date(Date.now() - 300000).toISOString(),
+        uptime: '0%',
+        version: '1.3.0',
+        region: 'EU-West'
+      },
+      {
+        name: 'Dynamiczne FAQ',
+        endpoint: '/api/faq',
+        status: 'online',
+        cpu: 41,
+        ram: 67,
+        requests: 203,
+        responseMs: 165,
+        lastCheck: new Date().toISOString(),
+        uptime: '98.9%',
+        version: '1.4.2',
+        region: 'EU-West'
+      },
+      {
+        name: 'Rekomendacje Edukacyjne',
         endpoint: '/api/education-recommendations',
-        status: 'partial',
-        cpu: 45,
-        ram: 52,
-        requests: 34,
-        responseMs: 180,
-        lastCheck: new Date(Date.now() - 90000).toISOString()
+        status: 'online',
+        cpu: 29,
+        ram: 54,
+        requests: 76,
+        responseMs: 112,
+        lastCheck: new Date().toISOString(),
+        uptime: '99.1%',
+        version: '1.2.1',
+        region: 'EU-West'
       },
       {
-        name: 'Ticket System',
+        name: 'System Ticketów AI',
         endpoint: '/api/tickets',
         status: 'online',
-        cpu: 23,
-        ram: 41,
-        requests: 78,
-        responseMs: 160,
-        lastCheck: new Date().toISOString()
+        cpu: 35,
+        ram: 58,
+        requests: 98,
+        responseMs: 134,
+        lastCheck: new Date().toISOString(),
+        uptime: '99.7%',
+        version: '1.5.0',
+        region: 'EU-West'
+      },
+      {
+        name: 'Interaktywne Quizy',
+        endpoint: '/api/quiz',
+        status: 'online',
+        cpu: 22,
+        ram: 48,
+        requests: 67,
+        responseMs: 89,
+        lastCheck: new Date().toISOString(),
+        uptime: '99.3%',
+        version: '1.1.3',
+        region: 'EU-West'
       },
       {
         name: 'POLACZEK Agent',
@@ -92,7 +129,10 @@ export const GET: APIRoute = async ({ request }) => {
         ram: 58,
         requests: 45,
         responseMs: 135,
-        lastCheck: new Date().toISOString()
+        lastCheck: new Date().toISOString(),
+        uptime: '98.7%',
+        version: '2.1.0',
+        region: 'EU-West'
       }
     ];
 
@@ -128,7 +168,28 @@ export const GET: APIRoute = async ({ request }) => {
       result.status === 'fulfilled' ? result.value : workers[index]
     );
 
-    return new Response(JSON.stringify(updatedWorkers), {
+    // Calculate system metrics
+    const systemMetrics = {
+      totalWorkers: updatedWorkers.length,
+      onlineWorkers: updatedWorkers.filter(w => w.status === 'online').length,
+      partialWorkers: updatedWorkers.filter(w => w.status === 'partial').length,
+      offlineWorkers: updatedWorkers.filter(w => w.status === 'offline').length,
+      totalRequests: updatedWorkers.reduce((sum, w) => sum + w.requests, 0),
+      avgResponseTime: Math.round(
+        updatedWorkers
+          .filter(w => w.responseMs !== null && w.responseMs !== undefined)
+          .reduce((sum, w) => sum + (w.responseMs || 0), 0) / 
+        Math.max(updatedWorkers.filter(w => w.responseMs !== null && w.responseMs !== undefined).length, 1)
+      ),
+      systemHealth: updatedWorkers.filter(w => w.status === 'online').length / updatedWorkers.length * 100,
+      lastUpdate: new Date().toISOString()
+    };
+
+    return new Response(JSON.stringify({
+      workers: updatedWorkers,
+      metrics: systemMetrics,
+      success: true
+    }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
