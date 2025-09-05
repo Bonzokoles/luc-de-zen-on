@@ -34,10 +34,10 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_PROD }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID_PROD }}
-          projectName: luc-de-zen-on
+          projectName: mybonzo-worker
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Keep-alive ping
         run: |
-          curl -f https://2245be0e.luc-de-zen-on.pages.dev/ || echo "Site ping failed, but continuing..."
+          curl -f https://www.mybonzo.com || echo "Site ping failed, but continuing..."
