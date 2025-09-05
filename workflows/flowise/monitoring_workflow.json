@@ -1,0 +1,47 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "apiReceive",
+      "name": "Get Logs",
+      "config": {
+        "endpoint": "/api/activity-monitor"
+      }
+    },
+    {
+      "id": "2",
+      "type": "function",
+      "name": "Parse Logs",
+      "config": {
+        "script": "return input.map(log => ({ ...log, level: log.message.includes('error') ? 'error' : 'info' }));"
+      }
+    },
+    {
+      "id": "3",
+      "type": "function",
+      "name": "Filter Errors",
+      "config": {
+        "script": "return input.filter(log => log.level === 'error');"
+      }
+    },
+    {
+      "id": "4",
+      "type": "httpRequest",
+      "name": "Alert Errors",
+      "config": {
+        "url": "https://api.activepieces.com/trigger-alert",
+        "method": "POST",
+        "body": "{\"message\": \"Wykryto błędy w logach!\"}",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <API_KEY>"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "1": ["2"],
+    "2": ["3"],
+    "3": ["4"]
+  }
+}

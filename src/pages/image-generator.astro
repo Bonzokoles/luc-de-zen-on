@@ -11,13 +11,29 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       <div class="section-container max-w-4xl mx-auto">
         <h1 class="section-title">GENERATOR OBRAZÓW AI</h1>
         <p class="section-description">
-          Podaj opis i wybierz parametry. Otrzymasz PNG bezpośrednio z serwera.
+          Podaj opis i wybierz parametry. Otrzymasz PNG bezpośrednio z serwera.<br
+          />
+          <span class="text-cyan-400 text-sm"
+            >🌐 Prompty są automatycznie tłumaczone z polskiego na angielski dla
+            lepszych rezultatów</span
+          >
         </p>
 
         <div
           class="border border-edge rounded-lg p-6 mt-6"
           style="background: rgba(0,0,0,0.5);"
         >
+          <!-- Status Translation -->
+          <div
+            id="translationStatus"
+            class="mb-4 p-3 rounded bg-cyan-900/30 border border-cyan-500/50 hidden"
+          >
+            <p class="text-cyan-300 text-sm">
+              🌐 <span class="font-semibold">Tłumaczenie automatyczne:</span>
+              <span id="translationInfo"></span>
+            </p>
+          </div>
+
           <!-- Prompt -->
           <div class="mb-5">
             <label
@@ -115,6 +131,23 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               onclick="generateImage()">🎨 Generuj Obraz</button
             >
+          </div>
+
+          <!-- Notatka o polskich znakach -->
+          <div
+            class="mb-4 p-3 bg-amber-900/30 border border-amber-600/50 rounded-lg"
+          >
+            <div class="flex items-start gap-2">
+              <span class="text-amber-400 text-sm">💡</span>
+              <div class="text-amber-200 text-sm">
+                <strong>Wskazówka:</strong> Lepiej nie używać polskich znaków (ą,
+                ć, ę, ł, ń, ó, ś, ź, ż) w promptach. Zamiast "samochód" wpisz "samochod",
+                zamiast "słońce" → "slonce".
+                <br /><span class="text-amber-300"
+                  >System automatycznie przetłumaczy Twój prompt na angielski.</span
+                >
+              </div>
+            </div>
           </div>
 
           <!-- Loading -->
@@ -215,7 +248,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   }
 </style>
 
-<script>
+<script is:inline>
   // @ts-nocheck
   // Frontend for binary PNG API with loading/error/history (no template literals)
   var generationHistory = [];
@@ -275,6 +308,8 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       errorBox.classList.add("hidden");
       errorBox.textContent = "";
     }
+    var statusDiv = document.getElementById("translationStatus");
+    if (statusDiv) statusDiv.classList.add("hidden");
     if (result) result.classList.add("hidden");
     if (loading) loading.classList.remove("hidden");
     if (btn) {
@@ -289,18 +324,84 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       var size = sizeEl ? String(sizeEl.value) : "512x512";
       var dims = parseSize(size);
 
-      var res = await fetch("/api/generate-image", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: prompt,
-          model: model,
-          style: style,
-          width: dims.width,
-          height: dims.height,
-          steps: steps,
-        }),
-      });
+      // Tłumaczenie promptu z polskiego na angielski dla lepszych rezultatów
+      var translatedPrompt = prompt;
+      try {
+        console.log("🌐 Tłumaczę prompt z PL na EN...");
+        var translateRes = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: prompt,
+            sourceLanguage: "polish",
+            targetLanguage: "english",
+          }),
+        });
+
+        if (translateRes.ok) {
+          var translateData = await translateRes.json();
+          translatedPrompt = translateData.data.translatedText || prompt;
+          console.log("✅ Przetłumaczono:", prompt, "→", translatedPrompt);
+
+          // Pokaż status tłumaczenia
+          var statusDiv = document.getElementById("translationStatus");
+          var infoSpan = document.getElementById("translationInfo");
+          if (statusDiv && infoSpan && translatedPrompt !== prompt) {
+            infoSpan.textContent = prompt + " → " + translatedPrompt;
+            statusDiv.classList.remove("hidden");
+          }
+        } else {
+          console.warn(
+            "⚠️ Tłumaczenie nie powiodło się, używam oryginalnego promptu"
+          );
+        }
+      } catch (translateError) {
+        console.warn("⚠️ Błąd tłumaczenia:", translateError);
+      }
+
+      // Try dedicated Image Generator Worker first, fallback to local API
+      var workerUrl = "http://127.0.0.1:8790";
+      var res;
+
+      try {
+        console.log(
+          "🎨 Próbuję z dedykowanym Image Generator Worker:",
+          workerUrl
+        );
+        res = await fetch(workerUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: translatedPrompt,
+            width: dims.width,
+            height: dims.height,
+            steps: steps,
+          }),
+        });
+
+        if (res.ok) {
+          console.log("✅ Dedykowany Worker odpowiedział poprawnie");
+        } else {
+          throw new Error("Worker returned error: " + res.status);
+        }
+      } catch (workerError) {
+        console.warn(
+          "⚠️ Dedykowany Worker nie działa, używam nowoczesnego API:",
+          workerError
+        );
+        res = await fetch("/api/generate-image-modern", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: translatedPrompt,
+            model: model,
+            style: style,
+            width: dims.width,
+            height: dims.height,
+            steps: steps,
+          }),
+        });
+      }
 
       if (!res.ok) {
         var errMsg = "Błąd generacji obrazu";
@@ -324,6 +425,8 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         var item = {
           id: Date.now(),
           prompt: prompt,
+          translatedPrompt:
+            translatedPrompt !== prompt ? translatedPrompt : undefined,
           imageUrl: dataUrl,
           ts: new Date().toISOString(),
           settings: {
@@ -406,6 +509,15 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     p.className = "text-xs text-gray-400 truncate";
     p.textContent = item.prompt;
     wrap.appendChild(p);
+
+    // Pokazuj informację o tłumaczeniu jeśli wystąpiło
+    if (item.translatedPrompt) {
+      var trans = document.createElement("p");
+      trans.className = "text-xs text-cyan-400 truncate";
+      trans.textContent = "EN: " + item.translatedPrompt;
+      wrap.appendChild(trans);
+    }
+
     wrap.onclick = function () {
       var el = document.getElementById("imagePrompt");
       if (el) el.value = item.prompt;

@@ -1,0 +1,31 @@
+name = "polaczek-ai-assistant"
+main = "src/workers/polaczek-websocket.js"
+compatibility_date = "2024-08-01"
+
+# KV Namespace for knowledge base storage
+[[kv_namespaces]]
+binding = "KNOWLEDGE_BASE"
+id = "ai_assistant_knowledge_base_2024"
+preview_id = "ai_assistant_knowledge_base_preview"
+
+# AI binding for OpenAI-compatible models
+[ai]
+binding = "AI"
+
+# Environment variables
+[vars]
+OPENAI_API_KEY = ""
+ANTHROPIC_API_KEY = ""
+HF_API_TOKEN = ""
+ENVIRONMENT = "production"
+
+# CORS configuration
+[build]
+command = ""
+
+# For development
+[env.development]
+name = "polaczek-ai-assistant-dev"
+
+[env.development.vars]
+ENVIRONMENT = "development"

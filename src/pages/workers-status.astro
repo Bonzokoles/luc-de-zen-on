@@ -1,4 +1,6 @@
+---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
 
 <MyBonzoLayout title="Workers Status & Store | AI Workers">
   <main class="min-h-svh">
@@ -76,39 +78,19 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <div class="stat-label">Aktywnych Workers</div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">💰</div>
-            <div class="stat-value" id="totalTokens">323</div>
-            <div class="stat-label">Łączne Tokeny</div>
+            <div class="stat-icon">✅</div>
+            <div class="stat-value" id="onlineWorkers">4</div>
+            <div class="stat-label">Online</div>
           </div>
           <div class="stat-card">
             <div class="stat-icon">⚡</div>
-            <div class="stat-value" id="apiCalls">1,247</div>
-            <div class="stat-label">API Calls (24h)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">💳</div>
-            <div class="stat-value" id="monthlySpend">142</div>
-            <div class="stat-label">PLN (miesiąc)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">📈</div>
-            <div class="stat-value" id="successRate">98.2%</div>
-            <div class="stat-label">Success Rate</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🔥</div>
             <div class="stat-value" id="avgResponse">2.1s</div>
             <div class="stat-label">Avg Response</div>
           </div>
           <div class="stat-card">
-            <div class="stat-icon">🌐</div>
-            <div class="stat-value" id="dataProcessed">847GB</div>
-            <div class="stat-label">Data Processed</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">⏱️</div>
-            <div class="stat-value" id="totalUptime">99.1%</div>
-            <div class="stat-label">Total Uptime</div>
+            <div class="stat-icon">📊</div>
+            <div class="stat-value" id="totalRequests">1,247</div>
+            <div class="stat-label">Requests (24h)</div>
           </div>
         </div>
 
@@ -152,280 +134,14 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           </div>
 
           <!-- Detailed Workers List -->
-          <div class="workers-detailed-list p-6">
-            <!-- Image Generator Worker -->
-            <div class="worker-detailed-card">
-              <div class="worker-main-info">
-                <div class="worker-icon">🎨</div>
-                <div class="worker-details">
-                  <h3 class="worker-name">
-                    Generator Obrazów (Flux-1 Schnell)
-                  </h3>
-                  <p class="worker-description">
-                    AI-powered image generation with high-quality output
-                  </p>
-                  <div class="worker-endpoints">
-                    <span class="endpoint-tag">POST /api/generate-image</span>
-                    <span class="endpoint-tag">GET /api/image-status</span>
-                  </div>
-                </div>
-                <div class="worker-status-indicator">
-                  <div class="status-badge online">ONLINE</div>
-                  <div class="uptime">99.8% uptime</div>
-                </div>
-              </div>
-
-              <div class="worker-metrics">
-                <div class="metric">
-                  <label>Tokeny:</label>
-                  <span class="tokens-count">47 pozostało</span>
-                </div>
-                <div class="metric">
-                  <label>Użycie (24h):</label>
-                  <span>23 generacji</span>
-                </div>
-                <div class="metric">
-                  <label>Avg. czas:</label>
-                  <span>2.3s</span>
-                </div>
-                <div class="metric">
-                  <label>Koszt/token:</label>
-                  <span>0.20 PLN</span>
-                </div>
-              </div>
-
-              <div class="worker-actions">
-                <button
-                  onclick="buyWorkerTokens('image-gen')"
-                  class="btn-primary">Kup tokeny</button
-                >
-                <button
-                  onclick="configureWorker('image-gen')"
-                  class="btn-secondary">Konfiguruj</button
-                >
-                <button
-                  onclick="viewWorkerLogs('image-gen')"
-                  class="btn-tertiary">Logi</button
-                >
-              </div>
-            </div>
-
-            <!-- AI Chatbot Worker -->
-            <div class="worker-detailed-card">
-              <div class="worker-main-info">
-                <div class="worker-icon">🤖</div>
-                <div class="worker-details">
-                  <h3 class="worker-name">
-                    AI Chatbot (GPT-4, Claude, Bielik)
-                  </h3>
-                  <p class="worker-description">
-                    Multi-model conversational AI with advanced reasoning
-                  </p>
-                  <div class="worker-endpoints">
-                    <span class="endpoint-tag">POST /api/ai-bot-worker</span>
-                    <span class="endpoint-tag">GET /api/chat-models</span>
-                  </div>
-                </div>
-                <div class="worker-status-indicator">
-                  <div class="status-badge online">ONLINE</div>
-                  <div class="uptime">99.9% uptime</div>
-                </div>
-              </div>
-
-              <div class="worker-metrics">
-                <div class="metric">
-                  <label>Tokeny:</label>
-                  <span class="tokens-count">156 pozostało</span>
-                </div>
-                <div class="metric">
-                  <label>Użycie (24h):</label>
-                  <span>89 konwersacji</span>
-                </div>
-                <div class="metric">
-                  <label>Avg. czas:</label>
-                  <span>1.8s</span>
-                </div>
-                <div class="metric">
-                  <label>Koszt/token:</label>
-                  <span>0.15 PLN</span>
-                </div>
-              </div>
-
-              <div class="worker-actions">
-                <button onclick="buyWorkerTokens('chatbot')" class="btn-primary"
-                  >Kup tokeny</button
-                >
-                <button
-                  onclick="configureWorker('chatbot')"
-                  class="btn-secondary">Konfiguruj</button
-                >
-                <button onclick="viewWorkerLogs('chatbot')" class="btn-tertiary"
-                  >Logi</button
-                >
-              </div>
-            </div>
-
-            <!-- BigQuery Analytics Worker -->
-            <div class="worker-detailed-card">
-              <div class="worker-main-info">
-                <div class="worker-icon">📊</div>
-                <div class="worker-details">
-                  <h3 class="worker-name">BigQuery Analytics</h3>
-                  <p class="worker-description">
-                    Google BigQuery integration for large-scale data analysis
-                  </p>
-                  <div class="worker-endpoints">
-                    <span class="endpoint-tag">POST /api/bigquery</span>
-                    <span class="endpoint-tag">GET /api/bq-datasets</span>
-                  </div>
-                </div>
-                <div class="worker-status-indicator">
-                  <div class="status-badge online">ONLINE</div>
-                  <div class="uptime">98.5% uptime</div>
-                </div>
-              </div>
-
-              <div class="worker-metrics">
-                <div class="metric">
-                  <label>Zapytania:</label>
-                  <span class="tokens-count">23 pozostało</span>
-                </div>
-                <div class="metric">
-                  <label>Użycie (24h):</label>
-                  <span>12 zapytań</span>
-                </div>
-                <div class="metric">
-                  <label>Avg. czas:</label>
-                  <span>4.2s</span>
-                </div>
-                <div class="metric">
-                  <label>Koszt/zapytanie:</label>
-                  <span>0.85 PLN</span>
-                </div>
-              </div>
-
-              <div class="worker-actions">
-                <button
-                  onclick="buyWorkerTokens('bigquery')"
-                  class="btn-primary">Kup zapytania</button
-                >
-                <button
-                  onclick="configureWorker('bigquery')"
-                  class="btn-secondary">Konfiguruj</button
-                >
-                <button
-                  onclick="viewWorkerLogs('bigquery')"
-                  class="btn-tertiary">Logi</button
-                >
-              </div>
-            </div>
-
-            <!-- Kaggle Datasets Worker -->
-            <div class="worker-detailed-card">
-              <div class="worker-main-info">
-                <div class="worker-icon">🏆</div>
-                <div class="worker-details">
-                  <h3 class="worker-name">Kaggle Datasets Explorer</h3>
-                  <p class="worker-description">
-                    Search and analyze datasets, competitions, and kernels
-                  </p>
-                  <div class="worker-endpoints">
-                    <span class="endpoint-tag">GET /api/kaggle</span>
-                    <span class="endpoint-tag">POST /api/kaggle-search</span>
-                  </div>
-                </div>
-                <div class="worker-status-indicator">
-                  <div class="status-badge limited">LIMITED</div>
-                  <div class="uptime">96.2% uptime</div>
-                </div>
-              </div>
-
-              <div class="worker-metrics">
-                <div class="metric">
-                  <label>Wyszukiwania:</label>
-                  <span class="tokens-count warning">8 pozostało</span>
-                </div>
-                <div class="metric">
-                  <label>Użycie (24h):</label>
-                  <span>7 wyszukiwań</span>
-                </div>
-                <div class="metric">
-                  <label>Avg. czas:</label>
-                  <span>3.1s</span>
-                </div>
-                <div class="metric">
-                  <label>Koszt/wyszukanie:</label>
-                  <span>0.50 PLN</span>
-                </div>
-              </div>
-
-              <div class="worker-actions">
-                <button
-                  onclick="buyWorkerTokens('kaggle')"
-                  class="btn-primary premium">Upgrade Premium</button
-                >
-                <button
-                  onclick="configureWorker('kaggle')"
-                  class="btn-secondary">Konfiguruj</button
-                >
-                <button onclick="viewWorkerLogs('kaggle')" class="btn-tertiary"
-                  >Logi</button
-                >
-              </div>
-            </div>
-
-            <!-- Tavily Search Worker -->
-            <div class="worker-detailed-card">
-              <div class="worker-main-info">
-                <div class="worker-icon">🔍</div>
-                <div class="worker-details">
-                  <h3 class="worker-name">Tavily AI Search</h3>
-                  <p class="worker-description">
-                    AI-powered web search with content analysis and
-                    summarization
-                  </p>
-                  <div class="worker-endpoints">
-                    <span class="endpoint-tag">POST /api/tavi</span>
-                    <span class="endpoint-tag">GET /api/search-history</span>
-                  </div>
-                </div>
-                <div class="worker-status-indicator">
-                  <div class="status-badge online">ONLINE</div>
-                  <div class="uptime">99.1% uptime</div>
-                </div>
-              </div>
-
-              <div class="worker-metrics">
-                <div class="metric">
-                  <label>Wyszukiwania:</label>
-                  <span class="tokens-count">89 pozostało</span>
-                </div>
-                <div class="metric">
-                  <label>Użycie (24h):</label>
-                  <span>31 wyszukiwań</span>
-                </div>
-                <div class="metric">
-                  <label>Avg. czas:</label>
-                  <span>2.7s</span>
-                </div>
-                <div class="metric">
-                  <label>Koszt/wyszukanie:</label>
-                  <span>0.12 PLN</span>
-                </div>
-              </div>
-
-              <div class="worker-actions">
-                <button onclick="buyWorkerTokens('tavily')" class="btn-primary"
-                  >Kup wyszukiwania</button
-                >
-                <button
-                  onclick="configureWorker('tavily')"
-                  class="btn-secondary">Konfiguruj</button
-                >
-                <button onclick="viewWorkerLogs('tavily')" class="btn-tertiary"
-                  >Logi</button
-                >
-              </div>
+          <div class="workers-detailed-list p-6" id="workersContainer">
+            <!-- Workers will be dynamically loaded here -->
+            <div
+              id="loadingIndicator"
+              style="text-align: center; padding: 2rem; color: #00d9ff;"
+            >
+              <div class="loading-spinner"></div>
+              <p>Ładowanie statusu workerów...</p>
             </div>
           </div>
         </div>
@@ -451,7 +167,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 </ul>
                 <div class="package-savings">Oszczędzasz 15 PLN</div>
               </div>
-              <button class="package-buy-btn">Kup teraz</button>
+              <button
+                class="package-buy-btn"
+                onclick="purchasePackage('starter', 99)">Kup teraz</button
+              >
             </div>
 
             <div class="store-package popular">
@@ -470,7 +189,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 </ul>
                 <div class="package-savings">Oszczędzasz 45 PLN</div>
               </div>
-              <button class="package-buy-btn">Kup teraz</button>
+              <button
+                class="package-buy-btn"
+                onclick="purchasePackage('professional', 249)">Kup teraz</button
+              >
             </div>
 
             <div class="store-package">
@@ -488,7 +210,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 </ul>
                 <div class="package-savings">Oszczędzasz 120 PLN</div>
               </div>
-              <button class="package-buy-btn">Kup teraz</button>
+              <button
+                class="package-buy-btn"
+                onclick="purchasePackage('enterprise', 499)">Kup teraz</button
+              >
             </div>
           </div>
         </div>
@@ -545,6 +270,26 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 </MyBonzoLayout>
 
 <style>
+  /* Loading spinner */
+  .loading-spinner {
+    border: 3px solid rgba(0, 217, 255, 0.3);
+    border-top: 3px solid #00d9ff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
   /* Base styles matching main page */
   .section-container {
     padding: 2rem;
@@ -943,45 +688,240 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 </style>
 
 <script>
-  function refreshAllWorkersStatus() {
-    // Simulate refreshing all workers
+  let workersData = [];
+
+  // Funkcje do obsługi rzeczywistych API
+  async function refreshAllWorkersStatus() {
     console.log("Refreshing all workers status...");
 
-    // Update UI indicators
-    const statusBadges = document.querySelectorAll(".status-badge");
-    statusBadges.forEach((badge) => {
-      badge.textContent = "UPDATING...";
-      badge.className = "status-badge";
+    try {
+      // Pobierz dane z API
+      const response = await fetch("/api/workers-status");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      setTimeout(
-        () => {
-          const isOnline = Math.random() > 0.2;
-          badge.className = `status-badge ${isOnline ? "online" : "offline"}`;
-          badge.textContent = isOnline ? "ONLINE" : "OFFLINE";
-        },
-        1000 + Math.random() * 2000
-      );
+      workersData = await response.json();
+      console.log("Workers data loaded:", workersData);
+
+      // Aktualizuj UI
+      updateWorkersUI();
+      updateGlobalStats();
+    } catch (error) {
+      console.error("Failed to refresh workers status:", error);
+      showErrorMessage("Nie udało się odświeżyć statusu workerów");
+    }
+  }
+
+  function updateWorkersUI() {
+    const container = document.getElementById("workersContainer");
+    const loadingIndicator = document.getElementById("loadingIndicator");
+
+    if (!container) return;
+
+    // Ukryj loading indicator
+    if (loadingIndicator) {
+      loadingIndicator.style.display = "none";
+    }
+
+    // Wyczyść kontener
+    container.innerHTML = "";
+
+    // Renderuj worker cards z prawdziwymi danymi
+    workersData.forEach((worker, index) => {
+      const workerCard = document.createElement("div");
+      workerCard.className = "worker-detailed-card";
+
+      // Określ ikonę na podstawie nazwy workera
+      let icon = "⚙️";
+      const name = worker.name.toLowerCase();
+      if (name.includes("image") || name.includes("flux")) icon = "🎨";
+      else if (
+        name.includes("ai") ||
+        name.includes("bot") ||
+        name.includes("chatbot")
+      )
+        icon = "🤖";
+      else if (name.includes("bigquery") || name.includes("analytics"))
+        icon = "📊";
+      else if (name.includes("kaggle")) icon = "🏆";
+      else if (name.includes("tavily") || name.includes("search")) icon = "🔍";
+      else if (name.includes("pdf")) icon = "📄";
+      else if (name.includes("news")) icon = "📰";
+      else if (name.includes("google")) icon = "🔍";
+
+      workerCard.innerHTML = `
+        <div class="worker-main-info">
+          <div class="worker-icon">${icon}</div>
+          <div class="worker-details">
+            <h3 class="worker-name">${worker.name}</h3>
+            <p class="worker-description">${worker.description || "AI Worker"}</p>
+            <div class="worker-endpoints">
+              <span class="endpoint-tag">${worker.endpoint}</span>
+            </div>
+          </div>
+          <div class="worker-status-indicator">
+            <div class="status-badge ${worker.status}">${worker.status.toUpperCase()}</div>
+            <div class="uptime">${worker.uptime}</div>
+          </div>
+        </div>
+
+        <div class="worker-metrics">
+          <div class="metric">
+            <label>CPU:</label>
+            <span>${worker.cpu}%</span>
+          </div>
+          <div class="metric">
+            <label>RAM:</label>
+            <span>${worker.ram}%</span>
+          </div>
+          <div class="metric">
+            <label>Requests (24h):</label>
+            <span>${worker.requests}</span>
+          </div>
+          <div class="metric">
+            <label>Avg. Response:</label>
+            <span>${worker.responseMs}ms</span>
+          </div>
+        </div>
+
+        <div class="worker-actions">
+          <button onclick="buyWorkerTokens('${worker.name}')" class="btn-primary">
+            Kup tokeny
+          </button>
+          <button onclick="configureWorker('${worker.name}')" class="btn-secondary">
+            Konfiguruj
+          </button>
+          <button onclick="viewWorkerLogs('${worker.name}')" class="btn-tertiary">
+            Logi
+          </button>
+        </div>
+      `;
+
+      container.appendChild(workerCard);
     });
   }
 
+  function updateGlobalStats() {
+    const totalWorkers = workersData.length;
+    const onlineWorkers = workersData.filter(
+      (w) => w.status === "online"
+    ).length;
+    const avgResponse = Math.round(
+      workersData.reduce((acc, w) => acc + (w.responseMs || 0), 0) /
+        totalWorkers
+    );
+    const totalRequests = workersData.reduce((acc, w) => acc + w.requests, 0);
+
+    // Aktualizuj statystyki
+    const totalWorkersEl = document.getElementById("totalWorkers");
+    const onlineWorkersEl = document.getElementById("onlineWorkers");
+    const avgResponseEl = document.getElementById("avgResponse");
+    const totalRequestsEl = document.getElementById("totalRequests");
+
+    if (totalWorkersEl) totalWorkersEl.textContent = totalWorkers.toString();
+    if (onlineWorkersEl) onlineWorkersEl.textContent = onlineWorkers.toString();
+    if (avgResponseEl) avgResponseEl.textContent = `${avgResponse}ms`;
+    if (totalRequestsEl) totalRequestsEl.textContent = totalRequests.toString();
+  }
+
+  async function testWorkerEndpoint(endpoint) {
+    try {
+      console.log(`Testing endpoint: ${endpoint}`);
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const status = response.ok ? "online" : "offline";
+      console.log(`Endpoint ${endpoint}: ${status}`);
+      return { status, responseTime: Date.now() };
+    } catch (error) {
+      console.error(`Error testing ${endpoint}:`, error);
+      return { status: "offline", responseTime: null };
+    }
+  }
+
   function exportWorkersReport() {
-    // Generate workers report
+    console.log("Eksport raportu - workersData:", workersData);
+    console.log("Długość workersData:", workersData.length);
+
+    if (workersData.length === 0) {
+      alert("Brak danych do eksportu. Odśwież najpierw status workerów.");
+      return;
+    }
+
+    // Przygotuj kompleksowy raport
     const report = {
       timestamp: new Date().toISOString(),
-      workers: [
-        { name: "Image Generator", status: "online", tokens: 47, usage24h: 23 },
-        { name: "AI Chatbot", status: "online", tokens: 156, usage24h: 89 },
-        {
-          name: "BigQuery Analytics",
-          status: "online",
-          tokens: 23,
-          usage24h: 12,
-        },
-        { name: "Kaggle Datasets", status: "limited", tokens: 8, usage24h: 7 },
-        { name: "Tavily Search", status: "online", tokens: 89, usage24h: 31 },
-      ],
+      totalWorkers: workersData.length,
+      onlineWorkers: workersData.filter((w) => w.status === "online").length,
+      avgResponseTime: Math.round(
+        workersData.reduce((acc, w) => acc + (w.responseMs || 0), 0) /
+          workersData.length
+      ),
+      totalRequests24h: workersData.reduce((acc, w) => acc + w.requests, 0),
+      workers: workersData.map((worker) => ({
+        name: worker.name,
+        endpoint: worker.endpoint,
+        status: worker.status,
+        cpu: worker.cpu,
+        ram: worker.ram,
+        requests: worker.requests,
+        responseMs: worker.responseMs,
+        uptime: worker.uptime,
+        version: worker.version,
+        region: worker.region,
+        lastCheck: worker.lastCheck,
+      })),
+      summary: {
+        healthyWorkers: workersData.filter((w) => w.status === "online").length,
+        problematicWorkers: workersData.filter((w) => w.status !== "online")
+          .length,
+        highCpuWorkers: workersData.filter((w) => w.cpu > 80).length,
+        highRamWorkers: workersData.filter((w) => w.ram > 80).length,
+      },
     };
 
+    // Wyślij raport na email przez API
+    console.log("Wysyłanie raportu przez API...", {
+      reportSize: JSON.stringify(report).length,
+      email: "admin@zen-platform.com",
+    });
+
+    fetch("/api/send-report", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        report: report,
+        email: "admin@zen-platform.com",
+        type: "workers-status",
+      }),
+    })
+      .then((response) => {
+        console.log("Response status:", response.status);
+        console.log("Response ok:", response.ok);
+
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+      })
+      .then((data) => {
+        console.log("Sukces:", data);
+        alert("✅ Raport został wysłany na email!");
+      })
+      .catch((err) => {
+        console.error("Błąd podczas wysyłania raportu:", err);
+        alert("❌ Błąd podczas wysyłania raportu: " + err.message);
+      });
+
+    // Lokalny download jako backup
     const blob = new Blob([JSON.stringify(report, null, 2)], {
       type: "application/json",
     });
@@ -991,44 +931,284 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     a.download = `workers-report-${new Date().toISOString().split("T")[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
+
+    console.log("Workers report exported:", report);
   }
 
   function openBulkTokenPurchase() {
-    alert("Bulk Token Purchase - funkcjonalność dostępna wkrótce!");
+    // Przekierowanie do systemu płatności z predefiniowanymi pakietami
+    const paymentData = {
+      mode: "bulk-purchase",
+      packages: [
+        { id: "starter", name: "Starter Pack", price: 99, currency: "PLN" },
+        {
+          id: "professional",
+          name: "Professional Pack",
+          price: 249,
+          currency: "PLN",
+        },
+        {
+          id: "enterprise",
+          name: "Enterprise Pack",
+          price: 499,
+          currency: "PLN",
+        },
+      ],
+      userId: "user_" + Date.now(),
+      redirectUrl: window.location.origin + "/payment-success",
+      cancelUrl: window.location.origin + "/workers-status",
+    };
+
+    // Otwórz Stripe Checkout lub PayU
+    openPaymentGateway("bulk", paymentData);
   }
 
-  function buyWorkerTokens(workerType) {
-    alert(`Zakup tokenów dla ${workerType} - przekierowanie do płatności...`);
+  async function buyWorkerTokens(workerType) {
+    const worker = workersData.find((w) =>
+      w.name.toLowerCase().includes(workerType.toLowerCase())
+    );
+
+    if (!worker) {
+      alert(`Worker "${workerType}" nie został znaleziony.`);
+      return;
+    }
+
+    // Przygotuj dane płatności dla konkretnego workera
+    const tokenPrices = {
+      image: { price: 0.2, unit: "token", min: 10 },
+      chatbot: { price: 0.15, unit: "token", min: 20 },
+      bigquery: { price: 0.85, unit: "zapytanie", min: 5 },
+      tavily: { price: 0.12, unit: "wyszukanie", min: 10 },
+      kaggle: { price: 0.25, unit: "wyszukanie", min: 10 },
+    };
+
+    const workerKey = workerType.toLowerCase();
+    const pricing = tokenPrices[workerKey] || tokenPrices["chatbot"];
+
+    const paymentData = {
+      mode: "worker-tokens",
+      worker: {
+        name: worker.name,
+        type: workerType,
+        endpoint: worker.endpoint,
+        pricing: pricing,
+      },
+      userId: "user_" + Date.now(),
+      redirectUrl:
+        window.location.origin +
+        "/payment-success?worker=" +
+        encodeURIComponent(workerType),
+      cancelUrl: window.location.origin + "/workers-status",
+    };
+
+    // Otwórz formularz zakupu tokenów
+    openPaymentGateway("tokens", paymentData);
   }
 
-  function configureWorker(workerType) {
-    alert(`Konfiguracja workera ${workerType} - otwieranie panelu...`);
-  }
+  function openPaymentGateway(type, paymentData) {
+    // Integracja z Stripe lub PayU
+    if (window.location.hostname === "localhost") {
+      // Development - symulacja płatności
+      console.log("Payment simulation:", type, paymentData);
 
-  function viewWorkerLogs(workerType) {
-    alert(`Logi workera ${workerType} - otwieranie konsoli...`);
-  }
+      if (type === "bulk") {
+        const packageChoice = prompt(
+          `Wybierz pakiet:\n1. Starter Pack (99 PLN)\n2. Professional Pack (249 PLN)\n3. Enterprise Pack (499 PLN)\n\nWpisz numer:`
+        );
 
-  // Update stats on load
-  document.addEventListener("DOMContentLoaded", () => {
-    // Animate counter numbers
-    const counters = document.querySelectorAll(".stat-value");
-    counters.forEach((counter) => {
-      const target = parseInt(counter.textContent.replace(/,/g, ""));
-      let current = 0;
-      const increment = target / 100;
-
-      const updateCounter = () => {
-        if (current < target) {
-          current += increment;
-          counter.textContent = Math.floor(current).toLocaleString();
-          setTimeout(updateCounter, 20);
-        } else {
-          counter.textContent = target.toLocaleString();
+        if (packageChoice) {
+          simulatePayment(paymentData.packages[parseInt(packageChoice) - 1]);
         }
-      };
+      } else if (type === "package") {
+        const confirmed = confirm(
+          `Czy chcesz kupić ${paymentData.package.name} za ${paymentData.package.price} PLN?\n\nPakiet zawiera:\n${Object.entries(
+            paymentData.package.tokens
+          )
+            .map(([key, value]) => `• ${value} tokenów ${key}`)
+            .join("\n")}`
+        );
 
-      updateCounter();
-    });
+        if (confirmed) {
+          simulatePayment({
+            package: paymentData.package.name,
+            price: paymentData.package.price + " PLN",
+            tokens: paymentData.package.tokens,
+          });
+        }
+      } else if (type === "tokens") {
+        const amount = prompt(
+          `Ile tokenów chcesz kupić dla ${paymentData.worker.name}?\n(min: ${paymentData.worker.pricing.min}, cena: ${paymentData.worker.pricing.price} PLN/${paymentData.worker.pricing.unit})`
+        );
+
+        if (amount && parseInt(amount) >= paymentData.worker.pricing.min) {
+          const total = parseInt(amount) * paymentData.worker.pricing.price;
+          simulatePayment({
+            worker: paymentData.worker.name,
+            amount: parseInt(amount),
+            total: total.toFixed(2) + " PLN",
+          });
+        }
+      }
+    } else {
+      // Production - prawdziwa płatność
+      // Generuj session do Stripe/PayU
+      fetch("/api/payment/create-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paymentData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.paymentUrl) {
+            window.open(data.paymentUrl, "_blank");
+          } else {
+            alert("Błąd podczas tworzenia płatności");
+          }
+        })
+        .catch((error) => {
+          console.error("Payment error:", error);
+          alert("Błąd połączenia z systemem płatności");
+        });
+    }
+  }
+
+  function simulatePayment(orderData) {
+    setTimeout(() => {
+      alert(
+        `✅ Płatność zakończona pomyślnie!\n\nZamówienie: ${JSON.stringify(orderData, null, 2)}\n\nTokeny zostały dodane do Twojego konta.`
+      );
+
+      // Odśwież status po "płatności"
+      refreshAllWorkersStatus();
+    }, 1500);
+  }
+
+  function purchasePackage(packageType, price) {
+    const packageDetails = {
+      starter: {
+        name: "Starter Pack",
+        tokens: {
+          "image-gen": 50,
+          chatbot: 100,
+          bigquery: 20,
+          tavily: 50,
+          kaggle: 30,
+        },
+      },
+      professional: {
+        name: "Professional Pack",
+        tokens: {
+          "image-gen": 150,
+          chatbot: 300,
+          bigquery: 60,
+          tavily: 200,
+          kaggle: 100,
+        },
+      },
+      enterprise: {
+        name: "Enterprise Pack",
+        tokens: {
+          "image-gen": 400,
+          chatbot: 800,
+          bigquery: 150,
+          tavily: 500,
+          kaggle: 300,
+        },
+      },
+    };
+
+    const selectedPackage = packageDetails[packageType];
+
+    if (!selectedPackage) {
+      alert("Nieznany pakiet tokenów");
+      return;
+    }
+
+    const paymentData = {
+      mode: "package-purchase",
+      package: {
+        type: packageType,
+        name: selectedPackage.name,
+        price: price,
+        currency: "PLN",
+        tokens: selectedPackage.tokens,
+      },
+      userId: "user_" + Date.now(),
+      redirectUrl:
+        window.location.origin + "/payment-success?package=" + packageType,
+      cancelUrl: window.location.origin + "/workers-status",
+    };
+
+    console.log("Package purchase initiated:", paymentData);
+
+    // Otwórz płatność
+    openPaymentGateway("package", paymentData);
+  }
+
+  async function configureWorker(workerType) {
+    const worker = workersData.find((w) =>
+      w.name.toLowerCase().includes(workerType.toLowerCase())
+    );
+    if (worker) {
+      // Otwórz stronę konfiguracji
+      window.open(`/admin?worker=${encodeURIComponent(worker.name)}`, "_blank");
+    } else {
+      alert(`Worker "${workerType}" nie został znaleziony.`);
+    }
+  }
+
+  async function viewWorkerLogs(workerType) {
+    const worker = workersData.find((w) =>
+      w.name.toLowerCase().includes(workerType.toLowerCase())
+    );
+    if (worker) {
+      try {
+        // Testuj endpoint workera
+        const testResult = await testWorkerEndpoint(worker.endpoint);
+        alert(
+          `Logi dla ${worker.name}:\n\nEndpoint: ${worker.endpoint}\nStatus: ${testResult.status}\nLast Response: ${testResult.responseTime}ms\nCPU: ${worker.cpu}%\nRAM: ${worker.ram}%\nRequests (24h): ${worker.requests}\nUptime: ${worker.uptime}`
+        );
+      } catch (error) {
+        alert(
+          `Błąd podczas pobierania logów dla ${worker.name}: ${error.message}`
+        );
+      }
+    } else {
+      alert(`Worker "${workerType}" nie został znaleziony.`);
+    }
+  }
+
+  function showErrorMessage(message) {
+    const errorDiv = document.createElement("div");
+    errorDiv.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #ef4444;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      z-index: 9999;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    `;
+    errorDiv.textContent = message;
+    document.body.appendChild(errorDiv);
+
+    setTimeout(() => {
+      document.body.removeChild(errorDiv);
+    }, 5000);
+  }
+
+  // Inicjalizacja po załadowaniu strony
+  document.addEventListener("DOMContentLoaded", async () => {
+    console.log("Workers Status page loaded");
+
+    // Automatycznie odśwież status przy ładowaniu
+    await refreshAllWorkersStatus();
+
+    // Ustaw automatyczne odświeżanie co 30 sekund
+    setInterval(refreshAllWorkersStatus, 30000);
   });
 </script>

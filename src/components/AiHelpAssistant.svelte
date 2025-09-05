@@ -7,33 +7,25 @@
   let isTyping = false;
   let agentStatus = "disconnected";
   let capabilities = [];
-  let isMinimized = true;
+  let isMinimized = false;
 
-  let ws = null;
   let messagesContainer;
+  let sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-  // Dynamic WS target: prefer env, then local dev, then production fallback
-  const DEFAULT_PROD = "wss://luc-de-zen-on.pages.dev/ws/polaczek";
-  let WS_URL = DEFAULT_PROD;
+  // HTTP API Configuration - Replace WebSocket with REST API
+  const API_BASE_URL =
+    import.meta.env.PUBLIC_POLACZEK_API_URL ||
+    (typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1")
+      ? "http://127.0.0.1:8788"
+      : typeof window !== "undefined"
+        ? window.location.origin
+        : "");
 
-  if (typeof window !== "undefined") {
-    const envUrl =
-      (import.meta.env &&
-        (import.meta.env.PUBLIC_WS_URL ||
-          import.meta.env.PUBLIC_POLACZEK_WS)) ||
-      "";
-    if (envUrl) {
-      WS_URL = envUrl;
-    } else if (
-      window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1"
-    ) {
-      WS_URL = "ws://127.0.0.1:8787/ws/polaczek"; // wrangler dev default
-    } else {
-      const scheme = window.location.protocol === "https:" ? "wss://" : "ws://";
-      WS_URL = `${scheme}${window.location.host}/ws/polaczek`;
-    }
-  }
+  const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat`;
+  const STATUS_ENDPOINT = `${API_BASE_URL}/api/status`;
+  const HEALTH_ENDPOINT = `${API_BASE_URL}/health`;
 
   onMount(() => {
     // Expose a small control API for global UI buttons
@@ -48,26 +40,54 @@
       // Listen to quick actions from RightDock
       try {
         window.addEventListener("polaczek-clear-chat", clearChat);
-        window.addEventListener("polaczek-reconnect", reconnect);
+        window.addEventListener("polaczek-reconnect", checkConnection);
       } catch (e) {}
     }
 
-    connectToWebSocket();
+    checkConnection();
     return () => {
-      if (ws) {
-        ws.close();
-      }
+      // No WebSocket to clean up
     };
   });
 
-  onDestroy(() => {
-    if (ws) {
-      ws.close();
+  // Replace WebSocket connection with HTTP health check
+  async function checkConnection() {
+    try {
+      agentStatus = "connecting";
+
+      const response = await fetch(HEALTH_ENDPOINT, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        isConnected = true;
+        agentStatus = "ready";
+        capabilities = ["Chat AI", "Knowledge Base", "Help System"];
+        addMessage(
+          "system",
+          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!"
+        );
+      } else {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Connection check failed:", error);
+      isConnected = false;
+      agentStatus = "disconnected";
+      addMessage("error", `Błąd połączenia: ${error.message}`);
     }
+  }
+
+  onDestroy(() => {
+    // No WebSocket to clean up in HTTP API mode
     if (typeof window !== "undefined") {
       try {
         window.removeEventListener("polaczek-clear-chat", clearChat);
-        window.removeEventListener("polaczek-reconnect", reconnect);
+        window.removeEventListener("polaczek-reconnect", checkConnection);
       } catch (e) {}
     }
   });
@@ -93,69 +113,13 @@
     }
   }
 
-  function connectToWebSocket() {
-    try {
-      ws = new WebSocket(WS_URL);
+  // Fix missing functions that are called but not defined
+  function setInputValue(value) {
+    inputValue = value;
+  }
 
-      ws.onopen = () => {
-        isConnected = true;
-        agentStatus = "connected";
-        console.log("Connected to POLACZEK_T Agent");
-      };
-
-      ws.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data);
-
-          switch (data.type) {
-            case "welcome":
-              agentStatus = "ready";
-              capabilities = data.capabilities || [];
-              addMessage(
-                "system",
-                `Połączono z ${data.agent_name}. Dostępne funkcje: ${data.capabilities?.join(", ")}`
-              );
-              break;
-
-            case "response":
-              setIsTyping(false);
-              addMessage("agent", data.message);
-              break;
-
-            case "error":
-              setIsTyping(false);
-              addMessage("error", `Błąd: ${data.message}`);
-              break;
-
-            case "status":
-              agentStatus = data.status;
-              break;
-
-            default:
-              addMessage("agent", data.message || "Nieznana odpowiedź");
-          }
-        } catch (error) {
-          console.error("Error parsing WebSocket message:", error);
-          addMessage("error", "Błąd parsowania odpowiedzi");
-        }
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-        setIsConnected(false);
-        agentStatus = "error";
-        addMessage("error", "Błąd połączenia WebSocket");
-      };
-
-      ws.onclose = () => {
-        setIsConnected(false);
-        agentStatus = "disconnected";
-        addMessage("system", "Połączenie zostało zamknięte");
-      };
-    } catch (error) {
-      console.error("Failed to connect:", error);
-      addMessage("error", "Nie można nawiązać połączenia");
-    }
+  function setIsTyping(typing) {
+    isTyping = typing;
   }
 
   function addMessage(type, content) {
@@ -175,21 +139,52 @@
 
     const message = inputValue.trim();
     addMessage("user", message);
-    setInputValue("");
-    setIsTyping(true);
+    inputValue = ""; // Clear input
+    isTyping = true; // Show typing indicator
 
+    // Send HTTP request to chat API
+    sendChatRequest(message);
+  }
+
+  async function sendChatRequest(prompt) {
     try {
-      ws.send(
-        JSON.stringify({
-          type: "message",
-          content: message,
+      const response = await fetch(CHAT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Session-ID": sessionId,
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          sessionId: sessionId,
           timestamp: new Date().toISOString(),
-        })
-      );
+        }),
+      });
+
+      isTyping = false; // Hide typing indicator
+
+      if (response.ok) {
+        const data = await response.json();
+        addMessage("agent", data.answer || data.message || "Brak odpowiedzi");
+
+        // Show source if available
+        if (data.source) {
+          console.log(`💾 Odpowiedź z: ${data.source}`);
+        }
+      } else {
+        const errorData = await response
+          .json()
+          .catch(() => ({ error: "Unknown error" }));
+        addMessage(
+          "error",
+          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`
+        );
+        console.error("API Error:", response.status, errorData);
+      }
     } catch (error) {
-      console.error("Error sending message:", error);
-      addMessage("error", "Błąd wysyłania wiadomości");
-      setIsTyping(false);
+      isTyping = false;
+      console.error("Request failed:", error);
+      addMessage("error", `Błąd sieci: ${error.message}`);
     }
   }
 
@@ -237,10 +232,8 @@
   }
 
   function reconnect() {
-    if (ws) {
-      ws.close();
-    }
-    connectToWebSocket();
+    // For HTTP API, just check connection again
+    checkConnection();
   }
 </script>
 

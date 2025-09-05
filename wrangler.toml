@@ -1,10 +1,37 @@
 name = "luc-de-zen-on"
-compatibility_date = "2024-08-01"
+compatibility_date = "2024-12-01"
 pages_build_output_dir = "dist"
+
+# Durable Objects bindings for Agents SDK
+[[durable_objects.bindings]]
+name = "MYBONZO_AGENT"
+class_name = "MyBonzoAgent"
+
+# Migrations for Agent state storage
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["MyBonzoAgent"]
+
+# R2 Storage for AI Generated Images
+[[r2_buckets]]
+binding = "IMAGES"
+bucket_name = "ai-generated-images"
+
+# POLACZEK AI Assistant Worker Configuration
+[[services]]
+binding = "POLACZEK_WORKER"
+service = "polaczek-ai-assistant"
+
+[env.production.services]
+POLACZEK_WORKER = { service = "polaczek-ai-assistant" }
 
 [[kv_namespaces]]
 binding = "SESSION"
 id = "77d84c01758a4064be011acc35b2c344"
+
+[[kv_namespaces]]
+binding = "KNOWLEDGE_BASE"
+id = "ai_assistant_knowledge_base_2024"
 
 [ai]
 binding = "AI"

@@ -19,32 +19,29 @@ export async function POST({ request }: { request: Request }) {
 
     const selectedModel = model || 'llama-3.1-70b-instruct';
 
-    // Try Multi-AI Worker first (primary AI source)
+    // Try Local AI Bot Worker first (primary AI source)
     try {
-      const workerResponse = await fetch('https://multi-ai-assistant.stolarnia-ams.workers.dev/qwen', {
+      const workerResponse = await fetch('http://127.0.0.1:8789', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: prompt,
-          sessionId: 'chatbot-session',
-          context: {
-            source: 'ai_bot_worker',
-            timestamp: new Date().toISOString(),
-          },
+          prompt: prompt,
+          model: selectedModel.includes('llama') ? selectedModel : '@cf/meta/llama-3.1-8b-instruct',
+          temperature: temperature,
         }),
       });
 
       if (workerResponse.ok) {
         const workerData = await workerResponse.json();
-        if (workerData.success && workerData.response) {
+        if (workerData.success && workerData.answer) {
           return new Response(
             JSON.stringify({ 
-              answer: workerData.response,
-              model: workerData.model_name || '@cf/qwen/qwen1.5-0.5b-chat',
-              status: 'multi_ai_worker_success',
-              source: 'cloudflare_worker'
+              answer: workerData.answer,
+              model: workerData.model || '@cf/meta/llama-3.1-8b-instruct',
+              status: 'local_ai_worker_success',
+              source: 'cloudflare_ai_worker'
             }),
             { 
               status: 200,
@@ -57,7 +54,7 @@ export async function POST({ request }: { request: Request }) {
         }
       }
     } catch (workerError) {
-      console.warn('Multi-AI Worker failed, trying OpenAI fallback:', workerError);
+      console.warn('Local AI Worker failed, trying OpenAI fallback:', workerError);
     }
 
     // Fallback to OpenAI if available

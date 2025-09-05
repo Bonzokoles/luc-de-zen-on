@@ -1,0 +1,17 @@
+name = "bielik-worker"
+main = "src/workers/bielik-worker.js"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "bielik-worker"
+
+[env.development]
+name = "bielik-worker-dev"
+
+# Variables for BIELIK model configuration
+[vars]
+MODEL_NAME = "BIELIK-7B-Instruct"
+MODEL_VERSION = "1.0.0"
+MAX_TOKENS_DEFAULT = "512"
+TEMPERATURE_DEFAULT = "0.7"
+LANGUAGE = "pl"

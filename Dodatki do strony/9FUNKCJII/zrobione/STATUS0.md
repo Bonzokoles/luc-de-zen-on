@@ -77,7 +77,7 @@ Stworzyć dedykowany panel umożliwiający monitorowanie statusu i obciążenia 
 
 ***
 
-To zadanie można przekazać Copilotowi lub zespołowi jako bazę do rozwoju prawdziwego panelu monitoringu workerów z obsługą danych historycznych, alertów i wizualizacji.
+uzyj instrukcji jako bazę do rozwoju prawdziwego panelu monitoringu workerów z obsługą danych historycznych, alertów i wizualizacji.
 
 przygotuję przykładowe kody komponentów i endpointu bedą w STATUS1.md
 

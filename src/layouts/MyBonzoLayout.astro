@@ -17,6 +17,8 @@ import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.svelte";
 // Dynamic header (installed package)
 import Header from "@sofidevo/astro-dynamic-header/Header";
+import AdminFloatingLogin from "../components/AdminFloatingLogin.astro";
+import RightFloatingPanel from "../components/RightFloatingPanel.astro";
 
 // Simple navigation model; adjust as needed
 const menuItems = [
@@ -28,6 +30,7 @@ const menuItems = [
       { link: "/ai-workers-manager", text: "Manager" },
       { link: "/agents", text: "Agenci" },
       { link: "/agent-builder-23", text: "Builder" },
+      { link: "/ai-agent-chat", text: "Agent Chat" },
     ],
   },
   { link: "/image-generator", text: "Generator obrazów" },
@@ -92,6 +95,9 @@ const pageKey = Astro.url.pathname;
         padding: 0;
         min-height: 100vh;
         overflow-x: hidden;
+        /* Prevent flickering */
+        opacity: 1;
+        transition: opacity 0.1s ease-in-out;
       }
 
       /* MyBonzo Custom Styles */
@@ -109,7 +115,7 @@ const pageKey = Astro.url.pathname;
         background: rgba(0, 0, 0, 0.4);
         border: 1px solid hsl(var(--themeColor), 100%, 50%, 0.3);
         border-radius: 12px;
-        transition: all 0.3s ease;
+        /* transition: all 0.3s ease; */
         position: relative;
         color: hsl(var(--themeColor), 100%, 92%);
       }
@@ -131,7 +137,7 @@ const pageKey = Astro.url.pathname;
         border-radius: 8px;
         padding: 0.75rem 1.5rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        /* transition: all 0.3s ease; */
         cursor: pointer;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -139,7 +145,7 @@ const pageKey = Astro.url.pathname;
       }
 
       .mybonzo-btn:hover {
-        transform: translateY(-2px);
+        /* transform: translateY(-2px); */
         box-shadow: 0 8px 25px hsl(var(--themeColor), 100%, 50%, 0.4);
       }
 
@@ -238,7 +244,8 @@ const pageKey = Astro.url.pathname;
   </head>
 
   <body>
-    <BgAnimation client:load />
+    <!-- Temporarily disabled BgAnimation to fix flickering -->
+    <!-- <BgAnimation client:load /> -->
     <div class="compact-header">
       <Header
         headerType="floating"
@@ -252,10 +259,17 @@ const pageKey = Astro.url.pathname;
         zIndex={20}
       />
     </div>
-    <PageTransition key={pageKey}>
-      <main class="min-h-svh cyberpunk-grid">
-        <slot />
-      </main>
-    </PageTransition>
+    <!-- Temporarily disabled PageTransition to fix flickering -->
+    <!-- <PageTransition key={pageKey}> -->
+    <main class="min-h-svh cyberpunk-grid">
+      <slot />
+    </main>
+    <!-- </PageTransition> -->
+
+    <!-- Floating Admin Login Button - zawsze dostępny -->
+    <AdminFloatingLogin />
+
+    <!-- Right Floating Panel - zawsze dostępny -->
+    <RightFloatingPanel />
   </body>
 </html>
