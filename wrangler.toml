@@ -39,6 +39,6 @@ binding = "AI"
 [vars]
 PUBLIC_FLOWISE_API_URL = "https://your-flowise-instance.com/api/v1/prediction/your-flow-id"
 PUBLIC_ACTIVEPIECES_API_URL = "https://your-activepieces-instance.com/api/v1/flows/your-flow-id/run"
-PUBLIC_SITE_URL = "https://www.mybonzo.com"
+PUBLIC_SITE_URL = "https://www.myonzo.com"
 PUBLIC_BIELIK_MODEL = "@hf/speakleash/bielik-7b-instruct-v0.1"
 PUBLIC_DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct"
