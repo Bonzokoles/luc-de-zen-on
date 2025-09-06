@@ -49,14 +49,14 @@
 /* Custom theme configuration using @layer */
 @layer base {
   :root {
-    /* MyBonzo cyberpunk color palette - balanced readability with visibility */
+    /* MyBonzo cyberpunk color palette */
     --cyber-dark: #0a0a0a;
     --cyber-surface: #111111;
-    --cyber-text: #d0d0d0; /* Increased from #b0b0b0 for better visibility */
-    --cyber-text-dim: #a0a0a0; /* Restored original value */
-    --cyber-blue: #00d9ff; /* Restored brighter blue for lines and accents */
+    --cyber-text: #e0e0e0;
+    --cyber-text-dim: #a0a0a0;
+    --cyber-blue: #00ffff;
     --cyber-border: #333333;
-    --cyber-grid: rgba(0, 255, 255, 0.08); /* Slightly increased opacity */
+    --cyber-grid: rgba(0, 255, 255, 0.1);
     
     /* Tailwind gray scale compatibility */
     --gray-50: #f9fafb;
@@ -139,90 +139,13 @@
     @apply backdrop-blur-sm bg-white/5 border border-white/10;
   }
   
-  /* Neon effects - minimal glow for subtle visibility */
+  /* Neon effects */
   .neon-text {
-    text-shadow: 0 0 1px currentColor, 0 0 2px currentColor, 0 0 3px currentColor;
-    opacity: 0.7;
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
   }
   
   .neon-border {
-    box-shadow: 0 0 1.5px currentColor, inset 0 0 1.5px currentColor;
-    opacity: 0.6;
-  }
-  
-  /* Improved readability for popup windows and modal overlays */
-  .popup-content,
-  .modal-content,
-  .overlay-content,
-  [class*="popup"],
-  [class*="modal"],
-  [class*="overlay"],
-  .step-content,
-  .form-container,
-  .dialog-content {
-    background: rgba(10, 10, 10, 0.95) !important;
-    color: #b0b0b0 !important;
-    text-shadow: none !important;
-    border: 1px solid rgba(0, 217, 255, 0.2) !important;
-  }
-  
-  /* Dimmed text for better readability */
-  .popup-content *,
-  .modal-content *,
-  .overlay-content *,
-  [class*="popup"] *,
-  [class*="modal"] *,
-  [class*="overlay"] *,
-  .step-content *,
-  .form-container *,
-  .dialog-content * {
-    color: #a0a0a0 !important;
-    text-shadow: none !important;
-  }
-  
-  /* Headers in popups - minimal glow */
-  .popup-content h1, .popup-content h2, .popup-content h3,
-  .modal-content h1, .modal-content h2, .modal-content h3,
-  .overlay-content h1, .overlay-content h2, .overlay-content h3,
-  [class*="popup"] h1, [class*="popup"] h2, [class*="popup"] h3,
-  [class*="modal"] h1, [class*="modal"] h2, [class*="modal"] h3,
-  [class*="overlay"] h1, [class*="overlay"] h2, [class*="overlay"] h3,
-  .step-content h1, .step-content h2, .step-content h3,
-  .form-container h1, .form-container h2, .form-container h3,
-  .dialog-content h1, .dialog-content h2, .dialog-content h3 {
-    color: #d0d0d0 !important;
-    text-shadow: 0 0 0.3px rgba(0, 217, 255, 0.15) !important;
-  }
-  
-  /* Buttons in popups - reduced glow */
-  .popup-content button,
-  .modal-content button,
-  .overlay-content button,
-  [class*="popup"] button,
-  [class*="modal"] button,
-  [class*="overlay"] button,
-  .step-content button,
-  .form-container button,
-  .dialog-content button {
-    background: rgba(0, 217, 255, 0.1) !important;
-    color: #90c5d4 !important;
-    border: 1px solid rgba(0, 217, 255, 0.3) !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-  }
-  
-  .popup-content button:hover,
-  .modal-content button:hover,
-  .overlay-content button:hover,
-  [class*="popup"] button:hover,
-  [class*="modal"] button:hover,
-  [class*="overlay"] button:hover,
-  .step-content button:hover,
-  .form-container button:hover,
-  .dialog-content button:hover {
-    background: rgba(0, 217, 255, 0.2) !important;
-    border-color: rgba(0, 217, 255, 0.5) !important;
-    box-shadow: 0 1px 4px rgba(0, 217, 255, 0.2) !important;
+    box-shadow: 0 0 5px currentColor, inset 0 0 5px currentColor;
   }
   
   /* Additional MyBonzo components */
@@ -393,7 +316,7 @@ body::after {
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   font-family: Rajdhani, sans-serif;
   flex: 1;
   text-align: center;
@@ -454,7 +377,7 @@ body::after {
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(0, 217, 255, 0.3);
   padding: 1.5rem;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   position: relative;
 }
 
@@ -527,7 +450,7 @@ body::after {
   color: #fff;
   padding: 0.75rem;
   font-family: Rajdhani, sans-serif;
-  /* transition: border-color 0.3s; */
+  transition: border-color 0.3s;
 }
 
 .quick-prompt[data-astro-cid-my52qgmw]:focus {
@@ -546,7 +469,7 @@ body::after {
   background: rgba(0, 0, 0, 0.3);
   color: #00d9ff;
   cursor: pointer;
-  /* transition: all 0.3s; */
+  transition: all 0.3s;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
@@ -583,7 +506,7 @@ body::after {
   height: 8px;
   border-radius: 50%;
   background: #888;
-  /* animation: pulse 2s infinite; */
+  animation: pulse 2s infinite;
 }
 
 .status-dot[data-astro-cid-my52qgmw].online {
@@ -594,14 +517,14 @@ body::after {
   background: #ef4444;
 }
 
-/* @keyframes pulse {
+@keyframes pulse {
   0%, 100% {
     opacity: 1;
   }
   50% {
     opacity: 0.5;
   }
-} */
+}
 
 .additional-functions-section[data-astro-cid-my52qgmw] {
   margin-top: 3rem;
@@ -634,7 +557,7 @@ body::after {
   padding: 1.5rem;
   color: #00d9ff;
   cursor: pointer;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -647,7 +570,7 @@ body::after {
   border-color: #00d9ff;
   background: rgba(0, 217, 255, 0.1);
   box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-  /* transform: translateY(-2px); */
+  transform: translateY(-2px);
 }
 
 .additional-icon[data-astro-cid-my52qgmw] {
@@ -729,7 +652,7 @@ body::after {
   border: 1px solid rgba(0, 217, 255, 0.2);
   border-radius: 8px;
   padding: 1rem;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
 }
 
 .worker-status-item:hover[data-astro-cid-my52qgmw] {
@@ -810,14 +733,14 @@ body::after {
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .buy-tokens-btn:hover[data-astro-cid-my52qgmw] {
   background: linear-gradient(135deg, #0099cc 0%, #007799 100%);
-  /* transform: translateY(-1px); */
+  transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 217, 255, 0.3);
 }
 
@@ -875,7 +798,7 @@ body::after {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  /* transition: all 0.3s ease; */
+  transition: all 0.3s ease;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   position: relative;
@@ -883,66 +806,7 @@ body::after {
 }
 
 .floating-nav-btn:hover {
-  /* transform: scale(1.08); */
+  transform: scale(1.08);
   background-color: rgba(30, 34, 46, 0.9);
   border-color: #00aaff;
-}
-
-/* IMPROVED READABILITY - SELECTIVE OVERRIDES */
-/* Only apply darker styles to specific popup/modal contexts for better readability */
-
-/* Popup and modal specific improvements - keep original colors elsewhere */
-.popup-content, .modal-content, .overlay-content,
-[class*="popup"]:not(.tag-btn):not(.feature-tag),
-[class*="modal"]:not(.tag-btn):not(.feature-tag),
-[class*="overlay"]:not(.tag-btn):not(.feature-tag) {
-  background: rgba(15, 15, 15, 0.92) !important;
-  color: #c0c0c0 !important;
-  border: 1px solid rgba(0, 217, 255, 0.3) !important;
-}
-
-.popup-content *, .modal-content *, .overlay-content *,
-[class*="popup"]:not(.tag-btn):not(.feature-tag) *,
-[class*="modal"]:not(.tag-btn):not(.feature-tag) *,
-[class*="overlay"]:not(.tag-btn):not(.feature-tag) * {
-  color: #b0b0b0 !important;
-}
-
-/* Form elements - improved contrast but not too dark */
-input, textarea, select {
-  background: rgba(25, 25, 25, 0.9) !important;
-  border: 1px solid rgba(0, 217, 255, 0.3) !important;
-  color: #c0c0c0 !important;
-}
-
-input:focus, textarea:focus, select:focus {
-  border-color: rgba(0, 217, 255, 0.6) !important;
-  box-shadow: 0 0 5px rgba(0, 217, 255, 0.25) !important;
-}
-
-/* Increase font size for smallest text elements */
-.feature-tag, [class*="tag"], .tag-btn,
-small, .small, .text-xs, .text-sm,
-[style*="font-size: 0.6"], [style*="font-size: 0.7"], [style*="font-size: 0.8"] {
-  font-size: 0.85rem !important; /* Increased by one size */
-}
-
-/* Restore neon effects for specific elements */
-.neon, .glow, [class*="neon"], [class*="glow"],
-.worker-title, .section-title, .dashboard-title {
-  text-shadow: 0 0 1px currentColor, 0 0 2px currentColor, 0 0 3px currentColor !important;
-}
-
-/* Restore proper button styling with enhanced glow */
-.tag-btn, .feature-tag, [class*="tag"]:not([class*="popup"]):not([class*="modal"]) {
-  background: rgba(0, 217, 255, 0.12) !important;
-  color: #00d9ff !important;
-  border-color: rgba(0, 217, 255, 0.4) !important;
-  text-shadow: 0 0 0.5px currentColor !important;
-}
-
-.tag-btn:hover, .feature-tag:hover, [class*="tag"]:not([class*="popup"]):not([class*="modal"]):hover {
-  background: rgba(0, 217, 255, 0.2) !important;
-  border-color: rgba(0, 217, 255, 0.6) !important;
-  box-shadow: 0 2px 6px rgba(0, 217, 255, 0.3) !important;
 }

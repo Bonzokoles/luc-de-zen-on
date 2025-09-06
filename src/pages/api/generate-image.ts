@@ -1,21 +1,11 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
-import type { ImageGenerationRequest, ImageGenerationResponse } from '../../types/cloudflare';
-
-// Modern image models based on Cloudflare documentation
-const SUPPORTED_MODELS = {
-  'flux-schnell': '@cf/black-forest-labs/flux-1-schnell',
-  'flux-dev': '@cf/black-forest-labs/flux-1-dev', 
-  'stable-diffusion': '@cf/stabilityai/stable-diffusion-xl-base-1.0',
-  'dreamshaper': '@cf/lykon/dreamshaper-8-lcm'
-} as const;
 
 export const GET: APIRoute = async () => {
   return createSuccessResponse({
-    message: 'Modern AI Image Generator API',
+    message: 'Image Generator API is running',
     status: 'active',
     methods: ['GET', 'POST', 'OPTIONS'],
-    supportedModels: Object.keys(SUPPORTED_MODELS),
     description: 'Send POST with { prompt, model?, style?, width?, height?, steps? }'
   });
 };
@@ -25,7 +15,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const runtime = (locals as any)?.runtime;
   if (!runtime?.env?.AI) {
     console.error('Cloudflare environment or AI binding not available');
-    return createErrorResponse('🚫 Generator obrazów wymaga konfiguracji Cloudflare AI. Dodaj CLOUDFLARE_ACCOUNT_ID i CLOUDFLARE_API_TOKEN do pliku .env', 500);
+    return createErrorResponse('AI service is not configured on the server.', 500);
   }
 
   try {
