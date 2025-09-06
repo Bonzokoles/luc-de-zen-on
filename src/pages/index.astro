@@ -14,7 +14,7 @@ import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimp
 import DecorativeLines from "../components/DecorativeLines.astro";
 ---
 
-<MyBonzoLayout siteTitle="MyBonzo - Professional AI Workers Platform | Advanced Automation Solutions">
+<MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
   <DecorativeLines />
 
   <!-- Global vertical lines for workers sections -->
@@ -919,6 +919,41 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     </section>
   </main>
 
+  <!-- Right Floating Panel - Fixed Right Side -->
+  <div class="right-panel-fixed">
+    <div class="floating-widget-container">
+      <button
+        onclick="toggleMusicPlayer()"
+        class="right-btn"
+        id="musicPlayerBtn"
+      >
+        🎵 MUSIC PLAYER
+      </button>
+      <div id="musicPlayerWidget" class="floating-widget hidden">
+        <BackgroundMusicPlayerSimple client:load />
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button
+        onclick="togglePolaczekAssistant()"
+        class="right-btn"
+        id="polaczekBtn"
+        title="AI Assistant do wyjaśniania funkcji na stronie"
+      >
+        🤖 AI ASSISTANT
+      </button>
+      <div id="polaczekWidget" class="floating-widget hidden">
+        <AiHelpAssistant client:load />
+      </div>
+    </div>
+
+    <button onclick="openMainChat()" class="right-btn"> 💬 MAIN CHAT </button>
+    <button onclick="openRefresh()" class="right-btn"> 🔄 REFRESH </button>
+    <button onclick="openFolder()" class="right-btn"> 📁 FOLDER </button>
+    <button onclick="openClose()" class="right-btn"> ❌ CLOSE </button>
+  </div>
+
   <!-- Separator Section 4 -->
   <section class="border border-edge relative">
     <div class="absolute left-0 right-0 h-full">
@@ -1016,6 +1051,25 @@ import DecorativeLines from "../components/DecorativeLines.astro";
       </div>
     </div>
   </section>
+
+  <!-- Panel Administracyjny with Login - Fixed Left Side -->
+  <div class="admin-panel-fixed">
+    <a href="/admin" class="admin-btn"> Panel Administracyjny </a>
+
+    <!-- Login Section Below Admin Panel -->
+    <div class="login-container-fixed" id="loginContainer">
+      <input
+        type="text"
+        id="dashboardLogin"
+        maxlength="16"
+        placeholder="Podaj login"
+        class="login-input-fixed"
+      />
+      <button onclick="checkDashboardLogin()" class="login-btn-fixed">
+        Zaloguj się
+      </button>
+    </div>
+  </div>
 </MyBonzoLayout>
 
 <!-- JavaScript Functions -->
@@ -1030,6 +1084,8 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   (window as any).openTavily = (window as any).openTavily || function () {};
   (window as any).testButtonFunction =
     (window as any).testButtonFunction || function () {};
+  (window as any).checkDashboardLogin =
+    (window as any).checkDashboardLogin || function () {};
 
   // Init when page loads
   window.addEventListener("DOMContentLoaded", async () => {
@@ -1221,6 +1277,32 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     }
   }
 
+  // Dashboard Login Function
+  function checkDashboardLogin() {
+    const loginInput = document.getElementById(
+      "dashboardLogin"
+    ) as HTMLInputElement;
+    const loginContainer = document.getElementById("loginContainer");
+    const dashboardButtons = document.getElementById("dashboardButtons");
+
+    if (!loginInput || !loginContainer || !dashboardButtons) return;
+
+    const login = loginInput.value.trim();
+    console.log("Checking login:", login);
+
+    if (login === "HAOS77") {
+      loginContainer.classList.add("hidden");
+      dashboardButtons.classList.remove("hidden");
+      console.log("Login successful, showing dashboard buttons");
+    } else {
+      console.log("Invalid login");
+      loginInput.style.borderColor = "#ef4444";
+      setTimeout(() => {
+        loginInput.style.borderColor = "";
+      }, 2000);
+    }
+  }
+
   // Flowise AI Functions
   async function launchFlowise() {
     console.log("🧠 launchFlowise() wywołana");
@@ -1399,6 +1481,16 @@ import DecorativeLines from "../components/DecorativeLines.astro";
       });
     });
 
+    // Add Enter key handler for dashboard login
+    const dashboardLoginInput = document.getElementById("dashboardLogin");
+    if (dashboardLoginInput) {
+      dashboardLoginInput.addEventListener("keydown", function (e) {
+        if ((e as any).key === "Enter") {
+          checkDashboardLogin();
+        }
+      });
+    }
+
     // Check status on load
     checkAllStatus();
 
@@ -1409,14 +1501,83 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     window.openKaggle = openKaggle;
     window.openTavily = openTavily;
     window.testButtonFunction = testButtonFunction;
+    (window as any).checkDashboardLogin = checkDashboardLogin;
     (window as any).openFunction = openFunction;
+    (window as any).toggleMusicPlayer = toggleMusicPlayer;
+    (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
+    (window as any).openMainChat = openMainChat;
+    (window as any).openRefresh = openRefresh;
+    (window as any).openFolder = openFolder;
+    (window as any).openClose = openClose;
     (window as any).checkAllStatus = checkAllStatus;
     (window as any).runAllAPITests = runAllAPITests;
-    (window as any).openAPITestConsole = openAPITestConsole;
     (window as any).openAPITestConsole = openAPITestConsole;
 
     console.log("All functions assigned to window object");
   });
+
+  // New Toggle Functions with Button Scaling
+  function toggleMusicPlayer() {
+    console.log("🎵 Toggling Music Player");
+    const btn = document.getElementById("musicPlayerBtn");
+    const widget = document.getElementById("musicPlayerWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+      console.log("Music Player widget toggled");
+    }
+  }
+
+  function togglePolaczekAssistant() {
+    console.log("🤖 Toggling AI Assistant");
+    const btn = document.getElementById("polaczekBtn");
+    const widget = document.getElementById("polaczekWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+      console.log("AI Assistant widget toggled");
+    }
+  }
+
+  function openMainChat() {
+    console.log("💬 Opening Main Chat");
+    window.open("/chatbot", "_blank");
+  }
+
+  function openRefresh() {
+    console.log("🔄 Refreshing page");
+    window.location.reload();
+  }
+
+  function openFolder() {
+    console.log("📁 Opening folder");
+    alert(
+      "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
+    );
+  }
+
+  function openClose() {
+    console.log("❌ Closing tab");
+    try {
+      window.close();
+    } catch (e) {
+      alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
+    }
+  }
 </script>
 
 <style>
@@ -1559,12 +1720,23 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     display: block;
   }
 
+  /* Admin panel - fixed left side - moved to bottom */
+  .admin-panel-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
   /* Right panel - fixed right side - bottom */
   .right-panel-fixed {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 99999;
+    z-index: 100;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -1596,6 +1768,84 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   .right-btn:active {
     transform: scale(1.05) translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
+  }
+
+  .admin-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: #00d7ef;
+    padding: 12px 24px;
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    transition: all 0.2s ease;
+    display: block;
+    text-align: center;
+    min-width: 220px;
+  }
+
+  .admin-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+  }
+
+  /* Login container - fixed below admin panel */
+  .login-container-fixed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-input-fixed {
+    background: #131e28;
+    color: #00d7ef;
+    padding: 10px 12px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 150px;
+    transition: all 0.2s ease;
+  }
+
+  .login-input-fixed:focus {
+    outline: none;
+    border-color: #00d7ef;
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
+  }
+
+  .login-input-fixed::placeholder {
+    color: rgba(0, 217, 255, 0.6);
+  }
+
+  .login-btn-fixed {
+    background-color: #164e63;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-btn-fixed:hover {
+    background-color: #1be1ff;
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.4);
   }
 
   /* Override any existing rounded corners - FORCE 0px everywhere */
@@ -1714,7 +1964,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     max-width: 1000px; /* Increased to accommodate full panel */
     max-height: 600px; /* Increased for better height */
     overflow-y: auto;
-    z-index: 100000;
+    z-index: 1000;
     animation: slideUp 0.3s ease-out;
     /* Ensure widget stays attached to its parent container */
     transform-origin: bottom right;
@@ -1753,30 +2003,74 @@ import DecorativeLines from "../components/DecorativeLines.astro";
       font-size: 2.5rem !important;
     }
 
+    .admin-panel-fixed {
+      bottom: 20px;
+      left: 10px;
+      gap: 12px;
+    }
+
     .right-panel-fixed {
       bottom: 20px;
       right: 10px;
       gap: 12px;
     }
 
+    .admin-btn,
     .right-btn {
       min-width: 180px;
       font-size: 1rem;
       padding: 10px 20px;
     }
+
+    .login-container-fixed {
+      padding: 12px;
+    }
+
+    .login-input-fixed {
+      min-width: 130px;
+      font-size: 0.9rem;
+      padding: 8px 10px;
+    }
+
+    .login-btn-fixed {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+    }
   }
 
   @media (max-width: 768px) {
+    .admin-panel-fixed {
+      left: 8px;
+      bottom: 15px;
+      gap: 10px;
+    }
+
     .right-panel-fixed {
       right: 8px;
       bottom: 15px;
       gap: 10px;
     }
 
+    .admin-btn,
     .right-btn {
       min-width: 150px;
       font-size: 0.9rem;
       padding: 8px 16px;
+    }
+
+    .login-container-fixed {
+      padding: 10px;
+    }
+
+    .login-input-fixed {
+      min-width: 120px;
+      font-size: 0.85rem;
+      padding: 7px 8px;
+    }
+
+    .login-btn-fixed {
+      font-size: 0.85rem;
+      padding: 7px 10px;
     }
   }
 
