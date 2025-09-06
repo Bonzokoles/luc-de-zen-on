@@ -32,8 +32,8 @@ jobs:
       - name: Deploy to Cloudflare Pages (Production Account)
         uses: cloudflare/pages-action@v1
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_PROD }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID_PROD }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: luc-de-zen-on
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
