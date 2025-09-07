@@ -9,8 +9,6 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
-import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 ---
@@ -330,9 +328,8 @@ import DecorativeLines from "../components/DecorativeLines.astro";
         </div>
 
         {
-          /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
+          /* Voice AI temporarily disabled - React components removed for Workers compatibility */
         }
-        <QuickVoiceAI client:load />
 
         {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
         {
@@ -382,25 +379,9 @@ import DecorativeLines from "../components/DecorativeLines.astro";
             <div
               style="position: relative; transform: translateX(-15px); height: 120px;"
             >
-              <!-- Back layer: reacts to Music Player, slightly different color -->
-              <div
-                style="position:absolute; inset:0; opacity:0.7; pointer-events:none;"
-              >
-                <EdgeAudioVisualizer
-                  client:only="react"
-                  height={120}
-                  source="music"
-                  variant="music"
-                />
-              </div>
-              <!-- Front layer: reacts to Avatar (mic) -->
-              <div style="position:absolute; inset:0; pointer-events:none;">
-                <EdgeAudioVisualizer
-                  client:only="react"
-                  height={120}
-                  source="mic"
-                  variant="mic"
-                />
+              <!-- Audio visualizers temporarily disabled - React components removed for Workers compatibility -->
+              <div class="flex items-center justify-center h-full text-edge/50">
+                <span>🎵 Audio Visualizer (Coming Soon)</span>
               </div>
             </div>
           </div>

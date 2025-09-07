@@ -1,5 +1,6 @@
 name = "luc-de-zen-on"
 compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "dist"
 
 # Durable Objects bindings for Agents SDK (Pages) - Disabled for initial deployment

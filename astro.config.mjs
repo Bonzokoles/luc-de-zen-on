@@ -13,11 +13,11 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [svelte(), react(), mdx(), sitemap()],
+  integrations: [svelte(), mdx(), sitemap()],
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
-    },
+    }
   }),
   site: "https://www.mybonzo.com",
   redirects: {
