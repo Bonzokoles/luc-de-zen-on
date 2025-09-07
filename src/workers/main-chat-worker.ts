@@ -1,20 +1,19 @@
 /**
- * Enhanced AI Worker - Cloudflare Worker with advanced AI features
- * Uses Cloudflare AI for enhanced responses
+ * Main Chat Worker - Primary chat interface for MyBonzo
+ * Uses Cloudflare AI for conversational responses
  */
 
 export interface Env {
-  AI: Ai;
+  AI: any;
 }
 
-interface EnhancedRequest {
+interface ChatRequest {
   messages: Array<{
     role: 'system' | 'user' | 'assistant';
     content: string;
   }>;
   max_tokens?: number;
   temperature?: number;
-  enhance_mode?: boolean;
 }
 
 export default {
@@ -33,30 +32,30 @@ export default {
 
     if (request.method === 'POST') {
       try {
-        const requestData: EnhancedRequest = await request.json();
+        const requestData: ChatRequest = await request.json();
 
-        // Enhanced system prompt
-        const enhancedMessages = [
+        // Main chat system prompt
+        const chatMessages = [
           {
             role: 'system' as const,
-            content: 'Jesteś zaawansowanym asystentem AI MyBonzo. Udzielaj szczegółowych, pomocnych odpowiedzi w języku polskim. Używaj profesjonalnego ale przyjaznego tonu.'
+            content: 'Jesteś głównym asystentem MyBonzo. Pomagasz użytkownikom w ich codziennych zadaniach. Odpowiadaj w języku polskim w sposób przyjazny i profesjonalny.'
           },
           ...requestData.messages
         ];
 
-        // Use Cloudflare AI with enhanced configuration
+        // Use Cloudflare AI
         const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
-          messages: enhancedMessages,
-          max_tokens: requestData.max_tokens || 1024,
-          temperature: requestData.temperature || 0.8,
+          messages: chatMessages,
+          max_tokens: requestData.max_tokens || 512,
+          temperature: requestData.temperature || 0.7,
         });
 
         return new Response(JSON.stringify({
           success: true,
           response: response.response || 'Nie udało się wygenerować odpowiedzi.',
-          model: 'llama-3.1-8b-instruct-enhanced',
+          model: 'llama-3.1-8b-instruct',
           provider: 'cloudflare-ai',
-          enhanced: true
+          chat_type: 'main'
         }), {
           status: 200,
           headers: {
@@ -65,11 +64,11 @@ export default {
           },
         });
 
-      } catch (error) {
-        console.error('Enhanced AI error:', error);
+      } catch (error: any) {
+        console.error('Main chat error:', error);
         return new Response(JSON.stringify({ 
-          error: 'Enhanced AI error', 
-          details: error.message 
+          error: 'Main chat error', 
+          details: error?.message || 'Unknown error'
         }), {
           status: 500,
           headers: {

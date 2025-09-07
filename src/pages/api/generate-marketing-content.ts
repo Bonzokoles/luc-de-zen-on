@@ -1,59 +1,44 @@
 import type { APIRoute } from 'astro';
-import OpenAI from 'openai';
+import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { prompt, contentType } = await request.json();
+    const env = locals.runtime.env;
     
     if (!prompt || !contentType) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return createErrorResponse('Missing required fields', 400);
     }
 
-    // Initialize OpenAI with API key from environment
-    const openai = new OpenAI({
-      apiKey: import.meta.env.OPENAI_API_KEY,
-    });
+    if (!env.AI) {
+      return createErrorResponse('Cloudflare AI nie jest dostępny', 500);
+    }
 
-    const systemMessage = {
-      role: "system" as const,
-      content: "Jesteś ekspertem marketingu tworzącym angażujące teksty w stylu nowoczesnym i profesjonalnym. Używaj dynamicznego, przystępnego stylu z wyraźnym CTA zachęcającym do działania."
-    };
+    const systemPrompt = "Jesteś ekspertem marketingu tworzącym angażujące teksty w stylu nowoczesnym i profesjonalnym. Używaj dynamicznego, przystępnego stylu z wyraźnym CTA zachęcającym do działania.";
+    const userPrompt = `Napisz ${contentType} na temat: ${prompt}. Użyj stylu: dynamiczny, przystępny, z CTA zachęcającym do działania. Tekst powinien być profesjonalny ale przyjazny.`;
 
-    const userMessage = {
-      role: "user" as const,
-      content: `Napisz ${contentType} na temat: ${prompt}. Użyj stylu: dynamiczny, przystępny, z CTA zachęcającym do działania. Tekst powinien być profesjonalny ale przyjazny.`
-    };
-
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [systemMessage, userMessage],
-      max_tokens: 500,
+    // Użyj Cloudflare Workers AI
+    const response = await env.AI.run(env.ADVANCED_TEXT_MODEL || '@cf/meta/llama-3.1-8b-instruct', {
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
       temperature: 0.7,
     });
 
-    const generatedText = response.choices[0].message.content;
+    const generatedText = response.response;
 
-    return new Response(JSON.stringify({ 
+    return createSuccessResponse({ 
       success: true,
       text: generatedText,
       contentType: contentType,
       prompt: prompt 
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
     console.error('Error generating marketing content:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to generate marketing content',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return createErrorResponse('Failed to generate marketing content', 500);
   }
 };
+
+export const OPTIONS = createOPTIONSHandler(['POST', 'OPTIONS']);

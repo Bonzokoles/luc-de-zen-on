@@ -1,20 +1,19 @@
 /**
- * Enhanced AI Worker - Cloudflare Worker with advanced AI features
- * Uses Cloudflare AI for enhanced responses
+ * Bielik Worker - Polish AI assistant using Cloudflare AI
+ * Specialized for Polish language interactions
  */
 
 export interface Env {
-  AI: Ai;
+  AI: any;
 }
 
-interface EnhancedRequest {
+interface BielikRequest {
   messages: Array<{
     role: 'system' | 'user' | 'assistant';
     content: string;
   }>;
   max_tokens?: number;
   temperature?: number;
-  enhance_mode?: boolean;
 }
 
 export default {
@@ -33,30 +32,31 @@ export default {
 
     if (request.method === 'POST') {
       try {
-        const requestData: EnhancedRequest = await request.json();
+        const requestData: BielikRequest = await request.json();
 
-        // Enhanced system prompt
-        const enhancedMessages = [
+        // Bielik-specific system prompt in Polish
+        const bielikMessages = [
           {
             role: 'system' as const,
-            content: 'Jesteś zaawansowanym asystentem AI MyBonzo. Udzielaj szczegółowych, pomocnych odpowiedzi w języku polskim. Używaj profesjonalnego ale przyjaznego tonu.'
+            content: 'Jesteś Bielik - zaawansowany polski asystent AI. Udzielasz odpowiedzi wyłącznie w języku polskim. Jesteś ekspertem w polskiej kulturze, języku i kontekście społecznym. Odpowiadaj w sposób naturalny, pomocny i kulturalny.'
           },
           ...requestData.messages
         ];
 
-        // Use Cloudflare AI with enhanced configuration
+        // Use Cloudflare AI with Polish optimization
         const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
-          messages: enhancedMessages,
-          max_tokens: requestData.max_tokens || 1024,
-          temperature: requestData.temperature || 0.8,
+          messages: bielikMessages,
+          max_tokens: requestData.max_tokens || 512,
+          temperature: requestData.temperature || 0.7,
         });
 
         return new Response(JSON.stringify({
           success: true,
           response: response.response || 'Nie udało się wygenerować odpowiedzi.',
-          model: 'llama-3.1-8b-instruct-enhanced',
+          model: 'bielik-llama-3.1',
           provider: 'cloudflare-ai',
-          enhanced: true
+          language: 'pl',
+          assistant: 'bielik'
         }), {
           status: 200,
           headers: {
@@ -65,11 +65,11 @@ export default {
           },
         });
 
-      } catch (error) {
-        console.error('Enhanced AI error:', error);
+      } catch (error: any) {
+        console.error('Bielik error:', error);
         return new Response(JSON.stringify({ 
-          error: 'Enhanced AI error', 
-          details: error.message 
+          error: 'Bielik error', 
+          details: error?.message || 'Unknown error'
         }), {
           status: 500,
           headers: {

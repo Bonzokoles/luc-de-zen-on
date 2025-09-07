@@ -62,7 +62,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0,0,0,0.5);"
               >
-                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
+                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0" selected
                   >Stable Diffusion XL</option
                 >
                 <option value="@cf/lykon/dreamshaper-8-lcm"
@@ -508,10 +508,16 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   function downloadImage() {
     var img = document.getElementById("generatedImage");
     if (!img || !img.src) return;
+    
+    // Create download link with timestamp for unique filename
+    var timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     var link = document.createElement("a");
-    link.download = "generated_image.png";
+    link.download = "ai_generated_image_" + timestamp + ".png";
     link.href = img.src;
+    link.style.display = "none";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
 
   function shareImage() {

@@ -16,8 +16,7 @@ export const ALL: APIRoute = async ({ request }) => {
   }
 
   try {
-    const workerUrl =
-      "https://polaczek-sys-t.lissonkarol-msa.workers.dev/api/polaczek-sys-t";
+    const workerUrl = "https://mybonzo-main-chat.lissonkarol-msa.workers.dev";
 
     const response = await fetch(workerUrl, {
       method: request.method,
@@ -37,10 +36,10 @@ export const ALL: APIRoute = async ({ request }) => {
       },
     });
   } catch (error: any) {
-    console.error("POLACZEK_SYS_T proxy error:", error);
+    console.error("Main chat proxy error:", error);
     return new Response(
       JSON.stringify({
-        error: "POLACZEK_SYS_T service unavailable",
+        error: "Main chat service unavailable",
         details: error?.message || "Unknown error",
       }),
       {

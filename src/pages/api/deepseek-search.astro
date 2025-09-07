@@ -17,7 +17,7 @@ export const ALL: APIRoute = async ({ request }) => {
 
   try {
     const workerUrl =
-      "https://polaczek-sys-t.lissonkarol-msa.workers.dev/api/polaczek-sys-t";
+      "https://deepseek-search-worker.lissonkarol-msa.workers.dev";
 
     const response = await fetch(workerUrl, {
       method: request.method,
@@ -37,10 +37,10 @@ export const ALL: APIRoute = async ({ request }) => {
       },
     });
   } catch (error: any) {
-    console.error("POLACZEK_SYS_T proxy error:", error);
+    console.error("DeepSeek search proxy error:", error);
     return new Response(
       JSON.stringify({
-        error: "POLACZEK_SYS_T service unavailable",
+        error: "DeepSeek search service unavailable",
         details: error?.message || "Unknown error",
       }),
       {
