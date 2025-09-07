@@ -20,7 +20,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   <div class="workers-vertical-line-left"></div>
   <div class="workers-vertical-line-right"></div>
 
-  <main class="min-h-svh">
+  <main class="min-h-screen" style="overflow: visible !important;">
     <!-- Top Separator Section -->
     <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
@@ -269,6 +269,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     <section
       class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
       id="ai-workers"
+      style="display: block !important; visibility: visible !important; opacity: 1 !important;"
     >
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
@@ -506,7 +507,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           >
         </div>
 
-        <div class="workers-grid" data-astro-cid-my52qgmw>
+        <div
+          class="workers-grid"
+          data-astro-cid-my52qgmw
+          style="display: grid !important; visibility: visible !important;"
+        >
           <!-- Image Generator -->
           <div class="worker-card" data-worker="image" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>
