@@ -12,7 +12,9 @@ export const GET: APIRoute = async () => {
       '@cf/lykon/dreamshaper-8-lcm',
       '@cf/black-forest-labs/flux-1-schnell',
       '@cf/runwayml/stable-diffusion-v1-5',
-      '@cf/bytedance/stable-diffusion-xl-lightning'
+      '@cf/bytedance/stable-diffusion-xl-lightning',
+      '@cf/stabilityai/stable-diffusion-v1-5-img2img',
+      '@cf/stabilityai/stable-diffusion-v1-5-inpainting'
     ],
     enhancementFeatures: {
       enhancePrompt: 'Boolean - Enable intelligent prompt enhancement with wildcards',
@@ -106,7 +108,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       '@cf/lykon/dreamshaper-8-lcm',
       '@cf/black-forest-labs/flux-1-schnell',
       '@cf/runwayml/stable-diffusion-v1-5',
-      '@cf/bytedance/stable-diffusion-xl-lightning'
+      '@cf/bytedance/stable-diffusion-xl-lightning',
+      '@cf/stabilityai/stable-diffusion-v1-5-img2img',
+      '@cf/stabilityai/stable-diffusion-v1-5-inpainting'
     ];
 
     const selectedModel = model && allowedModels.includes(model)

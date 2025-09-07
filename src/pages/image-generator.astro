@@ -62,7 +62,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0,0,0,0.5);"
               >
-                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
+                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0" selected
                   >Stable Diffusion XL</option
                 >
                 <option value="@cf/lykon/dreamshaper-8-lcm"
@@ -70,6 +70,18 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 >
                 <option value="@cf/black-forest-labs/flux-1-schnell"
                   >Flux-1 Schnell</option
+                >
+                <option value="@cf/runwayml/stable-diffusion-v1-5"
+                  >Stable Diffusion v1.5</option
+                >
+                <option value="@cf/bytedance/stable-diffusion-xl-lightning"
+                  >SD XL Lightning</option
+                >
+                <option value="@cf/stabilityai/stable-diffusion-v1-5-img2img"
+                  >SD v1.5 Img2Img</option
+                >
+                <option value="@cf/stabilityai/stable-diffusion-v1-5-inpainting"
+                  >SD v1.5 Inpainting</option
                 >
               </select>
             </div>
@@ -508,10 +520,16 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   function downloadImage() {
     var img = document.getElementById("generatedImage");
     if (!img || !img.src) return;
+    
+    // Create download link with timestamp for unique filename
+    var timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     var link = document.createElement("a");
-    link.download = "generated_image.png";
+    link.download = "ai_generated_image_" + timestamp + ".png";
     link.href = img.src;
+    link.style.display = "none";
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   }
 
   function shareImage() {
