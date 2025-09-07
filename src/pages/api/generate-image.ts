@@ -14,7 +14,9 @@ export const GET: APIRoute = async () => {
       '@cf/runwayml/stable-diffusion-v1-5',
       '@cf/bytedance/stable-diffusion-xl-lightning',
       '@cf/stabilityai/stable-diffusion-v1-5-img2img',
-      '@cf/stabilityai/stable-diffusion-v1-5-inpainting'
+      '@cf/stabilityai/stable-diffusion-v1-5-inpainting',
+      '@cf/leonardo/phoenix-1.0',
+      '@cf/leonardo/lucid-origin'
     ],
     enhancementFeatures: {
       enhancePrompt: 'Boolean - Enable intelligent prompt enhancement with wildcards',
@@ -110,7 +112,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       '@cf/runwayml/stable-diffusion-v1-5',
       '@cf/bytedance/stable-diffusion-xl-lightning',
       '@cf/stabilityai/stable-diffusion-v1-5-img2img',
-      '@cf/stabilityai/stable-diffusion-v1-5-inpainting'
+      '@cf/stabilityai/stable-diffusion-v1-5-inpainting',
+      '@cf/leonardo/phoenix-1.0',
+      '@cf/leonardo/lucid-origin'
     ];
 
     const selectedModel = model && allowedModels.includes(model)

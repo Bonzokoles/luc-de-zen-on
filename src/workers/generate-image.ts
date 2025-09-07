@@ -46,12 +46,16 @@ export default {
         '@cf/lykon/dreamshaper-8-lcm',
         '@cf/black-forest-labs/flux-1-schnell',
         '@cf/runwayml/stable-diffusion-v1-5',
-        '@cf/bytedance/stable-diffusion-xl-lightning'
+        '@cf/bytedance/stable-diffusion-xl-lightning',
+        '@cf/stabilityai/stable-diffusion-v1-5-img2img',
+        '@cf/stabilityai/stable-diffusion-v1-5-inpainting',
+        '@cf/leonardo/phoenix-1.0',
+        '@cf/leonardo/lucid-origin'
       ];
 
       const selectedModel = model && allowedModels.includes(model)
         ? model
-        : '@cf/black-forest-labs/flux-1-schnell';
+        : '@cf/stabilityai/stable-diffusion-xl-base-1.0';
 
       // Wywołanie Workers AI z wybranym modelem
       const result = await env.AI.run(selectedModel, { 
