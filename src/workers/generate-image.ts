@@ -4,6 +4,7 @@ interface Env {
 
 interface PromptRequest {
   prompt: string;
+  model?: string;
   width?: number;
   height?: number;
   steps?: number;
@@ -30,7 +31,7 @@ export default {
 
     try {
       const requestData = await request.json();
-      const { prompt, width = 1024, height = 1024, steps = 4 } = requestData as PromptRequest;
+      const { prompt, model, width = 1024, height = 1024, steps = 4 } = requestData as PromptRequest;
 
       if (!prompt || prompt.trim().length === 0) {
         return new Response(JSON.stringify({ error: "Prompt is required" }), {
@@ -39,8 +40,21 @@ export default {
         });
       }
 
-      // Wywołanie Workers AI modelu FLUX-1-schnell
-      const result = await env.AI.run('@cf/black-forest-labs/flux-1-schnell', { 
+      // Lista dozwolonych modeli
+      const allowedModels = [
+        '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+        '@cf/lykon/dreamshaper-8-lcm',
+        '@cf/black-forest-labs/flux-1-schnell',
+        '@cf/runwayml/stable-diffusion-v1-5',
+        '@cf/bytedance/stable-diffusion-xl-lightning'
+      ];
+
+      const selectedModel = model && allowedModels.includes(model)
+        ? model
+        : '@cf/black-forest-labs/flux-1-schnell';
+
+      // Wywołanie Workers AI z wybranym modelem
+      const result = await env.AI.run(selectedModel, { 
         prompt: prompt.trim(),
         width,
         height,
@@ -56,6 +70,7 @@ export default {
         success: true,
         imageUrl: `data:image/png;base64,${base64Image}`,
         prompt,
+        model: selectedModel,
         width,
         height,
         steps,

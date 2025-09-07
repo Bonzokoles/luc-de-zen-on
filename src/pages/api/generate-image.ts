@@ -10,7 +10,9 @@ export const GET: APIRoute = async () => {
     supportedModels: [
       '@cf/stabilityai/stable-diffusion-xl-base-1.0',
       '@cf/lykon/dreamshaper-8-lcm',
-      '@cf/black-forest-labs/flux-1-schnell'
+      '@cf/black-forest-labs/flux-1-schnell',
+      '@cf/runwayml/stable-diffusion-v1-5',
+      '@cf/bytedance/stable-diffusion-xl-lightning'
     ],
     enhancementFeatures: {
       enhancePrompt: 'Boolean - Enable intelligent prompt enhancement with wildcards',
@@ -103,6 +105,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       '@cf/stabilityai/stable-diffusion-xl-base-1.0',
       '@cf/lykon/dreamshaper-8-lcm',
       '@cf/black-forest-labs/flux-1-schnell',
+      '@cf/runwayml/stable-diffusion-v1-5',
+      '@cf/bytedance/stable-diffusion-xl-lightning'
     ];
 
     const selectedModel = model && allowedModels.includes(model)
