@@ -2,6 +2,9 @@
   import { onMount } from "svelte";
 
   let audio;
+  let audioCtx;
+  let analyserNode;
+  let mediaSource;
   let playlist = [];
   let currentTrack = 0;
   let isPlaying = false;
@@ -37,6 +40,7 @@
           if (!playlist.length) loadDemoTracks();
           else updateTrackInfo();
         },
+        getAnalyser: () => (analyserNode || window.MUSIC_ANALYSER || null),
         openFolderPicker: () => {
           try {
             const el = document.getElementById("music-folder");
@@ -50,6 +54,49 @@
       };
     }
   });
+
+  function setupAnalyser() {
+    try {
+      if (!audio) return;
+      if (analyserNode) return; // already initialized
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      audioCtx = window.MUSIC_AUDIO_CTX || new Ctx();
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume().catch(() => {});
+      }
+      // Create media element source only once per context
+      if (!window.MUSIC_MEDIA_SOURCE) {
+        mediaSource = audioCtx.createMediaElementSource(audio);
+        window.MUSIC_MEDIA_SOURCE = mediaSource;
+      } else {
+        mediaSource = window.MUSIC_MEDIA_SOURCE;
+      }
+      analyserNode = window.MUSIC_ANALYSER || audioCtx.createAnalyser();
+      analyserNode.fftSize = 1024;
+      analyserNode.smoothingTimeConstant = 0.85;
+      // Connect graph if not yet connected
+      try {
+        mediaSource.connect(analyserNode);
+        analyserNode.connect(audioCtx.destination);
+      } catch (e) {
+        // ignore if already connected
+      }
+      window.MUSIC_AUDIO_CTX = audioCtx;
+      window.MUSIC_ANALYSER = analyserNode;
+      // Optional: dispatch event so listeners can latch on immediately
+      window.dispatchEvent(new CustomEvent("music-analyser-ready"));
+      // Cross-trigger: if mic ctx exists and is suspended, try resume
+      try {
+        const micCtx = window.MIC_AUDIO_CTX;
+        if (micCtx && micCtx.state === 'suspended') {
+          micCtx.resume().catch(() => {});
+        }
+      } catch {}
+    } catch (e) {
+      console.warn("setupAnalyser failed", e);
+    }
+  }
 
   function loadDemoTracks() {
     playlist = [
@@ -70,6 +117,7 @@
       if (audio && playlist[currentTrack].url) {
         audio.src = playlist[currentTrack].url;
         audio.volume = volume;
+        setupAnalyser();
       }
     }
   }
@@ -88,10 +136,12 @@
       audio.pause();
       isPlaying = false;
     } else {
+      setupAnalyser();
       audio
         .play()
         .then(() => {
           isPlaying = true;
+          try { if (audioCtx && audioCtx.state === "suspended") audioCtx.resume(); } catch {}
         })
         .catch(console.error);
     }

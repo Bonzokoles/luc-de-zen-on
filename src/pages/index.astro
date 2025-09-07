@@ -10,6 +10,7 @@ import EducationRecommendationsWidget from "../components/EducationRecommendatio
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
 import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 ---
@@ -328,7 +329,82 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           </p>
         </div>
 
+        {
+          /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
+        }
         <QuickVoiceAI client:load />
+
+        {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
+        {
+          /* Temporarily disabled - working on generator graphics 
+        <div class="my-8 flex justify-center">
+          <VoiceAvatarComponent
+            client:load
+            variant="hero"
+            avatarType="animated"
+            enableLipSync={true}
+            className="max-w-md"
+          />
+        </div>
+        */
+        }
+
+        <!-- Full-width frame so white lines extend to screen edges; inner content keeps site max width -->
+        <div
+          style="
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            width: 100vw;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 12px 0;
+          "
+        >
+          <!-- White lines (shortened 6px on the left) -->
+          <div
+            style="position:absolute; left:-4px; right:0; top:0; height:1px; background:#ffffff;"
+          >
+          </div>
+          <div
+            style="position:absolute; left:-4px; right:0; bottom:0; height:1px; background:#ffffff;"
+          >
+          </div>
+          <div
+            style="
+              width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+              max-width: 1212px;
+              margin: 0 auto;
+            "
+          >
+            <div
+              style="position: relative; transform: translateX(-15px); height: 120px;"
+            >
+              <!-- Back layer: reacts to Music Player, slightly different color -->
+              <div
+                style="position:absolute; inset:0; opacity:0.7; pointer-events:none;"
+              >
+                <EdgeAudioVisualizer
+                  client:only="react"
+                  height={120}
+                  source="music"
+                  variant="music"
+                />
+              </div>
+              <!-- Front layer: reacts to Avatar (mic) -->
+              <div style="position:absolute; inset:0; pointer-events:none;">
+                <EdgeAudioVisualizer
+                  client:only="react"
+                  height={120}
+                  source="mic"
+                  variant="mic"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">
@@ -2099,7 +2175,9 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   }
 
   .workers-vertical-line-left {
-    left: calc(50vw - 576px - 10px - 20px); /* 20px more to the left */
+    left: calc(
+      50vw - 576px - 10px - 21px
+    ); /* 21px more to the left (moved 4px to the right) */
   }
 
   .workers-vertical-line-right {

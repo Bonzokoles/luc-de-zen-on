@@ -18,13 +18,21 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           class="border border-edge rounded-lg p-6 mt-6"
           style="background: rgba(0,0,0,0.5);"
         >
-          <!-- Prompt -->
+          <!-- Prompt Enhancement -->
           <div class="mb-5">
-            <label
-              for="imagePrompt"
-              class="block text-lg font-semibold mb-2 text-primary-foreground"
-              >Opis obrazu</label
-            >
+            <div class="flex items-center justify-between mb-2">
+              <label
+                for="imagePrompt"
+                class="block text-lg font-semibold text-primary-foreground"
+                >Opis obrazu</label
+              >
+              <button
+                id="enhancePromptBtn"
+                class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm"
+                onclick="enhancePrompt()"
+                >✨ Ulepsz prompt</button
+              >
+            </div>
             <textarea
               id="imagePrompt"
               rows="3"
@@ -32,6 +40,14 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               style="background: rgba(0,0,0,0.5);"
               placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"
             ></textarea>
+            
+            <!-- Quick Enhancement Options -->
+            <div class="flex flex-wrap gap-2 mt-2">
+              <button class="quick-prompt-btn" onclick="addArtistStyle()">🎨 Dodaj styl artysty</button>
+              <button class="quick-prompt-btn" onclick="addMedium()">🖼️ Dodaj medium</button>
+              <button class="quick-prompt-btn" onclick="addQuality()">⭐ Zwiększ jakość</button>
+              <button class="quick-prompt-btn" onclick="addMood()">🌈 Dodaj nastrój</button>
+            </div>
           </div>
 
           <!-- Controls -->
@@ -227,6 +243,27 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     generationHistory = [];
   }
 
+  // Artist styles and enhancement data
+  var popularArtists = [
+    'Vincent van Gogh', 'Pablo Picasso', 'Leonardo da Vinci', 'Claude Monet', 
+    'Salvador Dali', 'Andy Warhol', 'Frida Kahlo', 'Banksy', 'Hayao Miyazaki', 'H.R. Giger'
+  ];
+  
+  var artMedia = [
+    'Oil painting', 'Watercolor', 'Digital art', 'Photography', 'Pencil drawing',
+    'Concept art', 'Street art', 'Sculpture', 'Acrylic painting', 'Charcoal drawing'
+  ];
+  
+  var qualityTerms = [
+    'highly detailed', '4K resolution', 'ultra realistic', 'professional photography',
+    'award winning', 'masterpiece', 'cinematic lighting', 'sharp focus'
+  ];
+  
+  var moods = [
+    'dramatic', 'peaceful', 'mysterious', 'energetic', 'romantic',
+    'futuristic', 'vintage', 'dark', 'bright', 'surreal'
+  ];
+
   function parseSize(size) {
     var parts = String(size || "").split("x");
     var w = parseInt(parts[0], 10);
@@ -252,6 +289,114 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       r.onerror = reject;
       r.readAsDataURL(blob);
     });
+  }
+
+  // Prompt enhancement functions
+  async function enhancePrompt() {
+    var promptEl = document.getElementById("imagePrompt");
+    var btn = document.getElementById("enhancePromptBtn");
+    
+    if (!promptEl) return;
+    
+    var currentPrompt = String(promptEl.value).trim();
+    if (!currentPrompt) {
+      alert("Najpierw wprowadź podstawowy opis obrazu");
+      return;
+    }
+    
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "🔄 Ulepszanie...";
+    }
+    
+    try {
+      var response = await fetch("/api/enhance-prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: currentPrompt,
+          options: {
+            quality: "high",
+            enhanceCreativity: true
+          }
+        })
+      });
+      
+      if (response.ok) {
+        var data = await response.json();
+        if (data.enhanced) {
+          promptEl.value = data.enhanced;
+          
+          // Show enhancement feedback
+          var feedback = document.createElement("div");
+          feedback.className = "mt-2 p-2 bg-green-900/50 border border-green-600 rounded text-green-200 text-sm";
+          feedback.textContent = "✅ Prompt został ulepszony z " + popularArtists.length + "+ stylami artystów!";
+          promptEl.parentNode.appendChild(feedback);
+          
+          setTimeout(function() {
+            if (feedback.parentNode) {
+              feedback.parentNode.removeChild(feedback);
+            }
+          }, 3000);
+        }
+      }
+    } catch (error) {
+      console.error("Enhancement error:", error);
+      alert("Błąd podczas ulepszania promptu. Spróbuj ponownie.");
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "✨ Ulepsz prompt";
+      }
+    }
+  }
+  
+  function addArtistStyle() {
+    var promptEl = document.getElementById("imagePrompt");
+    if (!promptEl) return;
+    
+    var artist = popularArtists[Math.floor(Math.random() * popularArtists.length)];
+    var current = String(promptEl.value);
+    
+    if (current && !current.includes("style")) {
+      promptEl.value = current + ", in the style of " + artist;
+    }
+  }
+  
+  function addMedium() {
+    var promptEl = document.getElementById("imagePrompt");
+    if (!promptEl) return;
+    
+    var medium = artMedia[Math.floor(Math.random() * artMedia.length)];
+    var current = String(promptEl.value);
+    
+    if (current) {
+      promptEl.value = current + ", " + medium.toLowerCase();
+    }
+  }
+  
+  function addQuality() {
+    var promptEl = document.getElementById("imagePrompt");
+    if (!promptEl) return;
+    
+    var quality = qualityTerms[Math.floor(Math.random() * qualityTerms.length)];
+    var current = String(promptEl.value);
+    
+    if (current) {
+      promptEl.value = current + ", " + quality;
+    }
+  }
+  
+  function addMood() {
+    var promptEl = document.getElementById("imagePrompt");
+    if (!promptEl) return;
+    
+    var mood = moods[Math.floor(Math.random() * moods.length)];
+    var current = String(promptEl.value);
+    
+    if (current) {
+      promptEl.value = current + ", " + mood + " atmosphere";
+    }
   }
 
   async function generateImage() {
@@ -299,6 +444,11 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           width: dims.width,
           height: dims.height,
           steps: steps,
+          enhancePrompt: true, // Auto-enhance prompts
+          enhanceOptions: {
+            quality: "high",
+            enhanceCreativity: true
+          }
         }),
       });
 

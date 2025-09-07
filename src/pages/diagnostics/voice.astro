@@ -1,0 +1,19 @@
+---
+import VoiceDiagnostics from '../../components/voice-ai/VoiceDiagnostics';
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voice Diagnostics</title>
+  </head>
+  <body style="background:#0b0b0b; color:#eaeaea; font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;">
+    <main style="padding: 24px; display: grid; place-items: start; gap: 24px;">
+      <h1 style="font-size: 20px; margin: 0;">Diagnostyka Mikrofonu</h1>
+      <p style="margin:0 0 8px 0; max-width: 60ch;">Ta strona weryfikuje wsparcie przeglądarki dla mikrofonu, uprawnienia oraz obsługiwane formaty nagrywania.</p>
+      <VoiceDiagnostics client:load />
+      <p style="opacity:0.8; font-size: 12px;">Wymagane: HTTPS lub localhost, przeglądarka z obsługą MediaDevices i MediaRecorder.</p>
+    </main>
+  </body>
+  </html>

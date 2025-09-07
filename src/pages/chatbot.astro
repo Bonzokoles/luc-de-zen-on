@@ -246,10 +246,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0, 0, 0, 0.5);"
               >
-                <option value="gpt-4">GPT-4 (Zalecany)</option>
-                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                <option value="claude">Claude</option>
-                <option value="bielik">Bielik</option>
+                <option value="polaczek">POLACZEK (domyślny)</option>
+                <option value="qwen-pl">Qwen 2.5 7B (PL)</option>
+                <option value="llama-8b">LLaMA 3.1 8B</option>
               </select>
             </div>
             <div>
@@ -458,9 +457,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         temperature: temperature,
         language: language,
       };
-      console.log("📤 Wysyłanie żądania do /api/ai-bot-worker:", requestData);
+      console.log("📤 Wysyłanie żądania do /api/polaczek-chat:", requestData);
 
-      const response = await fetch("/api/ai-bot-worker", {
+      const response = await fetch("/api/polaczek-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
@@ -511,7 +510,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   async function testAPI() {
     console.log("🧪 Testowanie API...");
     try {
-      const response = await fetch("/api/ai-bot-worker", {
+      const response = await fetch("/api/polaczek-chat", {
         method: "GET",
       });
       console.log(
@@ -523,12 +522,12 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       console.log("📊 GET test data:", data);
 
       // Test POST
-      const postResponse = await fetch("/api/ai-bot-worker", {
+      const postResponse = await fetch("/api/polaczek-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           prompt: "test message",
-          model: "gpt-4",
+          model: "polaczek",
         }),
       });
       console.log(

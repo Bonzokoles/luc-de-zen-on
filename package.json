@@ -26,9 +26,11 @@
     "@tailwindcss/vite": "^4.1.12",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
+    "agents": "^0.0.113",
     "astro": "^5.13.5",
     "babylonjs": "^7.26.1",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.539.0",
     "nanostores": "^0.11.4",
     "openai": "^5.16.0",
     "react": "^19.1.1",
@@ -40,7 +42,7 @@
     "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250831.0",
+    "@cloudflare/workers-types": "^4.20250906.0",
     "@tailwindcss/typography": "^0.5.16",
     "wrangler": "^4.21.0"
   },

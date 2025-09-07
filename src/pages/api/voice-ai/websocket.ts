@@ -1,52 +1,40 @@
 // Enhanced WebSocket API endpoint for Voice AI with Cloudflare Workers AI
 import type { APIRoute } from 'astro';
 
-export const GET: APIRoute = () => {
-  return new Response('WebSocket upgrade required', { status: 426 });
-};
-
-export const POST: APIRoute = async (context) => {
-  const request = context.request;
-  
-  // Handle WebSocket upgrade for Cloudflare Pages
+function upgradeToWebSocket(request: Request): Response {
   const upgradeHeader = request.headers.get('upgrade');
   if (upgradeHeader !== 'websocket') {
     return new Response('Expected websocket upgrade', { status: 400 });
   }
 
-  try {
-    // Create WebSocket pair (Cloudflare specific)
-    const { 0: client, 1: server } = new WebSocketPair();
+  // Create WebSocket pair (Cloudflare specific)
+  const WebSocketPairCtor = (globalThis as any).WebSocketPair;
+  if (!WebSocketPairCtor) {
+    return new Response('WebSocketPair not available in this environment', { status: 500 });
+  }
+  const pair = new WebSocketPairCtor();
+  const [client, server] = Object.values(pair) as [WebSocket, WebSocket];
 
-    // Accept WebSocket connection
-    server.accept();
-    
-    let sessionId = crypto.randomUUID();
-    let metricsInterval: ReturnType<typeof setInterval> | null = null;
-  
-  server.addEventListener('message', async (event) => {
+  // Accept WebSocket connection (Cloudflare specific)
+  (server as any).accept?.();
+
+  let metricsInterval: ReturnType<typeof setInterval> | null = null;
+
+  server.addEventListener('message', async (event: MessageEvent) => {
     try {
-      const data = JSON.parse(event.data);
-      console.log('Voice AI WebSocket message:', data.type);
-      
+      const data = JSON.parse(event.data as string);
       switch (data.type) {
         case 'configure':
-          // Send configuration acknowledgment
           server.send(JSON.stringify({
             type: 'configured',
             sessionId: crypto.randomUUID(),
-            timestamp: Date.now()
+            timestamp: Date.now(),
           }));
           break;
-          
         case 'start_recording':
-          // Start audio processing
-          server.send(JSON.stringify({
-            type: 'recording_started',
-            timestamp: Date.now()
-          }));
-          // Simulate metrics updates
-          setInterval(() => {
+          server.send(JSON.stringify({ type: 'recording_started', timestamp: Date.now() }));
+          // Start simulated metrics interval
+          metricsInterval = setInterval(() => {
             server.send(JSON.stringify({
               type: 'metrics',
               metrics: {
@@ -56,49 +44,50 @@ export const POST: APIRoute = async (context) => {
                 voiceActive: Math.random() > 0.7,
                 latency: 200 + Math.random() * 300,
                 quality: 'good',
-                timestamp: Date.now()
-              }
+                timestamp: Date.now(),
+              },
             }));
           }, 1000);
           break;
-          
         case 'stop_recording':
-          server.send(JSON.stringify({
-            type: 'recording_stopped',
-            timestamp: Date.now()
-          }));
+          if (metricsInterval) {
+            clearInterval(metricsInterval);
+            metricsInterval = null;
+          }
+          server.send(JSON.stringify({ type: 'recording_stopped', timestamp: Date.now() }));
           break;
-          
         case 'audio_data':
-          // Process audio data with Cloudflare Workers AI
           // TODO: Integrate with actual AI processing
           server.send(JSON.stringify({
             type: 'transcription',
             text: 'Przykładowa transkrypcja audio...',
-            timestamp: Date.now()
+            timestamp: Date.now(),
           }));
           break;
-          
         default:
-          server.send(JSON.stringify({
-            type: 'error',
-            message: `Unknown message type: ${data.type}`
-          }));
+          server.send(JSON.stringify({ type: 'error', message: `Unknown message type: ${data.type}` }));
       }
-    } catch (error) {
-      server.send(JSON.stringify({
-        type: 'error',
-        message: `Failed to process message: ${error.message}`
-      }));
+    } catch (error: any) {
+      server.send(JSON.stringify({ type: 'error', message: `Failed to process message: ${error?.message || error}` }));
     }
   });
 
   server.addEventListener('close', () => {
-    console.log('Voice AI WebSocket closed');
+    if (metricsInterval) {
+      clearInterval(metricsInterval);
+      metricsInterval = null;
+    }
   });
 
-  return new Response(null, {
-    status: 101,
-    webSocket: client,
-  });
+  return new Response(null as any, { status: 101, webSocket: client } as any);
 }
+
+export const GET: APIRoute = async ({ request }) => {
+  // Standard browser WebSocket handshakes use GET
+  return upgradeToWebSocket(request);
+};
+
+export const POST: APIRoute = async ({ request }) => {
+  // Allow POST as well (for flexibility), but still require upgrade
+  return upgradeToWebSocket(request);
+};

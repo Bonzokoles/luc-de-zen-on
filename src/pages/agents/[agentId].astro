@@ -1,0 +1,292 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+
+export async function getStaticPaths() {
+  return [
+    { params: { agentId: "mybonzo" } },
+    { params: { agentId: "polaczek" } },
+    { params: { agentId: "bielik" } },
+    { params: { agentId: "assistant" } },
+  ];
+}
+
+const { agentId } = Astro.params;
+
+// Konfiguracja agentów
+const agentConfig = {
+  mybonzo: {
+    name: "MyBonzo AI",
+    description: "Główny agent cyberpunkowy z pełną funkcjonalnością",
+    color: "from-cyan-500 to-purple-600",
+    capabilities: ["chat", "images", "tasks", "analysis"],
+    model: "@cf/meta/llama-3.1-8b-instruct",
+  },
+  polaczek: {
+    name: "Polaczek Agent",
+    description: "Lokalny agent wspierający polskie zadania",
+    color: "from-red-500 to-white",
+    capabilities: ["chat", "translation", "local-tasks"],
+    model: "@cf/meta/llama-3.1-8b-instruct",
+  },
+  bielik: {
+    name: "Bielik AI",
+    description: "Polski model językowy dla zadań w języku polskim",
+    color: "from-blue-500 to-green-600",
+    capabilities: ["chat", "polish-tasks", "analysis"],
+    model: "@cf/huggingface/bielik-7b-instruct-v0.1",
+  },
+  assistant: {
+    name: "Universal Assistant",
+    description: "Uniwersalny asystent do ogólnych zadań",
+    color: "from-gray-500 to-blue-500",
+    capabilities: ["chat", "help", "general-tasks"],
+    model: "@cf/meta/llama-3.1-8b-instruct",
+  },
+};
+
+const agent = agentConfig[agentId] || agentConfig.mybonzo;
+---
+
+<MyBonzoLayout title={`${agent.name} | AI Agents`}>
+  <main class="min-h-svh bg-black text-white">
+    <!-- Agent Header -->
+    <section class="border-b border-cyan-500/30">
+      <div class="max-w-6xl mx-auto p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1
+              class={`text-4xl font-bold bg-gradient-to-r ${agent.color} bg-clip-text text-transparent`}
+            >
+              {agent.name}
+            </h1>
+            <p class="text-gray-300 mt-2">{agent.description}</p>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-cyan-400">Agent ID</div>
+            <div class="font-mono text-lg">{agentId}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Capabilities Grid -->
+    <section class="max-w-6xl mx-auto p-6">
+      <h2 class="text-2xl font-semibold mb-6 text-cyan-400">Możliwości</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        {
+          agent.capabilities.map((cap) => (
+            <div class="border border-cyan-500/30 rounded-lg p-4 bg-gray-900/50">
+              <div class="text-center">
+                <div class="text-cyan-400 mb-2">
+                  {cap === "chat" && "💬"}
+                  {cap === "images" && "🖼️"}
+                  {cap === "tasks" && "⚡"}
+                  {cap === "analysis" && "🔍"}
+                  {cap === "translation" && "🔄"}
+                  {cap === "local-tasks" && "🏠"}
+                  {cap === "polish-tasks" && "🇵🇱"}
+                  {cap === "help" && "❓"}
+                  {cap === "general-tasks" && "📋"}
+                </div>
+                <div class="text-sm capitalize">{cap.replace("-", " ")}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Chat Interface -->
+    <section class="max-w-6xl mx-auto p-6">
+      <div class="border border-cyan-500/30 rounded-lg bg-gray-900/30">
+        <div class="border-b border-cyan-500/30 p-4">
+          <h3 class="text-xl font-semibold text-cyan-400">Chat Interface</h3>
+        </div>
+        <div class="p-6">
+          <div id="chat-container" class="space-y-4 mb-6 h-96 overflow-y-auto">
+            <div class="text-gray-400 text-center py-8">
+              Rozpocznij rozmowę z {agent.name}...
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <input
+              type="text"
+              id="message-input"
+              placeholder="Wpisz wiadomość..."
+              class="flex-1 bg-gray-800 border border-cyan-500/30 rounded px-4 py-2 text-white focus:border-cyan-400 focus:outline-none"
+            />
+            <button
+              id="send-button"
+              class="bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-6 py-2 rounded hover:opacity-80 transition-opacity"
+            >
+              Wyślij
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="max-w-6xl mx-auto p-6">
+      <h3 class="text-xl font-semibold mb-4 text-cyan-400">Szybkie Akcje</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <button
+          class="border border-cyan-500/30 rounded-lg p-4 hover:bg-cyan-500/10 transition-colors text-left"
+          onclick="quickAction('status')"
+        >
+          <div class="text-lg font-semibold">📊 Status</div>
+          <div class="text-sm text-gray-400">Sprawdź status agenta</div>
+        </button>
+
+        {
+          agent.capabilities.includes("images") && (
+            <button
+              class="border border-cyan-500/30 rounded-lg p-4 hover:bg-cyan-500/10 transition-colors text-left"
+              onclick="quickAction('image')"
+            >
+              <div class="text-lg font-semibold">🖼️ Generuj Obraz</div>
+              <div class="text-sm text-gray-400">Stwórz obraz AI</div>
+            </button>
+          )
+        }
+
+        {
+          agent.capabilities.includes("tasks") && (
+            <button
+              class="border border-cyan-500/30 rounded-lg p-4 hover:bg-cyan-500/10 transition-colors text-left"
+              onclick="quickAction('task')"
+            >
+              <div class="text-lg font-semibold">⚡ Wykonaj Zadanie</div>
+              <div class="text-sm text-gray-400">Zlec zadanie agentowi</div>
+            </button>
+          )
+        }
+      </div>
+    </section>
+  </main>
+
+  <script define:vars={{ agentId, agent }}>
+    const chatContainer = document.getElementById("chat-container");
+    const messageInput = document.getElementById("message-input");
+    const sendButton = document.getElementById("send-button");
+
+    // Funkcja wysyłania wiadomości
+    async function sendMessage() {
+      const message = messageInput.value.trim();
+      if (!message) return;
+
+      // Dodaj wiadomość użytkownika
+      addMessage(message, "user");
+      messageInput.value = "";
+
+      try {
+        // Wywołaj API agenta
+        const response = await fetch(`/api/agents/${agentId}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message, agentId }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          addMessage(data.response, "agent");
+        } else {
+          addMessage("Błąd: " + data.error, "error");
+        }
+      } catch (error) {
+        addMessage("Błąd połączenia: " + error.message, "error");
+      }
+    }
+
+    // Funkcja dodawania wiadomości do chatu
+    function addMessage(text, type) {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `p-3 rounded-lg ${
+        type === "user"
+          ? "bg-cyan-500/20 ml-8"
+          : type === "agent"
+            ? "bg-purple-500/20 mr-8"
+            : "bg-red-500/20 text-red-300"
+      }`;
+
+      messageDiv.innerHTML = `
+        <div class="text-sm text-gray-400 mb-1">
+          ${type === "user" ? "Ty" : type === "agent" ? agent.name : "System"}
+        </div>
+        <div>${text}</div>
+      `;
+
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Funkcje szybkich akcji
+    window.quickAction = async function (action) {
+      switch (action) {
+        case "status":
+          try {
+            const response = await fetch(`/api/agents/${agentId}/status`);
+            const data = await response.json();
+            addMessage(`Status: ${JSON.stringify(data, null, 2)}`, "agent");
+          } catch (error) {
+            addMessage("Błąd pobierania statusu", "error");
+          }
+          break;
+
+        case "image":
+          const prompt = prompt("Opisz obraz do wygenerowania:");
+          if (prompt) {
+            try {
+              const response = await fetch(`/api/agents/${agentId}/image`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt, agentId }),
+              });
+              const data = await response.json();
+              if (data.success) {
+                addMessage(
+                  `Obraz wygenerowany: <img src="${data.imageUrl}" class="mt-2 max-w-xs rounded">`,
+                  "agent"
+                );
+              }
+            } catch (error) {
+              addMessage("Błąd generowania obrazu", "error");
+            }
+          }
+          break;
+
+        case "task":
+          const taskDesc = prompt("Opisz zadanie do wykonania:");
+          if (taskDesc) {
+            try {
+              const response = await fetch(`/api/agents/${agentId}/task`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ task: taskDesc, agentId }),
+              });
+              const data = await response.json();
+              if (data.success) {
+                addMessage(`Zadanie wykonane: ${data.result}`, "agent");
+              }
+            } catch (error) {
+              addMessage("Błąd wykonywania zadania", "error");
+            }
+          }
+          break;
+      }
+    };
+
+    // Event listeners
+    sendButton.addEventListener("click", sendMessage);
+    messageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    // Wiadomość powitalna
+    setTimeout(() => {
+      addMessage(`Cześć! Jestem ${agent.name}. Jak mogę Ci pomóc?`, "agent");
+    }, 500);
+  </script>
+</MyBonzoLayout>

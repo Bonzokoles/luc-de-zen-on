@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Phone, PhoneOff, Mic, MicOff } from 'lucide-react';
 import { CloudflareVoiceAI } from '../../lib/cloudflare-voice-ai';
 
 interface VoiceMetrics {
@@ -20,6 +21,9 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
   // Voice AI State
   const [isConnected, setIsConnected] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [sessionActive, setSessionActive] = useState(false);
+  const inactivityTimerRef = useRef<number | null>(null);
+  const lastActivityRef = useRef<number>(0);
   const [isMuted, setIsMuted] = useState(false);
   const [voiceMetrics, setVoiceMetrics] = useState<VoiceMetrics>({
     volume: 0,
@@ -30,7 +34,7 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
     quality: 'excellent',
     timestamp: 0
   });
-  
+
   const [transcriptions, setTranscriptions] = useState<string[]>([]);
   const [connectionError, setConnectionError] = useState<string | null>(null);
   const voiceAIRef = useRef<CloudflareVoiceAI | null>(null);
@@ -84,6 +88,7 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
 
       voiceAI.onTranscription = (text) => {
         setTranscriptions(prev => [...prev.slice(-4), text]);
+        lastActivityRef.current = Date.now();
       };
 
       voiceAI.onMetricsUpdate = (metrics) => {
@@ -97,12 +102,41 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
 
       await voiceAI.initialize();
       voiceAIRef.current = voiceAI;
-      
+      // Mark session active on successful connect (without auto-recording)
+      setSessionActive(true);
+      lastActivityRef.current = Date.now();
+
     } catch (error) {
       setConnectionError(`Nie udało się połączyć: ${error}`);
       console.error('Failed to initialize Voice AI:', error);
     }
   };
+
+  // Manage 20s inactivity auto-close
+  useEffect(() => {
+    // Start a 1s ticker when session is active
+    if (sessionActive) {
+      const id = window.setInterval(() => {
+        const now = Date.now();
+        // If no activity for 20s, close session
+        if (lastActivityRef.current && now - lastActivityRef.current > 20000) {
+          if (voiceAIRef.current) {
+            voiceAIRef.current.stopRecording?.();
+            voiceAIRef.current.disconnect();
+          }
+          setIsRecording(false);
+          setSessionActive(false);
+          setIsConnected(false);
+          setConnectionError(null);
+        }
+      }, 1000);
+      inactivityTimerRef.current = id;
+      return () => {
+        window.clearInterval(id);
+        inactivityTimerRef.current = null;
+      };
+    }
+  }, [sessionActive]);
 
   // Audio visualization
   useEffect(() => {
@@ -111,24 +145,24 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
     const canvas = visualizerRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    
+
     let animationFrame: number;
 
     const draw = () => {
       animationFrame = requestAnimationFrame(draw);
-      
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       const barCount = variant === 'compact' ? 16 : 32;
       const barWidth = canvas.width / barCount;
-      
+
       for (let i = 0; i < barCount; i++) {
-        const intensity = voiceMetrics.voiceActive ? 
+        const intensity = voiceMetrics.voiceActive ?
           voiceMetrics.volume * (0.5 + 0.5 * Math.sin(Date.now() * 0.01 + i * 0.3)) :
           voiceMetrics.volume * 0.1;
-          
+
         const barHeight = (intensity / 100) * canvas.height;
-        
+
         const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
         if (voiceMetrics.voiceActive && isRecording) {
           gradient.addColorStop(0, 'hsl(120, 70%, 50%)');
@@ -137,14 +171,14 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
           gradient.addColorStop(0, 'hsl(220, 50%, 40%)');
           gradient.addColorStop(1, 'hsl(260, 50%, 60%)');
         }
-        
+
         ctx.fillStyle = gradient;
         ctx.fillRect(i * barWidth, canvas.height - barHeight, barWidth - 1, barHeight);
       }
     };
-    
+
     draw();
-    
+
     return () => {
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
@@ -152,23 +186,45 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
     };
   }, [voiceMetrics, isRecording, variant]);
 
-  // Toggle recording
-  const toggleRecording = async () => {
-    if (!voiceAIRef.current) {
+  // Toggle session connect/disconnect WITHOUT auto-starting recording
+  const toggleSession = async () => {
+    // If session inactive -> initialize (connect) only
+    if (!sessionActive) {
       await initializeVoiceAI();
       return;
     }
+    // If session active -> disconnect
+    try {
+      if (voiceAIRef.current) {
+        voiceAIRef.current.stopRecording?.();
+        voiceAIRef.current.disconnect();
+      }
+      setIsRecording(false);
+      setSessionActive(false);
+      setIsConnected(false);
+      setConnectionError(null);
+    } catch (error) {
+      setConnectionError(`Błąd rozłączenia: ${error}`);
+    }
+  };
 
+  // Independent recording toggle (requires active session)
+  const toggleRecording = async () => {
+    if (!voiceAIRef.current || !sessionActive) {
+      setConnectionError('Najpierw połącz z czatem');
+      return;
+    }
     try {
       if (isRecording) {
-        voiceAIRef.current.stopRecording();
+        voiceAIRef.current.stopRecording?.();
         setIsRecording(false);
       } else {
-        await voiceAIRef.current.startRecording();
+        await voiceAIRef.current.startRecording?.();
+        lastActivityRef.current = Date.now();
         setIsRecording(true);
       }
-    } catch (error) {
-      setConnectionError(`Błąd nagrywania: ${error}`);
+    } catch (err) {
+      setConnectionError(`Błąd nagrywania: ${err}`);
     }
   };
 
@@ -189,7 +245,7 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
         <div className={styles.content}>
           {/* Highlight line */}
           <div className="h-px bg-gradient-to-r from-transparent via-white/60 to-transparent mb-6"></div>
-          
+
           <h2 className={styles.title}>
             Voice AI Assistant
           </h2>
@@ -208,28 +264,44 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
           </div>
 
           {/* Controls */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          <div className="flex flex-col gap-3 justify-center items-center mb-6">
+            {/* Connect/Disconnect button: black (idle) -> green (connected) */}
             <button
-              onClick={toggleRecording}
-              disabled={!isConnected && !!connectionError}
+              onClick={toggleSession}
               className={`
-                px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center gap-2
-                ${isRecording 
-                  ? 'bg-red-600 hover:bg-red-700 text-white' 
-                  : 'bg-green-600 hover:bg-green-700 text-white'
+                w-64 h-12 rounded-lg font-medium transition-all duration-300
+                flex items-center justify-center gap-2
+                ${sessionActive
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-black hover:bg-gray-800 text-white border border-gray-700'
                 }
-                ${(!isConnected && !!connectionError) ? 'opacity-50 cursor-not-allowed' : ''}
               `}
             >
-              <div className={`w-3 h-3 rounded-full ${isRecording ? 'bg-white animate-pulse' : 'bg-white/70'}`} />
-              {isRecording ? 'Zatrzymaj' : 'Rozpocznij rozmowę'}
+              {sessionActive ? <PhoneOff className="w-5 h-5" /> : <Phone className="w-5 h-5" />}
+              {sessionActive ? 'Zakończ rozmowę (Połączono)' : 'Połącz z czatem'}
+            </button>
+
+            {/* Independent Recording button: black (idle) -> red (recording) */}
+            <button
+              onClick={toggleRecording}
+              className={`
+                w-64 h-12 rounded-lg font-medium transition-all duration-300
+                flex items-center justify-center gap-2
+                ${isRecording
+                  ? 'bg-red-600 hover:bg-red-700 text-white'
+                  : 'bg-black hover:bg-gray-800 text-white border border-gray-700'
+                }
+              `}
+            >
+              {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+              {isRecording ? 'Zatrzymaj nagrywanie' : 'Włącz nagrywanie'}
             </button>
 
             {/* Connection Status */}
-            <div className="flex items-center gap-2 text-sm">
-              <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'}`} />
-              <span className={isConnected ? 'text-green-400' : 'text-red-400'}>
-                {isConnected ? 'Połączono' : 'Rozłączono'}
+            <div className="flex items-center gap-2 text-sm mt-1">
+              <div className={`w-2 h-2 rounded-full ${sessionActive ? 'bg-green-500' : 'bg-red-500'}`} />
+              <span className={sessionActive ? 'text-green-400' : 'text-red-400'}>
+                {sessionActive ? 'Połączono' : 'Rozłączono'}
               </span>
             </div>
           </div>
@@ -252,10 +324,9 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
                 <div>Głos aktywny</div>
               </div>
               <div className="text-center">
-                <div className={`font-medium ${
-                  voiceMetrics.quality === 'excellent' ? 'text-green-400' :
+                <div className={`font-medium ${voiceMetrics.quality === 'excellent' ? 'text-green-400' :
                   voiceMetrics.quality === 'good' ? 'text-yellow-400' : 'text-red-400'
-                }`}>
+                  }`}>
                   {voiceMetrics.quality}
                 </div>
                 <div>Jakość</div>
@@ -281,7 +352,7 @@ export function VoiceAIComponent({ variant = 'hero', className = '' }: VoiceAICo
           {connectionError && (
             <div className="max-w-lg mx-auto p-3 bg-red-900/50 border border-red-600 rounded text-red-300 text-sm">
               {connectionError}
-              <button 
+              <button
                 onClick={initializeVoiceAI}
                 className="ml-2 underline hover:no-underline"
               >

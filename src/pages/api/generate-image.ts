@@ -6,7 +6,21 @@ export const GET: APIRoute = async () => {
     message: 'Image Generator API is running',
     status: 'active',
     methods: ['GET', 'POST', 'OPTIONS'],
-    description: 'Send POST with { prompt, model?, style?, width?, height?, steps? }'
+    description: 'Send POST with { prompt, model?, style?, width?, height?, steps?, enhancePrompt?, enhanceOptions? }',
+    supportedModels: [
+      '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+      '@cf/lykon/dreamshaper-8-lcm',
+      '@cf/black-forest-labs/flux-1-schnell'
+    ],
+    enhancementFeatures: {
+      enhancePrompt: 'Boolean - Enable intelligent prompt enhancement with wildcards',
+      enhanceOptions: {
+        colorPalette: ['cyberpunk', 'vintage', 'monochrome', 'vibrant', 'pastel'],
+        artistStyle: 'String - Apply specific artist style',
+        mood: 'String - Apply mood enhancement',
+        quality: ['standard', 'high', 'ultra']
+      }
+    }
   });
 };
 
@@ -20,14 +34,69 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   try {
     const body = await request.json();
-    const { prompt: rawPrompt, model, style, width, height, steps } = body ?? {};
+    const {
+      prompt: rawPrompt,
+      model,
+      style,
+      width,
+      height,
+      steps,
+      enhancePrompt = false,
+      enhanceOptions = {}
+    } = body ?? {};
 
     if (!rawPrompt || typeof rawPrompt !== 'string' || rawPrompt.trim().length < 3) {
       return createErrorResponse('A valid prompt is required.', 400);
     }
 
-    // Łączenie promptu ze stylem, jeśli styl jest podany
-    const prompt = style ? `${rawPrompt}, in a ${style} style` : rawPrompt;
+    let finalPrompt = rawPrompt.trim();
+    let enhancementData = null;
+
+    // Enhanced prompt processing with wildcards
+    if (enhancePrompt) {
+      try {
+        // Basic intelligent enhancement for image generation
+        if (style) {
+          // Apply artistic style enhancement
+          finalPrompt = `style of ${style}, ${finalPrompt}, highly detailed, masterpiece, best quality, professional`;
+        } else {
+          // Apply general quality enhancement
+          finalPrompt = `${finalPrompt}, highly detailed, professional quality, sharp focus`;
+        }
+
+        // Add color palette if specified in enhanceOptions
+        if (enhanceOptions.colorPalette) {
+          const colorMappings = {
+            cyberpunk: 'neon colors, electric blue, hot pink',
+            vintage: 'sepia tone, muted colors, warm browns',
+            monochrome: 'black and white, high contrast',
+            vibrant: 'saturated colors, bold colors, vivid',
+            pastel: 'soft pastels, light colors, powder blue'
+          };
+          const colors = colorMappings[enhanceOptions.colorPalette as keyof typeof colorMappings];
+          if (colors) {
+            finalPrompt = `${finalPrompt}, ${colors}`;
+          }
+        }
+
+        enhancementData = {
+          original: rawPrompt,
+          enhanced: finalPrompt,
+          options: enhanceOptions,
+          applied: ['quality enhancement', style ? 'artistic style' : 'general enhancement'].filter(Boolean)
+        };
+
+      } catch (enhanceError) {
+        console.warn('Prompt enhancement failed, using basic enhancement:', enhanceError);
+        // Fallback to basic style enhancement
+        finalPrompt = style ? `${rawPrompt}, in a ${style} style, highly detailed` : `${rawPrompt}, highly detailed`;
+      }
+    } else {
+      // Łączenie promptu ze stylem, jeśli styl jest podany (legacy method)
+      finalPrompt = style ? `${rawPrompt}, in a ${style} style` : rawPrompt;
+    }
+
+    const prompt = finalPrompt;
 
     // Lista dozwolonych modeli
     const allowedModels = [
@@ -40,7 +109,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       ? model
       : '@cf/stabilityai/stable-diffusion-xl-base-1.0';
 
-  const ai = runtime.env.AI;
+    const ai = runtime.env.AI;
 
     const inputs: Record<string, any> = {
       prompt,

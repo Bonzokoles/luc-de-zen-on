@@ -1,0 +1,23 @@
+name = "google-ai-studio-worker-production"
+main = "./src/workers/google-ai-studio-worker.ts"
+compatibility_date = "2024-09-23"
+node_compat = true
+
+[vars]
+# Set these in your Cloudflare dashboard or via wrangler secret
+# AI_GATEWAY_ACCOUNT_ID = "your-account-id"
+# AI_GATEWAY_ID = "your-gateway-id"
+
+# Secrets (set via: wrangler secret put GOOGLE_AI_STUDIO_API_KEY)
+# GOOGLE_AI_STUDIO_API_KEY = "your-google-ai-studio-api-key"
+
+# Optional: Add KV namespace for caching
+# [[kv_namespaces]]
+# binding = "AI_CACHE"
+# id = "your-kv-namespace-id"
+# preview_id = "your-preview-kv-namespace-id"
+
+# Optional: Add analytics
+# [analytics_engine_datasets]
+# binding = "AE"
+# dataset = "google_ai_studio_requests"
