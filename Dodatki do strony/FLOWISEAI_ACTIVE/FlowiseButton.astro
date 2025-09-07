@@ -1,0 +1,93 @@
+---
+import { useState } from 'react'
+let prompt = ''
+let status = 'idle' // 'idle' | 'loading' | 'success' | 'error'
+let responseText = ''
+---
+
+<style>
+  .container {
+    max-width: 400px;
+    padding: 1rem;
+    border: 1px solid #007acc;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+  }
+  input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled {
+    background-color: #aaccee;
+    cursor: not-allowed;
+  }
+  .status {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  .status.error {
+    color: #cc3300;
+  }
+  .status.success {
+    color: #228822;
+    white-space: pre-wrap;
+  }
+</style>
+
+<div class="container">
+  <input
+    type="text"
+    placeholder="Wpisz prompt do Flowise..."
+    value={prompt}
+    onInput={(e) => prompt = e.currentTarget.value}
+    disabled={status === 'loading'}
+  />
+  <button
+    onClick={async () => {
+      if (!prompt.trim()) {
+        alert('Wpisz prompt')
+        return
+      }
+      status = 'loading'
+      responseText = ''
+      try {
+        const res = await fetch('/api/flowise', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt }),
+        })
+        const data = await res.json()
+        if (data.error) {
+          status = 'error'
+          responseText = data.error
+        } else {
+          status = 'success'
+          responseText = JSON.stringify(data, null, 2)
+        }
+      } catch (error) {
+        status = 'error'
+        responseText = 'Błąd połączenia: ' + error.message
+      }
+    }}
+    disabled={status === 'loading'}
+  >
+    {status === 'loading' ? 'Ładowanie...' : 'Uruchom Flowise'}
+  </button>
+
+  {status === 'error' && <pre class="status error">{responseText}</pre>}
+  {status === 'success' && <pre class="status success">{responseText}</pre>}
+</div>

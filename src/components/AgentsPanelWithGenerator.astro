@@ -1,0 +1,222 @@
+---
+import AgentEditor from './AgentEditor.astro';
+import ImageGenerator from './ImageGenerator.astro';
+---
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="col-span-2">
+    <div id="agents-list" class="space-y-3"></div>
+    <script type="module">
+      async function loadAgents() {
+        const el = document.getElementById('agents-list');
+        el.innerHTML = 'Ładowanie...';
+        try {
+          const res = await fetch('/api/agents');
+          const data = await res.json();
+          el.innerHTML = data.map(a => `<div class="p-3 bg-cyber-surface border border-cyber-border rounded"><strong class="text-cyber-blue">${a.id}</strong><div class="text-cyber-text-dim">${a.name||''}</div></div>`).join('');
+        } catch (e) { el.innerHTML = 'Błąd ładowania'; }
+      }
+      loadAgents();
+    </script>
+  </div>
+
+  <div>
+    <h4 class="text-cyber-blue">Utwórz / Edytuj agenta</h4>
+    <AgentEditor />
+    <div class="mt-6">
+      <h4 class="text-cyber-blue">Generator obrazów</h4>
+      <ImageGenerator />
+    </div>
+  </div>
+</div>
+---
+const primaryColor = "#0af";
+let agents = [];
+let selectedAgent = null;
+let prompt = "";
+let imageUrl = "";
+function selectAgent(agent) {
+  selectedAgent = agent;
+}
+
+async function loadAgents() {
+  const res = await fetch("/api/agents");
+  const data = await res.json();
+  agents = data;
+}
+
+async function saveAgent(agent) {
+  await fetch("/api/agent", {
+    method: "POST",
+    body: JSON.stringify(agent),
+    headers: { "Content-Type": "application/json" },
+  });
+  await loadAgents();
+}
+function changeAgentStatus(agentId, newStatus) {
+  agents = agents.map((a) =>
+    a.id === agentId ? { ...a, status: newStatus } : a
+  );
+  if (selectedAgent?.id === agentId)
+    selectedAgent = { ...selectedAgent, status: newStatus };
+}
+async function generateImage() {
+  if (!prompt.trim()) return;
+  const res = await fetch("/api/generate-image", {
+    method: "POST",
+    body: JSON.stringify({ prompt }),
+    headers: { "Content-Type": "application/json" },
+  });
+  const data = await res.json();
+  imageUrl = data.imageUrl;
+}
+---
+
+<style>
+  .panel {
+    max-width: 700px;
+    margin: auto;
+    font-family: "Inter", sans-serif;
+    color: white;
+  }
+  .agents-list {
+    border: 1px solid #2e3a59;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    background: #19223b;
+  }
+  .agent-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem;
+    border-bottom: 1px solid #2e3a59;
+    cursor: pointer;
+  }
+  .agent-item.selected {
+    background: var(--primary-color);
+  }
+  .status {
+    font-weight: 600;
+    padding: 0 0.5rem;
+    border-radius: 7px;
+    user-select: none;
+  }
+  .status.Aktywny {
+    background-color: #3fbf7f;
+  }
+  .status.Nieaktywny {
+    background-color: #cd5a4a;
+  }
+  .status.Wtrakciekonfiguracji {
+    background-color: #f8bb3b;
+  }
+  .editor {
+    background: #1d2a47;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .generator {
+    background: #19223b;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  input[type="text"],
+  select,
+  button {
+    font-family: "Inter", sans-serif;
+  }
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 0.45rem;
+    border-radius: 7px;
+    border: none;
+    margin-bottom: 1rem;
+  }
+  button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  button:hover {
+    background-color: #0077ff;
+  }
+</style>
+
+<div class="panel" style="--primary-color: {primaryColor}">
+  {Astro.client && loadAgents()}
+  <h2>Panel Agentów</h2>
+  <div class="agents-list">
+    {
+      agents.map((agent) => (
+        <div
+          class={`agent-item ${selectedAgent?.id === agent.id ? "selected" : ""}`}
+          onclick={() => selectAgent(agent)}
+        >
+          <span>{agent.name}</span>
+          <span class={`status ${agent.status.replace(/\s+/g, "")}`}>
+            {agent.status}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+
+  {
+    selectedAgent && (
+      <div class="editor">
+        <h3>Edycja agenta: {selectedAgent.name}</h3>
+        <label>Nazwa</label>
+        <input
+          type="text"
+          value={selectedAgent.name}
+          oninput={(e) => {
+            const val = e.target.value;
+            selectedAgent = { ...selectedAgent, name: val };
+            changeAgentStatus(selectedAgent.id, selectedAgent.status);
+          }}
+        />
+        <label>Status</label>
+        <select
+          value={selectedAgent.status}
+          oninput={(e) => {
+            const statusVal = e.target.value;
+            selectedAgent = { ...selectedAgent, status: statusVal };
+            changeAgentStatus(selectedAgent.id, statusVal);
+          }}
+        >
+          <option>Aktywny</option>
+          <option>Nieaktywny</option>
+          <option>W trakcie konfiguracji</option>
+        </select>
+        <button onclick={() => saveAgent(selectedAgent)}>Zapisz zmiany</button>
+      </div>
+    )
+  }
+
+  <div class="generator">
+    <h2>Generator grafiki AI</h2>
+    <input
+      type="text"
+      placeholder="Opisz grafikę do wygenerowania"
+      value={prompt}
+      oninput={(e) => (prompt = e.target.value)}
+    />
+    <button onclick={generateImage}>Generuj grafikę</button>
+    {
+      imageUrl && (
+        <img
+          src={imageUrl}
+          alt="Generowana grafika"
+          style="margin-top:10px; max-width: 100%; border-radius: 10px;"
+        />
+      )
+    }
+  </div>
+</div>

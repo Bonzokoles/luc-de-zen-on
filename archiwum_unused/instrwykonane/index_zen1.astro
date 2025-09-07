@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AIWorkersNav from "../components/AIWorkersNav.astro";
+---
+
+<Layout title="LUC de ZEN ON - AI Workers & Agents">
+  <AIWorkersNav />
+</Layout>
+<div class="agent-card">
+  <h3>AI Chatbot</h3>
+  <p>
+    Inteligentny chatbot oparty na OpenAI GPT do rozmów i odpowiadania na
+    pytania.
+  </p>
+  <a href="/chatbot" class="agent-link">Uruchom Chatbot</a>
+</div>
+
+<div class="agent-card">
+  <h3>Generator obrazów</h3>
+  <p>
+    Tworzenie obrazów AI przy użyciu modelu Flux-1 Schnell z automatycznym
+    tłumaczeniem.
+  </p>
+  <a href="/image-generator" class="agent-link">Generuj obrazy</a>
+</div>
+
+<div class="agent-card">
+  <h3>BigQuery Analytics</h3>
+  <p>
+    Analizuj dane z Google BigQuery, wykonuj zapytania SQL i generuj raporty.
+  </p>
+  <a href="/bigquery-analytics" class="agent-link">Analiza danych</a>
+</div>
+
+<div class="agent-card">
+  <h3>Kaggle Datasets</h3>
+  <p>Przeszukuj zbiory danych Kaggle, konkursy i informacje o użytkownikach.</p>
+  <a href="/kaggle-datasets" class="agent-link">Eksploruj Kaggle</a>
+</div>
+
+<div class="agent-card">
+  <h3>Tavily Search</h3>
+  <p>
+    Zaawansowane wyszukiwanie internetowe powered by AI dla dokładnych wyników.
+  </p>
+  <a href="/tavily-search" class="agent-link">Wyszukaj w sieci</a>
+</div>
+
+<div class="agent-card">
+  <h3>Agent Dashboard</h3>
+  <p>
+    Monitoruj i zarządzaj wszystkimi agentami AI w czasie rzeczywistym z
+    zaawansowanymi metrykami.
+  </p>
+  <a href="/agent-dashboard" class="agent-link">Otwórz Dashboard</a>
+</div>
+
+<div class="agent-card">
+  <h3>Status workerów</h3>
+  <p>Sprawdź status i dostępność wszystkich API workerów w systemie.</p>
+  <a href="/worker-status" class="agent-link">Sprawdź status</a>
+</div>
+
+<div class="agent-card">
+  <h3>Kreator Agentów</h3>
+  <p>Twórz i zarządzaj własnymi agentami AI dostosowanymi do Twoich potrzeb.</p>
+  <a href="/agents" class="agent-link">Zarządzaj agentami</a>
+</div>
+
+<!-- POLACZEK AGENT BUILDER BUTTON -->
+<div style="text-align: center; margin: 40px 0;">
+  <a
+    href="/agent-builder-23"
+    style="
+        display: inline-block;
+        padding: 15px 30px;
+        background: linear-gradient(45deg, #0066cc, #0099ff);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 18px;
+        font-family: 'Courier New', monospace;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        transition: all 0.3s ease;
+      "
+    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 102, 204, 0.4)';"
+    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 102, 204, 0.3)';"
+  >
+    POLACZEK_AGENT_BUILDER_23
+  </a>
+</div>

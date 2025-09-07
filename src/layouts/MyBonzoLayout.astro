@@ -1,0 +1,261 @@
+---
+interface Props {
+  siteTitle: string;
+  description?: string;
+  themeColor?: string;
+}
+
+const {
+  siteTitle,
+  description = "Portfolio Karol Lisson - AI Workers Platform",
+  themeColor = "190",
+} = Astro.props;
+
+// Import CSS
+import "../styles/global.css";
+import BgAnimation from "../components/BgAnimation.svelte";
+import PageTransition from "../components/PageTransition.svelte";
+// Dynamic header (installed package)
+import Header from "@sofidevo/astro-dynamic-header/Header";
+
+// Simple navigation model; adjust as needed
+const menuItems = [
+  { link: "/", text: "Strona główna" },
+  {
+    link: "/#ai-workers",
+    text: "AI Workers",
+    submenu: [
+      { link: "/ai-workers-manager", text: "Manager" },
+      { link: "/agents", text: "Agenci" },
+      { link: "/agent-builder-23", text: "Builder" },
+    ],
+  },
+  { link: "/image-generator", text: "Generator obrazów" },
+  { link: "/quiz", text: "Quiz" },
+  { link: "/admin", text: "Panel" },
+];
+const pageKey = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <!-- Global Metadata -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content="Astro v5.13.5" />
+
+    <!-- Font preloads -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle} />
+    <meta name="description" content={description} />
+
+    <!-- CSS Variables for Theme -->
+    <style define:vars={{ themeColor }}>
+      :root {
+        --theme-hue: var(--themeColor);
+        --color-primary: hsl(var(--themeColor), 20%, 8%);
+        --color-primary-foreground: hsl(var(--themeColor), 100%, 92%);
+        --color-secondary: hsl(var(--themeColor), 40%, 12%);
+        --color-accent: hsl(var(--themeColor), 100%, 50%);
+        --color-edge: hsl(var(--themeColor), 30%, 18%);
+        --font-primary: "Rajdhani", system-ui;
+        --radius-interactive: 0.4rem;
+      }
+
+      html {
+        background: hsl(var(--themeColor), 20%, 8%);
+        color: hsl(var(--themeColor), 100%, 92%);
+        font-family: "Kenyan Coffee", "Rajdhani", system-ui;
+        min-height: 100vh;
+      }
+
+      body {
+        background: hsl(var(--themeColor), 20%, 8%);
+        color: hsl(var(--themeColor), 100%, 92%);
+        font-family: "Kenyan Coffee", "Rajdhani", system-ui;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* MyBonzo Custom Styles */
+      .mybonzo-hero {
+        background: linear-gradient(
+          135deg,
+          hsl(var(--themeColor), 20%, 10%) 0%,
+          hsl(var(--themeColor), 40%, 12%) 100%
+        );
+        border: 1px solid hsl(var(--themeColor), 30%, 18%);
+        color: hsl(var(--themeColor), 100%, 92%);
+      }
+
+      .mybonzo-card {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid hsl(var(--themeColor), 100%, 50%, 0.3);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        position: relative;
+        color: hsl(var(--themeColor), 100%, 92%);
+      }
+
+      .mybonzo-card:hover {
+        border-color: hsl(var(--themeColor), 100%, 50%);
+        box-shadow: 0 8px 25px hsl(var(--themeColor), 100%, 50%, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .mybonzo-btn {
+        background: linear-gradient(
+          135deg,
+          hsl(var(--themeColor), 100%, 50%) 0%,
+          hsl(var(--themeColor), 80%, 40%) 100%
+        );
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-family: "Rajdhani", system-ui;
+      }
+
+      .mybonzo-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px hsl(var(--themeColor), 100%, 50%, 0.4);
+      }
+
+      .cyberpunk-grid {
+        background-image:
+          linear-gradient(
+            hsl(var(--themeColor), 100%, 50%, 0.1) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            90deg,
+            hsl(var(--themeColor), 100%, 50%, 0.1) 1px,
+            transparent 1px
+          );
+        background-size: 20px 20px;
+        min-height: 100vh;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #4ade80;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .neon-text {
+        color: hsl(var(--themeColor), 100%, 50%);
+        text-shadow: 0 0 10px hsl(var(--themeColor), 100%, 50%, 0.5);
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Navigation Styles */
+      .ai-workers-section {
+        padding: 2rem 0;
+        min-height: 100vh;
+        color: hsl(var(--themeColor), 100%, 92%);
+      }
+
+      .section-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section-title {
+        font-size: 3rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1rem;
+        font-family: "Neuropol", "Rajdhani", system-ui, sans-serif;
+        letter-spacing: 0.1em;
+      }
+
+      .section-description {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 3rem;
+        opacity: 0.8;
+      }
+
+      /* Make the dynamic header about half as tall */
+      .compact-header :where(nav, header) {
+        --header-padding-y: 6px;
+        --header-padding-x: 10px;
+      }
+      .compact-header :where(.header-container) {
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+      }
+      .compact-header :where(.logo img) {
+        height: 24px !important;
+        width: auto;
+      }
+      .compact-header :where(.menu, .mobile-trigger) {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <BgAnimation client:load />
+    <div class="compact-header">
+      <Header
+        headerType="floating"
+        logoSrc="/favicon.svg"
+        logoAlt={siteTitle}
+        logoWidth="24px"
+        homeUrl="/"
+        menuItems={menuItems}
+        backgroundColor="#0d0d0dcc"
+        backdropBlur="blur(16px)"
+        zIndex={20}
+      />
+    </div>
+    <PageTransition key={pageKey}>
+      <main class="min-h-svh cyberpunk-grid">
+        <slot />
+      </main>
+    </PageTransition>
+  </body>
+</html>

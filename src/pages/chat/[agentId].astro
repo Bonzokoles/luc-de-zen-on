@@ -1,0 +1,93 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import DynamicChat from "../../components/DynamicChat.svelte";
+
+const { agentId } = Astro.params;
+
+let agent = null;
+let error = null;
+
+try {
+    const response = await fetch(new URL(`/api/agents/${agentId}`, Astro.url.origin));
+    if (response.ok) {
+        agent = await response.json();
+    } else {
+        error = `Nie znaleziono agenta o ID: ${agentId}`;
+    }
+} catch (e) {
+    error = "Błąd podczas pobierania danych agenta.";
+    console.error(e);
+}
+---
+
+<MyBonzoLayout title={agent ? `Czat z ${agent.name}` : 'Błąd Agenta'}>
+    <main class="min-h-svh">
+        <!-- Header Section -->
+        <section class="border-b border-edge">
+            <div class="max-w-6xl mx-auto border-x border-edge">
+                <div class="flex justify-between max-h-72 min-h-64">
+                <div class="mt-auto">
+                    <span
+                    style="writing-mode: vertical-lr;"
+                    class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+                    >
+                    DYNAMIC_CHAT
+                    </span>
+                </div>
+                <span class="mt-auto">
+                    <span
+                    class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+                    >
+                    {agent ? agent.name.toUpperCase().replace(/\s/g, '_') : 'ERROR'}
+                    </span>
+                </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Section -->
+        <section class="border-b border-edge">
+            <div class="max-w-6xl mx-auto border-x border-edge">
+                <div class="flex flex-row p-2">
+                <a class="hover:brightness-125" href="/">
+                    <h1 class="text-4xl sm:text-5xl">{agent ? `Czat z ${agent.name}` : 'Błąd Agenta'}</h1>
+                    <h2 class="text-2xl sm:text-3xl">Dynamicznie załadowany agent AI</h2>
+                </a>
+                <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+                    <a class="ml-auto hover:brightness-125 duration-200" href="/agents">
+                    ← Powrót do listy agentów
+                    </a>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Section -->
+        <section class="ai-workers-section flex items-center justify-center py-16">
+            <div class="section-container max-w-4xl mx-auto w-full">
+                {agent ? (
+                    <DynamicChat client:load {agent} />
+                ) : (
+                    <div class="text-center text-red-400">
+                        <h3 class="text-2xl font-bold">Wystąpił Błąd</h3>
+                        <p>{error}</p>
+                    </div>
+                )}
+            </div>
+        </section>
+    </main>
+</MyBonzoLayout>
+
+<style>
+  .ai-workers-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.75) 0%,
+      rgba(30, 41, 59, 0.75) 100%
+    );
+    min-height: 100vh;
+  }
+  .section-container {
+    padding: 2rem;
+  }
+</style>

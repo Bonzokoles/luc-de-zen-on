@@ -1,0 +1,235 @@
+Oto komplet gotowych, modularnych komponentów React do panelu administracyjnego mybonzo z pełnym CRUD użytkowników, walidacją oraz integracją z backendem API z poprzedniego kroku.
+
+***
+
+# 1. Komponent zarządzania użytkownikami z formularzami CRUD i walidacją
+
+Plik: `/src/components/Admin/UserManagementCRUD.jsx`
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+const emptyUser = { id: null, name: "", email: "", active: true };
+
+export default function UserManagementCRUD() {
+  const [users, setUsers] = useState([]);
+  const [editingUser, setEditingUser] = useState(emptyUser);
+  const [isEditing, setIsEditing] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  // Pobierz użytkowników z API
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/users");
+      const data = await res.json();
+      setUsers(data);
+    } catch (e) {
+      alert("Błąd pobierania użytkowników");
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // Walidacja formularza
+  function validate(user) {
+    const errs = {};
+    if (!user.name.trim()) errs.name = "Nazwa jest wymagana";
+    if (!user.email.trim()) errs.email = "Email jest wymagany";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) errs.email = "Nieprawidłowy email";
+    return errs;
+  }
+
+  // Obsługa submit formularza (dodaj/edytuj)
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const validationErrors = validate(editingUser);
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
+
+    try {
+      const method = editingUser.id ? "PUT" : "POST";
+      const body = editingUser.id ? { ...editingUser } : { ...editingUser, id: undefined };
+      const res = await fetch("/api/admin/users", {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) throw new Error("Błąd serwera");
+      await fetchUsers();
+      setEditingUser(emptyUser);
+      setIsEditing(false);
+      setErrors({});
+    } catch (err) {
+      alert("Nie udało się zapisać danych");
+    }
+  }
+
+  // Usuń użytkownika
+  async function handleDelete(id) {
+    if (!window.confirm("Czy na pewno chcesz usunąć tego użytkownika?")) return;
+    try {
+      const res = await fetch(`/api/admin/users?id=${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Błąd usuwania");
+      await fetchUsers();
+    } catch (err) {
+      alert("Nie udało się usunąć użytkownika");
+    }
+  }
+
+  // Rozpocznij edycję
+  function startEdit(user) {
+    setEditingUser(user);
+    setErrors({});
+    setIsEditing(true);
+  }
+
+  // Anuluj edycję/dodawanie
+  function cancelEdit() {
+    setEditingUser(emptyUser);
+    setErrors({});
+    setIsEditing(false);
+  }
+
+  return (
+    <div className="bg-[#131e28] p-6 rounded text-cyan-300 max-w-4xl mx-auto">
+      <h3 className="text-xl font-bold mb-4">Zarządzanie użytkownikami - CRUD</h3>
+
+      {/* Formularz */}
+      <form onSubmit={handleSubmit} className="mb-6 bg-[#0e2633] p-4 rounded">
+        <div className="mb-3">
+          <label className="block mb-1">Nazwa</label>
+          <input
+            type="text"
+            value={editingUser.name}
+            onChange={e => setEditingUser({ ...editingUser, name: e.target.value })}
+            className={`w-full p-2 rounded bg-gray-900 text-cyan-300 border ${
+              errors.name ? "border-red-600" : "border-transparent"
+            }`}
+          />
+          {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
+        </div>
+
+        <div className="mb-3">
+          <label className="block mb-1">Email</label>
+          <input
+            type="email"
+            value={editingUser.email}
+            onChange={e => setEditingUser({ ...editingUser, email: e.target.value })}
+            className={`w-full p-2 rounded bg-gray-900 text-cyan-300 border ${
+              errors.email ? "border-red-600" : "border-transparent"
+            }`}
+          />
+          {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
+        </div>
+
+        <div className="mb-3 flex items-center gap-2">
+          <input
+            id="active"
+            type="checkbox"
+            checked={editingUser.active}
+            onChange={e => setEditingUser({ ...editingUser, active: e.target.checked })}
+            className="accent-cyan-500"
+          />
+          <label htmlFor="active">Użytkownik aktywny</label>
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-cyan-700 px-4 py-2 rounded hover:bg-cyan-900 mr-4"
+        >
+          {editingUser.id ? "Zapisz zmiany" : "Dodaj użytkownika"}
+        </button>
+        {isEditing && (
+          <button
+            type="button"
+            onClick={cancelEdit}
+            className="px-4 py-2 rounded border border-cyan-700 hover:bg-gray-700"
+          >
+            Anuluj
+          </button>
+        )}
+      </form>
+
+      {/* Tabela użytkowników */}
+      <table className="w-full text-left border-collapse">
+        <thead>
+          <tr>
+            <th className="py-2 border-b border-cyan-700">Nazwa</th>
+            <th className="py-2 border-b border-cyan-700">Email</th>
+            <th className="py-2 border-b border-cyan-700">Status</th>
+            <th className="py-2 border-b border-cyan-700">Akcje</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading ? (
+            <tr>
+              <td colSpan="4" className="text-center py-4">Ładowanie...</td>
+            </tr>
+          ) : users.length === 0 ? (
+            <tr>
+              <td colSpan="4" className="text-center py-4">Brak użytkowników</td>
+            </tr>
+          ) : (
+            users.map(user => (
+              <tr key={user.id} className="border-b border-cyan-700">
+                <td className="py-2">{user.name}</td>
+                <td className="py-2">{user.email}</td>
+                <td className={`py-2 font-semibold ${user.active ? "text-green-400" : "text-red-600"}`}>
+                  {user.active ? "Aktywny" : "Zablokowany"}
+                </td>
+                <td className="py-2 space-x-2">
+                  <button
+                    onClick={() => startEdit(user)}
+                    className="px-2 py-1 bg-cyan-600 rounded hover:bg-cyan-800"
+                  >
+                    Edytuj
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (confirm(`Usunąć użytkownika "${user.name}"?`)) {
+                        handleDelete(user.id);
+                      }
+                    }}
+                    className="px-2 py-1 bg-red-600 rounded hover:bg-red-800"
+                  >
+                    Usuń
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+```
+
+***
+
+# 2. Instrukcje integracji
+
+- **Endpoint API**: powinien obsługiwać metody GET, POST, PUT, DELETE na `/api/admin/users`, zgodnie z poprzednio przygotowanym backendem.  
+- **Import komponentu**: `import UserManagementCRUD from '../components/Admin/UserManagementCRUD.jsx'` i umieść go w głównym panelu admina np. w `/src/pages/admin.jsx`.  
+- **Styling**: komponent korzysta z Tailwind z dotychczasowej palety i założeń projektu.  
+- **Walidacja**: prosta, można rozszerzać o dedykowane biblioteki (Formik, React Hook Form).
+
+***
+
+# 3. Możliwości rozszerzenia komponentu
+
+- Dodanie paginacji i sortowania w tabeli.  
+- Obsługa ról i uprawnień użytkowników (admin, moderator itp.).  
+- Integracja z formularzem resetu hasła i przypomnień.  
+- Dodanie notyfikacji push/alertów po operacjach CRUD.  
+- Integracja z systemem audytu (kto i kiedy zmienił dane).
+
+***
+
+ podobne komponenty CRUD dla innych danych lub kompletny system autoryzacji i audytu w paneluznajdziesz w DASH_10

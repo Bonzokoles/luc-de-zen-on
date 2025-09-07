@@ -1,0 +1,33 @@
+name = "mybonzo-worker"
+account_id = "7f490d58a478c6baccb0ae01ea1d87c3"
+workers_dev = true
+compatibility_date = "2025-08-27"
+main = "./dist/_worker.js/index.js"
+pages_build_output_dir = "./dist"
+
+[assets]
+directory = "./dist"
+
+# KV Storage for agents (existing)
+[[kv_namespaces]]
+binding = "AGENTS"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for AI Agents Management System
+[[kv_namespaces]]
+binding = "AI_AGENTS"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for AI Models Configuration
+[[kv_namespaces]]
+binding = "AI_MODELS"
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+# KV Storage for sessions (required by Astro Cloudflare adapter)
+[[kv_namespaces]]
+binding = "SESSION"
+id = "77d84c01758a4064be011acc35b2c344"
+
+# AI binding for Cloudflare Workers AI
+[ai]
+binding = "AI"

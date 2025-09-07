@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "id": "start",
+      "type": "schedule",
+      "name": "Daily trigger",
+      "config": {
+        "expression": "0 7 * * *"
+      }
+    },
+    {
+      "id": "fetchData",
+      "type": "httpRequest",
+      "name": "Fetch Activity Logs",
+      "config": {
+        "url": "https://api.mybonzo.com/api/activity-monitor",
+        "method": "GET"
+      }
+    },
+    {
+      "id": "generateReport",
+      "type": "function",
+      "name": "Generate Report",
+      "config": {
+        "script": "return `Report:\\nTotal logs: ${input.length}\\nErrors: ${input.filter(x => x.type === 'error').length}\\nWarnings: ${input.filter(x => x.type === 'warning').length}`;"
+      }
+    },
+    {
+      "id": "sendToActivePieces",
+      "type": "httpRequest",
+      "name": "Send Report",
+      "config": {
+        "url": "https://api.activepieces.com/trigger-report",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <API_KEY>"
+        },
+        "body": "{\"report\": \"${generateReport}\"}"
+      }
+    }
+  ],
+  "connections": {
+    "start": ["fetchData"],
+    "fetchData": ["generateReport"],
+    "generateReport": ["sendToActivePieces"]
+  }
+}

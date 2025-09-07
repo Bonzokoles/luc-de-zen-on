@@ -1,0 +1,221 @@
+{
+  "name": "Automated FAQ Generation System",
+  "description": "Automatyczne generowanie FAQ z AI dla systemu mybonzo",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "1",
+      "type": "schedule",
+      "name": "Daily FAQ Generation Trigger",
+      "position": { "x": 100, "y": 100 },
+      "config": {
+        "cronExpression": "0 3 * * *",
+        "timezone": "Europe/Warsaw",
+        "description": "Generuj FAQ codziennie o 3:00"
+      }
+    },
+    {
+      "id": "2",
+      "type": "httpRequest",
+      "name": "Fetch Knowledge Base",
+      "position": { "x": 300, "y": 100 },
+      "config": {
+        "url": "https://api.mybonzo.com/api/knowledge-base",
+        "method": "GET",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <MYBONZO_API_KEY>"
+        },
+        "queryParams": {
+          "updated_since": "{{Date.now() - 24*60*60*1000}}",
+          "status": "active"
+        },
+        "description": "Pobierz najnowszą bazę wiedzy"
+      }
+    },
+    {
+      "id": "3",
+      "type": "function",
+      "name": "Prepare FAQ Context",
+      "position": { "x": 500, "y": 100 },
+      "config": {
+        "script": "const knowledge = input.data || []; const context = knowledge.map(item => `${item.title}: ${item.content}`).join('\\n'); const categories = [...new Set(knowledge.map(item => item.category))]; return { context, categories, itemCount: knowledge.length, timestamp: new Date().toISOString() };",
+        "description": "Przygotuj kontekst dla generowania FAQ"
+      }
+    },
+    {
+      "id": "4",
+      "type": "httpRequest",
+      "name": "Generate FAQ with OpenAI",
+      "position": { "x": 700, "y": 100 },
+      "config": {
+        "url": "https://api.openai.com/v1/chat/completions",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <OPENAI_API_KEY>"
+        },
+        "body": {
+          "model": "gpt-4o-mini",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Jesteś ekspertem AI generującym FAQ dla systemu MyBonzo. Twórz pytania i odpowiedzi w języku polskim, w stylu cyberpunk/futurystycznym. Kategoryzuj według: General, Technical, Billing, Support. Format JSON: {\"faqs\": [{\"question\": \"\", \"answer\": \"\", \"category\": \"\", \"priority\": 1-10, \"tags\": []}]}"
+            },
+            {
+              "role": "user",
+              "content": "Na podstawie tej bazy wiedzy wygeneruj 15-20 różnorodnych pytań FAQ:\n\n{{input.context}}\n\nKategorie: {{input.categories.join(', ')}}\nLiczba źródeł: {{input.itemCount}}"
+            }
+          ],
+          "max_tokens": 2000,
+          "temperature": 0.7
+        },
+        "description": "Wygeneruj FAQ używając OpenAI"
+      }
+    },
+    {
+      "id": "5",
+      "type": "function",
+      "name": "Process AI Response",
+      "position": { "x": 900, "y": 100 },
+      "config": {
+        "script": "try { const aiResponse = JSON.parse(input.choices[0].message.content); const processedFaqs = aiResponse.faqs.map(faq => ({ ...faq, id: crypto.randomUUID(), createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), isActive: true, source: 'ai_generated' })); return { faqs: processedFaqs, count: processedFaqs.length, generatedAt: new Date().toISOString() }; } catch (error) { console.error('Error parsing AI response:', error); return { faqs: [], count: 0, error: error.message }; }",
+        "description": "Przetworz odpowiedź AI i przygotuj FAQ do zapisania"
+      }
+    },
+    {
+      "id": "6",
+      "type": "conditional",
+      "name": "Check FAQ Generation Success",
+      "position": { "x": 1100, "y": 100 },
+      "config": {
+        "condition": "input.count > 0 && !input.error",
+        "description": "Sprawdź czy FAQ zostały wygenerowane pomyślnie"
+      }
+    },
+    {
+      "id": "7",
+      "type": "httpRequest",
+      "name": "Save FAQ to Database",
+      "position": { "x": 1300, "y": 100 },
+      "config": {
+        "url": "https://api.mybonzo.com/api/faq/batch",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <MYBONZO_API_KEY>"
+        },
+        "body": {
+          "faqs": "{{input.faqs}}",
+          "batch_id": "ai_generated_{{Date.now()}}",
+          "metadata": {
+            "generated_by": "flowise_ai",
+            "generation_timestamp": "{{input.generatedAt}}",
+            "source_items": "{{steps.3.output.itemCount}}"
+          }
+        },
+        "description": "Zapisz wygenerowane FAQ do bazy danych"
+      }
+    },
+    {
+      "id": "8",
+      "type": "httpRequest",
+      "name": "Update FAQ Categories",
+      "position": { "x": 1500, "y": 100 },
+      "config": {
+        "url": "https://api.mybonzo.com/api/faq/categories/refresh",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <MYBONZO_API_KEY>"
+        },
+        "body": {
+          "action": "refresh_categories",
+          "timestamp": "{{new Date().toISOString()}}"
+        },
+        "description": "Odśwież kategorie FAQ"
+      }
+    },
+    {
+      "id": "9",
+      "type": "httpRequest",
+      "name": "Send Success Notification",
+      "position": { "x": 1300, "y": 300 },
+      "config": {
+        "url": "https://api.activepieces.com/api/v1/webhooks/faq-generated",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <ACTIVEPIECES_API_KEY>"
+        },
+        "body": {
+          "type": "faq_generation_success",
+          "message": "✅ Wygenerowano {{input.count}} nowych FAQ",
+          "data": {
+            "faq_count": "{{input.count}}",
+            "generated_at": "{{input.generatedAt}}",
+            "categories": "{{steps.3.output.categories}}",
+            "source_items": "{{steps.3.output.itemCount}}"
+          },
+          "priority": "medium"
+        },
+        "description": "Wyślij powiadomienie o pomyślnym wygenerowaniu FAQ"
+      }
+    },
+    {
+      "id": "10",
+      "type": "httpRequest",
+      "name": "Send Error Notification",
+      "position": { "x": 1100, "y": 300 },
+      "config": {
+        "url": "https://api.activepieces.com/api/v1/webhooks/faq-generation-error",
+        "method": "POST",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer <ACTIVEPIECES_API_KEY>"
+        },
+        "body": {
+          "type": "faq_generation_error",
+          "message": "❌ Błąd podczas generowania FAQ",
+          "error": "{{input.error || 'Unknown error'}}",
+          "timestamp": "{{new Date().toISOString()}}",
+          "priority": "high"
+        },
+        "description": "Wyślij powiadomienie o błędzie generowania FAQ"
+      }
+    }
+  ],
+  "connections": {
+    "1": ["2"],
+    "2": ["3"],
+    "3": ["4"],
+    "4": ["5"],
+    "5": ["6"],
+    "6": ["7", "10"],
+    "7": ["8"],
+    "8": ["9"]
+  },
+  "triggers": [
+    {
+      "type": "schedule",
+      "expression": "0 3 * * *",
+      "description": "Daily FAQ generation at 3:00 AM"
+    },
+    {
+      "type": "webhook",
+      "endpoint": "/api/faq/generate-now",
+      "description": "Manual FAQ generation trigger"
+    }
+  ],
+  "settings": {
+    "ai_config": {
+      "model": "gpt-4o-mini",
+      "max_tokens": 2000,
+      "temperature": 0.7,
+      "max_faqs_per_run": 20
+    },
+    "categories": ["General", "Technical", "Billing", "Support"],
+    "generation_schedule": "0 3 * * *",
+    "retention_days": 30
+  }
+}

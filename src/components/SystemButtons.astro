@@ -1,0 +1,19 @@
+﻿---
+---
+<div class="system-buttons">
+  <div class="system-buttons-grid">
+    <button class="system-btn" onclick="handlePolaczek()">POŁĄCZEK</button>
+    <button class="system-btn" onclick="handleBielik()">BIELIK</button>
+    <button class="system-btn" onclick="handleZenon()">ZENON</button>
+    <button class="system-btn" onclick="handleKlf()">KLF</button>
+  </div>
+  <div class="agent-builder">
+    <button class="agent-builder-btn" onclick="openAgentBuilder()">POLACZEK_AGENT_BUILDER_23</button>
+  </div>
+</div>
+
+<style>
+.system-buttons { margin-top: 2rem; text-align:center }
+.system-buttons-grid { display:flex; gap:0.5rem; justify-content:center; flex-wrap:wrap }
+.system-btn, .agent-builder-btn { padding:0.75rem 1.2rem; border:1px solid rgba(0,217,255,.25); background:transparent; color:var(--accent-color); cursor:pointer }
+</style>

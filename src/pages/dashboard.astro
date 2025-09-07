@@ -1,0 +1,26 @@
+---
+import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+import AgentsPanel from '../components/AgentsPanel.astro';
+import Chatbot from '../components/Chatbot.astro';
+import ImageGenerator from '../components/ImageGenerator.astro';
+---
+
+<MyBonzoLayout siteTitle="Dashboard">
+  <div class="container mx-auto p-4">
+    <h1 class="text-4xl font-bold my-4">Dashboard</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <Chatbot />
+      </div>
+      <div>
+        <ImageGenerator />
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <AgentsPanel />
+    </div>
+
+  </div>
+</MyBonzoLayout>

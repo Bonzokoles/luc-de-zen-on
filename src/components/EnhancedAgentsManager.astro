@@ -1,0 +1,1363 @@
+---
+/**
+ * Enhanced Agent Management Component
+ * Based on rozbudAGENTÓW.md React patterns
+ */
+---
+
+<div id="enhanced-agents-manager" class="agents-manager-enhanced">
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">🤖 AI Agents Central Dashboard</h1>
+    <div class="connection-status">
+      <span class="status-indicator" id="ws-status">⚪</span>
+      <span id="connection-text">Connecting...</span>
+    </div>
+  </div>
+
+  <!-- System Overview -->
+  <div class="system-overview">
+    <div class="overview-card">
+      <h3>🔄 System Status</h3>
+      <div class="system-stats">
+        <div class="stat">
+          <span class="stat-label">Active Agents:</span>
+          <span class="stat-value" id="active-count">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Total Tasks:</span>
+          <span class="stat-value" id="total-tasks">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Uptime:</span>
+          <span class="stat-value" id="system-uptime">00:00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="overview-card">
+      <h3>📊 Performance</h3>
+      <div class="performance-chart" id="performance-chart">
+        <div class="chart-bar" style="height: 60%">CPU</div>
+        <div class="chart-bar" style="height: 40%">MEM</div>
+        <div class="chart-bar" style="height: 80%">NET</div>
+      </div>
+    </div>
+
+    <div class="overview-card alerts-card">
+      <h3>🚨 Alerts</h3>
+      <div class="alerts-list" id="alerts-list">
+        <div class="alert alert-info">
+          <span class="alert-time">12:34</span>
+          <span class="alert-message">System initialized</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent Groups -->
+  <div class="agent-groups">
+    <!-- POLACZEK Agents -->
+    <div class="agent-group polaczek-group">
+      <div class="group-header">
+        <h2>🔗 POLACZEK System</h2>
+        <div class="group-controls">
+          <button class="group-btn start-all" data-group="polaczek"
+            >▶️ Start All</button
+          >
+          <button class="group-btn stop-all" data-group="polaczek"
+            >⏹️ Stop All</button
+          >
+          <button class="group-btn restart-all" data-group="polaczek"
+            >🔄 Restart All</button
+          >
+        </div>
+      </div>
+
+      <div class="agents-grid polaczek-grid">
+        <div class="agent-card" data-agent="POLACZEK_A1">
+          <div class="agent-header">
+            <h3>📊 Analytics (A1)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 3001</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="POLACZEK_AI">
+          <div class="agent-header">
+            <h3>🧠 AI Core (AI)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 3002</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="POLACZEK_D">
+          <div class="agent-header">
+            <h3>📊 Dashboard (D)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 3004</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="POLACZEK_S1">
+          <div class="agent-header">
+            <h3>🔍 Search (S1)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 3005</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="POLACZEK_T1">
+          <div class="agent-header">
+            <h3>🌐 Translation (T1)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 3007</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIELIK Agents -->
+    <div class="agent-group bielik-group">
+      <div class="group-header">
+        <h2>🧊 BIELIK System</h2>
+        <div class="group-controls">
+          <button class="group-btn start-all" data-group="bielik"
+            >▶️ Start All</button
+          >
+          <button class="group-btn stop-all" data-group="bielik"
+            >⏹️ Stop All</button
+          >
+          <button class="group-btn restart-all" data-group="bielik"
+            >🔄 Restart All</button
+          >
+        </div>
+      </div>
+
+      <div class="agents-grid bielik-grid">
+        <div class="agent-card" data-agent="BIELIK_07D">
+          <div class="agent-header">
+            <h3>📊 Dashboard (07D)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 4000</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="BIELIK_07S">
+          <div class="agent-header">
+            <h3>🔍 Search (07S)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 4001</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="BIELIK_07C">
+          <div class="agent-header">
+            <h3>📝 Content (07C)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 4002</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-card" data-agent="BIELIK_07T">
+          <div class="agent-header">
+            <h3>🌐 Translation (07T)</h3>
+            <div class="agent-status stopped">⚪</div>
+          </div>
+          <div class="agent-metrics">
+            <div class="metric">
+              <span>CPU:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0%</span>
+            </div>
+            <div class="metric">
+              <span>Memory:</span>
+              <div class="metric-bar">
+                <div class="metric-fill" style="width: 0%"></div>
+              </div>
+              <span class="metric-value">0MB</span>
+            </div>
+          </div>
+          <div class="agent-controls">
+            <button class="agent-btn start" data-action="start">▶️</button>
+            <button class="agent-btn stop" data-action="stop">⏹️</button>
+            <button class="agent-btn restart" data-action="restart">🔄</button>
+            <button class="agent-btn task" data-action="task">📋</button>
+          </div>
+          <div class="agent-info">
+            <div class="info-item">Port: 4003</div>
+            <div class="info-item">Uptime: <span class="uptime">0s</span></div>
+            <div class="info-item">
+              Tasks: <span class="task-count">0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Command Panel -->
+  <div class="command-panel">
+    <h3>🎛️ Command Center</h3>
+    <div class="command-input-section">
+      <select id="command-agent" class="command-select">
+        <option value="">Select Agent...</option>
+        <option value="POLACZEK_A1">POLACZEK Analytics</option>
+        <option value="POLACZEK_AI">POLACZEK AI Core</option>
+        <option value="POLACZEK_D">POLACZEK Dashboard</option>
+        <option value="POLACZEK_S1">POLACZEK Search</option>
+        <option value="POLACZEK_T1">POLACZEK Translation</option>
+        <option value="BIELIK_07D">BIELIK Dashboard</option>
+        <option value="BIELIK_07S">BIELIK Search</option>
+        <option value="BIELIK_07C">BIELIK Content</option>
+        <option value="BIELIK_07T">BIELIK Translation</option>
+      </select>
+
+      <select id="command-type" class="command-select">
+        <option value="">Select Command...</option>
+        <option value="get_status">Get Status</option>
+        <option value="start_agent">Start Agent</option>
+        <option value="stop_agent">Stop Agent</option>
+        <option value="restart_agent">Restart Agent</option>
+        <option value="send_task">Send Task</option>
+      </select>
+
+      <input
+        type="text"
+        id="command-params"
+        class="command-input"
+        placeholder="Parameters (JSON format)"
+      />
+      <button id="execute-command" class="execute-btn">Execute</button>
+    </div>
+
+    <div class="command-output">
+      <h4>Output:</h4>
+      <pre id="command-result"></pre>
+    </div>
+  </div>
+</div>
+
+<style>
+  .agents-manager-enhanced {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+  }
+
+  .dashboard-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .connection-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .status-indicator {
+    font-size: 1.5em;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .system-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .overview-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .overview-card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.3em;
+  }
+
+  .system-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-label {
+    font-weight: 500;
+    color: #666;
+  }
+
+  .stat-value {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2em;
+  }
+
+  .performance-chart {
+    display: flex;
+    align-items: end;
+    gap: 10px;
+    height: 100px;
+    padding: 10px 0;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: linear-gradient(to top, #4facfe 0%, #00f2fe 100%);
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding-bottom: 5px;
+    min-height: 20px;
+    transition: height 0.3s ease;
+  }
+
+  .alerts-list {
+    max-height: 120px;
+    overflow-y: auto;
+  }
+
+  .alert {
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+  }
+
+  .alert-info {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+  }
+
+  .alert-time {
+    font-weight: bold;
+    color: #666;
+    min-width: 40px;
+  }
+
+  .agent-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .agent-group {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eee;
+  }
+
+  .group-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.8em;
+  }
+
+  .group-controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  .group-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+  }
+
+  .start-all {
+    background: #4caf50;
+    color: white;
+  }
+
+  .stop-all {
+    background: #f44336;
+    color: white;
+  }
+
+  .restart-all {
+    background: #ff9800;
+    color: white;
+  }
+
+  .group-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .agent-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #ddd;
+    transition: all 0.3s ease;
+  }
+
+  .polaczek-group .agent-card {
+    border-left-color: #2196f3;
+  }
+
+  .bielik-group .agent-card {
+    border-left-color: #9c27b0;
+  }
+
+  .agent-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .agent-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2em;
+  }
+
+  .agent-status {
+    font-size: 1.5em;
+    animation: pulse 2s infinite;
+  }
+
+  .agent-status.running {
+    color: #4caf50;
+  }
+
+  .agent-status.stopped {
+    color: #f44336;
+  }
+
+  .agent-status.starting {
+    color: #ff9800;
+  }
+
+  .agent-metrics {
+    margin-bottom: 15px;
+  }
+
+  .metric {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+  }
+
+  .metric span:first-child {
+    min-width: 60px;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .metric-bar {
+    flex: 1;
+    height: 6px;
+    background: #eee;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .metric-value {
+    min-width: 40px;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .agent-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+
+  .agent-btn {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.2s ease;
+  }
+
+  .agent-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .agent-btn.start {
+    background: #4caf50;
+    color: white;
+  }
+
+  .agent-btn.stop {
+    background: #f44336;
+    color: white;
+  }
+
+  .agent-btn.restart {
+    background: #ff9800;
+    color: white;
+  }
+
+  .agent-btn.task {
+    background: #2196f3;
+    color: white;
+  }
+
+  .agent-info {
+    font-size: 0.85em;
+    color: #666;
+  }
+
+  .info-item {
+    margin-bottom: 4px;
+  }
+
+  .command-panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .command-panel h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+  }
+
+  .command-input-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .command-select,
+  .command-input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .command-select:focus,
+  .command-input:focus {
+    outline: none;
+    border-color: #2196f3;
+  }
+
+  .execute-btn {
+    padding: 10px 20px;
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .execute-btn:hover {
+    background: #1976d2;
+    transform: translateY(-2px);
+  }
+
+  .command-output {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+  }
+
+  .command-output h4 {
+    margin-top: 0;
+    color: #333;
+  }
+
+  #command-result {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+
+    .dashboard-title {
+      font-size: 2em;
+    }
+
+    .group-header {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .command-input-section {
+      flex-direction: column;
+    }
+
+    .agents-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  class EnhancedAgentsManager {
+    constructor() {
+      this.websocket = null;
+      this.isConnected = false;
+      this.agents = {};
+      this.reconnectAttempts = 0;
+      this.maxReconnectAttempts = 5;
+      this.reconnectDelay = 3000;
+
+      this.init();
+    }
+
+    init() {
+      this.setupEventListeners();
+      this.connectWebSocket();
+      this.startSystemUpdates();
+    }
+
+    connectWebSocket() {
+      try {
+        // Try WebSocket connection first, fallback to API
+        this.websocket = new WebSocket("ws://localhost:8765");
+
+        this.websocket.onopen = (event) => {
+          console.log("WebSocket connected");
+          this.isConnected = true;
+          this.reconnectAttempts = 0;
+          this.updateConnectionStatus(true);
+        };
+
+        this.websocket.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+          this.handleWebSocketMessage(data);
+        };
+
+        this.websocket.onclose = (event) => {
+          console.log("WebSocket disconnected");
+          this.isConnected = false;
+          this.updateConnectionStatus(false);
+          this.scheduleReconnect();
+        };
+
+        this.websocket.onerror = (error) => {
+          console.error("WebSocket error:", error);
+          this.isConnected = false;
+          this.updateConnectionStatus(false);
+        };
+      } catch (error) {
+        console.error("WebSocket connection failed:", error);
+        this.useRESTFallback();
+      }
+    }
+
+    useRESTFallback() {
+      console.log("Using REST API fallback");
+      this.isConnected = false;
+      this.updateConnectionStatus(false, "REST API");
+
+      // Start polling for status updates
+      setInterval(() => {
+        this.sendCommand("get_status");
+      }, 5000);
+    }
+
+    scheduleReconnect() {
+      if (this.reconnectAttempts < this.maxReconnectAttempts) {
+        this.reconnectAttempts++;
+        console.log(
+          `Attempting to reconnect (${this.reconnectAttempts}/${this.maxReconnectAttempts})`
+        );
+
+        setTimeout(() => {
+          this.connectWebSocket();
+        }, this.reconnectDelay);
+      } else {
+        console.log("Max reconnection attempts reached, using REST fallback");
+        this.useRESTFallback();
+      }
+    }
+
+    updateConnectionStatus(connected, mode = "WebSocket") {
+      const statusIndicator = document.getElementById("ws-status");
+      const connectionText = document.getElementById("connection-text");
+
+      if (connected) {
+        statusIndicator.textContent = "🟢";
+        connectionText.textContent = `Connected (${mode})`;
+      } else {
+        statusIndicator.textContent = "🔴";
+        connectionText.textContent = `Disconnected (${mode})`;
+      }
+    }
+
+    handleWebSocketMessage(data) {
+      console.log("Received:", data);
+
+      switch (data.type) {
+        case "connection_established":
+          this.addAlert("info", "System", data.message);
+          break;
+
+        case "status_response":
+          this.updateAgentStatus(data.agent, data);
+          break;
+
+        case "all_status":
+          this.updateAllAgentsStatus(data.agents);
+          break;
+
+        case "task_complete":
+          this.addAlert(
+            "info",
+            data.agent,
+            `Task completed: ${data.task_type}`
+          );
+          break;
+
+        case "system_alert":
+          this.addAlert(data.alert.level, "System", data.alert.message);
+          break;
+
+        case "error":
+          this.addAlert("critical", "Error", data.message);
+          break;
+      }
+    }
+
+    async sendCommand(command, agentName = null, parameters = {}) {
+      const message = {
+        command: command,
+        agent_name: agentName,
+        parameters: parameters,
+      };
+
+      if (this.isConnected && this.websocket) {
+        // Use WebSocket
+        this.websocket.send(JSON.stringify(message));
+      } else {
+        // Use REST API fallback
+        try {
+          const response = await fetch("/api/agents-websocket", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(message),
+          });
+
+          const data = await response.json();
+          if (data.response) {
+            this.handleWebSocketMessage(data.response);
+          }
+
+          return data;
+        } catch (error) {
+          console.error("REST API call failed:", error);
+          this.addAlert("critical", "API Error", error.message);
+        }
+      }
+    }
+
+    updateAgentStatus(agentName, statusData) {
+      const agentCard = document.querySelector(`[data-agent="${agentName}"]`);
+      if (!agentCard) return;
+
+      // Update status indicator
+      const statusIndicator = agentCard.querySelector(".agent-status");
+      statusIndicator.className = `agent-status ${statusData.status}`;
+
+      const statusEmoji = {
+        running: "🟢",
+        stopped: "🔴",
+        starting: "🟡",
+        error: "💥",
+      };
+      statusIndicator.textContent = statusEmoji[statusData.status] || "⚪";
+
+      // Update metrics
+      if (statusData.metrics) {
+        const cpuFill = agentCard.querySelector(".metric-fill");
+        const cpuValue = agentCard.querySelector(".metric-value");
+        const memoryFill = agentCard.querySelectorAll(".metric-fill")[1];
+        const memoryValue = agentCard.querySelectorAll(".metric-value")[1];
+
+        if (cpuFill && cpuValue) {
+          cpuFill.style.width = `${statusData.metrics.cpu_usage}%`;
+          cpuValue.textContent = `${Math.round(statusData.metrics.cpu_usage)}%`;
+        }
+
+        if (memoryFill && memoryValue) {
+          memoryFill.style.width = `${(statusData.metrics.memory_usage / 1024) * 100}%`;
+          memoryValue.textContent = `${Math.round(statusData.metrics.memory_usage)}MB`;
+        }
+
+        // Update info
+        const uptimeSpan = agentCard.querySelector(".uptime");
+        const taskCountSpan = agentCard.querySelector(".task-count");
+
+        if (uptimeSpan) {
+          uptimeSpan.textContent = this.formatUptime(
+            statusData.metrics.uptime || statusData.uptime
+          );
+        }
+
+        if (taskCountSpan) {
+          taskCountSpan.textContent = statusData.metrics.tasks_completed || 0;
+        }
+      }
+
+      // Handle alerts
+      if (statusData.alerts) {
+        statusData.alerts.forEach((alert) => {
+          this.addAlert(alert.level, agentName, alert.message);
+        });
+      }
+
+      // Store agent data
+      this.agents[agentName] = statusData;
+      this.updateSystemOverview();
+    }
+
+    updateAllAgentsStatus(agentsData) {
+      Object.entries(agentsData).forEach(([agentName, statusData]) => {
+        this.updateAgentStatus(agentName, statusData);
+      });
+    }
+
+    updateSystemOverview() {
+      const activeCount = Object.values(this.agents).filter(
+        (agent) => agent.status === "running"
+      ).length;
+      const totalTasks = Object.values(this.agents).reduce(
+        (sum, agent) => sum + (agent.metrics?.tasks_completed || 0),
+        0
+      );
+
+      document.getElementById("active-count").textContent = activeCount;
+      document.getElementById("total-tasks").textContent = totalTasks;
+
+      // Update performance chart
+      const avgCpu =
+        Object.values(this.agents).reduce(
+          (sum, agent) => sum + (agent.metrics?.cpu_usage || 0),
+          0
+        ) / Object.keys(this.agents).length || 0;
+      const avgMemory =
+        Object.values(this.agents).reduce(
+          (sum, agent) => sum + (agent.metrics?.memory_usage || 0),
+          0
+        ) / Object.keys(this.agents).length || 0;
+
+      const chartBars = document.querySelectorAll(".chart-bar");
+      if (chartBars[0]) chartBars[0].style.height = `${avgCpu}%`;
+      if (chartBars[1])
+        chartBars[1].style.height = `${(avgMemory / 1024) * 100}%`;
+      if (chartBars[2]) chartBars[2].style.height = `${Math.random() * 100}%`; // Network simulation
+    }
+
+    addAlert(level, source, message) {
+      const alertsList = document.getElementById("alerts-list");
+      const alertDiv = document.createElement("div");
+      alertDiv.className = `alert alert-${level}`;
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString("en-US", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+
+      alertDiv.innerHTML = `
+      <span class="alert-time">${timeString}</span>
+      <span class="alert-message">${source}: ${message}</span>
+    `;
+
+      alertsList.insertBefore(alertDiv, alertsList.firstChild);
+
+      // Keep only last 10 alerts
+      while (alertsList.children.length > 10) {
+        alertsList.removeChild(alertsList.lastChild);
+      }
+    }
+
+    formatUptime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    }
+
+    setupEventListeners() {
+      // Agent control buttons
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("agent-btn")) {
+          const action = e.target.dataset.action;
+          const agentCard = e.target.closest(".agent-card");
+          const agentName = agentCard.dataset.agent;
+
+          this.handleAgentAction(action, agentName);
+        }
+
+        // Group control buttons
+        if (e.target.classList.contains("group-btn")) {
+          const group = e.target.dataset.group;
+          const action = e.target.className.split(" ")[1]; // start-all, stop-all, restart-all
+
+          this.handleGroupAction(action, group);
+        }
+      });
+
+      // Command execution
+      document
+        .getElementById("execute-command")
+        .addEventListener("click", () => {
+          this.executeCommand();
+        });
+
+      // Enter key in command input
+      document
+        .getElementById("command-params")
+        .addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            this.executeCommand();
+          }
+        });
+    }
+
+    handleAgentAction(action, agentName) {
+      const actionMap = {
+        start: "start_agent",
+        stop: "stop_agent",
+        restart: "restart_agent",
+        task: "send_task",
+      };
+
+      const command = actionMap[action];
+      if (command) {
+        if (action === "task") {
+          // For task action, you might want to show a modal for task details
+          const taskType = prompt("Enter task type:");
+          if (taskType) {
+            this.sendCommand(command, agentName, { task_type: taskType });
+          }
+        } else {
+          this.sendCommand(command, agentName);
+        }
+      }
+    }
+
+    handleGroupAction(action, group) {
+      const groupAgents = {
+        polaczek: [
+          "POLACZEK_A1",
+          "POLACZEK_AI",
+          "POLACZEK_D",
+          "POLACZEK_S1",
+          "POLACZEK_T1",
+        ],
+        bielik: ["BIELIK_07D", "BIELIK_07S", "BIELIK_07C", "BIELIK_07T"],
+      };
+
+      const agents = groupAgents[group] || [];
+      const commandMap = {
+        "start-all": "start_agent",
+        "stop-all": "stop_agent",
+        "restart-all": "restart_agent",
+      };
+
+      const command = commandMap[action];
+      if (command) {
+        agents.forEach((agentName) => {
+          setTimeout(() => {
+            this.sendCommand(command, agentName);
+          }, Math.random() * 1000); // Stagger commands
+        });
+      }
+    }
+
+    async executeCommand() {
+      const agentSelect = document.getElementById("command-agent");
+      const commandSelect = document.getElementById("command-type");
+      const paramsInput = document.getElementById("command-params");
+      const resultElement = document.getElementById("command-result");
+
+      const agentName = agentSelect.value;
+      const command = commandSelect.value;
+      const paramsText = paramsInput.value.trim();
+
+      if (!command) {
+        resultElement.textContent = "Please select a command";
+        return;
+      }
+
+      let parameters = {};
+      if (paramsText) {
+        try {
+          parameters = JSON.parse(paramsText);
+        } catch (e) {
+          resultElement.textContent = "Invalid JSON in parameters";
+          return;
+        }
+      }
+
+      resultElement.textContent = "Executing command...";
+
+      try {
+        const result = await this.sendCommand(command, agentName, parameters);
+        resultElement.textContent = JSON.stringify(result, null, 2);
+      } catch (error) {
+        resultElement.textContent = `Error: ${error.message}`;
+      }
+    }
+
+    startSystemUpdates() {
+      // Update system uptime
+      const startTime = Date.now();
+      setInterval(() => {
+        const uptimeSeconds = Math.floor((Date.now() - startTime) / 1000);
+        const systemUptime = document.getElementById("system-uptime");
+        if (systemUptime) {
+          systemUptime.textContent = this.formatUptime(uptimeSeconds);
+        }
+      }, 1000);
+
+      // Request status updates periodically
+      setInterval(() => {
+        if (this.isConnected) {
+          this.sendCommand("get_status");
+        }
+      }, 10000); // Every 10 seconds
+    }
+  }
+
+  // Initialize the enhanced agents manager when the DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    window.agentsManager = new EnhancedAgentsManager();
+  });
+</script>

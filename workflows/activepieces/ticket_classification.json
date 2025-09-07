@@ -1,0 +1,63 @@
+{
+  "trigger": {
+    "type": "webhook",
+    "endpoint": "/api/tickets/new"
+  },
+  "actions": [
+    {
+      "type": "httpRequest",
+      "config": {
+        "url": "https://api.openai.com/v1/chat/completions",
+        "method": "POST",
+        "headers": {
+          "Authorization": "Bearer <OPENAI_API_KEY>",
+          "Content-Type": "application/json"
+        },
+        "body": "{\"model\":\"gpt-4\",\"messages\":[{\"role\":\"system\",\"content\":\"Klasyfikuj ticket na kategorię: tech, billing, support lub general.\"},{\"role\":\"user\",\"content\":\"{ticket_description}\"}]}"
+      }
+    },
+    {
+      "type": "switch",
+      "config": {
+        "cases": [
+          {
+            "condition": "{{classification}} === 'tech'",
+            "actions": [
+              {
+                "type": "httpRequest",
+                "config": {
+                  "url": "https://api.jira.com/assign",
+                  "method": "POST",
+                  "body": "{\"ticket_id\":\"{{ticket_id}}\",\"team\":\"tech\"}"
+                }
+              }
+            ]
+          },
+          {
+            "condition": "{{classification}} === 'billing'",
+            "actions": [
+              {
+                "type": "httpRequest",
+                "config": {
+                  "url": "https://api.zendesk.com/assign",
+                  "method": "POST",
+                  "body": "{\"ticket_id\":\"{{ticket_id}}\",\"team\":\"billing\"}"
+                }
+              }
+            ]
+          }
+        ],
+        "default": [
+          {
+            "type": "httpRequest",
+            "config": {
+              "url": "https://api.mybonzo.com/api/tickets/assign-general",
+              "method": "POST",
+              "body": "{\"ticket_id\":\"{{ticket_id}}\",\"team\":\"support\"}"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

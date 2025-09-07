@@ -1,0 +1,33 @@
+<input type="text" id="promptInput" placeholder="Wpisz pytanie..." style="width: 300px;">
+<button onclick="sendPrompt()">Wyślij</button>
+
+<div id="response"></div>
+
+<script>
+  async function sendPrompt() {
+    const prompt = document.getElementById("promptInput").value.trim();
+    if (!prompt) {
+      alert("Wpisz prompt!");
+      return;
+    }
+    const responseDiv = document.getElementById("response");
+    responseDiv.textContent = "Ładowanie...";
+
+    try {
+      const response = await fetch('https://twoj-worker-adres.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt })
+      });
+      const data = await response.json();
+
+      if (data.error) {
+        responseDiv.textContent = "Błąd: " + data.error;
+      } else {
+        responseDiv.textContent = data.result;
+      }
+    } catch (err) {
+      responseDiv.textContent = "Błąd połączenia: " + err.message;
+    }
+  }
+</script>
