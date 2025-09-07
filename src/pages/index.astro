@@ -9,7 +9,7 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import QuickImageGenerator from "../components/QuickImageGenerator.astro";
+import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 ---
@@ -328,7 +328,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           </p>
         </div>
 
-        <QuickImageGenerator />
+        <QuickVoiceAI client:load />
 
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">

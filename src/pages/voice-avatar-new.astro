@@ -1,0 +1,65 @@
+---
+import VoiceAvatarComponent from "../components/voice-ai/VoiceAvatarComponent.tsx";
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Voice AI Avatar - New Design</title>
+  </head>
+  <body class="bg-white overflow-x-hidden">
+    <!-- Hero Variant with Avatar on Left -->
+    <main class="min-h-screen relative">
+      <VoiceAvatarComponent
+        variant="hero"
+        avatarSrc="/avatar.jpg"
+        avatarType="image"
+        className=""
+        client:load
+      />
+    </main>
+
+    <!-- Demo sections for other variants -->
+    <section class="bg-gray-100 p-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold mb-8 text-center">Other Variants</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Compact Variant -->
+          <div class="bg-white p-6 shadow-lg">
+            <h3 class="text-lg font-semibold mb-4">Compact Version</h3>
+            <VoiceAvatarComponent
+              variant="compact"
+              avatarSrc="/avatar.jpg"
+              avatarType="image"
+              client:load
+            />
+          </div>
+
+          <!-- Instructions -->
+          <div class="bg-white p-6 shadow-lg">
+            <h3 class="text-lg font-semibold mb-4">Design Features</h3>
+            <ul class="space-y-2 text-sm text-gray-700">
+              <li>• <strong>Avatar na lewej stronie</strong> ekranu</li>
+              <li>• <strong>Okrągły avatar</strong> z szarą ramką</li>
+              <li>• <strong>75% przezroczystość</strong> avatara</li>
+              <li>• <strong>Przycisk mikrofonu</strong> pod avatarem</li>
+              <li>• <strong>Bez czarnego tła</strong> - czysty design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Variant - Always visible -->
+    <VoiceAvatarComponent
+      variant="floating"
+      avatarSrc="/avatar.jpg"
+      avatarType="image"
+      client:load
+    />
+  </body>
+</html>

@@ -1,0 +1,70 @@
+---
+// QuickVoiceAI.astro - Zamiana za QuickImageGenerator
+---
+
+<section id="quick-voice-ai" class="py-20 my-10">
+  <div
+    class="max-w-6xl mx-auto border-x border-gray-800 bg-black/50 backdrop-blur-sm"
+  >
+    <div class="container mx-auto text-center px-8">
+      <!-- Import React component as island -->
+      <div id="voice-ai-container">
+        <!-- React island will be mounted here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Dynamic import of React component to avoid SSR issues
+  import("../components/voice-ai/VoiceAIComponent.tsx")
+    .then((module) => {
+      const { VoiceAIComponent } = module;
+      const React = window.React;
+      const ReactDOM = window.ReactDOM;
+
+      if (React && ReactDOM && VoiceAIComponent) {
+        const container = document.getElementById("voice-ai-container");
+        if (container) {
+          const root = ReactDOM.createRoot(container);
+          root.render(
+            React.createElement(VoiceAIComponent, {
+              variant: "hero",
+              className: "voice-ai-hero",
+            })
+          );
+        }
+      }
+    })
+    .catch((error) => {
+      console.warn("Voice AI component not available:", error);
+      // Fallback content
+      const container = document.getElementById("voice-ai-container");
+      if (container) {
+        container.innerHTML = `
+        <div class="text-center p-8">
+          <h2 class="text-4xl font-bold mb-4 text-white/85">Voice AI Assistant</h2>
+          <p class="text-lg mb-4 text-gray-300">Voice AI wymaga włączenia JavaScript</p>
+          <div class="p-4 bg-gray-800 rounded border border-gray-700">
+            <p class="text-sm text-gray-400">Komponent Voice AI zostanie wkrótce aktywowany</p>
+          </div>
+        </div>
+      `;
+      }
+    });
+</script>
+
+<style>
+  /* Stylowanie dla Voice AI hero section */
+  .voice-ai-hero {
+    /* Dodatkowe style jeśli potrzebne */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    #quick-voice-ai {
+      padding: 3rem 0;
+      margin: 1.5rem 0;
+    }
+  }
+</style>
