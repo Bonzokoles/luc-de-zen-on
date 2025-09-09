@@ -11,6 +11,8 @@ const {
   themeColor = "190",
 } = Astro.props;
 
+// Import polyfills first for Cloudflare Workers compatibility
+import "../utils/polyfills.js";
 // Import CSS
 import "../styles/global.css";
 import BgAnimation from "../components/BgAnimation.svelte";

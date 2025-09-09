@@ -11,6 +11,14 @@ export default defineConfig({
   output: 'server', // Server for Workers deployment
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: [],
+      noExternal: []
+    },
+    define: {
+      // Ensure polyfills are available during build
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    }
   },
   integrations: [svelte(), mdx(), sitemap()],
   adapter: cloudflare({
