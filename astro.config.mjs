@@ -86,12 +86,3 @@ export default defineConfig({
   site: 'https://www.mybonzo.com',
   redirects: { '/posts': '/' }
 });
-
-globalThis.__CONTEXT7_FETCH__ = async (libId, topic) => {
-  // Zwróć tekst ściągnięty przez narzędzie MCP (np. wrapper wołający mcp_context7_get-library-docs)
-  return '...pobrana dokumentacja...';
-};
-
-[test - runner] Starting Astro dev server on port 4399 ...
-[test - runner] Dev server ready
-[test - runner] Running image generator tests...
