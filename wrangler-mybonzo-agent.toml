@@ -1,0 +1,49 @@
+name = "mybonzo-agent"
+main = "src/workers/mybonzo-agent-working.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Durable Objects configuration for Agent
+[[durable_objects.bindings]]
+name = "MYBONZO_AGENT"
+class_name = "MyBonzoAgent"
+
+# State migration for Durable Objects
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["MyBonzoAgent"]
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "AGENTS"
+id = "your-agents-kv-namespace-id"
+preview_id = "your-agents-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "AI_AGENTS"
+id = "your-ai-agents-kv-namespace-id"
+preview_id = "your-ai-agents-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "SESSION"
+id = "your-session-kv-namespace-id"
+preview_id = "your-session-preview-kv-namespace-id"
+
+[[kv_namespaces]]
+binding = "IMAGES"
+id = "your-images-kv-namespace-id"
+preview_id = "your-images-preview-kv-namespace-id"
+
+# AI Binding
+[ai]
+binding = "AI"
+
+# Environment variables
+[vars]
+DEFAULT_TEXT_MODEL = "@cf/google/gemma-3-12b-it"
+IMAGE_MODEL = "@cf/black-forest-labs/flux-1-schnell"
+ENHANCED_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+
+# Production environment
+[env.production]
+name = "mybonzo-agent-production"

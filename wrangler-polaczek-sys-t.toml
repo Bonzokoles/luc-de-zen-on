@@ -1,0 +1,9 @@
+name = "polaczek-sys-t"
+main = "src/workers/polaczek-sys-t.ts"
+compatibility_date = "2024-03-08"
+
+[ai]
+binding = "AI"
+
+[vars]
+ENVIRONMENT = "production"

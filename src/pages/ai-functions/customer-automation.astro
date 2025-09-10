@@ -1,247 +1,159 @@
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import LeadQualificationForm from "../../components/LeadQualificationForm.svelte";
-import DecorativeLines from "../../components/DecorativeLines.astro";
 ---
 
-<MyBonzoLayout
-  siteTitle="Automatyzacja obsługi klienta | AI Functions | KAROL LISSON"
->
-  <DecorativeLines />
-
-  <main class="min-h-svh relative z-10">
-    <!-- Background Grid Pattern -->
-    <div class="fixed inset-0 bg-[#0a0a0a]">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"
-      >
+<MyBonzoLayout siteTitle="Automatyzacja Obsługi Klienta | MyBonzo AI">
+  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent mb-4">
+          📞 Automatyzacja Obsługi Klienta
+        </h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+          AI do kwalifikacji leadów i automatycznych odpowiedzi z integracją CRM
+        </p>
       </div>
-      <div class="cyber-grid absolute inset-0"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Lead Qualification Form -->
+          <LeadQualificationForm client:load />
+
+          <!-- Demo Chat Interface -->
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-pink-400">AI Chat Support</h3>
+            <div class="bg-slate-900 rounded-lg p-4 h-80 overflow-y-auto mb-4" id="chatContainer">
+              <div class="space-y-3">
+                <div class="flex justify-start">
+                  <div class="bg-blue-600 rounded-lg px-4 py-2 max-w-xs">
+                    <p class="text-sm">Witam! Jak mogę Państwu pomóc?</p>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <div class="bg-slate-600 rounded-lg px-4 py-2 max-w-xs">
+                    <p class="text-sm">Interesuje mnie Państwa oferta AI</p>
+                  </div>
+                </div>
+                <div class="flex justify-start">
+                  <div class="bg-blue-600 rounded-lg px-4 py-2 max-w-xs">
+                    <p class="text-sm">Świetnie! Nasza platforma AI oferuje kompleksowe rozwiązania automatyzacji. Czy mogę poznać specyfikę Państwa potrzeb?</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <input 
+                type="text" 
+                placeholder="Wpisz wiadomość..."
+                class="flex-1 bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-400"
+                id="chatInput"
+              />
+              <button class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                Wyślij
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-pink-400">Automatyzacja</h3>
+            <ul class="space-y-3 text-slate-300">
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
+                Kwalifikacja leadów
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
+                Auto-odpowiedzi
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
+                Integracja CRM
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
+                Analytics
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-pink-400">Statystyki</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-slate-300">Konwersja leadów:</span>
+                <span class="text-green-400 font-semibold">85%</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-300">Czas odpowiedzi:</span>
+                <span class="text-blue-400 font-semibold">&lt; 2s</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-300">Satysfakcja:</span>
+                <span class="text-yellow-400 font-semibold">4.9/5</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-pink-400">Integracje</h3>
+            <ul class="space-y-2 text-slate-300 text-sm">
+              <li>🔗 Salesforce</li>
+              <li>🔗 HubSpot</li>
+              <li>🔗 Pipedrive</li>
+              <li>🔗 Zapier</li>
+              <li>🔗 ActivePieces</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Header Section -->
-    <section class="relative z-20 border-b border-[#333333] pt-20">
-      <div class="max-w-6xl mx-auto px-4 py-8">
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <h1
-              class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']"
-            >
-              Automatyzacja obsługi klienta
-            </h1>
-            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
-              AI do kwalifikacji leadów i automatycznych odpowiedzi z integracją
-              CRM
-            </p>
-          </div>
-          <div class="text-right text-sm text-[#a0a0a0] font-mono">
-            <div class="mb-1">
-              STATUS: <span class="text-[#00ffff]">ONLINE</span>
-            </div>
-            <div>CRM SYNC: <span class="text-[#00ffff]">ACTIVE</span></div>
-          </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="flex gap-4 mb-8">
-          <a
-            href="/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            ← Powrót do głównej
-          </a>
-          <a
-            href="/zaawansowane-funkcje-ai"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            Wszystkie funkcje AI
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Main Content -->
-    <section class="relative z-20 py-12">
-      <div class="max-w-4xl mx-auto px-4">
-        <!-- Lead Qualification Form -->
-        <LeadQualificationForm client:load />
-
-        <!-- Features Description -->
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              Funkcjonalności
-            </h3>
-            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Automatyczna kwalifikacja leadów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Scoring i priorytetyzacja zapytań
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Kategoryzacja typów klientów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Automatyczne odpowiedzi e-mail
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Integracja z systemami CRM
-              </li>
-            </ul>
-          </div>
-
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              Możliwości
-            </h3>
-            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Natychmiastowa analiza zapytań
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Personalizowane odpowiedzi
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Przekazywanie do odpowiednich zespołów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Raportowanie konwersji
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Follow-up automatyzacja
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Lead Scoring System -->
-        <div
-          class="mt-8 p-6 bg-gradient-to-r from-cyan-900/20 to-cyan-800/20 border border-[#00ffff]/30 glass-effect"
-        >
-          <h3
-            class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-          >
-            🎯 System scoringu leadów
-          </h3>
-          <p class="text-[#e0e0e0] mb-4 font-['Kenyan_Coffee']">
-            AI analizuje każde zapytanie klienta pod kątem potencjału
-            biznesowego, budżetu, pilności oraz dopasowania do oferty.
-            Automatycznie przypisuje score i priorytet, kierując najcenniejsze
-            leady do odpowiednich zespołów sprzedażowych.
-          </p>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
-              class="text-center p-4 bg-green-900/30 border border-green-400/50"
-            >
-              <div class="text-2xl font-bold text-green-400 font-['Neuropol']">
-                HIGH
-              </div>
-              <div class="text-sm text-[#a0a0a0] uppercase tracking-wide">
-                80-100 punktów
-              </div>
-              <div class="text-xs text-green-300 mt-1">
-                Natychmiastowy kontakt
-              </div>
-            </div>
-            <div
-              class="text-center p-4 bg-yellow-900/30 border border-yellow-400/50"
-            >
-              <div class="text-2xl font-bold text-yellow-400 font-['Neuropol']">
-                MED
-              </div>
-              <div class="text-sm text-[#a0a0a0] uppercase tracking-wide">
-                50-79 punktów
-              </div>
-              <div class="text-xs text-yellow-300 mt-1">Kontakt w 24h</div>
-            </div>
-            <div
-              class="text-center p-4 bg-gray-900/30 border border-gray-400/50"
-            >
-              <div class="text-2xl font-bold text-gray-400 font-['Neuropol']">
-                LOW
-              </div>
-              <div class="text-sm text-[#a0a0a0] uppercase tracking-wide">
-                0-49 punktów
-              </div>
-              <div class="text-xs text-gray-300 mt-1">
-                Automatyczna odpowiedź
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CRM Integration -->
-        <div class="mt-8 p-6 bg-[#111111] border border-[#333333] glass-effect">
-          <h3
-            class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-          >
-            🔗 Integracje CRM
-          </h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div
-              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
-            >
-              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
-                HubSpot
-              </div>
-              <div class="text-xs text-[#a0a0a0]">Automatyczny import</div>
-            </div>
-            <div
-              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
-            >
-              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
-                Salesforce
-              </div>
-              <div class="text-xs text-[#a0a0a0]">Real-time sync</div>
-            </div>
-            <div
-              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
-            >
-              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
-                Pipedrive
-              </div>
-              <div class="text-xs text-[#a0a0a0]">Lead tracking</div>
-            </div>
-            <div
-              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
-            >
-              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
-                ActivePieces
-              </div>
-              <div class="text-xs text-[#a0a0a0]">Workflow automation</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 </MyBonzoLayout>
 
-<style>
-  .glass-effect {
-    backdrop-filter: blur(10px);
-    background: rgba(17, 17, 17, 0.8);
-  }
+<script>
+  // Simple chat functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const chatInput = document.getElementById('chatInput') as HTMLInputElement;
+    const chatContainer = document.getElementById('chatContainer');
+    
+    if (chatInput && chatContainer) {
+      chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && chatInput.value.trim()) {
+          addMessage(chatInput.value, 'user');
+          setTimeout(() => {
+            addMessage('Dziękujemy za wiadomość! Nasz AI analizuje Państwa zapytanie...', 'ai');
+          }, 1000);
+          chatInput.value = '';
+        }
+      });
+    }
 
-  .cyber-grid {
-    background:
-      linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+      
+      const bubble = document.createElement('div');
+      bubble.className = `rounded-lg px-4 py-2 max-w-xs ${
+        sender === 'user' ? 'bg-slate-600' : 'bg-blue-600'
+      }`;
+      bubble.innerHTML = `<p class="text-sm">${text}</p>`;
+      
+      messageDiv.appendChild(bubble);
+      if (chatContainer) {
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+    }
+  });
+</script>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   }
 </style>

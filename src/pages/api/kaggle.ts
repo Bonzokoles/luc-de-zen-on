@@ -1,14 +1,15 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
     const search = url.searchParams.get('search') || 'machine learning';
     
-    // Check for Kaggle API credentials
-    const kaggleUsername = process.env.KAGGLE_USERNAME;
-    const kaggleKey = process.env.KAGGLE_KEY;
+    // Check for Kaggle API credentials from Cloudflare
+    const env = locals.runtime?.env;
+    const kaggleUsername = env?.KAGGLE_USERNAME;
+    const kaggleKey = env?.KAGGLE_KEY;
     
     if (!kaggleUsername || !kaggleKey) {
       return new Response(JSON.stringify({
@@ -60,14 +61,15 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json();
     const { action, dataset_ref } = body;
     
-    // Check for Kaggle API credentials
-    const kaggleUsername = process.env.KAGGLE_USERNAME;
-    const kaggleKey = process.env.KAGGLE_KEY;
+    // Check for Kaggle API credentials from Cloudflare
+    const env = locals.runtime?.env;
+    const kaggleUsername = env?.KAGGLE_USERNAME;
+    const kaggleKey = env?.KAGGLE_KEY;
     
     if (!kaggleUsername || !kaggleKey) {
       return new Response(JSON.stringify({

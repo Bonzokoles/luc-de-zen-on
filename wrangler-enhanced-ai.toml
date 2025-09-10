@@ -1,0 +1,19 @@
+name = "mybonzo-enhanced-ai"
+main = "src/workers/enhanced-ai-worker.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "mybonzo-enhanced-ai"
+
+[env.development]
+name = "mybonzo-enhanced-ai-dev"
+
+[ai]
+binding = "AI"
+
+# Variables for enhanced AI features
+[vars]
+WORKER_NAME = "mybonzo-enhanced-ai"
+MODEL_NAME = "llama-3.1-8b-instruct"
+LANGUAGE = "pl"
+ENHANCED_FEATURES = "true"

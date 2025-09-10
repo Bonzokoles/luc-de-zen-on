@@ -12,20 +12,16 @@
   let messagesContainer;
   let sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
-  // HTTP API Configuration - Replace WebSocket with REST API
+  // HTTP API Configuration - POLACZEK with Gemma from Cloudflare
   const API_BASE_URL =
     import.meta.env.PUBLIC_POLACZEK_API_URL ||
-    (typeof window !== "undefined" &&
-    (window.location.hostname === "localhost" ||
-      window.location.hostname === "127.0.0.1")
-      ? "http://127.0.0.1:8788"
-      : typeof window !== "undefined"
+    (typeof window !== "undefined"
         ? window.location.origin
         : "");
 
-  const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat`;
-  const STATUS_ENDPOINT = `${API_BASE_URL}/api/status`;
-  const HEALTH_ENDPOINT = `${API_BASE_URL}/health`;
+  const CHAT_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
+  const STATUS_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
+  const HEALTH_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
 
   onMount(() => {
     // Expose a small control API for global UI buttons

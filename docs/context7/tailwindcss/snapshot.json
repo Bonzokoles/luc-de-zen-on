@@ -1,0 +1,14 @@
+{
+  "library": "tailwindcss",
+  "fetchedAt": "2025-09-10T21:47:01.141Z",
+  "entries": [
+    {
+      "topic": "utilities",
+      "error": "Context7 MCP bridge not available in this runtime"
+    },
+    {
+      "topic": "configuration",
+      "error": "Context7 MCP bridge not available in this runtime"
+    }
+  ]
+}

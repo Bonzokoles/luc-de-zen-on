@@ -284,7 +284,16 @@ Examples:
               }),
             });
 
-            const data = (await response.json()) as ApiResponse;
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const responseText = await response.text();
+            if (!responseText) {
+              throw new Error("Empty response from server");
+            }
+
+            const data = JSON.parse(responseText) as ApiResponse;
 
             if (data.success) {
               responseArea!.innerHTML = `
@@ -299,7 +308,8 @@ Examples:
               responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Error: ${data.error}</div>`;
             }
           } catch (error) {
-            responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Connection Error: ${(error as Error).message}</div>`;
+            console.error('AI Agent S Error:', error);
+            responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Connection Error: Failed to execute 'json' on 'Response': ${(error as Error).message}</div>`;
           } finally {
             // Reset button
             analyzeBtn.textContent = "🔍 Analyze with AI_AGENT_S";
