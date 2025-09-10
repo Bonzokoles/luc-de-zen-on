@@ -4,7 +4,7 @@
 async function testAllAPIs() {
   console.log('🧪 COMPREHENSIVE AI WORKERS API TEST\n');
   
-  const baseUrl = 'http://localhost:4329';
+  const baseUrl = 'https://cef3269e.luc-de-zen-on.pages.dev';
   
   const tests = [
     {
@@ -78,11 +78,26 @@ async function testAllAPIs() {
       }
 
       const response = await fetch(testUrl, options);
-      const data = await response.json();
       
-      console.log(`   Status: ${response.status}`);
+      if (!response.ok) {
+        console.log(`   ❌ HTTP ${response.status}: ${response.statusText}`);
+        const text = await response.text();
+        console.log(`   📄 Response: ${text.substring(0, 200)}...`);
+        allPassed = false;
+        continue;
+      }
       
-      // Check expected status
+      const text = await response.text();
+      console.log(`   📄 Raw response: ${text.substring(0, 200)}...`);
+      
+      try {
+        const data = JSON.parse(text);
+        console.log(`   Status: ${response.status}`);
+      } catch (parseError) {
+        console.log(`   ❌ JSON Parse Error: ${parseError.message}`);
+        allPassed = false;
+        continue;
+      }
       const expectedStatuses = Array.isArray(test.expectStatus) ? test.expectStatus : [test.expectStatus];
       const statusOK = expectedStatuses.includes(response.status);
       

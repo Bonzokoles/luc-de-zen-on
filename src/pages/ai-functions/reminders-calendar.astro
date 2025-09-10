@@ -1,263 +1,145 @@
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import RemindersManager from "../../components/RemindersManager.svelte";
-import DecorativeLines from "../../components/DecorativeLines.astro";
 ---
 
-<MyBonzoLayout
-  siteTitle="Harmonogramowanie i przypomnienia | AI Functions | KAROL LISSON"
->
-  <DecorativeLines />
-
-  <main class="min-h-svh relative z-10">
-    <!-- Background Grid Pattern -->
-    <div class="fixed inset-0 bg-[#0a0a0a]">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"
-      >
+<MyBonzoLayout siteTitle="Harmonogramowanie i Przypomnienia | MyBonzo AI">
+  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-4">
+          🔔 Harmonogramowanie i Przypomnienia
+        </h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+          Inteligentny system przypomnień z integracją z kalendarzami i AI przewidywaniem
+        </p>
       </div>
-      <div class="cyber-grid absolute inset-0"></div>
-    </div>
 
-    <!-- Header Section -->
-    <section class="relative z-20 border-b border-[#333333] pt-20">
-      <div class="max-w-6xl mx-auto px-4 py-8">
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <h1
-              class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']"
-            >
-              Harmonogramowanie i przypomnienia
-            </h1>
-            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
-              Inteligentny system przypomnień z integracją z kalendarzami i AI
-              przewidywaniem
-            </p>
-          </div>
-          <div class="text-right text-sm text-[#a0a0a0] font-mono">
-            <div class="mb-1">
-              STATUS: <span class="text-[#00ffff]">ACTIVE</span>
-            </div>
-            <div>SYNC: <span class="text-[#00ffff]">GOOGLE CAL</span></div>
-          </div>
-        </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Calendar Interface -->
+        <div class="lg:col-span-2">
+          <RemindersManager client:load />
+          
+          <!-- Quick Add Form -->
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mt-6">
+            <h3 class="text-xl font-semibold mb-4 text-green-400">Szybkie Dodawanie</h3>
+            <form class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Tytuł przypomnienia</label>
+                <input 
+                  type="text" 
+                  placeholder="Np. Spotkanie z klientem..."
+                  class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-400"
+                />
+              </div>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-slate-300 mb-2">Data</label>
+                  <input 
+                    type="date" 
+                    class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-300 mb-2">Godzina</label>
+                  <input 
+                    type="time" 
+                    class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white"
+                  />
+                </div>
+              </div>
 
-        <!-- Navigation -->
-        <div class="flex gap-4 mb-8">
-          <a
-            href="/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            ← Powrót do głównej
-          </a>
-          <a
-            href="/zaawansowane-funkcje-ai"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            Wszystkie funkcje AI
-          </a>
-        </div>
-      </div>
-    </section>
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Priorytet</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="low">🟢 Niski</option>
+                  <option value="medium">🟡 Średni</option>
+                  <option value="high">🟠 Wysoki</option>
+                  <option value="urgent">🔴 Pilny</option>
+                </select>
+              </div>
 
-    <!-- Main Content -->
-    <section class="relative z-20 py-12">
-      <div class="max-w-6xl mx-auto px-4">
-        <!-- Reminders Manager -->
-        <RemindersManager client:load />
-
-        <!-- Features Description -->
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              Funkcjonalności
-            </h3>
-            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Tworzenie i zarządzanie przypomnieniami
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Synchronizacja z Google Calendar
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Integracja z Microsoft Outlook
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Powiadomienia push, email i SMS
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">✓</span>
-                Zadania cykliczne i priorytetyzacja
-              </li>
-            </ul>
-          </div>
-
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              Możliwości AI
-            </h3>
-            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Inteligentne sugerowanie terminów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Analiza harmonogramu i konfliktów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Automatyczna kategorizacja zadań
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Przewidywanie optymalnych momentów
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="text-[#00ffff]">⚡</span>
-                Smart snooze i przypomnienia
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Calendar Integrations -->
-        <div
-          class="mt-8 p-6 bg-gradient-to-r from-cyan-900/20 to-cyan-800/20 border border-[#00ffff]/30 glass-effect"
-        >
-          <h3
-            class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-          >
-            📅 Integracje kalendarzowe
-          </h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="p-4 bg-[#111111] border border-[#333333] text-center">
-              <div class="text-3xl mb-2">📧</div>
-              <div
-                class="text-lg font-bold text-[#00ffff] mb-2 font-['Neuropol']"
+              <button 
+                type="submit"
+                class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors"
               >
-                GOOGLE CALENDAR
-              </div>
-              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                Automatyczna synchronizacja wydarzeń i przypomnień
-              </p>
-              <div class="mt-3">
-                <span
-                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
-                  >Connected</span
-                >
-              </div>
-            </div>
-            <div class="p-4 bg-[#111111] border border-[#333333] text-center">
-              <div class="text-3xl mb-2">💼</div>
-              <div
-                class="text-lg font-bold text-[#00ffff] mb-2 font-['Neuropol']"
-              >
-                OUTLOOK 365
-              </div>
-              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                Dwukierunkowa synchronizacja z Microsoft Graph API
-              </p>
-              <div class="mt-3">
-                <span
-                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
-                  >Connected</span
-                >
-              </div>
-            </div>
-            <div class="p-4 bg-[#111111] border border-[#333333] text-center">
-              <div class="text-3xl mb-2">🔄</div>
-              <div
-                class="text-lg font-bold text-[#00ffff] mb-2 font-['Neuropol']"
-              >
-                ACTIVEPIECES
-              </div>
-              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                Workflow automation dla powiadomień i zadań
-              </p>
-              <div class="mt-3">
-                <span
-                  class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase"
-                  >Active</span
-                >
-              </div>
-            </div>
+                🔔 Dodaj Przypomnienie
+              </button>
+            </form>
           </div>
         </div>
 
-        <!-- Smart Features -->
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              🤖 Inteligentne funkcje
-            </h3>
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-green-400">Nadchodzące</h3>
             <div class="space-y-3">
-              <div class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30">
-                <div class="font-bold text-[#00ffff] font-['Neuropol']">
-                  SMART SCHEDULING
+              <div class="p-3 bg-slate-700/50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium">Prezentacja AI</span>
+                  <span class="px-2 py-1 bg-red-600 rounded text-xs">PILNE</span>
                 </div>
-                <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                  AI analizuje Twój harmonogram i sugeruje optymalne terminy
-                </p>
+                <div class="text-xs text-slate-400">Dziś, 14:00</div>
               </div>
-              <div class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30">
-                <div class="font-bold text-[#00ffff] font-['Neuropol']">
-                  CONFLICT DETECTION
+              
+              <div class="p-3 bg-slate-700/50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium">Review kodu</span>
+                  <span class="px-2 py-1 bg-yellow-600 rounded text-xs">ŚREDNI</span>
                 </div>
-                <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                  Automatyczne wykrywanie nakładających się wydarzeń
-                </p>
+                <div class="text-xs text-slate-400">Jutro, 10:30</div>
               </div>
-              <div class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30">
-                <div class="font-bold text-[#00ffff] font-['Neuropol']">
-                  ADAPTIVE REMINDERS
+
+              <div class="p-3 bg-slate-700/50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium">Backup systemu</span>
+                  <span class="px-2 py-1 bg-green-600 rounded text-xs">NISKI</span>
                 </div>
-                <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
-                  Przypomnienia dostosowane do Twoich wzorców zachowań
-                </p>
+                <div class="text-xs text-slate-400">Piątek, 23:00</div>
               </div>
             </div>
           </div>
 
-          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
-            <h3
-              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
-            >
-              📊 Statystyki produktywności
-            </h3>
-            <div class="p-4 bg-[#111111]/50 border border-[#333333] rounded">
-              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee'] italic">
-                📊 Statystyki produktywności będą wyświetlane po skonfigurowaniu
-                systemu harmonogramowania.
-              </p>
-            </div>
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-green-400">AI Insights</h3>
+            <ul class="space-y-3 text-slate-300">
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                Najlepszy czas na spotkania: 10:00-12:00
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                Średnie wyprzedzenie: 3 dni
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                Wykonalność zadań: 87%
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-green-400">Integracje</h3>
+            <ul class="space-y-2 text-slate-300 text-sm">
+              <li class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                📅 Google Calendar
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                📧 Outlook
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                📱 Apple Calendar
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                💼 Slack
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-</MyBonzoLayout>
-
-<style>
-  .glass-effect {
-    backdrop-filter: blur(10px);
-    background: rgba(17, 17, 17, 0.8);
-  }
-
-  .cyber-grid {
-    background:
-      linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-</style>
+    </div>

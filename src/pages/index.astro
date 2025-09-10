@@ -9,9 +9,11 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import QuickImageGenerator from "../components/QuickImageGenerator.astro";
+import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
+import { Icon } from 'astro-icon/components';
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -244,7 +246,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
@@ -328,7 +330,177 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           </p>
         </div>
 
-        <QuickImageGenerator />
+        {
+          /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
+        }
+        <QuickVoiceAI client:load />
+
+        {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
+        {
+          /* Temporarily disabled - working on generator graphics 
+        <div class="my-8 flex justify-center">
+          <VoiceAvatarComponent
+            client:load
+            variant="hero"
+            avatarType="animated"
+            enableLipSync={true}
+            className="max-w-md"
+          />
+        </div>
+        */
+        }
+
+        <!-- Full-width Music Visualizer - Extended to Left Screen Edge -->
+        <div
+          style="
+            position: relative;
+            left: 0;
+            right: 0;
+            width: 100vw;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 12px 0;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            left: 50%;
+            background: rgba(0, 0, 0, 0.4);
+          "
+        >
+          <!-- White lines extending to full screen width -->
+          <div
+            style="position:absolute; left:0; right:0; top:0; height:1px; background:#ffffff;"
+          >
+          </div>
+          <div
+            style="position:absolute; left:0; right:0; bottom:0; height:1px; background:#ffffff;"
+          >
+          </div>
+          
+          <!-- Music Visualizer - Two waves: Music Player and Mic -->
+          <div
+            style="
+              width: 100vw;
+              height: 120px;
+              position: relative;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+          >
+            <!-- Back layer: reacts to Music Player, same height but wave 3% taller -->
+            <div 
+              style="
+                position:absolute; 
+                left: 50%; 
+                transform: translateX(-50%) scaleY(1.03); 
+                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+                max-width: 1212px;
+                height: 120px;
+                opacity: 0.4;
+                filter: hue-rotate(30deg) brightness(1.2);
+                pointer-events:none;
+              "
+            >
+              <EdgeAudioVisualizer
+                client:only="react"
+                height={120}
+                source="music"
+                variant="music"
+              />
+            </div>
+            
+            <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
+            <div 
+              style="
+                position:absolute; 
+                left: 50%; 
+                transform: translateX(-50%) scaleY(1.03) scaleX(-1); 
+                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+                max-width: 1212px;
+                height: 120px;
+                opacity: 0.3;
+                filter: hue-rotate(30deg) brightness(0.8);
+                pointer-events:none;
+              "
+            >
+              <EdgeAudioVisualizer
+                client:only="react"
+                height={120}
+                source="music"
+                variant="music"
+              />
+            </div>
+            
+            <!-- Front layer: reacts to Avatar (mic) -->
+            <div 
+              style="
+                position:absolute; 
+                left: 50%; 
+                transform: translateX(-50%); 
+                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+                max-width: 1212px;
+                height: 120px;
+                opacity: 0.8;
+                pointer-events:none;
+              "
+            >
+              <EdgeAudioVisualizer
+                client:only="react"
+                height={120}
+                source="mic"
+                variant="mic"
+              />
+            </div>
+          </div>
+        
+        <!-- Script to connect music player with visualizer -->
+        <script>
+          // Ensure music player analyser is available for visualizer
+          function connectMusicToVisualizer() {
+            if (typeof window !== 'undefined' && window.MUSIC) {
+              // Make sure music player has analyser ready
+              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+              const musicElement = document.querySelector('audio');
+              
+              if (musicElement && !window.MUSIC_ANALYSER) {
+                try {
+                  const analyser = audioContext.createAnalyser();
+                  analyser.fftSize = 256;
+                  
+                  const source = audioContext.createMediaElementSource(musicElement);
+                  source.connect(analyser);
+                  analyser.connect(audioContext.destination);
+                  
+                  window.MUSIC_ANALYSER = analyser;
+                  window.dispatchEvent(new CustomEvent('music-analyser-ready'));
+                  console.log('🎵 Music visualizer connected to player');
+                } catch (e) {
+                  console.warn('Failed to connect music visualizer:', e);
+                }
+              }
+            }
+            
+            // Retry connection after music player loads
+            setTimeout(connectMusicToVisualizer, 1000);
+          }
+          
+          // Start connection attempts
+          document.addEventListener('DOMContentLoaded', connectMusicToVisualizer);
+          setTimeout(connectMusicToVisualizer, 500);
+          
+          // Fix audio issue - ensure audio context is resumed on user interaction
+          document.addEventListener('click', function resumeAudio() {
+            if (typeof window !== 'undefined' && window.AudioContext) {
+              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+              if (audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                  console.log('🎵 Audio context resumed');
+                });
+              }
+            }
+          }, { once: true });
+        </script>
+        </div>
 
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">
@@ -927,7 +1099,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
         class="right-btn"
         id="musicPlayerBtn"
       >
-        🎵 MUSIC PLAYER
+        <Icon name="lucide:music" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
         <BackgroundMusicPlayerSimple client:load />
@@ -941,17 +1113,17 @@ import DecorativeLines from "../components/DecorativeLines.astro";
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
-        🤖 AI ASSISTANT
+        <Icon name="lucide:bot" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget hidden">
         <AiHelpAssistant client:load />
       </div>
     </div>
 
-    <button onclick="openMainChat()" class="right-btn"> 💬 MAIN CHAT </button>
-    <button onclick="openRefresh()" class="right-btn"> 🔄 REFRESH </button>
-    <button onclick="openFolder()" class="right-btn"> 📁 FOLDER </button>
-    <button onclick="openClose()" class="right-btn"> ❌ CLOSE </button>
+    <button onclick="openMainChat()" class="right-btn"> <Icon name="lucide:message-circle" /> MAIN CHAT </button>
+    <button onclick="openRefresh()" class="right-btn"> <Icon name="lucide:refresh-cw" /> REFRESH </button>
+    <button onclick="openFolder()" class="right-btn"> <Icon name="lucide:folder" /> FOLDER </button>
+    <button onclick="openClose()" class="right-btn"> <Icon name="lucide:x" /> CLOSE </button>
   </div>
 
   <!-- Separator Section 4 -->
@@ -1744,53 +1916,69 @@ import DecorativeLines from "../components/DecorativeLines.astro";
 
   .right-btn {
     background: rgba(0, 0, 0, 0.5);
-    color: #00d7ef;
-    padding: 12px 24px;
+    color: #ffffff;
+    padding: 8px 20px;
     border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: 1px solid rgba(0, 217, 255, 0.4);
-    transition: all 0.2s ease;
+    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    transition: all 0.3s ease;
     display: block;
     text-align: center;
-    min-width: 220px;
+    min-width: 235px;
     cursor: pointer;
+    position: relative;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(20px);
+    font-family: 'Courier New', monospace;
   }
 
   .right-btn:hover {
-    background: #00d7ef;
-    color: #131e28;
+    background: rgba(0, 0, 0, 0.7);
+    color: #00d7ef;
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
+    border-color: #00d7ef;
+    backdrop-filter: blur(25px);
   }
 
   .right-btn:active {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
+    transform: translateY(0px);
+    box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
   }
 
   .admin-btn {
-    background: rgba(0, 0, 0, 0.5);
-    color: #00d7ef;
-    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    padding: 8px 20px;
     border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
-    font-size: 1.1rem;
-    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.1);
+    font-size: 0.9rem;
+    font-weight: 700;
     text-decoration: none;
-    border: 1px solid rgba(0, 217, 255, 0.4);
-    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
     display: block;
     text-align: center;
-    min-width: 220px;
+    min-width: 160px;
+    position: relative;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(20px);
+    font-family: 'Courier New', monospace;
   }
 
   .admin-btn:hover {
-    background: #00d7ef;
-    color: #131e28;
+    background: rgba(0, 217, 255, 0.15);
+    color: #00d7ef;
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    border-color: rgba(0, 217, 255, 0.8);
+    backdrop-filter: blur(25px);
   }
 
   /* Login container - fixed below admin panel */
@@ -1854,7 +2042,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   }
 
   .widget-container {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0, 217, 255, 0.3);
     border-radius: 0px !important;
     transition: all 0.3s ease;
@@ -1955,7 +2143,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     bottom: 100%;
     right: 0;
     margin-bottom: 10px;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(0, 217, 255, 0.4);
     border-radius: 0px;
     box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
@@ -2099,7 +2287,9 @@ import DecorativeLines from "../components/DecorativeLines.astro";
   }
 
   .workers-vertical-line-left {
-    left: calc(50vw - 576px - 10px - 20px); /* 20px more to the left */
+    left: calc(
+      50vw - 576px - 10px - 21px
+    ); /* 21px more to the left (moved 4px to the right) */
   }
 
   .workers-vertical-line-right {

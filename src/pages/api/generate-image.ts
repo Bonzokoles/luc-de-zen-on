@@ -1,12 +1,23 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
+import { ALLOWED_IMAGE_MODELS, enhancePromptIfRequested, selectModel, buildAIInputs } from '../../utils/imageGeneration';
 
 export const GET: APIRoute = async () => {
   return createSuccessResponse({
     message: 'Image Generator API is running',
     status: 'active',
     methods: ['GET', 'POST', 'OPTIONS'],
-    description: 'Send POST with { prompt, model?, style?, width?, height?, steps? }'
+    description: 'Send POST with { prompt, model?, style?, width?, height?, steps?, enhancePrompt?, enhanceOptions? }',
+    supportedModels: ALLOWED_IMAGE_MODELS,
+    enhancementFeatures: {
+      enhancePrompt: 'Boolean - Enable intelligent prompt enhancement with wildcards',
+      enhanceOptions: {
+        colorPalette: ['cyberpunk', 'vintage', 'monochrome', 'vibrant', 'pastel'],
+        artistStyle: 'String - Apply specific artist style',
+        mood: 'String - Apply mood enhancement',
+        quality: ['standard', 'high', 'ultra']
+      }
+    }
   });
 };
 
@@ -20,35 +31,34 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   try {
     const body = await request.json();
-    const { prompt: rawPrompt, model, style, width, height, steps } = body ?? {};
+    const {
+      prompt: rawPrompt,
+      model,
+      style,
+      width,
+      height,
+      steps,
+      enhancePrompt = false,
+      enhanceOptions = {}
+    } = body ?? {};
 
     if (!rawPrompt || typeof rawPrompt !== 'string' || rawPrompt.trim().length < 3) {
       return createErrorResponse('A valid prompt is required.', 400);
     }
 
-    // Łączenie promptu ze stylem, jeśli styl jest podany
-    const prompt = style ? `${rawPrompt}, in a ${style} style` : rawPrompt;
+    const { finalPrompt, enhancementData } = enhancePromptIfRequested({
+      prompt: rawPrompt,
+      style,
+      enhancePrompt,
+      enhanceOptions
+    });
+    const prompt = finalPrompt;
 
-    // Lista dozwolonych modeli
-    const allowedModels = [
-      '@cf/stabilityai/stable-diffusion-xl-base-1.0',
-      '@cf/lykon/dreamshaper-8-lcm',
-      '@cf/black-forest-labs/flux-1-schnell',
-    ];
+    const selectedModel = selectModel(model);
 
-    const selectedModel = model && allowedModels.includes(model)
-      ? model
-      : '@cf/stabilityai/stable-diffusion-xl-base-1.0';
+    const ai = runtime.env.AI;
 
-  const ai = runtime.env.AI;
-
-    const inputs: Record<string, any> = {
-      prompt,
-    };
-
-    if (width) inputs.width = parseInt(String(width), 10);
-    if (height) inputs.height = parseInt(String(height), 10);
-    if (steps) inputs.num_steps = parseInt(String(steps), 10);
+    const inputs = buildAIInputs({ prompt, width, height, steps }, prompt);
 
     // Wywołanie modelu do generowania obrazów w Cloudflare AI
     const response = await ai.run(selectedModel, inputs);
@@ -58,7 +68,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       headers: {
         'Content-Type': 'image/png',
         'Access-Control-Allow-Origin': '*',
-      },
+        ...(enhancementData ? { 'X-Prompt-Enhanced': '1' } : {})
+      }
     });
   } catch (error) {
     console.error('Image generation API error:', error);

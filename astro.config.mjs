@@ -28,13 +28,17 @@ export default defineConfig({
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
         output: {
+          // Inject a lightweight MessageChannel polyfill for Cloudflare Workers (React 19 scheduler requirement)
+          banner: `if (typeof MessageChannel === 'undefined') {\n  class __PolyfillPort {\n    constructor(){ this.onmessage = null; }\n    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }\n    start(){} close(){}\n  }\n  class MessageChannel {\n    constructor(){\n      this.port1 = new __PolyfillPort();\n      this.port2 = new __PolyfillPort();\n      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };\n      this.port1.postMessage = (d)=> dispatch(this.port2, d);\n      this.port2.postMessage = (d)=> dispatch(this.port1, d);\n    }\n  }\n  globalThis.MessageChannel = MessageChannel;\n}`,
           // Manual chunk strategy to improve browser caching & initial load
           manualChunks(id) {
             if (!id.includes('node_modules')) return undefined;
             // React core
             if (/[\\/]node_modules[\\/](react|react-dom)[\\/]/.test(id)) return 'react';
-            // BabylonJS heavy 3D engine
+            // BabylonJS heavy 3D engine (monolith)
             if (/[\\/]node_modules[\\/]babylonjs[\\/]/.test(id)) return 'babylon';
+            // Modular Babylon core (when using @babylonjs/core)
+            if (/[\\/]node_modules[\\/]@babylonjs[\\/]core[\\/]/.test(id)) return 'babylon-core';
             // Chat UI kit (styles + components)
             if (/[\\/]node_modules[\\/]@chatscope[\\/]/.test(id)) return 'chat-ui';
             // Icon libraries & iconify JSON packs
@@ -82,3 +86,12 @@ export default defineConfig({
   site: 'https://www.mybonzo.com',
   redirects: { '/posts': '/' }
 });
+
+globalThis.__CONTEXT7_FETCH__ = async (libId, topic) => {
+  // Zwróć tekst ściągnięty przez narzędzie MCP (np. wrapper wołający mcp_context7_get-library-docs)
+  return '...pobrana dokumentacja...';
+};
+
+[test - runner] Starting Astro dev server on port 4399 ...
+[test - runner] Dev server ready
+[test - runner] Running image generator tests...

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Voice Avatar Worker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Voice Avatar Worker</h1>
+    <p>Worker endpoint: <strong>http://127.0.0.1:8782</strong></p>
+
+    <div class="test-section">
+        <h2>1. Test Basic Connectivity</h2>
+        <button onclick="testBasicConnectivity()">Test Connection</button>
+        <div id="connectivity-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test Chat Endpoint</h2>
+        <input type="text" id="chat-input" placeholder="Wpisz wiadomość..." style="width: 300px; padding: 8px;">
+        <button onclick="testChat()">Test Chat</button>
+        <div id="chat-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test Audio Recording</h2>
+        <button id="record-btn" onclick="toggleRecording()">Start Recording</button>
+        <div id="recording-result" class="result"></div>
+    </div>
+
+    <script>
+        const WORKER_ENDPOINT = 'http://127.0.0.1:8782';
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let isRecording = false;
+
+        // Test 1: Basic connectivity
+        async function testBasicConnectivity() {
+            const resultDiv = document.getElementById('connectivity-result');
+            resultDiv.textContent = 'Testing connection...';
+
+            try {
+                const response = await fetch(WORKER_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: 'chat',
+                        data: 'test'
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Connection successful!\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ HTTP Error: ${response.status} ${response.statusText}\nResponse: ${await response.text()}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Network Error: ${error.message}`;
+            }
+        }
+
+        // Test 2: Chat functionality
+        async function testChat() {
+            const input = document.getElementById('chat-input');
+            const resultDiv = document.getElementById('chat-result');
+            const message = input.value.trim() || 'Witaj! Jak się masz?';
+            
+            resultDiv.textContent = 'Sending chat message...';
+
+            try {
+                const response = await fetch(WORKER_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: 'chat',
+                        data: message
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Chat successful!\nInput: "${message}"\nResponse: "${data.response}"`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Chat failed: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Chat error: ${error.message}`;
+            }
+        }
+
+        // Test 3: Audio recording and transcription
+        async function toggleRecording() {
+            const button = document.getElementById('record-btn');
+            const resultDiv = document.getElementById('recording-result');
+
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        await testTranscription(audioBlob);
+                        
+                        // Stop all tracks
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    button.textContent = 'Stop Recording';
+                    button.style.background = '#f44336';
+                    resultDiv.textContent = '🎤 Recording... Speak now!';
+                    resultDiv.className = 'result';
+                } catch (error) {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Recording error: ${error.message}`;
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                button.textContent = 'Start Recording';
+                button.style.background = '#4CAF50';
+                resultDiv.textContent = 'Processing audio...';
+            }
+        }
+
+        async function testTranscription(audioBlob) {
+            const resultDiv = document.getElementById('recording-result');
+            
+            try {
+                // Convert blob to base64
+                const base64 = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const result = reader.result;
+                        resolve(result.split(',')[1]); // Remove data:audio/webm;base64, prefix
+                    };
+                    reader.readAsDataURL(audioBlob);
+                });
+
+                resultDiv.textContent = 'Sending audio for transcription...';
+
+                const response = await fetch(WORKER_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        type: 'transcribe',
+                        data: base64
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Transcription successful!\nText: "${data.transcription}"`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Transcription failed: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Transcription error: ${error.message}`;
+            }
+        }
+
+        // Auto-test connectivity on load
+        window.onload = () => {
+            testBasicConnectivity();
+        };
+    </script>
+</body>
+</html>

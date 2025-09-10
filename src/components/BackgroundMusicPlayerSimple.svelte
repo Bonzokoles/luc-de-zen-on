@@ -2,6 +2,10 @@
   import { onMount } from "svelte";
 
   let audio;
+  // Added audio context + analyser related refs (parity with richer version in RULEZ_&_INSTUCT)
+  let audioCtx;
+  let analyserNode;
+  let mediaSource;
   let playlist = [];
   let currentTrack = 0;
   let isPlaying = false;
@@ -14,7 +18,7 @@
 
   onMount(() => {
     loadDemoTracks();
-    // Expose basic control API for external UI (RightDock)
+    // Expose control + analyser API for visualizer
     if (typeof window !== "undefined") {
       window.MUSIC = {
         play: () => {
@@ -37,12 +41,11 @@
           if (!playlist.length) loadDemoTracks();
           else updateTrackInfo();
         },
+        getAnalyser: () => analyserNode || window.MUSIC_ANALYSER || null,
         openFolderPicker: () => {
           try {
             const el = document.getElementById("music-folder");
-            if (el && typeof el.click === "function") {
-              el.click();
-            }
+            if (el && typeof el.click === "function") el.click();
           } catch (e) {
             console.warn("Folder picker not available:", e);
           }
@@ -50,6 +53,43 @@
       };
     }
   });
+
+  function setupAnalyser() {
+    try {
+      if (!audio) return;
+      if (analyserNode) return; // already initialized
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      audioCtx = window.MUSIC_AUDIO_CTX || new Ctx();
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume().catch(() => {});
+      }
+      if (!window.MUSIC_MEDIA_SOURCE) {
+        mediaSource = audioCtx.createMediaElementSource(audio);
+        window.MUSIC_MEDIA_SOURCE = mediaSource;
+      } else {
+        mediaSource = window.MUSIC_MEDIA_SOURCE;
+      }
+      analyserNode = window.MUSIC_ANALYSER || audioCtx.createAnalyser();
+      analyserNode.fftSize = 1024;
+      analyserNode.smoothingTimeConstant = 0.85;
+      try {
+        mediaSource.connect(analyserNode);
+        analyserNode.connect(audioCtx.destination);
+      } catch {}
+      window.MUSIC_AUDIO_CTX = audioCtx;
+      window.MUSIC_ANALYSER = analyserNode;
+      window.dispatchEvent(new CustomEvent("music-analyser-ready"));
+      // If mic context exists and is suspended attempt resume (helps unify visuals)
+      try {
+        const micCtx = window.MIC_AUDIO_CTX;
+        if (micCtx && micCtx.state === "suspended")
+          micCtx.resume().catch(() => {});
+      } catch {}
+    } catch (e) {
+      console.warn("setupAnalyser failed", e);
+    }
+  }
 
   function loadDemoTracks() {
     playlist = [
@@ -70,6 +110,7 @@
       if (audio && playlist[currentTrack].url) {
         audio.src = playlist[currentTrack].url;
         audio.volume = volume;
+        setupAnalyser();
       }
     }
   }
@@ -79,19 +120,21 @@
       loadDemoTracks();
       return;
     }
-
     if (!audio.src) {
       updateTrackInfo();
     }
-
     if (isPlaying) {
       audio.pause();
       isPlaying = false;
     } else {
+      setupAnalyser();
       audio
         .play()
         .then(() => {
           isPlaying = true;
+          try {
+            if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+          } catch {}
         })
         .catch(console.error);
     }
@@ -177,7 +220,7 @@
 
   function handleFolderSelect(event) {
     const files = Array.from(event.target.files).filter((file) =>
-      file.type.startsWith("audio/")
+      file.type.startsWith("audio/"),
     );
 
     playlist = files.map((file) => ({

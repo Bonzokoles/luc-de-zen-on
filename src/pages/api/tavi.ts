@@ -1,6 +1,61 @@
 /**
  * Enhanced Tavily Search API
- * Production-ready AI-powered web search with real Tavily integration
+ * Production-ready AI-powered w  // Implement real Tavily API call
+  try {
+    const response = await fetch('https://api.tavily.com/search', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Api-Key': tavilyApiKey
+      },
+      body: JSON.stringify({
+        query: query,
+        search_depth: 'basic',
+        include_answer: true,
+        include_images: false,
+        include_raw_content: false,
+        max_results: 5
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Tavily API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    return new Response(JSON.stringify({
+      status: 'success',
+      query: query,
+      answer: data.answer || 'Brak odpowiedzi',
+      results: data.results || [],
+      usage: {
+        tokensUsed: data.usage?.tokens || 0,
+        requestsRemaining: data.usage?.requests_remaining || 0
+      },
+      timestamp: new Date().toISOString()
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  } catch (error: any) {
+    return new Response(JSON.stringify({
+      status: 'error',
+      error: 'Błąd podczas wyszukiwania',
+      message: error.message,
+      query: query,
+      timestamp: new Date().toISOString()
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }real Tavily integration
  */
 
 import type { APIRoute } from 'astro';
@@ -40,12 +95,13 @@ interface TavilyResponse {
   timestamp: string;
 }
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   const url = new URL(request.url);
   const query = url.searchParams.get('query') || url.searchParams.get('q') || 'AI technology';
   
-  // Check for Tavily API key
-  const tavilyApiKey = process.env.TAVILY_API_KEY;
+  // Check for Tavily API key from Cloudflare
+  const env = locals.runtime?.env;
+  const tavilyApiKey = env?.TAVILY_API_KEY;
   
   if (!tavilyApiKey) {
     return new Response(JSON.stringify({
@@ -82,7 +138,7 @@ export const GET: APIRoute = async ({ request }) => {
   });
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body: TavilyRequest = await request.json();
     const { 
@@ -107,8 +163,9 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Check for Tavily API key
-    const tavilyApiKey = process.env.TAVILY_API_KEY;
+    // Check for Tavily API key from Cloudflare
+    const env = locals.runtime?.env;
+    const tavilyApiKey = env?.TAVILY_API_KEY;
     
     if (!tavilyApiKey) {
       return new Response(JSON.stringify({

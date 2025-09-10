@@ -1,0 +1,99 @@
+---
+// Komponent siatki dekoracyjnych linii w tle
+interface Props {
+  density?: "low" | "medium" | "high";
+  color?: string;
+  opacity?: number;
+  animated?: boolean;
+  className?: string;
+}
+
+const {
+  density = "medium",
+  color = "currentColor",
+  opacity = 0.1,
+  animated = false,
+  className = "",
+} = Astro.props;
+
+const densityValues = {
+  low: "40px",
+  medium: "20px", 
+  high: "10px"
+};
+
+const gridSize = densityValues[density];
+---
+
+<div 
+  class={`decorative-grid ${animated ? 'animated' : ''} ${className}`}
+  style={`
+    --grid-size: ${gridSize};
+    --grid-color: ${color};
+    --grid-opacity: ${opacity};
+  `}
+>
+</div>
+
+<style>
+  .decorative-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    opacity: var(--grid-opacity);
+    z-index: 0;
+  }
+
+  .decorative-grid.animated {
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(var(--grid-size), var(--grid-size));
+    }
+  }
+
+  /* Vertical accent lines */
+  .decorative-grid::before,
+  .decorative-grid::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      var(--grid-color) 20%,
+      var(--grid-color) 80%,
+      transparent 100%
+    );
+    opacity: calc(var(--grid-opacity) * 3);
+  }
+
+  .decorative-grid::before {
+    left: 25%;
+  }
+
+  .decorative-grid::after {
+    right: 25%;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .decorative-grid {
+      --grid-size: 30px;
+    }
+  }
+</style>

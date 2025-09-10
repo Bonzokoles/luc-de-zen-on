@@ -1,0 +1,493 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout
+  siteTitle="Wildcards Gallery | AI Workers"
+  description="Pełna galeria wildcards do generowania obrazów AI"
+>
+  <main class="min-h-svh cyber-grid">
+    <DecorativeLines />
+
+    <!-- Główne okno -->
+    <div class="wildcards-main-window">
+      <div class="wildcards-header">
+        <h1>🎯 WILDCARDS GALLERY</h1>
+        <p>Kliknij na wildcard aby skopiować prompt do schowka</p>
+        <button onclick="window.close()" class="close-btn">✕ Zamknij</button>
+      </div>
+
+      <!-- Sekcje Wildcards -->
+      <div class="wildcards-grid">
+        <!-- Style Artystów -->
+        <div class="wildcard-section">
+          <h2>🎨 Style Artystów</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Van Gogh, post-impressionist')"
+              >Van Gogh</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Picasso, cubist masterpiece')"
+              >Picasso</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Monet, impressionist painting')"
+              >Monet</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Leonardo da Vinci, Renaissance masterpiece')"
+              >Leonardo da Vinci</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Salvador Dalí, surreal dreamscape')"
+              >Salvador Dalí</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Andy Warhol, pop art')"
+              >Andy Warhol</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Jackson Pollock, abstract expressionism')"
+              >Jackson Pollock</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Hokusai, Japanese ukiyo-e')"
+              >Hokusai</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Frida Kahlo, Mexican surrealism')"
+              >Frida Kahlo</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('in the style of Banksy, street art stencil')"
+              >Banksy</button
+            >
+          </div>
+        </div>
+
+        <!-- Medium -->
+        <div class="wildcard-section">
+          <h2>🖼️ Medium</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('oil painting on canvas')"
+              >Oil Painting</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('watercolor painting')"
+              >Watercolor</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('digital art')">Digital Art</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('photography, DSLR')">Photography</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('3D render, photorealistic')"
+              >3D Render</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('pencil drawing, sketch')"
+              >Pencil Sketch</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('acrylic painting')">Acrylic</button
+            >
+            <button class="wildcard-btn" onclick="copyToClipboard('pastel art')"
+              >Pastel</button
+            >
+          </div>
+        </div>
+
+        <!-- Jakość -->
+        <div class="wildcard-section">
+          <h2>⭐ Jakość</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('4K ultra detailed, masterpiece')"
+              >4K Masterpiece</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('highly detailed, professional quality')"
+              >Professional</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('8K resolution, hyper realistic')"
+              >8K Hyper Real</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('award winning photography')"
+              >Award Winning</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('museum quality artwork')"
+              >Museum Quality</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('trending on ArtStation')"
+              >ArtStation Trending</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('cinematic lighting, dramatic')"
+              >Cinematic</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('studio lighting, professional')"
+              >Studio Quality</button
+            >
+          </div>
+        </div>
+
+        <!-- Nastrój i Oświetlenie -->
+        <div class="wildcard-section">
+          <h2>🌈 Nastrój & Światło</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('dramatic lighting, chiaroscuro')"
+              >Dramatic</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('soft natural lighting')"
+              >Soft Natural</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('vibrant colors, saturated')"
+              >Vibrant</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('moody atmosphere, dark')"
+              >Moody Dark</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('golden hour lighting')"
+              >Golden Hour</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('neon lighting, cyberpunk')"
+              >Neon Cyber</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('ethereal, dreamy lighting')"
+              >Ethereal</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('harsh shadows, film noir')"
+              >Film Noir</button
+            >
+          </div>
+        </div>
+
+        <!-- Kolory -->
+        <div class="wildcard-section">
+          <h2>🎨 Paleta Kolorów</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('monochromatic, black and white')"
+              >B&W</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('sepia tones, vintage')"
+              >Sepia Vintage</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('warm colors, orange and red')"
+              >Warm Tones</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('cool colors, blue and cyan')"
+              >Cool Tones</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('pastel colors, soft palette')"
+              >Pastel Soft</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('neon colors, electric')"
+              >Neon Electric</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('earth tones, natural')"
+              >Earth Natural</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('rainbow colors, spectrum')"
+              >Rainbow</button
+            >
+          </div>
+        </div>
+
+        <!-- Kompozycja -->
+        <div class="wildcard-section">
+          <h2>📐 Kompozycja</h2>
+          <div class="wildcard-buttons">
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('close-up portrait, detailed face')"
+              >Close-up</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('wide angle landscape')"
+              >Wide Landscape</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('bird eye view, aerial')"
+              >Aerial View</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('low angle, dramatic perspective')"
+              >Low Angle</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('symmetrical composition')"
+              >Symmetrical</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('rule of thirds composition')"
+              >Rule of Thirds</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('macro photography, extreme close-up')"
+              >Macro</button
+            >
+            <button
+              class="wildcard-btn"
+              onclick="copyToClipboard('panoramic view, ultra wide')"
+              >Panoramic</button
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Status kopiowania -->
+      <div id="copy-status" class="copy-status hidden">
+        ✅ Skopiowano do schowka!
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .wildcards-main-window {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .wildcards-header {
+      background: rgba(0, 0, 0, 0.55);
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .wildcards-header h1 {
+      color: #00ffff;
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .wildcards-header p {
+      color: #ffffff;
+      margin: 0;
+      opacity: 0.8;
+    }
+
+    .close-btn {
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 0, 0, 1);
+    }
+
+    .wildcards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .wildcard-section {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 20px;
+    }
+
+    .wildcard-section h2 {
+      color: #00ffff;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .wildcard-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .wildcard-btn {
+      background: rgba(0, 0, 0, 0.55);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .wildcard-btn:hover {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: #00ffff;
+      color: #00ffff;
+      transform: translateY(-2px);
+    }
+
+    .wildcard-btn:active {
+      transform: translateY(0);
+      background: rgba(0, 255, 255, 0.4);
+    }
+
+    .copy-status {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 255, 0, 0.9);
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 10000;
+      transition: opacity 0.3s;
+    }
+
+    .copy-status.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .wildcards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wildcards-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .wildcards-main-window {
+        padding: 10px;
+      }
+    }
+  </style>
+
+  <script>
+    // Funkcja kopiowania do schowka
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showCopyStatus();
+      } catch (err) {
+        // Fallback dla starszych przeglądarek
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        showCopyStatus();
+      }
+    }
+
+    function showCopyStatus() {
+      const status = document.getElementById("copy-status");
+      status.classList.remove("hidden");
+      setTimeout(() => {
+        status.classList.add("hidden");
+      }, 2000);
+    }
+
+    // Zamknięcie na ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        window.close();
+      }
+    });
+
+    // Globalne funkcje
+    window.copyToClipboard = copyToClipboard;
+  </script>
+</MyBonzoLayout>

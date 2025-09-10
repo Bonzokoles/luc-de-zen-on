@@ -1,14 +1,15 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
     const query = url.searchParams.get('query') || 'SELECT 1 as test';
     
-    // Check environment variables
-    const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+    // Check environment variables from Cloudflare
+    const env = locals.runtime?.env;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
 
     // Check if BigQuery credentials are configured
     if (!projectId || !serviceAccountKey) {
@@ -61,14 +62,15 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json();
     const { query, dataset } = body;
     
-    // Check environment variables
-    const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+    // Check environment variables from Cloudflare
+    const env = locals.runtime?.env;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
 
     // Check if BigQuery credentials are configured
     if (!projectId || !serviceAccountKey) {

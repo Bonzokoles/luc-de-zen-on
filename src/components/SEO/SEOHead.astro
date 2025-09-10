@@ -1,0 +1,167 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  tags?: string[];
+  canonicalURL?: string;
+  noindex?: boolean;
+  post?: CollectionEntry<'blog'>;
+}
+
+const {
+  title = "MyBonzo - Zaawansowana Platforma AI Workers",
+  description = "Nowoczesna platforma AI z zaawansowanymi narzędziami do automatyzacji, generowania treści, analizy danych i więcej. Odkryj moc sztucznej inteligencji.",
+  image = "/og-image.jpg",
+  article = false,
+  publishedTime,
+  modifiedTime,
+  author = "MyBonzo Team",
+  tags = [],
+  canonicalURL,
+  noindex = false,
+  post
+} = Astro.props;
+
+const canonicalUrl = canonicalURL || new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+// Extract data from post if provided
+const postTitle = post?.data?.title;
+const postDescription = post?.data?.description;
+const postImage = post?.data?.image;
+const postPublishedTime = post?.data?.publishedDate?.toISOString();
+const postModifiedTime = post?.data?.updatedDate?.toISOString();
+const postTags = post?.data?.tags;
+
+const finalTitle = postTitle || title;
+const finalDescription = postDescription || description;
+const finalImage = postImage || image;
+const finalPublishedTime = postPublishedTime || publishedTime;
+const finalModifiedTime = postModifiedTime || modifiedTime;
+const finalTags = postTags || tags;
+---
+
+<!-- Primary Meta Tags -->
+<title>{finalTitle}</title>
+<meta name="title" content={finalTitle} />
+<meta name="description" content={finalDescription} />
+<meta name="author" content={author} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={finalDescription} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={finalTitle} />
+<meta property="og:site_name" content="MyBonzo" />
+<meta property="og:locale" content="pl_PL" />
+
+{article && finalPublishedTime && (
+  <meta property="article:published_time" content={finalPublishedTime} />
+)}
+{article && finalModifiedTime && (
+  <meta property="article:modified_time" content={finalModifiedTime} />
+)}
+{article && author && (
+  <meta property="article:author" content={author} />
+)}
+{finalTags.map(tag => (
+  <meta property="article:tag" content={tag} />
+))}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={finalTitle} />
+<meta property="twitter:description" content={finalDescription} />
+<meta property="twitter:image" content={ogImage} />
+<meta property="twitter:image:alt" content={finalTitle} />
+
+<!-- Additional SEO -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f172a" />
+<meta name="keywords" content={finalTags.join(", ")} />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": article ? "Article" : "WebSite",
+  "name": finalTitle,
+  "description": finalDescription,
+  "url": canonicalUrl,
+  "image": ogImage,
+  "author": {
+    "@type": "Organization",
+    "name": author
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MyBonzo",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/logo.png", Astro.site)
+    }
+  },
+  ...(article && finalPublishedTime && {
+    "datePublished": finalPublishedTime,
+    "dateModified": finalModifiedTime || finalPublishedTime,
+    "headline": finalTitle,
+    "articleBody": finalDescription
+  }),
+  ...(finalTags.length > 0 && {
+    "keywords": finalTags.join(", ")
+  })
+})} />
+
+<!-- Breadcrumb Schema -->
+{Astro.url.pathname !== "/" && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": Astro.site
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": finalTitle,
+        "item": canonicalUrl
+      }
+    ]
+  })} />
+)}
+
+<!-- Organization Schema -->
+{Astro.url.pathname === "/" && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "MyBonzo",
+    "url": Astro.site,
+    "logo": new URL("/logo.png", Astro.site),
+    "description": "Zaawansowana platforma AI Workers dla automatyzacji i sztucznej inteligencji",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "contact@mybonzo.com"
+    },
+    "sameAs": [
+      "https://github.com/Bonzokoles",
+      "https://twitter.com/mybonzo"
+    ]
+  })} />
+)}
