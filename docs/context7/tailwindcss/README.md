@@ -1,11 +1,17 @@
 # Context7 Patterns: tailwindcss
 
-Fetched: 2025-09-10T21:47:01.141Z
+Fetched: 2025-09-10T21:59:52.455Z
 
 ---
 
 ## Topic: utilities
-> Error: Context7 MCP bridge not available in this runtime
+
+```text
+[[placeholder:tailwindcss:utilities]] (no __MCP_CONTEXT7__ bridge)
+```
 
 ## Topic: configuration
-> Error: Context7 MCP bridge not available in this runtime
+
+```text
+[[placeholder:tailwindcss:configuration]] (no __MCP_CONTEXT7__ bridge)
+```
