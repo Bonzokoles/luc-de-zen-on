@@ -1,18 +1,18 @@
 {
   "library": "astro",
-  "fetchedAt": "2025-09-10T21:47:01.119Z",
+  "fetchedAt": "2025-09-10T21:59:52.434Z",
   "entries": [
     {
       "topic": "routing",
-      "error": "Context7 MCP bridge not available in this runtime"
+      "doc": "[[placeholder:astro:routing]] (no __MCP_CONTEXT7__ bridge)"
     },
     {
       "topic": "api endpoints",
-      "error": "Context7 MCP bridge not available in this runtime"
+      "doc": "[[placeholder:astro:api endpoints]] (no __MCP_CONTEXT7__ bridge)"
     },
     {
       "topic": "components",
-      "error": "Context7 MCP bridge not available in this runtime"
+      "doc": "[[placeholder:astro:components]] (no __MCP_CONTEXT7__ bridge)"
     }
   ]
 }
