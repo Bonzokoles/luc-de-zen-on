@@ -15,13 +15,11 @@
   // HTTP API Configuration - POLACZEK with Gemma from Cloudflare
   const API_BASE_URL =
     import.meta.env.PUBLIC_POLACZEK_API_URL ||
-    (typeof window !== "undefined"
-        ? window.location.origin
-        : "");
+    (typeof window !== "undefined" ? window.location.origin : "");
 
-  const CHAT_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
-  const STATUS_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
-  const HEALTH_ENDPOINT = `${API_BASE_URL}/api/gemma-polish`;
+  const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat`;
+  const STATUS_ENDPOINT = `${API_BASE_URL}/api/chat`;
+  const HEALTH_ENDPOINT = `${API_BASE_URL}/api/chat`;
 
   onMount(() => {
     // Expose a small control API for global UI buttons
@@ -65,7 +63,7 @@
         capabilities = ["Chat AI", "Knowledge Base", "Help System"];
         addMessage(
           "system",
-          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!"
+          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!",
         );
       } else {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -98,7 +96,7 @@
     window.POLACZEK.status = agentStatus;
     try {
       window.dispatchEvent(
-        new CustomEvent("polaczek-status", { detail: { status: agentStatus } })
+        new CustomEvent("polaczek-status", { detail: { status: agentStatus } }),
       );
     } catch (e) {}
   }
@@ -152,8 +150,6 @@
         },
         body: JSON.stringify({
           prompt: prompt,
-          sessionId: sessionId,
-          timestamp: new Date().toISOString(),
         }),
       });
 
@@ -173,7 +169,7 @@
           .catch(() => ({ error: "Unknown error" }));
         addMessage(
           "error",
-          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`
+          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`,
         );
         console.error("API Error:", response.status, errorData);
       }
