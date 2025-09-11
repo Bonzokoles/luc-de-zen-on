@@ -80,7 +80,8 @@
     "test:images": "node src/tests/image-generator.test.js",
     "test:homepage": "node src/tests/homepage-audio.test.js",
     "test:all": "node scripts/run-tests-with-dev.js",
-    "fetch:patterns": "node scripts/fetch-context7-patterns.js"
+    "fetch:patterns": "node scripts/fetch-context7-patterns.js",
+    "resetComponents": ""
   },
   "type": "module"
 }
