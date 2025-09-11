@@ -14,6 +14,11 @@ export default defineConfig({
     plugins: [tailwindcss()],
     define: { global: 'globalThis' },
     optimizeDeps: { force: true },
+    resolve: {
+      alias: {
+        'cloudflare:workers': new URL('./src/stubs/cloudflare-workers-stub.js', import.meta.url).pathname
+      }
+    },
     build: {
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
@@ -69,7 +74,11 @@ export default defineConfig({
     mdx(),
     sitemap()
   ],
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true
+    }
+  }),
   devToolbar: { enabled: false },
   site: 'https://www.mybonzo.com',
   redirects: { '/posts': '/' }
