@@ -1713,7 +1713,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       
       // Ensure music player is initialized after showing widget
       if (!widget.classList.contains("hidden")) {
-        waitForMusicAPI();
+        // Give Svelte component time to mount
+        setTimeout(() => {
+          waitForMusicAPI();
+        }, 500); // Wait 500ms for component to mount
       }
       
       console.log("Music Player widget toggled");
@@ -1737,7 +1740,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       
       // Ensure AI assistant is initialized after showing widget
       if (!widget.classList.contains("hidden")) {
-        waitForPolaczekAPI();
+        // Give Svelte component time to mount
+        setTimeout(() => {
+          waitForPolaczekAPI();
+        }, 500); // Wait 500ms for component to mount
       }
       
       console.log("AI Assistant widget toggled");
@@ -1746,22 +1752,27 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
   // Wait for components to initialize their APIs
   function waitForMusicAPI() {
+    console.log("🎵 Waiting for Music API...");
     let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
+    const maxAttempts = 100; // 10 seconds max (increased)
     
     const checkAPI = () => {
       attempts++;
+      console.log(`🎵 Music API check attempt ${attempts}/${maxAttempts}`);
+      
       if (window.MUSIC && window.MUSIC.ensureLoaded) {
-        console.log("🎵 Music API ready!");
+        console.log("🎵 Music API ready! Initializing...");
         try {
           window.MUSIC.ensureLoaded();
+          console.log("🎵 Music player initialized successfully!");
         } catch (e) {
           console.warn("Music ensureLoaded failed:", e);
         }
       } else if (attempts < maxAttempts) {
+        console.log("🎵 Music API not ready yet, retrying...");
         setTimeout(checkAPI, 100);
       } else {
-        console.warn("🎵 Music API not ready after 5 seconds");
+        console.error("🎵 Music API not ready after 10 seconds - component may not be loaded");
       }
     };
     
@@ -1769,26 +1780,36 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   }
 
   function waitForPolaczekAPI() {
+    console.log("🤖 Waiting for POLACZEK API...");
     let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
+    const maxAttempts = 100; // 10 seconds max (increased)
     
     const checkAPI = () => {
       attempts++;
+      console.log(`🤖 POLACZEK API check attempt ${attempts}/${maxAttempts}`);
+      
       if (window.POLACZEK && window.POLACZEK.openAssistant) {
-        console.log("🤖 POLACZEK API ready!");
+        console.log("🤖 POLACZEK API ready! Connecting...");
         try {
-          // Try to trigger connection check if component is ready
-          if (window.POLACZEK.getStatus && window.POLACZEK.getStatus() === "disconnected") {
-            // Trigger reconnect via custom event
-            window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
+          // Force connection check
+          if (window.POLACZEK.getStatus) {
+            const currentStatus = window.POLACZEK.getStatus();
+            console.log("🤖 Current POLACZEK status:", currentStatus);
+            
+            if (currentStatus === "disconnected") {
+              console.log("🤖 Triggering reconnection...");
+              window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
+            }
           }
+          console.log("🤖 POLACZEK assistant initialized successfully!");
         } catch (e) {
           console.warn("POLACZEK initialization failed:", e);
         }
       } else if (attempts < maxAttempts) {
+        console.log("🤖 POLACZEK API not ready yet, retrying...");
         setTimeout(checkAPI, 100);
       } else {
-        console.warn("🤖 POLACZEK API not ready after 5 seconds");
+        console.error("🤖 POLACZEK API not ready after 10 seconds - component may not be loaded");
       }
     };
     
