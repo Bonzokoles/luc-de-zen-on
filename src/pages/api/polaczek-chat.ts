@@ -17,10 +17,10 @@ export const GET = async () => {
         message: 'POLACZEK Chat API is running',
         status: 'active',
         methods: ['GET', 'POST', 'OPTIONS'],
-        description: 'POST { prompt, model?, temperature?, language?: "pl" }',
-        features: ['MyBonzo Knowledge Base', 'Polish AI Assistant', 'Contextual Responses'],
+        description: 'POST { prompt, model?: "qwen"|"gemma"|"fast"|"advanced", temperature?, language?: "pl" }',
+        features: ['MyBonzo Knowledge Base', 'Polish AI Assistant', 'Multilingual Models'],
         defaults: {
-            model: 'polaczek',
+            model: 'qwen', // Changed from 'polaczek' to better Polish model
             language: 'pl',
             temperature: 0.6,
         },
@@ -88,10 +88,11 @@ const MyBonzoKnowledge = {
         deployment_url: "https://luc-de-zen-on.pages.dev",
         github_repo: "https://github.com/Bonzokoles/luc-de-zen-on",
         ai_models: [
-            "@cf/meta/llama-3.1-8b-instruct",
-            "@cf/google/gemma-7b-it",
-            "@cf/qwen/qwen1.5-7b-chat-awq",
-            "@cf/deepseek-ai/deepseek-math-7b-instruct"
+            "@cf/qwen/qwen1.5-7b-chat-awq (domyślny - najlepszy dla polskiego)",
+            "@cf/google/gemma-7b-it (wielojęzyczny)",
+            "@cf/qwen/qwen1.5-0.5b-chat (szybki)",
+            "@cf/meta/llama-3.3-70b-instruct-fp8-fast (zaawansowany)",
+            "@cf/deepseek-ai/deepseek-math-7b-instruct (matematyka)"
         ]
     }
 };
@@ -194,37 +195,39 @@ async function getEnhancedContext(prompt: string) {
 function buildSystemPrompt(language: 'pl' | 'auto' | 'en' | undefined, context: string) {
     const lang = language === 'en' ? 'en' : 'pl';
 
-    const sysPl = `Jesteś POLACZEK — przyjaznym, kompetentnym asystentem AI dla strony MyBonzo.
-Pomagasz użytkownikom w nawigacji i korzystaniu z funkcji strony.
+    const sysPl = `Jesteś POLACZEK — polskim AI asystentem dla strony MyBonzo.
+Twoja rola: Pomagać użytkownikom korzystać z funkcji MyBonzo Portfolio.
 
-WIEDZA O MYBONZO:
+🎯 BAZA WIEDZY MYBONZO:
 ${context}
 
-ZASADY:
-• Mów po polsku, jeśli nie poproszono inaczej
-• Odpowiadaj krótko, precyzyjnie i praktycznie
+📋 INSTRUKCJE:
+• Odpowiadaj TYLKO po polsku
+• Bądź konkretny i praktyczny
 • Używaj informacji z bazy wiedzy MyBonzo
-• Podawaj konkretne linki i endpointy
-• Jeśli nie znasz odpowiedzi, powiedz wprost
-• Używaj emoji do uatrakcyjnienia odpowiedzi
-• Podkreślaj mocne strony MyBonzo AI platform
-`;
+• Podawaj linki i API endpoints
+• Używaj emoji do lepszej prezentacji
+• Jeśli nie wiesz - powiedz "Nie mam tej informacji"
+• Promuj możliwości MyBonzo AI
 
-    const sysEn = `You are POLACZEK — a friendly, competent AI assistant for MyBonzo website.
-You help users navigate and use the site's features.
+🚀 STYL: Przyjazny ekspert, krótkie odpowiedzi, konkretne fakty.`;
 
-MYBONZO KNOWLEDGE:
+    const sysEn = `You are POLACZEK — Polish AI assistant for MyBonzo website.
+Your role: Help users utilize MyBonzo Portfolio features.
+
+🎯 MYBONZO KNOWLEDGE:
 ${context}
 
-RULES:
-• Speak English when requested
-• Answer concisely and practically  
+📋 INSTRUCTIONS:
+• Answer in English when specifically requested
+• Be specific and practical
 • Use MyBonzo knowledge base information
-• Provide specific links and endpoints
-• If you don't know something, say so directly
-• Use emojis to make responses engaging
-• Highlight MyBonzo AI platform strengths
-`;
+• Provide links and API endpoints
+• Use emojis for better presentation
+• If uncertain - say "I don't have that information"
+• Promote MyBonzo AI capabilities
+
+🚀 STYLE: Friendly expert, concise answers, concrete facts.`;
 
     return lang === 'en' ? sysEn : sysPl;
 }
@@ -232,7 +235,7 @@ RULES:
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
         const body = (await request.json()) as ChatBody;
-        const { prompt, model = 'polaczek', temperature = 0.6, language = 'pl', context } = body;
+        const { prompt, model = 'qwen', temperature = 0.6, language = 'pl', context } = body;
         const env: any = locals.runtime?.env;
 
         if (!prompt || typeof prompt !== 'string') {
@@ -246,8 +249,31 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
         // Get enhanced contextual knowledge about MyBonzo based on user query (with documentation)
         const contextualKnowledge = await getEnhancedContext(prompt);
 
-        // Choose appropriate model
-        const modelId = model.startsWith('@cf/') ? model : '@cf/meta/llama-3.1-8b-instruct';
+        // Choose appropriate model - prefer Polish-friendly models
+        let modelId: string;
+        if (model.startsWith('@cf/')) {
+            modelId = model;
+        } else {
+            // Use models that handle Polish better
+            switch (model) {
+                case 'qwen':
+                    modelId = '@cf/qwen/qwen1.5-7b-chat-awq'; // Better with Polish
+                    break;
+                case 'gemma':
+                    modelId = '@cf/google/gemma-7b-it'; // Better multilingual support
+                    break;
+                case 'fast':
+                    modelId = '@cf/qwen/qwen1.5-0.5b-chat'; // Fast Polish model
+                    break;
+                case 'advanced':
+                    modelId = '@cf/meta/llama-3.3-70b-instruct-fp8-fast'; // Most advanced
+                    break;
+                case 'polaczek':
+                default:
+                    modelId = '@cf/qwen/qwen1.5-7b-chat-awq'; // Default to Polish-friendly Qwen
+                    break;
+            }
+        }
 
         const systemPrompt = buildSystemPrompt(language, contextualKnowledge);
 
