@@ -1677,8 +1677,42 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     // Force fresh initialization
     localStorage.setItem('components-initialized', 'false');
     
+    // Add page load event to detect when all components should be ready
+    let componentCheckAttempts = 0;
+    const maxComponentChecks = 50; // 5 seconds
+    
+    const forceComponentRefresh = () => {
+      componentCheckAttempts++;
+      console.log(`🔍 Component check attempt ${componentCheckAttempts}/${maxComponentChecks}`);
+      
+      const musicReady = window.MUSIC && typeof window.MUSIC.ensureLoaded === 'function';
+      const polaczekReady = window.POLACZEK && typeof window.POLACZEK.openAssistant === 'function';
+      
+      console.log(`🎵 Music ready: ${musicReady}, 🤖 POLACZEK ready: ${polaczekReady}`);
+      
+      if (musicReady && polaczekReady) {
+        console.log("✅ All components are ready!");
+        localStorage.setItem('components-initialized', 'true');
+        return;
+      }
+      
+      if (componentCheckAttempts < maxComponentChecks) {
+        setTimeout(forceComponentRefresh, 100);
+      } else {
+        console.error("❌ Components failed to initialize after 5 seconds. Forcing page reload...");
+        // Force page reload as last resort
+        setTimeout(() => {
+          console.log("🔄 Forcing page reload to reinitialize components...");
+          window.location.reload();
+        }, 1000);
+      }
+    };
+    
     // Check status on load
     checkAllStatus();
+
+    // Start component monitoring
+    setTimeout(forceComponentRefresh, 500);
 
     // Initialize components after page load
     setTimeout(() => {
@@ -1706,6 +1740,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     (window as any).runAllAPITests = runAllAPITests;
     (window as any).openAPITestConsole = openAPITestConsole;
     (window as any).resetComponents = resetComponents;
+    (window as any).hardResetComponents = hardResetComponents;
 
     console.log("All functions assigned to window object");
   });
@@ -1730,7 +1765,18 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       if (!widget.classList.contains("hidden")) {
         // Give Svelte component time to mount
         setTimeout(() => {
-          waitForMusicAPI();
+          console.log("🎵 Widget shown, checking Music API...");
+          if (window.MUSIC && window.MUSIC.ensureLoaded) {
+            console.log("🎵 Music API available, calling ensureLoaded...");
+            try {
+              window.MUSIC.ensureLoaded();
+            } catch (e) {
+              console.warn("Music ensureLoaded failed:", e);
+            }
+          } else {
+            console.log("🎵 Music API not available, waiting for initialization...");
+            waitForMusicAPI();
+          }
         }, 500); // Wait 500ms for component to mount
       }
       
@@ -1757,7 +1803,22 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       if (!widget.classList.contains("hidden")) {
         // Give Svelte component time to mount
         setTimeout(() => {
-          waitForPolaczekAPI();
+          console.log("🤖 Widget shown, checking POLACZEK API...");
+          if (window.POLACZEK && window.POLACZEK.openAssistant) {
+            console.log("🤖 POLACZEK API available, opening assistant...");
+            try {
+              window.POLACZEK.openAssistant();
+              // Also trigger reconnection if needed
+              if (window.POLACZEK.forceReconnect) {
+                window.POLACZEK.forceReconnect();
+              }
+            } catch (e) {
+              console.warn("POLACZEK openAssistant failed:", e);
+            }
+          } else {
+            console.log("🤖 POLACZEK API not available, waiting for initialization...");
+            waitForPolaczekAPI();
+          }
         }, 500); // Wait 500ms for component to mount
       }
       
@@ -1791,6 +1852,12 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       } else {
         console.error("🎵 Music API not ready after 10 seconds - component may not be loaded");
         sessionStorage.setItem('music-status', 'timeout');
+        // Try to force reload the component by showing debug info
+        console.log("🎵 Debug info:");
+        console.log("- window.MUSIC exists:", !!window.MUSIC);
+        console.log("- window.MUSIC.ensureLoaded exists:", !!(window.MUSIC && window.MUSIC.ensureLoaded));
+        console.log("- Music widget element exists:", !!document.getElementById("musicPlayerWidget"));
+        
         // Try to force reload the component
         if (window.location.reload) {
           console.log("🎵 Attempting component refresh...");
@@ -1836,6 +1903,12 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       } else {
         console.error("🤖 POLACZEK API not ready after 10 seconds - component may not be loaded");
         sessionStorage.setItem('polaczek-status', 'timeout');
+        // Try to force reload the component by showing debug info
+        console.log("🤖 Debug info:");
+        console.log("- window.POLACZEK exists:", !!window.POLACZEK);
+        console.log("- window.POLACZEK.openAssistant exists:", !!(window.POLACZEK && window.POLACZEK.openAssistant));
+        console.log("- POLACZEK widget element exists:", !!document.getElementById("polaczekWidget"));
+        
         // Try to force reload the component
         if (window.location.reload) {
           console.log("🤖 Attempting component refresh...");
@@ -1865,6 +1938,22 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     }, 500);
     
     console.log("🔄 Component reset completed!");
+  }
+
+  // Hard reset with page reload
+  function hardResetComponents() {
+    console.log("💣 Hard resetting - clearing everything and reloading page...");
+    
+    // Clear everything
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Clear component globals
+    delete window.MUSIC;
+    delete window.POLACZEK;
+    
+    // Force reload
+    window.location.reload(true);
   }
 
   function openMainChat() {

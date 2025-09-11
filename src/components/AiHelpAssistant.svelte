@@ -26,7 +26,7 @@
     if (typeof window !== "undefined") {
       // Force clean state
       delete window.POLACZEK;
-      
+
       // Re-create fresh API
       window.POLACZEK = {
         openAssistant: () => {
@@ -37,7 +37,7 @@
         forceReconnect: () => {
           console.log("🤖 Force reconnecting POLACZEK...");
           checkConnection();
-        }
+        },
       };
 
       // Listen to quick actions from RightDock
@@ -45,7 +45,7 @@
         window.addEventListener("polaczek-clear-chat", clearChat);
         window.addEventListener("polaczek-reconnect", checkConnection);
       } catch (e) {}
-      
+
       console.log("🤖 POLACZEK API registered and ready");
     }
 
