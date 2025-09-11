@@ -18,8 +18,8 @@
     (typeof window !== "undefined" ? window.location.origin : "");
 
   const CHAT_ENDPOINT = `${API_BASE_URL}/api/chat`;
-  const STATUS_ENDPOINT = `${API_BASE_URL}/api/chat`;
-  const HEALTH_ENDPOINT = `${API_BASE_URL}/api/chat`;
+  const STATUS_ENDPOINT = `${API_BASE_URL}/api/health`;
+  const HEALTH_ENDPOINT = `${API_BASE_URL}/api/health`;
 
   onMount(() => {
     // Expose a small control API for global UI buttons
