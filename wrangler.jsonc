@@ -1,6 +1,6 @@
 {
-  "name": "mybonzo-main-chat",
-  "main": "./src/index.js",
+  "name": "luc-de-zen-on",
+  "pages_build_output_dir": "dist",
   "compatibility_date": "2024-09-19",
   "ai": {
     "binding": "AI"
