@@ -30,7 +30,8 @@ function Check-RepoStatus {
         Write-Warning "Masz niezcommitowane zmiany!"
         git status --short
         return $false
-    } else {
+    }
+    else {
         Write-Success "Repozytorium jest czyste"
         return $true
     }
@@ -39,7 +40,7 @@ function Check-RepoStatus {
 # Funkcja tworząca nowy feature branch
 function New-FeatureBranch {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$FeatureName
     )
     
@@ -68,7 +69,7 @@ function New-FeatureBranch {
 # Funkcja do szybkiego commitowania
 function Invoke-QuickCommit {
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$Message
     )
     
@@ -90,7 +91,8 @@ function Test-Local {
     $buildResult = npm run build
     if ($LASTEXITCODE -eq 0) {
         Write-Success "Build zakończony pomyślnie!"
-    } else {
+    }
+    else {
         Write-Error "Build failed!"
         return
     }
@@ -132,7 +134,8 @@ function Invoke-PrepareMerge {
         Write-Success "Rebase zakończony pomyślnie!"
         Write-Status "Możesz teraz push'ować i tworzyć PR"
         Write-Warning "Komenda: git push origin $currentBranch"
-    } else {
+    }
+    else {
         Write-Error "Konflikt podczas rebase! Rozwiąż konflikty i kontynuuj."
         Write-Warning "Po rozwiązaniu: git rebase --continue"
     }
@@ -154,7 +157,8 @@ function Invoke-EmergencyRollback {
         git push --force-with-lease origin main
         
         Write-Success "Rollback wykonany! Sprawdź Cloudflare deployment."
-    } else {
+    }
+    else {
         Write-Status "Rollback anulowany."
     }
 }
