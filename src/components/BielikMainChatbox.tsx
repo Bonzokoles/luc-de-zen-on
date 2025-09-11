@@ -20,32 +20,32 @@ interface BielikMainChatboxProps {
 // Available Polish AI models from Cloudflare (free tier)
 const POLISH_AI_MODELS = [
   {
-    id: 'gemma-7b',
-    name: 'GEMMA 7B (POLACZEK)',
-    description: 'Google model - główny orkiestrator POLACZEK',
-    endpoint: '/api/gemma-polish',
+    id: 'gemma',
+    name: 'GEMMA 12B (DOMYŚLNY)',
+    description: 'Google Gemma 3 12B - Główny model system',
+    model: 'gemma',
     icon: '💎'
   },
   {
-    id: 'qwen-72b',
-    name: 'Qwen 1.5 72B (PL)',
+    id: 'qwen-pl',
+    name: 'Qwen 2.5 7B (PL)',
     description: 'Alibaba model z polską lokalizacją',
-    endpoint: '/api/qwen-polish',
+    model: 'qwen-pl',
     icon: '🐼'
   },
   {
-    id: 'mistral-7b',
-    name: 'Mistral 7B (PL)',
-    description: 'Francuski model z polskimi optymalizacjami',
-    endpoint: '/api/mistral-polish',
-    icon: '🇫🇷'
-  },
-  {
-    id: 'llama-3-1-8b',
+    id: 'llama-8b',
     name: 'Llama 3.1 8B (PL)',
     description: 'Meta model z polskim kontekstem',
-    endpoint: '/api/llama-polish',
+    model: 'llama-8b',
     icon: '🦙'
+  },
+  {
+    id: 'polaczek',
+    name: 'POLACZEK Assistant',
+    description: 'Zaawansowany polski asystent AI',
+    model: 'polaczek',
+    icon: '🇵🇱'
   }
 ];
 
@@ -142,16 +142,17 @@ export default function BielikMainChatbox({
     setMessages(prev => [...prev, newUserMessage]);
 
     try {
-      // Use selected model endpoint
-      const response = await fetch(selectedModel.endpoint, {
+      // Use main chat API with selected model
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           prompt: userMessage,
-          sessionId: sessionId.current,
-          orchestrate: selectedModel.id === 'bielik-llama'
+          model: selectedModel.model,
+          language: 'pl',
+          usePolaczek: selectedModel.id === 'polaczek'
         }),
       });
 
@@ -374,7 +375,7 @@ export default function BielikMainChatbox({
                       timestamp: new Date(),
                       orchestratorInfo: {
                         activatedModels: [model.name],
-                        source: model.endpoint,
+                        source: `/api/chat?model=${model.model}`,
                         selectedModel: model.name
                       }
                     }]);

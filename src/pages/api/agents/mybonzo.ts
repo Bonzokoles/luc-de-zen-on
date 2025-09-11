@@ -1,12 +1,3 @@
-// Dynamic import for agents SDK to handle local development gracefully
-let getAgentByName: any = null;
-try {
-    const agentsModule = await import('agents');
-    getAgentByName = agentsModule.getAgentByName;
-} catch (error) {
-    console.warn('Agents SDK not available in local development environment');
-}
-
 /**
  * MyBonzo Agent Integration API
  * Connects the main Astro app with the MyBonzo agent using named addressing pattern
@@ -20,82 +11,61 @@ export const POST = async ({ request, locals, url }: { request: Request; locals:
 
         // For now, use mock responses since MYBONZO_AGENT binding is not configured
         // In production, this would connect to the actual MyBonzo agent
-        if (!getAgentByName) {
-            // Fallback for local development and when agent SDK is not available
-            const endpoint = body.endpoint || 'chat';
-
-            // Mock responses for local testing
-            const mockResponses = {
-                chat: {
-                    success: true,
-                    response: `🤖 MyBonzo Agent (Local Mock): Received message "${body.message}". This is a mock response for local development.`,
-                    timestamp: new Date().toISOString(),
-                    agentId: body.agentId || 'default'
-                },
-                status: {
-                    success: true,
-                    status: 'online (mock)',
-                    lastActivity: new Date().toISOString(),
-                    stats: {
-                        messagesCount: 5,
-                        imagesGenerated: 2,
-                        tasksCompleted: 3
-                    },
-                    conversationLength: 5
-                },
-                task: {
-                    success: true,
-                    result: `🎯 Task "${body.taskType}" completed (mock). In production, this would execute: ${JSON.stringify(body.taskData)}`,
-                    timestamp: new Date().toISOString()
-                },
-                image: {
-                    success: true,
-                    response: `🖼️ Image generation (mock) for prompt: "${body.prompt}". In production, this would generate an actual image.`,
-                    timestamp: new Date().toISOString()
-                },
-                analyze: {
-                    success: true,
-                    response: `📊 Text analysis (mock) completed. In production, this would analyze: "${body.text}"`,
-                    timestamp: new Date().toISOString()
-                },
-                clear: {
-                    success: true,
-                    message: '🧹 History cleared (mock)',
-                    timestamp: new Date().toISOString()
-                }
-            };
-
-            const mockResponse = mockResponses[endpoint as keyof typeof mockResponses] || mockResponses.chat;
-
-            return new Response(JSON.stringify(mockResponse), {
-                status: 200,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                }
-            });
-        }
-
-        // Production code with actual agent
-        const agentId = body.agentId || body.name || 'default';
+        // Fallback for local development and when agent SDK is not available
         const endpoint = body.endpoint || 'chat';
 
-        // TODO: This section would work when MYBONZO_AGENT binding is configured
-        // For now, return mock response since binding is commented out in wrangler.toml
-        return new Response(JSON.stringify({
-            success: true,
-            response: `🚧 MyBonzo Agent (Production Mock): Received ${endpoint} request. Agent binding not yet configured in wrangler.toml`,
-            timestamp: new Date().toISOString(),
-            agentId: agentId,
-            endpoint: endpoint,
-            note: "This would connect to real MyBonzo agent when MYBONZO_AGENT binding is configured"
-        }), {
+        // Mock responses for local testing
+        const mockResponses = {
+            chat: {
+                success: true,
+                response: `🤖 MyBonzo Agent (Local Mock): Received message "${body.message}". This is a mock response for local development.`,
+                timestamp: new Date().toISOString(),
+                agentId: body.agentId || 'default'
+            },
+            status: {
+                success: true,
+                status: 'online (mock)',
+                lastActivity: new Date().toISOString(),
+                stats: {
+                    messagesCount: 5,
+                    imagesGenerated: 2,
+                    tasksCompleted: 3
+                },
+                conversationLength: 5
+            },
+            task: {
+                success: true,
+                result: `🎯 Task "${body.taskType}" completed (mock). In production, this would execute: ${JSON.stringify(body.taskData)}`,
+                timestamp: new Date().toISOString()
+            },
+            image: {
+                success: true,
+                response: `🖼️ Image generation (mock) for prompt: "${body.prompt}". In production, this would generate an actual image.`,
+                timestamp: new Date().toISOString()
+            },
+            analyze: {
+                success: true,
+                response: `📊 Text analysis (mock) completed. In production, this would analyze: "${body.text}"`,
+                timestamp: new Date().toISOString()
+            },
+            clear: {
+                success: true,
+                message: '🧹 History cleared (mock)',
+                timestamp: new Date().toISOString()
+            }
+        };
+
+        const mockResponse = mockResponses[endpoint as keyof typeof mockResponses] || mockResponses.chat;
+
+        return new Response(JSON.stringify(mockResponse), {
             status: 200,
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             }
         });
+
+        // Production code with actual agent would go here when agent binding is configured
 
     } catch (error) {
         console.error('MyBonzo Agent API Error:', error);
