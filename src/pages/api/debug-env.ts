@@ -1,6 +1,4 @@
-import type { APIRoute } from 'astro';
-
-export const GET: APIRoute = async ({ locals, url }) => {
+export const GET = async ({ locals, url }: { locals: any; url: URL }) => {
     try {
         return new Response(JSON.stringify({
             success: true,
@@ -43,7 +41,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
     }
 };
 
-export const OPTIONS: APIRoute = () => {
+export const OPTIONS = () => {
     return new Response(null, {
         status: 200,
         headers: {
