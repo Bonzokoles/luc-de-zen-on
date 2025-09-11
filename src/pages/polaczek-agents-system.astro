@@ -5,34 +5,113 @@ import AgentsLogin from "../components/AgentsLogin.astro";
 ---
 
 <MyBonzoLayout siteTitle="Kreator Agentów POLACZEK | AI Workers">
+  <!-- Global vertical lines for workers sections -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
   <main class="min-h-svh">
+    <!-- Top Separator Section -->
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
     <!-- Header Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
         <div class="flex justify-between max-h-72 min-h-64">
-          <div class="mt-auto">
-            <span
-              style="writing-mode: vertical-lr;"
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+          <div class="mt-auto" style="max-width: 45vw;">
+            <div
+              class="text-edge text-sm italic px-2"
+              style="
+                transform: scale(1.32);
+                transform-origin: left center;
+                margin: 15px;
+                margin-left: 0px;
+                width: calc(45vw - 30px);
+                max-width: 380px;
+                line-height: 1.4;
+                word-wrap: break-word;
+                hyphens: auto;
+              "
             >
-              POLACZEK_SYS
-            </span>
+              POLACZEK Agent System 2.3 - Zaawansowany<br />
+              kreator agentów AI z pełnym SDK.<br />
+              Buduj, testuj i wdrażaj inteligentnych<br />
+              asystentów dla Twojego biznesu.
+            </div>
           </div>
           <span class="mt-auto">
+            <div
+              style="
+              transform: scale(1.56);
+              transform-origin: center right;
+              margin: 15px;
+              width: calc(50vw - 576px - 10px - 20px - 30px);
+              max-width: 400px;
+              text-align: right;
+              word-wrap: break-word;
+              hyphens: auto;
+            "
+            >
+              <span class="text-primary-foreground text-sm italic">
+                "Przyszłość to AI, które rozumie człowieka"
+              </span>
+            </div>
             <span
               style=""
               class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
             >
-              AGENT_BUILDER
+              SEP 2025
             </span>
           </span>
         </div>
       </div>
     </section>
 
+    <!-- Header-Navigation Separator -->
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
     <!-- Navigation Section -->
-    <section class="border border-edge">
-      <div class="max-w-6xl mx-auto border-x border-edge">
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
         <div class="flex flex-row p-2">
           <a class="hover:brightness-125" href="/">
             <h1 class="text-4xl sm:text-5xl">POLACZEK AGENTS</h1>
@@ -55,23 +134,112 @@ import AgentsLogin from "../components/AgentsLogin.astro";
                   stroke-linejoin="round"></path>
               </svg>
             </a>
+            <div class="flex flex-row-reverse flex-wrap gap-4">
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/api/polaczek-chat"
+              >
+                POLACZEK API
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/workers-status"
+              >
+                STATUS
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Separator Section 1 -->
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
     <!-- Main Content Section -->
     <section
-      class="ai-workers-section flex items-center justify-center py-16"
-      style="background: rgba(0, 0, 0, 0.5);"
+      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
       id="polaczek-agents"
     >
-      <div class="section-container max-w-4xl mx-auto">
-        <h2 class="section-title">POLACZEK AGENTS SYSTEM</h2>
-        <p class="section-description">
-          Zaawansowany system budowania i zarządzania agentami AI z wizualnym
-          interfejsem drag-and-drop
-        </p>
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"></div>
+        <!-- Outer vertical lines -->
+        <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"></div>
+        <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"></div>
+      </div>
+      <div class="max-w-6xl mx-auto w-full">
+        <div class="section-container">
+          <h2 class="system-title">POLACZEK AGENTS SYSTEM 2.3</h2>
+
+          <!-- Separator after title -->
+          <div
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            margin: 0 auto;
+            border-t: 1px solid #ffffff;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+          "
+          ></div>
+
+          <p
+            class="section-description"
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px) - 40px);
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-left: calc(50% - 10px);
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 0 15px;
+          "
+          >
+            Zaawansowany system budowania i zarządzania agentami AI z wizualnym
+            interfejsem drag-and-drop. Pełne SDK z funkcjami wyszukiwania, analizy,
+            generowania treści i personalizacji.
+          </p>
+        </div>
 
         <!-- Agent Builder Interface -->
         <div
@@ -212,6 +380,41 @@ import AgentsLogin from "../components/AgentsLogin.astro";
 </MyBonzoLayout>
 
 <style>
+  /* Global vertical lines for workers sections */
+  .workers-vertical-line-left {
+    position: fixed;
+    left: calc(50vw - 600px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .workers-vertical-line-right {
+    position: fixed;
+    right: calc(50vw - 600px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* System title - enlarged and bold */
+  .system-title {
+    color: #00d7ef !important;
+    font-weight: 900 !important;
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important;
+    font-family: "Rajdhani", sans-serif !important;
+  }
+
   .ai-workers-section {
     background: linear-gradient(
       135deg,
@@ -224,16 +427,6 @@ import AgentsLogin from "../components/AgentsLogin.astro";
   .section-container {
     padding: 2rem;
     width: 100%;
-  }
-
-  .section-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
   }
 
   .section-description {
