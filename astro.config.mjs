@@ -8,26 +8,16 @@ import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
 import icon from 'astro-icon';
 
-import { fileURLToPath } from 'node:url';
-const cloudflareWorkersStub = fileURLToPath(new URL('./src/stubs/cloudflare-workers-stub.js', import.meta.url));
-
 export default defineConfig({
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
     define: { global: 'globalThis' },
-    // Removing incorrect optimizeDeps include; forcing full optimization can stay if needed but not required now.
     optimizeDeps: { force: true },
-    resolve: {
-      alias: {
-        'cloudflare:workers': cloudflareWorkersStub
-      }
-    },
     build: {
-      // Raise the warning limit so large vendor bundles (e.g., BabylonJS) don't spam warnings
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
-        external: ['node:os', 'node:path', 'node:fs', 'node:url', 'node:util'],
+        external: ['node:os', 'node:path', 'node:fs', 'node:crypto', 'node:util'],
         output: {
           // Inject a lightweight MessageChannel polyfill for Cloudflare Workers (React 19 scheduler requirement)
           banner: `if (typeof MessageChannel === 'undefined') {\n  class __PolyfillPort {\n    constructor(){ this.onmessage = null; }\n    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }\n    start(){} close(){}\n  }\n  class MessageChannel {\n    constructor(){\n      this.port1 = new __PolyfillPort();\n      this.port2 = new __PolyfillPort();\n      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };\n      this.port1.postMessage = (d)=> dispatch(this.port2, d);\n      this.port2.postMessage = (d)=> dispatch(this.port1, d);\n    }\n  }\n  globalThis.MessageChannel = MessageChannel;\n}`,
@@ -79,10 +69,7 @@ export default defineConfig({
     mdx(),
     sitemap()
   ],
-  adapter: cloudflare({
-    platformProxy: { enabled: true },
-    imageService: 'compile'
-  }),
+  adapter: cloudflare(),
   devToolbar: { enabled: false },
   site: 'https://www.mybonzo.com',
   redirects: { '/posts': '/' }
