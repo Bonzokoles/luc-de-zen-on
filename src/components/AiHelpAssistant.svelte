@@ -22,20 +22,31 @@
   const HEALTH_ENDPOINT = `${API_BASE_URL}/api/health`;
 
   onMount(() => {
-    // Expose a small control API for global UI buttons
+    // Clear any previous instances to prevent conflicts
     if (typeof window !== "undefined") {
-      window.POLACZEK = window.POLACZEK || {};
-      window.POLACZEK.openAssistant = () => {
-        isMinimized = false;
-        setTimeout(() => scrollToBottom(), 30);
+      // Force clean state
+      delete window.POLACZEK;
+      
+      // Re-create fresh API
+      window.POLACZEK = {
+        openAssistant: () => {
+          isMinimized = false;
+          setTimeout(() => scrollToBottom(), 30);
+        },
+        getStatus: () => agentStatus,
+        forceReconnect: () => {
+          console.log("🤖 Force reconnecting POLACZEK...");
+          checkConnection();
+        }
       };
-      window.POLACZEK.getStatus = () => agentStatus;
 
       // Listen to quick actions from RightDock
       try {
         window.addEventListener("polaczek-clear-chat", clearChat);
         window.addEventListener("polaczek-reconnect", checkConnection);
       } catch (e) {}
+      
+      console.log("🤖 POLACZEK API registered and ready");
     }
 
     checkConnection();

@@ -1663,6 +1663,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       });
     }
 
+    // Clear any cached component states on page load
+    console.log("🧹 Clearing component cache and resetting state...");
+    
+    // Clear potentially cached component states
+    delete window.MUSIC;
+    delete window.POLACZEK;
+    
+    // Clear any stale connection data
+    sessionStorage.removeItem('polaczek-status');
+    sessionStorage.removeItem('music-status');
+    
+    // Force fresh initialization
+    localStorage.setItem('components-initialized', 'false');
+    
     // Check status on load
     checkAllStatus();
 
@@ -1691,6 +1705,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     (window as any).checkAllStatus = checkAllStatus;
     (window as any).runAllAPITests = runAllAPITests;
     (window as any).openAPITestConsole = openAPITestConsole;
+    (window as any).resetComponents = resetComponents;
 
     console.log("All functions assigned to window object");
   });
@@ -1764,15 +1779,23 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         console.log("🎵 Music API ready! Initializing...");
         try {
           window.MUSIC.ensureLoaded();
+          sessionStorage.setItem('music-status', 'ready');
           console.log("🎵 Music player initialized successfully!");
         } catch (e) {
           console.warn("Music ensureLoaded failed:", e);
+          sessionStorage.setItem('music-status', 'error');
         }
       } else if (attempts < maxAttempts) {
         console.log("🎵 Music API not ready yet, retrying...");
         setTimeout(checkAPI, 100);
       } else {
         console.error("🎵 Music API not ready after 10 seconds - component may not be loaded");
+        sessionStorage.setItem('music-status', 'timeout');
+        // Try to force reload the component
+        if (window.location.reload) {
+          console.log("🎵 Attempting component refresh...");
+          setTimeout(() => window.location.reload(), 2000);
+        }
       }
     };
     
@@ -1801,19 +1824,47 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
             }
           }
+          sessionStorage.setItem('polaczek-status', 'ready');
           console.log("🤖 POLACZEK assistant initialized successfully!");
         } catch (e) {
           console.warn("POLACZEK initialization failed:", e);
+          sessionStorage.setItem('polaczek-status', 'error');
         }
       } else if (attempts < maxAttempts) {
         console.log("🤖 POLACZEK API not ready yet, retrying...");
         setTimeout(checkAPI, 100);
       } else {
         console.error("🤖 POLACZEK API not ready after 10 seconds - component may not be loaded");
+        sessionStorage.setItem('polaczek-status', 'timeout');
+        // Try to force reload the component
+        if (window.location.reload) {
+          console.log("🤖 Attempting component refresh...");
+          setTimeout(() => window.location.reload(), 2000);
+        }
       }
     };
     
     checkAPI();
+  }
+
+  // Manual component reset function
+  function resetComponents() {
+    console.log("🔄 Manually resetting all components...");
+    
+    // Clear all cached states
+    delete window.MUSIC;
+    delete window.POLACZEK;
+    sessionStorage.clear();
+    localStorage.setItem('components-initialized', 'false');
+    
+    // Re-initialize
+    setTimeout(() => {
+      console.log("🔄 Re-initializing components...");
+      waitForMusicAPI();
+      waitForPolaczekAPI();
+    }, 500);
+    
+    console.log("🔄 Component reset completed!");
   }
 
   function openMainChat() {
