@@ -14,9 +14,9 @@ function Test-PolaczekAPI {
     Write-Host ""
     
     $body = @{
-        prompt = $Prompt
-        model = $Model
-        language = "pl"
+        prompt      = $Prompt
+        model       = $Model
+        language    = "pl"
         temperature = 0.6
     } | ConvertTo-Json -Depth 10
     
