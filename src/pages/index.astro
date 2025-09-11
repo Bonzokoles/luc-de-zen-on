@@ -1666,6 +1666,13 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     // Check status on load
     checkAllStatus();
 
+    // Initialize components after page load
+    setTimeout(() => {
+      console.log("🔄 Auto-initializing components after page load...");
+      waitForMusicAPI();
+      waitForPolaczekAPI();
+    }, 1000); // Wait 1 second for components to load
+
     // Make functions globally available for debugging
     window.openImageGenerator = openImageGenerator;
     window.openChatbot = openChatbot;
@@ -1703,6 +1710,12 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
       // Toggle widget visibility
       widget.classList.toggle("hidden");
+      
+      // Ensure music player is initialized after showing widget
+      if (!widget.classList.contains("hidden")) {
+        waitForMusicAPI();
+      }
+      
       console.log("Music Player widget toggled");
     }
   }
@@ -1721,8 +1734,65 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
       // Toggle widget visibility
       widget.classList.toggle("hidden");
+      
+      // Ensure AI assistant is initialized after showing widget
+      if (!widget.classList.contains("hidden")) {
+        waitForPolaczekAPI();
+      }
+      
       console.log("AI Assistant widget toggled");
     }
+  }
+
+  // Wait for components to initialize their APIs
+  function waitForMusicAPI() {
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+    
+    const checkAPI = () => {
+      attempts++;
+      if (window.MUSIC && window.MUSIC.ensureLoaded) {
+        console.log("🎵 Music API ready!");
+        try {
+          window.MUSIC.ensureLoaded();
+        } catch (e) {
+          console.warn("Music ensureLoaded failed:", e);
+        }
+      } else if (attempts < maxAttempts) {
+        setTimeout(checkAPI, 100);
+      } else {
+        console.warn("🎵 Music API not ready after 5 seconds");
+      }
+    };
+    
+    checkAPI();
+  }
+
+  function waitForPolaczekAPI() {
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+    
+    const checkAPI = () => {
+      attempts++;
+      if (window.POLACZEK && window.POLACZEK.openAssistant) {
+        console.log("🤖 POLACZEK API ready!");
+        try {
+          // Try to trigger connection check if component is ready
+          if (window.POLACZEK.getStatus && window.POLACZEK.getStatus() === "disconnected") {
+            // Trigger reconnect via custom event
+            window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
+          }
+        } catch (e) {
+          console.warn("POLACZEK initialization failed:", e);
+        }
+      } else if (attempts < maxAttempts) {
+        setTimeout(checkAPI, 100);
+      } else {
+        console.warn("🤖 POLACZEK API not ready after 5 seconds");
+      }
+    };
+    
+    checkAPI();
   }
 
   function openMainChat() {
