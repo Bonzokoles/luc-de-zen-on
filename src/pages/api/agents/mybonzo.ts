@@ -154,9 +154,17 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
 
 export const GET: APIRoute = async ({ locals, url }) => {
     try {
+        // Diagnostic logging for Cloudflare environment
+        console.log('GET request to mybonzo agent');
+        console.log('locals:', typeof locals, Object.keys(locals || {}));
+        console.log('locals.runtime:', typeof locals?.runtime, Object.keys(locals?.runtime || {}));
+        console.log('locals.runtime.env:', typeof locals?.runtime?.env, Object.keys(locals?.runtime?.env || {}));
+        
         // Check if we're in local development without Cloudflare bindings
         const env = locals.runtime?.env;
         if (!env || !env.MYBONZO_AGENT || !getAgentByName) {
+            console.log('Using fallback mode - env:', !!env, 'MYBONZO_AGENT:', !!env?.MYBONZO_AGENT, 'getAgentByName:', !!getAgentByName);
+            
             // Fallback for local development
             const action = url.searchParams.get('action');
             const agentId = url.searchParams.get('id') || 'default';
@@ -188,7 +196,14 @@ export const GET: APIRoute = async ({ locals, url }) => {
                 status: 'online (mock)',
                 endpoints: ['chat', 'status', 'task', 'image'],
                 timestamp: new Date().toISOString(),
-                environment: 'local_development'
+                environment: 'local_development',
+                debug: {
+                    hasEnv: !!env,
+                    hasAgentBinding: !!env?.MYBONZO_AGENT,
+                    hasGetAgentByName: !!getAgentByName,
+                    localsKeys: Object.keys(locals || {}),
+                    envKeys: Object.keys(env || {})
+                }
             }), {
                 status: 200,
                 headers: {
@@ -246,11 +261,23 @@ export const GET: APIRoute = async ({ locals, url }) => {
         });
 
     } catch (error) {
-        console.error('MyBonzo Agent Health Check Error:', error);
+        const err = error as Error;
+        console.error('MyBonzo Agent GET Error:', error);
+        console.error('Error details:', {
+            message: err?.message,
+            stack: err?.stack,
+            type: typeof error
+        });
+        
         return new Response(JSON.stringify({
-            error: 'Agent health check failed',
+            error: 'Agent GET request failed',
             status: 'error',
-            success: false
+            success: false,
+            debug: {
+                errorMessage: err?.message,
+                errorType: typeof error,
+                timestamp: new Date().toISOString()
+            }
         }), {
             status: 500,
             headers: {
