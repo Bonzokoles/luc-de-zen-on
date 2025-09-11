@@ -49,9 +49,9 @@ const POLISH_AI_MODELS = [
   }
 ];
 
-export default function BielikMainChatbox({ 
-  variant = 'embedded', 
-  className = '' 
+export default function BielikMainChatbox({
+  variant = 'embedded',
+  className = ''
 }: BielikMainChatboxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -66,7 +66,7 @@ export default function BielikMainChatbox({
   useEffect(() => {
     // Initialize Bielik connection
     initializeBielik();
-    
+
     // Add initial system message
     setMessages([{
       id: 'init',
@@ -90,12 +90,12 @@ export default function BielikMainChatbox({
       const response = await fetch('/api/bielik', {
         method: 'GET',
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         setIsConnected(true);
         setBielikStatus('active');
-        
+
         // Add connection confirmation message
         setMessages(prev => [...prev, {
           id: 'connection',
@@ -114,7 +114,7 @@ export default function BielikMainChatbox({
       console.error('Bielik connection error:', error);
       setIsConnected(false);
       setBielikStatus('error');
-      
+
       setMessages(prev => [...prev, {
         id: 'error',
         role: 'system',
@@ -177,7 +177,7 @@ export default function BielikMainChatbox({
       }
     } catch (error: any) {
       console.error('Chat error:', error);
-      
+
       const errorMessage: Message = {
         id: `error_${Date.now()}`,
         role: 'system',
@@ -241,19 +241,18 @@ export default function BielikMainChatbox({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <span 
-            className={`px-2 py-1 text-xs font-bold border ${
-              bielikStatus === 'active' 
-                ? 'text-green-400 border-green-400' 
+          <span
+            className={`px-2 py-1 text-xs font-bold border ${bielikStatus === 'active'
+                ? 'text-green-400 border-green-400'
                 : bielikStatus === 'connecting'
-                ? 'text-yellow-400 border-yellow-400'
-                : 'text-red-400 border-red-400'
-            }`}
+                  ? 'text-yellow-400 border-yellow-400'
+                  : 'text-red-400 border-red-400'
+              }`}
             style={{ borderRadius: '0px' }}
           >
             {bielikStatus.toUpperCase()}
           </span>
-          <button 
+          <button
             onClick={clearChat}
             className="text-cyan-400 hover:text-white transition-colors text-sm"
           >
@@ -267,21 +266,20 @@ export default function BielikMainChatbox({
         {messages.map((message) => (
           <div key={message.id} className="mb-4">
             <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div 
-                className={`max-w-3xl px-4 py-3 border-2 ${
-                  message.role === 'user'
+              <div
+                className={`max-w-3xl px-4 py-3 border-2 ${message.role === 'user'
                     ? 'bg-cyan-900/30 border-cyan-400 text-cyan-100'
                     : message.role === 'system'
-                    ? 'bg-yellow-900/30 border-yellow-400 text-yellow-100'
-                    : 'bg-red-900/30 border-yellow-400 text-yellow-100'
-                }`}
+                      ? 'bg-yellow-900/30 border-yellow-400 text-yellow-100'
+                      : 'bg-red-900/30 border-yellow-400 text-yellow-100'
+                  }`}
                 style={{ borderRadius: '0px' }}
               >
                 {/* Message Header */}
                 <div className="flex justify-between items-center mb-2">
                   <span className="font-bold text-sm">
-                    {message.role === 'user' ? '👤 User' : 
-                     message.role === 'system' ? '🔧 System' : '🇵🇱 BIELIK'}
+                    {message.role === 'user' ? '👤 User' :
+                      message.role === 'system' ? '🔧 System' : '🇵🇱 BIELIK'}
                   </span>
                   <span className="text-xs opacity-60">
                     {message.timestamp.toLocaleTimeString('pl-PL')}
@@ -298,7 +296,7 @@ export default function BielikMainChatbox({
                       <span className="font-semibold">🧠 Aktywowane moduły:</span>
                       <div className="flex flex-wrap gap-1 mt-1">
                         {message.orchestratorInfo.activatedModels.map((model, idx) => (
-                          <span 
+                          <span
                             key={idx}
                             className="px-1 py-0.5 bg-white/10 border border-current/30 text-xs"
                             style={{ borderRadius: '0px' }}
@@ -314,7 +312,7 @@ export default function BielikMainChatbox({
             </div>
           </div>
         ))}
-        
+
         {isLoading && (
           <div className="flex justify-start mb-4">
             <div className="bg-yellow-900/30 border-2 border-yellow-400 text-yellow-100 px-4 py-3 max-w-3xl" style={{ borderRadius: '0px' }}>
@@ -322,12 +320,12 @@ export default function BielikMainChatbox({
                 <span>🇵🇱 BIELIK orchestrates response...</span>
                 <div className="flex gap-1">
                   {[0, 1, 2].map((i) => (
-                    <div 
+                    <div
                       key={i}
                       className="w-2 h-2 bg-yellow-400 animate-bounce"
-                      style={{ 
+                      style={{
                         borderRadius: '0px',
-                        animationDelay: `${i * 0.1}s` 
+                        animationDelay: `${i * 0.1}s`
                       }}
                     />
                   ))}
@@ -336,7 +334,7 @@ export default function BielikMainChatbox({
             </div>
           </div>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
 
@@ -356,7 +354,7 @@ export default function BielikMainChatbox({
 
         {/* Model Selector Dropdown */}
         {showModelSelector && (
-          <div 
+          <div
             className="absolute bottom-full right-3 mb-2 bg-black/90 border-2 border-cyan-400 shadow-2xl z-50 min-w-80"
             style={{ borderRadius: '0px' }}
           >
@@ -380,9 +378,8 @@ export default function BielikMainChatbox({
                       }
                     }]);
                   }}
-                  className={`w-full text-left p-3 border-b border-cyan-400/30 hover:bg-cyan-900/30 transition-colors ${
-                    selectedModel.id === model.id ? 'bg-yellow-900/30 border-l-4 border-l-yellow-400' : ''
-                  }`}
+                  className={`w-full text-left p-3 border-b border-cyan-400/30 hover:bg-cyan-900/30 transition-colors ${selectedModel.id === model.id ? 'bg-yellow-900/30 border-l-4 border-l-yellow-400' : ''
+                    }`}
                   style={{ borderRadius: '0px' }}
                 >
                   <div className="flex items-center gap-3">
@@ -436,7 +433,7 @@ export default function BielikMainChatbox({
               💬 Sesja: {sessionId.current.slice(-8)}
             </span>
           </div>
-          
+
           <div className="flex items-center gap-2">
             <button
               onClick={initializeBielik}
