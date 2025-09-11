@@ -27,6 +27,7 @@ export default defineConfig({
       // Raise the warning limit so large vendor bundles (e.g., BabylonJS) don't spam warnings
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
+        external: ['node:os', 'node:path', 'node:fs', 'node:url', 'node:util'],
         output: {
           // Inject a lightweight MessageChannel polyfill for Cloudflare Workers (React 19 scheduler requirement)
           banner: `if (typeof MessageChannel === 'undefined') {\n  class __PolyfillPort {\n    constructor(){ this.onmessage = null; }\n    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }\n    start(){} close(){}\n  }\n  class MessageChannel {\n    constructor(){\n      this.port1 = new __PolyfillPort();\n      this.port2 = new __PolyfillPort();\n      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };\n      this.port1.postMessage = (d)=> dispatch(this.port2, d);\n      this.port2.postMessage = (d)=> dispatch(this.port1, d);\n    }\n  }\n  globalThis.MessageChannel = MessageChannel;\n}`,
