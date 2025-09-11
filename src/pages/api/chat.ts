@@ -60,12 +60,13 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
     const modelId = body.model?.startsWith('@cf/') ? body.model : (
       body.model === 'qwen-pl' ? '@cf/qwen/qwen2.5-7b-instruct' :
         body.model === 'llama-8b' ? '@cf/meta/llama-3.1-8b-instruct' :
-          env.ADVANCED_TEXT_MODEL || env.DEFAULT_TEXT_MODEL || '@cf/meta/llama-3.1-8b-instruct'
+          body.model === 'gemma' ? '@cf/google/gemma-3-12b-it' :
+            '@cf/google/gemma-3-12b-it' // Default to Gemma instead of Llama
     );
 
     const systemPrompt = body.system ?? (language === 'en'
-      ? 'You are a helpful AI assistant. Answer concisely.'
-      : 'Jesteś pomocnym asystentem AI. Odpowiadaj po polsku, zwięźle i konkretnie.');
+      ? 'You are a helpful AI assistant. Answer concisely and clearly.'
+      : 'Jesteś pomocnym asystentem AI. Odpowiadaj po polsku, w sposób zwięzły, konkretny i zrozumiały. Używaj naturalnego, współczesnego języka polskiego.');
 
     // Użyj Cloudflare Workers AI z wybranym modelem
     const response = await env.AI.run(modelId, {
