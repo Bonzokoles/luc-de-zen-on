@@ -2,7 +2,49 @@
 // Advanced AI Assistant with comprehensive SDK functions
 
 import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
-import { getContextualResponse, findRelevantDocs } from '../../../utils/polaczekKnowledge';
+
+// Simple document search function for POLACZEK Agent System
+function findRelevantDocs(query: string) {
+    const docs = [
+        {
+            title: "POLACZEK Agent System 23",
+            description: "Advanced AI agent management platform with creation, monitoring, and control capabilities",
+            keywords: ["agents", "ai", "management", "polaczek", "system"],
+            relevance: 95
+        },
+        {
+            title: "Agent Dashboard",
+            description: "Real-time monitoring and control interface for AI agents",
+            keywords: ["dashboard", "monitoring", "control", "real-time"],
+            relevance: 85
+        },
+        {
+            title: "Agent Creator",
+            description: "Wizard for creating custom AI agents with specialized capabilities",
+            keywords: ["create", "generator", "wizard", "custom"],
+            relevance: 80
+        },
+        {
+            title: "Multi-language Agent Support",
+            description: "Support for Python and JavaScript/TypeScript agent development",
+            keywords: ["python", "javascript", "typescript", "multi-language"],
+            relevance: 75
+        },
+        {
+            title: "WebSocket Communication",
+            description: "Real-time bidirectional communication between agents and clients",
+            keywords: ["websocket", "real-time", "communication", "bidirectional"],
+            relevance: 70
+        }
+    ];
+
+    const queryLower = query.toLowerCase();
+    return docs.filter(doc =>
+        doc.keywords.some(keyword => queryLower.includes(keyword)) ||
+        doc.description.toLowerCase().includes(queryLower) ||
+        doc.title.toLowerCase().includes(queryLower)
+    ).sort((a, b) => b.relevance - a.relevance);
+}
 
 type ChatBody = {
     prompt: string;
@@ -273,7 +315,7 @@ Rekomendacje powinny być:
 
     const recommendations = (aiResp.response || aiResp.result)
         .split('\n')
-        .filter(line => line.trim().match(/^[\d•\-\*].+/))
+        .filter((line: string) => line.trim().match(/^[\d•\-\*].+/))
         .slice(0, 7);
 
     return {
