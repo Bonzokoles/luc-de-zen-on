@@ -5,7 +5,7 @@ const onAdmin = Astro.url.pathname.startsWith("/admin");
 {
   !onAdmin && (
     <aside class="side-dock" aria-label="Panel skrótów">
-      <a href="/admin" class="dock-btn" title="Panel administracyjny">
+      <a href="/admin/" class="dock-btn" title="Panel administracyjny">
         ADMIN
       </a>
       <button

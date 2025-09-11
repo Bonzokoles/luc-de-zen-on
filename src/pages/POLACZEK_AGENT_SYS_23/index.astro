@@ -110,9 +110,9 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
             <div class="flex flex-row-reverse flex-wrap gap-4">
               <a
                 class="hover:brightness-125 duration-200"
-                href="/POLACZEK_AGENT_SYS_23/api/chat"
+                href="/POLACZEK_AGENT_SYS_23/api-keys"
               >
-                SDK API
+                API Keys
                 <svg
                   style="--rotation: -45deg"
                   class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
@@ -128,9 +128,9 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               </a>
               <a
                 class="hover:brightness-125 duration-200"
-                href="/polaczek-agents-system"
+                href="/POLACZEK_AGENT_SYS_23/agent-data-simple"
               >
-                Agent Builder
+                Agent Data
                 <svg
                   style="--rotation: -45deg"
                   class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
@@ -355,17 +355,17 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
             <h3 class="actions-title">SZYBKIE AKCJE</h3>
             <div class="actions-grid">
               <div class="action-card">
-                <h4>📖 Dokumentacja SDK</h4>
-                <p>Kompletny przewodnik po API i funkcjach SDK</p>
-                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/api/chat', '_blank')" class="action-btn">
-                  Otwórz API Docs
+                <h4>� API Keys Manager</h4>
+                <p>Zarządzanie kluczami zewnętrznych API</p>
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/api-keys', '_blank')" class="action-btn">
+                  Otwórz Manager
                 </button>
               </div>
               <div class="action-card">
-                <h4>🚀 Agent Builder</h4>
-                <p>Wizualny kreator agentów AI</p>
-                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="action-btn">
-                  Otwórz Builder
+                <h4>� Agent Data Manager</h4>
+                <p>Dodawaj własne treści i dane do agentów</p>
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agent-data1', '_blank')" class="action-btn">
+                  Otwórz Manager
                 </button>
               </div>
               <div class="action-card">
@@ -467,7 +467,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
   .function-card {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid blue;
+    border: 1px solid white;
     border-radius: 0;
     padding: 1.5rem;
     text-align: center;
@@ -542,7 +542,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
   /* SDK Tester */
   .sdk-tester-section {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid blue;
+    border: 1px solid white;
     border-radius: 0;
     padding: 2rem;
     margin: 3rem 0;
@@ -701,7 +701,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
   .action-card {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid blue;
+    border: 1px solid white;
     border-radius: 0;
     padding: 1.5rem;
     text-align: center;

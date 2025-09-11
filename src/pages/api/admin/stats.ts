@@ -1,18 +1,53 @@
-// API endpoint dla statystyk systemu MyBonzo Admin
-export async function GET() {
+// API endpoint: zestaw spójnych statystyk dla panelu admina i sekcji Quick Stats
+export async function GET({ request }: { request: Request }) {
+  // Opcjonalny nagłówek autoryzacji (demo)
+  const auth = request.headers.get('authorization') || '';
+  const isDemoAuth = auth.includes('HAOS77');
+
+  // Zwracamy oba formaty, których oczekują różne komponenty
   const stats = {
-    totalVisitors: 12456,
-    activeUsers: 45,
-    openTickets: 12,
-    systemLoad: 78,
-    timestamp: new Date().toISOString()
+    // Oczekiwane przez AdminDashboard PanelStats
+    visitors: 12540,
+    queries: 3247,
+    uptime: formatUptime(3 * 24 * 60 * 60 * 1000 + 6 * 60 * 60 * 1000 + 12 * 60 * 1000), // "3:06:12"
+    responseTime: 142,
+    storage: 18.4, // GB
+    bandwidth: 92.7, // GB
+
+    // Oczekiwane przez sekcję quick-stats w admin.astro
+    totalAPIRequests: 3247,
+    errorAPIRequests: 6,
+
+    // Stary kształt (zgodność wsteczna)
+    totalVisitors: 12540,
+    activeUsers: 42,
+    openTickets: 11,
+    systemLoad: 63,
+    timestamp: new Date().toISOString(),
+
+    // Flaga informacyjna
+    demoAuth: isDemoAuth
   };
 
-  return new Response(JSON.stringify(stats), {
+  return json(stats);
+}
+
+function formatUptime(ms: number) {
+  const seconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  return `${days}:${String(hours % 24).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+}
+
+function json(body: unknown, init?: ResponseInit) {
+  return new Response(JSON.stringify(body), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    },
+    ...init
   });
 }

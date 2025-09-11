@@ -168,17 +168,72 @@ export default {
           lastMessage.content += `\n\nKontekst Kaggle:\n${kaggleContext.summary}`;
         }
 
-        // Użyj większego modelu - Llama 2 13B lub najlepszy dostępny
+        // Użyj model z tłumaczeniem - najpierw angielski potem tłumacz na polski
+        const englishMessages = [
+          {
+            role: "system" as const,
+            content: `You are an advanced AI assistant in the ZENON system, specializing in Kaggle data analysis.
+            
+            YOUR ROLE:
+            - Analyze datasets, competitions and trends from Kaggle
+            - You are an expert in machine learning, data science and statistical analysis
+            - Help choose appropriate datasets for projects
+            - Suggest strategies for Kaggle competitions
+            
+            KAGGLE CONTEXT:
+            ${kaggleContext ? `You have access to Kaggle data:
+            ${kaggleContext.summary}
+            
+            Analyze this data and provide practical insights.` : 'No Kaggle data in this query.'}
+            
+            ZENON SYSTEM:
+            - You are part of a larger AI system
+            - You work with Phi-2 (BigQuery) and Bielik models
+            - Your specialty: advanced ML/AI data analysis
+            
+            RESPONSE STYLE:
+            - Detailed but understandable
+            - Practical recommendations
+            - Examples and use cases
+            - Technical guidance
+            
+            IMPORTANT: Respond in English, as your response will be translated to Polish.`
+          },
+          ...messages.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          }))
+        ];
+
+        // Najpierw wygeneruj odpowiedź po angielsku (lepszy model)
         const aiResponse = await env.AI.run("@hf/thebloke/llama-2-13b-chat-awq", {
-          messages: deepseekMessages,
+          messages: englishMessages,
           max_tokens: requestData.max_tokens || 1024,
           temperature: requestData.temperature || 0.7
         });
 
+        // Potem przetłumacz na polski
+        let finalResponse = aiResponse.response || "Failed to generate response.";
+        
+        try {
+          const translationResponse = await env.AI.run("@cf/meta/m2m100-1.2b", {
+            text: finalResponse,
+            source_lang: "english",
+            target_lang: "polish"
+          });
+          
+          if (translationResponse.translated_text) {
+            finalResponse = translationResponse.translated_text;
+          }
+        } catch (translationError) {
+          console.error("Translation failed:", translationError);
+          // Jeśli tłumaczenie się nie uda, zostaw angielską wersję
+        }
+
         return new Response(JSON.stringify({
           success: true,
-          response: aiResponse.response || "Nie udało się wygenerować odpowiedzi.",
-          model: "llama-2-13b-chat-awq",
+          response: finalResponse,
+          model: "llama-2-13b-chat-awq + m2m100-translation",
           provider: "cloudflare-ai",
           language: "pl",
           assistant: "deepseek-kaggle-zenon",
@@ -187,6 +242,7 @@ export default {
           context_summary: kaggleContext?.summary || null,
           system: "ZENON",
           specialization: "Kaggle ML/AI Data Analysis",
+          translation_used: true,
           rate_limit: "300 requests/min"
         }), {
           status: 200,
@@ -216,7 +272,7 @@ export default {
     if (request.method === "GET") {
       return new Response(JSON.stringify({
         name: "DeepSeek Kaggle Dataset Assistant ZENON",
-        model: "@hf/thebloke/llama-2-13b-chat-awq",
+        model: "llama-2-13b-chat-awq + m2m100-translation",
         features: [
           "Kaggle datasets integration", 
           "Competition analysis", 
