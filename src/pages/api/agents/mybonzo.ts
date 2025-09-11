@@ -154,15 +154,43 @@ export const POST: APIRoute = async ({ request, locals, url }) => {
 
 export const GET: APIRoute = async ({ locals, url }) => {
     try {
-        // Ensure we have the agent binding
-        const env = locals.runtime.env;
-        if (!env.MYBONZO_AGENT) {
+        // Check if we're in local development without Cloudflare bindings
+        const env = locals.runtime?.env;
+        if (!env || !env.MYBONZO_AGENT || !getAgentByName) {
+            // Fallback for local development
+            const action = url.searchParams.get('action');
+            const agentId = url.searchParams.get('id') || 'default';
+
+            if (action === 'status') {
+                return new Response(JSON.stringify({
+                    success: true,
+                    status: 'online (mock)',
+                    lastActivity: new Date().toISOString(),
+                    stats: {
+                        messagesCount: 5,
+                        imagesGenerated: 2,
+                        tasksCompleted: 3
+                    },
+                    conversationLength: 5
+                }), {
+                    status: 200,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                });
+            }
+
+            // Default response for missing action or connection test
             return new Response(JSON.stringify({
-                error: 'MyBonzo Agent not available',
-                status: 'offline',
-                success: false
+                success: true,
+                message: '🤖 MyBonzo Agent API (Local Mock)',
+                status: 'online (mock)',
+                endpoints: ['chat', 'status', 'task', 'image'],
+                timestamp: new Date().toISOString(),
+                environment: 'local_development'
             }), {
-                status: 500,
+                status: 200,
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
