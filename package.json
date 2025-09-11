@@ -61,7 +61,7 @@
   },
   "scripts": {
     "astro": "astro",
-    "build": "astro build && node scripts/fix-polyfill-import.js",
+    "build": "astro build",
     "cf-typegen": "wrangler types",
     "check": "astro build && tsc",
     "deploy": "wrangler pages deploy ./dist",
