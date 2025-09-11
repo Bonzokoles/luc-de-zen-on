@@ -1,0 +1,5 @@
+{
+    "prompt": "Jakim modelem AI jesteś i w jakim języku odpowiadasz?",
+    "model": "gemma",
+    "language": "pl"
+}
