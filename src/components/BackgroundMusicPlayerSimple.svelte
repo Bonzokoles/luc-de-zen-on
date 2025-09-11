@@ -18,8 +18,13 @@
 
   onMount(() => {
     loadDemoTracks();
-    // Expose control + analyser API for visualizer
+    
+    // Clear any previous instances to prevent conflicts
     if (typeof window !== "undefined") {
+      // Force clean state
+      delete window.MUSIC;
+      
+      // Re-create fresh API
       window.MUSIC = {
         play: () => {
           if (!isPlaying) togglePlay();
@@ -51,6 +56,8 @@
           }
         },
       };
+      
+      console.log("🎵 MUSIC API registered and ready");
     }
   });
 
