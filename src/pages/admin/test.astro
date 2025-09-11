@@ -1,0 +1,52 @@
+---
+const pageTitle = "Test Admin Page";
+---
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{pageTitle}</title>
+    <style>
+        body {
+            background: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.5);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #00d9ff;
+        }
+        h1 {
+            color: #00d9ff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Test Admin Panel</h1>
+        <p>Jeśli widzisz tę stronę, to Astro działa poprawnie!</p>
+        
+        <h2>📊 Status systemu:</h2>
+        <ul>
+            <li>✅ Astro v5.13.5 - działa</li>
+            <li>✅ Routing - działa</li> 
+            <li>✅ CSS - działa</li>
+            <li>⚠️ React components - do sprawdzenia</li>
+        </ul>
+
+        <h2>🔗 Linki:</h2>
+        <ul>
+            <li><a href="/admin" style="color: #00d9ff;">Główny panel admin</a></li>
+            <li><a href="/admin/dashboard" style="color: #00d9ff;">Dashboard</a></li>
+            <li><a href="/admin/ai-chat" style="color: #00d9ff;">AI Chat</a></li>
+        </ul>
+    </div>
+</body>
+</html>

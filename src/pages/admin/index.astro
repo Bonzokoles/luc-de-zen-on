@@ -2,12 +2,18 @@
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
+import RandomPolishFonts from "../../components/admin/RandomPolishFonts.astro";
+import PolishAdminStyles from "../../components/admin/PolishAdminStyles.astro";
+import PolishFontsDemo from "../../components/admin/PolishFontsDemo.astro";
 
 const pageTitle = "Panel Administracyjny MyBonzo";
 const pageDescription = "Centrum kontroli i zarządzania systemem MyBonzo AI";
 const pageQuote = "Zarządzanie to sztuka, a kontrola to nauka.";
 const pageAuthor = "MyBonzo Team";
 ---
+
+<RandomPolishFonts />
+<PolishAdminStyles />
 
 <UniversalPageLayout 
   pageTitle={pageTitle}
@@ -203,15 +209,24 @@ const pageAuthor = "MyBonzo Team";
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 25px;">
+        <div style="text-align: center; margin-top: 25px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <CyberpunkButton 
                 text="🔄 Odśwież dane" 
                 variant="outline" 
                 size="md"
                 onclick="updateSystemStats()"
             />
+            <CyberpunkButton 
+                text="🎨 Losowe polskie fonty" 
+                variant="secondary" 
+                size="md"
+                onclick="refreshAdminFonts()"
+            />
         </div>
     </GlassPanel>
+
+    <!-- Demo polskich fontów -->
+    <PolishFontsDemo />
 
     <script>
         // System stats update function

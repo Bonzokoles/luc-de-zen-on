@@ -3,12 +3,16 @@ import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import DecorativeLines from "../../components/DecorativeLines.astro";
 import AdminDashboard from "../../components/admin/AdminDashboard.tsx";
 import MonitoringDashboard from "../../components/MonitoringDashboard.tsx";
+import RandomPolishFonts from "../../components/admin/RandomPolishFonts.astro";
+import PolishAdminStyles from "../../components/admin/PolishAdminStyles.astro";
 import { Icon } from 'astro-icon/components';
 
 export const prerender = true;
 ---
 
 <MyBonzoLayout siteTitle="Panel Administracyjny | MyBonzo">
+  <RandomPolishFonts />
+  <PolishAdminStyles />
   <DecorativeLines />
 
   <!-- Global vertical lines for admin sections -->

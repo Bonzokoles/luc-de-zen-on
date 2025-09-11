@@ -1,6 +1,8 @@
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import DecorativeLines from "../../components/DecorativeLines.astro";
+import CyberpunkButton from "../../components/CyberpunkButton.astro";
+import CyberStatCard from "../../components/CyberStatCard.astro";
 ---
 
 <MyBonzoLayout siteTitle="POLACZEK AGENTS SYS_23 | Advanced AI SDK">
@@ -154,6 +156,75 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
     <section class="border border-edge relative">
       <div class="max-w-6xl mx-auto">
         <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- System Statistics Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto p-6">
+        <h3 class="text-2xl font-bold text-primary-foreground mb-6 text-center">System Status - POLACZEK AGENTS</h3>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <CyberStatCard 
+            title="Active Agents" 
+            value="12" 
+            icon="🤖" 
+            color="success"
+            trend="up"
+          >
+            Online & Ready
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="CPU Usage" 
+            value="67" 
+            unit="%" 
+            icon="⚡" 
+            color="warning"
+            trend="stable"
+          >
+            System Load
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="Memory" 
+            value="4.2" 
+            unit="GB" 
+            icon="💾" 
+            color="primary"
+            trend="up"
+          >
+            RAM Usage
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="Requests" 
+            value="1.2k" 
+            icon="📊" 
+            color="success" 
+            trend="up"
+          >
+            Last 24h
+          </CyberStatCard>
+        </div>
+
+        <div class="flex flex-wrap gap-4 justify-center">
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/dashboard" variant="primary" size="lg" icon="🎯">
+            Dashboard
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/agents/create" variant="success" size="lg" icon="➕">
+            Create Agent
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/api-keys" variant="secondary" size="lg" icon="🔑">
+            API Keys
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/monitoring" variant="danger" size="lg" icon="🔍">
+            Monitoring
+          </CyberpunkButton>
+        </div>
       </div>
     </section>
 
