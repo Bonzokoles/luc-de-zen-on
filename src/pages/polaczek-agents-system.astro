@@ -4,7 +4,7 @@ import AgentBuilderWrapper from "../components/AgentBuilderWrapper.svelte";
 import AgentsLogin from "../components/AgentsLogin.astro";
 ---
 
-<MyBonzoLayout siteTitle="Kreator Agentów POLACZEK | AI Workers">
+<MyBonzoLayout siteTitle="POLACZEK Agent Builder + API Keys | POLACZEK AGENTS SYS_23">
   <!-- Global vertical lines for workers sections -->
   <div class="workers-vertical-line-left"></div>
   <div class="workers-vertical-line-right"></div>
@@ -137,9 +137,27 @@ import AgentsLogin from "../components/AgentsLogin.astro";
             <div class="flex flex-row-reverse flex-wrap gap-4">
               <a
                 class="hover:brightness-125 duration-200"
-                href="/api/polaczek-chat"
+                href="/POLACZEK_AGENT_SYS_23/api-keys"
               >
-                POLACZEK API
+                API Keys
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </svg>
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/agent-data-simple"
+              >
+                Agent Data
                 <svg
                   style="--rotation: -45deg"
                   class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
