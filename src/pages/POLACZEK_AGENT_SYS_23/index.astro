@@ -209,7 +209,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
                 <p class="function-desc">Standardowa konwersacja AI z kontekstem MyBonzo</p>
                 <div class="function-actions">
                   <button onclick="testSDKFunction('chat')" class="test-btn">Test</button>
-                  <button onclick="viewSDKDocs('chat')" class="docs-btn">Docs</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="docs-btn">Dashboard</button>
                 </div>
               </div>
 
@@ -285,8 +285,8 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
                 <h4 class="function-name">Agent Create</h4>
                 <p class="function-desc">Tworzenie niestandardowych agentów AI</p>
                 <div class="function-actions">
-                  <button onclick="testSDKFunction('agent_create')" class="test-btn">Test</button>
-                  <button onclick="viewSDKDocs('agent_create')" class="docs-btn">Docs</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="test-btn">Create</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="docs-btn">Dashboard</button>
                 </div>
               </div>
 
@@ -296,8 +296,8 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
                 <h4 class="function-name">Agent Manage</h4>
                 <p class="function-desc">Zarządzanie i konfiguracja agentów</p>
                 <div class="function-actions">
-                  <button onclick="testSDKFunction('agent_manage')" class="test-btn">Test</button>
-                  <button onclick="viewSDKDocs('agent_manage')" class="docs-btn">Docs</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="test-btn">Dashboard</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="docs-btn">Create</button>
                 </div>
               </div>
             </div>
@@ -364,14 +364,14 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               <div class="action-card">
                 <h4>🚀 Agent Builder</h4>
                 <p>Wizualny kreator agentów AI</p>
-                <button onclick="window.open('/polaczek-agents-system', '_blank')" class="action-btn">
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="action-btn">
                   Otwórz Builder
                 </button>
               </div>
               <div class="action-card">
                 <h4>📊 Monitoring</h4>
                 <p>Status i analityka wszystkich agentów</p>
-                <button onclick="window.open('/workers-status', '_blank')" class="action-btn">
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="action-btn">
                   Otwórz Monitor
                 </button>
               </div>
@@ -467,7 +467,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
   .function-card {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    border: 1px solid blue;
     border-radius: 0;
     padding: 1.5rem;
     text-align: center;
@@ -542,7 +542,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
   /* SDK Tester */
   .sdk-tester-section {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(0, 217, 255, 0.3);
+    border: 1px solid blue;
     border-radius: 0;
     padding: 2rem;
     margin: 3rem 0;
@@ -701,7 +701,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
   .action-card {
     background: rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid blue;
     border-radius: 0;
     padding: 1.5rem;
     text-align: center;

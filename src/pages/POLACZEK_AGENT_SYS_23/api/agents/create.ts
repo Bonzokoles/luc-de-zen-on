@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import fs from 'fs/promises';
 import path from 'path';
+import { addAgentToList } from './list';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -42,26 +43,40 @@ export const POST: APIRoute = async ({ request }) => {
         // Create agent files (in production, would create actual files)
         const result = await createAgentFiles(name, type, config, agentCode);
 
-        console.log(`[AGENT CREATE] New agent created: ${name} (${type})`);
+        // Add agent to the list for dashboard display
+        const listAgent = addAgentToList({
+            ...agentData,
+            port: config.port,
+            version: config.version
+        });
+
+        console.log(`[AGENT CREATE] New agent created: ${name} (${type}) and added to list`);
 
         return new Response(JSON.stringify({
             success: true,
+            agent_id: name,
             agent_name: name,
             agent_type: type,
             port: config.port,
             config_file: result.configFile,
             script_file: result.scriptFile,
-            message: `Agent ${name} created successfully`,
+            message: `Agent ${name} created successfully and added to dashboard`,
             timestamp: new Date().toISOString(),
             next_steps: [
                 'Agent configuration has been generated',
                 'Agent script has been created',
+                'Agent added to dashboard list',
                 'You can now start the agent from the dashboard',
                 'Check logs for any startup issues'
             ]
         }), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+            }
         });
 
     } catch (error) {
@@ -74,7 +89,10 @@ export const POST: APIRoute = async ({ request }) => {
             timestamp: new Date().toISOString()
         }), {
             status: 500,
-            headers: { 'Content-Type': 'application/json' }
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
         });
     }
 };

@@ -1,167 +1,174 @@
 import type { APIRoute } from 'astro';
+import { createSuccessResponse, createErrorResponse } from '../../../../utils/corsUtils';
 
-export const GET: APIRoute = async ({ request }) => {
-  try {
-    // Mock agents data - in production this would come from a database or agent registry
-    const mockAgents = [
-      {
-        name: "Polaczek_A1",
-        type: "monitor",
-        status: "running",
-        description: "Agent monitorujący system i alarmujący o problemach",
-        last_activity: new Date().toISOString(),
-        cpu_usage: 15.2,
-        memory_usage: 128.5,
-        messages_processed: 1247,
-        errors_count: 2,
-        pid: 1234,
-        port: 3007,
-        uptime: 3600000, // 1 hour in milliseconds
-        capabilities: ["system_monitoring", "alerting", "performance_tracking"]
-      },
-      {
-        name: "Polaczek_D",
-        type: "dashboard",
-        status: "running",
-        description: "Agent zarządzający integracją z dashboard",
-        last_activity: new Date().toISOString(),
-        cpu_usage: 8.7,
-        memory_usage: 96.3,
-        messages_processed: 856,
+// In-memory storage for created agents (in production would use database/KV)
+const createdAgents = new Map();
+
+// Mock some default agents for demonstration
+if (createdAgents.size === 0) {
+    createdAgents.set('polaczek_system_monitor', {
+        name: 'polaczek_system_monitor',
+        type: 'monitor',
+        description: 'System monitoring agent',
+        status: 'running',
+        cpu_usage: 8,
+        memory_usage: 145,
+        messages_processed: 234,
         errors_count: 0,
-        pid: 1235,
-        port: 3002,
-        uptime: 2400000, // 40 minutes
-        capabilities: ["dashboard_integration", "agent_management", "status_monitoring"]
-      },
-      {
-        name: "Polaczek_T1",
-        type: "translator",
-        status: "stopped",
-        description: "Agent tłumaczący języki",
-        last_activity: new Date(Date.now() - 300000).toISOString(), // 5 minutes ago
+        created_at: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
+        last_activity: new Date().toISOString(),
+        version: '1.0.0',
+        port: 3001
+    });
+    
+    createdAgents.set('polaczek_translator', {
+        name: 'polaczek_translator',
+        type: 'translator',
+        description: 'Multi-language translation agent',
+        status: 'running',
+        cpu_usage: 12,
+        memory_usage: 198,
+        messages_processed: 67,
+        errors_count: 1,
+        created_at: new Date(Date.now() - 43200000).toISOString(), // 12 hours ago
+        last_activity: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
+        version: '1.0.0',
+        port: 3002
+    });
+    
+    createdAgents.set('polaczek_chatbot', {
+        name: 'polaczek_chatbot',
+        type: 'chatbot',
+        description: 'General purpose conversation agent',
+        status: 'stopped',
         cpu_usage: 0,
         memory_usage: 0,
-        messages_processed: 423,
-        errors_count: 1,
-        pid: null,
-        port: 3008,
-        uptime: 0,
-        capabilities: ["language_translation", "text_processing", "multi_language_support"]
-      },
-      {
-        name: "Polaczek_S1",
-        type: "searcher",
-        status: "running",
-        description: "Agent wyszukujący informacje",
-        last_activity: new Date().toISOString(),
-        cpu_usage: 22.1,
-        memory_usage: 156.8,
-        messages_processed: 2341,
-        errors_count: 5,
-        pid: 1236,
-        port: 3009,
-        uptime: 7200000, // 2 hours
-        capabilities: ["web_search", "data_retrieval", "content_analysis", "api_integration"]
-      },
-      {
-        name: "Polaczek_ART",
-        type: "artist",
-        status: "error",
-        description: "Agent generujący obrazy i sztukę",
-        last_activity: new Date(Date.now() - 600000).toISOString(), // 10 minutes ago
-        cpu_usage: 0,
-        memory_usage: 45.2,
-        messages_processed: 89,
-        errors_count: 12,
-        pid: null,
-        port: 3010,
-        uptime: 0,
-        capabilities: ["image_generation", "art_creation", "visual_ai", "prompt_processing"]
-      }
-    ];
-
-    // Calculate system statistics
-    const systemStats = {
-      total_agents: mockAgents.length,
-      active_agents: mockAgents.filter(agent => agent.status === 'running').length,
-      stopped_agents: mockAgents.filter(agent => agent.status === 'stopped').length,
-      error_agents: mockAgents.filter(agent => agent.status === 'error').length,
-      total_messages: mockAgents.reduce((sum, agent) => sum + agent.messages_processed, 0),
-      total_errors: mockAgents.reduce((sum, agent) => sum + agent.errors_count, 0),
-      system_health: calculateSystemHealth(mockAgents),
-      pending_tasks: Math.floor(Math.random() * 10), // Mock pending tasks
-      average_cpu: calculateAverageCPU(mockAgents),
-      total_memory: calculateTotalMemory(mockAgents),
-      uptime: Math.max(...mockAgents.map(a => a.uptime)),
-      last_updated: new Date().toISOString()
-    };
-
-    return new Response(JSON.stringify({
-      success: true,
-      agents: mockAgents,
-      system_stats: systemStats,
-      timestamp: new Date().toISOString()
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache'
-      }
+        messages_processed: 456,
+        errors_count: 3,
+        created_at: new Date(Date.now() - 21600000).toISOString(), // 6 hours ago
+        last_activity: new Date(Date.now() - 1800000).toISOString(), // 30 minutes ago
+        version: '1.0.0',
+        port: 3003
     });
+}
 
-  } catch (error) {
-    console.error('Error fetching agents list:', error);
-    
-    return new Response(JSON.stringify({
-      success: false,
-      error: 'Failed to fetch agents list',
-      message: error instanceof Error ? error.message : 'Unknown error',
-      timestamp: new Date().toISOString()
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
+export const GET: APIRoute = async ({ request }) => {
+    try {
+        const url = new URL(request.url);
+        const status = url.searchParams.get('status');
+        const type = url.searchParams.get('type');
+        const limit = parseInt(url.searchParams.get('limit') || '50');
+        const offset = parseInt(url.searchParams.get('offset') || '0');
+
+        // Get all agents
+        let agents = Array.from(createdAgents.values());
+
+        // Apply filters
+        if (status) {
+            agents = agents.filter(agent => agent.status === status);
+        }
+        
+        if (type) {
+            agents = agents.filter(agent => agent.type === type);
+        }
+
+        // Sort by last activity (most recent first)
+        agents.sort((a, b) => new Date(b.last_activity).getTime() - new Date(a.last_activity).getTime());
+
+        // Apply pagination
+        const total = agents.length;
+        const paginatedAgents = agents.slice(offset, offset + limit);
+
+        // Calculate statistics
+        const stats = {
+            total: total,
+            active: agents.filter(a => a.status === 'running').length,
+            stopped: agents.filter(a => a.status === 'stopped').length,
+            error: agents.filter(a => a.status === 'error').length,
+            total_messages: agents.reduce((sum, a) => sum + a.messages_processed, 0),
+            total_errors: agents.reduce((sum, a) => sum + a.errors_count, 0),
+            types: [...new Set(agents.map(a => a.type))],
+            avg_cpu: agents.length > 0 ? Math.round(agents.reduce((sum, a) => sum + a.cpu_usage, 0) / agents.length) : 0,
+            avg_memory: agents.length > 0 ? Math.round(agents.reduce((sum, a) => sum + a.memory_usage, 0) / agents.length) : 0
+        };
+
+        console.log(`[AGENTS LIST] Retrieved ${paginatedAgents.length}/${total} agents`);
+
+        return createSuccessResponse({
+            agents: paginatedAgents,
+            pagination: {
+                total,
+                limit,
+                offset,
+                has_more: offset + limit < total
+            },
+            statistics: stats,
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error) {
+        console.error('Error fetching agents:', error);
+        return createErrorResponse('Failed to fetch agents list', 500);
+    }
 };
 
-function calculateSystemHealth(agents: any[]): number {
-  if (agents.length === 0) return 0;
-  
-  const runningAgents = agents.filter(a => a.status === 'running').length;
-  const errorAgents = agents.filter(a => a.status === 'error').length;
-  const totalErrors = agents.reduce((sum, a) => sum + a.errors_count, 0);
-  
-  // Health calculation based on multiple factors
-  let healthScore = 100;
-  
-  // Penalize for non-running agents
-  healthScore -= (agents.length - runningAgents) * 15;
-  
-  // Penalize for error agents more severely
-  healthScore -= errorAgents * 25;
-  
-  // Penalize for high error rates
-  if (totalErrors > 0) {
-    const totalMessages = agents.reduce((sum, a) => sum + a.messages_processed, 0);
-    const errorRate = totalMessages > 0 ? (totalErrors / totalMessages) * 100 : 0;
-    healthScore -= errorRate * 10;
-  }
-  
-  // Ensure health is between 0 and 100
-  return Math.max(0, Math.min(100, Math.round(healthScore)));
-}
+export const POST: APIRoute = async ({ request }) => {
+    try {
+        const body = await request.json();
+        
+        if (body.action === 'refresh') {
+            // Simulate refreshing agent statuses
+            for (const [key, agent] of createdAgents) {
+                // Simulate some status changes
+                if (Math.random() > 0.9) {
+                    agent.last_activity = new Date().toISOString();
+                    agent.messages_processed += Math.floor(Math.random() * 5);
+                }
+                
+                // Update CPU and memory usage
+                if (agent.status === 'running') {
+                    agent.cpu_usage = Math.max(1, Math.min(30, agent.cpu_usage + (Math.random() - 0.5) * 4));
+                    agent.memory_usage = Math.max(50, Math.min(500, agent.memory_usage + (Math.random() - 0.5) * 20));
+                }
+            }
+            
+            return createSuccessResponse({
+                message: 'Agent statuses refreshed',
+                refreshed_count: createdAgents.size,
+                timestamp: new Date().toISOString()
+            });
+        }
+        
+        return createErrorResponse('Invalid action', 400);
+        
+    } catch (error) {
+        console.error('Error in agents list POST:', error);
+        return createErrorResponse('Failed to process request', 500);
+    }
+};
 
-function calculateAverageCPU(agents: any[]): number {
-  const runningAgents = agents.filter(a => a.status === 'running');
-  if (runningAgents.length === 0) return 0;
-  
-  const totalCPU = runningAgents.reduce((sum, a) => sum + (a.cpu_usage || 0), 0);
-  return Math.round((totalCPU / runningAgents.length) * 100) / 100;
-}
-
-function calculateTotalMemory(agents: any[]): number {
-  return Math.round(agents.reduce((sum, a) => sum + (a.memory_usage || 0), 0) * 100) / 100;
+// Helper function to add agent to the list (called from create.ts)
+export function addAgentToList(agentData: any) {
+    const agent = {
+        name: agentData.name,
+        type: agentData.type,
+        description: agentData.description,
+        status: 'stopped', // New agents start stopped
+        cpu_usage: 0,
+        memory_usage: 0,
+        messages_processed: 0,
+        errors_count: 0,
+        created_at: new Date().toISOString(),
+        last_activity: new Date().toISOString(),
+        version: agentData.version || '1.0.0',
+        port: agentData.port || 3000,
+        model: agentData.model,
+        language: agentData.language || 'pl',
+        activity_level: agentData.activity_level || 'medium',
+        instructions: agentData.instructions
+    };
+    
+    createdAgents.set(agentData.name, agent);
+    console.log(`[AGENTS LIST] Added new agent: ${agentData.name}`);
+    return agent;
 }
