@@ -1666,13 +1666,21 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     // Clear any cached component states on page load
     console.log("🧹 Clearing component cache and resetting state...");
     
-    // Clear potentially cached component states
-    delete window.MUSIC;
-    delete window.POLACZEK;
+    // Only clear if not already working
+    const componentsWorking = localStorage.getItem('components-working') === 'true';
     
-    // Clear any stale connection data
-    sessionStorage.removeItem('polaczek-status');
-    sessionStorage.removeItem('music-status');
+    if (!componentsWorking) {
+      console.log("🧹 Components not working, clearing cache...");
+      // Clear potentially cached component states
+      delete window.MUSIC;
+      delete window.POLACZEK;
+      
+      // Clear any stale connection data
+      sessionStorage.removeItem('polaczek-status');
+      sessionStorage.removeItem('music-status');
+    } else {
+      console.log("✅ Components were working, preserving state...");
+    }
     
     // Force fresh initialization
     localStorage.setItem('components-initialized', 'false');
@@ -1693,18 +1701,16 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       if (musicReady && polaczekReady) {
         console.log("✅ All components are ready!");
         localStorage.setItem('components-initialized', 'true');
+        localStorage.setItem('components-working', 'true');
         return;
       }
       
       if (componentCheckAttempts < maxComponentChecks) {
         setTimeout(forceComponentRefresh, 100);
       } else {
-        console.error("❌ Components failed to initialize after 5 seconds. Forcing page reload...");
-        // Force page reload as last resort
-        setTimeout(() => {
-          console.log("🔄 Forcing page reload to reinitialize components...");
-          window.location.reload();
-        }, 1000);
+        console.warn("❌ Components not all ready after 5 seconds, but continuing without forced reload");
+        localStorage.setItem('components-initialized', 'partial');
+        // DO NOT force reload - let user manually refresh if needed
       }
     };
     
@@ -1743,6 +1749,11 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     (window as any).hardResetComponents = hardResetComponents;
 
     console.log("All functions assigned to window object");
+    console.log("🔧 Debug functions available:");
+    console.log("- resetComponents() - soft reset");
+    console.log("- hardResetComponents() - hard reset with page reload");
+    console.log("- checkAllStatus() - check API status");
+    console.log("- Check localStorage.getItem('components-working') for component status");
   });
 
   // New Toggle Functions with Button Scaling
@@ -1841,6 +1852,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         try {
           window.MUSIC.ensureLoaded();
           sessionStorage.setItem('music-status', 'ready');
+          localStorage.setItem('components-working', 'true');
           console.log("🎵 Music player initialized successfully!");
         } catch (e) {
           console.warn("Music ensureLoaded failed:", e);
@@ -1858,11 +1870,8 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         console.log("- window.MUSIC.ensureLoaded exists:", !!(window.MUSIC && window.MUSIC.ensureLoaded));
         console.log("- Music widget element exists:", !!document.getElementById("musicPlayerWidget"));
         
-        // Try to force reload the component
-        if (window.location.reload) {
-          console.log("🎵 Attempting component refresh...");
-          setTimeout(() => window.location.reload(), 2000);
-        }
+        // NO AUTOMATIC RELOAD - let user decide
+        console.log("🎵 Use resetComponents() or hardResetComponents() in console if needed");
       }
     };
     
@@ -1892,6 +1901,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             }
           }
           sessionStorage.setItem('polaczek-status', 'ready');
+          localStorage.setItem('components-working', 'true');
           console.log("🤖 POLACZEK assistant initialized successfully!");
         } catch (e) {
           console.warn("POLACZEK initialization failed:", e);
@@ -1909,11 +1919,8 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         console.log("- window.POLACZEK.openAssistant exists:", !!(window.POLACZEK && window.POLACZEK.openAssistant));
         console.log("- POLACZEK widget element exists:", !!document.getElementById("polaczekWidget"));
         
-        // Try to force reload the component
-        if (window.location.reload) {
-          console.log("🤖 Attempting component refresh...");
-          setTimeout(() => window.location.reload(), 2000);
-        }
+        // NO AUTOMATIC RELOAD - let user decide
+        console.log("🤖 Use resetComponents() or hardResetComponents() in console if needed");
       }
     };
     
@@ -1929,6 +1936,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     delete window.POLACZEK;
     sessionStorage.clear();
     localStorage.setItem('components-initialized', 'false');
+    localStorage.setItem('components-working', 'false');
     
     // Re-initialize
     setTimeout(() => {
