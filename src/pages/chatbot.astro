@@ -458,12 +458,12 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         temperature: temperature,
         language: language,
       };
-      console.log("📤 Wysyłanie żądania do /api/ai-bot-worker:", requestData);
+      console.log("📤 Wysyłanie żądania do /api/chat:", requestData);
 
-      const response = await fetch("/api/ai-bot-worker", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(requestData),
+        body: JSON.stringify({ prompt: message }),
       });
 
       console.log(
@@ -511,7 +511,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   async function testAPI() {
     console.log("🧪 Testowanie API...");
     try {
-      const response = await fetch("/api/ai-bot-worker", {
+      const response = await fetch("/api/chat", {
         method: "GET",
       });
       console.log(
@@ -523,13 +523,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       console.log("📊 GET test data:", data);
 
       // Test POST
-      const postResponse = await fetch("/api/ai-bot-worker", {
+      const postResponse = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: "test message",
-          model: "gpt-4",
-        }),
+        body: JSON.stringify({ prompt: "test message" }),
       });
       console.log(
         "📡 POST test response:",
