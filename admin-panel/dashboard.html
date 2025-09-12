@@ -1,0 +1,791 @@
+---
+title: "MyBonzo Control Panel"
+description: "Comprehensive administration dashboard"
+---
+
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBonzo Control Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#8b5cf6',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+  <div id="app" class="container mx-auto p-6">
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            🚀 MyBonzo Control Panel
+          </h1>
+          <p class="text-gray-400 mt-2">Zarządzanie aplikacją i deploymentami</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-green-400">System Online</span>
+          </div>
+          <div class="text-gray-400 text-sm">
+            Ostatnia aktualizacja: <span id="lastUpdated"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Status Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+            ✅
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Status Produkcji</p>
+            <p class="text-xl font-bold text-green-400" id="prodStatus">Zdrowy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+            ⚡
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Aktywne Deploymenty</p>
+            <p class="text-xl font-bold text-blue-400" id="deployCount">2</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+            ⚠️
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Alerty Bezpieczeństwa</p>
+            <p class="text-xl font-bold text-yellow-400" id="alertCount">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+            💾
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Dostępne Backupy</p>
+            <p class="text-xl font-bold text-purple-400" id="backupCount">5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Control Sections -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Deployment Controls -->
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          🚀 Kontrola Deploymentów
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Production Deploy -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-green-400">Deploy Produkcyjny</h3>
+                <p class="text-sm text-gray-400">Wdrożenie do środowiska produkcyjnego</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-gray-500">Ostatni: 2h temu</p>
+                <p class="text-xs text-green-400">Status: Sukces</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-2 mb-3">
+              <button onclick="deployProduction()" 
+                      class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                🚀 Deploy Produkcja
+              </button>
+              <button onclick="deployProductionForce()" 
+                      class="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                ⚡ Force Deploy
+              </button>
+            </div>
+            
+            <div class="text-xs">
+              <label class="flex items-center gap-2 text-gray-400">
+                <input type="checkbox" id="skipTests" class="rounded">
+                Pomiń testy (nie zalecane)
+              </label>
+            </div>
+          </div>
+
+          <!-- Staging Deploy -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-yellow-400">Deploy Staging</h3>
+                <p class="text-sm text-gray-400">Wdrożenie do środowiska testowego</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-2">
+              <button onclick="deployStaging()" 
+                      class="bg-yellow-600 hover:bg-yellow-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                🎭 Deploy Staging
+              </button>
+              <button onclick="testStaging()" 
+                      class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                🧪 Test Staging
+              </button>
+            </div>
+          </div>
+
+          <!-- Local Development -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-blue-400">Rozwój Lokalny</h3>
+                <p class="text-sm text-gray-400">Serwer lokalny i testowanie</p>
+              </div>
+              <div id="devServerStatus" class="text-right">
+                <p class="text-xs text-gray-500">Serwer: Offline</p>
+                <p class="text-xs text-red-400">Port: 4321</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-2">
+              <button onclick="startDevServer()" 
+                      class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded text-sm transition-colors">
+                ▶️ Start
+              </button>
+              <button onclick="stopDevServer()" 
+                      class="bg-gray-600 hover:bg-gray-500 px-3 py-2 rounded text-sm transition-colors">
+                ⏹️ Stop
+              </button>
+              <button onclick="buildLocal()" 
+                      class="bg-purple-600 hover:bg-purple-500 px-3 py-2 rounded text-sm transition-colors">
+                🔨 Build
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security & Git Controls -->
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          🛡️ Bezpieczeństwo & Git
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Git Status -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-orange-400 mb-3">Status Repozytorium</h3>
+            
+            <div id="gitStatus" class="space-y-2 text-sm mb-4">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Branch:</span>
+                <span class="text-white" id="currentBranch">main</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Commit:</span>
+                <span class="text-white font-mono text-xs" id="currentCommit">abc1234</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Status:</span>
+                <span class="text-green-400" id="repoStatus">Czysty</span>
+              </div>
+            </div>
+            
+            <div class="flex gap-2 text-xs">
+              <button onclick="refreshGitStatus()" 
+                      class="bg-orange-600 hover:bg-orange-500 px-3 py-2 rounded transition-colors">
+                🔄 Odśwież
+              </button>
+              <button onclick="validateCode()" 
+                      class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors">
+                ✅ Waliduj
+              </button>
+              <button onclick="runPreCommitChecks()" 
+                      class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded transition-colors">
+                🔍 Pre-commit
+              </button>
+            </div>
+          </div>
+
+          <!-- Security Scan -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-red-400 mb-3">Skan Bezpieczeństwa</h3>
+            <p class="text-sm text-gray-400 mb-4">Kompleksowe sprawdzenie bezpieczeństwa</p>
+            
+            <div class="flex gap-2 text-sm">
+              <button onclick="runSecurityScan()" 
+                      class="bg-red-600 hover:bg-red-500 px-4 py-2 rounded transition-colors">
+                🔍 Skanuj
+              </button>
+              <button onclick="viewSecurityLog()" 
+                      class="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded transition-colors">
+                📄 Log
+              </button>
+            </div>
+          </div>
+
+          <!-- Monitoring -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-cyan-400 mb-3">Monitoring Systemu</h3>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs mb-3">
+              <button onclick="checkProduction()" 
+                      class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded transition-colors">
+                ✅ Produkcja
+              </button>
+              <button onclick="checkStaging()" 
+                      class="bg-yellow-600 hover:bg-yellow-500 px-3 py-2 rounded transition-colors">
+                🎭 Staging
+              </button>
+              <button onclick="startMonitoring()" 
+                      class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors">
+                👁️ Monitor Start
+              </button>
+              <button onclick="stopMonitoring()" 
+                      class="bg-gray-600 hover:bg-gray-500 px-3 py-2 rounded transition-colors">
+                ⏹️ Monitor Stop
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Backup & Recovery Section -->
+    <div class="mt-8 bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+        💾 Backup & Recovery
+      </h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Manual Backup -->
+        <div class="bg-gray-700 rounded-lg p-4">
+          <h3 class="font-semibold text-purple-400 mb-3">Ręczny Backup</h3>
+          <p class="text-sm text-gray-400 mb-4">Stwórz natychmiastowy backup</p>
+          
+          <div class="space-y-2 mb-4">
+            <input type="text" id="backupReason" placeholder="Powód backupu..." 
+                   class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm">
+            <select id="backupType" class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm">
+              <option value="manual">Ręczny Backup</option>
+              <option value="pre-deploy">Pre-Deploy</option>
+              <option value="emergency">Awaryjny</option>
+            </select>
+          </div>
+          
+          <button onclick="createManualBackup()" 
+                  class="w-full bg-purple-600 hover:bg-purple-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            💾 Stwórz Backup
+          </button>
+        </div>
+
+        <!-- Available Backups -->
+        <div class="bg-gray-700 rounded-lg p-4">
+          <h3 class="font-semibold text-blue-400 mb-3">Dostępne Backupy</h3>
+          
+          <div id="backupList" class="space-y-2 mb-4 max-h-32 overflow-y-auto text-xs">
+            <!-- Backup list will be populated by JavaScript -->
+          </div>
+          
+          <div class="flex gap-1">
+            <button onclick="refreshBackupList()" 
+                    class="flex-1 bg-blue-600 hover:bg-blue-500 px-2 py-2 rounded text-xs transition-colors">
+              🔄 Odśwież
+            </button>
+            <button onclick="viewBackupDetails()" 
+                    class="flex-1 bg-gray-600 hover:bg-gray-500 px-2 py-2 rounded text-xs transition-colors">
+              📄 Szczegóły
+            </button>
+          </div>
+        </div>
+
+        <!-- Emergency Rollback -->
+        <div class="bg-gray-700 rounded-lg p-4 border border-red-500/30">
+          <h3 class="font-semibold text-red-400 mb-3">⚠️ Awaryjny Rollback</h3>
+          <p class="text-sm text-gray-400 mb-4">Przywróć do poprzedniej wersji</p>
+          
+          <div class="space-y-2 mb-4">
+            <select id="rollbackVersion" class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm">
+              <option value="">Wybierz wersję...</option>
+            </select>
+            <input type="text" id="rollbackReason" placeholder="Powód rollbacku..." 
+                   class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm">
+          </div>
+          
+          <button onclick="performRollback()" 
+                  class="w-full bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            🚨 ROLLBACK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Console Output -->
+    <div class="mt-8 bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">Konsola Systemowa</h2>
+        <div class="flex gap-2">
+          <button onclick="clearConsole()" 
+                  class="bg-red-600 hover:bg-red-500 px-3 py-1 rounded text-sm transition-colors">
+            🗑️ Wyczyść
+          </button>
+          <button onclick="toggleAutoScroll()" 
+                  class="bg-blue-600 hover:bg-blue-500 px-3 py-1 rounded text-sm transition-colors">
+            📜 Auto-scroll
+          </button>
+        </div>
+      </div>
+      
+      <div id="consoleOutput" class="bg-black rounded p-4 h-64 overflow-y-auto font-mono text-sm">
+        <div class="text-green-400">[12:34:56] MyBonzo Control Panel zainicjalizowany</div>
+        <div class="text-blue-400">[12:34:57] Łączenie z usługami backend...</div>
+        <div class="text-green-400">[12:34:58] Wszystkie systemy online ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Stan globalny
+    let consoleAutoScroll = true;
+    let systemStatus = {
+      devServerRunning: false,
+      monitoringActive: false,
+      lastHealthCheck: null
+    };
+
+    // Funkcje pomocnicze
+    function addToConsole(message, type = 'info') {
+      const console = document.getElementById('consoleOutput');
+      const timestamp = new Date().toLocaleTimeString();
+      const colors = {
+        info: 'text-white',
+        success: 'text-green-400',
+        warning: 'text-yellow-400',
+        error: 'text-red-400',
+        system: 'text-blue-400'
+      };
+      
+      const logLine = `<div class="${colors[type]}">[${timestamp}] ${message}</div>`;
+      console.innerHTML += logLine;
+      
+      if (consoleAutoScroll) {
+        console.scrollTop = console.scrollHeight;
+      }
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-600' : 
+        type === 'error' ? 'bg-red-600' : 
+        type === 'warning' ? 'bg-yellow-600' : 'bg-blue-600'
+      } text-white`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
+    }
+
+    // API Helper
+    async function callAPI(endpoint, method = 'GET', data = null) {
+      try {
+        const options = {
+          method,
+          headers: { 'Content-Type': 'application/json' }
+        };
+        
+        if (data) {
+          options.body = JSON.stringify(data);
+        }
+        
+        const response = await fetch(endpoint, options);
+        const result = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(result.message || 'API call failed');
+        }
+        
+        return result;
+      } catch (error) {
+        addToConsole(`API Error: ${error.message}`, 'error');
+        showNotification(`Błąd: ${error.message}`, 'error');
+        throw error;
+      }
+    }
+
+    // Funkcje deploymentu
+    async function deployProduction() {
+      addToConsole('Rozpoczynanie deploymentu produkcyjnego...', 'system');
+      showNotification('Deployment produkcyjny rozpoczęty', 'info');
+      
+      const skipTests = document.getElementById('skipTests').checked;
+      
+      try {
+        const result = await callAPI('/api/admin/deploy', 'POST', {
+          environment: 'production',
+          skipTests: skipTests
+        });
+        
+        addToConsole('Deployment produkcyjny zakończony sukcesem ✓', 'success');
+        showNotification('Produkcja wdrożona pomyślnie!', 'success');
+      } catch (error) {
+        addToConsole(`Deployment produkcyjny nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    async function deployStaging() {
+      addToConsole('Rozpoczynanie deploymentu staging...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/deploy', 'POST', {
+          environment: 'staging'
+        });
+        
+        addToConsole('Deployment staging zakończony sukcesem ✓', 'success');
+        showNotification('Staging wdrożony pomyślnie!', 'success');
+      } catch (error) {
+        addToConsole(`Deployment staging nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    async function startDevServer() {
+      addToConsole('Uruchamianie serwera deweloperskiego...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/dev-server', 'POST', {
+          action: 'start'
+        });
+        
+        systemStatus.devServerRunning = true;
+        document.getElementById('devServerStatus').innerHTML = 
+          '<p class="text-xs text-gray-500">Serwer: Online</p><p class="text-xs text-green-400">Port: 4321</p>';
+        addToConsole('Serwer deweloperski uruchomiony na porcie 4321 ✓', 'success');
+        showNotification('Serwer dev uruchomiony!', 'success');
+      } catch (error) {
+        addToConsole(`Nie udało się uruchomić serwera dev: ${error.message}`, 'error');
+      }
+    }
+
+    async function stopDevServer() {
+      addToConsole('Zatrzymywanie serwera deweloperskiego...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/dev-server', 'POST', {
+          action: 'stop'
+        });
+        
+        systemStatus.devServerRunning = false;
+        document.getElementById('devServerStatus').innerHTML = 
+          '<p class="text-xs text-gray-500">Serwer: Offline</p><p class="text-xs text-red-400">Port: 4321</p>';
+        addToConsole('Serwer deweloperski zatrzymany ✓', 'success');
+        showNotification('Serwer dev zatrzymany', 'info');
+      } catch (error) {
+        addToConsole(`Nie udało się zatrzymać serwera dev: ${error.message}`, 'error');
+      }
+    }
+
+    async function buildLocal() {
+      addToConsole('Budowanie aplikacji lokalnie...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/build', 'POST');
+        addToConsole('Lokalne budowanie zakończone sukcesem ✓', 'success');
+        showNotification('Build zakończony!', 'success');
+      } catch (error) {
+        addToConsole(`Build nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    // Funkcje bezpieczeństwa i Git
+    async function refreshGitStatus() {
+      addToConsole('Odświeżanie statusu Git...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/git-status');
+        
+        document.getElementById('currentBranch').textContent = result.branch;
+        document.getElementById('currentCommit').textContent = result.commit.substring(0, 8);
+        document.getElementById('repoStatus').textContent = result.clean ? 'Czysty' : 'Zmodyfikowany';
+        
+        addToConsole('Status Git odświeżony ✓', 'success');
+      } catch (error) {
+        addToConsole(`Nie udało się odświeżyć statusu Git: ${error.message}`, 'error');
+      }
+    }
+
+    async function validateCode() {
+      addToConsole('Uruchamianie walidacji kodu...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/validate-code', 'POST');
+        
+        if (result.valid) {
+          addToConsole('Walidacja kodu przeszła pomyślnie ✓', 'success');
+          showNotification('Walidacja kodu przeszła!', 'success');
+        } else {
+          addToConsole('Walidacja kodu nie powiodła się ✗', 'error');
+          result.errors.forEach(error => {
+            addToConsole(`  • ${error}`, 'error');
+          });
+          showNotification('Walidacja kodu nie powiodła się!', 'error');
+        }
+      } catch (error) {
+        addToConsole(`Błąd walidacji kodu: ${error.message}`, 'error');
+      }
+    }
+
+    async function runPreCommitChecks() {
+      addToConsole('Uruchamianie sprawdzeń pre-commit...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/pre-commit-checks', 'POST');
+        
+        if (result.passed) {
+          addToConsole('Wszystkie sprawdzenia pre-commit przeszły ✓', 'success');
+          showNotification('Gotowe do commit!', 'success');
+        } else {
+          addToConsole('Niektóre sprawdzenia pre-commit nie powiodły się ✗', 'warning');
+          result.failures.forEach(failure => {
+            addToConsole(`  • ${failure}`, 'warning');
+          });
+          showNotification('Napraw problemy przed commit', 'warning');
+        }
+      } catch (error) {
+        addToConsole(`Błąd sprawdzeń pre-commit: ${error.message}`, 'error');
+      }
+    }
+
+    async function runSecurityScan() {
+      addToConsole('Uruchamianie kompleksowego skanu bezpieczeństwa...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/security-scan', 'POST');
+        
+        if (result.issues && result.issues.length > 0) {
+          addToConsole(`Skan bezpieczeństwa zakończony - znaleziono ${result.issues.length} problemów`, 'warning');
+          result.issues.forEach(issue => {
+            addToConsole(`  • ${issue}`, 'warning');
+          });
+        } else {
+          addToConsole('Skan bezpieczeństwa zakończony - nie znaleziono problemów ✓', 'success');
+        }
+        
+        showNotification('Skan bezpieczeństwa zakończony', 'info');
+      } catch (error) {
+        addToConsole(`Skan bezpieczeństwa nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    // Backup functions
+    async function createManualBackup() {
+      const reason = document.getElementById('backupReason').value;
+      const type = document.getElementById('backupType').value;
+      
+      if (!reason.trim()) {
+        showNotification('Podaj powód backupu', 'warning');
+        return;
+      }
+      
+      addToConsole(`Tworzenie ${type} backup: ${reason}`, 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/backup', 'POST', {
+          type: type,
+          reason: reason
+        });
+        
+        addToConsole(`Backup utworzony: ${result.backupName} ✓`, 'success');
+        showNotification('Backup utworzony pomyślnie!', 'success');
+        
+        document.getElementById('backupReason').value = '';
+        refreshBackupList();
+      } catch (error) {
+        addToConsole(`Tworzenie backupu nieudane: ${error.message}`, 'error');
+      }
+    }
+
+    async function refreshBackupList() {
+      try {
+        const result = await callAPI('/api/admin/backups');
+        const backupList = document.getElementById('backupList');
+        
+        backupList.innerHTML = '';
+        result.backups.forEach(backup => {
+          const backupEl = document.createElement('div');
+          backupEl.className = 'bg-gray-600 rounded px-2 py-1 flex justify-between items-center';
+          backupEl.innerHTML = `
+            <span>${backup.name}</span>
+            <span class="text-green-400">${backup.size}</span>
+          `;
+          backupList.appendChild(backupEl);
+        });
+        
+        const rollbackSelect = document.getElementById('rollbackVersion');
+        rollbackSelect.innerHTML = '<option value="">Wybierz wersję...</option>';
+        result.backups.forEach(backup => {
+          const option = document.createElement('option');
+          option.value = backup.name;
+          option.textContent = `${backup.name} (${backup.size})`;
+          rollbackSelect.appendChild(option);
+        });
+      } catch (error) {
+        addToConsole(`Nie udało się odświeżyć listy backupów: ${error.message}`, 'error');
+      }
+    }
+
+    async function performRollback() {
+      const version = document.getElementById('rollbackVersion').value;
+      const reason = document.getElementById('rollbackReason').value;
+      
+      if (!version || !reason.trim()) {
+        showNotification('Wybierz wersję i podaj powód', 'warning');
+        return;
+      }
+      
+      if (!confirm(`⚠️ UWAGA: To przywróci system do ${version}. Nie można cofnąć. Kontynuować?`)) {
+        return;
+      }
+      
+      addToConsole(`🚨 AWARYJNY ROLLBACK do ${version}: ${reason}`, 'warning');
+      
+      try {
+        const result = await callAPI('/api/admin/rollback', 'POST', {
+          version: version,
+          reason: reason
+        });
+        
+        addToConsole('🎉 Rollback zakończony pomyślnie ✓', 'success');
+        showNotification('Rollback zakończony!', 'success');
+        
+        document.getElementById('rollbackVersion').value = '';
+        document.getElementById('rollbackReason').value = '';
+        
+      } catch (error) {
+        addToConsole(`❌ Rollback nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    // Health checks
+    async function checkProduction() {
+      addToConsole('Sprawdzanie zdrowia produkcji...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/health-check', 'POST', {
+          environment: 'production'
+        });
+        
+        if (result.healthy) {
+          addToConsole('Sprawdzenie zdrowia produkcji: ZDROWY ✓', 'success');
+          document.getElementById('prodStatus').textContent = 'Zdrowy';
+        } else {
+          addToConsole('Sprawdzenie zdrowia produkcji: NIEZDROWY ✗', 'error');
+          document.getElementById('prodStatus').textContent = 'Niezdrowy';
+        }
+        
+        showNotification(`Produkcja: ${result.healthy ? 'Zdrowy' : 'Niezdrowy'}`, 
+                        result.healthy ? 'success' : 'error');
+      } catch (error) {
+        addToConsole(`Sprawdzenie zdrowia produkcji nieudane: ${error.message}`, 'error');
+      }
+    }
+
+    async function checkStaging() {
+      addToConsole('Sprawdzanie zdrowia staging...', 'system');
+      // Similar implementation
+    }
+
+    async function startMonitoring() {
+      addToConsole('Uruchamianie monitoringu systemu...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/monitoring', 'POST', {
+          action: 'start'
+        });
+        
+        systemStatus.monitoringActive = true;
+        addToConsole('Monitoring systemu uruchomiony ✓', 'success');
+        showNotification('Monitoring uruchomiony', 'success');
+      } catch (error) {
+        addToConsole(`Nie udało się uruchomić monitoringu: ${error.message}`, 'error');
+      }
+    }
+
+    async function stopMonitoring() {
+      addToConsole('Zatrzymywanie monitoringu systemu...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/monitoring', 'POST', {
+          action: 'stop'
+        });
+        
+        systemStatus.monitoringActive = false;
+        addToConsole('Monitoring systemu zatrzymany ✓', 'success');
+        showNotification('Monitoring zatrzymany', 'info');
+      } catch (error) {
+        addToConsole(`Nie udało się zatrzymać monitoringu: ${error.message}`, 'error');
+      }
+    }
+
+    // Console functions
+    function clearConsole() {
+      document.getElementById('consoleOutput').innerHTML = '';
+      addToConsole('Konsola wyczyszczona', 'system');
+    }
+
+    function toggleAutoScroll() {
+      consoleAutoScroll = !consoleAutoScroll;
+      const button = event.target;
+      button.textContent = consoleAutoScroll ? '📜 Auto-scroll' : '📜 Ręczny scroll';
+      
+      addToConsole(`Auto-scroll ${consoleAutoScroll ? 'włączony' : 'wyłączony'}`, 'system');
+    }
+
+    // Inicjalizacja
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      
+      refreshGitStatus();
+      refreshBackupList();
+      
+      addToConsole('MyBonzo Control Panel gotowy ✓', 'success');
+      
+      setInterval(() => {
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      }, 60000);
+    });
+  </script>
+</body>
+</html>
