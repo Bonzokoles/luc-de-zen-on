@@ -1,0 +1,51 @@
+{
+  "name": "mega-site-luc-de-zen-on",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
+    "build": "astro check && astro build",
+    "preview": "astro preview --host",
+    "astro": "astro",
+    "test": "npm run test:api && npm run test:components",
+    "test:api": "node test-all-connections.js",
+    "test:components": "node manual-test-guide.js"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^11.1.0",
+    "@astrojs/node": "^8.3.4",
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/svelte": "^5.7.3",
+    "@astrojs/tailwind": "^5.1.5",
+    "@babylonjs/core": "^8.27.0",
+    "@sofidevo/astro-dynamic-header": "^1.0.23",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "astro": "^4.16.7",
+    "astro-icon": "^1.1.5",
+    "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
+    "dompurify": "^3.1.7",
+    "gsap": "^3.12.5",
+    "marked": "^14.1.2",
+    "nanostores": "^1.0.1",
+    "openai": "^5.20.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "svelte": "^4.2.19",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^3.4.13",
+    "three": "^0.168.0",
+    "typescript": "^5.9.2",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/node": "^22.7.5",
+    "@types/uuid": "^10.0.0",
+    "autoprefixer": "^10.4.20"
+  }
+}
