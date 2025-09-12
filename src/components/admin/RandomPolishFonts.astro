@@ -1,0 +1,169 @@
+---
+// Komponent losowych polskich fontów dla panelu administracyjnego
+const polishFonts = [
+  'Neuropol',
+  'Kenyan Coffee', 
+  'Rajdhani'
+];
+
+// Generowanie losowych fontów dla różnych elementów
+const getRandomFont = () => polishFonts[Math.floor(Math.random() * polishFonts.length)];
+
+// Przypisanie losowych fontów do różnych kategorii elementów
+const adminFonts = {
+  headings: getRandomFont(),
+  subheadings: getRandomFont(), 
+  buttons: getRandomFont(),
+  text: getRandomFont(),
+  menu: getRandomFont(),
+  stats: getRandomFont(),
+  panels: getRandomFont(),
+  forms: getRandomFont()
+};
+---
+
+<style is:global>
+  /* Losowe polskie fonty dla panelu administracyjnego */
+  .admin-page h1, 
+  .admin-page .section-title,
+  .admin-page .dashboard-title {
+    font-family: var(--admin-heading-font, 'Neuropol'), 'Rajdhani', system-ui, sans-serif !important;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+
+  .admin-page h2, 
+  .admin-page h3,
+  .admin-page .widget-title {
+    font-family: var(--admin-subheading-font, 'Kenyan Coffee'), 'Rajdhani', system-ui, sans-serif !important;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+  }
+
+  .admin-page .cyberpunk-btn,
+  .admin-page button {
+    font-family: var(--admin-button-font, 'Rajdhani'), 'Neuropol', system-ui, sans-serif !important;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  .admin-page p,
+  .admin-page .admin-text,
+  .admin-page .description {
+    font-family: var(--admin-text-font, 'Kenyan Coffee'), 'Rajdhani', system-ui, sans-serif !important;
+    letter-spacing: 0.02em;
+  }
+
+  .admin-page .admin-menu,
+  .admin-page nav,
+  .admin-page .navigation {
+    font-family: var(--admin-menu-font, 'Neuropol'), 'Rajdhani', system-ui, sans-serif !important;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+  }
+
+  .admin-page .stats-value,
+  .admin-page .counter,
+  .admin-page .metric {
+    font-family: var(--admin-stats-font, 'Rajdhani'), 'Neuropol', system-ui, sans-serif !important;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+
+  .admin-page .glass-panel,
+  .admin-page .admin-panel {
+    font-family: var(--admin-panels-font, 'Kenyan Coffee'), 'Rajdhani', system-ui, sans-serif !important;
+  }
+
+  .admin-page input,
+  .admin-page textarea,
+  .admin-page select,
+  .admin-page .form-element {
+    font-family: var(--admin-forms-font, 'Rajdhani'), 'Kenyan Coffee', system-ui, sans-serif !important;
+    letter-spacing: 0.02em;
+  }
+
+  /* Specjalne style dla polskich znaków w admin panelu */
+  .admin-page .polish-text {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Animacje dla losowych fontów */
+  .admin-page .font-transition {
+    transition: font-family 0.3s ease-in-out;
+  }
+
+  /* Responsywność dla polskich fontów */
+  @media screen and (max-width: 768px) {
+    .admin-page h1, .admin-page .section-title {
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+    }
+    
+    .admin-page h2, .admin-page h3 {
+      font-size: 1.4rem;
+      letter-spacing: 0.025em;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ adminFonts }}>
+  // Aplikowanie losowych fontów do panelu administracyjnego
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ustawienie CSS custom properties z losowymi fontami
+    const root = document.documentElement;
+    
+    root.style.setProperty('--admin-heading-font', `"${adminFonts.headings}"`);
+    root.style.setProperty('--admin-subheading-font', `"${adminFonts.subheadings}"`);
+    root.style.setProperty('--admin-button-font', `"${adminFonts.buttons}"`);
+    root.style.setProperty('--admin-text-font', `"${adminFonts.text}"`);
+    root.style.setProperty('--admin-menu-font', `"${adminFonts.menu}"`);
+    root.style.setProperty('--admin-stats-font', `"${adminFonts.stats}"`);
+    root.style.setProperty('--admin-panels-font', `"${adminFonts.panels}"`);
+    root.style.setProperty('--admin-forms-font', `"${adminFonts.forms}"`);
+
+    // Dodanie klasy admin-page do body jeśli jesteśmy w admin panelu
+    if (window.location.pathname.includes('/admin')) {
+      document.body.classList.add('admin-page');
+      
+      // Dodanie klasy polish-text do elementów z polskimi znakami
+      const elementsWithPolish = document.querySelectorAll('*');
+      elementsWithPolish.forEach(el => {
+        if (el.textContent && /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(el.textContent)) {
+          el.classList.add('polish-text');
+        }
+      });
+    }
+
+    // Debug info w konsoli
+    console.log('🎨 Polskie fonty zastosowane w admin panelu:', adminFonts);
+  });
+
+  // Funkcja do losowego odświeżenia fontów (opcjonalna)
+  window.refreshAdminFonts = function() {
+    const newFonts = {
+      headings: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      subheadings: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      buttons: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      text: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      menu: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      stats: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      panels: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)],
+      forms: ['Neuropol', 'Kenyan Coffee', 'Rajdhani'][Math.floor(Math.random() * 3)]
+    };
+
+    const root = document.documentElement;
+    root.style.setProperty('--admin-heading-font', `"${newFonts.headings}"`);
+    root.style.setProperty('--admin-subheading-font', `"${newFonts.subheadings}"`);
+    root.style.setProperty('--admin-button-font', `"${newFonts.buttons}"`);
+    root.style.setProperty('--admin-text-font', `"${newFonts.text}"`);
+    root.style.setProperty('--admin-menu-font', `"${newFonts.menu}"`);
+    root.style.setProperty('--admin-stats-font', `"${newFonts.stats}"`);
+    root.style.setProperty('--admin-panels-font', `"${newFonts.panels}"`);
+    root.style.setProperty('--admin-forms-font', `"${newFonts.forms}"`);
+
+    console.log('🔄 Fonty odświeżone:', newFonts);
+  };
+</script>

@@ -1,0 +1,261 @@
+---
+// Payment Simulator Page - tylko dla development
+---
+
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Simulator - AI Workers Platform</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: white;
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .payment-container {
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .payment-header {
+        margin-bottom: 2rem;
+      }
+
+      .payment-title {
+        font-size: 2rem;
+        color: #00d9ff;
+        margin-bottom: 0.5rem;
+      }
+
+      .payment-subtitle {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+
+      .payment-details {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        text-align: left;
+      }
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid rgba(100, 116, 139, 0.3);
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-weight: bold;
+        color: #00d9ff;
+      }
+
+      .payment-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background: #059669;
+      }
+
+      .btn-cancel {
+        background: #ef4444;
+        color: white;
+      }
+
+      .btn-cancel:hover {
+        background: #dc2626;
+      }
+
+      .processing {
+        display: none;
+        text-align: center;
+        color: #00d9ff;
+      }
+
+      .spinner {
+        border: 3px solid rgba(0, 217, 255, 0.3);
+        border-top: 3px solid #00d9ff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1rem;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="payment-container">
+      <div class="payment-header">
+        <h1 class="payment-title">💳 Payment Simulator</h1>
+        <p class="payment-subtitle">Development Mode - Symulacja płatności</p>
+      </div>
+
+      <div id="paymentForm">
+        <div class="payment-details" id="paymentDetails">
+          <!-- Payment details will be inserted here -->
+        </div>
+
+        <div class="payment-actions">
+          <button class="btn btn-success" onclick="processPayment(true)">
+            ✅ Symuluj Sukces
+          </button>
+          <button class="btn btn-cancel" onclick="processPayment(false)">
+            ❌ Symuluj Błąd
+          </button>
+        </div>
+      </div>
+
+      <div class="processing" id="processing">
+        <div class="spinner"></div>
+        <p>Przetwarzanie płatności...</p>
+      </div>
+    </div>
+
+    <script>
+      let paymentData = null;
+      let sessionId = null;
+
+      // Parse URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      sessionId = urlParams.get("session");
+      const dataParam = urlParams.get("data");
+
+      if (dataParam) {
+        try {
+          paymentData = JSON.parse(decodeURIComponent(dataParam));
+          displayPaymentDetails();
+        } catch (error) {
+          console.error("Error parsing payment data:", error);
+          document.getElementById("paymentDetails").innerHTML =
+            '<p style="color: #ef4444;">Błąd: Nieprawidłowe dane płatności</p>';
+        }
+      } else {
+        document.getElementById("paymentDetails").innerHTML =
+          '<p style="color: #ef4444;">Błąd: Brak danych płatności</p>';
+      }
+
+      function displayPaymentDetails() {
+        const detailsContainer = document.getElementById("paymentDetails");
+        let html = "";
+
+        if (paymentData.mode === "package-purchase") {
+          html = `
+          <div class="detail-row">
+            <span>Pakiet:</span>
+            <span>${paymentData.package.name}</span>
+          </div>
+          <div class="detail-row">
+            <span>Typ:</span>
+            <span>${paymentData.package.type}</span>
+          </div>
+        `;
+
+          if (paymentData.package.tokens) {
+            html +=
+              '<div class="detail-row"><span>Zawiera:</span><span></span></div>';
+            Object.entries(paymentData.package.tokens).forEach(
+              ([key, value]) => {
+                html += `<div style="margin-left: 1rem; font-size: 0.9rem; color: #94a3b8;">• ${value} tokenów ${key}</div>`;
+              }
+            );
+          }
+
+          html += `
+          <div class="detail-row">
+            <span>Kwota:</span>
+            <span>${paymentData.package.price} ${paymentData.package.currency}</span>
+          </div>
+        `;
+        } else if (paymentData.mode === "worker-tokens") {
+          html = `
+          <div class="detail-row">
+            <span>Worker:</span>
+            <span>${paymentData.worker.name}</span>
+          </div>
+          <div class="detail-row">
+            <span>Typ:</span>
+            <span>${paymentData.worker.type}</span>
+          </div>
+          <div class="detail-row">
+            <span>Cena za ${paymentData.worker.pricing.unit}:</span>
+            <span>${paymentData.worker.pricing.price} PLN</span>
+          </div>
+        `;
+        }
+
+        html += `
+        <div class="detail-row">
+          <span>Session ID:</span>
+          <span>${sessionId}</span>
+        </div>
+      `;
+
+        detailsContainer.innerHTML = html;
+      }
+
+      function processPayment(success) {
+        document.getElementById("paymentForm").style.display = "none";
+        document.getElementById("processing").style.display = "block";
+
+        setTimeout(() => {
+          if (success) {
+            // Redirect to success page
+            window.location.href =
+              paymentData.redirectUrl + "&payment=success&session=" + sessionId;
+          } else {
+            // Redirect to cancel page
+            window.location.href =
+              paymentData.cancelUrl + "?payment=failed&session=" + sessionId;
+          }
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>

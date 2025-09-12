@@ -1,0 +1,204 @@
+---
+export interface Props {
+  title: string;
+  value: string | number;
+  unit?: string;
+  icon?: string;
+  trend?: 'up' | 'down' | 'stable';
+  color?: 'primary' | 'success' | 'warning' | 'danger';
+  loading?: boolean;
+}
+
+const { 
+  title, 
+  value, 
+  unit = '', 
+  icon = '📊', 
+  trend = 'stable',
+  color = 'primary',
+  loading = false
+} = Astro.props;
+
+const colorClasses = {
+  primary: 'border-cyan-400 text-cyan-400',
+  success: 'border-green-400 text-green-400', 
+  warning: 'border-yellow-400 text-yellow-400',
+  danger: 'border-red-400 text-red-400'
+};
+
+const trendIcons = {
+  up: '↗️',
+  down: '↘️', 
+  stable: '→'
+};
+---
+
+<div class={`cyber-stat-card ${colorClasses[color]}`}>
+  <div class="stat-header">
+    <span class="stat-icon">{icon}</span>
+    <span class="stat-title">{title}</span>
+    <span class="stat-trend">{trendIcons[trend]}</span>  
+  </div>
+  
+  <div class="stat-content">
+    {loading ? (
+      <div class="stat-loading">
+        <div class="loading-spinner"></div>
+        <span class="loading-text">Loading...</span>
+      </div>
+    ) : (
+      <div class="stat-value">
+        <span class="value-number">{value}</span>
+        {unit && <span class="value-unit">{unit}</span>}
+      </div>
+    )}
+  </div>
+  
+  <div class="stat-footer">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cyber-stat-card {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+    border: 1px solid;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    font-family: 'Rajdhani', system-ui, sans-serif;
+    transition: all 0.3s ease;
+  }
+
+  .cyber-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    animation: scan 2s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .cyber-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 204, 204, 0.15);
+  }
+
+  .stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-icon {
+    font-size: 1.25rem;
+  }
+
+  .stat-title {
+    flex: 1;
+    margin-left: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+  }
+
+  .stat-trend {
+    font-size: 1rem;
+  }
+
+  .stat-content {
+    margin-bottom: 1rem;
+  }
+
+  .stat-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .value-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: currentColor;
+    text-shadow: 0 0 5px currentColor;
+  }
+
+  .value-unit {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+  }
+
+  .stat-loading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .stat-footer {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+  }
+
+  .loading-text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+  }
+
+  /* Color variants */
+  .border-cyan-400 { border-color: #22d3ee; }
+  .text-cyan-400 { color: #22d3ee; }
+  
+  .border-green-400 { border-color: #4ade80; }
+  .text-green-400 { color: #4ade80; }
+  
+  .border-yellow-400 { border-color: #facc15; }
+  .text-yellow-400 { color: #facc15; }
+  
+  .border-red-400 { border-color: #f87171; }
+  .text-red-400 { color: #f87171; }
+</style>

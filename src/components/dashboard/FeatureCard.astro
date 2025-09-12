@@ -1,0 +1,23 @@
+
+---
+interface Props {
+    title: string;
+    description: string;
+    actionText: string;
+    actionLink: string;
+}
+
+const { title, description, actionText, actionLink } = Astro.props;
+---
+
+<div class="bg-cyber-surface border border-cyber-border rounded-none transition-all duration-300 hover:border-cyber-blue hover:shadow-glow-blue flex flex-col">
+    <div class="p-6 flex-grow">
+        <h3 class="font-bold text-xl text-cyber-blue mb-2">{title}</h3>
+        <p class="text-cyber-text-dim text-sm">{description}</p>
+    </div>
+    <div class="p-6 border-t border-cyber-border">
+        <a href={actionLink} class="w-full text-center block bg-cyber-border text-cyber-text font-bold py-2 px-4 rounded-none hover:bg-cyber-blue hover:text-cyber-dark transition-colors duration-300">
+            {actionText}
+        </a>
+    </div>
+</div>

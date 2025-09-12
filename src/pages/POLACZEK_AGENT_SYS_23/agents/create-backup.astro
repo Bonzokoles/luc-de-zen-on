@@ -1,0 +1,690 @@
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="POLACZEK Agent System 23 - Kreator Agenta">
+  <DecorativeLines />
+
+  <!-- Global vertical lines for workers sections -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <main class="min-h-svh">
+    <!-- Top Separator Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Header Section - Styl nr.1 -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <!-- Left corner - Creator info -->
+          <div class="mt-auto" style="max-width: 45vw;">
+            <div
+              class="text-edge text-sm italic px-2"
+              style="
+                transform: scale(1.32);
+                transform-origin: left center;
+                margin: 15px;
+                margin-left: 0px;
+                width: calc(45vw - 30px);
+                max-width: 380px;
+                line-height: 1.4;
+                word-wrap: break-word;
+                hyphens: auto;
+              "
+            >
+              🛠️ KREATOR AGENTÓW - Stwórz<br />
+              spersonalizowanego agenta AI<br />
+              dopasowanego do Twoich potrzeb<br />
+              biznesowych i osobistych.
+            </div>
+          </div>
+          <span class="mt-auto">
+            <div
+              style="
+              transform: scale(1.56);
+              transform-origin: center right;
+              margin: 30px;
+              margin-right: 0px;
+              line-height: 1.1;
+              "
+              class="text-edge font-bold text-right"
+            >
+              AGENT<br />
+              CREATOR
+            </div>
+          </span>
+        </div>
+      </div>
+    </section>
+          <div class="p-8">
+            <form id="agent-creation-form" class="space-y-8">
+              <!-- Basic Information -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">
+                    Nazwa Agenta *
+                  </label>
+                  <input 
+                    type="text" 
+                    name="name" 
+                    id="agent-name"
+                    placeholder="np. Polaczek_Custom_1"
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                    required
+                  />
+                  <p class="text-xs text-gray-500 mt-1">Nazwa musi być unikalna i nie zawierać spacji</p>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">
+                    Typ Agenta *
+                  </label>
+                  <select 
+                    name="type" 
+                    id="agent-type"
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                    required
+                  >
+                    <option value="">Wybierz typ agenta</option>
+                    <option value="chatbot">🤖 Chatbot - Asystent konwersacyjny</option>
+                    <option value="translator">🌐 Translator - Tłumacz języków</option>
+                    <option value="searcher">🔍 Searcher - Agent wyszukujący</option>
+                    <option value="monitor">📊 Monitor - Agent monitorujący</option>
+                    <option value="artist">🎨 Artist - Generator grafik</option>
+                    <option value="analyst">📈 Analyst - Analityk danych</option>
+                    <option value="writer">✍️ Writer - Generator treści</option>
+                    <option value="coder">💻 Coder - Asystent programisty</option>
+                    <option value="scheduler">⏰ Scheduler - Zarządca zadań</option>
+                    <option value="custom">🔧 Custom - Niestandardowy</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">
+                  Opis Agenta *
+                </label>
+                <textarea 
+                  name="description" 
+                  id="agent-description"
+                  rows="3"
+                  placeholder="Opisz funkcjonalność i przeznaczenie agenta..."
+                  class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Configuration -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">
+                    Port
+                  </label>
+                  <input 
+                    type="number" 
+                    name="port" 
+                    id="agent-port"
+                    placeholder="3011"
+                    min="3000"
+                    max="9999"
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                  />
+                  <p class="text-xs text-gray-500 mt-1">Port dla WebSocket serwera (domyślnie: auto)</p>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">
+                    Język
+                  </label>
+                  <select 
+                    name="language" 
+                    id="agent-language"
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="python">🐍 Python</option>
+                    <option value="javascript">🟨 JavaScript/Node.js</option>
+                    <option value="typescript">🔷 TypeScript</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Capabilities -->
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-4">
+                  Możliwości Agenta
+                </label>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="text_processing" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Przetwarzanie tekstu</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="web_search" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Wyszukiwanie web</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="api_integration" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Integracja API</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="file_processing" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Przetwarzanie plików</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="image_generation" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Generowanie obrazów</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="data_analysis" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Analiza danych</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="real_time_monitoring" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Monitoring real-time</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="email_notifications" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Powiadomienia email</span>
+                  </label>
+                  <label class="flex items-center space-x-2">
+                    <input type="checkbox" name="capabilities" value="scheduling" class="form-checkbox text-cyan-600">
+                    <span class="text-sm text-gray-300">Planowanie zadań</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- AI Model Configuration -->
+              <div id="ai-config" class="space-y-4">
+                <h3 class="text-lg font-semibold text-white">Konfiguracja AI</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                      Model AI
+                    </label>
+                    <select 
+                      name="ai_model" 
+                      id="ai-model"
+                      class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
+                    >
+                      <option value="gpt-4">GPT-4 (OpenAI)</option>
+                      <option value="gpt-3.5-turbo">GPT-3.5 Turbo (OpenAI)</option>
+                      <option value="claude-3">Claude 3 (Anthropic)</option>
+                      <option value="gemini">Gemini (Google)</option>
+                      <option value="bielik">Bielik (Speakleash)</option>
+                      <option value="local-llama">Llama Local</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">
+                      Temperatura (Kreatywność)
+                    </label>
+                    <input 
+                      type="range" 
+                      name="temperature" 
+                      id="temperature"
+                      min="0" 
+                      max="2" 
+                      step="0.1" 
+                      value="0.7"
+                      class="w-full"
+                    />
+                    <div class="flex justify-between text-xs text-gray-400 mt-1">
+                      <span>Precyzyjny (0.0)</span>
+                      <span id="temp-value">0.7</span>
+                      <span>Kreatywny (2.0)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">
+                    System Prompt
+                  </label>
+                  <textarea 
+                    name="system_prompt" 
+                    id="system-prompt"
+                    rows="4"
+                    placeholder="Jesteś pomocnym asystentem AI. Twoje zadanie to..."
+                    class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Advanced Settings -->
+              <div class="border-t border-gray-600 pt-6">
+                <details class="group">
+                  <summary class="cursor-pointer text-lg font-semibold text-white group-open:text-cyan-400">
+                    ⚙️ Zaawansowane Ustawienia
+                  </summary>
+                  <div class="mt-4 space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                          Max Memory (MB)
+                        </label>
+                        <input 
+                          type="number" 
+                          name="max_memory" 
+                          placeholder="512"
+                          min="64"
+                          max="4096"
+                          class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                          Timeout (sekundy)
+                        </label>
+                        <input 
+                          type="number" 
+                          name="timeout" 
+                          placeholder="30"
+                          min="5"
+                          max="300"
+                          class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="space-y-2">
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="auto_start" class="form-checkbox text-cyan-600">
+                        <span class="text-sm text-gray-300">Automatyczne uruchamianie przy starcie systemu</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="logging_enabled" checked class="form-checkbox text-cyan-600">
+                        <span class="text-sm text-gray-300">Włącz logowanie</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="monitoring_enabled" checked class="form-checkbox text-cyan-600">
+                        <span class="text-sm text-gray-300">Włącz monitoring wydajności</span>
+                      </label>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <!-- Form Actions -->
+              <div class="flex justify-end space-x-4 pt-6 border-t border-gray-600">
+                <button 
+                  type="button" 
+                  id="preview-agent"
+                  class="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-medium transition-colors"
+                >
+                  👀 Podgląd Konfiguracji
+                </button>
+                <button 
+                  type="submit"
+                  class="px-6 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white font-medium transition-colors"
+                >
+                  🚀 Utwórz Agenta
+                </button>
+              </div>
+            </form>
+          </div>
+        </GlassPanel>
+      </div>
+    </div>
+  </main>
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-gray-900 rounded-xl border border-cyan-500/30 p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-white">👀 Podgląd Konfiguracji Agenta</h3>
+          <button id="close-preview" class="text-gray-400 hover:text-white">
+            ✕
+          </button>
+        </div>
+        <div id="preview-content" class="text-gray-300">
+          <!-- Preview content will be generated here -->
+        </div>
+        <div class="flex justify-end space-x-2 mt-6">
+          <button id="close-preview-btn" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg text-white transition-colors">
+            Zamknij
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-gray-900 rounded-xl border border-green-500/30 p-6 max-w-md w-full">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🎉</div>
+          <h3 class="text-xl font-bold text-white mb-4">Agent Utworzony Pomyślnie!</h3>
+          <div id="success-content" class="text-gray-300 mb-6">
+            <!-- Success content will be generated here -->
+          </div>
+          <div class="flex justify-center space-x-2">
+            <button 
+              id="goto-dashboard" 
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors"
+            >
+              📊 Przejdź do Dashboard
+            </button>
+            <button 
+              id="create-another" 
+              class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white transition-colors"
+            >
+              ➕ Utwórz Kolejnego
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    class AgentCreator {
+      constructor() {
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.setupFormValidation();
+      }
+
+      setupEventListeners() {
+        // Form submission
+        document.getElementById('agent-creation-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.createAgent();
+        });
+
+        // Preview functionality
+        document.getElementById('preview-agent').addEventListener('click', () => {
+          this.showPreview();
+        });
+
+        // Modal controls
+        document.getElementById('close-preview').addEventListener('click', () => {
+          this.hideModal('preview-modal');
+        });
+        document.getElementById('close-preview-btn').addEventListener('click', () => {
+          this.hideModal('preview-modal');
+        });
+
+        // Success modal actions
+        document.getElementById('goto-dashboard').addEventListener('click', () => {
+          window.location.href = '/POLACZEK_AGENT_SYS_23/dashboard';
+        });
+        document.getElementById('create-another').addEventListener('click', () => {
+          this.hideModal('success-modal');
+          this.resetForm();
+        });
+
+        // Temperature slider
+        const tempSlider = document.getElementById('temperature');
+        const tempValue = document.getElementById('temp-value');
+        tempSlider?.addEventListener('input', () => {
+          tempValue.textContent = tempSlider.value;
+        });
+
+        // Type-dependent configuration
+        document.getElementById('agent-type').addEventListener('change', (e) => {
+          this.updateConfigForType(e.target.value);
+        });
+      }
+
+      setupFormValidation() {
+        const nameInput = document.getElementById('agent-name');
+        nameInput?.addEventListener('input', (e) => {
+          // Remove spaces and special characters
+          e.target.value = e.target.value.replace(/[^a-zA-Z0-9_-]/g, '');
+        });
+
+        const portInput = document.getElementById('agent-port');
+        portInput?.addEventListener('input', (e) => {
+          // Validate port range
+          const port = parseInt(e.target.value);
+          if (port && (port < 3000 || port > 9999)) {
+            e.target.setCustomValidity('Port musi być między 3000 a 9999');
+          } else {
+            e.target.setCustomValidity('');
+          }
+        });
+      }
+
+      updateConfigForType(type) {
+        const systemPromptArea = document.getElementById('system-prompt');
+        const prompts = {
+          chatbot: 'Jesteś przyjaznym i pomocnym asystentem AI. Odpowiadaj w sposób naturalny i profesjonalny. Zawsze staraj się być pomocny i dokładny.',
+          translator: 'Jesteś ekspertem w tłumaczeniu języków. Tłumacz tekst dokładnie zachowując kontekst i ton wypowiedzi.',
+          searcher: 'Jesteś specjalistą od wyszukiwania informacji. Znajdź najbardziej aktualne i wiarygodne informacje na zadany temat.',
+          monitor: 'Jesteś agentem monitorującym system. Analizuj metryki i alarmuj o problemach. Bądź precyzyjny w raportowaniu.',
+          artist: 'Jesteś kreatywnym asystentem AI specjalizującym się w generowaniu obrazów i sztuki. Twórz szczegółowe prompty dla AI.',
+          analyst: 'Jesteś analitykiem danych. Analizuj informacje, twórz raporty i wyciągaj wnioski z dostępnych danych.',
+          writer: 'Jesteś profesjonalnym pisarzem. Twórz wysokiej jakości treści dopasowane do stylu i celu.',
+          coder: 'Jesteś doświadczonym programistą. Pomagaj w pisaniu, debugowaniu i optymalizacji kodu.',
+          scheduler: 'Jesteś zarządcą zadań i harmonogramów. Organizuj i planuj działania w sposób efektywny.'
+        };
+
+        if (prompts[type]) {
+          systemPromptArea.value = prompts[type];
+        }
+
+        // Auto-suggest port based on type
+        const portInput = document.getElementById('agent-port');
+        const portSuggestions = {
+          chatbot: 3011,
+          translator: 3012,
+          searcher: 3013,
+          monitor: 3014,
+          artist: 3015,
+          analyst: 3016,
+          writer: 3017,
+          coder: 3018,
+          scheduler: 3019,
+          custom: 3020
+        };
+
+        if (portSuggestions[type]) {
+          portInput.placeholder = portSuggestions[type].toString();
+        }
+      }
+
+      getFormData() {
+        const form = document.getElementById('agent-creation-form');
+        const formData = new FormData(form);
+        const data = {};
+
+        // Basic fields
+        for (let [key, value] of formData.entries()) {
+          if (key === 'capabilities') {
+            if (!data.capabilities) data.capabilities = [];
+            data.capabilities.push(value);
+          } else {
+            data[key] = value;
+          }
+        }
+
+        // Checkboxes that might not be in FormData if unchecked
+        data.auto_start = form.querySelector('[name="auto_start"]')?.checked || false;
+        data.logging_enabled = form.querySelector('[name="logging_enabled"]')?.checked || false;
+        data.monitoring_enabled = form.querySelector('[name="monitoring_enabled"]')?.checked || false;
+
+        // Generate default values
+        data.port = data.port || this.generatePortFromName(data.name);
+        data.max_memory = data.max_memory || '512';
+        data.timeout = data.timeout || '30';
+        data.temperature = parseFloat(data.temperature || '0.7');
+
+        return data;
+      }
+
+      generatePortFromName(name) {
+        // Generate a pseudo-random port based on name hash
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+          const char = name.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash; // Convert to 32-bit integer
+        }
+        return Math.abs(hash % 1000) + 3000;
+      }
+
+      showPreview() {
+        const data = this.getFormData();
+        const previewContent = document.getElementById('preview-content');
+        
+        previewContent.innerHTML = `
+          <div class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <strong class="text-cyan-400">Nazwa:</strong>
+                <div>${data.name || 'Nie podano'}</div>
+              </div>
+              <div>
+                <strong class="text-cyan-400">Typ:</strong>
+                <div>${data.type || 'Nie wybrano'}</div>
+              </div>
+            </div>
+            
+            <div>
+              <strong class="text-cyan-400">Opis:</strong>
+              <div>${data.description || 'Brak opisu'}</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <strong class="text-cyan-400">Port:</strong>
+                <div>${data.port}</div>
+              </div>
+              <div>
+                <strong class="text-cyan-400">Język:</strong>
+                <div>${data.language || 'python'}</div>
+              </div>
+            </div>
+
+            ${data.capabilities && data.capabilities.length > 0 ? `
+            <div>
+              <strong class="text-cyan-400">Możliwości:</strong>
+              <div class="flex flex-wrap gap-2 mt-1">
+                ${data.capabilities.map(cap => `<span class="px-2 py-1 bg-blue-600/20 text-blue-300 rounded text-xs">${cap.replace('_', ' ')}</span>`).join('')}
+              </div>
+            </div>
+            ` : ''}
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <strong class="text-cyan-400">Model AI:</strong>
+                <div>${data.ai_model || 'gpt-4'}</div>
+              </div>
+              <div>
+                <strong class="text-cyan-400">Temperatura:</strong>
+                <div>${data.temperature}</div>
+              </div>
+            </div>
+
+            ${data.system_prompt ? `
+            <div>
+              <strong class="text-cyan-400">System Prompt:</strong>
+              <div class="bg-gray-800 p-3 rounded mt-1 text-sm">${data.system_prompt}</div>
+            </div>
+            ` : ''}
+
+            <div class="grid grid-cols-3 gap-4 text-sm">
+              <div>
+                <strong class="text-cyan-400">Auto Start:</strong>
+                <div>${data.auto_start ? '✅ Tak' : '❌ Nie'}</div>
+              </div>
+              <div>
+                <strong class="text-cyan-400">Logowanie:</strong>
+                <div>${data.logging_enabled ? '✅ Tak' : '❌ Nie'}</div>
+              </div>
+              <div>
+                <strong class="text-cyan-400">Monitoring:</strong>
+                <div>${data.monitoring_enabled ? '✅ Tak' : '❌ Nie'}</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        this.showModal('preview-modal');
+      }
+
+      async createAgent() {
+        const data = this.getFormData();
+
+        // Basic validation
+        if (!data.name || !data.type || !data.description) {
+          alert('Wypełnij wszystkie wymagane pola!');
+          return;
+        }
+
+        try {
+          const response = await fetch('/POLACZEK_AGENT_SYS_23/api/agents/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            this.showSuccess(result);
+          } else {
+            alert(`Błąd podczas tworzenia agenta: ${result.error || result.message}`);
+          }
+        } catch (error) {
+          console.error('Error creating agent:', error);
+          alert('Wystąpił błąd podczas tworzenia agenta. Spróbuj ponownie.');
+        }
+      }
+
+      showSuccess(result) {
+        const successContent = document.getElementById('success-content');
+        successContent.innerHTML = `
+          <div class="text-left space-y-2">
+            <p><strong>Nazwa:</strong> ${result.agent_name}</p>
+            <p><strong>Typ:</strong> ${result.agent_type}</p>
+            <p><strong>Port:</strong> ${result.port}</p>
+            ${result.config_file ? `<p><strong>Plik konfiguracyjny:</strong> ${result.config_file}</p>` : ''}
+          </div>
+        `;
+        this.showModal('success-modal');
+      }
+
+      showModal(modalId) {
+        document.getElementById(modalId).classList.remove('hidden');
+      }
+
+      hideModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+      }
+
+      resetForm() {
+        document.getElementById('agent-creation-form').reset();
+        document.getElementById('temp-value').textContent = '0.7';
+      }
+    }
+
+    // Initialize the agent creator
+    const agentCreator = new AgentCreator();
+  </script>
+
+  <style>
+    /* Custom checkbox styles */
+    .form-checkbox {
+      appearance: none;
+      background-color: #374151;
+      border: 1px solid #6b7280;
+      border-radius: 0.25rem;
+      width: 1rem;
+      height: 1

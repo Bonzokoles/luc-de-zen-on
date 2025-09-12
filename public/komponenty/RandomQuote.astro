@@ -1,0 +1,52 @@
+---
+const quotes = [
+  // Kino
+  "Nie ma nic bardziej poteznego niz idea, ktorej czas nadszedl. - Victor Hugo",
+  "Zycie to nie problem do rozwiazania, lecz rzeczywistosc do doswiadczenia. - Soren Kierkegaard", 
+  "Wielkosc czlowieka polega na jego wolnosci wyboru. - Jean-Paul Sartre",
+  // Filozofia
+  "Poznaj samego siebie. - Sokrates",
+  "Rzeczywistosc jest jedynie iluzja, choc bardzo uporczywa. - Albert Einstein",
+  "To, co mnie nie zabije, czyni mnie silniejszym. - Friedrich Nietzsche",
+  // Sztuka
+  "Sztuka nigdy nie jest ukonczona, tylko porzucona. - Leonardo da Vinci",
+  "Kreatywnosc wymaga odwagi. - Henri Matisse",
+  "Kolor to miejsce, gdzie nasze oko spotyka sie z dusza. - Van Gogh",
+  // Science Fiction
+  "Nie wolno sie bac zmian, bo one tworza przyszlosc. - z filmu Blade Runner",
+  "Czlowiek jest tym, czym sa jego decyzje. - z ksiazki Dune Frank Herbert",
+  "Granice mojego jezyka sa granicami mojego swiata. - Ludwig Wittgenstein"
+];
+
+const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+---
+
+<div id="quote-box" style="font-style: italic; padding: 10px; border-left: 3px solid #4a90e2; margin: 15px 0; min-height: 3em; font-size: 1.5em;">
+  {currentQuote}
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const quoteBox = document.getElementById('quote-box');
+    if (quoteBox) {
+      setInterval(() => {
+        const quotes = [
+          "Nie ma nic bardziej poteznego niz idea, ktorej czas nadszedl. - Victor Hugo",
+          "Zycie to nie problem do rozwiazania, lecz rzeczywistosc do doswiadczenia. - Soren Kierkegaard", 
+          "Wielkosc czlowieka polega na jego wolnosci wyboru. - Jean-Paul Sartre",
+          "Poznaj samego siebie. - Sokrates",
+          "Rzeczywistosc jest jedynie iluzja, choc bardzo uporczywa. - Albert Einstein",
+          "To, co mnie nie zabije, czyni mnie silniejszym. - Friedrich Nietzsche",
+          "Sztuka nigdy nie jest ukonczona, tylko porzucona. - Leonardo da Vinci",
+          "Kreatywnosc wymaga odwagi. - Henri Matisse",
+          "Kolor to miejsce, gdzie nasze oko spotyka sie z dusza. - Van Gogh",
+          "Nie wolno sie bac zmian, bo one tworza przyszlosc. - z filmu Blade Runner",
+          "Czlowiek jest tym, czym sa jego decyzje. - z ksiazki Dune Frank Herbert",
+          "Granice mojego jezyka sa granicami mojego swiata. - Ludwig Wittgenstein"
+        ];
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteBox.textContent = quotes[randomIndex];
+      }, 60000);
+    }
+  });
+</script>

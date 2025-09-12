@@ -1,0 +1,136 @@
+---
+// Dodatkowe style polskie dla panelu administracyjnego
+---
+
+<style is:global>
+  /* Specjalne polskie style dla admin panelu */
+  .admin-page {
+    --polish-accent: #dc143c; /* Polska czerwień */
+    --polish-silver: #c0c0c0; /* Polska biel */
+  }
+
+  /* Polskie akcenty kolorystyczne */
+  .admin-page .polish-accent {
+    color: var(--polish-accent) !important;
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+  }
+
+  .admin-page .polish-silver {
+    color: var(--polish-silver) !important;
+    text-shadow: 0 0 5px rgba(192, 192, 192, 0.3);
+  }
+
+  /* Specjalne style dla polskich nazw */
+  .admin-page .polish-name {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  /* Style dla polskich przycisków */
+  .admin-page .polish-button {
+    background: linear-gradient(135deg, #dc143c 0%, #8b0000 50%, #dc143c 100%);
+    border: 2px solid #dc143c;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .admin-page .polish-button:hover {
+    box-shadow: 0 0 25px rgba(220, 20, 60, 0.6);
+    transform: translateY(-2px);
+  }
+
+  /* Animacje dla polskich elementów */
+  @keyframes polishGlow {
+    0%, 100% { 
+      text-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+    }
+    50% { 
+      text-shadow: 0 0 20px rgba(220, 20, 60, 0.8), 0 0 30px rgba(192, 192, 192, 0.3);
+    }
+  }
+
+  .admin-page .polish-animated {
+    animation: polishGlow 3s ease-in-out infinite;
+  }
+
+  /* Responsywne polskie fonty */
+  @media screen and (max-width: 1024px) {
+    .admin-page {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    .admin-page {
+      font-size: 0.9rem;
+    }
+    
+    .admin-page h1 {
+      font-size: 1.6rem !important;
+    }
+    
+    .admin-page h2, .admin-page h3 {
+      font-size: 1.3rem !important;
+    }
+  }
+
+  /* Specjalne style dla tekstów zawierających polskie znaki */
+  .admin-page .contains-polish {
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "dlig" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Highlight dla ważnych polskich tekstów */
+  .admin-page .important-polish {
+    background: linear-gradient(90deg, rgba(220, 20, 60, 0.1) 0%, rgba(192, 192, 192, 0.1) 100%);
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--polish-accent);
+    border-radius: 0 8px 8px 0;
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Dodawanie polskich klas do odpowiednich elementów
+    if (window.location.pathname.includes('/admin')) {
+      
+      // Znajdź wszystkie elementy z polskimi znakami
+      const allElements = document.querySelectorAll('*');
+      allElements.forEach(element => {
+        const text = element.textContent || element.innerText || '';
+        
+        // Sprawdź czy zawiera polskie znaki
+        if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(text)) {
+          element.classList.add('contains-polish');
+          
+          // Dodaj specjalne style dla różnych typów elementów
+          if (element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3') {
+            element.classList.add('polish-name');
+          }
+          
+          // Sprawdź czy to ważny tekst administracyjny
+          if (text.includes('Panel') || text.includes('Administracyjny') || text.includes('MyBonzo')) {
+            element.classList.add('important-polish');
+            element.classList.add('polish-animated');
+          }
+        }
+      });
+
+      // Znajdź przyciski i dodaj polskie style
+      const buttons = document.querySelectorAll('.cyberpunk-btn');
+      buttons.forEach(button => {
+        const text = button.textContent || button.innerText || '';
+        if (/[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/.test(text)) {
+          button.classList.add('polish-button');
+        }
+      });
+
+      console.log('🇵🇱 Polskie style zastosowane do admin panelu');
+    }
+  });
+</script>

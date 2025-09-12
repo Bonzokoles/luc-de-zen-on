@@ -1,0 +1,29 @@
+# Code Owners for Branch Protection
+# This file defines who owns which parts of the codebase
+# and is used for automatic reviewer assignment
+
+# Global owners - must review all changes
+* @stolarczyk-ams
+
+# Frontend and UI components
+/src/ @stolarczyk-ams
+/public/ @stolarczyk-ams
+/astro.config.mjs @stolarczyk-ams
+/tailwind.config.mjs @stolarczyk-ams
+
+# API routes and backend
+/src/pages/api/ @stolarczyk-ams
+/src/workers/ @stolarczyk-ams
+
+# Configuration files
+/wrangler.toml @stolarczyk-ams
+/package.json @stolarczyk-ams
+/tsconfig.json @stolarczyk-ams
+
+# Documentation
+/README.md @stolarczyk-ams
+/DOC_mentacja/ @stolarczyk-ams
+/Documentation/ @stolarczyk-ams
+
+# CI/CD and workflows
+/.github/ @stolarczyk-ams

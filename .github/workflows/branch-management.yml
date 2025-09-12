@@ -1,0 +1,164 @@
+name: Branch Management & Cleanup
+
+on:
+  schedule:
+    # Weekly cleanup on Sundays at 3 AM UTC
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Action to perform"
+        required: true
+        type: choice
+        options:
+          - cleanup-merged-branches
+          - cleanup-old-branches
+          - list-branches
+      days_old:
+        description: "Days old for cleanup (default: 30)"
+        required: false
+        default: "30"
+
+jobs:
+  cleanup-merged-branches:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.action == 'cleanup-merged-branches' || github.event.schedule == '0 3 * * 0'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Cleanup merged feature branches
+        run: |
+          echo "🧹 Cleaning up merged feature branches..."
+
+          # Get all merged branches except main and develop
+          MERGED_BRANCHES=$(git branch -r --merged origin/main | grep -v "origin/main\|origin/develop\|origin/HEAD" | sed 's|origin/||')
+
+          if [ -z "$MERGED_BRANCHES" ]; then
+            echo "✅ No merged branches to clean up"
+            exit 0
+          fi
+
+          echo "Found merged branches:"
+          echo "$MERGED_BRANCHES"
+
+          # Delete merged branches
+          for branch in $MERGED_BRANCHES; do
+            if [[ $branch == feature/* || $branch == hotfix/* || $branch == bugfix/* ]]; then
+              echo "Deleting merged branch: $branch"
+              git push origin --delete "$branch" || echo "Failed to delete $branch"
+            else
+              echo "Skipping non-feature branch: $branch"
+            fi
+          done
+
+  cleanup-old-branches:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.action == 'cleanup-old-branches'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Cleanup old branches
+        run: |
+          echo "🗑️  Cleaning up old branches..."
+
+          DAYS_OLD=${{ github.event.inputs.days_old || 30 }}
+          CUTOFF_DATE=$(date -d "$DAYS_OLD days ago" +%s)
+
+          # Get all branches with their last commit dates
+          git for-each-ref --format='%(refname:short) %(committerdate:unix)' refs/heads/ | while read branch date; do
+            if [[ $branch != "main" && $branch != "develop" && $date -lt $CUTOFF_DATE ]]; then
+              echo "Branch $branch is older than $DAYS_OLD days (last commit: $(date -d @$date))"
+              git push origin --delete "$branch" || echo "Failed to delete $branch"
+            fi
+          done
+
+  list-branches:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.action == 'list-branches' || github.event.schedule == '0 3 * * 0'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: List all branches
+        run: |
+          echo "📋 Current branches status:"
+          echo "=========================="
+
+          echo ""
+          echo "Active branches:"
+          git branch -r | grep -v "HEAD" | sed 's|origin/||' | while read branch; do
+            LAST_COMMIT=$(git log -1 --format="%ci %s" "origin/$branch" 2>/dev/null || echo "No commits")
+            echo "  $branch - $LAST_COMMIT"
+          done
+
+          echo ""
+          echo "Branch statistics:"
+          TOTAL_BRANCHES=$(git branch -r | grep -v "HEAD" | wc -l)
+          FEATURE_BRANCHES=$(git branch -r | grep "feature/" | wc -l)
+          HOTFIX_BRANCHES=$(git branch -r | grep "hotfix/" | wc -l)
+          MAIN_BRANCHES=$(git branch -r | grep -E "(main|master|develop)" | wc -l)
+
+          echo "  Total branches: $TOTAL_BRANCHES"
+          echo "  Feature branches: $FEATURE_BRANCHES"
+          echo "  Hotfix branches: $HOTFIX_BRANCHES"
+          echo "  Main branches: $MAIN_BRANCHES"
+
+      - name: Generate branch report
+        run: |
+          echo "# 📊 Branch Management Report" > branch-report.md
+          echo "" >> branch-report.md
+          echo "Generated on: $(date)" >> branch-report.md
+          echo "" >> branch-report.md
+          echo "## Branch Statistics" >> branch-report.md
+          echo "" >> branch-report.md
+          git branch -r | grep -v "HEAD" | sed 's|origin/||' | while read branch; do
+            LAST_COMMIT=$(git log -1 --format="%ci" "origin/$branch" 2>/dev/null || echo "No commits")
+            echo "- **$branch**: Last commit $LAST_COMMIT" >> branch-report.md
+          done
+
+      - name: Upload branch report
+        uses: actions/upload-artifact@v4
+        with:
+          name: branch-report
+          path: branch-report.md
+
+  enforce-branch-naming:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Enforce branch naming convention
+        run: |
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          # Check if branch follows naming convention
+          if [[ ! $BRANCH_NAME =~ ^(feature|hotfix|bugfix)/[a-z0-9-]+(-[a-z0-9-]+)*$ ]]; then
+            echo "❌ Branch name '$BRANCH_NAME' does not follow naming convention!"
+            echo "Branch names must follow pattern: feature/description, hotfix/fix-name, or bugfix/issue-name"
+            echo "Examples:"
+            echo "  ✅ feature/add-user-authentication"
+            echo "  ✅ hotfix/fix-login-bug"
+            echo "  ✅ bugfix/resolve-memory-leak"
+            exit 1
+          else
+            echo "✅ Branch name '$BRANCH_NAME' follows naming convention"
+          fi

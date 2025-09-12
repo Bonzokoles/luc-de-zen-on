@@ -1,0 +1,21 @@
+---
+const { frontmatter, Content } = Astro.props;
+---
+
+<html lang="pl">
+  <head>
+    <title>{frontmatter.title}</title>
+    <meta name="description" content={frontmatter.description} />
+    <!-- Dodaj meta SEO, linki CSS itd. -->
+  </head>
+  <body class="bg-cyber-dark text-cyber-text font-sans">
+    <header>
+      <h1>{frontmatter.title}</h1>
+      <p>Status: {frontmatter.status}</p>
+      <p>Data: {frontmatter.date}</p>
+    </header>
+    <main>
+      <Content />
+    </main>
+  </body>
+</html>

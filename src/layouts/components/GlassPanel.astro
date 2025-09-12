@@ -1,0 +1,131 @@
+---
+// Komponent przezroczystych paneli z efektem glass
+interface Props {
+  title?: string;
+  variant?: "default" | "highlight" | "warning" | "success";
+  padding?: "sm" | "md" | "lg";
+  className?: string;
+}
+
+const {
+  title,
+  variant = "default",
+  padding = "md",
+  className = "",
+} = Astro.props;
+
+const variantClasses = {
+  default: "glass-panel-default",
+  highlight: "glass-panel-highlight", 
+  warning: "glass-panel-warning",
+  success: "glass-panel-success"
+};
+
+const paddingClasses = {
+  sm: "glass-panel-sm",
+  md: "glass-panel-md",
+  lg: "glass-panel-lg"
+};
+---
+
+<div class={`glass-panel ${variantClasses[variant]} ${paddingClasses[padding]} ${className}`}>
+  {title && (
+    <div class="glass-panel-header">
+      <h3 class="glass-panel-title">{title}</h3>
+    </div>
+  )}
+  <div class="glass-panel-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .glass-panel {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      transparent 100%
+    );
+  }
+
+  .glass-panel-default {
+    border-color: rgba(0, 217, 255, 0.3);
+  }
+
+  .glass-panel-highlight {
+    border-color: rgba(0, 217, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .glass-panel-warning {
+    border-color: rgba(255, 193, 7, 0.6);
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+  }
+
+  .glass-panel-success {
+    border-color: rgba(40, 167, 69, 0.6);
+    box-shadow: 0 0 20px rgba(40, 167, 69, 0.2);
+  }
+
+  .glass-panel:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 217, 255, 0.8);
+    box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+  }
+
+  .glass-panel-sm {
+    padding: 1rem;
+  }
+
+  .glass-panel-md {
+    padding: 1.5rem;
+  }
+
+  .glass-panel-lg {
+    padding: 2rem;
+  }
+
+  .glass-panel-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .glass-panel-title {
+    color: #00d9ff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    text-shadow: 0 0 8px rgba(0, 217, 255, 0.5);
+  }
+
+  .glass-panel-content {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .glass-panel-lg {
+      padding: 1.5rem;
+    }
+    .glass-panel-md {
+      padding: 1rem;
+    }
+  }
+</style>

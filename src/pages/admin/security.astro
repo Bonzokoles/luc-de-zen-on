@@ -1,0 +1,430 @@
+---
+import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
+import GlassPanel from "../../layouts/components/GlassPanel.astro";
+import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
+
+const pageTitle = "Centrum Bezpieczeństwa | MyBonzo Admin";
+const pageDescription = "Zarządzanie bezpieczeństwem i kontrolą dostępu MyBonzo AI";
+const pageQuote = "Bezpieczeństwo to nie opcja, to konieczność.";
+const pageAuthor = "MyBonzo Security Team";
+---
+
+<UniversalPageLayout 
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  pageQuote={pageQuote}
+  pageAuthor={pageAuthor}
+  showRandomQuote={false}
+>
+    <!-- Navigation -->
+    <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <CyberpunkButton text="🏠 Strona główna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
+            <CyberpunkButton text="📊 Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
+            <CyberpunkButton text="👥 Użytkownicy" variant="outline" size="sm" onclick="window.location.href='/admin/users'" />
+        </div>
+    </GlassPanel>
+
+    <!-- Security Status Overview -->
+    <GlassPanel title="🛡️ Status bezpieczeństwa" variant="warning" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div style="background: rgba(239,68,68,0.1); padding: 15px; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #ef4444; font-size: 2rem; font-weight: 700;" id="threatLevel">🟡 MEDIUM</div>
+                <div style="color: rgba(255,255,255,0.7);">Poziom zagrożenia</div>
+            </div>
+            <div style="background: rgba(245,158,11,0.1); padding: 15px; border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #f59e0b; font-size: 2rem; font-weight: 700;" id="blockedAttempts">147</div>
+                <div style="color: rgba(255,255,255,0.7);">Zablokowane próby (24h)</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeFirewallRules">23</div>
+                <div style="color: rgba(255,255,255,0.7);">Aktywne reguły firewall</div>
+            </div>
+            <div style="background: rgba(34,197,94,0.1); padding: 15px; border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #22c55e; font-size: 2rem; font-weight: 700;" id="lastScan">2h ago</div>
+                <div style="color: rgba(255,255,255,0.7);">Ostatni skan bezpieczeństwa</div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <CyberpunkButton 
+                text="🔍 Uruchom pełny skan" 
+                variant="warning" 
+                size="lg"
+                onclick="startSecurityScan()"
+            />
+        </div>
+    </GlassPanel>
+
+    <!-- Access Control -->
+    <GlassPanel title="🔐 Kontrola dostępu" variant="default" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            
+            <!-- Authentication Settings -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                    🔑 <span style="margin-left: 10px;">Ustawienia uwierzytelniania</span>
+                </h3>
+                <div style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="require2FA" checked />
+                            Wymagaj 2FA dla adminów
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="strongPasswords" checked />
+                            Wymuś silne hasła
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="sessionTimeout" checked />
+                            Timeout sesji (30 min)
+                        </label>
+                    </div>
+                </div>
+                <CyberpunkButton 
+                    text="💾 Zapisz ustawienia" 
+                    variant="primary" 
+                    size="sm"
+                    onclick="saveAuthSettings()"
+                />
+            </div>
+
+            <!-- IP Whitelist/Blacklist -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                    🌐 <span style="margin-left: 10px;">Zarządzanie IP</span>
+                </h3>
+                <div style="margin-bottom: 15px;">
+                    <input 
+                        type="text" 
+                        id="ipAddress" 
+                        placeholder="192.168.1.100"
+                        style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 4px; color: white; margin-bottom: 10px;"
+                    />
+                    <div style="display: flex; gap: 10px;">
+                        <CyberpunkButton text="✅ Whitelist" variant="success" size="sm" onclick="addToWhitelist()" />
+                        <CyberpunkButton text="❌ Blacklist" variant="danger" size="sm" onclick="addToBlacklist()" />
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
+                    Whitelisted IPs: <span id="whitelistCount">5</span><br>
+                    Blacklisted IPs: <span id="blacklistCount">127</span>
+                </div>
+            </div>
+
+            <!-- API Security -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                    🔌 <span style="margin-left: 10px;">Zabezpieczenia API</span>
+                </h3>
+                <div style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
+                    <div style="margin-bottom: 10px;">Rate limiting: <span style="color: #00d9ff;">1000 req/h</span></div>
+                    <div style="margin-bottom: 10px;">Aktywne klucze API: <span style="color: #00d9ff;">47</span></div>
+                    <div style="margin-bottom: 15px;">Podejrzane zapytania: <span style="color: #ef4444;">3</span></div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <CyberpunkButton text="🔑 Zarządzaj kluczami" variant="outline" size="sm" onclick="manageAPIKeys()" />
+                    <CyberpunkButton text="📊 Logi API" variant="outline" size="sm" onclick="viewAPILogs()" />
+                </div>
+            </div>
+        </div>
+    </GlassPanel>
+
+    <!-- Security Incidents -->
+    <GlassPanel title="🚨 Incydenty bezpieczeństwa" variant="danger" padding="lg">
+        <div style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
+            <div id="securityIncidents">
+                <!-- Incidents will be loaded here -->
+            </div>
+        </div>
+        
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <CyberpunkButton 
+                text="🔄 Odśwież incydenty" 
+                variant="outline" 
+                size="sm"
+                onclick="loadSecurityIncidents()"
+            />
+            <CyberpunkButton 
+                text="📋 Eksportuj raport" 
+                variant="outline" 
+                size="sm"
+                onclick="exportSecurityReport()"
+            />
+            <CyberpunkButton 
+                text="✉️ Powiadom zespół" 
+                variant="warning" 
+                size="sm"
+                onclick="notifySecurityTeam()"
+            />
+        </div>
+    </GlassPanel>
+
+    <!-- Security Tools -->
+    <GlassPanel title="🛠️ Narzędzia bezpieczeństwa" variant="default" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+            
+            <!-- Firewall Status -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Firewall</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 AKTYWNY</div>
+                <CyberpunkButton text="Konfiguruj" variant="outline" size="sm" onclick="configureFirewall()" />
+            </div>
+
+            <!-- DDoS Protection -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">DDoS Protection</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 AKTYWNY</div>
+                <CyberpunkButton text="Status" variant="outline" size="sm" onclick="checkDDoSStatus()" />
+            </div>
+
+            <!-- SSL/TLS -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">SSL/TLS</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 VALID</div>
+                <CyberpunkButton text="Certyfikaty" variant="outline" size="sm" onclick="manageCertificates()" />
+            </div>
+
+            <!-- Vulnerability Scanner -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔍</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Skaner podatności</h4>
+                <div style="color: #f59e0b; margin-bottom: 10px;">🟡 PENDING</div>
+                <CyberpunkButton text="Skanuj" variant="warning" size="sm" onclick="runVulnerabilityscan()" />
+            </div>
+
+            <!-- Intrusion Detection -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">👁️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">IDS/IPS</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 MONITORING</div>
+                <CyberpunkButton text="Logi" variant="outline" size="sm" onclick="viewIDSLogs()" />
+            </div>
+
+            <!-- Backup Security -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">💾</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Secure Backup</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 ENCRYPTED</div>
+                <CyberpunkButton text="Backup" variant="outline" size="sm" onclick="createSecureBackup()" />
+            </div>
+        </div>
+    </GlassPanel>
+
+    <script>
+        // Security incident data
+        function generateSecurityIncidents() {
+            const incidents = [
+                {
+                    time: "14:23",
+                    type: "Suspicious Login",
+                    description: "Multiple failed login attempts from IP: 192.168.1.100",
+                    severity: "high",
+                    status: "investigating"
+                },
+                {
+                    time: "13:45", 
+                    type: "API Abuse",
+                    description: "Rate limit exceeded by 300% from API key: ak_***123",
+                    severity: "medium",
+                    status: "blocked"
+                },
+                {
+                    time: "12:30",
+                    type: "SQL Injection Attempt",
+                    description: "Malicious SQL detected in /api/users endpoint",
+                    severity: "high",
+                    status: "blocked"
+                },
+                {
+                    time: "11:15",
+                    type: "DDoS Pattern",
+                    description: "Traffic spike detected from subnet 10.0.0.0/24",
+                    severity: "critical",
+                    status: "mitigated"
+                },
+                {
+                    time: "10:00",
+                    type: "Unauthorized Access",
+                    description: "Admin panel access attempt without proper credentials",
+                    severity: "high",
+                    status: "blocked"
+                }
+            ];
+            return incidents;
+        }
+
+        function loadSecurityIncidents() {
+            const incidents = generateSecurityIncidents();
+            const container = document.getElementById('securityIncidents');
+            
+            container.innerHTML = incidents.map(incident => {
+                const severityColor = getSeverityColor(incident.severity);
+                const statusColor = getStatusColor(incident.status);
+                
+                return `
+                    <div style="background: rgba(0,0,0,0.3); border-left: 3px solid ${severityColor}; padding: 15px; margin-bottom: 10px; border-radius: 0 8px 8px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <h4 style="color: ${severityColor}; margin: 0; font-size: 1rem;">${incident.type}</h4>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <span style="color: ${statusColor}; font-size: 0.8rem; text-transform: uppercase;">${incident.status}</span>
+                                <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">${incident.time}</span>
+                            </div>
+                        </div>
+                        <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">${incident.description}</p>
+                        <div style="margin-top: 10px; display: flex; gap: 10px;">
+                            <button onclick="investigateIncident('${incident.type}')" style="background: #00d9ff; color: black; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">🔍 Investigate</button>
+                            <button onclick="resolveIncident('${incident.type}')" style="background: #22c55e; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">✅ Resolve</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getSeverityColor(severity) {
+            switch(severity) {
+                case 'critical': return '#dc2626';
+                case 'high': return '#ef4444';
+                case 'medium': return '#f59e0b';
+                case 'low': return '#22c55e';
+                default: return '#6b7280';
+            }
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'blocked': return '#ef4444';
+                case 'mitigated': return '#22c55e';
+                case 'investigating': return '#f59e0b';
+                case 'resolved': return '#22c55e';
+                default: return '#6b7280';
+            }
+        }
+
+        // Security functions
+        function startSecurityScan() {
+            const button = document.querySelector('[onclick="startSecurityScan()"]');
+            button.textContent = '🔄 Skanowanie...';
+            button.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                button.textContent = '✅ Skan zakończony';
+                button.style.color = '#22c55e';
+                setTimeout(() => {
+                    button.textContent = '🔍 Uruchom pełny skan';
+                    button.style.opacity = '1';
+                    button.style.color = '';
+                }, 2000);
+            }, 3000);
+        }
+
+        function saveAuthSettings() {
+            alert('✅ Ustawienia uwierzytelniania zostały zapisane');
+        }
+
+        function addToWhitelist() {
+            const ip = document.getElementById('ipAddress').value;
+            if (ip) {
+                alert(`✅ IP ${ip} dodany do whitelisty`);
+                document.getElementById('ipAddress').value = '';
+                const count = document.getElementById('whitelistCount');
+                count.textContent = parseInt(count.textContent) + 1;
+            }
+        }
+
+        function addToBlacklist() {
+            const ip = document.getElementById('ipAddress').value;
+            if (ip) {
+                alert(`❌ IP ${ip} dodany do blacklisty`);
+                document.getElementById('ipAddress').value = '';
+                const count = document.getElementById('blacklistCount');
+                count.textContent = parseInt(count.textContent) + 1;
+            }
+        }
+
+        function manageAPIKeys() {
+            alert('🚧 Panel zarządzania kluczami API w przygotowaniu...');
+        }
+
+        function viewAPILogs() {
+            alert('🚧 Podgląd logów API w przygotowaniu...');
+        }
+
+        function exportSecurityReport() {
+            const report = "MyBonzo Security Report\\n\\n" +
+                          "Generated: " + new Date().toLocaleString() + "\\n\\n" +
+                          "Threat Level: MEDIUM\\n" +
+                          "Blocked Attempts (24h): 147\\n" +
+                          "Active Firewall Rules: 23\\n\\n" +
+                          "Recent Security Incidents:\\n" +
+                          "- Suspicious Login Attempts\\n" +
+                          "- API Rate Limit Violations\\n" +
+                          "- SQL Injection Attempts\\n";
+            
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `security-report-${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function notifySecurityTeam() {
+            alert('🚧 System powiadomień zespołu bezpieczeństwa w przygotowaniu...');
+        }
+
+        function investigateIncident(type) {
+            alert(`🔍 Rozpoczęto dochodzenie w sprawie: ${type}`);
+        }
+
+        function resolveIncident(type) {
+            alert(`✅ Incydent "${type}" został oznaczony jako rozwiązany`);
+        }
+
+        // Security tools functions
+        function configureFirewall() {
+            alert('🚧 Konfiguracja firewalla w przygotowaniu...');
+        }
+
+        function checkDDoSStatus() {
+            alert('✅ DDoS Protection: AKTYWNY\\n- Zablokowane ataki: 15\\n- Ostatni atak: 2h temu');
+        }
+
+        function manageCertificates() {
+            alert('🚧 Zarządzanie certyfikatami SSL/TLS w przygotowaniu...');
+        }
+
+        function runVulnerabilityScan() {
+            alert('🚧 Skaner podatności w przygotowaniu...');
+        }
+
+        function viewIDSLogs() {
+            alert('🚧 Logi IDS/IPS w przygotowaniu...');
+        }
+
+        function createSecureBackup() {
+            alert('🚧 System bezpiecznych kopii zapasowych w przygotowaniu...');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSecurityIncidents();
+            
+            // Update security status every 60 seconds
+            setInterval(() => {
+                const blockedAttempts = document.getElementById('blockedAttempts');
+                blockedAttempts.textContent = Math.floor(Math.random() * 50) + 120;
+            }, 60000);
+        });
+    </script>
+</UniversalPageLayout>

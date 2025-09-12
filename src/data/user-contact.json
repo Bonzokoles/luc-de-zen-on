@@ -1,0 +1,14 @@
+{
+  "userEmail": "LissonKarol.msa@gmail.com",
+  "userPhoneNumber": "user-phone-number",
+  "userSocials": [
+    {
+      "title": "LinkedIn",
+      "link": "https://www.linkedin.com/in/linkedinHandle"
+    },
+    {
+      "title": "GitHub",
+      "link": "https://www.github.com/githubUsername"
+    }
+  ]
+}
