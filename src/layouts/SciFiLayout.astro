@@ -1,0 +1,116 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Generator obrazów AI z futurystycznym stylingiem"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <title>{title || "AI Generator"}</title>
+  </head>
+
+  <body class="scifi-bg cyber-bg">
+    <!-- Floating header space -->
+    <div class="floating-banner-space">
+      <div
+        class="container mx-auto px-6 h-full flex items-center justify-between"
+      >
+        <h1 class="neon-cyan sci-fi-type text-2xl font-bold">
+          AI IMAGE GENERATOR
+        </h1>
+        <div class="neon-white sci-fi-type">STABLE DIFFUSION</div>
+      </div>
+    </div>
+
+    <main class="scifi-main">
+      <slot />
+    </main>
+
+    <!-- Subtle footer -->
+    <footer class="text-center py-8">
+      <div class="neon-white sci-fi-type text-sm opacity-60">
+        POWERED BY STABLE DIFFUSION | CYBERPUNK UI
+      </div>
+    </footer>
+
+    <style>
+      .floating-banner-space {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.9) 0%,
+          rgba(20, 20, 20, 0.8) 100%
+        );
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 1000;
+      }
+
+      .floating-banner-space::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.8) 20%,
+          rgba(255, 255, 255, 0.4) 50%,
+          rgba(255, 255, 255, 0.8) 80%,
+          transparent 100%
+        );
+      }
+
+      .floating-banner-space::after {
+        content: "";
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.6) 30%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.6) 70%,
+          transparent 100%
+        );
+      }
+
+      body {
+        padding-top: 80px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+    </style>
+  </body>
+</html>

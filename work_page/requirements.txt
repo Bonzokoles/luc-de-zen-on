@@ -1,0 +1,11 @@
+# Flask Web Server Requirements
+flask==2.3.3
+flask-cors==4.0.0
+pyyaml==6.0.1
+requests==2.31.0
+pillow==10.0.1
+python-dotenv==1.0.0
+
+# Optional: Development tools
+black==23.9.1
+pytest==7.4.2

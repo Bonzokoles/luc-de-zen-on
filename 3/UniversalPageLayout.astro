@@ -1,0 +1,428 @@
+---
+// Universal Page Layout for MyBonzo Admin Panel
+import SEOHead from "../components/SEO/SEOHead.astro";
+import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
+
+interface Props {
+  pageTitle: string;
+  pageDescription?: string;
+  pageQuote?: string;
+  pageAuthor?: string;
+  showRandomQuote?: boolean;
+  themeColor?: string;
+  noindex?: boolean;
+}
+
+const {
+  pageTitle,
+  pageDescription = "MyBonzo Admin Panel - Zarządzanie systemem AI",
+  pageQuote = "Zarządzanie to sztuka, kontrola to nauka.",
+  pageAuthor = "MyBonzo Team",
+  showRandomQuote = false,
+  themeColor = "190",
+  noindex = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pl" dir="ltr" style=`--themeColor: ${themeColor};`>
+  <head>
+    <SEOHead
+      siteTitle={pageTitle}
+      description={pageDescription}
+      themeColor={themeColor}
+      noindex={noindex}
+    />
+    
+    <!-- Import głównych stylów MyBonzo -->
+    <link rel="stylesheet" href="/src/styles/global.css">
+    
+    <style>
+      /* Import polskich fontów z głównej strony MyBonzo */
+      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+      
+      @font-face {
+        font-family: 'Neuropol';
+        src: url('/fonts/Neuropol.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Kenyan Coffee';
+        src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Kenyan Coffee';
+        src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      :root {
+        /* MyBonzo cyberpunk color palette - zmniejszona intensywność neon */
+        --primary-color: #00cccc;
+        --secondary-color: #8b5cf6;
+        --cyber-dark: #0a0a0a;
+        --cyber-surface: #111111;
+        --cyber-text: #e0e0e0;
+        --cyber-text-dim: #a0a0a0;
+        --cyber-blue: #00cccc;
+        --cyber-border: #333333;
+        --cyber-grid: rgba(0, 204, 204, 0.05);
+        --background-primary: var(--cyber-dark);
+        --background-secondary: var(--cyber-surface);
+        --text-primary: var(--cyber-text);
+        --text-secondary: var(--cyber-text-dim);
+        --border-color: rgba(0, 204, 204, 0.15);
+        --glass-bg: rgba(0, 0, 0, 0.4);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+        background: #000000;
+        color: var(--text-primary);
+        min-height: 100vh;
+        line-height: 1.6;
+        position: relative;
+      }
+
+      /* Główne tło MyBonzo z subtelnym grid pattern */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(15deg, rgba(0, 204, 204, 0.01) 1px, transparent 1px);
+        background-size: 120px 120px, 80px 80px, 220px 220px;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.6;
+        filter: blur(0.5px);
+      }
+
+      .main-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: 100vh;
+      }
+
+      .page-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 40px 20px;
+        background: var(--glass-bg);
+        border-radius: 8px;
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--cyber-border);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .page-title {
+        font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        text-shadow: 0 0 8px rgba(0, 204, 204, 0.15);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .page-description {
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+        font-weight: 400;
+      }
+
+      .page-quote {
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+        font-style: italic;
+        color: var(--secondary-color);
+        font-size: 1rem;
+        margin-bottom: 5px;
+        font-weight: 400;
+      }
+
+      /* Małe napisy zachowują polskie fonty */
+      small, .text-sm, .text-xs, .footnote, .caption {
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+        font-weight: 400;
+      }
+
+      .page-author {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* Navigation link styles */
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      a:hover {
+        color: var(--secondary-color);
+        text-shadow: 0 0 5px rgba(139, 92, 246, 0.3);
+      }
+
+      /* MyBonzo Cyberpunk Button Styles */
+      .nav-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        font-family: 'Rajdhani', system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid var(--cyber-border);
+        border-radius: 4px;
+        color: var(--cyber-text);
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: linear-gradient(45deg, transparent, var(--cyber-blue), transparent);
+        transition: all 0.5s ease;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
+
+      .nav-button:hover {
+        background: linear-gradient(135deg, rgba(0, 204, 204, 0.15), rgba(139, 92, 246, 0.15));
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 204, 204, 0.2);
+        border-color: var(--cyber-blue);
+        color: var(--cyber-blue);
+        text-shadow: 0 0 5px rgba(0, 204, 204, 0.1);
+      }
+
+      .nav-button:hover::before {
+        width: 100%;
+        height: 100%;
+      }
+
+      .nav-button:active {
+        transform: translateY(0);
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2);
+      }
+
+      /* Navigation Footer */
+      .navigation-footer {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+      }
+
+      /* Delikatny grid pattern - już dodany w body::before wyżej */
+
+      /* Header scanning animation */
+      .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+        animation: scan 3s linear infinite;
+      }
+
+      @keyframes scan {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+
+      /* Ripple effect */
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+      
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 15px;
+        }
+        
+        .page-title {
+          font-size: 2rem;
+        }
+        
+        .page-description {
+          font-size: 1rem;
+        }
+        
+        .navigation-footer {
+          bottom: 10px;
+          right: 10px;
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <!-- MyBonzo Interactive JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Cyberpunk button hover effects
+        const buttons = document.querySelectorAll('.nav-button');
+        buttons.forEach(button => {
+          button.addEventListener('mouseenter', function() {
+            this.style.textShadow = '0 0 5px rgba(0, 204, 204, 0.4)';
+          });
+          
+          button.addEventListener('mouseleave', function() {
+            this.style.textShadow = 'none';
+          });
+          
+          button.addEventListener('click', function(e) {
+            // Ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.height, rect.width);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+          });
+        });
+        
+        // Glitch effect for page title
+        const title = document.querySelector('.page-title');
+        if (title) {
+          let glitchInterval;
+          title.addEventListener('mouseenter', function() {
+            let counter = 0;
+            glitchInterval = setInterval(() => {
+              if (counter > 10) {
+                clearInterval(glitchInterval);
+                this.style.transform = 'none';
+                return;
+              }
+              this.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
+              counter++;
+            }, 50);
+          });
+        }
+        
+        // Console welcome message
+        console.log('%c🤖 MyBonzo Admin Panel v2.0 - Cyberpunk Edition', 'color: #00ffff; font-size: 16px; font-weight: bold;');
+        console.log('%cSystem status: ONLINE ✓', 'color: #00ff00; font-size: 12px;');
+      });
+    </script>
+    
+    <style>
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(0, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+      
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <AccessibilityTools />
+    
+    <div class="main-container">
+      <!-- Page Header -->
+      <header class="page-header">
+        <h1 class="page-title">{pageTitle}</h1>
+        {pageDescription && <p class="page-description">{pageDescription}</p>}
+        {showRandomQuote && pageQuote && (
+          <div>
+            <p class="page-quote">"{pageQuote}"</p>
+            {pageAuthor && <p class="page-author">— {pageAuthor}</p>}
+          </div>
+        )}
+      </header>
+
+      <!-- Main Content -->
+      <main class="content-wrapper">
+        <slot />
+      </main>
+    </div>
+
+    <!-- Footer Navigation -->
+    <footer style="text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid var(--border-color);">
+      <div style="margin-bottom: 15px;">
+        <a href="/admin" style="margin: 0 15px;">🏠 Admin Home</a>
+        <a href="/" style="margin: 0 15px;">🌐 Main Site</a>
+        <a href="/admin/test" style="margin: 0 15px;">🧪 Test Page</a>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem;">
+        MyBonzo Admin Panel © 2025
+      </p>
+    </footer>
+  </body>
+</html>
