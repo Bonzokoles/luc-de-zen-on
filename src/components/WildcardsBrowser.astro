@@ -1,0 +1,422 @@
+---
+// Wildcards browser component matching the destroyed interface
+---
+
+<div
+  id="wildcardsBrowser"
+  class="glossy-black rounded-lg p-6 mb-6 transition-glossy"
+>
+  <!-- Tab Navigation -->
+  <div class="flex flex-wrap gap-2 mb-6 border-b border-white/10 pb-4">
+    <button
+      class="wildcard-tab active"
+      data-category="browse"
+      onclick="switchWildcardTab('browse')"
+    >
+      <span class="neon-cyan">🔍 Przeglądaj kategorie</span>
+    </button>
+    <button
+      class="wildcard-tab"
+      data-category="search"
+      onclick="switchWildcardTab('search')"
+    >
+      <span class="neon-magenta">🔎 Wyszukaj</span>
+    </button>
+  </div>
+
+  <!-- Browse Categories Section -->
+  <div id="browse-section" class="wildcard-section active">
+    <div class="mb-4">
+      <h3 class="neon-white text-xl font-bold mb-2">
+        Wybierz kategorię (0 dostępnych):
+      </h3>
+    </div>
+
+    <!-- Categories Grid -->
+    <div
+      id="categoriesGrid"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <!-- Categories will be loaded dynamically -->
+      <div
+        class="category-card glossy-black rounded-lg p-4 cursor-pointer transition-glossy hover:border-cyan-400/50"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📁</span>
+          <div>
+            <h4 class="neon-cyan font-semibold">Wszystkie (0)</h4>
+            <p class="text-gray-400 text-sm">Wszystkie dostępne wildcards</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Content -->
+    <div id="categoryContent" class="mt-6 hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h4 class="neon-white text-lg font-bold" id="categoryTitle">
+          Pokazuję 0 z 0 artyst(ów)
+        </h4>
+        <button
+          class="scifi-btn px-4 py-2 rounded-lg text-sm"
+          onclick="goBackToCategories()"
+        >
+          ← Powrót
+        </button>
+      </div>
+
+      <div
+        id="wildcardsList"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+      >
+        <!-- Wildcards will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div id="search-section" class="wildcard-section">
+    <div class="mb-6">
+      <div class="relative">
+        <input
+          type="text"
+          id="searchInput"
+          class="input-glossy w-full px-4 py-3 pr-12 rounded-lg"
+          placeholder="Szukaj wildcards..."
+          oninput="searchWildcards()"
+        />
+        <button
+          class="absolute right-3 top-3 text-gray-400 hover:text-cyan-400"
+        >
+          🔍
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="searchResults"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
+    >
+      <!-- Search results will appear here -->
+      <div class="text-center text-gray-400 py-8 col-span-full">
+        Wprowadź tekst aby wyszukać wildcards
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Wildcards data and state
+  let wildcardsData = {};
+  let currentCategory = null;
+  let searchTimeout;
+
+  // Initialize wildcards browser
+  document.addEventListener("DOMContentLoaded", () => {
+    loadWildcardsData();
+    setupEventListeners();
+  });
+
+  async function loadWildcardsData() {
+    try {
+      // Mock data structure similar to work_page
+      wildcardsData = {
+        artists: {
+          name: "Artyści",
+          icon: "🎨",
+          items: [
+            "Greg Rutkowski",
+            "Artgerm",
+            "Charlie Bowater",
+            "Makoto Shinkai",
+            "Studio Ghibli",
+            "Boris Vallejo",
+            "Frank Frazetta",
+            "H.R. Giger",
+            "Salvador Dali",
+            "Van Gogh",
+            "Leonardo da Vinci",
+            "Picasso",
+          ],
+        },
+        creatures: {
+          name: "Stworzenia",
+          icon: "🐉",
+          items: [
+            "dragon",
+            "phoenix",
+            "unicorn",
+            "griffin",
+            "wolf",
+            "eagle",
+            "tiger",
+            "lion",
+            "bear",
+            "shark",
+            "whale",
+            "dolphin",
+          ],
+        },
+        castle: {
+          name: "Zamki i Budynki",
+          icon: "🏰",
+          items: [
+            "medieval castle",
+            "gothic cathedral",
+            "ancient temple",
+            "fortress",
+            "tower",
+            "palace",
+            "ruins",
+            "monastery",
+            "citadel",
+            "stronghold",
+          ],
+        },
+      };
+
+      updateCategoriesDisplay();
+    } catch (error) {
+      console.error("Error loading wildcards:", error);
+      showError("Nie udało się załadować wildcards");
+    }
+  }
+
+  function updateCategoriesDisplay() {
+    const grid = document.getElementById("categoriesGrid");
+    const totalCount = Object.values(wildcardsData).reduce(
+      (sum, cat) => sum + cat.items.length,
+      0
+    );
+
+    // Update header
+    document.querySelector("h3").textContent =
+      `Wybierz kategorię (${Object.keys(wildcardsData).length} dostępnych):`;
+
+    // Clear and rebuild grid
+    grid.innerHTML = `
+      <div class="category-card glossy-black rounded-lg p-4 cursor-pointer transition-glossy hover:border-cyan-400/50" onclick="showCategory('all')">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📁</span>
+          <div>
+            <h4 class="neon-cyan font-semibold">Wszystkie (${totalCount})</h4>
+            <p class="text-gray-400 text-sm">Wszystkie dostępne wildcards</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Add category cards
+    Object.entries(wildcardsData).forEach(([key, category]) => {
+      const card = document.createElement("div");
+      card.className =
+        "category-card glossy-black rounded-lg p-4 cursor-pointer transition-glossy hover:border-cyan-400/50";
+      card.onclick = () => showCategory(key);
+      card.innerHTML = `
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">${category.icon}</span>
+          <div>
+            <h4 class="neon-cyan font-semibold">${category.name} (${category.items.length})</h4>
+            <p class="text-gray-400 text-sm">Kategoria ${category.name.toLowerCase()}</p>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function showCategory(categoryKey) {
+    const categoriesGrid = document.getElementById("categoriesGrid");
+    const categoryContent = document.getElementById("categoryContent");
+    const categoryTitle = document.getElementById("categoryTitle");
+    const wildcardsList = document.getElementById("wildcardsList");
+
+    // Hide categories, show content
+    categoriesGrid.style.display = "none";
+    categoryContent.classList.remove("hidden");
+
+    let items = [];
+    let title = "";
+
+    if (categoryKey === "all") {
+      items = Object.values(wildcardsData).flatMap((cat) => cat.items);
+      title = `Pokazuję ${items.length} ze wszystkich wildcards`;
+    } else {
+      const category = wildcardsData[categoryKey];
+      items = category.items;
+      title = `Pokazuję ${items.length} z kategorii ${category.name}`;
+    }
+
+    categoryTitle.textContent = title;
+    currentCategory = categoryKey;
+
+    // Populate wildcards list
+    wildcardsList.innerHTML = items
+      .map(
+        (item) => `
+      <div class="wildcard-item glossy-black rounded-lg p-3 cursor-pointer transition-glossy hover:border-cyan-400/50 group" onclick="selectWildcard('${item}')">
+        <div class="flex items-center justify-between">
+          <span class="text-white group-hover:text-cyan-400 transition-colors">${item}</span>
+          <button class="opacity-0 group-hover:opacity-100 text-cyan-400 text-sm transition-opacity">+</button>
+        </div>
+      </div>
+    `
+      )
+      .join("");
+  }
+
+  function goBackToCategories() {
+    const categoriesGrid = document.getElementById("categoriesGrid");
+    const categoryContent = document.getElementById("categoryContent");
+
+    categoriesGrid.style.display = "grid";
+    categoryContent.classList.add("hidden");
+    currentCategory = null;
+  }
+
+  function selectWildcard(wildcard) {
+    // Emit custom event with selected wildcard
+    window.dispatchEvent(
+      new CustomEvent("wildcardSelected", {
+        detail: { wildcard },
+      })
+    );
+
+    // Show visual feedback
+    const item = event.target.closest(".wildcard-item");
+    item.style.background = "rgba(0, 255, 255, 0.2)";
+    setTimeout(() => {
+      item.style.background = "";
+    }, 500);
+
+    console.log("Selected wildcard:", wildcard);
+  }
+
+  function switchWildcardTab(tabName) {
+    // Update tab buttons
+    document.querySelectorAll(".wildcard-tab").forEach((tab) => {
+      tab.classList.remove("active");
+      if (tab.dataset.category === tabName) {
+        tab.classList.add("active");
+      }
+    });
+
+    // Update sections
+    document.querySelectorAll(".wildcard-section").forEach((section) => {
+      section.classList.remove("active");
+    });
+    document.getElementById(`${tabName}-section`).classList.add("active");
+  }
+
+  function searchWildcards() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const resultsContainer = document.getElementById("searchResults");
+
+    if (searchTimeout) clearTimeout(searchTimeout);
+
+    searchTimeout = setTimeout(() => {
+      if (!query) {
+        resultsContainer.innerHTML = `
+          <div class="text-center text-gray-400 py-8 col-span-full">
+            Wprowadź tekst aby wyszukać wildcards
+          </div>
+        `;
+        return;
+      }
+
+      // Search through all wildcards
+      const allItems = Object.values(wildcardsData).flatMap((cat) => cat.items);
+      const filtered = allItems.filter((item) =>
+        item.toLowerCase().includes(query)
+      );
+
+      if (filtered.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="text-center text-gray-400 py-8 col-span-full">
+            Nie znaleziono wildcards dla "${query}"
+          </div>
+        `;
+      } else {
+        resultsContainer.innerHTML = filtered
+          .map(
+            (item) => `
+          <div class="wildcard-item glossy-black rounded-lg p-3 cursor-pointer transition-glossy hover:border-cyan-400/50 group" onclick="selectWildcard('${item}')">
+            <div class="flex items-center justify-between">
+              <span class="text-white group-hover:text-cyan-400 transition-colors">${item}</span>
+              <button class="opacity-0 group-hover:opacity-100 text-cyan-400 text-sm transition-opacity">+</button>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+    }, 300);
+  }
+
+  function setupEventListeners() {
+    // Listen for section changes from header
+    window.addEventListener("sectionChange", (event) => {
+      const section = event.detail.section;
+      if (section === "wildcards") {
+        document.getElementById("wildcardsBrowser").scrollIntoView({
+          behavior: "smooth",
+        });
+      }
+    });
+  }
+
+  function showError(message) {
+    console.error(message);
+    // Could implement toast notification here
+  }
+
+  // Make functions globally available
+  (window as any).switchWildcardTab = switchWildcardTab;
+  (window as any).showCategory = showCategory;
+  (window as any).goBackToCategories = goBackToCategories;
+  (window as any).selectWildcard = selectWildcard;
+  (window as any).searchWildcards = searchWildcards;
+</script>
+
+<style>
+  .wildcard-tab {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
+
+  .wildcard-tab.active {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 255, 255, 0.15) 0%,
+      rgba(0, 255, 255, 0.08) 50%,
+      rgba(0, 255, 255, 0.03) 100%
+    );
+    border-color: rgba(0, 255, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.25);
+  }
+
+  .wildcard-section {
+    display: none;
+  }
+
+  .wildcard-section.active {
+    display: block;
+  }
+
+  .category-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  }
+
+  .wildcard-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+  }
+</style>

@@ -1,0 +1,68 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_QZhDtzeH.mjs';
+export { d as renderers } from '../chunks/vendor_QZhDtzeH.mjs';
+import { $ as $$Layout } from '../chunks/Layout_Bj4fw-c2.mjs';
+/* empty css                                               */
+
+const $$BielikEnonDevNew = createComponent(async ($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "BIELIK ENON DEV - LUC de ZEN ON", "data-astro-cid-xhrpbhnz": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="header-with-help" data-astro-cid-xhrpbhnz> <h1 class="page-title" data-astro-cid-xhrpbhnz>🦎 BIELIK ENON DEV</h1> <button id="helpButton" class="help-icon" data-astro-cid-xhrpbhnz>?</button> </div>  <div class="dev-dashboard" data-astro-cid-xhrpbhnz> <div class="dashboard-grid" data-astro-cid-xhrpbhnz> <div class="metric-card" data-astro-cid-xhrpbhnz> <div class="metric-icon" data-astro-cid-xhrpbhnz>⚡</div> <div class="metric-content" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Build Status</h3> <div class="metric-value success" data-astro-cid-xhrpbhnz>SUCCESS</div> <p class="metric-subtitle" data-astro-cid-xhrpbhnz>Last build: 2 min ago</p> </div> </div> <div class="metric-card" data-astro-cid-xhrpbhnz> <div class="metric-icon" data-astro-cid-xhrpbhnz>🔄</div> <div class="metric-content" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Deployments</h3> <div class="metric-value" data-astro-cid-xhrpbhnz>23</div> <p class="metric-subtitle" data-astro-cid-xhrpbhnz>This week</p> </div> </div> <div class="metric-card" data-astro-cid-xhrpbhnz> <div class="metric-icon" data-astro-cid-xhrpbhnz>🐛</div> <div class="metric-content" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Issues</h3> <div class="metric-value warning" data-astro-cid-xhrpbhnz>2</div> <p class="metric-subtitle" data-astro-cid-xhrpbhnz>2 open, 15 closed</p> </div> </div> <div class="metric-card" data-astro-cid-xhrpbhnz> <div class="metric-icon" data-astro-cid-xhrpbhnz>📊</div> <div class="metric-content" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Performance</h3> <div class="metric-value" data-astro-cid-xhrpbhnz>95%</div> <p class="metric-subtitle" data-astro-cid-xhrpbhnz>Uptime score</p> </div> </div> </div> </div>  <div class="api-tester" data-astro-cid-xhrpbhnz> <h2 data-astro-cid-xhrpbhnz>🔧 BIELIK API Tester</h2> <div class="tester-container" data-astro-cid-xhrpbhnz> <div class="tester-controls" data-astro-cid-xhrpbhnz> <div class="control-group" data-astro-cid-xhrpbhnz> <label for="modelSelect" data-astro-cid-xhrpbhnz>Model:</label> <select id="modelSelect" data-astro-cid-xhrpbhnz> <option value="bielik-7b-instruct" data-astro-cid-xhrpbhnz>BIELIK-7B-Instruct</option> <option value="bielik-13b-instruct" data-astro-cid-xhrpbhnz>BIELIK-13B-Instruct</option> <option value="bielik-70b-instruct" data-astro-cid-xhrpbhnz>BIELIK-70B-Instruct</option> </select> </div> <div class="control-group" data-astro-cid-xhrpbhnz> <label for="temperatureSlider" data-astro-cid-xhrpbhnz>Temperature: <span id="temperatureValue" data-astro-cid-xhrpbhnz>0.7</span></label> <input type="range" id="temperatureSlider" min="0" max="1" step="0.1" value="0.7" data-astro-cid-xhrpbhnz> </div> <div class="control-group" data-astro-cid-xhrpbhnz> <label for="maxTokensInput" data-astro-cid-xhrpbhnz>Max Tokens:</label> <input type="number" id="maxTokensInput" value="512" min="50" max="2048" data-astro-cid-xhrpbhnz> </div> </div> <div class="chat-interface" data-astro-cid-xhrpbhnz> <div class="prompt-section" data-astro-cid-xhrpbhnz> <label for="promptInput" data-astro-cid-xhrpbhnz>Prompt dla BIELIK:</label> <textarea id="promptInput" placeholder="Wpisz swoje pytanie do modelu BIELIK..." rows="4" data-astro-cid-xhrpbhnz></textarea> <div class="prompt-buttons" data-astro-cid-xhrpbhnz> <button id="sendPrompt" class="btn-primary" data-astro-cid-xhrpbhnz>Wyślij do BIELIK</button> <button id="testConnection" class="btn-secondary" data-astro-cid-xhrpbhnz>Test połączenia</button> <button id="clearChat" class="btn-tertiary" data-astro-cid-xhrpbhnz>Wyczyść</button> </div> </div> <div class="response-section" data-astro-cid-xhrpbhnz> <label data-astro-cid-xhrpbhnz>Odpowiedź BIELIK:</label> <div id="responseContainer" class="response-container" data-astro-cid-xhrpbhnz> <div class="placeholder" data-astro-cid-xhrpbhnz>
+Wyślij prompt aby zobaczyć odpowiedź BIELIK...
+</div> </div> <div id="responseMetadata" class="response-metadata" style="display: none;" data-astro-cid-xhrpbhnz> <div class="metadata-item" data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Model:</strong> <span id="usedModel" data-astro-cid-xhrpbhnz>-</span> </div> <div class="metadata-item" data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Tokeny:</strong> <span id="tokenUsage" data-astro-cid-xhrpbhnz>-</span> </div> <div class="metadata-item" data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Czas:</strong> <span id="responseTime" data-astro-cid-xhrpbhnz>-</span> </div> <div class="metadata-item" data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Status:</strong> <span id="workerStatus" data-astro-cid-xhrpbhnz>-</span> </div> </div> </div> </div> </div> </div>  <div class="dev-tools" data-astro-cid-xhrpbhnz> <h2 data-astro-cid-xhrpbhnz>Development Tools</h2> <div class="tools-grid" data-astro-cid-xhrpbhnz> <div class="tool-card" data-astro-cid-xhrpbhnz> <div class="tool-icon" data-astro-cid-xhrpbhnz>🛠️</div> <h3 data-astro-cid-xhrpbhnz>Code Editor</h3> <p data-astro-cid-xhrpbhnz>Zaawansowany edytor kodu z podświetlaniem składni</p> <button class="tool-btn" data-astro-cid-xhrpbhnz>Launch Editor</button> </div> <div class="tool-card" data-astro-cid-xhrpbhnz> <div class="tool-icon" data-astro-cid-xhrpbhnz>🔍</div> <h3 data-astro-cid-xhrpbhnz>Debug Console</h3> <p data-astro-cid-xhrpbhnz>Konsola debugowania dla aplikacji BIELIK</p> <button class="tool-btn" data-astro-cid-xhrpbhnz>Open Console</button> </div> <div class="tool-card" data-astro-cid-xhrpbhnz> <div class="tool-icon" data-astro-cid-xhrpbhnz>📝</div> <h3 data-astro-cid-xhrpbhnz>Documentation</h3> <p data-astro-cid-xhrpbhnz>Pełna dokumentacja API i przykłady użycia</p> <button class="tool-btn" data-astro-cid-xhrpbhnz>View Docs</button> </div> <div class="tool-card" data-astro-cid-xhrpbhnz> <div class="tool-icon" data-astro-cid-xhrpbhnz>🚀</div> <h3 data-astro-cid-xhrpbhnz>Deploy Manager</h3> <p data-astro-cid-xhrpbhnz>Zarządzanie wdrożeniami i środowiskami</p> <button class="tool-btn" data-astro-cid-xhrpbhnz>Manage Deploys</button> </div> </div> </div>  <div class="code-snippets" data-astro-cid-xhrpbhnz> <h2 data-astro-cid-xhrpbhnz>BIELIK API Examples</h2> <div class="snippets-grid" data-astro-cid-xhrpbhnz> <div class="snippet-card" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>🤖 Model Inference</h3> <pre data-astro-cid-xhrpbhnz><code data-astro-cid-xhrpbhnz>// BIELIK model inference
+const response = await bielik.generate(&#123;
+  prompt: "Analyze this data:",
+  model: "bielik-7b-instruct",
+  max_tokens: 512,
+  temperature: 0.7
+&#125;);</code></pre> <button class="copy-btn" data-astro-cid-xhrpbhnz>Copy Code</button> </div> <div class="snippet-card" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>🔧 Configuration</h3> <pre data-astro-cid-xhrpbhnz><code data-astro-cid-xhrpbhnz>// BIELIK configuration
+const config = &#123;
+  apiKey: process.env.BIELIK_API_KEY,
+  baseURL: "https://api.bielik.ai/v1",
+  timeout: 30000,
+  retries: 3
+&#125;;</code></pre> <button class="copy-btn" data-astro-cid-xhrpbhnz>Copy Code</button> </div> <div class="snippet-card" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>📊 Analytics</h3> <pre data-astro-cid-xhrpbhnz><code data-astro-cid-xhrpbhnz>// BIELIK usage analytics
+const analytics = await bielik.getUsage(&#123;
+  startDate: "2025-01-01",
+  endDate: "2025-01-31",
+  groupBy: "model"
+&#125;);</code></pre> <button class="copy-btn" data-astro-cid-xhrpbhnz>Copy Code</button> </div> </div> </div>  <div class="dev-log" data-astro-cid-xhrpbhnz> <h2 data-astro-cid-xhrpbhnz>Development Log</h2> <div class="log-container" data-astro-cid-xhrpbhnz> <div class="log-entry" data-astro-cid-xhrpbhnz> <div class="log-time" data-astro-cid-xhrpbhnz>14:32:15</div> <div class="log-level success" data-astro-cid-xhrpbhnz>INFO</div> <div class="log-message" data-astro-cid-xhrpbhnz>BIELIK model initialized successfully</div> </div> <div class="log-entry" data-astro-cid-xhrpbhnz> <div class="log-time" data-astro-cid-xhrpbhnz>14:31:42</div> <div class="log-level warning" data-astro-cid-xhrpbhnz>WARN</div> <div class="log-message" data-astro-cid-xhrpbhnz>High memory usage detected (85%)</div> </div> <div class="log-entry" data-astro-cid-xhrpbhnz> <div class="log-time" data-astro-cid-xhrpbhnz>14:30:18</div> <div class="log-level success" data-astro-cid-xhrpbhnz>INFO</div> <div class="log-message" data-astro-cid-xhrpbhnz>API endpoint /v1/generate responding</div> </div> <div class="log-entry" data-astro-cid-xhrpbhnz> <div class="log-time" data-astro-cid-xhrpbhnz>14:29:55</div> <div class="log-level error" data-astro-cid-xhrpbhnz>ERROR</div> <div class="log-message" data-astro-cid-xhrpbhnz>Connection timeout to external service</div> </div> </div> </div>  <div id="helpModal" class="modal" data-astro-cid-xhrpbhnz> <div class="modal-content" data-astro-cid-xhrpbhnz> <div class="modal-header" data-astro-cid-xhrpbhnz> <h2 data-astro-cid-xhrpbhnz>BIELIK ENON DEV - Szczegółowy opis</h2> <span id="closeModal" class="close" data-astro-cid-xhrpbhnz>&times;</span> </div> <div class="modal-body" data-astro-cid-xhrpbhnz> <p data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>BIELIK ENON DEV to środowisko deweloperskie dla polskiego modelu
+            językowego BIELIK.</strong> </p> <h3 data-astro-cid-xhrpbhnz>Funkcje deweloperskie:</h3> <ul data-astro-cid-xhrpbhnz> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Code Editor</strong> - edytor z podświetlaniem składni i autouzupełnianiem
+</li> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Debug Console</strong> - narzędzia debugowania i monitorowania
+</li> <li data-astro-cid-xhrpbhnz><strong data-astro-cid-xhrpbhnz>Documentation</strong> - kompletna dokumentacja API</li> <li data-astro-cid-xhrpbhnz><strong data-astro-cid-xhrpbhnz>Deploy Manager</strong> - zarządzanie wdrożeniami</li> </ul> <h3 data-astro-cid-xhrpbhnz>Model BIELIK:</h3> <ul data-astro-cid-xhrpbhnz> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Polski model językowy</strong> - stworzony dla języka polskiego
+</li> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Instrukcje i chat</strong> - obsługa różnych formatów interakcji
+</li> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>Fine-tuning</strong> - możliwość dostosowania do specyficznych
+            zadań
+</li> <li data-astro-cid-xhrpbhnz> <strong data-astro-cid-xhrpbhnz>API integration</strong> - łatwa integracja z aplikacjami
+</li> </ul> <div class="feature-highlight" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Możliwości modelu BIELIK:</h3> <ul data-astro-cid-xhrpbhnz> <li data-astro-cid-xhrpbhnz>🇵🇱 Optymalizacja dla języka polskiego</li> <li data-astro-cid-xhrpbhnz>🧠 Rozumienie kontekstu kulturowego</li> <li data-astro-cid-xhrpbhnz>💬 Naturalne konwersacje</li> <li data-astro-cid-xhrpbhnz>📚 Analiza tekstu i tłumaczenia</li> <li data-astro-cid-xhrpbhnz>🔧 Zadania programistyczne</li> <li data-astro-cid-xhrpbhnz>📊 Analiza danych</li> </ul> </div> <p data-astro-cid-xhrpbhnz>
+Narzędzie umożliwia bezpośrednie testowanie modelu oraz monitorowanie
+          jego wydajności w czasie rzeczywistym.
+</p> </div> </div> </div> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro", void 0);
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro";
+const $$url = "/bielik-enon-dev-new";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$BielikEnonDevNew,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

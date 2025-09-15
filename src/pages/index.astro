@@ -2,9 +2,9 @@
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import RandomQuote from "../components/RandomQuote.astro";
-import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
 import PolaczekWidget from "../components/PolaczekWidget.svelte";
 import MainChatWidget from "../components/MainChatWidget.svelte";
+import MyBonzoChat from "../components/MyBonzoChat.svelte";
 import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
@@ -12,7 +12,7 @@ import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte"
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
 import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
-import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import BackgroundMusicPlayerRevived from "../components/BackgroundMusicPlayerRevived.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import { Icon } from 'astro-icon/components';
 ---
@@ -1103,7 +1103,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         <Icon name="lucide:music" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
-        <BackgroundMusicPlayerSimple client:load />
+        <BackgroundMusicPlayerRevived client:load />
       </div>
     </div>
 
@@ -1287,8 +1287,8 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       localStorage.setItem("quickPrompt", prompt);
       console.log("Prompt saved in localStorage");
     }
-    console.log("Opening /image-generator");
-    window.open("/image-generator", "_blank");
+    console.log("Opening /generator");
+    window.open("/generator", "_blank");
   }
 
   function openChatbot() {

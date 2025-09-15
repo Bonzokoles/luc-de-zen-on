@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎨 AI Image Generator z Wildcards</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+    <style>
+      /* Global dark theme matching main page */
+      body {
+        background: linear-gradient(
+          135deg,
+          rgba(17, 24, 39, 0.9) 0%,
+          rgba(31, 41, 55, 0.7) 50%,
+          rgba(17, 24, 39, 0.9) 100%
+        );
+        color: #d1d5db;
+      }
+
+      .bg-card {
+        background: rgba(31, 41, 55, 0.5);
+        backdrop-filter: blur(8px);
+      }
+
+      .bg-card:hover {
+        background: rgba(31, 41, 55, 0.7);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .border-edge {
+        border-color: rgba(75, 85, 99, 0.4);
+      }
+
+      .loading-spinner {
+        border: 3px solid rgba(75, 85, 99, 0.3);
+        border-top: 3px solid #f97316;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .wildcard-tag {
+        background: linear-gradient(45deg, #f97316 0%, #ea580c 100%);
+        color: white;
+      }
+
+      .wildcard-tag:hover {
+        background: linear-gradient(45deg, #ea580c 0%, #dc2626 100%);
+      }
+
+      .btn-primary {
+        background: linear-gradient(45deg, #f97316 0%, #ea580c 100%);
+        border: 1px solid #f97316;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(45deg, #ea580c 0%, #dc2626 100%);
+        border-color: #ea580c;
+      }
+
+      .btn-secondary {
+        background: rgba(31, 41, 55, 0.8);
+        border: 1px solid rgba(75, 85, 99, 0.5);
+        color: #d1d5db;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(55, 65, 81, 0.8);
+        border-color: #f97316;
+        color: #f97316;
+      }
+
+      .input-field {
+        background: rgba(17, 24, 39, 0.8);
+        border: 1px solid rgba(75, 85, 99, 0.4);
+        color: #d1d5db;
+      }
+
+      .input-field:focus {
+        border-color: #f97316;
+        box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+      }
+
+      .status-badge-positive {
+        background: rgba(34, 197, 94, 0.2);
+        color: #22c55e;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+      }
+
+      .status-badge-neutral {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+
+      .status-badge-info {
+        background: rgba(168, 85, 247, 0.2);
+        color: #a855f7;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- Decorative border lines like main page -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute left-0 right-0 top-0 h-px bg-white/20"></div>
+      <div class="absolute left-0 right-0 bottom-0 h-px bg-white/20"></div>
+      <div class="absolute top-0 bottom-0 left-0 w-px bg-white/20"></div>
+      <div class="absolute top-0 bottom-0 right-0 w-px bg-white/20"></div>
+    </div>
+
+    <div
+      x-data="imageGenerator()"
+      class="container mx-auto px-4 py-8 relative z-10"
+    >
+      <!-- Header -->
+      <header
+        class="text-center mb-8 border border-edge bg-card/30 backdrop-blur-sm rounded-lg p-8"
+      >
+        <h1
+          class="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent"
+        >
+          🎨 AI Image Generator
+        </h1>
+        <p class="text-lg text-gray-300 mb-6">
+          Generuj obrazy AI z zaawansowanym systemem Wildcards
+        </p>
+        <div class="flex justify-center space-x-4 text-sm">
+          <span
+            class="status-badge-positive px-4 py-2 rounded-full"
+            x-show="healthStatus.huggingface_token"
+          >
+            ✅ Hugging Face API
+          </span>
+          <span
+            class="status-badge-neutral px-4 py-2 rounded-full"
+            x-show="!healthStatus.huggingface_token"
+          >
+            🌐 Cloudflare Workers
+          </span>
+          <span class="status-badge-info px-4 py-2 rounded-full">
+            📚
+            <span x-text="healthStatus.wildcards_loaded || 0"></span> Wildcards
+          </span>
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Panel generowania -->
+        <div
+          class="bg-card border border-edge rounded-lg backdrop-blur-sm p-6 hover:bg-card/70 transition-all duration-300"
+        >
+          <h2
+            class="text-2xl font-semibold mb-6 text-orange-400 flex items-center gap-2"
+          >
+            🖊️ Generator Promptów
+          </h2>
+
+          <!-- Model selection -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-300 mb-3"
+              >🤖 Model AI</label
+            >
+            <select
+              x-model="selectedModel"
+              class="input-field w-full px-4 py-3 rounded-lg focus:outline-none transition-all"
+            >
+              <template x-for="(name, key) in models" :key="key">
+                <option :value="key" x-text="name"></option>
+              </template>
+            </select>
+          </div>
+
+          <!-- Prompt input -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-300 mb-3">
+              ✍️ Prompt (użyj __category.subcategory__ dla wildcards)
+            </label>
+            <textarea
+              x-model="prompt"
+              @input="suggestWildcards()"
+              class="input-field w-full px-4 py-3 rounded-lg resize-none focus:outline-none transition-all"
+              rows="4"
+              placeholder="a beautiful painting of __artists.prehistoric_art__ featuring {magical|mystical} creatures"
+            ></textarea>
+
+            <!-- Wildcard suggestions -->
+            <div x-show="suggestions.length > 0" class="mt-3">
+              <p class="text-xs text-gray-400 mb-2">💡 Sugestie wildcards:</p>
+              <div class="flex flex-wrap gap-2">
+                <template
+                  x-for="suggestion in suggestions.slice(0, 6)"
+                  :key="suggestion"
+                >
+                  <button
+                    @click="addToPrompt(suggestion)"
+                    class="wildcard-tag text-xs px-3 py-1 rounded-full transition-all duration-300 hover:scale-105"
+                  >
+                    <span x-text="suggestion"></span>
+                  </button>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wildcard options -->
+          <div class="mb-6 p-4 bg-card border border-edge rounded-lg">
+            <div class="flex items-center justify-between mb-4">
+              <label class="text-sm font-medium text-orange-400"
+                >🎲 Opcje Wildcards</label
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  x-model="processWildcards"
+                  class="mr-3 accent-orange-500"
+                />
+                <span class="text-sm text-gray-300">Przetwarzaj wildcards</span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  x-model="enhancePrompt"
+                  class="mr-3 accent-orange-500"
+                />
+                <span class="text-sm text-gray-300">Ulepsz prompt</span>
+              </label>
+            </div>
+
+            <div x-show="enhancePrompt" class="mb-4">
+              <select
+                x-model="enhancementLevel"
+                class="input-field w-full text-sm px-3 py-2 rounded"
+              >
+                <option value="light">Lekkie ulepszenia</option>
+                <option value="medium">Średnie ulepszenia</option>
+                <option value="heavy">Mocne ulepszenia</option>
+              </select>
+            </div>
+
+            <div class="flex gap-3">
+              <button
+                @click="processPromptWildcards()"
+                class="btn-secondary flex-1 px-4 py-2 rounded-lg text-sm transition-all duration-300"
+              >
+                🎯 Podgląd promptu
+              </button>
+              <button
+                @click="generateRandomPrompt()"
+                class="btn-secondary flex-1 px-4 py-2 rounded-lg text-sm transition-all duration-300"
+              >
+                🎲 Losowy prompt
+              </button>
+            </div>
+          </div>
+
+          <!-- Processed prompt preview -->
+          <div
+            x-show="processedPrompt && processedPrompt !== prompt"
+            class="mb-6 p-4 bg-card border border-orange-500/30 rounded-lg"
+          >
+            <p class="text-xs font-medium text-orange-400 mb-2">
+              📝 Przetworzony prompt:
+            </p>
+            <p
+              class="text-sm text-gray-300 italic"
+              x-text="processedPrompt"
+            ></p>
+          </div>
+
+          <!-- Generate button -->
+          <button
+            @click="generateImage()"
+            :disabled="isLoading || !prompt.trim()"
+            class="btn-primary w-full font-semibold py-4 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105"
+          >
+            <span
+              x-show="!isLoading"
+              class="flex items-center justify-center gap-2"
+            >
+              🎨 Generuj Obraz
+            </span>
+            <span
+              x-show="isLoading"
+              class="flex items-center justify-center gap-3"
+            >
+              <div class="loading-spinner"></div>
+              Generowanie...
+            </span>
+          </button>
+
+          <!-- Quick examples -->
+          <div class="mt-6">
+            <p class="text-sm font-medium text-orange-400 mb-3">
+              ⚡ Szybkie przykłady:
+            </p>
+            <div class="grid grid-cols-1 gap-2">
+              <template x-for="example in examples" :key="example">
+                <button
+                  @click="prompt = example; processPromptWildcards()"
+                  class="btn-secondary text-left text-xs p-3 rounded-lg transition-all duration-300 hover:scale-102"
+                >
+                  <span x-text="example" class="text-gray-300"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel wyników -->
+        <div
+          class="bg-card border border-edge rounded-lg backdrop-blur-sm p-6 hover:bg-card/70 transition-all duration-300"
+        >
+          <h2
+            class="text-2xl font-semibold mb-6 text-orange-400 flex items-center gap-2"
+          >
+            🖼️ Wygenerowany Obraz
+          </h2>
+
+          <!-- Loading state -->
+          <div
+            x-show="isLoading"
+            class="flex items-center justify-center h-64 bg-card border border-edge rounded-lg"
+          >
+            <div class="text-center">
+              <div class="loading-spinner mx-auto mb-4"></div>
+              <p class="text-gray-300">Generowanie obrazu...</p>
+            </div>
+          </div>
+
+          <!-- Generated image -->
+          <div x-show="!isLoading && generatedImage" class="space-y-4">
+            <img
+              :src="generatedImage"
+              alt="Wygenerowany obraz"
+              class="w-full rounded-lg border border-edge shadow-xl hover:scale-105 transition-transform duration-300"
+            />
+
+            <!-- Image info -->
+            <div class="bg-card border border-edge p-4 rounded-lg text-sm">
+              <p class="text-gray-300 mb-2">
+                <strong class="text-orange-400">Model:</strong>
+                <span x-text="selectedModel"></span>
+              </p>
+              <p class="text-gray-300 mb-2">
+                <strong class="text-orange-400">Oryginalny prompt:</strong>
+                <span x-text="lastGeneration.original_prompt || 'N/A'"></span>
+              </p>
+              <p
+                x-show="lastGeneration.processed_prompt !== lastGeneration.original_prompt"
+                class="text-gray-300 mb-2"
+              >
+                <strong class="text-orange-400">Przetworzony prompt:</strong>
+                <span x-text="lastGeneration.processed_prompt"></span>
+              </p>
+              <p class="text-gray-300">
+                <strong class="text-orange-400">Źródło:</strong>
+                <span
+                  x-text="lastGeneration.source === 'huggingface' ? 'Hugging Face API' : 'Cloudflare Workers'"
+                ></span>
+              </p>
+            </div>
+
+            <!-- Download button -->
+            <button
+              @click="downloadImage()"
+              class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-3 rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 hover:scale-105"
+            >
+              💾 Pobierz Obraz
+            </button>
+          </div>
+
+          <!-- Placeholder when no image -->
+          <div
+            x-show="!isLoading && !generatedImage"
+            class="flex items-center justify-center h-64 bg-card border-2 border-dashed border-edge rounded-lg"
+          >
+            <div class="text-center text-gray-400">
+              <p class="text-4xl mb-4">🎨</p>
+              <p class="text-lg">Twój obraz pojawi się tutaj</p>
+              <p class="text-sm text-gray-500 mt-2">
+                Wprowadź prompt i kliknij "Generuj Obraz"
+              </p>
+            </div>
+          </div>
+
+          <!-- Error display -->
+          <div
+            x-show="error"
+            class="mt-4 p-4 bg-red-900/30 border border-red-500/50 text-red-300 rounded-lg"
+          >
+            <p class="font-bold text-red-400">❌ Błąd:</p>
+            <p x-text="error"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer info -->
+      <footer
+        class="mt-12 text-center border border-edge bg-card/20 backdrop-blur-sm rounded-lg p-6"
+      >
+        <div class="text-sm text-gray-400 space-y-2">
+          <p class="text-orange-400 font-semibold">
+            🚀 Strona Robocza AI Image Generator
+          </p>
+          <p>
+            Zaawansowany system łączący Stable Diffusion z Billions-of-Wildcards
+          </p>
+          <p class="text-xs text-gray-500">
+            Wersja deweloperska - testowanie i optymalizacja funkcjonalności
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      function imageGenerator() {
+        return {
+          // State
+          prompt: "a beautiful __artists.prehistoric_art__ painting",
+          selectedModel: "realistic_vision",
+          processWildcards: true,
+          enhancePrompt: false,
+          enhancementLevel: "medium",
+          processedPrompt: "",
+          isLoading: false,
+          generatedImage: null,
+          error: "",
+          lastGeneration: {},
+
+          // Data
+          models: {},
+          healthStatus: {},
+          suggestions: [],
+          examples: [
+            "a beautiful __artists.prehistoric_art__ style painting",
+            "{magical|mystical} creature in fantasy landscape",
+            "__artists.prehistoric_art__ inspired {castle|fortress} on mountain",
+            "portrait of {warrior|mage|knight} in __artists.prehistoric_art__ style",
+          ],
+
+          // Initialization
+          init() {
+            this.loadModels();
+            this.checkHealth();
+          },
+
+          async loadModels() {
+            try {
+              const response = await fetch("/api/models");
+              this.models = await response.json();
+            } catch (e) {
+              console.error("Błąd ładowania modeli:", e);
+            }
+          },
+
+          async checkHealth() {
+            try {
+              const response = await fetch("/api/health");
+              this.healthStatus = await response.json();
+            } catch (e) {
+              console.error("Błąd sprawdzania stanu:", e);
+            }
+          },
+
+          async suggestWildcards() {
+            if (!this.prompt.includes("__")) return;
+
+            try {
+              const response = await fetch("/api/wildcards/suggestions");
+              const data = await response.json();
+              this.suggestions = data.suggestions || [];
+            } catch (e) {
+              console.error("Błąd sugestii:", e);
+            }
+          },
+
+          addToPrompt(suggestion) {
+            this.prompt += " " + suggestion;
+            this.suggestions = [];
+          },
+
+          async processPromptWildcards() {
+            if (!this.prompt.trim()) return;
+
+            try {
+              const response = await fetch("/api/wildcards/process", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  prompt: this.prompt,
+                  enhance: this.enhancePrompt,
+                  enhancement_level: this.enhancementLevel,
+                }),
+              });
+
+              const data = await response.json();
+              this.processedPrompt = data.processed_prompt;
+            } catch (e) {
+              console.error("Błąd przetwarzania:", e);
+            }
+          },
+
+          async generateRandomPrompt() {
+            try {
+              const response = await fetch("/api/wildcards/random");
+              const data = await response.json();
+              this.prompt = data.random_prompt;
+              await this.processPromptWildcards();
+            } catch (e) {
+              console.error("Błąd losowego promptu:", e);
+            }
+          },
+
+          async generateImage() {
+            if (!this.prompt.trim()) return;
+
+            this.isLoading = true;
+            this.error = "";
+            this.generatedImage = null;
+
+            try {
+              const response = await fetch("/api/generate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  prompt: this.prompt,
+                  model: this.selectedModel,
+                  process_wildcards: this.processWildcards,
+                  enhance_prompt: this.enhancePrompt,
+                  enhancement_level: this.enhancementLevel,
+                }),
+              });
+
+              const data = await response.json();
+
+              if (data.success) {
+                this.generatedImage = data.image;
+                this.lastGeneration = data;
+              } else {
+                this.error = data.error || "Nieznany błąd";
+              }
+            } catch (e) {
+              this.error = "Błąd połączenia: " + e.message;
+            } finally {
+              this.isLoading = false;
+            }
+          },
+
+          downloadImage() {
+            if (!this.generatedImage) return;
+
+            const link = document.createElement("a");
+            link.href = this.generatedImage;
+            link.download = `ai-image-${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          },
+        };
+      }
+    </script>
+  </body>
+</html>

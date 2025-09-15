@@ -1,0 +1,46 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../../chunks/vendor_QZhDtzeH.mjs';
+export { d as renderers } from '../../chunks/vendor_QZhDtzeH.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_DXYzsUGS.mjs';
+
+const $$AiChat = createComponent(async ($$result, $$props, $$slots) => {
+  const pageTitle = "Admin AI Assistant";
+  const pageDescription = "Inteligentny asystent AI dla administrator\xF3w systemu MyBonzo";
+  const pageQuote = "Technologia wspiera ludzi, a nie na odwr\xF3t.";
+  const pageAuthor = "MyBonzo Admin AI";
+  return renderTemplate`${renderComponent($$result, "UniversalPageLayout", $$UniversalPageLayout, { "pageTitle": pageTitle, "pageDescription": pageDescription, "pageQuote": pageQuote, "pageAuthor": pageAuthor, "showRandomQuote": false }, { "default": async ($$result2) => renderTemplate`  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F916} Admin AI Assistant", "variant": "highlight", "padding": "xl" }, { "default": async ($$result3) => renderTemplate` ${maybeRenderHead()}<div id="admin-ai-chat" style="height: 600px; display: flex; flex-direction: column;"> <!-- Chat Controls --> <div style="display: flex; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px;"> <div style="flex: 1;"> <label style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 5px; display: block;">Model AI:</label> <select id="ai-model" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: #00d9ff; font-family: 'Courier New', monospace;"> <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B (Zalecany)</option> <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B</option> <option value="@cf/qwen/qwen1.5-7b-chat-awq">Qwen 1.5 7B</option> <option value="@cf/huggingface/bielik-7b-instruct-v0.1">Bielik 7B (Polski)</option> </select> </div> <div style="flex: 1;"> <label style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 5px; display: block;">Tryb administratora:</label> <select id="admin-mode" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: #00d9ff; font-family: 'Courier New', monospace;"> <option value="general">Ogólny Administrator</option> <option value="technical">Wsparcie Techniczne</option> <option value="security">Bezpieczeństwo</option> <option value="analytics">Analityka</option> <option value="deployment">Deployment</option> </select> </div> <div style="display: flex; align-items: end;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F504} Reset", "variant": "outline", "size": "sm", "onclick": "clearChat()" })} </div> </div> <!-- Messages Container --> <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; margin-bottom: 15px;"> <div class="welcome-message" style="background: rgba(0,217,255,0.1); border-left: 4px solid #00d9ff; padding: 15px; margin-bottom: 15px; border-radius: 4px;"> <div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">🤖 Admin AI Assistant</div> <div style="color: rgba(255,255,255,0.9);">
+Witaj w panelu Admin AI Assistant! Jestem tutaj, aby pomóc Ci w zadaniach administracyjnych:
+<ul style="margin: 10px 0; padding-left: 20px; color: rgba(255,255,255,0.8);"> <li>Monitorowanie systemu i diagnostyka</li> <li>Analiza logów i problemów</li> <li>Konfiguracja i deployment</li> <li>Zarządzanie użytkownikami i zabezpieczeniami</li> <li>Optymalizacja wydajności</li> </ul>
+Zadaj pytanie lub opisz problem, z którym potrzebujesz pomocy.
+</div> </div> </div> <!-- Input Area --> <div style="display: flex; gap: 10px; align-items: end;"> <div style="flex: 1;"> <textarea id="chat-input" placeholder="Zadaj pytanie administracyjne..." style="width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: white; resize: vertical; min-height: 50px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" onkeypress="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"></textarea> </div> <div> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Wy\u015Blij", "variant": "primary", "size": "md", "onclick": "sendMessage()", "id": "send-button" })} </div> </div> </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u26A1 Szybkie akcje administracyjne", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;"> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">🔍 Diagnostyka systemu</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Sprawd\u017A status systemu", "variant": "outline", "size": "sm", "onclick": "askAI('Sprawd\u017A aktualny status wszystkich komponent\xF3w systemu MyBonzo. Czy wszystkie workery dzia\u0142aj\u0105 prawid\u0142owo?')" })} </div> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">📊 Analiza wydajności</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Analizuj wydajno\u015B\u0107", "variant": "outline", "size": "sm", "onclick": "askAI('Przeanalizuj wydajno\u015B\u0107 aplikacji. Jakie s\u0105 g\u0142\xF3wne bottlenecki i jak mo\u017Cna je zoptymalizowa\u0107?')" })} </div> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">🛡️ Bezpieczeństwo</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Sprawd\u017A zabezpieczenia", "variant": "warning", "size": "sm", "onclick": "askAI('Przeanalizuj zabezpieczenia systemu. Czy s\u0105 jakie\u015B potencjalne luki w bezpiecze\u0144stwie?')" })} </div> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">🚀 Deployment</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Pomocy z deployment", "variant": "outline", "size": "sm", "onclick": "askAI('Potrzebuj\u0119 pomocy z deployment. Jakie s\u0105 najlepsze praktyki dla bezpiecznego wdro\u017Cenia?')" })} </div> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">👥 Zarządzanie użytkownikami</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Pomocy z u\u017Cytkownikami", "variant": "outline", "size": "sm", "onclick": "askAI('Jak mog\u0119 efektywnie zarz\u0105dza\u0107 u\u017Cytkownikami systemu? Jakie s\u0105 najlepsze praktyki?')" })} </div> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;"> <h4 style="color: #00d9ff; margin-bottom: 10px;">📝 Logi i debugging</h4> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Analizuj logi", "variant": "outline", "size": "sm", "onclick": "askAI('Pom\xF3\u017C mi przeanalizowa\u0107 logi systemu. Jak zidentyfikowa\u0107 i rozwi\u0105za\u0107 problemy?')" })} </div> </div> ` })} ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/ai-chat.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/ai-chat.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/admin/ai-chat.astro";
+const $$url = "/admin/ai-chat";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$AiChat,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
