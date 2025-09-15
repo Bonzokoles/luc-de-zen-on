@@ -1,0 +1,198 @@
+/* ZENON Dashboard Styles - Embedded lokalnie dla stabilności */
+.zenon-dashboard-wrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.zenon-dashboard-wrapper {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    background: #101014;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.unified-header {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #00eaff;
+}
+
+.unified-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #00eaff;
+}
+
+.unified-header p {
+    opacity: 0.8;
+    font-size: 1rem;
+}
+
+.keyboard-shortcuts {
+    background: #181820;
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.shortcut {
+    display: inline-block;
+    margin: 0 0.5rem;
+    padding: 0.3rem 0.7rem;
+    background: #101014;
+    border: 1px solid #00eaff;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: calc(100vh - 120px);
+}
+
+.sidebar {
+    background: #181820;
+    padding: 1rem;
+    border-right: 1px solid #333;
+}
+
+.sidebar h3 {
+    color: #00ff66;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.nav-item {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background: #101014;
+    color: #e0e0e0;
+    border: 1px solid #333;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.nav-item:hover {
+    border-color: #00eaff;
+    color: #00eaff;
+}
+
+.nav-item.active {
+    background: #00eaff;
+    color: #101014;
+    border-color: #00eaff;
+}
+
+.content-area {
+    padding: 1rem;
+    position: relative;
+}
+
+.dashboard-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #101014;
+    min-height: 500px;
+}
+
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    min-height: 500px;
+}
+
+.welcome-screen h2 {
+    color: #00eaff;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.welcome-screen p {
+    margin-bottom: 2rem;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.system-status {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.status-card {
+    background: #181820;
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 3px;
+}
+
+.status-card h4 {
+    color: #00ff66;
+    margin-bottom: 0.5rem;
+}
+
+.status-online {
+    color: #00ff66;
+}
+
+.status-offline {
+    color: #ff4444;
+}
+
+.hotkey-info {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    border: 1px solid #00eaff;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.hotkey-info h4 {
+    color: #00eaff;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        display: none;
+    }
+    
+    .hotkey-info {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 2rem;
+    }
+}
