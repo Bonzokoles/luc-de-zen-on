@@ -1,15 +1,18 @@
 /**
  * API integration for wildcards and image generation
- * Integrates with work_page Flask backend
+ * Updated to use Astro API endpoints and Cloudflare Workers
+ * Replaces problematic Flask/Python backend
  */
 
-// Configuration
-const API_BASE_URL = 'http://localhost:5000';
+// Configuration - Use relative paths for Astro API endpoints
+const API_BASE_URL = '';  // Use relative paths for current domain
+const CLOUDFLARE_WORKER_URL = 'https://your-worker.your-subdomain.workers.dev';  // Configure when available
 
 // Wildcards API functions
 export async function loadWildcards() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/wildcards/categories`);
+    // Try Astro API endpoint first
+    const response = await fetch(`${API_BASE_URL}/api/wildcards?mode=categories`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -23,15 +26,18 @@ export async function loadWildcards() {
 
 export async function processWildcards(prompt, options = {}) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/wildcards/process`, {
+    // Try enhance-prompt API endpoint
+    const response = await fetch(`${API_BASE_URL}/api/enhance-prompt`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         prompt,
-        enhance: options.enhance || false,
-        enhancement_level: options.enhancement_level || 'medium'
+        options: {
+          enhance: options.enhance || false,
+          enhancement_level: options.enhancement_level || 'medium'
+        }
       })
     });
     
@@ -39,7 +45,11 @@ export async function processWildcards(prompt, options = {}) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    return { 
+      processed_prompt: data.enhancedPrompt || data.prompt || prompt,
+      original_prompt: prompt
+    };
   } catch (error) {
     console.error('Error processing wildcards:', error);
     return { processed_prompt: prompt };
@@ -68,26 +78,38 @@ export async function generateRandomPrompt(template = null) {
 // Image generation API
 export async function generateImage(options = {}) {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/generate`, {
+    // Try Astro API endpoint for image generation
+    const response = await fetch(`${API_BASE_URL}/api/generate-image`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         prompt: options.prompt,
-        model: options.model || 'realistic_vision',
-        process_wildcards: options.process_wildcards || true,
-        enhance_prompt: options.enhance_prompt || false,
-        enhancement_level: options.enhancement_level || 'medium'
+        model: options.model || '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+        width: options.width || 512,
+        height: options.height || 512,
+        steps: options.steps || 8,
+        enhancePrompt: options.enhance_prompt || false
       })
     });
     
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      const errorData = await response.text();
+      throw new Error(errorData || `HTTP error! status: ${response.status}`);
     }
     
-    return await response.json();
+    // Handle binary response (PNG image)
+    const blob = await response.blob();
+    const imageUrl = URL.createObjectURL(blob);
+    
+    return {
+      success: true,
+      image: imageUrl,
+      processed_prompt: options.prompt,
+      model: options.model || 'cf-stable-diffusion',
+      source: 'cloudflare_workers'
+    };
   } catch (error) {
     console.error('Error generating image:', error);
     // Return mock image for demo
@@ -104,14 +126,28 @@ export async function generateImage(options = {}) {
 // Health check
 export async function checkBackendHealth() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/health`);
+    // Check if Astro API endpoints are available
+    const response = await fetch(`${API_BASE_URL}/api/wildcards?mode=categories`);
     if (!response.ok) {
-      return { status: 'error', backend_available: false };
+      return { 
+        status: 'error', 
+        backend_available: false,
+        source: 'astro_api'
+      };
     }
-    return await response.json();
+    return { 
+      status: 'ok', 
+      backend_available: true,
+      source: 'astro_api',
+      wildcards_loaded: true
+    };
   } catch (error) {
     console.error('Backend health check failed:', error);
-    return { status: 'error', backend_available: false };
+    return { 
+      status: 'error', 
+      backend_available: false,
+      fallback_available: true
+    };
   }
 }
 
