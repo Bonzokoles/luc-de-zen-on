@@ -31,6 +31,7 @@
   font-display: swap;
 }
 
+<<<<<<< Updated upstream
 @theme {
   --color-black: #000000;
   --color-white: #ffffff;
@@ -46,6 +47,11 @@
   --color-gray-900: #111827;
   --color-gray-950: #030712;
 }
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Custom theme configuration using @layer */
 @layer base {

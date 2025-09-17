@@ -36,7 +36,6 @@
     "@phosphor-icons/react": "^2.1.10",
     "@sofidevo/astro-dynamic-header": "^1.0.19",
     "@tabler/icons-react": "^3.34.1",
-    "@tailwindcss/vite": "^4.1.12",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
     "astro": "^5.13.5",
