@@ -22,6 +22,7 @@
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
     "@astrojs/svelte": "^7.1.0",
+    "@astrojs/tailwind": "^6.0.2",
     "@babylonjs/core": "^8.26.2",
     "@chatscope/chat-ui-kit-react": "^2.1.1",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
@@ -50,7 +51,7 @@
     "react-markdown": "^10.1.0",
     "svelte": "^5.22.1",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.1.13",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.9.2"
   },
   "devDependencies": {

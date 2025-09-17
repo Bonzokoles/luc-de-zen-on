@@ -1,5 +1,9 @@
-/* Import Google Fonts before @tailwind directives */
+/* Import Google Fonts first */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components; 
+@tailwind utilities;
 
 /* Local fonts: Neuropol for headings/uppercase, Kenyan Coffee for body */
 @font-face {
@@ -26,9 +30,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* Tailwind directives - official order */
-@import "tailwindcss";
 
 @theme {
   --color-black: #000000;
@@ -82,7 +83,8 @@
   }
   
   body {
-    @apply bg-black text-white;
+    background-color: black;
+    color: white;
     margin: 0;
     padding: 0;
   }
@@ -136,7 +138,9 @@
   
   /* Glass effect components */
   .glass-effect {
-    @apply backdrop-blur-sm bg-white/5 border border-white/10;
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   /* Neon effects */

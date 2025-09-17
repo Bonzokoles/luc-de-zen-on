@@ -2,6 +2,7 @@
 // Podzielone na kategorie geograficzne i historyczne
 
 // DODATKOWI WŁOSCY MISTRZOWIE RENESANSU
+export const additionalArtists = [
 {
   name: "Andrea Mantegna",
   period: "Renesans",
