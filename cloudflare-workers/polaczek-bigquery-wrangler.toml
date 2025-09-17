@@ -1,0 +1,46 @@
+# POLACZEK_AGENT_SYS_23 - BigQuery Wrangler Configuration
+name = "polaczek-bigquery-worker"
+main = "polaczek-bigquery-worker.js"
+compatibility_date = "2024-09-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Polish BigQuery Team
+[vars]
+PROJECT_LEAD = "Anna Nowak"
+TEAM_NAME = "POLACZEK_BigQuery_Analytics"
+SYSTEM_VERSION = "2.3.0"
+LANGUAGE = "pl-PL"
+
+# BigQuery Configuration
+[vars.BIGQUERY]
+PROJECT_ID = "mybonzo-polaczek-analytics"
+DATASET_ID = "polish_ai_interactions"
+LOCATION = "europe-west1"
+TABLES = "conversations,feedback,performance,users"
+
+# Polish Team Members
+[vars.TEAM]
+DATA_SCIENTIST = "Anna Nowak"
+ML_ENGINEER = "Piotr Wiśniewski" 
+AI_TRAINER = "Maria Wójcik"
+LEAD_ENGINEER = "Jakub Kowalski"
+
+# Routes dla BigQuery API
+[[routes]]
+pattern = "mybonzo.com/api/polaczek/bigquery/*"
+zone_name = "mybonzo.com"
+
+[[routes]]
+pattern = "bigquery.polaczek.mybonzo.com/*"
+zone_name = "mybonzo.com"
+
+# Environment variables
+[env.production.vars]
+ENVIRONMENT = "production"
+DEBUG_MODE = "false"
+CACHE_TTL = "3600"
+
+[env.development.vars]
+ENVIRONMENT = "development" 
+DEBUG_MODE = "true"
+CACHE_TTL = "300"
