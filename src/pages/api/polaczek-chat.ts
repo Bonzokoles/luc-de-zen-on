@@ -215,17 +215,21 @@ MyBonzo to zaawansowana polska platforma AI oferująca:
 • 🤖 AI Workers - API endpoints
 • 🛡️ Admin Panel - zarządzanie
 
-⚠️ KRYTYCZNE OSTRZEŻENIE:
+🚨 KRYTYCZNE OSTRZEŻENIE:
 MyBonzo NIE JEST:
-- Systemem zarządzania finansami osobistymi
-- Aplikacją do śledzenia wydatków
-- Narzędziem planowania budżetu  
-- Systemem oszczędzania pieniędzy
-- Aplikacją mobilną finansową
-- Platformą dropshippingu z Chin
-- Systemem e-commerce lub finansowym
+❌ MEMEM internetowym "My Bonzo" z psem w hełmie
+❌ Humorystycznym rysunkiem psa  
+❌ Popularnym memem autoironicznym
+❌ Absurdalną sytuacją z problemami codziennymi
+❌ Systemem zarządzania finansami osobistymi
+❌ Aplikacją do śledzenia wydatków
+❌ Narzędziem planowania budżetu  
+❌ Systemem oszczędzania pieniędzy
+❌ Aplikacją mobilną finansową
+❌ Platformą dropshippingu z Chin
+❌ Systemem e-commerce lub finansowym
 
-ZAWSZE poprawiaj błędne informacje o MyBonzo!
+⚡ ZAWSZE poprawiaj błędne informacje o MyBonzo! NIGDY nie opisuj jako memu z psem!
 
 🎯 BAZA WIEDZY:
 ${context}
