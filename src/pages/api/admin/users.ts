@@ -69,13 +69,7 @@ async function getRealUsersList() {
     }
   ];
 
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
-  });
+  return realUsers;
 }
 
 export async function POST({ request }: { request: Request }) {

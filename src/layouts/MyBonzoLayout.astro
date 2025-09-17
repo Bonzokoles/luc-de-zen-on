@@ -37,7 +37,7 @@ const {
 import "../styles/global.css";
 // Background animation and page transitions
 import BgAnimation from "../components/BgAnimation.svelte";
-import PageTransition from "../components/PageTransition.svelte";
+import PageTransition from "../components/PageTransition.astro";
 // Dynamic header (installed package)
 import Header from "@sofidevo/astro-dynamic-header/Header";
 // Icon component
@@ -361,12 +361,10 @@ const pageKey = Astro.url.pathname;
         zIndex={20}
       />
     </div>
-    <!-- Page content with transition wrapper -->
-    <PageTransition key={pageKey}>
-      <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
-        <slot />
-      </main>
-    </PageTransition>
+    <!-- Page content -->
+    <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
+      <slot />
+    </main>
 
     <!-- Floating MCP Buttons -->
     <div class="mcp-floating-buttons">
