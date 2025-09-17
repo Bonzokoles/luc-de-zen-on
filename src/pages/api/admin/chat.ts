@@ -1,5 +1,3 @@
----
-import type { APIRoute } from 'astro';
 import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
 
 // Admin AI system prompts for different modes
@@ -48,34 +46,34 @@ PODEJŚCIE:
 - Analizuj kod pod kątem wydajności
 - Proponuj konkretne rozwiązania
 - Pokazuj przykłady implementacji
-- Zwracaj uwagę na security issues
-- Optymalizuj pod deployment
+- Zawsze wspominaj o bezpieczeństwie
+- Myśl o skalowaniu i utrzymaniu
 
-Komunikuj się jak senior developer - precyzyjnie i z examples.`,
+Odpowiadaj bardzo technicznie w języku polskim.`,
 
-    security: `Jesteś specjalistą ds. bezpieczeństwa dla systemu MyBonzo AI.
+    security: `Jesteś ekspertem bezpieczeństwa dla systemu MyBonzo.
 
-OBSZARY BEZPIECZEŃSTWA:
-- API security i rate limiting
+OBSZARY SPECJALIZACJI:
 - Authentication i authorization
-- CORS configuration
-- Environment variables protection
-- AI model security (prompt injection, data leaks)
-- Cloudflare security features
+- API security i rate limiting
+- Data protection (RODO/GDPR)
+- Secure coding practices
+- Infrastructure security
+- Incident response
 
-THREAT MODELING:
-- Analizuj potencjalne wektory ataków
-- Sprawdzaj konfiguracje zabezpieczeń
-- Monitoruj access patterns
-- Identyfikuj suspicious activity
-- Weryfikuj input validation
+PRIORYTETY:
+- Ochrona danych użytkowników
+- Bezpieczeństwo API endpoints
+- Monitoring podejrzanej aktywności
+- Compliance z regulacjami
+- Backup i disaster recovery
 
-BEST PRACTICES:
-- Zero-trust architecture
-- Principle of least privilege
-- Security by design
-- Regular security audits
-- Incident response procedures
+PODEJŚCIE:
+- Security-first mindset
+- Risk assessment każdej zmiany
+- Proaktywne wykrywanie zagrożeń
+- Edukacja zespołu o bezpieczeństwie
+- Regularne audyty bezpieczeństwa
 
 Zawsze priorytetowo traktuj bezpieczeństwo nad wygodą. Bądź vigilant i proaktywny.`,
 
@@ -98,29 +96,22 @@ NARZĘDZIA:
 
 INSIGHTS:
 - Identyfikuj trendy w użytkowaniu
-- Przewiduj capacity needs
-- Optymalizuj koszty
-- Monitoruj SLA metrics
-- Track business KPIs
+- Przewiduj potrzeby skalowania
+- Optymalizuj koszty operacyjne
+- Znajdź bottlenecks wydajności
+- Analizuj user experience
 
-Dostarczaj actionable insights oparte na danych, nie przypuszczeniach.`,
+Fokusuj się na data-driven decisions i konkretne rekomendacje optymalizacji.`,
 
-    deployment: `Jesteś ekspertem od deployment i DevOps dla MyBonzo.
+    deployment: `Jesteś ekspertem od deployment i DevOps dla systemu MyBonzo.
 
-DEPLOYMENT STRATEGY:
+KOMPETENCJE:
 - Cloudflare Pages deployment
-- Workers deployment via Wrangler
-- Environment management
+- Wrangler CLI i Workers deployment
 - CI/CD pipelines
-- Blue-green deployments
-- Rollback procedures
-
-INFRASTRUKTURA:
-- Cloudflare ecosystem optimization
-- Resource allocation
-- Scaling strategies
+- Environment management
+- Rollback strategies
 - Performance monitoring
-- Cost management
 
 BEST PRACTICES:
 - Infrastructure as Code
@@ -135,7 +126,7 @@ Fokusuj się na niezawodności, skalowalności i minimal downtime.`
 // CORS handler
 export const OPTIONS = createOPTIONSHandler(['POST']);
 
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
         const { message, model, mode, history } = await request.json();
 
@@ -144,13 +135,51 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }
 
         const adminMode = mode || 'general';
-        const systemPrompt = ADMIN_SYSTEM_PROMPTS[adminMode] || ADMIN_SYSTEM_PROMPTS.general;
+        const systemPrompt = ADMIN_SYSTEM_PROMPTS[adminMode as keyof typeof ADMIN_SYSTEM_PROMPTS] || ADMIN_SYSTEM_PROMPTS.general;
         
-        // Get AI instance
+        // Handle POLACZEK model integration (same as main chat)
+        if (model === 'polaczek') {
+            try {
+                const polaczekResponse = await fetch(new URL('/api/polaczek-chat', request.url), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: message,
+                        model: 'polaczek',
+                        temperature: 0.7,
+                        language: 'pl',
+                        system: systemPrompt
+                    })
+                });
+
+                if (polaczekResponse.ok) {
+                    const polaczekData = await polaczekResponse.json();
+                    return createSuccessResponse({
+                        response: polaczekData.data?.answer || polaczekData.answer,
+                        model: 'polaczek-assistant',
+                        mode: adminMode,
+                        via: 'polaczek-integration',
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            } catch (polaczekError) {
+                console.warn('Polaczek fallback failed, using regular AI:', polaczekError);
+            }
+        }
+        
+        // Get AI instance for regular models
         const ai = locals.runtime.env.AI;
         if (!ai) {
             return createErrorResponse('AI binding nie jest dostępne', 500);
         }
+
+        // Normalize model ID (same logic as main chat)
+        const modelId = model?.startsWith('@cf/') ? model : (
+            model === 'qwen-pl' ? '@cf/qwen/qwen2.5-7b-instruct' :
+            model === 'llama-8b' ? '@cf/meta/llama-3.1-8b-instruct' :
+            model === 'gemma' ? '@cf/google/gemma-3-12b-it' :
+            '@cf/google/gemma-3-12b-it' // Default to Gemma
+        );
 
         // Prepare messages with context
         const messages = [
@@ -193,16 +222,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
     } catch (error) {
         console.error('Admin Chat API Error:', error);
         
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        
         // Handle specific AI model errors
-        if (error.message?.includes('model')) {
-            return createErrorResponse(`Błąd modelu AI: ${error.message}`, 422);
+        if (errorMessage?.includes('model')) {
+            return createErrorResponse(`Błąd modelu AI: ${errorMessage}`, 422);
         }
         
-        if (error.message?.includes('rate limit')) {
+        if (errorMessage?.includes('rate limit')) {
             return createErrorResponse('Przekroczono limit zapytań. Spróbuj ponownie za chwilę.', 429);
         }
 
-        return createErrorResponse(`Błąd wewnętrzny: ${error.message}`, 500);
+        return createErrorResponse(`Błąd wewnętrzny: ${errorMessage}`, 500);
     }
 };
----

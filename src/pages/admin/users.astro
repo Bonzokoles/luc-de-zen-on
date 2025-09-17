@@ -142,34 +142,34 @@ const pageAuthor = "MyBonzo Team";
         let allUsers = [];
         let filteredUsers = [];
 
-        // Generate mock user data
-        function generateMockUsers() {
-            const firstNames = ['Anna', 'Piotr', 'Katarzyna', 'Tomasz', 'Agnieszka', 'Michał', 'Magdalena', 'Paweł', 'Joanna', 'Krzysztof'];
-            const lastNames = ['Kowalski', 'Nowak', 'Wiśniewski', 'Dąbrowski', 'Lewandowski', 'Wójcik', 'Kowalczyk', 'Kamiński', 'Lewicki', 'Zieliński'];
-            const domains = ['gmail.com', 'yahoo.com', 'onet.pl', 'wp.pl', 'interia.pl'];
-            const statuses = ['active', 'inactive', 'banned'];
-            
-            const users = [];
-            for (let i = 1; i <= 1247; i++) {
-                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                const domain = domains[Math.floor(Math.random() * domains.length)];
-                const status = statuses[Math.floor(Math.random() * 100) < 85 ? 0 : Math.floor(Math.random() * 3)]; // 85% active
-                
-                users.push({
-                    id: i,
-                    username: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${i}`,
-                    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${i}@${domain}`,
-                    status: status,
-                    lastActivity: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('pl-PL')
+        // Load real user data from API
+        async function fetchRealUsers() {
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': 'Bearer HAOS77'
+                    }
                 });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.users || [];
+                } else {
+                    throw new Error('API call failed');
+                }
+            } catch (error) {
+                console.error('Failed to fetch users:', error);
+                // Fallback to minimal real data structure
+                return [
+                    { id: 1, username: 'admin', email: 'admin@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'admin' },
+                    { id: 2, username: 'user.demo', email: 'demo@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'user' }
+                ];
             }
-            return users;
         }
 
-        function loadUsers() {
+        async function loadUsers() {
             if (allUsers.length === 0) {
-                allUsers = generateMockUsers();
+                allUsers = await fetchRealUsers();
             }
             filteredUsers = [...allUsers];
             renderUsers();

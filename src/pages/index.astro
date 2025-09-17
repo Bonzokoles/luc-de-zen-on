@@ -5,14 +5,14 @@ import RandomQuote from "../components/RandomQuote.astro";
 import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
 import PolaczekWidget from "../components/PolaczekWidget.svelte";
 import MainChatWidget from "../components/MainChatWidget.svelte";
-import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+// import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
 import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
-import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+// import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import { Icon } from 'astro-icon/components';
 ---
@@ -506,19 +506,19 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">
           <a
-            href="/dashboard/klienci"
+            href="/admin/"
             class="dashboard-btn"
-            data-astro-cid-my52qgmw>KLIENCI_DSH_BON</a
+            data-astro-cid-my52qgmw>ADMIN PANEL</a
           >
           <a
-            href="/dashboard/statystyki"
+            href="/dashboard"
             class="dashboard-btn"
-            data-astro-cid-my52qgmw>AKYW_STATYSTIC</a
+            data-astro-cid-my52qgmw>DASHBOARD</a
           >
           <a
-            href="/dashboard/prywatne"
+            href="/admin/ai-models"
             class="dashboard-btn"
-            data-astro-cid-my52qgmw>PRIV_STAFF</a
+            data-astro-cid-my52qgmw>AI MODELS</a
           >
         </div>
 
@@ -1103,7 +1103,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         <Icon name="lucide:music" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
-        <BackgroundMusicPlayerSimple client:load />
+        <!-- <BackgroundMusicPlayerSimple client:load /> -->
       </div>
     </div>
 
@@ -1117,7 +1117,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         <Icon name="lucide:bot" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget hidden">
-        <AiHelpAssistant client:load />
+        <!-- <AiHelpAssistant client:load /> -->
       </div>
     </div>
 
