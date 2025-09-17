@@ -1,0 +1,35 @@
+{
+  "name": "luc-de-zen-on",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2024-09-19",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "PUBLIC_DEFAULT_MODEL": "@cf/google/gemma-3-12b-it",
+    "PUBLIC_SITE_URL": "https://www.mybonzo.com"
+  },
+  "placement": {
+    "mode": "smart"
+  },
+  "limits": {
+    "cpu_ms": 30000
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.01
+  },
+  "dev": {
+    "ip": "0.0.0.0",
+    "port": 8787,
+    "local_protocol": "https"
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": "./",
+    "watch_dir": ["src", "public"]
+  }
+}
