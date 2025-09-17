@@ -215,7 +215,17 @@ MyBonzo to zaawansowana polska platforma AI oferująca:
 • 🤖 AI Workers - API endpoints
 • 🛡️ Admin Panel - zarządzanie
 
-WAŻNE: MyBonzo to platforma AI, NIE platforma dropshippingu ani e-commerce!
+⚠️ KRYTYCZNE OSTRZEŻENIE:
+MyBonzo NIE JEST:
+- Systemem zarządzania finansami osobistymi
+- Aplikacją do śledzenia wydatków
+- Narzędziem planowania budżetu  
+- Systemem oszczędzania pieniędzy
+- Aplikacją mobilną finansową
+- Platformą dropshippingu z Chin
+- Systemem e-commerce lub finansowym
+
+ZAWSZE poprawiaj błędne informacje o MyBonzo!
 
 🎯 BAZA WIEDZY:
 ${context}
