@@ -1,0 +1,18 @@
+name = "mybonzo-polaczek-api"
+main = "polaczek-worker.js"
+compatibility_date = "2024-01-15"
+
+# Routes dla POLACZEK API
+[[routes]]
+pattern = "polaczek-api.mybonzo.com/*"
+zone_name = "mybonzo.com"
+
+[[routes]]
+pattern = "mybonzo.com/api/polaczek/*"
+zone_name = "mybonzo.com"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+API_VERSION = "3.0.0"
+LANGUAGE = "pl"

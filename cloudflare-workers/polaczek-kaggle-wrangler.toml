@@ -1,0 +1,52 @@
+# POLACZEK_AGENT_SYS_23 - Kaggle Wrangler Configuration
+name = "polaczek-kaggle-worker"
+main = "polaczek-kaggle-worker.js"
+compatibility_date = "2024-09-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Polish Kaggle Team
+[vars]
+PROJECT_LEAD = "Piotr Wiśniewski"
+TEAM_NAME = "POLACZEK_Kaggle_Research"
+SYSTEM_VERSION = "2.3.0"
+LANGUAGE = "pl-PL"
+
+# Kaggle Configuration  
+[vars.KAGGLE]
+API_BASE_URL = "https://www.kaggle.com/api/v1"
+FOCUS_DATASETS = "polish-nlp,sentiment-analysis,qa-datasets"
+TEAM_USERNAME = "polaczek-ai-team"
+RESEARCH_AREAS = "polish-language,ai-training,nlp-models"
+
+# Polish Research Team
+[vars.RESEARCH_TEAM]
+ML_ENGINEER = "Piotr Wiśniewski - Kaggle Specialist"
+DATA_SCIENTIST = "Anna Nowak - Dataset Curator" 
+NLP_EXPERT = "Maria Wójcik - Language Model Trainer"
+LEAD_RESEARCHER = "Jakub Kowalski - Project Coordinator"
+
+# Routes dla Kaggle API
+[[routes]]
+pattern = "mybonzo.com/api/polaczek/kaggle/*"
+zone_name = "mybonzo.com"
+
+[[routes]]
+pattern = "kaggle.polaczek.mybonzo.com/*"
+zone_name = "mybonzo.com"
+
+# KV Storage dla dataset cache
+[[kv_namespaces]]
+binding = "KAGGLE_CACHE"
+id = "kaggle_datasets_cache"
+preview_id = "kaggle_cache_preview"
+
+# Environment variables
+[env.production.vars]
+ENVIRONMENT = "production"
+CACHE_DATASETS = "true"
+MAX_DATASET_SIZE = "500MB"
+
+[env.development.vars]
+ENVIRONMENT = "development"
+CACHE_DATASETS = "false"  
+DEBUG_LOGGING = "true"
