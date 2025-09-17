@@ -12,7 +12,7 @@ import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte"
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
 import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
-// import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import { Icon } from 'astro-icon/components';
 ---
@@ -1103,7 +1103,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         <Icon name="lucide:music" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
-        <!-- <BackgroundMusicPlayerSimple client:load /> -->
+        <BackgroundMusicPlayerSimple client:load />
       </div>
     </div>
 
