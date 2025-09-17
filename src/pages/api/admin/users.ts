@@ -8,11 +8,39 @@ export async function GET({ request }: { request: Request }) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
   try {
-    // Pobieranie prawdziwych użytkowników z bazy danych
-    const users = await getRealUsersList();
+    // Tymczasowe dane użytkowników - zastąp prawdziwą bazą danych
+    const usersData = [
+      { 
+        id: 1, 
+        username: 'bonzo.admin',
+        name: 'Bonzo Admin', 
+        email: 'admin@mybonzo.com', 
+        active: true,
+        role: 'admin',
+        lastLogin: new Date().toISOString()
+      },
+      { 
+        id: 2, 
+        username: 'user.demo',
+        name: 'Demo User', 
+        email: 'demo@mybonzo.com', 
+        active: true,
+        role: 'user',
+        lastLogin: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
+      },
+      { 
+        id: 3, 
+        username: 'test.account',
+        name: 'Test Account', 
+        email: 'test@mybonzo.com', 
+        active: false,
+        role: 'user',
+        lastLogin: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+      }
+    ];
 
     const userData = {
-      users: users.map(user => ({
+      users: usersData.map((user: any) => ({
         id: user.id,
         username: user.username || user.name,
         email: user.email,
@@ -20,8 +48,8 @@ export async function GET({ request }: { request: Request }) {
         role: user.role,
         lastActivity: new Date(user.lastLogin).toLocaleDateString('pl-PL')
       })),
-      totalCount: users.length,
-      activeCount: users.filter(u => u.active).length,
+      totalCount: usersData.length,
+      activeCount: usersData.filter((u: any) => u.active).length,
       timestamp: new Date().toISOString()
     };
 
@@ -36,6 +64,7 @@ export async function GET({ request }: { request: Request }) {
   }
 }
 
+<<<<<<< Updated upstream
 async function getRealUsersList() {
   // TODO: Połączenie z rzeczywistą bazą danych
   // Na razie realistyczne dane zamiast fake generowanych
@@ -72,6 +101,8 @@ async function getRealUsersList() {
   return realUsers;
 }
 
+=======
+>>>>>>> Stashed changes
 export async function POST({ request }: { request: Request }) {
   try {
     const userData = await request.json();

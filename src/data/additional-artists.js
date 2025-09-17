@@ -464,7 +464,8 @@ export const additionalArtists = [
   prompt: "in the style of Anselm Kiefer, German neo-expressionism, historical memory",
   image: "/artists/kiefer.jpg",
   color: "#2F2F2F"
-},
+}
 
 // I dodaję jeszcze więcej artystów z różnych kultur...
 // (To jest tylko próbka - można dodać kolejne setki artystów)
+];
