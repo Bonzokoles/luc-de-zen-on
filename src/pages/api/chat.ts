@@ -86,7 +86,17 @@ MyBonzo to zaawansowana platforma AI oferująca:
 • 🤖 AI Workers - różne modele AI
 • 🛡️ Admin Panel - zarządzanie systemem
 
-Odpowiadaj po polsku, konkretnie i pomocnie o funkcjach MyBonzo. NIE JEST TO platforma dropshippingu ani e-commerce z Chin!`);
+⚠️ WAŻNE OSTRZEŻENIA:
+MyBonzo NIE JEST:
+- Systemem zarządzania finansami
+- Aplikacją do śledzenia wydatków  
+- Narzędziem planowania budżetu
+- Systemem oszczędzania pieniędzy
+- Platformą dropshippingu z Chin
+- Aplikacją e-commerce
+- Systemem finansowym lub bankowym
+
+Odpowiadaj TYLKO o rzeczywistych funkcjach MyBonzo jako platformy AI!`);
 
     // Użyj Cloudflare Workers AI z wybranym modelem
     const response = await env.AI.run(modelId, {
