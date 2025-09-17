@@ -2,18 +2,12 @@
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
-import RandomPolishFonts from "../../components/admin/RandomPolishFonts.astro";
-import PolishAdminStyles from "../../components/admin/PolishAdminStyles.astro";
-import PolishFontsDemo from "../../components/admin/PolishFontsDemo.astro";
 
-const pageTitle = "Panel Administracyjny MyBonzo";
-const pageDescription = "Centrum kontroli i zarządzania systemem MyBonzo AI";
-const pageQuote = "Zarządzanie to sztuka, a kontrola to nauka.";
+const pageTitle = "Dashboard Admin | MyBonzo";
+const pageDescription = "Główny panel administracyjny systemu MyBonzo AI";
+const pageQuote = "Kontrola i zarządzanie systemem w jednym miejscu.";
 const pageAuthor = "MyBonzo Team";
 ---
-
-<RandomPolishFonts />
-<PolishAdminStyles />
 
 <UniversalPageLayout 
   pageTitle={pageTitle}
@@ -62,15 +56,15 @@ const pageAuthor = "MyBonzo Team";
             </div>
 
             <!-- Admin AI Assistant -->
-            <div style="background: rgba(139,92,246,0.1); border: 2px solid rgba(139,92,246,0.3); border-radius: 12px; padding: 25px; text-align: center;">
+            <div style="background: rgba(0,217,255,0.1); border: 2px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 25px; text-align: center;">
                 <div style="font-size: 3rem; margin-bottom: 15px;">🤖</div>
-                <h3 style="color: #8b5cf6; margin-bottom: 15px; font-size: 1.4rem;">Admin AI Assistant</h3>
+                <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Admin AI Assistant</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
                     Inteligentny asystent dla zadań administracyjnych
                 </p>
                 <CyberpunkButton 
                     text="Rozpocznij Chat" 
-                    variant="secondary" 
+                    variant="primary" 
                     size="md"
                     onclick="window.location.href='/admin/ai-chat'"
                 />
@@ -148,7 +142,7 @@ const pageAuthor = "MyBonzo Team";
                 </p>
                 <CyberpunkButton 
                     text="Zabezpieczenia" 
-                    variant="warning" 
+                    variant="outline" 
                     size="sm"
                     onclick="window.location.href='/admin/security'"
                 />
@@ -216,31 +210,47 @@ const pageAuthor = "MyBonzo Team";
                 size="md"
                 onclick="updateSystemStats()"
             />
-            <CyberpunkButton 
-                text="🎨 Losowe polskie fonty" 
-                variant="secondary" 
-                size="md"
-                onclick="refreshAdminFonts()"
-            />
         </div>
     </GlassPanel>
 
-    <!-- Demo polskich fontów -->
-    <PolishFontsDemo />
-
     <script>
         // System stats update function
-        function updateSystemStats() {
-            // Mock real-time data updates
-            const stats = {
-                workers: Math.floor(Math.random() * 3) + 7, // 7-9 workers
-                uptime: (99.5 + Math.random() * 0.5).toFixed(1),
-                requests: (Math.floor(Math.random() * 5) + 10).toFixed(1)
-            };
-
-            document.getElementById('activeWorkers').textContent = `${stats.workers}/10`;
-            document.getElementById('uptime').textContent = `${stats.uptime}%`;
-            document.getElementById('totalRequests').textContent = `${stats.requests}k`;
+        async function updateSystemStats() {
+            try {
+                // Pobieranie prawdziwych statystyk z API
+                const response = await fetch('/api/admin/stats', {
+                    headers: {
+                        'Authorization': 'Bearer HAOS77'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Aktualizacja wyświetlanych statystyk
+                    const activeWorkers = Math.min(data.activeUsers || 0, 10); // max 10 workers
+                    document.getElementById('activeWorkers').textContent = `${activeWorkers}/10`;
+                    
+                    const uptime = typeof data.uptime === 'string' 
+                        ? data.uptime.replace('%', '') 
+                        : (data.uptime || 99.8);
+                    document.getElementById('uptime').textContent = `${uptime}%`;
+                    
+                    const requestsK = ((data.totalAPIRequests || 0) / 1000).toFixed(1);
+                    document.getElementById('totalRequests').textContent = `${requestsK}k`;
+                } else {
+                    // Fallback values jeśli API nie działa
+                    document.getElementById('activeWorkers').textContent = '8/10';
+                    document.getElementById('uptime').textContent = '99.8%';
+                    document.getElementById('totalRequests').textContent = '12.4k';
+                }
+            } catch (error) {
+                console.error('Error fetching system stats:', error);
+                // Fallback values w przypadku błędu
+                document.getElementById('activeWorkers').textContent = 'N/A';
+                document.getElementById('uptime').textContent = 'N/A';
+                document.getElementById('totalRequests').textContent = 'N/A';
+            }
 
             // Show update confirmation
             const button = document.querySelector('[onclick="updateSystemStats()"]');

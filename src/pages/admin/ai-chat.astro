@@ -25,10 +25,13 @@ const pageAuthor = "MyBonzo Admin AI";
                 <div style="flex: 1;">
                     <label style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 5px; display: block;">Model AI:</label>
                     <select id="ai-model" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: #00d9ff; font-family: 'Courier New', monospace;">
-                        <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B (Zalecany)</option>
+                        <option value="@cf/google/gemma-3-12b-it">Gemma 3 12B (Domyślny)</option>
+                        <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B</option>
+                        <option value="@cf/qwen/qwen2.5-7b-instruct">Qwen 2.5 7B</option>
                         <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B</option>
-                        <option value="@cf/qwen/qwen1.5-7b-chat-awq">Qwen 1.5 7B</option>
                         <option value="@cf/huggingface/bielik-7b-instruct-v0.1">Bielik 7B (Polski)</option>
+                        <option value="polaczek">POLACZEK Assistant 🇵🇱</option>
+                        <option value="polaczek">POLACZEK Assistant (Specjalny)</option>
                     </select>
                 </div>
                 <div style="flex: 1;">
@@ -177,7 +180,7 @@ const pageAuthor = "MyBonzo Admin AI";
             security: {
                 name: "Bezpieczeństwo",
                 icon: "🛡️", 
-                color: "#ef4444"
+                color: "#00d9ff"
             },
             analytics: {
                 name: "Analityka",
@@ -208,7 +211,7 @@ const pageAuthor = "MyBonzo Admin AI";
                 ${isUser 
                     ? `background: rgba(0,217,255,0.1); border-left: 4px solid #00d9ff; margin-left: 20px;`
                     : isError
-                        ? `background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444;`
+                        ? `background: rgba(255,193,7,0.1); border-left: 4px solid #f59e0b;`
                         : `background: rgba(0,0,0,0.4); border-left: 4px solid ${modeConfig.color};`
                 }
             `;
@@ -216,7 +219,7 @@ const pageAuthor = "MyBonzo Admin AI";
             const header = isUser 
                 ? `<div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">👤 Administrator</div>`
                 : isError
-                    ? `<div style="color: #ef4444; font-weight: bold; margin-bottom: 8px;">❌ Błąd</div>`
+                    ? `<div style="color: #f59e0b; font-weight: bold; margin-bottom: 8px;">⚠️ Błąd</div>`
                     : `<div style="color: ${modeConfig.color}; font-weight: bold; margin-bottom: 8px;">${modeConfig.icon} ${modeConfig.name}</div>`;
 
             messageDiv.innerHTML = `
@@ -264,6 +267,7 @@ const pageAuthor = "MyBonzo Admin AI";
                 if (data.success) {
                     addMessage(data.response);
                     messageHistory.push({ role: 'assistant', content: data.response });
+                    saveConversationHistory(); // Save after each successful response
                 } else {
                     addMessage(`Błąd: ${data.error}`, false, true);
                 }
@@ -283,6 +287,44 @@ const pageAuthor = "MyBonzo Admin AI";
             sendMessage();
         }
 
+        function saveConversationHistory() {
+            try {
+                const conversationData = {
+                    messages: messageHistory,
+                    timestamp: new Date().toISOString(),
+                    sessionId: Date.now()
+                };
+                localStorage.setItem('admin-chat-history', JSON.stringify(conversationData));
+            } catch (error) {
+                console.warn('Nie udało się zapisać historii konwersacji:', error);
+            }
+        }
+
+        function loadConversationHistory() {
+            try {
+                const saved = localStorage.getItem('admin-chat-history');
+                if (saved) {
+                    const conversationData = JSON.parse(saved);
+                    messageHistory = conversationData.messages || [];
+                    
+                    // Restore visible messages
+                    const messagesContainer = document.getElementById('chat-messages');
+                    messagesContainer.innerHTML = '';
+                    
+                    messageHistory.forEach(msg => {
+                        if (msg.role === 'user') {
+                            addMessage(msg.content, true);
+                        } else if (msg.role === 'assistant') {
+                            addMessage(msg.content, false);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.warn('Nie udało się załadować historii konwersacji:', error);
+                messageHistory = [];
+            }
+        }
+
         function clearChat() {
             const messagesContainer = document.getElementById('chat-messages');
             messagesContainer.innerHTML = `
@@ -294,10 +336,14 @@ const pageAuthor = "MyBonzo Admin AI";
                 </div>
             `;
             messageHistory = [];
+            localStorage.removeItem('admin-chat-history');
         }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            // Load previous conversation history
+            loadConversationHistory();
+            
             // Focus on input
             document.getElementById('chat-input').focus();
             
