@@ -48,11 +48,19 @@
         },
         getAnalyser: () => analyserNode || window.MUSIC_ANALYSER || null,
         openFolderPicker: () => {
+          console.log("🎵 Opening music library folder picker...");
           try {
             const el = document.getElementById("music-folder");
-            if (el && typeof el.click === "function") el.click();
+            if (el && typeof el.click === "function") {
+              el.click();
+              console.log("✅ Music library folder picker opened successfully");
+            } else {
+              console.warn("❌ Music folder picker element not found");
+              alert("Błąd: Nie można otworzyć selektora folderów z muzyką");
+            }
           } catch (e) {
             console.warn("Folder picker not available:", e);
+            alert("Błąd: Selektor folderów niedostępny - " + e.message);
           }
         },
       };

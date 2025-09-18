@@ -1,7 +1,7 @@
 ---
 import Section from "./Section.astro";
 import Arrow from "../components/Arrow.astro";
-import Menu from "../components/reactive/Menu.svelte";
+// import Menu from "../components/reactive/Menu.svelte"; // Commented out - missing component
 
 import { userSocials, userEmail } from "../data/user-contact.json";
 import { userName } from "../data/user-personal.json";
@@ -37,7 +37,7 @@ const { cosmeticText = "" } = Astro.props;
     ><h1 class="text-4xl sm:text-5xl">{userName}</h1></a
   >
 
-  <Menu client:load />
+  <!-- <Menu client:load /> --> <!-- Commented out - missing Menu component -->
 
   <!-- USER CONTACT -->
   <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">

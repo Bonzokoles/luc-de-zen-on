@@ -456,6 +456,78 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         
         <!-- Script to connect music player with visualizer -->
         <script>
+          // Sequential Visualizer Manager - Cycles through three visualizers
+          let currentVisualizerIndex = 0;
+          let visualizerInterval = null;
+          let visualizerDivs = [];
+          
+          function initSequentialVisualizers() {
+            visualizerDivs = [
+              // Back layer (music, hue-rotated, bright)
+              document.querySelector('[style*="scaleY(1.03)"][style*="hue-rotate(30deg)"][style*="brightness(1.2)"]'),
+              // Back layer mirrored (music, darker)
+              document.querySelector('[style*="scaleY(1.03)"][style*="scaleX(-1)"][style*="opacity: 0.3"]'),
+              // Front layer (mic, main)
+              document.querySelector('[style*="opacity: 0.8"][style*="pointer-events:none"]:not([style*="scaleY"])')
+            ].filter(Boolean);
+            
+            console.log(`🎵 Found ${visualizerDivs.length} visualizers for sequential activation`);
+            
+            if (visualizerDivs.length >= 3) {
+              startSequentialVisualizerCycle();
+            }
+          }
+          
+          function startSequentialVisualizerCycle() {
+            // Initially hide all visualizers
+            visualizerDivs.forEach((div, index) => {
+              div.style.opacity = '0';
+              div.style.transition = 'opacity 0.5s ease-in-out';
+            });
+            
+            // Show first visualizer
+            if (visualizerDivs[0]) {
+              visualizerDivs[0].style.opacity = '0.4';
+            }
+            
+            // Cycle through visualizers every 3 seconds
+            visualizerInterval = setInterval(() => {
+              // Hide current
+              if (visualizerDivs[currentVisualizerIndex]) {
+                visualizerDivs[currentVisualizerIndex].style.opacity = '0';
+              }
+              
+              // Move to next
+              currentVisualizerIndex = (currentVisualizerIndex + 1) % visualizerDivs.length;
+              
+              // Show next with appropriate opacity
+              if (visualizerDivs[currentVisualizerIndex]) {
+                const defaultOpacity = currentVisualizerIndex === 0 ? '0.4' : 
+                                     currentVisualizerIndex === 1 ? '0.3' : '0.8';
+                visualizerDivs[currentVisualizerIndex].style.opacity = defaultOpacity;
+              }
+              
+              console.log(`🎵 Switched to visualizer ${currentVisualizerIndex + 1}/${visualizerDivs.length}`);
+            }, 3000);
+            
+            console.log('🎵 Sequential visualizer cycle started - switching every 3 seconds');
+          }
+          
+          function stopSequentialVisualizerCycle() {
+            if (visualizerInterval) {
+              clearInterval(visualizerInterval);
+              visualizerInterval = null;
+            }
+            // Show all visualizers with their default opacity
+            visualizerDivs.forEach((div, index) => {
+              if (div) {
+                const defaultOpacity = index === 0 ? '0.4' : 
+                                     index === 1 ? '0.3' : '0.8';
+                div.style.opacity = defaultOpacity;
+              }
+            });
+          }
+          
           // Ensure music player analyser is available for visualizer
           function connectMusicToVisualizer() {
             if (typeof window !== 'undefined' && window.MUSIC) {
@@ -485,9 +557,25 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             setTimeout(connectMusicToVisualizer, 1000);
           }
           
-          // Start connection attempts
-          document.addEventListener('DOMContentLoaded', connectMusicToVisualizer);
+          // Start connection attempts and visualizer cycling
+          document.addEventListener('DOMContentLoaded', () => {
+            connectMusicToVisualizer();
+            setTimeout(initSequentialVisualizers, 1500); // Wait for components to load
+          });
           setTimeout(connectMusicToVisualizer, 500);
+          
+          // Global visualizer control functions
+          window.startVisualizerCycle = startSequentialVisualizerCycle;
+          window.stopVisualizerCycle = stopSequentialVisualizerCycle;
+          window.toggleVisualizerCycle = function() {
+            if (visualizerInterval) {
+              stopSequentialVisualizerCycle();
+              console.log('🎵 Visualizer cycle stopped');
+            } else {
+              startSequentialVisualizerCycle();
+              console.log('🎵 Visualizer cycle started');
+            }
+          };
           
           // Fix audio issue - ensure audio context is resumed on user interaction
           document.addEventListener('click', function resumeAudio() {

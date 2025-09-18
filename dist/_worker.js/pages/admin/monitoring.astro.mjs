@@ -1,0 +1,42 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../../chunks/vendor_CYa9XZjz.mjs';
+export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_9RmgnZc3.mjs';
+
+const $$Monitoring = createComponent(async ($$result, $$props, $$slots) => {
+  const pageTitle = "Monitoring Systemu | MyBonzo Admin";
+  const pageDescription = "Monitorowanie wydajno\u015Bci i statusu systemu MyBonzo AI";
+  const pageQuote = "Kontrola to podstawa ka\u017Cdego systemu.";
+  const pageAuthor = "MyBonzo Team";
+  return renderTemplate`${renderComponent($$result, "UniversalPageLayout", $$UniversalPageLayout, { "pageTitle": pageTitle, "pageDescription": pageDescription, "pageQuote": pageQuote, "pageAuthor": pageAuthor, "showRandomQuote": false }, { "default": async ($$result2) => renderTemplate`  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F9ED} Nawigacja", "variant": "info", "padding": "sm" }, { "default": async ($$result3) => renderTemplate` ${maybeRenderHead()}<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F3E0} Strona g\u0142\xF3wna", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/'" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4CA} Dashboard", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/dashboard'" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F510} Login", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/login'" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F4CA} Status systemu w czasie rzeczywistym", "variant": "highlight", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;"> <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"> <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemStatus">🟢 ONLINE</div> <div style="color: rgba(255,255,255,0.7);">Status systemu</div> </div> <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"> <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="cpuUsage">---%</div> <div style="color: rgba(255,255,255,0.7);">CPU Usage</div> </div> <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"> <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="memoryUsage">---%</div> <div style="color: rgba(255,255,255,0.7);">Memory Usage</div> </div> <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"> <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeConnections">---</div> <div style="color: rgba(255,255,255,0.7);">Aktywne połączenia</div> </div> </div> <div style="text-align: center;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F504} Od\u015Bwie\u017C dane", "variant": "primary", "size": "md", "onclick": "refreshMonitoringData()" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F916} Status AI Workers", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div id="workersStatus" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;"> <!-- Workers will be loaded here --> </div> <div style="text-align: center; margin-top: 20px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F517} Pe\u0142ny status worker\xF3w", "variant": "outline", "size": "md", "onclick": "window.open('/status-workers', '_blank')" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F4CB} Logi aktywno\u015Bci", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="max-height: 400px; overflow-y: auto;"> <div id="activityLog" style="space-y: 10px;"> <!-- Activity items will be loaded here --> </div> </div> <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F504} Od\u015Bwie\u017C logi", "variant": "outline", "size": "sm", "onclick": "loadActivityLog()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4E5} Eksportuj logi", "variant": "outline", "size": "sm", "onclick": "exportLogs()" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u26A1 Metryki wydajno\u015Bci", "variant": "success", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"> <!-- Response Times --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">🚀 Czasy odpowiedzi</h3> <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;"> <div>Średni czas odpowiedzi API: <span id="avgResponseTime" style="color: #00d9ff;">---ms</span></div> <div>Najwolniejszy endpoint: <span id="slowestEndpoint" style="color: #00d9ff;">---</span></div> <div>Najszybszy endpoint: <span id="fastestEndpoint" style="color: #00d9ff;">---</span></div> </div> </div> <!-- Request Statistics --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">📈 Statystyki zapytań</h3> <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;"> <div>Zapytania dzisiaj: <span id="todayRequests" style="color: #00d9ff;">---</span></div> <div>Sukces rate: <span id="successRate" style="color: #00d9ff;">---%</span></div> <div>Error rate: <span id="errorRate" style="color: #00d9ff;">---%</span></div> </div> </div> <!-- System Resources --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">💾 Zasoby systemu</h3> <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;"> <div>Wykorzystanie dysku: <span id="diskUsage" style="color: #00d9ff;">---%</span></div> <div>Network I/O: <span id="networkIO" style="color: #00d9ff;">--- MB/s</span></div> <div>Uptime: <span id="systemUptime" style="color: #00d9ff;">---</span></div> </div> </div> </div> ` })} ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/monitoring.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/monitoring.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/admin/monitoring.astro";
+const $$url = "/admin/monitoring";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Monitoring,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

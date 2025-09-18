@@ -32,22 +32,16 @@ zone_name = "mybonzo.com"
 pattern = "*.mybonzo.com/polish-music/*"
 zone_name = "mybonzo.com"
 
-# KV Namespaces dla polskich danych
+# KV Namespaces dla polskich danych (używam istniejące)
 [[kv_namespaces]]
 binding = "POLISH_MUSIC_KV"
-id = "polish_music_namespace"
-preview_id = "polish_music_preview"
+id = "a55f59fbe9534a28b7aa5e6af3ca112b"
+preview_id = "a55f59fbe9534a28b7aa5e6af3ca112b"
 
-# D1 Database dla polskich utworów
-[[d1_databases]]
-binding = "POLISH_MUSIC_DB"
-database_name = "polish-music-database"
-database_id = "polish-music-db-id"
-
-# R2 Bucket dla plików muzycznych
+# R2 Bucket dla plików muzycznych (używam istniejący)
 [[r2_buckets]]
 binding = "POLISH_MUSIC_R2"
-bucket_name = "polish-music-files"
+bucket_name = "mybonzo-storage"
 
 # BigQuery Integration
 [vars.BIGQUERY_CONFIG]
