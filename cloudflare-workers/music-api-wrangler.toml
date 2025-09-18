@@ -1,0 +1,71 @@
+# MYBONZO MUSIC API - Enhanced Configuration
+name = "mybonzo-music-api"
+main = "music-worker.js"
+compatibility_date = "2024-09-19"
+compatibility_flags = ["nodejs_compat"]
+
+# Routes dla Music API z lepszym cache control
+[[routes]]
+pattern = "music-api.mybonzo.com/*"
+zone_name = "mybonzo.com"
+
+[[routes]]
+pattern = "mybonzo.com/api/music/*"
+zone_name = "mybonzo.com"
+
+# Placement optimization - smart placement for better performance
+[placement]
+mode = "smart"
+
+# Limits optimization
+[limits]
+cpu_ms = 15000
+
+# Observability for monitoring
+[observability]
+enabled = true
+head_sampling_rate = 0.01
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+API_VERSION = "2.1.0"
+LANGUAGE = "en"
+CACHE_TTL = "7200"
+CACHE_ENABLED = "true"
+MUSIC_QUALITY = "high"
+UPLOAD_LIMIT = "50MB"
+
+# KV namespace dla cache'owania muzyki
+[[kv_namespaces]]
+binding = "MUSIC_CACHE_KV"
+id = "a55f59fbe9534a28b7aa5e6af3ca112b"
+preview_id = "a55f59fbe9534a28b7aa5e6af3ca112b"
+
+# R2 Bucket dla plików muzycznych
+[[r2_buckets]]
+binding = "MUSIC_STORAGE_R2"
+bucket_name = "mybonzo-storage"
+
+# Build configuration
+[build]
+command = "echo 'Music API Build completed'"
+cwd = "./"
+watch_dir = ["music-worker.js"]
+
+# Development settings
+[dev]
+ip = "0.0.0.0"
+port = 8789
+
+# BigQuery Integration dla analytics
+[vars.BIGQUERY_CONFIG]
+PROJECT_ID = "mybonzo-analytics"
+DATASET_ID = "music_analytics"
+TABLE_ID = "track_plays"
+
+# Audio processing config
+[vars.AUDIO_CONFIG]
+MAX_BITRATE = "320"
+SUPPORTED_FORMATS = "mp3,wav,flac,m4a"
+PROCESSING_QUALITY = "premium"

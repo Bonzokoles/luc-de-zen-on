@@ -1,0 +1,39 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, f as renderHead, a as renderTemplate } from '../chunks/vendor_CYa9XZjz.mjs';
+export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
+
+const $$Mybonzo = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`<html lang="pl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo AI Assistant</title><meta name="description" content="Twój inteligentny asystent AI">${renderHead()}</head> <body class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"> <main class="min-h-screen flex items-center justify-center p-4"> <div class="w-full max-w-4xl"> <h1 class="text-4xl font-bold text-cyan-300 mb-8 text-center">
+🤖 MyBonzo AI Assistant
+</h1> <div class="text-center text-cyan-300"> <p>MyBonzo Chat Component - Coming Soon</p> <p class="text-sm mt-2">Component MyBonzoChat.svelte needs to be created</p> </div> </div> </main> </body></html>`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/mybonzo.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/mybonzo.astro";
+const $$url = "/mybonzo";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$Mybonzo,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

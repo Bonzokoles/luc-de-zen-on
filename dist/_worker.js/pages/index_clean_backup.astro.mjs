@@ -1,0 +1,83 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/vendor_CYa9XZjz.mjs';
+export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BRvVRBoy.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_BAc4vPui.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_C6Nqh4vv.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_DjtTOHVq.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_D_h3-9iA.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_-A65JnyM.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_PuQW9CPi.mjs';
+/* empty css                                              */
+
+function ImageGeneratorWidget($$payload) {}
+
+function PolaczekWidget($$payload) {}
+
+function MainChatWidget($$payload) {}
+
+const $$FlowiseButton = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${maybeRenderHead()}<input type="text" id="flowise-input" placeholder="Wpisz prompt do Flowise..."> <button onclick="handleFlowise()">
+Uruchom Flowise
+</button> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/components/FlowiseButton.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/components/FlowiseButton.astro", void 0);
+
+const $$ActivePiecesButton = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${maybeRenderHead()}<textarea rows="4" id="activepieces-input" placeholder="Wprowadź JSON jako dane wejściowe"></textarea> <button onclick="handleActivePieces()">
+Uruchom ActivePieces
+</button> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/components/ActivePiecesButton.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/components/ActivePiecesButton.astro", void 0);
+
+const $$IndexCleanBackup = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "AI Workers Platform | KAROL LISSON", "data-astro-cid-rxo3mmkh": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-rxo3mmkh": true })}  ${maybeRenderHead()}<div class="absolute left-0 right-0 h-full pointer-events-none" data-astro-cid-rxo3mmkh> <!-- Inner vertical lines --> <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-rxo3mmkh></div> <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-rxo3mmkh></div> <!-- Outer vertical lines --> <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-rxo3mmkh></div> <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-rxo3mmkh></div> </div> <main class="min-h-screen" style="overflow: visible !important;" data-astro-cid-rxo3mmkh> <!-- Top Separator Section --> <section class="border border-edge relative" data-astro-cid-rxo3mmkh> <div class="py-1" data-astro-cid-rxo3mmkh></div> </section> <!-- AI Workers Section - Centered --> <section class="border border-edge ai-workers-section flex items-center justify-center py-16 relative" id="ai-workers" style="display: block !important; visibility: visible !important; opacity: 1 !important;" data-astro-cid-rxo3mmkh> <!-- Main Content Container --> <div class="container mx-auto px-4 relative z-10" data-astro-cid-rxo3mmkh> <div class="text-center mb-12" data-astro-cid-rxo3mmkh> <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent" data-astro-cid-rxo3mmkh>
+AI Workers Ecosystem
+</h2> <p class="text-lg text-muted-foreground max-w-2xl mx-auto" data-astro-cid-rxo3mmkh>
+Kompleksowa platforma AI z zaawansowanymi funkcjami biznesowymi
+</p> </div> <!-- Quick Actions Grid --> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" data-astro-cid-rxo3mmkh> <!-- Image Generator --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-orange-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🎨</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Generator Obrazów</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Tworzenie obrazów AI z zaawansowanymi promptami
+</p> ${renderComponent($$result2, "ImageGeneratorWidget", ImageGeneratorWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/ImageGeneratorWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- Chat Assistant --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>💬</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Chatbot AI</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Inteligentny asystent z wieloma modelami AI
+</p> ${renderComponent($$result2, "MainChatWidget", MainChatWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MainChatWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- Polaczek Widget --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🤖</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Polaczek AI</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Specjalistyczny agent AI dla zadań biznesowych
+</p> ${renderComponent($$result2, "PolaczekWidget", PolaczekWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/PolaczekWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> </div> <!-- Business Functions Grid --> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" data-astro-cid-rxo3mmkh> <!-- AI Help Assistant --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🆘</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Pomoc AI</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Asystent pomocy technicznej
+</p> ${renderComponent($$result2, "AiHelpAssistant", AiHelpAssistant, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AiHelpAssistant.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- FAQ Generator --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-amber-500 to-yellow-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>❓</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Generator FAQ</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>Automatyczne tworzenie FAQ</p> ${renderComponent($$result2, "FAQGeneratorWidget", FAQGeneratorWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/FAQGeneratorWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- Education Recommendations --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🎓</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Rekomendacje Edukacyjne</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Personalizowane ścieżki rozwoju
+</p> ${renderComponent($$result2, "EducationRecommendationsWidget", EducationRecommendationsWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/EducationRecommendationsWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> </div> <!-- System Management --> <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" data-astro-cid-rxo3mmkh> <!-- Ticket System --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-red-500 to-pink-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🎫</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>System Zgłoszeń</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Zarządzanie ticketami i zgłoszeniami
+</p> ${renderComponent($$result2, "TicketSubmissionWidget", TicketSubmissionWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/TicketSubmissionWidget.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- Workers Status --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>📊</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Status Workers</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Monitoring stanu wszystkich serwisów
+</p> ${renderComponent($$result2, "WorkersStatusDashboard", WorkersStatusDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/WorkersStatusDashboard.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> </div> <!-- Automation Integration --> <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" data-astro-cid-rxo3mmkh> <!-- Flowise AI --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🌊</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>Flowise AI</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>Zaawansowane workflow AI</p> ${renderComponent($$result2, "FlowiseButton", $$FlowiseButton, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/FlowiseButton.astro", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> <!-- ActivePieces --> <div class="bg-card/50 backdrop-blur-sm border border-edge rounded-lg p-6 hover:bg-card/70 transition-all duration-300" data-astro-cid-rxo3mmkh> <div class="flex items-center gap-3 mb-4" data-astro-cid-rxo3mmkh> <div class="w-10 h-10 bg-gradient-to-r from-orange-600 to-red-600 rounded-lg flex items-center justify-center" data-astro-cid-rxo3mmkh> <span class="text-white font-bold" data-astro-cid-rxo3mmkh>🧩</span> </div> <h3 class="text-xl font-semibold" data-astro-cid-rxo3mmkh>ActivePieces</h3> </div> <p class="text-muted-foreground mb-4" data-astro-cid-rxo3mmkh>
+Automatyzacja procesów biznesowych
+</p> ${renderComponent($$result2, "ActivePiecesButton", $$ActivePiecesButton, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/ActivePiecesButton.astro", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} </div> </div> </div> </section> <!-- Background Music Player --> ${renderComponent($$result2, "BackgroundMusicPlayerSimple", BackgroundMusicPlayerSimple, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/BackgroundMusicPlayerSimple.svelte", "client:component-export": "default", "data-astro-cid-rxo3mmkh": true })} <!-- Quote Section --> <section class="border border-edge relative" data-astro-cid-rxo3mmkh> <div class="container mx-auto px-4 py-8" data-astro-cid-rxo3mmkh> ${renderComponent($$result2, "RandomQuote", $$RandomQuote, { "data-astro-cid-rxo3mmkh": true })} </div> </section> </main> ` })} ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/index_clean_backup.astro?astro&type=script&index=0&lang.ts")} `;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/index_clean_backup.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/index_clean_backup.astro";
+const $$url = "/index_clean_backup";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$IndexCleanBackup,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

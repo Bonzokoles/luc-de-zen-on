@@ -1,0 +1,71 @@
+{
+  "name": "mybonzo-optimized",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2024-09-19",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "PUBLIC_DEFAULT_MODEL": "@cf/google/gemma-3-12b-it",
+    "PUBLIC_SITE_URL": "https://www.mybonzo.com"
+  },
+  // Performance optimizations
+  "placement": {
+    "mode": "smart"
+  },
+  "limits": {
+    "cpu_ms": 30000
+  },
+  // Enhanced observability
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.01
+  },
+  "dev": {
+    "ip": "0.0.0.0",
+    "port": 8787,
+    "local_protocol": "https"
+  },
+  "build": {
+    "command": "npm run build",
+    "cwd": "./",
+    "watch_dir": ["src", "public"]
+  },
+  // R2 buckets for asset storage optimization
+  "r2_buckets": [
+    {
+      "binding": "ASSETS",
+      "bucket_name": "mybonzo-assets",
+      "preview_bucket_name": "mybonzo-assets-preview"
+    },
+    {
+      "binding": "UPLOADS", 
+      "bucket_name": "mybonzo-uploads",
+      "preview_bucket_name": "mybonzo-uploads-preview"
+    },
+    {
+      "binding": "CACHE_STORAGE",
+      "bucket_name": "mybonzo-cache",
+      "preview_bucket_name": "mybonzo-cache-preview"
+    }
+  ],
+  // KV for edge caching
+  "kv_namespaces": [
+    {
+      "binding": "EDGE_CACHE",
+      "id": "269af92daf2a4baaa80b34afd5aad15e"
+    }
+  ],
+  // Durable objects for session management
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SESSION_MANAGER",
+        "class_name": "SessionManager"
+      }
+    ]
+  }
+}

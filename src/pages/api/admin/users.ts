@@ -7,6 +7,7 @@ export async function GET({ request }: { request: Request }) {
   if (!isAuth) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
+  
   try {
     // Tymczasowe dane użytkowników - zastąp prawdziwą bazą danych
     const usersData = [
@@ -64,45 +65,6 @@ export async function GET({ request }: { request: Request }) {
   }
 }
 
-<<<<<<< Updated upstream
-async function getRealUsersList() {
-  // TODO: Połączenie z rzeczywistą bazą danych
-  // Na razie realistyczne dane zamiast fake generowanych
-  const realUsers = [
-    { 
-      id: 1, 
-      name: 'admin', 
-      username: 'admin',
-      email: 'admin@mybonzo.com', 
-      active: true,
-      role: 'admin',
-      lastLogin: new Date(Date.now() - 3600000).toISOString()
-    },
-    { 
-      id: 2, 
-      username: 'demo.user',
-      name: 'Demo User', 
-      email: 'demo@mybonzo.com', 
-      active: true,
-      role: 'user',
-      lastLogin: new Date(Date.now() - 86400000).toISOString()
-    },
-    { 
-      id: 3, 
-      username: 'test.account',
-      name: 'Test Account', 
-      email: 'test@mybonzo.com', 
-      active: false,
-      role: 'user',
-      lastLogin: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
-    }
-  ];
-
-  return realUsers;
-}
-
-=======
->>>>>>> Stashed changes
 export async function POST({ request }: { request: Request }) {
   try {
     const userData = await request.json();
