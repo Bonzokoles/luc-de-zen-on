@@ -46,8 +46,9 @@ qa dataset
 - 🌊 Przycisk sterowania wizualizatorami
 
 **Wizualizatory muzyki:**
-- **Automatyczne przełączanie**: Co 3 sekundy między 3 wizualizatorami
-- **Ręczna kontrola**: Przycisk 🌊 w music playerze
+- **Sekwencja startowa**: Po 3 cykle przez wszystkie wizualizatory (9 sekund każdy)
+- **Finalna prezentacja**: Na końcu wszystkie 3 wizualizatory jednocześnie widoczne
+- **Ręczna kontrola**: Przycisk 🌊 w music playerze do restart cyklu
 - **Tryby wizualizacji:**
   1. Music hue-rotated (kolorowe spektrum)
   2. Music darker mirrored (ciemniejsze odbicie)  
@@ -120,10 +121,12 @@ window.MUSIC.setVolume(0.5)      // Ustaw głośność 50%
 3. **Przeanalizuj wyniki** w BigQuery po pobraniu danych
 
 ### Scenariusz 3: Multimedialne doświadczenie
+
 1. **Uruchom muzykę** 🎵
-2. **Włącz wizualizatory** 🌊 (automatyczne przełączanie co 3s)
-3. **Pracuj z danymi** w BigQuery/Kaggle
-4. **Korzystaj z AI Assistant** dla wsparcia
+2. **Obserwuj sekwencję wizualizatorów** 🌊 (3 cykle po 3 sekundy każdy)
+3. **Ciesz się finalną prezentacją** - wszystkie 3 wizualizatory razem
+4. **Pracuj z danymi** w BigQuery/Kaggle podczas wizualizacji
+5. **Korzystaj z AI Assistant** dla wsparcia
 
 ---
 
