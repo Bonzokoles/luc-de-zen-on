@@ -479,6 +479,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
           }
           
           function startSequentialVisualizerCycle() {
+            let cycleCount = 0;
+            const totalCycles = 3; // 3 cycles przez wszystkie wizualizatory
+            
             // Initially hide all visualizers
             visualizerDivs.forEach((div, index) => {
               div.style.opacity = '0';
@@ -500,6 +503,29 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               // Move to next
               currentVisualizerIndex = (currentVisualizerIndex + 1) % visualizerDivs.length;
               
+              // Check if we completed a full cycle
+              if (currentVisualizerIndex === 0) {
+                cycleCount++;
+              }
+              
+              // After specified cycles, show all visualizers together
+              if (cycleCount >= totalCycles) {
+                clearInterval(visualizerInterval);
+                visualizerInterval = null;
+                
+                // Show all visualizers with their default opacity
+                visualizerDivs.forEach((div, index) => {
+                  if (div) {
+                    const defaultOpacity = index === 0 ? '0.4' : 
+                                         index === 1 ? '0.3' : '0.8';
+                    div.style.opacity = defaultOpacity;
+                  }
+                });
+                
+                console.log('🎵 Sequential cycle completed - now showing all visualizers together');
+                return;
+              }
+              
               // Show next with appropriate opacity
               if (visualizerDivs[currentVisualizerIndex]) {
                 const defaultOpacity = currentVisualizerIndex === 0 ? '0.4' : 
@@ -507,10 +533,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 visualizerDivs[currentVisualizerIndex].style.opacity = defaultOpacity;
               }
               
-              console.log(`🎵 Switched to visualizer ${currentVisualizerIndex + 1}/${visualizerDivs.length}`);
+              console.log(`🎵 Cycle ${cycleCount + 1}/${totalCycles} - Switched to visualizer ${currentVisualizerIndex + 1}/${visualizerDivs.length}`);
             }, 3000);
             
-            console.log('🎵 Sequential visualizer cycle started - switching every 3 seconds');
+            console.log('🎵 Sequential visualizer cycle started - will show all together after 3 complete cycles');
           }
           
           function stopSequentialVisualizerCycle() {
