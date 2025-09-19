@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { i as ensure_array_like, j as attr_class, k as escape_html, l as stringify, n as attr, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BsrSeDeM.mjs';
+import { i as ensure_array_like, j as attr_class, k as escape_html, l as stringify, n as attr, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
 /* empty css                                                  */
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BSAeJswa.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CfAAnw2w.mjs';
 
 function InteractiveQuizWidget($$payload, $$props) {
 	$$payload.component(($$payload) => {

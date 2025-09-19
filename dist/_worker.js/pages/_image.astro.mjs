@@ -15,4 +15,4 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-export { N as page, d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+export { N as page, d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';

@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BsrSeDeM.mjs';
-import { F as FAQGeneratorWidget } from '../../chunks/FAQGeneratorWidget_BuU1p9fq.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { F as FAQGeneratorWidget } from '../../chunks/FAQGeneratorWidget_BOSC1z_h.mjs';
 /* empty css                                          */
 
 const $$DynamicFaq = createComponent(($$result, $$props, $$slots) => {

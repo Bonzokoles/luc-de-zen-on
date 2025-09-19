@@ -1,0 +1,24 @@
+if (typeof MessageChannel === 'undefined') {
+  class __PolyfillPort {
+    constructor(){ this.onmessage = null; }
+    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
+    start(){} close(){}
+  }
+  class MessageChannel {
+    constructor(){
+      this.port1 = new __PolyfillPort();
+      this.port2 = new __PolyfillPort();
+      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
+      this.port1.postMessage = (d)=> dispatch(this.port2, d);
+      this.port2.postMessage = (d)=> dispatch(this.port1, d);
+    }
+  }
+  globalThis.MessageChannel = MessageChannel;
+}
+import { c as createComponent, m as maybeRenderHead, a as renderTemplate } from './vendor_BHZTJLV0.mjs';
+
+const $$DecorativeLines = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${maybeRenderHead()}<div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none" aria-hidden="true"> <!-- Linia pozioma na górze --> <div class="absolute left-0 top-20 h-px w-full bg-edge" style="transform: translateX(-20%) skewX(-30deg);"></div> <!-- Linia pozioma na dole --> <div class="absolute bottom-20 right-0 h-px w-full bg-edge" style="transform: translateX(20%) skewX(-30deg);"></div> <!-- Linia pionowa z lewej --> <div class="absolute left-1/4 top-0 w-px h-full bg-edge" style="transform: translateY(-10%) skewY(-20deg);"></div> <!-- Linia pionowa z prawej --> <div class="absolute right-1/4 bottom-0 w-px h-full bg-edge" style="transform: translateY(10%) skewY(-20deg);"></div> </div>`;
+}, "Q:/mybonzo/luc-de-zen-on/src/components/DecorativeLines.astro", void 0);
+
+export { $$DecorativeLines as $ };

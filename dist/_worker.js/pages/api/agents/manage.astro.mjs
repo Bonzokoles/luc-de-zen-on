@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_DD_RavK2.mjs';
-export { d as renderers } from '../../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../../chunks/vendor_BHZTJLV0.mjs';
 
 const POST = async ({ request, locals }) => {
   try {

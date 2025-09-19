@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BsrSeDeM.mjs';
-import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_DVevOwbq.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BSAeJswa.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_BsHM6yJT.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CfAAnw2w.mjs';
 /* empty css                                                */
 
 const $$MarketingContent = createComponent(($$result, $$props, $$slots) => {

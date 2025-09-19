@@ -15,15 +15,15 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BsrSeDeM.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_DsbLSwn9.mjs';
-import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_BuU1p9fq.mjs';
-import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_C4cUlZGU.mjs';
-import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_C1clECuV.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_CjBJobHn.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BSAeJswa.mjs';
+import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_C4fjTcnj.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_BOSC1z_h.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_C6EmXIo0.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_BYaMQSO4.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_vNGjqCem.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_CfAAnw2w.mjs';
 /* empty css                                              */
 
 function ImageGeneratorWidget($$payload) {}

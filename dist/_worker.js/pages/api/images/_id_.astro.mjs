@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-export { d as renderers } from '../../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../../chunks/vendor_BHZTJLV0.mjs';
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 	__proto__: null

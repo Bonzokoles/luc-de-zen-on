@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BsrSeDeM.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "AI Agents Dashboard | MyBonzo" }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh bg-black text-white"> <!-- Header --> <section class="border-b border-cyan-500/30"> <div class="max-w-6xl mx-auto p-6"> <h1 class="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">

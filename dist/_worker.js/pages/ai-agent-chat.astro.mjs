@@ -15,8 +15,8 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, a as renderTemplate } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { c as createComponent, a as renderTemplate } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
 
 const $$AiAgentChat = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate``;

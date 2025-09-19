@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$Layout } from '../chunks/Layout_1MimlBIA.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$Layout } from '../chunks/Layout_DI-1jE_6.mjs';
 import { r as reactExports, j as jsxRuntimeExports } from '../chunks/react_wu9MgIUH.mjs';
 
 function StableDiffusionGenerator() {

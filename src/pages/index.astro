@@ -889,7 +889,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
-            <div id="kaggle-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+            <div id="kaggle-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono hidden">
               <!-- Wyniki z Kaggle pojawią się tutaj -->
             </div>
           </div>
@@ -928,7 +928,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
-            <div id="tavily-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+            <div id="tavily-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono hidden">
               <!-- Wyniki z Tavily pojawią się tutaj -->
             </div>
           </div>
@@ -977,7 +977,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             </div>
 
             <!-- Marketing Content Type Selection -->
-            <div class="marketing-controls mt-4" data-astro-cid-my52qgmw>
+            <div class="marketing-controls mt-4 hidden" id="marketing-controls" data-astro-cid-my52qgmw>
               <select id="marketingType" class="marketing-select mb-3" data-astro-cid-my52qgmw>
                 <option value="social-post">Post Social Media</option>
                 <option value="blog-article">Artykuł Blog</option>
@@ -1026,15 +1026,21 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               <div class="advanced-options mb-3" data-astro-cid-my52qgmw>
                 <input type="text" id="marketingKeywords" placeholder="Słowa kluczowe SEO (opcjonalnie)" class="marketing-input mb-2" data-astro-cid-my52qgmw />
                 <input type="text" id="marketingCTA" placeholder="Call to Action (np. 'Kup teraz', 'Dowiedz się więcej')" class="marketing-input mb-2" data-astro-cid-my52qgmw />
-                <input type="number" id="marketingLength" placeholder="Docelowa długość (słowa)" min="50" max="2000" class="marketing-input" data-astro-cid-my52qgmw />
+                <input type="number" id="marketingLength" placeholder="Docelowa długość (słowa)" min="50" max="2000" class="marketing-input mb-2" data-astro-cid-my52qgmw />
+                <button
+                  class="worker-btn"
+                  onclick="generateMarketingContent()"
+                  data-astro-cid-my52qgmw>
+                  ✨ Generuj Treść
+                </button>
               </div>
             </div>
 
             <div class="worker-actions" data-astro-cid-my52qgmw>
               <button
                 class="action-btn primary"
-                onclick="generateMarketingContent()"
-                data-astro-cid-my52qgmw>🎯 Generuj Treść</button
+                onclick="toggleMarketingPanel()"
+                data-astro-cid-my52qgmw>🎯 Marketing AI</button
               >
               <button
                 class="action-btn secondary"
@@ -1043,7 +1049,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               >
             </div>
             
-            <div id="marketing-result" class="mt-4 p-3 border border-gray-300 rounded-md text-sm bg-gradient-to-br from-blue-50 to-purple-50 min-h-32 overflow-y-auto">
+            <div id="marketing-result" class="mt-4 p-3 border border-gray-300 rounded-md text-sm bg-gradient-to-br from-blue-50 to-purple-50 min-h-32 overflow-y-auto hidden">
               <!-- Wygenerowana treść marketingowa pojawi się tutaj -->
             </div>
           </div>
@@ -1626,6 +1632,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         return;
     }
 
+    // Pokaż panel wyników
+    resultDiv.classList.remove("hidden");
+
     if (!prompt) {
         resultDiv.innerHTML = `
           <div class="bg-yellow-600 text-white p-3 rounded-md">
@@ -1723,6 +1732,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         return;
     }
 
+    // Pokaż panel wyników
+    resultDiv.classList.remove("hidden");
+
     if (!prompt) {
         resultDiv.innerHTML = `
           <div class="bg-yellow-600 text-white p-3 rounded-md">
@@ -1814,6 +1826,28 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
     alert(`Test udany! Przycisk ${buttonType} działa.`);
     return false; // Prevent actual navigation
+  }
+
+  // Toggle Marketing Panel
+  function toggleMarketingPanel() {
+    const controls = document.getElementById("marketing-controls");
+    const results = document.getElementById("marketing-result");
+    
+    if (controls && results) {
+      const isHidden = controls.classList.contains("hidden");
+      
+      if (isHidden) {
+        // Pokaż panel
+        controls.classList.remove("hidden");
+        results.classList.remove("hidden");
+        console.log("📢 Marketing Panel otwarty");
+      } else {
+        // Ukryj panel
+        controls.classList.add("hidden");
+        results.classList.add("hidden");
+        console.log("📢 Marketing Panel zamknięty");
+      }
+    }
   }
 
   // Advanced Marketing Content Generator Functions
@@ -3392,13 +3426,13 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
   /* Worker Cards Base Styles */
   .worker-card {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(0, 217, 255, 0.3);
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
   }
 
   .worker-card:hover {

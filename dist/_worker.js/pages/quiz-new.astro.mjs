@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../chunks/CyberpunkButton_DBM2hMVo.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../chunks/CyberpunkButton_DGnPc2jR.mjs';
 /* empty css                                    */
 
 const $$QuizNew = createComponent(($$result, $$props, $$slots) => {
