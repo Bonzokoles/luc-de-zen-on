@@ -13,6 +13,7 @@ import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte"
 import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import VoiceAssistantPolaczek from "../components/VoiceAssistantPolaczek.tsx";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import { Icon } from 'astro-icon/components';
 ---
@@ -847,7 +848,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
-            <div id="bigquery-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+            <div id="bigquery-result" class="mt-4 p-2 border border-gray-300 rounded-md text-xs bg-transparent h-32 overflow-y-auto">
               <!-- Wyniki z BigQuery pojawią się tutaj -->
             </div>
           </div>
@@ -888,6 +889,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
+            <div id="kaggle-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+              <!-- Wyniki z Kaggle pojawią się tutaj -->
+            </div>
           </div>
 
           <!-- Tavily Search -->
@@ -924,6 +928,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
+            <div id="tavily-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+              <!-- Wyniki z Tavily pojawią się tutaj -->
+            </div>
           </div>
 
           <!-- STATUS WORKERS - Basic Opening Element -->
@@ -952,6 +959,92 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 onclick="window.open('/status-workers', '_blank')"
                 data-astro-cid-my52qgmw>Otwórz Dashboard</button
               >
+            </div>
+          </div>
+
+          <!-- Advanced Marketing Content Generator -->
+          <div class="worker-card" data-worker="marketing-generator" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              📢 MARKETING CONTENT AI
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Zaawansowany generator treści marketingowych z AI - posty, reklamy, kampanie
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>AI Content</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Multi-Format</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>SEO Optimized</span>
+            </div>
+
+            <!-- Marketing Content Type Selection -->
+            <div class="marketing-controls mt-4" data-astro-cid-my52qgmw>
+              <select id="marketingType" class="marketing-select mb-3" data-astro-cid-my52qgmw>
+                <option value="social-post">Post Social Media</option>
+                <option value="blog-article">Artykuł Blog</option>
+                <option value="email-campaign">Kampania Email</option>
+                <option value="ad-copy">Treść Reklamy</option>
+                <option value="product-description">Opis Produktu</option>
+                <option value="press-release">Komunikat Prasowy</option>
+                <option value="seo-content">Treść SEO</option>
+                <option value="video-script">Skrypt Wideo</option>
+              </select>
+
+              <!-- Target Audience -->
+              <select id="targetAudience" class="marketing-select mb-3" data-astro-cid-my52qgmw>
+                <option value="general">Ogólna Publiczność</option>
+                <option value="business">B2B - Biznes</option>
+                <option value="consumers">B2C - Konsumenci</option>
+                <option value="young">Młodzi 18-25</option>
+                <option value="adults">Dorośli 26-45</option>
+                <option value="seniors">Seniorzy 45+</option>
+                <option value="tech">Tech Enthusiasts</option>
+                <option value="parents">Rodzice</option>
+              </select>
+
+              <!-- Tone Selection -->
+              <select id="marketingTone" class="marketing-select mb-3" data-astro-cid-my52qgmw>
+                <option value="professional">Profesjonalny</option>
+                <option value="friendly">Przyjazny</option>
+                <option value="enthusiastic">Entuzjastyczny</option>
+                <option value="urgent">Pilny/Promocyjny</option>
+                <option value="educational">Edukacyjny</option>
+                <option value="humorous">Z Humorem</option>
+                <option value="emotional">Emocjonalny</option>
+                <option value="authoritative">Autorytatywny</option>
+              </select>
+
+              <!-- Main Input -->
+              <textarea
+                id="marketingPrompt"
+                placeholder="Opisz produkt/usługę, kluczowe korzyści, cel kampanii..."
+                class="marketing-textarea mb-3"
+                rows="3"
+                data-astro-cid-my52qgmw
+              ></textarea>
+
+              <!-- Advanced Options -->
+              <div class="advanced-options mb-3" data-astro-cid-my52qgmw>
+                <input type="text" id="marketingKeywords" placeholder="Słowa kluczowe SEO (opcjonalnie)" class="marketing-input mb-2" data-astro-cid-my52qgmw />
+                <input type="text" id="marketingCTA" placeholder="Call to Action (np. 'Kup teraz', 'Dowiedz się więcej')" class="marketing-input mb-2" data-astro-cid-my52qgmw />
+                <input type="number" id="marketingLength" placeholder="Docelowa długość (słowa)" min="50" max="2000" class="marketing-input" data-astro-cid-my52qgmw />
+              </div>
+            </div>
+
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="generateMarketingContent()"
+                data-astro-cid-my52qgmw>🎯 Generuj Treść</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="openMarketingDashboard()"
+                data-astro-cid-my52qgmw>📊 Dashboard</button
+              >
+            </div>
+            
+            <div id="marketing-result" class="mt-4 p-3 border border-gray-300 rounded-md text-sm bg-gradient-to-br from-blue-50 to-purple-50 min-h-32 overflow-y-auto">
+              <!-- Wygenerowana treść marketingowa pojawi się tutaj -->
             </div>
           </div>
 
@@ -1226,6 +1319,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
     <div class="floating-widget-container">
       <button
+        onclick="toggleVoiceAssistant()"
+        class="right-btn"
+        id="voiceAssistantBtn"
+        title="POLACZEK Voice Assistant - AI głosowy asystent BONZO"
+      >
+        <Icon name="lucide:mic" /> POLACZEK VOICE
+      </button>
+      <div id="voiceAssistantWidget" class="floating-widget hidden">
+        <VoiceAssistantPolaczek client:load />
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button
         onclick="togglePolaczekAssistant()"
         class="right-btn"
         id="polaczekBtn"
@@ -1424,78 +1531,282 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   }
 
   async function openBigQuery() {
-    console.log("📊 openBigQuery() called - new version");
+    console.log("📊 openBigQuery() called - POLACZEK API version");
     const resultDiv = document.getElementById("bigquery-result");
-
-    // --- WAŻNE ---
-    // Wklej tutaj adres URL, który otrzymasz po wdrożeniu funkcji w Google Cloud.
-    const cloudFunctionUrl = "https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/getBigQueryTables";
+    const promptElement = document.getElementById("bigqueryPrompt") as HTMLInputElement;
 
     if (!resultDiv) {
         console.error("Result container #bigquery-result not found!");
         return;
     }
 
-    if (cloudFunctionUrl.includes("YOUR_PROJECT_ID")) {
-        resultDiv.innerHTML = `<p class="text-red-400">Błąd: Proszę, zaktualizuj adres URL 'cloudFunctionUrl' w pliku index.astro, podając prawdziwy adres Twojej Google Cloud Function.</p>`;
-        return;
-    }
-
-    resultDiv.innerHTML = '<p class="text-yellow-400">Łączenie z Google Cloud Function...</p>';
+    // Use POLACZEK BigQuery API
+    const polaczekApiUrl = "/api/polaczek/bigquery";
+    
+    resultDiv.innerHTML = '<p class="text-yellow-400">🔍 Łączenie z POLACZEK BigQuery API...</p>';
 
     try {
-      const response = await fetch(cloudFunctionUrl);
-      resultDiv.innerHTML = '<p class="text-yellow-400">Pobieranie danych z BigQuery...</p>';
-
-      if (!response.ok) {
-        const errorData = await response.text(); // Get text for more detailed errors
-        throw new Error(`Błąd sieci: ${response.statusText}, Szczegóły: ${errorData}`);
+      let requestBody = {};
+      
+      // Check if user provided custom query
+      if (promptElement && promptElement.value.trim()) {
+        requestBody = {
+          query: promptElement.value.trim()
+        };
       }
 
-      const data = await response.json();
+      const response = await fetch(polaczekApiUrl, {
+        method: requestBody.query ? 'POST' : 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: requestBody.query ? JSON.stringify(requestBody) : undefined
+      });
 
-      if (data.length === 0) {
-        resultDiv.innerHTML = '<p class="text-green-400">Zapytanie wykonane pomyślnie. Brak tabel w datasecie.</p>';
-      } else {
+      resultDiv.innerHTML = '<p class="text-yellow-400">📊 Pobieranie danych z BigQuery...</p>';
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Błąd API: ${response.statusText}, Szczegóły: ${errorData}`);
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        const stats = {
+          project: result.meta.project,
+          dataset: result.meta.dataset,
+          location: result.meta.location,
+          rows: result.meta.rows_count,
+          job_id: result.meta.job_id
+        };
+        
+        // Update main result area with green background and white text
         resultDiv.innerHTML = `
-          <p class="text-green-400">Znalezione tabele w datasecie:</p>
-          <pre class="whitespace-pre-wrap text-white">${JSON.stringify(data, null, 2)}</pre>
+          <div class="bg-green-600 text-white p-3 rounded-md">
+            <p class="font-bold mb-2">✅ BigQuery - Zapytanie wykonane pomyślnie!</p>
+            <div class="text-sm mb-2">
+              <span class="font-semibold">Projekt:</span> ${stats.project} | 
+              <span class="font-semibold">Dataset:</span> ${stats.dataset} | 
+              <span class="font-semibold">Lokalizacja:</span> ${stats.location}
+            </div>
+            <div class="text-sm mb-2">
+              <span class="font-semibold">Wiersze:</span> ${stats.rows} | 
+              <span class="font-semibold">Job ID:</span> ${stats.job_id.substring(0, 12)}...
+            </div>
+            <pre class="bg-green-700 text-white p-2 rounded mt-2 text-xs overflow-auto max-h-24">${JSON.stringify(result.data, null, 2)}</pre>
+          </div>
         `;
+
+        // Update side statistics
+        updateSideStatistics('BigQuery', stats);
+        
+      } else {
+        throw new Error(result.error || 'Unknown API error');
       }
     } catch (error) {
       console.error("Error fetching from BigQuery:", error);
-      resultDiv.innerHTML = `<p class="text-red-400">Błąd: ${error.message}</p>`;
+      resultDiv.innerHTML = `
+        <div class="bg-red-600 text-white p-3 rounded-md">
+          <p class="font-bold">❌ BigQuery - Błąd połączenia!</p>
+          <p class="text-sm mt-1">${error.message}</p>
+        </div>
+      `;
     }
   }
 
-  function openKaggle() {
-    console.log("🔍 openKaggle() wywołana");
-    const promptElement = document.getElementById(
-      "kagglePrompt"
-    ) as HTMLInputElement;
+  async function openKaggle() {
+    console.log("🔍 openKaggle() wywołana - new API version");
+    const resultDiv = document.getElementById("kaggle-result");
+    const promptElement = document.getElementById("kagglePrompt") as HTMLInputElement;
     const prompt = promptElement ? promptElement.value.trim() : "";
+
+    if (!resultDiv) {
+        console.error("Result container #kaggle-result not found!");
+        return;
+    }
+
+    if (!prompt) {
+        resultDiv.innerHTML = `
+          <div class="bg-yellow-600 text-white p-3 rounded-md">
+            <p class="font-bold">⚠️ Kaggle - Brak zapytania!</p>
+            <p class="text-sm mt-1">Wpisz słowa kluczowe do wyszukania datasetu</p>
+          </div>
+        `;
+        return;
+    }
+
     console.log("Kaggle prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickKaggleSearch", prompt);
-      console.log("Kaggle search saved in localStorage");
+    resultDiv.innerHTML = '<p class="text-yellow-400">🔍 Wyszukiwanie datasetu na Kaggle...</p>';
+
+    try {
+      // Use POLACZEK Kaggle API
+      const kaggleApiUrl = "/api/polaczek/kaggle";
+      
+      const response = await fetch(kaggleApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: prompt,
+          search_type: "datasets"
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Błąd API: ${response.statusText}, Szczegóły: ${errorData}`);
+      }
+
+      const result = await response.json();
+
+      if (result.available_datasets && result.available_datasets.length > 0) {
+        const stats = {
+          query: prompt,
+          found_datasets: result.available_datasets.length,
+          api_status: "success",
+          timestamp: new Date().toISOString()
+        };
+
+        // Update main result area with green background and white text  
+        resultDiv.innerHTML = `
+          <div class="bg-green-600 text-white p-3 rounded-md">
+            <p class="font-bold mb-2">✅ Kaggle - Znaleziono datasety!</p>
+            <div class="text-sm mb-2">
+              <span class="font-semibold">Zapytanie:</span> "${prompt}" | 
+              <span class="font-semibold">Znalezione:</span> ${result.available_datasets.length} datasety
+            </div>
+            <div class="bg-green-700 text-white p-2 rounded mt-2 text-xs overflow-auto max-h-24">
+              ${result.available_datasets.slice(0, 3).map(ds => 
+                `<div class="mb-1">📊 ${ds.name}: ${ds.description}</div>`
+              ).join('')}
+              ${result.available_datasets.length > 3 ? `<div class="text-green-300">... i ${result.available_datasets.length - 3} więcej</div>` : ''}
+            </div>
+          </div>
+        `;
+
+        // Update side statistics
+        updateSideStatistics('Kaggle', stats);
+
+        // Save search for external page
+        localStorage.setItem("quickKaggleSearch", prompt);
+        
+      } else {
+        throw new Error(result.error || 'Brak wyników dla tego zapytania');
+      }
+    } catch (error) {
+      console.error("Error fetching from Kaggle:", error);
+      resultDiv.innerHTML = `
+        <div class="bg-red-600 text-white p-3 rounded-md">
+          <p class="font-bold">❌ Kaggle - Błąd wyszukiwania!</p>
+          <p class="text-sm mt-1">${error.message}</p>
+          <p class="text-xs mt-2 text-red-200">Kliknij "Otwórz" aby przejść do pełnej strony Kaggle</p>
+        </div>
+      `;
+      
+      // Fallback - save search and offer external page
+      if (prompt) {
+        localStorage.setItem("quickKaggleSearch", prompt);
+      }
     }
-    console.log("Opening /kaggle-datasets");
-    window.open("/kaggle-datasets", "_blank");
   }
 
-  function openTavily() {
-    console.log("🌐 openTavily() wywołana");
-    const promptElement = document.getElementById(
-      "tavilyPrompt"
-    ) as HTMLInputElement;
+  async function openTavily() {
+    console.log("🌐 openTavily() wywołana - new API version");
+    const resultDiv = document.getElementById("tavily-result");
+    const promptElement = document.getElementById("tavilyPrompt") as HTMLInputElement;
     const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("Tavily prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickTavilySearch", prompt);
-      console.log("Tavily search saved in localStorage");
+
+    if (!resultDiv) {
+        console.error("Result container #tavily-result not found!");
+        return;
     }
-    console.log("Opening /tavily-search");
-    window.open("/tavily-search", "_blank");
+
+    if (!prompt) {
+        resultDiv.innerHTML = `
+          <div class="bg-yellow-600 text-white p-3 rounded-md">
+            <p class="font-bold">⚠️ Tavily - Brak zapytania!</p>
+            <p class="text-sm mt-1">Wpisz pytanie do wyszukania w internecie</p>
+          </div>
+        `;
+        return;
+    }
+
+    console.log("Tavily prompt:", prompt);
+    resultDiv.innerHTML = '<p class="text-yellow-400">🌐 Wyszukiwanie informacji w internecie...</p>';
+
+    try {
+      // Use POLACZEK Tavily API
+      const tavilyApiUrl = "/api/polaczek/tavily";
+      
+      const response = await fetch(tavilyApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: prompt,
+          search_depth: "basic"
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.text();
+        throw new Error(`Błąd API: ${response.statusText}, Szczegóły: ${errorData}`);
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.results && result.results.length > 0) {
+        const stats = {
+          query: prompt,
+          found_results: result.results.length,
+          api_status: "success", 
+          timestamp: new Date().toISOString()
+        };
+
+        // Update main result area with green background and white text
+        resultDiv.innerHTML = `
+          <div class="bg-green-600 text-white p-3 rounded-md">
+            <p class="font-bold mb-2">✅ Tavily - Znaleziono informacje!</p>
+            <div class="text-sm mb-2">
+              <span class="font-semibold">Zapytanie:</span> "${prompt}" | 
+              <span class="font-semibold">Znalezione:</span> ${result.results.length} wyników
+            </div>
+            <div class="bg-green-700 text-white p-2 rounded mt-2 text-xs overflow-auto max-h-24">
+              ${result.results.slice(0, 2).map(res => 
+                `<div class="mb-1">🔗 ${res.title}<br><span class="text-green-300 text-xs">${res.url}</span></div>`
+              ).join('')}
+              ${result.results.length > 2 ? `<div class="text-green-300">... i ${result.results.length - 2} więcej wyników</div>` : ''}
+            </div>
+          </div>
+        `;
+
+        // Update side statistics
+        updateSideStatistics('Tavily', stats);
+
+        // Save search for external page
+        localStorage.setItem("quickTavilySearch", prompt);
+        
+      } else {
+        throw new Error(result.error || 'Brak wyników dla tego zapytania');
+      }
+    } catch (error) {
+      console.error("Error fetching from Tavily:", error);
+      resultDiv.innerHTML = `
+        <div class="bg-red-600 text-white p-3 rounded-md">
+          <p class="font-bold">❌ Tavily - Błąd wyszukiwania!</p>
+          <p class="text-sm mt-1">${error.message}</p>
+          <p class="text-xs mt-2 text-red-200">Kliknij "Otwórz" aby przejść do pełnej strony Tavily</p>
+        </div>
+      `;
+      
+      // Fallback - save search and offer external page
+      if (prompt) {
+        localStorage.setItem("quickTavilySearch", prompt);
+      }
+    }
   }
 
   // Test function without popup (to test if buttons respond)
@@ -1503,6 +1814,226 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
     alert(`Test udany! Przycisk ${buttonType} działa.`);
     return false; // Prevent actual navigation
+  }
+
+  // Advanced Marketing Content Generator Functions
+  async function generateMarketingContent() {
+    console.log("📢 Generowanie treści marketingowej...");
+    
+    const resultDiv = document.getElementById("marketing-result");
+    const typeElement = document.getElementById("marketingType") as HTMLSelectElement;
+    const audienceElement = document.getElementById("targetAudience") as HTMLSelectElement;
+    const toneElement = document.getElementById("marketingTone") as HTMLSelectElement;
+    const promptElement = document.getElementById("marketingPrompt") as HTMLTextAreaElement;
+    const keywordsElement = document.getElementById("marketingKeywords") as HTMLInputElement;
+    const ctaElement = document.getElementById("marketingCTA") as HTMLInputElement;
+    const lengthElement = document.getElementById("marketingLength") as HTMLInputElement;
+
+    if (!resultDiv || !typeElement || !promptElement) {
+        console.error("Marketing elements not found!");
+        return;
+    }
+
+    const contentType = typeElement.value;
+    const targetAudience = audienceElement?.value || "general";
+    const tone = toneElement?.value || "professional";
+    const prompt = promptElement.value.trim();
+    const keywords = keywordsElement?.value || "";
+    const cta = ctaElement?.value || "";
+    const length = lengthElement?.value || "300";
+
+    if (!prompt) {
+        resultDiv.innerHTML = `
+          <div class="bg-yellow-500 text-white p-3 rounded-md">
+            <p class="font-bold">⚠️ Brak opisu!</p>
+            <p class="text-sm mt-1">Opisz produkt/usługę dla której chcesz wygenerować treść</p>
+          </div>
+        `;
+        return;
+    }
+
+    resultDiv.innerHTML = '<p class="text-blue-600 font-semibold">🎯 Generowanie treści marketingowej AI...</p>';
+
+    try {
+      // Create comprehensive marketing prompt
+      const marketingPrompt = `
+        ZADANIE: Wygeneruj profesjonalną treść marketingową
+
+        TYP TREŚCI: ${getContentTypeDescription(contentType)}
+        GRUPA DOCELOWA: ${getAudienceDescription(targetAudience)}
+        TON KOMUNIKACJI: ${getToneDescription(tone)}
+        DŁUGOŚĆ: około ${length} słów
+
+        PRODUKT/USŁUGA: ${prompt}
+        ${keywords ? `SŁOWA KLUCZOWE SEO: ${keywords}` : ''}
+        ${cta ? `CALL TO ACTION: ${cta}` : ''}
+
+        WYMAGANIA:
+        - Treść w języku polskim
+        - Profesjonalna jakość
+        - Angażująca i przekonująca
+        - Dostosowana do grupy docelowej
+        - ${contentType === 'seo-content' ? 'Zoptymalizowana pod SEO' : ''}
+        - ${contentType === 'social-post' ? 'Zawierająca hashtagi' : ''}
+        - ${contentType === 'email-campaign' ? 'Z linią tematu' : ''}
+      `;
+
+      // Use POLACZEK API for content generation
+      const response = await fetch("/api/polaczek/chat", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: marketingPrompt,
+          type: "marketing_generation"
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Błąd API: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      const generatedContent = result.response || result.message || "Błąd podczas generowania treści";
+
+      // Display results with formatting
+      const stats = {
+        content_type: contentType,
+        target_audience: targetAudience,
+        tone: tone,
+        word_count: generatedContent.split(' ').length,
+        timestamp: new Date().toISOString()
+      };
+
+      resultDiv.innerHTML = `
+        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white p-4 rounded-md">
+          <div class="flex justify-between items-start mb-3">
+            <h4 class="font-bold text-lg">✨ Wygenerowana Treść Marketingowa</h4>
+            <span class="text-xs bg-white bg-opacity-20 px-2 py-1 rounded">${contentType}</span>
+          </div>
+          
+          <div class="bg-white bg-opacity-10 p-3 rounded-md mb-3 text-sm">
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div>📊 Typ: <span class="font-semibold">${getContentTypeDescription(contentType)}</span></div>
+              <div>👥 Grupa: <span class="font-semibold">${getAudienceDescription(targetAudience)}</span></div>
+              <div>🎭 Ton: <span class="font-semibold">${getToneDescription(tone)}</span></div>
+              <div>📝 Słów: <span class="font-semibold">${stats.word_count}</span></div>
+            </div>
+          </div>
+          
+          <div class="bg-white text-gray-800 p-4 rounded-md max-h-64 overflow-y-auto">
+            <pre class="whitespace-pre-wrap font-sans">${generatedContent}</pre>
+          </div>
+          
+          <div class="flex gap-2 mt-3">
+            <button onclick="copyMarketingContent('${generatedContent.replace(/'/g, "\\'")}'); markingCopyFeedback()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded text-xs">
+              📋 Kopiuj
+            </button>
+            <button onclick="regenerateMarketingContent()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded text-xs">
+              🔄 Regeneruj
+            </button>
+            <button onclick="exportMarketingContent('${generatedContent.replace(/'/g, "\\'")}', '${contentType}')" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 py-1 rounded text-xs">
+              💾 Eksport
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Update side statistics
+      updateSideStatistics('Marketing AI', stats);
+
+    } catch (error) {
+      console.error("Error generating marketing content:", error);
+      resultDiv.innerHTML = `
+        <div class="bg-red-600 text-white p-3 rounded-md">
+          <p class="font-bold">❌ Błąd generowania treści!</p>
+          <p class="text-sm mt-1">${error.message}</p>
+          <p class="text-xs mt-2 text-red-200">Sprawdź połączenie z API lub spróbuj ponownie</p>
+        </div>
+      `;
+    }
+  }
+
+  // Helper functions for marketing content
+  function getContentTypeDescription(type: string): string {
+    const types = {
+      'social-post': 'Post Social Media',
+      'blog-article': 'Artykuł Blog',
+      'email-campaign': 'Kampania Email',
+      'ad-copy': 'Treść Reklamy',
+      'product-description': 'Opis Produktu',
+      'press-release': 'Komunikat Prasowy',
+      'seo-content': 'Treść SEO',
+      'video-script': 'Skrypt Wideo'
+    };
+    return types[type] || type;
+  }
+
+  function getAudienceDescription(audience: string): string {
+    const audiences = {
+      'general': 'Ogólna publiczność',
+      'business': 'B2B - Firmy',
+      'consumers': 'B2C - Konsumenci',
+      'young': 'Młodzi (18-25)',
+      'adults': 'Dorośli (26-45)',
+      'seniors': 'Seniorzy (45+)',
+      'tech': 'Tech Enthusiasts',
+      'parents': 'Rodzice'
+    };
+    return audiences[audience] || audience;
+  }
+
+  function getToneDescription(tone: string): string {
+    const tones = {
+      'professional': 'Profesjonalny',
+      'friendly': 'Przyjazny',
+      'enthusiastic': 'Entuzjastyczny',
+      'urgent': 'Pilny',
+      'educational': 'Edukacyjny',
+      'humorous': 'Z humorem',
+      'emotional': 'Emocjonalny',
+      'authoritative': 'Autorytatywny'
+    };
+    return tones[tone] || tone;
+  }
+
+  function copyMarketingContent(content: string) {
+    navigator.clipboard.writeText(content).then(() => {
+      console.log('Marketing content copied to clipboard');
+    });
+  }
+
+  function markingCopyFeedback() {
+    // Visual feedback for copy action
+    const button = event?.target as HTMLElement;
+    if (button) {
+      const originalText = button.innerHTML;
+      button.innerHTML = '✅ Skopiowano!';
+      setTimeout(() => {
+        button.innerHTML = originalText;
+      }, 2000);
+    }
+  }
+
+  function regenerateMarketingContent() {
+    generateMarketingContent();
+  }
+
+  function exportMarketingContent(content: string, type: string) {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `marketing-${type}-${new Date().getTime()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function openMarketingDashboard() {
+    window.open('/ai-functions/marketing-content', '_blank');
   }
 
   // API Testing Functions
@@ -1982,6 +2513,162 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       }
       
       console.log("AI Assistant widget toggled");
+    }
+  }
+
+  function toggleVoiceAssistant() {
+    console.log("🎙️ Toggling Voice Assistant POLACZEK");
+    const btn = document.getElementById("voiceAssistantBtn");
+    const widget = document.getElementById("voiceAssistantWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+      
+      // Connect to visualizers when voice assistant is opened
+      if (!widget.classList.contains("hidden")) {
+        setTimeout(() => {
+          console.log("🎙️ Voice Assistant opened, connecting to visualizers...");
+          
+          // Listen for POLACZEK speaking events and trigger visualizers
+          const handlePolaczekSpeaking = (event) => {
+            console.log("🎙️ POLACZEK speaking event:", event.detail);
+            
+            if (event.detail.isActive) {
+              // Activate visualizers when speaking
+              triggerVisualizerForVoice(true);
+            } else {
+              // Deactivate when finished speaking
+              triggerVisualizerForVoice(false);
+            }
+          };
+          
+          window.addEventListener('polaczek-speaking', handlePolaczekSpeaking);
+          
+          // Store the listener for cleanup
+          widget.addEventListener('polaczek-cleanup', () => {
+            window.removeEventListener('polaczek-speaking', handlePolaczekSpeaking);
+          });
+          
+        }, 500);
+      } else {
+        // Clean up listeners when closed
+        widget.dispatchEvent(new CustomEvent('polaczek-cleanup'));
+      }
+      
+      console.log("Voice Assistant widget toggled");
+    }
+  }
+
+  // Function to trigger visualizers for voice output
+  function triggerVisualizerForVoice(isActive) {
+    console.log("🎵 Triggering visualizer for voice:", isActive);
+    
+    // Find the mic visualizer (front layer)
+    const micVisualizer = document.querySelector('[style*="opacity: 0.8"][style*="pointer-events:none"]:not([style*="scaleY"])');
+    
+    if (micVisualizer) {
+      if (isActive) {
+        micVisualizer.style.opacity = '1.0';
+        micVisualizer.style.filter = 'hue-rotate(120deg) brightness(1.3)';
+        micVisualizer.style.transform = 'translateX(-50%) scale(1.05)';
+      } else {
+        micVisualizer.style.opacity = '0.8';
+        micVisualizer.style.filter = '';
+        micVisualizer.style.transform = 'translateX(-50%)';
+      }
+    }
+  }
+
+  // Function to update side panel statistics  
+  function updateSideStatistics(service, stats) {
+    console.log(`📊 Updating ${service} statistics:`, stats);
+    
+    // Create or update statistics panel in the right side
+    let statsPanel = document.getElementById('side-stats-panel');
+    
+    if (!statsPanel) {
+      statsPanel = document.createElement('div');
+      statsPanel.id = 'side-stats-panel';
+      statsPanel.style.cssText = `
+        position: fixed;
+        top: 50px;
+        right: 20px;
+        width: 280px;
+        background: rgba(34, 197, 94, 0.9);
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 11px;
+        z-index: 1000;
+        max-height: 300px;
+        overflow-y: auto;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(34, 197, 94, 0.5);
+      `;
+      document.body.appendChild(statsPanel);
+    }
+    
+    // Update panel content
+    const timestamp = new Date().toLocaleTimeString('pl-PL');
+    const existingContent = statsPanel.innerHTML;
+    
+    const newEntry = `
+      <div style="border-bottom: 1px solid rgba(255,255,255,0.3); margin-bottom: 8px; padding-bottom: 6px;">
+        <div style="font-weight: bold; color: #fff;">[${timestamp}] ${service}</div>
+        ${Object.entries(stats).map(([key, value]) => 
+          `<div style="margin-left: 8px; color: #e5f9e5;"><span style="color: #a7f3d0;">${key}:</span> ${value}</div>`
+        ).join('')}
+      </div>
+    `;
+    
+    // Add new entry at the top, keep last 5 entries
+    const allEntries = newEntry + existingContent;
+    const entries = allEntries.split('<div style="border-bottom:').slice(0, 5);
+    statsPanel.innerHTML = entries.join('<div style="border-bottom:');
+    
+    // Auto-hide after 30 seconds
+    setTimeout(() => {
+      if (statsPanel && statsPanel.parentNode) {
+        statsPanel.style.opacity = '0.7';
+      }
+    }, 30000);
+    
+    // Add close button if not exists
+    if (!statsPanel.querySelector('.close-btn')) {
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-btn';
+      closeBtn.innerHTML = '×';
+      closeBtn.style.cssText = `
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      `;
+      closeBtn.onclick = () => {
+        if (statsPanel && statsPanel.parentNode) {
+          statsPanel.parentNode.removeChild(statsPanel);
+        }
+      };
+      statsPanel.appendChild(closeBtn);
     }
   }
 
@@ -2557,6 +3244,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     bottom: 100%;
   }
 
+  /* Specific positioning for Voice Assistant widget */
+  #voiceAssistantWidget {
+    right: 0;
+    bottom: 100%;
+    width: 360px;
+    max-height: 500px;
+    overflow-y: auto;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
   @keyframes slideUp {
     from {
       opacity: 0;
@@ -2688,4 +3389,87 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   body::after {
     display: none;
   }
+
+  /* Advanced Marketing Generator Styles */
+  .marketing-controls {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #cbd5e1;
+  }
+
+  .marketing-select,
+  .marketing-input,
+  .marketing-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: white;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .marketing-select:focus,
+  .marketing-input:focus,
+  .marketing-textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .marketing-textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+  }
+
+  .advanced-options {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 0.75rem;
+  }
+
+  /* Marketing result container enhanced */
+  #marketing-result {
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #marketing-result:empty::after {
+    content: "Wygenerowana treść marketingowa pojawi się tutaj...";
+    color: #64748b;
+    font-style: italic;
+    text-align: center;
+    display: block;
+    padding: 2rem;
+  }
+
+  /* Marketing content formatting */
+  .marketing-content-grid {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .marketing-content-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Hover effects for marketing cards */
+  .worker-card[data-worker="marketing-generator"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+  }
+
+  /* Marketing feature tags with gradient */
+  .worker-card[data-worker="marketing-generator"] .feature-tag {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+    font-weight: 600;
+  }
 </style>
+
+<!-- Voice Assistant Test Script for Development -->
+<script src="/voice-assistant-test.js" is:inline></script>

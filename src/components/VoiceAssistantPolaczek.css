@@ -1,0 +1,20 @@
+/* VoiceAssistantPolaczek Component Styles */
+.voice-assistant-polaczek .audio-hidden {
+  display: none;
+}
+
+.voice-assistant-polaczek .wave-bar-1 {
+  animation-delay: 0ms;
+}
+
+.voice-assistant-polaczek .wave-bar-2 {
+  animation-delay: 150ms;
+}
+
+.voice-assistant-polaczek .wave-bar-3 {
+  animation-delay: 300ms;
+}
+
+.voice-assistant-polaczek .ping-ring-delayed {
+  animation-delay: 1s;
+}

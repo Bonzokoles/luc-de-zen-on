@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_BNAl2rjJ.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_d0C_iH7k.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_D_fCWykR.mjs';
+import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_DVevOwbq.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_TnnvOk3a.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_DFV2Bjbi.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {

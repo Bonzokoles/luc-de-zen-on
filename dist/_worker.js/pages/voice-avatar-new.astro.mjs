@@ -15,8 +15,8 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
+import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$VoiceAvatarNew = createComponent(($$result, $$props, $$slots) => {

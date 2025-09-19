@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_Dc6Xy4tu.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_vmbk5LE0.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Funkcje" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-6xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">Dodatkowe Funkcje</h1> <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"> <a class="block p-6 border border-cyber-border" href="/hub/functions/1">Funkcja 1</a> <a class="block p-6 border border-cyber-border" href="/hub/functions/2">Funkcja 2</a> <a class="block p-6 border border-cyber-border" href="/hub/functions/3">Funkcja 3</a> </div> <div class="mt-8"> <a class="text-cyber-blue" href="/hub">← Powrót do HUB</a> </div> </section> ` })}`;

@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { n as attr, i as ensure_array_like, p as maybe_selected, k as escape_html, j as attr_class, l as stringify, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BRvVRBoy.mjs';
+import { n as attr, i as ensure_array_like, p as maybe_selected, k as escape_html, j as attr_class, l as stringify, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BsrSeDeM.mjs';
 /* empty css                                              */
 
 function AIWorkersManager($$payload, $$props) {

@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_Dc6Xy4tu.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_vmbk5LE0.mjs';
 
 const $$Kaggle = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Kaggle Datasets" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-4xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">Kaggle Datasets</h1> <p class="text-cyber-text-dim mt-4">Przeszukuj zbiory danych i konkursy.</p> <div class="mt-8">[KOMPONENT KAGGLE TUTAJ]</div> <div class="mt-8"> <a class="text-cyber-blue" href="/hub">← Powrót do HUB</a> </div> </section> ` })}`;

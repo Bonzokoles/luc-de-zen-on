@@ -15,8 +15,8 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, f as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
+import { c as createComponent, f as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
 /* empty css                                             */
 
 const $$PolaczekSysT = createComponent(async ($$result, $$props, $$slots) => {

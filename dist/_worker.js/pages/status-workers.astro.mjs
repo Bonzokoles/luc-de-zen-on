@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BRvVRBoy.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_-A65JnyM.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BsrSeDeM.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_CjBJobHn.mjs';
 /* empty css                                          */
 
 const $$StatusWorkers = createComponent(async ($$result, $$props, $$slots) => {

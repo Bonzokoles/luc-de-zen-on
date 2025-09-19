@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BRvVRBoy.mjs';
-import { R as RecommendationsWidget } from '../../chunks/RecommendationsWidget_d0C_iH7k.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BsrSeDeM.mjs';
+import { R as RecommendationsWidget } from '../../chunks/RecommendationsWidget_TnnvOk3a.mjs';
 /* empty css                                                           */
 
 const $$PersonalizedRecommendations = createComponent(($$result, $$props, $$slots) => {

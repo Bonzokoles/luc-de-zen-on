@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, f as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_-A65JnyM.mjs';
+import { c as createComponent, f as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_CjBJobHn.mjs';
 /* empty css                                               */
 
 const $$WorkersStatusTest = createComponent(($$result, $$props, $$slots) => {
