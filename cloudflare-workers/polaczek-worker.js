@@ -202,22 +202,66 @@ async function handlePolaczekChat(request, env, headers) {
   return new Response(JSON.stringify(response), { headers });
 }
 
-// BigQuery Integration Handler
+// BigQuery Integration Handler - Cloud Run Integration
 async function handlePolaczekBigQuery(request, env, headers) {
-  const analytics = {
-    bigquery_config: POLACZEK_BIGQUERY,
-    sample_queries: POLACZEK_BIGQUERY.queries,
-    team_lead: POLISH_TEAM.ANNA_NOWAK,
-    message: "BigQuery Analytics zarządzane przez polski zespół AI",
-    polish_datasets: [
-      "Konwersacje POLACZEK",
-      "Analityka interakcji", 
-      "Opinie użytkowników",
-      "Wydajność modeli"
-    ]
-  };
+  try {
+    // Cloud Run BigQuery Service URL
+    const BIGQUERY_SERVICE_URL = 'https://bigquery-simple-967195112364.europe-west1.run.app/api/polaczek/bigquery';
+    
+    // Forward request to Cloud Run BigQuery service
+    const proxyRequest = new Request(BIGQUERY_SERVICE_URL, {
+      method: request.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'POLACZEK-Worker/2.3.0'
+      },
+      body: request.method === 'POST' ? await request.text() : null
+    });
 
-  return new Response(JSON.stringify(analytics, null, 2), { headers });
+    console.log(`🔄 POLACZEK BigQuery Proxy: ${request.method} to ${BIGQUERY_SERVICE_URL}`);
+    
+    // Call Cloud Run service
+    const response = await fetch(proxyRequest);
+    const data = await response.text();
+    
+    console.log(`✅ BigQuery Response Status: ${response.status}`);
+    
+    return new Response(data, {
+      status: response.status,
+      headers: {
+        ...headers,
+        'Content-Type': 'application/json',
+        'X-Polaczek-Proxy': 'BigQuery-Cloud-Run'
+      }
+    });
+
+  } catch (error) {
+    console.error('POLACZEK BigQuery Error:', error);
+    
+    // Fallback - return configuration info if Cloud Run fails
+    const fallback = {
+      bigquery_config: POLACZEK_BIGQUERY,
+      sample_queries: POLACZEK_BIGQUERY.queries,
+      team_lead: POLISH_TEAM.ANNA_NOWAK,
+      message: "BigQuery Analytics zarządzane przez polski zespół AI",
+      polish_datasets: [
+        "Konwersacje POLACZEK",
+        "Analityka interakcji", 
+        "Opinie użytkowników",
+        "Wydajność modeli"
+      ],
+      error: "Cloud Run connection failed, showing fallback data",
+      cloud_run_url: "https://bigquery-simple-967195112364.europe-west1.run.app"
+    };
+
+    return new Response(JSON.stringify(fallback, null, 2), { 
+      status: 200,
+      headers: {
+        ...headers,
+        'X-Polaczek-Fallback': 'true'
+      }
+    });
+  }
 }
 
 // Kaggle Integration Handler

@@ -847,6 +847,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
+            <div id="bigquery-result" class="mt-4 p-2 border border-edge rounded-md text-xs bg-black bg-opacity-20 h-32 overflow-y-auto font-mono">
+              <!-- Wyniki z BigQuery pojawią się tutaj -->
+            </div>
           </div>
 
           <!-- Kaggle Datasets -->
@@ -1420,19 +1423,49 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     window.open("/chatbot", "_blank");
   }
 
-  function openBigQuery() {
-    console.log("📊 openBigQuery() wywołana");
-    const promptElement = document.getElementById(
-      "bigqueryPrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("BigQuery prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickSQLQuery", prompt);
-      console.log("SQL Query saved in localStorage");
+  async function openBigQuery() {
+    console.log("📊 openBigQuery() called - new version");
+    const resultDiv = document.getElementById("bigquery-result");
+
+    // --- WAŻNE ---
+    // Wklej tutaj adres URL, który otrzymasz po wdrożeniu funkcji w Google Cloud.
+    const cloudFunctionUrl = "https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/getBigQueryTables";
+
+    if (!resultDiv) {
+        console.error("Result container #bigquery-result not found!");
+        return;
     }
-    console.log("Opening /bigquery-analytics");
-    window.open("/bigquery-analytics", "_blank");
+
+    if (cloudFunctionUrl.includes("YOUR_PROJECT_ID")) {
+        resultDiv.innerHTML = `<p class="text-red-400">Błąd: Proszę, zaktualizuj adres URL 'cloudFunctionUrl' w pliku index.astro, podając prawdziwy adres Twojej Google Cloud Function.</p>`;
+        return;
+    }
+
+    resultDiv.innerHTML = '<p class="text-yellow-400">Łączenie z Google Cloud Function...</p>';
+
+    try {
+      const response = await fetch(cloudFunctionUrl);
+      resultDiv.innerHTML = '<p class="text-yellow-400">Pobieranie danych z BigQuery...</p>';
+
+      if (!response.ok) {
+        const errorData = await response.text(); // Get text for more detailed errors
+        throw new Error(`Błąd sieci: ${response.statusText}, Szczegóły: ${errorData}`);
+      }
+
+      const data = await response.json();
+
+      if (data.length === 0) {
+        resultDiv.innerHTML = '<p class="text-green-400">Zapytanie wykonane pomyślnie. Brak tabel w datasecie.</p>';
+      } else {
+        resultDiv.innerHTML = `
+          <p class="text-green-400">Znalezione tabele w datasecie:</p>
+          <pre class="whitespace-pre-wrap text-white">${JSON.stringify(data, null, 2)}</pre>
+        `;
+      }
+    } catch (error) {
+      console.error("Error fetching from BigQuery:", error);
+      resultDiv.innerHTML = `<p class="text-red-400">Błąd: ${error.message}</p>`;
+    }
   }
 
   function openKaggle() {

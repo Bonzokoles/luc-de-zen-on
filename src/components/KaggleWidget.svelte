@@ -19,16 +19,13 @@
     error = null;
 
     try {
-      const response = await fetch(
-        `/api/polaczek/kaggle`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ search: query })
-        }
-      );
+      const response = await fetch(`/api/polaczek/kaggle`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ search: query }),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
