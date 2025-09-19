@@ -3390,6 +3390,87 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     display: none;
   }
 
+  /* Worker Cards Base Styles */
+  .worker-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .worker-card:hover {
+    border-color: rgba(0, 217, 255, 0.6);
+    box-shadow: 0 8px 30px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .worker-title {
+    color: #00d7ef;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .worker-description {
+    color: #94aec4;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .worker-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-tag {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+  }
+
+  .worker-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .worker-btn {
+    background: rgba(22, 78, 99, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .worker-btn:hover {
+    background: #1be1ff;
+    color: #000;
+    border-color: #00d7ef;
+  }
+
   /* Advanced Marketing Generator Styles */
   .marketing-controls {
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
