@@ -1549,10 +1549,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     // Show result div when BigQuery is opened
     resultDiv.classList.remove("hidden");
 
-    // Use POLACZEK BigQuery API
-    const polaczekApiUrl = "/api/polaczek/bigquery";
+    // Use BigQuery API
+    const bigqueryApiUrl = "/api/bigquery";
     
-    resultDiv.innerHTML = '<p class="text-yellow-400">🔍 Łączenie z POLACZEK BigQuery API...</p>';
+    resultDiv.innerHTML = '<p class="text-yellow-400">🔍 Łączenie z BigQuery API...</p>';
 
     try {
       let requestBody = {};
@@ -1564,7 +1564,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         };
       }
 
-      const response = await fetch(polaczekApiUrl, {
+      const response = await fetch(bigqueryApiUrl, {
         method: requestBody.query ? 'POST' : 'GET',
         headers: {
           'Content-Type': 'application/json'
