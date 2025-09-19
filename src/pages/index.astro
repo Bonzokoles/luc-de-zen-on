@@ -848,7 +848,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 data-astro-cid-my52qgmw>Otwórz</button
               >
             </div>
-            <div id="bigquery-result" class="mt-4 p-2 border border-gray-300 rounded-md text-xs bg-transparent h-32 overflow-y-auto">
+            <div id="bigquery-result" class="mt-4 p-2 border border-gray-300 rounded-md text-xs bg-transparent h-32 overflow-y-auto hidden">
               <!-- Wyniki z BigQuery pojawią się tutaj -->
             </div>
           </div>
@@ -1545,6 +1545,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         console.error("Result container #bigquery-result not found!");
         return;
     }
+
+    // Show result div when BigQuery is opened
+    resultDiv.classList.remove("hidden");
 
     // Use POLACZEK BigQuery API
     const polaczekApiUrl = "/api/polaczek/bigquery";
@@ -3426,7 +3429,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
   /* Worker Cards Base Styles */
   .worker-card {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(0, 217, 255, 0.3);
     border-radius: 12px;
     padding: 1.5rem;
