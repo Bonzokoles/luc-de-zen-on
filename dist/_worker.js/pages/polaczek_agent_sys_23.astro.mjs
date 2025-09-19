@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, t as renderSlot, m as maybeRenderHead, h as addAttribute } from '../chunks/vendor_DCrrhcp4.mjs';
-export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BsrSeDeM.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BSAeJswa.mjs';
+import { e as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, t as renderSlot, m as maybeRenderHead, h as addAttribute } from '../chunks/vendor_BHZTJLV0.mjs';
+export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_CfAAnw2w.mjs';
 /* empty css                                 */
 
 const $$Astro$1 = createAstro("https://www.mybonzo.com");
