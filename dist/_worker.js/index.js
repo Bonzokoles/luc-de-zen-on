@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 import { d as renderers, K as createExports } from './chunks/vendor_BHZTJLV0.mjs';
 import { s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_V1ts-lJS.mjs';
-import { manifest } from './manifest_DsyrUFYU.mjs';
+import { manifest } from './manifest_g9Zbu2UR.mjs';
 
 const serverIslandMap = new Map();;
 
