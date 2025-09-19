@@ -30,7 +30,6 @@
     "/admin/dashboard.html",
     "/admin/image-generator.html",
     "/assets/ai-tools-icon.svg",
-    "/scripts/system-buttons.js",
     "/fonts/atkinson-bold.woff",
     "/fonts/atkinson-regular.woff",
     "/fonts/Kenyan-Coffee-Bd.otf",
@@ -41,6 +40,7 @@
     "/komponenty/DO_QUOTES_2.md",
     "/komponenty/O_MNIE.md",
     "/komponenty/RandomQuote.astro",
+    "/scripts/system-buttons.js",
     "/styles/global.css",
     "/images/artists/placeholder.svg",
     "/posts"
