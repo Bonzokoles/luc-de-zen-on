@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, m as maybeRenderHead, h as addAttribute, t as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_Dc6Xy4tu.mjs';
+import { e as createAstro, c as createComponent, m as maybeRenderHead, h as addAttribute, t as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_vmbk5LE0.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$HubCard = createComponent(($$result, $$props, $$slots) => {

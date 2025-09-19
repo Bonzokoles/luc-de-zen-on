@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { b as createErrorResponse, a as createSuccessResponse, d as addCORSHeaders } from '../../../chunks/corsUtils_DD_RavK2.mjs';
-export { d as renderers } from '../../../chunks/vendor_CYa9XZjz.mjs';
+export { d as renderers } from '../../../chunks/vendor_DCrrhcp4.mjs';
 
 const execAsync = promisify(exec);
 const GET = async ({ request, params, locals }) => {

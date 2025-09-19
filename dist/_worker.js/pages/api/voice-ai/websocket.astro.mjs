@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-export { d as renderers } from '../../../chunks/vendor_CYa9XZjz.mjs';
+export { d as renderers } from '../../../chunks/vendor_DCrrhcp4.mjs';
 
 function upgradeToWebSocket(request) {
   const upgradeHeader = request.headers.get("upgrade");

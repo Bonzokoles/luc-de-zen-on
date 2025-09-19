@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_CYa9XZjz.mjs';
-export { d as renderers } from '../../chunks/vendor_CYa9XZjz.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BRvVRBoy.mjs';
-import { T as TicketSubmissionWidget } from '../../chunks/TicketSubmissionWidget_D_h3-9iA.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_PuQW9CPi.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DCrrhcp4.mjs';
+export { d as renderers } from '../../chunks/vendor_DCrrhcp4.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BsrSeDeM.mjs';
+import { T as TicketSubmissionWidget } from '../../chunks/TicketSubmissionWidget_C1clECuV.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BSAeJswa.mjs';
 /* empty css                                         */
 
 const $$AiTickets = createComponent(($$result, $$props, $$slots) => {
