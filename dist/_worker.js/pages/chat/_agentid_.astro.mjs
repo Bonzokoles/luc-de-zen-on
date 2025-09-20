@@ -15,9 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { k as escape_html, i as ensure_array_like, j as attr_class, l as stringify, n as attr, v as bind_props, e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                     */
+import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { b as escape_html, e as ensure_array_like, a as attr_class, s as stringify, c as attr, d as bind_props } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 /* empty css                                        */
 
 function DynamicChat($$renderer, $$props) {

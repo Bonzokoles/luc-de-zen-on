@@ -15,11 +15,12 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_DImmitW3.mjs';
+/* empty css                                  */
+import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_1dOwT_HE.mjs';
 /* empty css                                                       */
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ZaawansowaneFunkcjeAiNew = createComponent(($$result, $$props, $$slots) => {

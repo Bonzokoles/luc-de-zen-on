@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { a as addAgentToList } from '../../../../chunks/list_C3HD2FTm.mjs';
-export { d as renderers } from '../../../../chunks/vendor_DlPT8CWO.mjs';
+export { r as renderers } from '../../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const POST = async ({ request }) => {
   try {

@@ -15,16 +15,17 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_BZj1gl0Z.mjs';
-import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_Ctz2lmF2.mjs';
-import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_CSvXTPmD.mjs';
-import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DX4XgTt0.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_-rLJZlEs.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_DImmitW3.mjs';
+/* empty css                                  */
+import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_DhdKO-Jd.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_pwNJ2uYL.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_Dhk4XHtg.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DbrtUkSA.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_IHPVuQ0I.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_1dOwT_HE.mjs';
 /* empty css                                              */
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 function ImageGeneratorWidget($$renderer) {}
 

@@ -6,6 +6,7 @@
     "dev": "astro dev --host",
     "start": "astro dev --host",
     "build": "astro check && astro build",
+    "deploy": "astro build && wrangler pages deploy ./dist",
     "preview": "astro preview --host",
     "astro": "astro",
     "test": "npm run test:api && npm run test:components",

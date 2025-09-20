@@ -15,9 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../../../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_Dr2EV_L9.mjs';
+/* empty css                                        */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_uj3Su3qj.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$3 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Funkcja 3" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-3xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">Funkcja 3</h1> <p class="text-cyber-text-dim mt-4">Szczegóły Funkcji 3.</p> <div class="mt-8"> <a class="text-cyber-blue" href="/hub/functions">← Powrót do listy funkcji</a> </div> </section> ` })}`;

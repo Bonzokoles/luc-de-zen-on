@@ -15,9 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, g as defineScriptVars, h as addAttribute, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                     */
+import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, f as defineScriptVars, g as addAttribute, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;

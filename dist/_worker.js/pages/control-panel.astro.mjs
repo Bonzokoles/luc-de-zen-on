@@ -15,8 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, b as renderScript, f as renderHead, a as renderTemplate } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+/* empty css                                  */
+import { d as createAstro, c as createComponent, b as renderScript, e as renderHead, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ControlPanel = createComponent(async ($$result, $$props, $$slots) => {

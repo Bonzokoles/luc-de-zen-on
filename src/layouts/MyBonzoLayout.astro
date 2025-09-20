@@ -89,7 +89,7 @@ const pageKey = Astro.url.pathname;
 
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#00ffff" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="MyBonzo" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -336,6 +336,37 @@ const pageKey = Astro.url.pathname;
         padding-top: 5px !important;
       }
     </style>
+    
+    <!-- MyBonzo Agents Bundle - Automatyczne uruchamianie 3 sekundy po załadowaniu -->
+    <script src="/agents-bundle.min.js" defer></script>
+    <script>
+      // Dodatkowe listener na ready event agentów
+      window.addEventListener('mybonzo:agents:ready', (event) => {
+        console.log('🎉 MyBonzo Agents System gotowy!', event.detail);
+        
+        // Notify other components that agents are ready
+        if (window.GOOGLE_VOICE) {
+          console.log('🔗 Łączę z istniejącym Google Voice API...');
+          // Integrate with existing GoogleVoiceAgent if available
+        }
+      });
+      
+      // Fallback monitoring - sprawdzaj czy agenci są dostępni
+      let agentCheckInterval = setInterval(() => {
+        if (window.MyBonzoAgents && window.AGENTS_READY) {
+          console.log('✅ Agenci MyBonzo dostępni globalnie');
+          clearInterval(agentCheckInterval);
+        }
+      }, 1000);
+      
+      // Czyść interval po 30 sekundach
+      setTimeout(() => {
+        if (agentCheckInterval) {
+          clearInterval(agentCheckInterval);
+          console.warn('⚠️ Timeout sprawdzania dostępności agentów');
+        }
+      }, 30000);
+    </script>
   </head>
 
   <body>

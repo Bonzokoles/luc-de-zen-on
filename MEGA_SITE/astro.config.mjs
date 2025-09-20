@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import svelte from '@astrojs/svelte';
 import tailwind from '@astrojs/tailwind';
-import node from '@astrojs/node';
+import cloudflare from '@astrojs/cloudflare';
 import icon from 'astro-icon';
 
 export default defineConfig({
@@ -15,9 +15,7 @@ export default defineConfig({
         icon()
     ],
     output: 'server',
-    adapter: node({
-        mode: 'standalone'
-    }),
+    adapter: cloudflare(),
     server: {
         port: 4321,
         host: true

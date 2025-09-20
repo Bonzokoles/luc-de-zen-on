@@ -6,6 +6,8 @@
   "exclude": [
     "/_astro/*",
     "/.assetsignore",
+    "/agents-bundle.js",
+    "/agents-bundle.min.js",
     "/ai-image-generator.html",
     "/ai-models-test.html",
     "/apple-touch-icon.png",
@@ -40,8 +42,8 @@
     "/komponenty/DO_QUOTES_2.md",
     "/komponenty/O_MNIE.md",
     "/komponenty/RandomQuote.astro",
-    "/styles/global.css",
     "/scripts/system-buttons.js",
+    "/styles/global.css",
     "/images/artists/placeholder.svg",
     "/posts"
   ]

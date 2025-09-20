@@ -15,10 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
 /* empty css                                           */
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$ImageGenerator = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Generator Obraz\xF3w | AI Workers", "description": "Generuj obrazy z tekstu za pomoc\u0105 Cloudflare AI.", "data-astro-cid-rs35j4zi": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-rs35j4zi> <section class="ai-workers-section py-10" data-astro-cid-rs35j4zi> <div class="section-container max-w-4xl mx-auto" data-astro-cid-rs35j4zi> <h1 class="section-title" data-astro-cid-rs35j4zi>GENERATOR OBRAZÓW AI</h1> <p class="section-description" data-astro-cid-rs35j4zi>

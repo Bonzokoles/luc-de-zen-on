@@ -36,6 +36,13 @@
   let agentResults = {};
   let showAgentPanel = false;
 
+  // Individual Agent Window States
+  let showGeminiProWindow = false;
+  let showGeminiVisionWindow = false;
+  let showCodeBisonWindow = false;
+  let showTextBisonWindow = false;
+  let showBusinessAssistantWindow = false;
+
   // New Agent Instances
   let geminiProAgent = null;
   let geminiVisionAgent = null;
@@ -168,6 +175,12 @@
       getAllRecommendedAgents: getAllAgents,
       testGoogleAgent: testGoogleAgent,
       toggleAgentPanel: () => (showAgentPanel = !showAgentPanel),
+      // Individual Agent Window Functions
+      openGeminiPro: () => (showGeminiProWindow = true),
+      openGeminiVision: () => (showGeminiVisionWindow = true),
+      openCodeBison: () => (showCodeBisonWindow = true),
+      openTextBison: () => (showTextBisonWindow = true),
+      openBusinessAssistant: () => (showBusinessAssistantWindow = true),
     };
 
     console.log("🎤 Google Voice API registered and ready");
@@ -882,6 +895,62 @@
   🤖
 </button>
 
+<!-- Individual Agent Floating Buttons -->
+<button
+  class="floating-agent-btn gemini-pro-btn"
+  on:click={() => {
+    showGeminiProWindow = !showGeminiProWindow;
+    console.log("🧠 Gemini Pro Window:", showGeminiProWindow);
+  }}
+  title="Gemini Pro Agent"
+>
+  🧠
+</button>
+
+<button
+  class="floating-agent-btn gemini-vision-btn"
+  on:click={() => {
+    showGeminiVisionWindow = !showGeminiVisionWindow;
+    console.log("👁️ Gemini Vision Window:", showGeminiVisionWindow);
+  }}
+  title="Gemini Vision Agent"
+>
+  👁️
+</button>
+
+<button
+  class="floating-agent-btn code-bison-btn"
+  on:click={() => {
+    showCodeBisonWindow = !showCodeBisonWindow;
+    console.log("💻 Code Bison Window:", showCodeBisonWindow);
+  }}
+  title="Code Bison Agent"
+>
+  💻
+</button>
+
+<button
+  class="floating-agent-btn text-bison-btn"
+  on:click={() => {
+    showTextBisonWindow = !showTextBisonWindow;
+    console.log("📝 Text Bison Window:", showTextBisonWindow);
+  }}
+  title="Text Bison Agent"
+>
+  📝
+</button>
+
+<button
+  class="floating-agent-btn business-assistant-btn"
+  on:click={() => {
+    showBusinessAssistantWindow = !showBusinessAssistantWindow;
+    console.log("💼 Business Assistant Window:", showBusinessAssistantWindow);
+  }}
+  title="Business Assistant Agent"
+>
+  💼
+</button>
+
 <!-- Google Agents Panel - Floating po prawej stronie -->
 {#if showAgentPanel}
   <div class="google-agents-panel floating-widget-template">
@@ -1026,6 +1095,188 @@
         >
           💻 Test Code Bison
         </button>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Individual Agent Windows -->
+<!-- Gemini Pro Agent Window -->
+{#if showGeminiProWindow}
+  <div class="agent-window gemini-pro-window">
+    <div class="agent-window-header">
+      <div class="agent-window-title">
+        <span class="agent-icon">🧠</span>
+        <span class="agent-name">Gemini Pro</span>
+      </div>
+      <button
+        class="close-agent-window-btn"
+        on:click={() => (showGeminiProWindow = false)}
+      >
+        ✕
+      </button>
+    </div>
+    <div class="agent-window-content">
+      <div class="agent-chat-input">
+        <textarea
+          class="agent-input-textarea"
+          placeholder="Zapytaj Gemini Pro..."
+          rows="3"
+        ></textarea>
+        <button class="agent-send-btn">Wyślij</button>
+      </div>
+      <div class="agent-response-area">
+        <div class="agent-status">Gemini Pro - Gotowy</div>
+        <div class="agent-output">Tutaj pojawi się odpowiedź Gemini Pro...</div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Gemini Vision Agent Window -->
+{#if showGeminiVisionWindow}
+  <div class="agent-window gemini-vision-window">
+    <div class="agent-window-header">
+      <div class="agent-window-title">
+        <span class="agent-icon">👁️</span>
+        <span class="agent-name">Gemini Vision</span>
+      </div>
+      <button
+        class="close-agent-window-btn"
+        on:click={() => (showGeminiVisionWindow = false)}
+      >
+        ✕
+      </button>
+    </div>
+    <div class="agent-window-content">
+      <div class="agent-chat-input">
+        <textarea
+          class="agent-input-textarea"
+          placeholder="Opisz obraz dla Gemini Vision..."
+          rows="3"
+        ></textarea>
+        <input type="file" accept="image/*" class="image-upload-input" />
+        <button class="agent-send-btn">Analizuj Obraz</button>
+      </div>
+      <div class="agent-response-area">
+        <div class="agent-status">Gemini Vision - Gotowy</div>
+        <div class="agent-output">Tutaj pojawi się analiza obrazu...</div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Code Bison Agent Window -->
+{#if showCodeBisonWindow}
+  <div class="agent-window code-bison-window">
+    <div class="agent-window-header">
+      <div class="agent-window-title">
+        <span class="agent-icon">💻</span>
+        <span class="agent-name">Code Bison</span>
+      </div>
+      <button
+        class="close-agent-window-btn"
+        on:click={() => (showCodeBisonWindow = false)}
+      >
+        ✕
+      </button>
+    </div>
+    <div class="agent-window-content">
+      <div class="agent-chat-input">
+        <textarea
+          class="agent-input-textarea"
+          placeholder="Zapytaj o kod..."
+          rows="3"
+        ></textarea>
+        <select class="code-language-select">
+          <option value="javascript">JavaScript</option>
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+          <option value="cpp">C++</option>
+        </select>
+        <button class="agent-send-btn">Generuj Kod</button>
+      </div>
+      <div class="agent-response-area">
+        <div class="agent-status">Code Bison - Gotowy</div>
+        <div class="code-output">
+          <pre>// Tutaj pojawi się wygenerowany kod...</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Text Bison Agent Window -->
+{#if showTextBisonWindow}
+  <div class="agent-window text-bison-window">
+    <div class="agent-window-header">
+      <div class="agent-window-title">
+        <span class="agent-icon">📝</span>
+        <span class="agent-name">Text Bison</span>
+      </div>
+      <button
+        class="close-agent-window-btn"
+        on:click={() => (showTextBisonWindow = false)}
+      >
+        ✕
+      </button>
+    </div>
+    <div class="agent-window-content">
+      <div class="agent-chat-input">
+        <textarea
+          class="agent-input-textarea"
+          placeholder="Napisz tekst do przetworzenia..."
+          rows="4"
+        ></textarea>
+        <select class="text-type-select">
+          <option value="summary">Podsumowanie</option>
+          <option value="translation">Tłumaczenie</option>
+          <option value="improvement">Poprawa</option>
+          <option value="creative">Kreatywne pisanie</option>
+        </select>
+        <button class="agent-send-btn">Przetwórz Tekst</button>
+      </div>
+      <div class="agent-response-area">
+        <div class="agent-status">Text Bison - Gotowy</div>
+        <div class="text-output">Tutaj pojawi się przetworzony tekst...</div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<!-- Business Assistant Agent Window -->
+{#if showBusinessAssistantWindow}
+  <div class="agent-window business-assistant-window">
+    <div class="agent-window-header">
+      <div class="agent-window-title">
+        <span class="agent-icon">💼</span>
+        <span class="agent-name">Business Assistant</span>
+      </div>
+      <button
+        class="close-agent-window-btn"
+        on:click={() => (showBusinessAssistantWindow = false)}
+      >
+        ✕
+      </button>
+    </div>
+    <div class="agent-window-content">
+      <div class="agent-chat-input">
+        <textarea
+          class="agent-input-textarea"
+          placeholder="Zapytaj o biznes..."
+          rows="3"
+        ></textarea>
+        <select class="business-type-select">
+          <option value="analysis">Analiza biznesowa</option>
+          <option value="strategy">Strategia</option>
+          <option value="marketing">Marketing</option>
+          <option value="finance">Finanse</option>
+        </select>
+        <button class="agent-send-btn">Analizuj</button>
+      </div>
+      <div class="agent-response-area">
+        <div class="agent-status">Business Assistant - Gotowy</div>
+        <div class="business-output">Tutaj pojawi się analiza biznesowa...</div>
       </div>
     </div>
   </div>
@@ -1622,6 +1873,60 @@
     transform: scale(1.05);
     border-color: #00ff88;
     color: #00ff88;
+  }
+
+  /* Individual Agent Floating Buttons */
+  .floating-agent-btn {
+    position: fixed;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #1be1ff;
+    color: #1be1ff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 9998;
+    box-shadow:
+      0 0 20px rgba(27, 225, 255, 0.3),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .floating-agent-btn:hover {
+    background: rgba(27, 225, 255, 0.1);
+    box-shadow:
+      0 0 25px rgba(27, 225, 255, 0.5),
+      0 6px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+    border-color: #00ff88;
+    color: #00ff88;
+  }
+
+  /* Individual Agent Button Positions */
+  .gemini-pro-btn {
+    top: 140px;
+  }
+
+  .gemini-vision-btn {
+    top: 200px;
+  }
+
+  .code-bison-btn {
+    top: 260px;
+  }
+
+  .text-bison-btn {
+    top: 320px;
+  }
+
+  .business-assistant-btn {
+    top: 380px;
   }
 
   /* Google Agents Panel Styles - MyBonzo Theme */
@@ -2557,6 +2862,215 @@
     font-family: "Courier New", monospace;
     font-size: 10px;
     border: 1px solid rgba(27, 225, 255, 0.1);
+  }
+
+  /* Individual Agent Windows Styles */
+  .agent-window {
+    position: fixed;
+    top: 100px;
+    left: 100px;
+    width: 400px;
+    max-height: 500px;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(27, 225, 255, 0.5);
+    border-radius: 8px;
+    z-index: 9997;
+    box-shadow:
+      0 0 30px rgba(27, 225, 255, 0.3),
+      0 8px 32px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  .agent-window-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.15),
+      rgba(15, 56, 70, 0.4)
+    );
+    border-bottom: 1px solid rgba(27, 225, 255, 0.3);
+  }
+
+  .agent-window-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .agent-icon {
+    font-size: 18px;
+  }
+
+  .agent-name {
+    color: #1be1ff;
+    font-size: 14px;
+    font-weight: 600;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.5);
+  }
+
+  .close-agent-window-btn {
+    background: transparent;
+    border: 1px solid rgba(27, 225, 255, 0.3);
+    color: #1be1ff;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .close-agent-window-btn:hover {
+    background: rgba(255, 68, 68, 0.2);
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+
+  .agent-window-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+
+  .agent-chat-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agent-input-textarea {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.4),
+      rgba(27, 225, 255, 0.05)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    border-radius: 4px;
+    padding: 10px;
+    color: #1be1ff;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    resize: vertical;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.3);
+  }
+
+  .agent-send-btn {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.2),
+      rgba(15, 56, 70, 0.6)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.4);
+    color: #1be1ff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.5);
+  }
+
+  .agent-send-btn:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.3),
+      rgba(15, 56, 70, 0.8)
+    );
+    box-shadow: 0 0 15px rgba(27, 225, 255, 0.3);
+  }
+
+  .agent-response-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agent-status {
+    color: #00ff88;
+    font-size: 11px;
+    text-shadow: 0 0 3px rgba(0, 255, 136, 0.5);
+  }
+
+  .agent-output,
+  .text-output,
+  .business-output {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.3),
+      rgba(27, 225, 255, 0.03)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    border-radius: 4px;
+    padding: 12px;
+    color: #1be1ff;
+    font-size: 11px;
+    line-height: 1.4;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.3);
+    min-height: 80px;
+  }
+
+  .code-output pre {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.6),
+      rgba(0, 0, 0, 0.4)
+    );
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+    font-size: 10px;
+    border: 1px solid rgba(27, 225, 255, 0.1);
+  }
+
+  .image-upload-input,
+  .code-language-select,
+  .text-type-select,
+  .business-type-select {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.4),
+      rgba(27, 225, 255, 0.05)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: #1be1ff;
+    font-size: 11px;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.3);
+  }
+
+  /* Individual Agent Window Positions */
+  .gemini-pro-window {
+    top: 120px;
+    left: 120px;
+  }
+
+  .gemini-vision-window {
+    top: 150px;
+    left: 150px;
+  }
+
+  .code-bison-window {
+    top: 180px;
+    left: 180px;
+  }
+
+  .text-bison-window {
+    top: 210px;
+    left: 210px;
+  }
+
+  .business-assistant-window {
+    top: 240px;
+    left: 240px;
   }
 
   /* Responsive for agent windows */
