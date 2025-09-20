@@ -38,8 +38,6 @@ import "../styles/global.css";
 // Background animation and page transitions
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.astro";
-// Dynamic header (installed package)
-import Header from "@sofidevo/astro-dynamic-header/Header";
 // Icon component
 import { Icon } from 'astro-icon/components';
 // Dock components for UI controls
@@ -349,17 +347,14 @@ const pageKey = Astro.url.pathname;
       <div class="loading-spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     </div>
     <div class="compact-header">
-      <Header
-        headerType="floating"
-        logoSrc="/favicon.svg"
-        logoAlt={siteTitle}
-        logoWidth="24px"
-        homeUrl="/"
-        menuItems={menuItems}
-        backgroundColor="#0d0d0dcc"
-        backdropBlur="blur(16px)"
-        zIndex={20}
-      />
+      <nav style="position: fixed; top: 0; left: 0; width: 100%; z-index: 20; background: rgba(13, 13, 13, 0.8); backdrop-filter: blur(16px); padding: 1rem;">
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <a href="/" style="display: flex; align-items: center; gap: 0.5rem;">
+            <img src="/favicon.svg" alt={siteTitle} width="24" height="24" />
+            <span style="color: white; font-weight: bold;">{siteTitle}</span>
+          </a>
+        </div>
+      </nav>
     </div>
     <!-- Page content -->
     <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">

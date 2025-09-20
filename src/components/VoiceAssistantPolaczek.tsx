@@ -57,29 +57,63 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
     }
   };
 
-  const handleUserInput = (input: string) => {
-    // Simple response selection based on keywords
-    let response = bonzoResponses[0]; // default
+  const handleUserInput = async (input: string) => {
+    setCurrentMessage("Myślę...");
     
-    if (input.toLowerCase().includes('bigquery') || input.toLowerCase().includes('dane')) {
-      response = bonzoResponses[1];
-    } else if (input.toLowerCase().includes('funkcje') || input.toLowerCase().includes('możliwości')) {
-      response = bonzoResponses[2];
-    } else if (input.toLowerCase().includes('język') || input.toLowerCase().includes('tłumaczenie')) {
-      response = bonzoResponses[3];
-    } else if (input.toLowerCase().includes('muzyka') || input.toLowerCase().includes('wizualizator')) {
-      response = bonzoResponses[4];
-    } else if (input.toLowerCase().includes('architektura') || input.toLowerCase().includes('technologia')) {
-      response = bonzoResponses[5];
-    } else if (input.toLowerCase().includes('polaczek') || input.toLowerCase().includes('api')) {
-      response = bonzoResponses[6];
-    } else {
-      // Random response for other queries
-      response = bonzoResponses[Math.floor(Math.random() * bonzoResponses.length)];
-    }
+    try {
+      // Send to Gemini AI via chat API
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: `Jesteś POLACZEK - polski asystent AI systemu BONZO. Odpowiedz krótko i naturalnie po polsku na: "${input}". 
+          
+          Kontekst BONZO: System AI z BigQuery, Cloudflare Workers, wizualizatorami audio, generatorami quizów i chatbotem. Łączy Google Cloud AI, tłumaczenia i analitykę w czasie rzeczywistym.
+          
+          Odpowiadaj jak przyjazny asystent, max 2-3 zdania.`,
+          conversationHistory: conversationHistory.slice(-4) // Last 4 messages for context
+        })
+      });
 
-    setConversationHistory(prev => [...prev, { type: 'assistant', text: response }]);
-    speakText(response);
+      if (response.ok) {
+        const data = await response.json();
+        const aiResponse = data.message || data.response || "Przepraszam, nie zrozumiałem pytania.";
+        
+        setConversationHistory(prev => [...prev, { type: 'assistant', text: aiResponse }]);
+        speakText(aiResponse);
+      } else {
+        // Fallback to predefined responses
+        let fallbackResponse = bonzoResponses[0];
+        
+        if (input.toLowerCase().includes('bigquery') || input.toLowerCase().includes('dane')) {
+          fallbackResponse = bonzoResponses[1];
+        } else if (input.toLowerCase().includes('funkcje') || input.toLowerCase().includes('możliwości')) {
+          fallbackResponse = bonzoResponses[2];
+        } else if (input.toLowerCase().includes('język') || input.toLowerCase().includes('tłumaczenie')) {
+          fallbackResponse = bonzoResponses[3];
+        } else if (input.toLowerCase().includes('muzyka') || input.toLowerCase().includes('wizualizator')) {
+          fallbackResponse = bonzoResponses[4];
+        } else if (input.toLowerCase().includes('architektura') || input.toLowerCase().includes('technologia')) {
+          fallbackResponse = bonzoResponses[5];
+        } else if (input.toLowerCase().includes('polaczek') || input.toLowerCase().includes('api')) {
+          fallbackResponse = bonzoResponses[6];
+        } else {
+          fallbackResponse = bonzoResponses[Math.floor(Math.random() * bonzoResponses.length)];
+        }
+
+        setConversationHistory(prev => [...prev, { type: 'assistant', text: fallbackResponse }]);
+        speakText(fallbackResponse);
+      }
+    } catch (error) {
+      console.error('AI Chat Error:', error);
+      const errorResponse = "Przepraszam, mam problem z połączeniem. Spróbuj ponownie.";
+      setConversationHistory(prev => [...prev, { type: 'assistant', text: errorResponse }]);
+      speakText(errorResponse);
+    }
+    
+    setCurrentMessage("");
   };
 
   const speakText = async (text: string) => {
@@ -109,6 +143,12 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
             setIsSpeaking(false);
             setCurrentMessage('');
             URL.revokeObjectURL(audioUrl);
+            // Auto-restart listening after response
+            setTimeout(() => {
+              if (isActive && !isListening) {
+                startListening();
+              }
+            }, 500);
           };
           await audioRef.current.play();
         }
@@ -122,6 +162,12 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
         utterance.onend = () => {
           setIsSpeaking(false);
           setCurrentMessage('');
+          // Auto-restart listening after response
+          setTimeout(() => {
+            if (isActive && !isListening) {
+              startListening();
+            }
+          }, 500);
         };
         
         speechSynthesis.speak(utterance);
@@ -143,13 +189,16 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
     if (!isActive) {
       setIsActive(true);
       initializeSpeechRecognition();
-      speakText("Cześć! Jestem POLACZEK. Pytaj mnie o system BONZO!");
+      speakText("Cześć! Jestem POLACZEK. Pytaj mnie o system BONZO! Po mojej odpowiedzi automatycznie zacznę słuchać twojego następnego pytania.");
     } else {
       setIsActive(false);
       setConversationHistory([]);
       speechSynthesis.cancel();
       if (audioRef.current) {
         audioRef.current.pause();
+      }
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
       }
     }
   };

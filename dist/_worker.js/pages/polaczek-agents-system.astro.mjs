@@ -15,64 +15,84 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { n as attr, D as store_get, k as escape_html, p as maybe_selected, E as unsubscribe_stores, F as writable, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { n as attr, B as store_get, k as escape_html, C as unsubscribe_stores, D as writable, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                                  */
 
-function AgentBuilder($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function AgentBuilder($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 		var $$store_subs;
 
 		// Agent data store
 		const agent = writable({ name: '', description: '', type: 'chatbot', config: {} });
 
-		$$payload.push(`<div class="agent-builder svelte-1ofe914"><h2 class="svelte-1ofe914">Agent Builder</h2> <form><div class="form-group svelte-1ofe914"><label for="agent-name" class="svelte-1ofe914">Agent Name</label> <input id="agent-name" type="text"${attr('value', store_get($$store_subs ??= {}, '$agent', agent).name)} placeholder="e.g., Customer Support Bot" required class="svelte-1ofe914"/></div> <div class="form-group svelte-1ofe914"><label for="agent-description" class="svelte-1ofe914">Agent Description</label> <textarea id="agent-description" placeholder="Describe the agent's purpose and capabilities." class="svelte-1ofe914">`);
+		$$renderer.push(`<div class="agent-builder svelte-1ofe914"><h2 class="svelte-1ofe914">Agent Builder</h2> <form><div class="form-group svelte-1ofe914"><label for="agent-name" class="svelte-1ofe914">Agent Name</label> <input id="agent-name" type="text"${attr('value', store_get($$store_subs ??= {}, '$agent', agent).name)} placeholder="e.g., Customer Support Bot" required class="svelte-1ofe914"/></div> <div class="form-group svelte-1ofe914"><label for="agent-description" class="svelte-1ofe914">Agent Description</label> <textarea id="agent-description" placeholder="Describe the agent's purpose and capabilities." class="svelte-1ofe914">`);
 
 		const $$body = escape_html(store_get($$store_subs ??= {}, '$agent', agent).description);
 
 		if ($$body) {
-			$$payload.push(`${$$body}`);
+			$$renderer.push(`${$$body}`);
 		}
 
-		$$payload.push(`</textarea></div> <div class="form-group svelte-1ofe914"><label for="agent-type" class="svelte-1ofe914">Agent Type</label> <select id="agent-type" class="svelte-1ofe914">`);
+		$$renderer.push(`</textarea></div> <div class="form-group svelte-1ofe914"><label for="agent-type" class="svelte-1ofe914">Agent Type</label> `);
 
-		$$payload.child(($$payload) => {
-			$$payload.local.select_value = store_get($$store_subs ??= {}, '$agent', agent).type;
-			$$payload.push(`<option value="chatbot"${maybe_selected($$payload, 'chatbot')}>Chatbot</option><option value="task_automation"${maybe_selected($$payload, 'task_automation')}>Task Automation</option><option value="data_analysis"${maybe_selected($$payload, 'data_analysis')}>Data Analysis</option><option value="custom"${maybe_selected($$payload, 'custom')}>Custom</option>`);
-		});
+		$$renderer.select(
+			{
+				id: 'agent-type',
+				value: store_get($$store_subs ??= {}, '$agent', agent).type,
+				class: ''
+			},
+			($$renderer) => {
+				$$renderer.option({ value: 'chatbot' }, ($$renderer) => {
+					$$renderer.push(`Chatbot`);
+				});
 
-		$$payload.push(`</select></div> <button type="submit" class="btn svelte-1ofe914">Create Agent</button></form></div>`);
+				$$renderer.option({ value: 'task_automation' }, ($$renderer) => {
+					$$renderer.push(`Task Automation`);
+				});
+
+				$$renderer.option({ value: 'data_analysis' }, ($$renderer) => {
+					$$renderer.push(`Data Analysis`);
+				});
+
+				$$renderer.option({ value: 'custom' }, ($$renderer) => {
+					$$renderer.push(`Custom`);
+				});
+			}
+		);
+
+		$$renderer.push(`</div> <button type="submit" class="btn svelte-1ofe914">Create Agent</button></form></div>`);
 
 		if ($$store_subs) unsubscribe_stores($$store_subs);
 	});
 }
 
-function AgentBuilderWrapper($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function AgentBuilderWrapper($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 		var $$store_subs;
 		let username = "";
 		let password = "";
 		const state = writable({ isLoggedIn: false, isDemo: false });
 
 		if (store_get($$store_subs ??= {}, '$state', state).isLoggedIn || store_get($$store_subs ??= {}, '$state', state).isDemo) {
-			$$payload.push('<!--[-->');
+			$$renderer.push('<!--[-->');
 
-			AgentBuilder($$payload, {
+			AgentBuilder($$renderer, {
 				demo: store_get($$store_subs ??= {}, '$state', state).isDemo
 			});
 		} else {
-			$$payload.push('<!--[!-->');
-			$$payload.push(`<div class="max-w-md mx-auto bg-gray-900/50 border border-edge rounded-2xl p-8 shadow-xl text-white"><h3 class="text-2xl font-bold text-center text-cyan-400 mb-6">Logowanie Administratora</h3> <form class="space-y-6"><div><label for="username" class="block text-sm font-medium text-gray-300 mb-2">Nazwa użytkownika</label> <input type="text" id="username"${attr('value', username)} placeholder="admin" class="w-full px-4 py-2 bg-gray-800 border border-edge rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"/></div> <div><label for="password" class="block text-sm font-medium text-gray-300 mb-2">Hasło</label> <input type="password" id="password"${attr('value', password)} placeholder="••••••••" class="w-full px-4 py-2 bg-gray-800 border border-edge rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"/></div> `);
+			$$renderer.push('<!--[!-->');
+			$$renderer.push(`<div class="max-w-md mx-auto bg-gray-900/50 border border-edge rounded-2xl p-8 shadow-xl text-white"><h3 class="text-2xl font-bold text-center text-cyan-400 mb-6">Logowanie Administratora</h3> <form class="space-y-6"><div><label for="username" class="block text-sm font-medium text-gray-300 mb-2">Nazwa użytkownika</label> <input type="text" id="username"${attr('value', username)} placeholder="admin" class="w-full px-4 py-2 bg-gray-800 border border-edge rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"/></div> <div><label for="password" class="block text-sm font-medium text-gray-300 mb-2">Hasło</label> <input type="password" id="password"${attr('value', password)} placeholder="••••••••" class="w-full px-4 py-2 bg-gray-800 border border-edge rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"/></div> `);
 
 			{
-				$$payload.push('<!--[!-->');
+				$$renderer.push('<!--[!-->');
 			}
 
-			$$payload.push(`<!--]--> <div class="flex items-center justify-between gap-4 pt-4"><button type="button" class="w-full px-6 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-500 transition-all">Zobacz Demo</button> <button type="submit" class="w-full px-6 py-3 bg-accent text-primary font-bold rounded-lg hover:bg-accent/90 transition-all">Zaloguj się</button></div></form></div>`);
+			$$renderer.push(`<!--]--> <div class="flex items-center justify-between gap-4 pt-4"><button type="button" class="w-full px-6 py-3 bg-gray-600 text-white font-bold rounded-lg hover:bg-gray-500 transition-all">Zobacz Demo</button> <button type="submit" class="w-full px-6 py-3 bg-accent text-primary font-bold rounded-lg hover:bg-accent/90 transition-all">Zaloguj się</button></div></form></div>`);
 		}
 
-		$$payload.push(`<!--]-->`);
+		$$renderer.push(`<!--]-->`);
 
 		if ($$store_subs) unsubscribe_stores($$store_subs);
 	});

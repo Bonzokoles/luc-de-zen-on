@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { s as sequence, o as onRequest$1 } from './chunks/vendor_BHZTJLV0.mjs';
+import { s as sequence, o as onRequest$1 } from './chunks/vendor_DlPT8CWO.mjs';
 
 const onRequest = sequence(
 	onRequest$1,

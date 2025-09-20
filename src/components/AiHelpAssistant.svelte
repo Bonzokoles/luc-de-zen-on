@@ -7,7 +7,6 @@
   let isTyping = false;
   let agentStatus = "disconnected";
   let capabilities = [];
-  let isMinimized = false;
 
   let messagesContainer;
   let sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -30,7 +29,6 @@
       // Re-create fresh API
       window.POLACZEK = {
         openAssistant: () => {
-          isMinimized = false;
           setTimeout(() => scrollToBottom(), 30);
         },
         getStatus: () => agentStatus,
@@ -74,7 +72,7 @@
         capabilities = ["Chat AI", "Knowledge Base", "Help System"];
         addMessage(
           "system",
-          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!",
+          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!"
         );
       } else {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -107,7 +105,7 @@
     window.POLACZEK.status = agentStatus;
     try {
       window.dispatchEvent(
-        new CustomEvent("polaczek-status", { detail: { status: agentStatus } }),
+        new CustomEvent("polaczek-status", { detail: { status: agentStatus } })
       );
     } catch (e) {}
   }
@@ -180,7 +178,7 @@
           .catch(() => ({ error: "Unknown error" }));
         addMessage(
           "error",
-          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`,
+          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`
         );
         console.error("API Error:", response.status, errorData);
       }
@@ -226,10 +224,6 @@
     }
   }
 
-  function toggleMinimized() {
-    isMinimized = !isMinimized;
-  }
-
   function clearChat() {
     messages = [];
   }
@@ -241,253 +235,231 @@
 </script>
 
 <div class="assistant-container">
-  <!-- Minimized View -->
-  {#if isMinimized}
-    <button
-      on:click={toggleMinimized}
-      class="polaczek-launcher"
-      aria-label="Otwórz POLACZEK AI"
-    >
-      <span class="icon">🤖</span>
-      <span class="label">POLACZEK AI</span>
-      <span class={`status ${getStatusColor(agentStatus)}`}
-        >{getStatusIcon(agentStatus)}</span
-      >
-    </button>
-  {:else}
-    <!-- Expanded View -->
-    <div class="assistant-panel">
-      <!-- Header -->
-      <div class="assistant-header">
-        <div class="flex items-center gap-2">
-          <span class="text-lg">🤖</span>
-          <span class="font-medium">POLACZEK_T Asystent</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class={`text-xs ${getStatusColor(agentStatus)}`}>
-            {getStatusIcon(agentStatus)}
-            {agentStatus}
-          </span>
-          <button
-            on:click={toggleMinimized}
-            class="text-white hover:text-gray-200 text-xl"
-          >
-            −
-          </button>
-        </div>
+  <!-- Expanded View -->
+  <div class="assistant-panel">
+    <!-- Header -->
+    <div class="assistant-header">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">🤖</span>
+        <span class="font-medium">POLACZEK_T Asystent</span>
       </div>
-
-      <!-- Messages -->
-      <div bind:this={messagesContainer} class="messages">
-        {#each messages as message (message.id)}
-          <div
-            class={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
-          >
-            <div
-              class={`bubble ${
-                message.type === "user"
-                  ? "bubble-user"
-                  : message.type === "agent"
-                    ? "bubble-agent"
-                    : message.type === "system"
-                      ? "bubble-system"
-                      : "bg-red-100 text-red-800 border border-red-200"
-              }`}
-            >
-              <div>{message.content}</div>
-              <div
-                class={`text-xs mt-1 ${
-                  message.type === "user" ? "text-blue-100" : "text-gray-500"
-                }`}
-              >
-                {message.timestamp}
-              </div>
-            </div>
-          </div>
-        {/each}
-
-        {#if isTyping}
-          <div class="flex justify-start">
-            <div
-              class="bg-white text-gray-800 border px-3 py-2 rounded-lg text-sm"
-            >
-              <div class="flex items-center gap-1">
-                <span>Agent pisze</span>
-                <div class="flex gap-1">
-                  <div
-                    class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
-                  ></div>
-                  <div
-                    class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
-                    style="animation-delay: 0.1s;"
-                  ></div>
-                  <div
-                    class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
-                    style="animation-delay: 0.2s;"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        {/if}
-      </div>
-
-      <!-- Input -->
-      <div class="input-bar">
-        <div class="flex gap-2 mb-2">
-          <button
-            on:click={clearChat}
-            class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
-            disabled={messages.length === 0}
-          >
-            Wyczyść
-          </button>
-          <button
-            on:click={reconnect}
-            class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
-            disabled={isConnected}
-          >
-            Połącz ponownie
-          </button>
-        </div>
-
-        <div class="flex gap-2">
-          <input
-            bind:value={inputValue}
-            on:keypress={handleKeyPress}
-            placeholder="Zadaj pytanie agentowi..."
-            disabled={!isConnected}
-            class="assistant-input"
-          />
-          <button
-            on:click={sendMessage}
-            disabled={!isConnected || !inputValue.trim()}
-            class="assistant-send"
-          >
-            Wyślij
-          </button>
-        </div>
-
-        {#if capabilities.length > 0}
-          <div class="mt-2 text-xs text-gray-400">
-            Funkcje: {capabilities.join(", ")}
-          </div>
-        {/if}
+      <div class="flex items-center gap-2">
+        <span class={`text-xs ${getStatusColor(agentStatus)}`}>
+          {getStatusIcon(agentStatus)}
+          {agentStatus}
+        </span>
       </div>
     </div>
-  {/if}
+
+    <!-- Messages -->
+    <div bind:this={messagesContainer} class="messages">
+      {#each messages as message (message.id)}
+        <div
+          class={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+        >
+          <div
+            class={`bubble ${
+              message.type === "user"
+                ? "bubble-user"
+                : message.type === "agent"
+                  ? "bubble-agent"
+                  : message.type === "system"
+                    ? "bubble-system"
+                    : "bg-red-100 text-red-800 border border-red-200"
+            }`}
+          >
+            <div>{message.content}</div>
+            <div
+              class={`text-xs mt-1 ${
+                message.type === "user" ? "text-blue-100" : "text-gray-500"
+              }`}
+            >
+              {message.timestamp}
+            </div>
+          </div>
+        </div>
+      {/each}
+
+      {#if isTyping}
+        <div class="flex justify-start">
+          <div
+            class="bg-white text-gray-800 border px-3 py-2 rounded-lg text-sm"
+          >
+            <div class="flex items-center gap-1">
+              <span>Agent pisze</span>
+              <div class="flex gap-1">
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                ></div>
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.1s;"
+                ></div>
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.2s;"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
+
+    <!-- Input -->
+    <div class="input-bar">
+      <div class="flex gap-2 mb-2">
+        <button
+          on:click={clearChat}
+          class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
+          disabled={messages.length === 0}
+        >
+          Wyczyść
+        </button>
+        <button
+          on:click={reconnect}
+          class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
+          disabled={isConnected}
+        >
+          Połącz ponownie
+        </button>
+      </div>
+
+      <div class="flex gap-2">
+        <input
+          bind:value={inputValue}
+          on:keypress={handleKeyPress}
+          placeholder="Zadaj pytanie agentowi..."
+          disabled={!isConnected}
+          class="assistant-input"
+        />
+        <button
+          on:click={sendMessage}
+          disabled={!isConnected || !inputValue.trim()}
+          class="assistant-send"
+        >
+          Wyślij
+        </button>
+      </div>
+
+      {#if capabilities.length > 0}
+        <div class="mt-2 text-xs text-gray-400">
+          Funkcje: {capabilities.join(", ")}
+        </div>
+      {/if}
+    </div>
+  </div>
 </div>
 
 <style>
-  .polaczek-launcher {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    border: 2px solid #8b0000;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0;
-    cursor: pointer;
-    box-shadow: 0 0 18px rgba(139, 0, 0, 0.35);
-    transition:
-      box-shadow 0.2s,
-      border-color 0.2s;
-  }
-  .polaczek-launcher:hover {
-    border-color: #00e7ff;
-    box-shadow: 0 0 22px rgba(0, 231, 255, 0.4);
-  }
-  .polaczek-launcher .icon {
-    font-size: 1.1rem;
-  }
-  .polaczek-launcher .label {
-    font-weight: 600;
-    letter-spacing: 0.05em;
-  }
-  .polaczek-launcher .status {
-    font-size: 0.8rem;
-  }
   .assistant-container {
     width: 100%;
   }
   .assistant-panel {
-    background: rgba(0, 0, 0, 0.6);
-    border: 2px solid #8b0000;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.98),
+      rgba(0, 0, 0, 0.95)
+    );
+    border: 2px solid #1be1ff;
     border-radius: 0;
-    width: 100%;
-    max-width: 980px;
+    backdrop-filter: blur(15px);
+    min-width: 480px;
+    max-width: 520px;
     height: 26rem;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    box-shadow:
+      0 0 12px rgba(27, 225, 255, 0.2),
+      0 0 25px rgba(27, 225, 255, 0.08),
+      inset 0 1px 0 rgba(27, 225, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1000;
   }
   .assistant-header {
-    background: #111;
-    color: #fff;
-    padding: 0.75rem;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    border-bottom: 2px solid #8b0000;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #0f3846, #1be1ff);
+    border-bottom: 2px solid #1be1ff;
+    border-radius: 0;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.4);
+    user-select: none;
   }
   .messages {
     flex: 1;
     overflow-y: auto;
-    padding: 0.75rem;
-    background: #0b0b0b;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
   }
   .bubble {
     max-width: 70%;
     padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
-    border: 2px solid #333;
+    border: 1px solid #1be1ff;
+    border-radius: 0;
+    background: rgba(15, 56, 70, 0.6);
+    backdrop-filter: blur(5px);
   }
   .bubble-user {
-    background: #000;
+    background: rgba(27, 225, 255, 0.2);
     color: #fff;
-    border-color: #8b0000;
+    border-color: #1be1ff;
     margin-left: auto;
   }
   .bubble-agent {
-    background: #0f0f0f;
-    color: #ddd;
-    border-color: #333;
+    background: rgba(15, 56, 70, 0.8);
+    color: #fff;
+    border-color: #1be1ff;
   }
   .bubble-system {
-    background: #332e00;
-    color: #ffd700;
-    border-color: #8b0000;
+    background: rgba(27, 225, 255, 0.15);
+    color: #1be1ff;
+    border-color: #1be1ff;
   }
   .input-bar {
-    padding: 0.75rem;
-    background: #111;
-    border-top: 2px solid #8b0000;
+    padding: 12px;
+    background: rgba(15, 56, 70, 0.8);
+    border-top: 2px solid #1be1ff;
   }
   .assistant-input {
     flex: 1;
-    padding: 0.5rem 0.75rem;
-    background: #1a1a1a;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.3);
     color: #fff;
-    border: 2px solid #333;
+    border: 1px solid #1be1ff;
     border-radius: 0;
     outline: none;
+    font-size: 12px;
+    backdrop-filter: blur(5px);
   }
   .assistant-input:focus {
-    border-color: #00e7ff;
-    box-shadow: 0 0 10px rgba(0, 231, 255, 0.3);
+    border-color: #1be1ff;
+    box-shadow: 0 0 6px rgba(27, 225, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
   }
   .assistant-send {
-    background: #000;
-    color: #fff;
-    border: 2px solid #8b0000;
-    padding: 0.5rem 0.75rem;
+    background: rgba(27, 225, 255, 0.1);
+    color: #1be1ff;
+    border: 1px solid #1be1ff;
+    padding: 8px 16px;
     border-radius: 0;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
   }
   .assistant-send:hover {
-    border-color: #00e7ff;
-    box-shadow: 0 0 10px rgba(0, 231, 255, 0.3);
+    background: rgba(27, 225, 255, 0.2);
+    box-shadow: 0 0 8px rgba(27, 225, 255, 0.4);
   }
   @keyframes bounce {
     0%,

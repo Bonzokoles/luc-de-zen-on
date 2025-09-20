@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DI-1jE_6.mjs';
-import { $ as $$Section } from '../chunks/Section_CO6xJ-TK.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$Layout } from '../chunks/Layout_DH-vC2_j.mjs';
+import { $ as $$Section } from '../chunks/Section_GBDDHsgP.mjs';
 
 const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "siteTitle": "Agent Builder 23", "siteDescription": "Uproszczona wersja narz\u0119dzia agent-builder-23", "headerCosmeticText": "AGENT BUILDER" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Section", $$Section, { "class": "min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<div class="max-w-md m-auto text-center"> <h1 class="text-3xl font-bold mb-4">Agent Builder 23</h1> <p class="text-xl mb-6">

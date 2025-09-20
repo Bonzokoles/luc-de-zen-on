@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_BsHM6yJT.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_Cj72ZrbR.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_B_w4nDWn.mjs';
+import { e as createAstro, c as createComponent, h as addAttribute, f as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_DuvLKukZ.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_BttAtIRz.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_DQZWT2qP.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {
@@ -53,7 +53,7 @@ Automatyczne generowanie treści marketingowych
 </h2> <p class="text-gray-400 font-mono max-w-3xl">
 Wykorzystuje zaawansowane modele językowe AI do tworzenia profesjonalnych treści marketingowych na podstawie podanego tematu. 
                             System generuje różne rodzaje treści: posty na social media, e-maile marketingowe, opisy produktów i więcej.
-</p> </div> ${renderComponent($$result, "MarketingContentGenerator", MarketingContentGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MarketingContentGenerator.svelte", "client:component-export": "default" })} </div> <!-- Recommendations Widget --> <div id="recommendations" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">2</span>
+</p> </div> ${renderComponent($$result, "MarketingContentGenerator", MarketingContentGenerator, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MarketingContentGenerator.svelte", "client:component-export": "default" })} </div> <!-- Recommendations Widget --> <div id="recommendations" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">2</span>
 Personalizowane rekomendacje produktów/usług
 </h2> <p class="text-gray-400 font-mono max-w-3xl">
 System rekomendacyjny analizuje preferencje użytkownika i historię, aby wygenerować spersonalizowane propozycje produktów i usług. 

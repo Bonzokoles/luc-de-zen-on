@@ -14,16 +14,6 @@ import "../styles/global.css";
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.svelte";
 import RandomQuote from "../components/RandomQuote.astro";
-import Header from "@sofidevo/astro-dynamic-header/Header";
-        logoAlt={siteTitle}
-        logoWidth="24px"
-        homeUrl="/"
-        menuItems={menuItems}
-        backgroundColor="#0d0d0dcc"
-        backdropBlur="blur(16px)"
-        zIndex={20}
-      />
-    </div>
 
 // Universal navigation menu
 const menuItems = [
@@ -62,7 +52,6 @@ import "../styles/global.css";
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.svelte";
 import RandomQuote from "../components/RandomQuote.astro";
-import Header from "@sofidevo/astro-dynamic-header/Header";
 
 // Universal navigation menu
 const menuItems = [
@@ -377,20 +366,7 @@ const pageKey = Astro.url.pathname;
     <!-- Top banner rectangle for all subpages -->
     <div class="top-banner-rect"></div>
     
-    <!-- Floating Header -->
-    <div class="compact-header">
-      <Header
-        headerType="floating"
-        logoSrc="/favicon.svg"
-        logoAlt={pageTitle}
-        logoWidth="24px"
-        homeUrl="/"
-        menuItems={menuItems}
-        backgroundColor="#0d0d0dcc"
-        backdropBlur="blur(16px)"
-        zIndex={20}
-      />
-    </div>
+    <!-- Floating Header - Usunięte (był dynamic-header) -->
 
     <!-- Decorative Background Lines -->
     <div class="decorative-lines">

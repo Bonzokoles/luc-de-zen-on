@@ -15,26 +15,26 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { k as escape_html, i as ensure_array_like, j as attr_class, l as stringify, n as attr, x as bind_props, e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { k as escape_html, i as ensure_array_like, j as attr_class, l as stringify, n as attr, v as bind_props, e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                        */
 
-function DynamicChat($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function DynamicChat($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 		let agent = $$props['agent'];
 		let messages = [];
 		let userInput = "";
 		let isLoading = false;
 
-		$$payload.push(`<div class="chat-container border border-edge rounded-lg overflow-hidden mt-8" style="background: rgba(0, 0, 0, 0.5);"><div class="chat-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);"><div class="flex items-center gap-3"><div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div> <span class="text-primary-foreground font-semibold">${escape_html(agent.name)}</span></div></div> <div class="chat-messages h-96 overflow-y-auto p-4 space-y-4"><!--[-->`);
+		$$renderer.push(`<div class="chat-container border border-edge rounded-lg overflow-hidden mt-8" style="background: rgba(0, 0, 0, 0.5);"><div class="chat-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);"><div class="flex items-center gap-3"><div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div> <span class="text-primary-foreground font-semibold">${escape_html(agent.name)}</span></div></div> <div class="chat-messages h-96 overflow-y-auto p-4 space-y-4"><!--[-->`);
 
 		const each_array = ensure_array_like(messages);
 
 		for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
 			let msg = each_array[$$index];
 
-			$$payload.push(`<div${attr_class(`message ${stringify(msg.from)}-message`, 'svelte-1s7eeir')}><div${attr_class(
+			$$renderer.push(`<div${attr_class(`message ${stringify(msg.from)}-message`, 'svelte-1s7eeir')}><div${attr_class(
 				`message-content ${stringify(msg.from === 'user'
 					? 'bg-blue-600/20 border-blue-400/30'
 					: 'bg-cyan-600/20 border-cyan-400/30')} rounded-lg p-3`,
@@ -42,21 +42,21 @@ function DynamicChat($$payload, $$props) {
 			)}><div class="message-text text-primary-foreground whitespace-pre-wrap">${escape_html(msg.text)}</div></div></div>`);
 		}
 
-		$$payload.push(`<!--]--> `);
+		$$renderer.push(`<!--]--> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--></div> <div class="chat-input border-t border-edge p-4"><div class="flex gap-3"><textarea rows="2" placeholder="Napisz swoją wiadomość..." class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none" style="background: rgba(0, 0, 0, 0.5);"${attr('disabled', isLoading, true)}>`);
+		$$renderer.push(`<!--]--></div> <div class="chat-input border-t border-edge p-4"><div class="flex gap-3"><textarea rows="2" placeholder="Napisz swoją wiadomość..." class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none" style="background: rgba(0, 0, 0, 0.5);"${attr('disabled', isLoading, true)}>`);
 
 		const $$body = escape_html(userInput);
 
 		if ($$body) {
-			$$payload.push(`${$$body}`);
+			$$renderer.push(`${$$body}`);
 		}
 
-		$$payload.push(`</textarea> <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50"${attr('disabled', isLoading, true)}>Wyślij</button></div></div></div>`);
+		$$renderer.push(`</textarea> <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50"${attr('disabled', isLoading, true)}>Wyślij</button></div></div></div>`);
 		bind_props($$props, { agent });
 	});
 }

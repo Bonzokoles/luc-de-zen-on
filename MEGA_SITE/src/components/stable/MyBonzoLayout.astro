@@ -38,8 +38,6 @@ import "../styles/global.css";
 // Background animation and page transitions
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.svelte";
-// Dynamic header (installed package)
-import Header from "@sofidevo/astro-dynamic-header/Header";
 // Icon component
 import { Icon } from 'astro-icon/components';
 // Dock components for UI controls
@@ -349,17 +347,7 @@ const pageKey = Astro.url.pathname;
       <div class="loading-spinner" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     </div>
     <div class="compact-header">
-      <Header
-        headerType="floating"
-        logoSrc="/favicon.svg"
-        logoAlt={siteTitle}
-        logoWidth="24px"
-        homeUrl="/"
-        menuItems={menuItems}
-        backgroundColor="#0d0d0dcc"
-        backdropBlur="blur(16px)"
-        zIndex={20}
-      />
+      <!-- Header component temporarily removed -->
     </div>
     <!-- Page content with transition wrapper -->
     <PageTransition key={pageKey}>
