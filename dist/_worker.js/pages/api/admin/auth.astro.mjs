@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_DD_RavK2.mjs';
-export { d as renderers } from '../../../chunks/vendor_DlPT8CWO.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const OPTIONS = createOPTIONSHandler(["POST"]);
 const POST = async ({ request, locals }) => {

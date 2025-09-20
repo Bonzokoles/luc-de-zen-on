@@ -15,10 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
 /* empty css                                           */
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$KaggleDatasets = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "Kaggle Datasets | AI Workers", "data-astro-cid-3dzqupyy": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-3dzqupyy> <!-- Header Section --> <section class="border border-edge" data-astro-cid-3dzqupyy> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-3dzqupyy> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-3dzqupyy> <div class="mt-auto" data-astro-cid-3dzqupyy> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-3dzqupyy>

@@ -15,10 +15,12 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DH-vC2_j.mjs';
-import { r as reactExports, j as jsxRuntimeExports } from '../chunks/react_wu9MgIUH.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$Layout } from '../chunks/Layout_BQaCysfi.mjs';
+import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_tYnXk6q8.mjs';
+import { f as reactExports } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 function StableDiffusionGenerator() {
   const [prompt, setPrompt] = reactExports.useState("");

@@ -15,4 +15,4 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-export { I as createExports } from './chunks/vendor_DlPT8CWO.mjs';
+export { c as createExports } from './chunks/_@astrojs-ssr-adapter_BPSaKOm2.mjs';

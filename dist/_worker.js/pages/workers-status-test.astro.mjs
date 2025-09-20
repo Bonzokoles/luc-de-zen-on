@@ -15,10 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, f as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_-rLJZlEs.mjs';
+/* empty css                                  */
+import { c as createComponent, e as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_IHPVuQ0I.mjs';
 /* empty css                                               */
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$WorkersStatusTest = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`title: "Status Workerów - Test Dashboard"; ---

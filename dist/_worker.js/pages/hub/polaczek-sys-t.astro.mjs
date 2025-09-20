@@ -15,9 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, f as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+/* empty css                                     */
+import { c as createComponent, e as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/astro/server_xZvTY01m.mjs';
 /* empty css                                             */
+export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$PolaczekSysT = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="en" data-astro-cid-q3dt75l2> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>POLACZEK_SYS_T - System Monitor</title>${renderHead()}</head> <body data-astro-cid-q3dt75l2> <main class="system-interface" data-astro-cid-q3dt75l2> <div class="container" data-astro-cid-q3dt75l2> <div class="header" data-astro-cid-q3dt75l2> <h1 class="system-title" data-astro-cid-q3dt75l2>⚙️ POLACZEK_SYS_T</h1> <p class="system-subtitle" data-astro-cid-q3dt75l2>

@@ -15,7 +15,18 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { s as sequence, o as onRequest$1 } from './chunks/vendor_DlPT8CWO.mjs';
+import './chunks/astro-designed-error-pages_B0-R3NE8.mjs';
+import './chunks/astro/server_xZvTY01m.mjs';
+import { s as sequence } from './chunks/index_ayP7BkS5.mjs';
+
+const onRequest$1 = (context, next) => {
+  if (context.isPrerendered) {
+    context.locals.runtime ??= {
+      env: process.env
+    };
+  }
+  return next();
+};
 
 const onRequest = sequence(
 	onRequest$1,

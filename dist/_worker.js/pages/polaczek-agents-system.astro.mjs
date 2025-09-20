@@ -15,10 +15,105 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { n as attr, B as store_get, k as escape_html, C as unsubscribe_stores, D as writable, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { n as noop, c as attr, i as store_get, b as escape_html, u as unsubscribe_stores } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 /* empty css                                                  */
+
+/** @import { Equals } from '#client' */
+
+
+/**
+ * @param {unknown} a
+ * @param {unknown} b
+ * @returns {boolean}
+ */
+function safe_not_equal(a, b) {
+	return a != a
+		? b == b
+		: a !== b || (a !== null && typeof a === 'object') || typeof a === 'function';
+}
+
+/** @import { Readable, StartStopNotifier, Subscriber, Unsubscriber, Updater, Writable } from '../public.js' */
+/** @import { Stores, StoresValues, SubscribeInvalidateTuple } from '../private.js' */
+
+/**
+ * @type {Array<SubscribeInvalidateTuple<any> | any>}
+ */
+const subscriber_queue = [];
+
+/**
+ * Create a `Writable` store that allows both updating and reading by subscription.
+ *
+ * @template T
+ * @param {T} [value] initial value
+ * @param {StartStopNotifier<T>} [start]
+ * @returns {Writable<T>}
+ */
+function writable(value, start = noop) {
+	/** @type {Unsubscriber | null} */
+	let stop = null;
+
+	/** @type {Set<SubscribeInvalidateTuple<T>>} */
+	const subscribers = new Set();
+
+	/**
+	 * @param {T} new_value
+	 * @returns {void}
+	 */
+	function set(new_value) {
+		if (safe_not_equal(value, new_value)) {
+			value = new_value;
+			if (stop) {
+				// store is ready
+				const run_queue = !subscriber_queue.length;
+				for (const subscriber of subscribers) {
+					subscriber[1]();
+					subscriber_queue.push(subscriber, value);
+				}
+				if (run_queue) {
+					for (let i = 0; i < subscriber_queue.length; i += 2) {
+						subscriber_queue[i][0](subscriber_queue[i + 1]);
+					}
+					subscriber_queue.length = 0;
+				}
+			}
+		}
+	}
+
+	/**
+	 * @param {Updater<T>} fn
+	 * @returns {void}
+	 */
+	function update(fn) {
+		set(fn(/** @type {T} */ (value)));
+	}
+
+	/**
+	 * @param {Subscriber<T>} run
+	 * @param {() => void} [invalidate]
+	 * @returns {Unsubscriber}
+	 */
+	function subscribe(run, invalidate = noop) {
+		/** @type {SubscribeInvalidateTuple<T>} */
+		const subscriber = [run, invalidate];
+		subscribers.add(subscriber);
+		if (subscribers.size === 1) {
+			stop = start(set, update) || noop;
+		}
+		run(/** @type {T} */ (value));
+		return () => {
+			subscribers.delete(subscriber);
+			if (subscribers.size === 0 && stop) {
+				stop();
+				stop = null;
+			}
+		};
+	}
+	return { set, update, subscribe };
+}
 
 function AgentBuilder($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
@@ -190,10 +285,10 @@ const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro"
 const $$url = "/polaczek-agents-system";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  default: $$PolaczekAgentsSystem,
-  file: $$file,
-  url: $$url
+	__proto__: null,
+	default: $$PolaczekAgentsSystem,
+	file: $$file,
+	url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;

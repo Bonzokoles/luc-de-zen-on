@@ -15,11 +15,13 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { k as escape_html, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
-export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
+/* empty css                                     */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { b as escape_html } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 /* empty css                                                 */
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_DImmitW3.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_1dOwT_HE.mjs';
 
 function RemindersManager($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
