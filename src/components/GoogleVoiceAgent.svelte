@@ -977,7 +977,7 @@
     font-size: 18px;
     cursor: pointer;
     z-index: 9999;
-    box-shadow: 
+    box-shadow:
       0 0 20px rgba(27, 225, 255, 0.3),
       0 4px 16px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
@@ -989,7 +989,7 @@
 
   .floating-agents-toggle:hover {
     background: rgba(27, 225, 255, 0.1);
-    box-shadow: 
+    box-shadow:
       0 0 25px rgba(27, 225, 255, 0.5),
       0 6px 20px rgba(0, 0, 0, 0.5);
     transform: scale(1.05);
@@ -1011,7 +1011,7 @@
     padding: 16px;
     z-index: 10000;
     overflow-y: auto;
-    box-shadow: 
+    box-shadow:
       0 0 30px rgba(27, 225, 255, 0.2),
       0 8px 32px rgba(0, 0, 0, 0.4);
   }

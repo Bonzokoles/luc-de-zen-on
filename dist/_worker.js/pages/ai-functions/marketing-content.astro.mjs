@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
-import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_BsHM6yJT.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CfAAnw2w.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
+import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_DuvLKukZ.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_DImmitW3.mjs';
 /* empty css                                                */
 
 const $$MarketingContent = createComponent(($$result, $$props, $$slots) => {
@@ -33,7 +33,7 @@ STATUS: <span class="text-[#00ffff]" data-astro-cid-yw4jxik4>ONLINE</span> </div
 ← Powrót do głównej
 </a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-yw4jxik4>
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-yw4jxik4> <div class="max-w-4xl mx-auto px-4" data-astro-cid-yw4jxik4> <!-- Marketing Content Generator Widget --> ${renderComponent($$result2, "MarketingContentGenerator", MarketingContentGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MarketingContentGenerator.svelte", "client:component-export": "default", "data-astro-cid-yw4jxik4": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-yw4jxik4> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-yw4jxik4> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-yw4jxik4>
+</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-yw4jxik4> <div class="max-w-4xl mx-auto px-4" data-astro-cid-yw4jxik4> <!-- Marketing Content Generator Widget --> ${renderComponent($$result2, "MarketingContentGenerator", MarketingContentGenerator, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MarketingContentGenerator.svelte", "client:component-export": "default", "data-astro-cid-yw4jxik4": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-yw4jxik4> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-yw4jxik4> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-yw4jxik4>
 Funkcjonalności
 </h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']" data-astro-cid-yw4jxik4> <li class="flex items-center gap-2" data-astro-cid-yw4jxik4> <span class="text-[#00ffff]" data-astro-cid-yw4jxik4>✓</span>
 Generowanie postów na social media

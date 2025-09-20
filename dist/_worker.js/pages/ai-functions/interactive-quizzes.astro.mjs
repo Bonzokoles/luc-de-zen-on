@@ -15,14 +15,14 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { i as ensure_array_like, j as attr_class, k as escape_html, l as stringify, n as attr, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { i as ensure_array_like, j as attr_class, k as escape_html, l as stringify, n as attr, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                                  */
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CfAAnw2w.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_DImmitW3.mjs';
 
-function InteractiveQuizWidget($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function InteractiveQuizWidget($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 
 		let selectedTopic = "";
 		let difficulty = "beginner";
@@ -91,58 +91,58 @@ function InteractiveQuizWidget($$payload, $$props) {
 			}
 		];
 
-		$$payload.push(`<div class="quiz-widget-container svelte-14iho1h"><h2 class="widget-title svelte-14iho1h">🧠 Interaktywny Quiz AI</h2> `);
+		$$renderer.push(`<div class="quiz-widget-container svelte-14iho1h"><h2 class="widget-title svelte-14iho1h">🧠 Interaktywny Quiz AI</h2> `);
 
 		{
-			$$payload.push('<!--[-->');
-			$$payload.push(`<div class="quiz-setup svelte-14iho1h"><div class="setup-section svelte-14iho1h"><h3 class="setup-title svelte-14iho1h">📖 Wybierz temat</h3> <div class="topics-grid svelte-14iho1h"><!--[-->`);
+			$$renderer.push('<!--[-->');
+			$$renderer.push(`<div class="quiz-setup svelte-14iho1h"><div class="setup-section svelte-14iho1h"><h3 class="setup-title svelte-14iho1h">📖 Wybierz temat</h3> <div class="topics-grid svelte-14iho1h"><!--[-->`);
 
 			const each_array = ensure_array_like(topics);
 
 			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
 				let topic = each_array[$$index];
 
-				$$payload.push(`<button${attr_class(`topic-card ${stringify(selectedTopic === topic.id ? 'selected' : '')}`, 'svelte-14iho1h')}><div class="topic-name svelte-14iho1h">${escape_html(topic.name)}</div> <div class="topic-description svelte-14iho1h">${escape_html(topic.description)}</div></button>`);
+				$$renderer.push(`<button${attr_class(`topic-card ${stringify(selectedTopic === topic.id ? 'selected' : '')}`, 'svelte-14iho1h')}><div class="topic-name svelte-14iho1h">${escape_html(topic.name)}</div> <div class="topic-description svelte-14iho1h">${escape_html(topic.description)}</div></button>`);
 			}
 
-			$$payload.push(`<!--]--></div></div> <div class="setup-section svelte-14iho1h"><h3 class="setup-title svelte-14iho1h">⚡ Poziom trudności</h3> <div class="difficulty-grid svelte-14iho1h"><!--[-->`);
+			$$renderer.push(`<!--]--></div></div> <div class="setup-section svelte-14iho1h"><h3 class="setup-title svelte-14iho1h">⚡ Poziom trudności</h3> <div class="difficulty-grid svelte-14iho1h"><!--[-->`);
 
 			const each_array_1 = ensure_array_like(difficultyLevels);
 
 			for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
 				let level = each_array_1[$$index_1];
 
-				$$payload.push(`<button${attr_class(`difficulty-card ${stringify(difficulty === level.id ? 'selected' : '')}`, 'svelte-14iho1h')}><div class="difficulty-name svelte-14iho1h">${escape_html(level.name)}</div> <div class="difficulty-description svelte-14iho1h">${escape_html(level.description)}</div></button>`);
+				$$renderer.push(`<button${attr_class(`difficulty-card ${stringify(difficulty === level.id ? 'selected' : '')}`, 'svelte-14iho1h')}><div class="difficulty-name svelte-14iho1h">${escape_html(level.name)}</div> <div class="difficulty-description svelte-14iho1h">${escape_html(level.description)}</div></button>`);
 			}
 
-			$$payload.push(`<!--]--></div></div> <button class="start-quiz-btn svelte-14iho1h"${attr('disabled', !selectedTopic, true)}>🚀 Rozpocznij Quiz</button></div>`);
+			$$renderer.push(`<!--]--></div></div> <button class="start-quiz-btn svelte-14iho1h"${attr('disabled', !selectedTopic, true)}>🚀 Rozpocznij Quiz</button></div>`);
 		}
 
-		$$payload.push(`<!--]--> `);
+		$$renderer.push(`<!--]--> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--> `);
+		$$renderer.push(`<!--]--> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--> `);
+		$$renderer.push(`<!--]--> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--> `);
+		$$renderer.push(`<!--]--> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--></div>`);
+		$$renderer.push(`<!--]--></div>`);
 	});
 }
 
@@ -157,7 +157,7 @@ STATUS: <span class="text-[#00ffff]" data-astro-cid-6sce2xus>INTERACTIVE</span> 
 ← Powrót do głównej
 </a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-6sce2xus>
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-6sce2xus> <div class="max-w-4xl mx-auto px-4" data-astro-cid-6sce2xus> <!-- Interactive Quiz Widget --> ${renderComponent($$result2, "InteractiveQuizWidget", InteractiveQuizWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/InteractiveQuizWidget.svelte", "client:component-export": "default", "data-astro-cid-6sce2xus": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-6sce2xus> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-6sce2xus> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-6sce2xus>
+</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-6sce2xus> <div class="max-w-4xl mx-auto px-4" data-astro-cid-6sce2xus> <!-- Interactive Quiz Widget --> ${renderComponent($$result2, "InteractiveQuizWidget", InteractiveQuizWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/InteractiveQuizWidget.svelte", "client:component-export": "default", "data-astro-cid-6sce2xus": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-6sce2xus> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-6sce2xus> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-6sce2xus>
 Funkcjonalności
 </h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']" data-astro-cid-6sce2xus> <li class="flex items-center gap-2" data-astro-cid-6sce2xus> <span class="text-[#00ffff]" data-astro-cid-6sce2xus>✓</span>
 Tworzenie quizów wielokrotnego wyboru

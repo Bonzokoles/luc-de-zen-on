@@ -15,10 +15,10 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DH5CUiol.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CfAAnw2w.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_CINJPwTU.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_DImmitW3.mjs';
 
 const $$AgentData1 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Agent Data Management | POLACZEK AGENTS SYS_23" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, {})}  ${maybeRenderHead()}<div class="workers-vertical-line-left"></div> <div class="workers-vertical-line-right"></div> <main class="min-h-svh"> <!-- Top Separator Section --> <section class="border border-edge relative"> <div class="max-w-6xl mx-auto"> <div class="py-1"></div> </div> </section> <!-- Header Section --> <section class="border border-edge relative"> <div class="max-w-6xl mx-auto"> <div class="flex justify-between max-h-72 min-h-64"> <!-- Left corner --> <div class="mt-auto" style="max-width: 45vw;"> <div class="text-edge text-sm italic px-2" style="

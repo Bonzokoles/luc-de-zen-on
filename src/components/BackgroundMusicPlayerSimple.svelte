@@ -9,7 +9,7 @@
   let playlist = [];
   let currentTrack = 0;
   let isPlaying = false;
-  let isMinimized = false;
+
   let volume = 0.5;
   let currentTime = 0;
   let duration = 0;
@@ -234,27 +234,83 @@
   }
 
   function handleFolderSelect(event) {
-    const files = Array.from(event.target.files).filter((file) =>
-      file.type.startsWith("audio/"),
-    );
+    try {
+      console.log("📁 Processing selected files...");
 
-    playlist = files.map((file) => ({
-      name: file.name.replace(/\.[^/.]+$/, ""),
-      file: file,
-      url: URL.createObjectURL(file),
-    }));
+      if (!event.target.files || event.target.files.length === 0) {
+        console.warn("❌ No files selected");
+        alert("⚠️ Nie wybrano żadnych plików");
+        return;
+      }
 
-    currentTrack = 0;
-    updateTrackInfo();
-    showPlaylist = true;
+      const allFiles = Array.from(event.target.files);
+      console.log(`📁 Total files found: ${allFiles.length}`);
+
+      const audioFiles = allFiles.filter((file) => {
+        const isAudio =
+          file.type.startsWith("audio/") ||
+          /\.(mp3|mp4|wav|ogg|m4a|aac|flac|wma|opus|webm|3gp|amr|ape|dts|ac3|mka|mpc|ra|tta|wv|au|aiff|snd|voc|8svx|iff|nist|sphere|vox|w64|mat|pvf|fap|caf|sd2|irca|w64|mat|bwf|rf64)$/i.test(
+            file.name
+          );
+        if (!isAudio) {
+          console.log(
+            `⚠️ Skipping non-audio file: ${file.name} (${file.type})`
+          );
+        }
+        return isAudio;
+      });
+
+      console.log(`🎵 Audio files found: ${audioFiles.length}`);
+
+      if (audioFiles.length === 0) {
+        alert("❌ Nie znaleziono plików audio w wybranej lokalizacji");
+        return;
+      }
+
+      playlist = audioFiles
+        .map((file, index) => {
+          try {
+            const url = URL.createObjectURL(file);
+            console.log(`✅ Created URL for: ${file.name}`);
+            return {
+              name: file.name.replace(/\.[^/.]+$/, ""),
+              file: file,
+              url: url,
+              size: file.size,
+              source: "local",
+            };
+          } catch (urlError) {
+            console.error(
+              `❌ Failed to create URL for ${file.name}:`,
+              urlError
+            );
+            return null;
+          }
+        })
+        .filter((track) => track !== null);
+
+      if (playlist.length === 0) {
+        alert("❌ Nie udało się załadować żadnego pliku audio");
+        return;
+      }
+
+      currentTrack = 0;
+      updateTrackInfo();
+      showPlaylist = true;
+
+      console.log(`✅ Successfully loaded ${playlist.length} tracks`);
+      alert(`🎵 Załadowano ${playlist.length} utworów z lokalnych plików!`);
+
+      // Reset input aby można było wybrać te same pliki ponownie
+      event.target.value = "";
+    } catch (error) {
+      console.error("❌ Error in handleFolderSelect:", error);
+      alert(`❌ Błąd ładowania plików: ${error.message}`);
+    }
   }
 
   function togglePlaylist() {
     showPlaylist = !showPlaylist;
-  }
-
-  function toggleMinimize() {
-    isMinimized = !isMinimized;
   }
 </script>
 
@@ -274,115 +330,113 @@
   <div class="music-control-panel">
     <div class="panel-header">
       <span>🎵 MUSIC • POLACZEK</span>
-      <button class="minimize-btn" on:click={toggleMinimize}>
-        {isMinimized ? "+" : "−"}
-      </button>
     </div>
-
-    {#if !isMinimized}
-      <div class="panel-content">
-        <!-- Now Playing Info -->
-        <div class="now-playing">
-          <div class="track-info">
-            <div class="track-name">{trackName}</div>
-            <div class="track-time">
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </div>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="player-controls">
-          <button class="control-btn" on:click={previousTrack}>⏮</button>
-          <button class="control-btn play-pause" on:click={togglePlay}>
-            {isPlaying ? "⏸" : "▶"}
-          </button>
-          <button class="control-btn" on:click={nextTrack}>⏭</button>
-          <button class="control-btn" on:click={togglePlaylist}>📋</button>
-        </div>
-
-        <!-- Volume Control -->
-        <div class="volume-control">
-          <span>🔊</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume * 100}
-            on:input={handleVolumeChange}
-            class="volume-slider"
-          />
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-container">
-          <div
-            class="progress-bar"
-            role="slider"
-            tabindex="0"
-            aria-label="Seek"
-            aria-valuemin={0}
-            aria-valuemax={duration || 0}
-            aria-valuenow={currentTime || 0}
-            on:click={handleSeek}
-            on:keydown={handleSeekKey}
-          >
-            <div
-              class="progress-fill"
-              style="width: {duration ? (currentTime / duration) * 100 : 0}%"
-            ></div>
+    <div class="panel-content">
+      <!-- Now Playing Info -->
+      <div class="now-playing">
+        <div class="track-info">
+          <div class="track-name">{trackName}</div>
+          <div class="track-time">
+            {formatTime(currentTime)} / {formatTime(duration)}
           </div>
         </div>
       </div>
-    {/if}
-  </div>
 
-  <!-- Playlist Panel -->
-  {#if showPlaylist}
-    <div class="playlist-panel">
-      <div class="playlist-header">
-        <span>🎵 PLAYLIST</span>
-        <button class="close-btn" on:click={() => (showPlaylist = false)}
-          >×</button
-        >
-      </div>
-      <div class="playlist-content">
-        {#if playlist.length === 0}
-          <div class="playlist-empty">No tracks loaded</div>
-        {:else}
-          {#each playlist as track, index}
-            <button
-              class="playlist-item"
-              class:active={index === currentTrack}
-              on:click={() => selectTrack(index)}
-            >
-              {track.name}
-            </button>
-          {/each}
-        {/if}
-      </div>
-      <div class="playlist-actions">
-        <input
-          type="file"
-          webkitdirectory
-          multiple
-          accept="audio/*"
-          on:change={handleFolderSelect}
-          style="display: none;"
-          id="music-folder"
-        />
-        <button
-          class="action-btn"
-          on:click={() => document.getElementById("music-folder").click()}
-        >
-          📁 Load Folder
+      <!-- Controls -->
+      <div class="player-controls">
+        <button class="control-btn" on:click={previousTrack}>⏮</button>
+        <button class="control-btn play-pause" on:click={togglePlay}>
+          {isPlaying ? "⏸" : "▶"}
         </button>
-        <button class="action-btn" on:click={loadDemoTracks}
-          >🎵 Demo Tracks</button
+        <button class="control-btn" on:click={nextTrack}>⏭</button>
+        <button
+          class="control-btn"
+          class:active={showPlaylist}
+          on:click={togglePlaylist}
         >
+          {showPlaylist ? "📋✓" : "📋"}
+        </button>
       </div>
+
+      <!-- Volume Control -->
+      <div class="volume-control">
+        <span>🔊</span>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={volume * 100}
+          on:input={handleVolumeChange}
+          class="volume-slider"
+        />
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div
+          class="progress-bar"
+          role="slider"
+          tabindex="0"
+          aria-label="Seek"
+          aria-valuemin={0}
+          aria-valuemax={duration || 0}
+          aria-valuenow={currentTime || 0}
+          on:click={handleSeek}
+          on:keydown={handleSeekKey}
+        >
+          <div
+            class="progress-fill"
+            style="width: {duration ? (currentTime / duration) * 100 : 0}%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Inline Playlist Panel -->
+      {#if showPlaylist}
+        <div class="inline-playlist-panel">
+          <div class="playlist-header-inline">
+            <span>🎵 BIBLIOTEKA MUZYKI</span>
+          </div>
+          <div class="playlist-content-inline">
+            {#if playlist.length === 0}
+              <div class="playlist-empty">Brak załadowanych utworów</div>
+            {:else}
+              {#each playlist as track, index}
+                <button
+                  class="playlist-item-inline"
+                  class:active={index === currentTrack}
+                  on:click={() => selectTrack(index)}
+                >
+                  <span class="track-number">{index + 1}</span>
+                  <span class="track-title">{track.name}</span>
+                </button>
+              {/each}
+            {/if}
+          </div>
+          <div class="playlist-actions-inline">
+            <input
+              type="file"
+              webkitdirectory
+              multiple
+              accept="audio/*,video/mp4,.mp3,.mp4,.wav,.ogg,.m4a,.aac,.flac,.wma,.opus,.webm,.3gp"
+              on:change={handleFolderSelect}
+              style="display: none;"
+              id="music-folder"
+            />
+            <button
+              class="action-btn-inline"
+              on:click={() => document.getElementById("music-folder").click()}
+            >
+              📁 Folder
+            </button>
+            <button class="action-btn-inline" on:click={loadDemoTracks}
+              >🎵 Demo</button
+            >
+          </div>
+        </div>
+      {/if}
     </div>
-  {/if}
+  </div>
 </div>
 
 <style>
@@ -395,13 +449,23 @@
   }
 
   .music-control-panel {
-    background: rgba(0, 0, 0, 0.6);
-    border: 2px solid #8b0000;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.98),
+      rgba(0, 0, 0, 0.95)
+    );
+    border: 2px solid #1be1ff;
     border-radius: 0;
-    backdrop-filter: blur(10px);
-    min-width: 280px;
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    min-width: 480px;
+    max-width: 520px;
+    box-shadow:
+      0 0 12px rgba(27, 225, 255, 0.2),
+      0 0 25px rgba(27, 225, 255, 0.08),
+      inset 0 1px 0 rgba(27, 225, 255, 0.1);
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1000;
   }
 
   .panel-header {
@@ -409,34 +473,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-    background: #111;
-    border-bottom: 2px solid #8b0000;
+    background: linear-gradient(90deg, #0f3846, #1be1ff);
+    border-bottom: 2px solid #1be1ff;
     border-radius: 0;
-    color: #fff;
+    color: #000;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.4);
     user-select: none;
-  }
-
-  .minimize-btn,
-  .close-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: background-color 0.2s;
-  }
-
-  .minimize-btn:hover,
-  .close-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
   }
 
   .panel-content {
@@ -650,6 +694,177 @@
   .action-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     border-color: #555;
+  }
+
+  /* Control button active state */
+  .control-btn.active {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.3),
+      rgba(15, 56, 70, 0.9)
+    );
+    border-color: #1be1ff;
+    box-shadow:
+      0 0 15px rgba(27, 225, 255, 0.6),
+      inset 0 2px 4px rgba(27, 225, 255, 0.2);
+    color: #fff;
+  }
+
+  /* Inline Playlist Styles */
+  .inline-playlist-panel {
+    margin-top: 15px;
+    border-top: 1px solid rgba(27, 225, 255, 0.3);
+    padding-top: 15px;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 400px;
+      padding-top: 15px;
+    }
+  }
+
+  .playlist-header-inline {
+    text-align: center;
+    color: #1be1ff;
+    font-size: 11px;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(27, 225, 255, 0.6);
+    margin-bottom: 10px;
+    padding: 5px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(27, 225, 255, 0.1),
+      transparent
+    );
+    border-radius: 4px;
+  }
+
+  .playlist-content-inline {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+  }
+
+  .playlist-content-inline::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .playlist-content-inline::-webkit-scrollbar-track {
+    background: rgba(15, 56, 70, 0.3);
+    border-radius: 3px;
+  }
+
+  .playlist-content-inline::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1be1ff, #164e63);
+    border-radius: 3px;
+    border: 1px solid rgba(27, 225, 255, 0.5);
+  }
+
+  .playlist-item-inline {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 2px;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.4),
+      rgba(27, 225, 255, 0.05)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    color: #1be1ff;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.3);
+  }
+
+  .playlist-item-inline:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.15),
+      rgba(15, 56, 70, 0.6)
+    );
+    border-color: #1be1ff;
+    box-shadow: 0 0 8px rgba(27, 225, 255, 0.3);
+    transform: translateX(3px);
+  }
+
+  .playlist-item-inline.active {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.25),
+      rgba(15, 56, 70, 0.8)
+    );
+    border-color: #1be1ff;
+    box-shadow:
+      0 0 12px rgba(27, 225, 255, 0.4),
+      inset 0 1px 0 rgba(27, 225, 255, 0.3);
+    color: #fff;
+  }
+
+  .track-number {
+    min-width: 20px;
+    text-align: center;
+    color: rgba(27, 225, 255, 0.7);
+    font-size: 10px;
+    margin-right: 8px;
+  }
+
+  .track-title {
+    flex: 1;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .playlist-actions-inline {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    padding: 8px 0;
+    border-top: 1px solid rgba(27, 225, 255, 0.2);
+  }
+
+  .action-btn-inline {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.6),
+      rgba(27, 225, 255, 0.1)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.3);
+    padding: 6px 12px;
+    color: #1be1ff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.3);
+    flex: 1;
+  }
+
+  .action-btn-inline:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.2),
+      rgba(15, 56, 70, 0.8)
+    );
+    border-color: #1be1ff;
+    box-shadow: 0 0 8px rgba(27, 225, 255, 0.4);
+    transform: translateY(-1px);
   }
 
   /* Responsive adjustments */

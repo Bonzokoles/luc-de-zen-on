@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_Byk_hFpk.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_Dr2EV_L9.mjs';
 
 const $$Bigquery = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "BigQuery Analytics" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-4xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">BigQuery Analytics</h1> <p class="text-cyber-text-dim mt-4">Analiza danych i zapytania SQL.</p> <div class="mt-8">[KOMPONENT BIGQUERY TUTAJ]</div> <div class="mt-8"> <a class="text-cyber-blue" href="/hub">← Powrót do HUB</a> </div> </section> ` })}`;

@@ -15,50 +15,50 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { n as attr, e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { n as attr, e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                    */
 
-function APIDemo($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function APIDemo($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 		let loading = false;
 
-		$$payload.push(`<div class="api-demo svelte-ftk53j"><h3 class="svelte-ftk53j">🧪 API Demo - Cloudflare Workers</h3> <p class="demo-description svelte-ftk53j">Demonstracja działania naszych API endpointów w środowisku Cloudflare
+		$$renderer.push(`<div class="api-demo svelte-ftk53j"><h3 class="svelte-ftk53j">🧪 API Demo - Cloudflare Workers</h3> <p class="demo-description svelte-ftk53j">Demonstracja działania naszych API endpointów w środowisku Cloudflare
     Workers</p> <div class="demo-grid svelte-ftk53j"><div class="demo-card svelte-ftk53j"><h4 class="svelte-ftk53j">💬 Chat API Test</h4> <button class="demo-btn svelte-ftk53j"${attr('disabled', loading, true)}>`);
 
 		{
-			$$payload.push('<!--[!-->');
-			$$payload.push(`🚀 Test Chat API`);
+			$$renderer.push('<!--[!-->');
+			$$renderer.push(`🚀 Test Chat API`);
 		}
 
-		$$payload.push(`<!--]--></button> `);
+		$$renderer.push(`<!--]--></button> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--></div> <div class="demo-card svelte-ftk53j"><h4 class="svelte-ftk53j">🎨 Image Generator Test</h4> <button class="demo-btn svelte-ftk53j"${attr('disabled', loading, true)}>`);
+		$$renderer.push(`<!--]--></div> <div class="demo-card svelte-ftk53j"><h4 class="svelte-ftk53j">🎨 Image Generator Test</h4> <button class="demo-btn svelte-ftk53j"${attr('disabled', loading, true)}>`);
 
 		{
-			$$payload.push('<!--[!-->');
-			$$payload.push(`🎨 Test Image API`);
+			$$renderer.push('<!--[!-->');
+			$$renderer.push(`🎨 Test Image API`);
 		}
 
-		$$payload.push(`<!--]--></button> `);
+		$$renderer.push(`<!--]--></button> `);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--></div> <div class="demo-card svelte-ftk53j"><h4 class="svelte-ftk53j">📊 Data Analysis Test</h4> <button class="demo-btn svelte-ftk53j"${attr('disabled', loading, true)}>`);
+		$$renderer.push(`<!--]--></div> <div class="demo-card svelte-ftk53j"><h4 class="svelte-ftk53j">📊 Data Analysis Test</h4> <button class="demo-btn svelte-ftk53j"${attr('disabled', loading, true)}>`);
 
 		{
-			$$payload.push('<!--[!-->');
-			$$payload.push(`📊 Test Analyze API`);
+			$$renderer.push('<!--[!-->');
+			$$renderer.push(`📊 Test Analyze API`);
 		}
 
-		$$payload.push(`<!--]--></button> <div class="response-box svelte-ftk53j"><strong class="svelte-ftk53j">Info:</strong> <p class="svelte-ftk53j">Sprawdź konsolę przeglądarki (F12) aby zobaczyć wynik analizy</p></div></div></div> <div class="integration-info svelte-ftk53j"><h4 class="svelte-ftk53j">📋 Implementacja w kodzie:</h4> <pre class="code-example svelte-ftk53j"><code class="svelte-ftk53j">// Import API functions
+		$$renderer.push(`<!--]--></button> <div class="response-box svelte-ftk53j"><strong class="svelte-ftk53j">Info:</strong> <p class="svelte-ftk53j">Sprawdź konsolę przeglądarki (F12) aby zobaczyć wynik analizy</p></div></div></div> <div class="integration-info svelte-ftk53j"><h4 class="svelte-ftk53j">📋 Implementacja w kodzie:</h4> <pre class="code-example svelte-ftk53j"><code class="svelte-ftk53j">// Import API functions
 import { postToWorker } from '../cloudflareApi';
 
 // Chat API usage

@@ -15,8 +15,8 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, f as renderHead, a as renderTemplate } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
+import { c as createComponent, f as renderHead, a as renderTemplate } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
 
 const $$Mybonzo = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo AI Assistant</title><meta name="description" content="Twój inteligentny asystent AI">${renderHead()}</head> <body class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"> <main class="min-h-screen flex items-center justify-center p-4"> <div class="w-full max-w-4xl"> <h1 class="text-4xl font-bold text-cyan-300 mb-8 text-center">

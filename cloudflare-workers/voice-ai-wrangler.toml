@@ -1,0 +1,71 @@
+name = "voice-ai-worker"
+main = "voice-ai-worker.js"
+compatibility_date = "2024-09-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Voice AI Worker Configuration
+# Handles advanced voice processing and AI integration
+
+[env.production]
+name = "mybonzo-voice-ai-prod"
+route = "voice-ai.mybonzo.com/*"
+
+[env.staging] 
+name = "mybonzo-voice-ai-staging"
+route = "voice-ai-staging.mybonzo.com/*"
+
+[env.development]
+name = "mybonzo-voice-ai-dev"
+
+# Environment Variables for AI Services
+[vars]
+WORKER_ENV = "development"
+SERVICE_NAME = "Voice AI Worker"
+VERSION = "1.0.0"
+
+# KV Namespaces for caching and session management
+[[kv_namespaces]]
+binding = "VOICE_CACHE"
+id = "voice-ai-cache-namespace"
+preview_id = "voice-ai-cache-preview"
+
+[[kv_namespaces]]
+binding = "VOICE_SESSIONS"
+id = "voice-sessions-namespace"  
+preview_id = "voice-sessions-preview"
+
+# R2 Buckets for audio file storage
+[[r2_buckets]]
+binding = "VOICE_STORAGE"
+bucket_name = "mybonzo-voice-audio"
+preview_bucket_name = "mybonzo-voice-audio-preview"
+
+# Durable Objects for real-time voice processing
+[[durable_objects.bindings]]
+name = "VOICE_PROCESSOR"
+class_name = "VoiceProcessor"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["VoiceProcessor"]
+
+# AI Service Integration (secrets - set via wrangler secret)
+# wrangler secret put OPENAI_API_KEY
+# wrangler secret put GOOGLE_SPEECH_KEY  
+# wrangler secret put AZURE_COGNITIVE_KEY
+# wrangler secret put ELEVENLABS_API_KEY
+
+# Rate limiting and performance
+[limits]
+cpu_ms = 30000  # 30 seconds for heavy audio processing
+
+# WebAssembly modules for audio processing
+# [[wasm_modules]]
+# binding = "AUDIO_PROCESSOR"
+# source = "./audio-processor.wasm"
+
+# Analytics and monitoring
+[analytics_engine_datasets]
+[[analytics_engine_datasets.bindings]]
+name = "VOICE_ANALYTICS"
+dataset = "voice_ai_metrics"

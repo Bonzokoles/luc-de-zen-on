@@ -15,8 +15,8 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { O as OpenAI } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
+import { O as OpenAI } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
 
 const POST = async ({ request }) => {
   try {

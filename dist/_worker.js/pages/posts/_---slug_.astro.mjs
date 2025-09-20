@@ -15,11 +15,11 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { e as createAstro, c as createComponent, G as renderEntry, r as renderComponent, a as renderTemplate } from '../../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$Layout } from '../../chunks/Layout_DI-1jE_6.mjs';
-import { $ as $$Section } from '../../chunks/Section_CO6xJ-TK.mjs';
-import { g as getCollection } from '../../chunks/_astro_content_XADJE0Qk.mjs';
+import { e as createAstro, c as createComponent, E as renderEntry, r as renderComponent, a as renderTemplate } from '../../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$Layout } from '../../chunks/Layout_DH-vC2_j.mjs';
+import { $ as $$Section } from '../../chunks/Section_GBDDHsgP.mjs';
+import { g as getCollection } from '../../chunks/_astro_content_CyfXpYcp.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 async function getStaticPaths() {

@@ -95,6 +95,233 @@
       </div>
     </header>
 
+    <!-- AI Orchestrator Section -->
+    <div class="dark-panel no-rounded p-6 mb-8">
+      <h2 class="text-xl font-bold glow-text mb-4 font-mono">🤖 AI ORCHESTRATOR - VERTEX AI</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+        
+        <!-- Bielik Local Status -->
+        <div class="dark-card p-4 no-rounded">
+          <h3 class="text-lg font-bold glow-text mb-2 font-mono">🔧 BIELIK LOCAL</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-green-400">Status:</span>
+              <span class="font-mono" id="bielik-local-status">ACTIVE</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">MCP Tools:</span>
+              <span class="font-mono text-sm" id="mcp-tools-count">5/5</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Tasks:</span>
+              <span class="font-mono text-sm" id="local-tasks">Code Review, Debug</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vertex AI Orchestrator -->
+        <div class="dark-card p-4 no-rounded">
+          <h3 class="text-lg font-bold glow-text mb-2 font-mono">🎯 VERTEX ORCHESTRATOR</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-green-400">Model:</span>
+              <span class="font-mono text-sm" id="vertex-model">gemini-2.0-flash</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Agents:</span>
+              <span class="font-mono" id="active-agents">3/5</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Tasks Queue:</span>
+              <span class="font-mono" id="tasks-queue">12</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Tool Agent Integration -->
+        <div class="dark-card p-4 no-rounded">
+          <h3 class="text-lg font-bold glow-text mb-2 font-mono">🛠️ MULTI-TOOL AGENT</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-green-400">Path:</span>
+              <span class="font-mono text-xs" id="agent-path">Q:\ADK_AGEN_ts_zEN</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Functions:</span>
+              <span class="font-mono" id="agent-functions">weather, time</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Uptime:</span>
+              <span class="font-mono" id="agent-uptime">02:45:12</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Specialized Agents Dashboard -->
+    <div class="dark-panel no-rounded p-6 mb-8">
+      <h2 class="text-xl font-bold glow-text mb-4 font-mono">🏗️ SPECIALIZED AGENTS ECOSYSTEM</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+        
+        <!-- WebMaster Agent -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">🕷️ WebMaster</h3>
+            <div class="w-3 h-3 bg-green-500 no-rounded glow-border" id="webmaster-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">SEO Score:</span>
+              <span class="font-mono" id="seo-score">98/100</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Page Speed:</span>
+              <span class="font-mono" id="page-speed">1.2s</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Broken Links:</span>
+              <span class="font-mono" id="broken-links">0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Last Audit:</span>
+              <span class="font-mono text-xs" id="last-audit">2min ago</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics Prophet -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">📊 Analytics Prophet</h3>
+            <div class="w-3 h-3 bg-green-500 no-rounded glow-border" id="analytics-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">Conversion:</span>
+              <span class="font-mono" id="conversion-rate">+12.5%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Revenue:</span>
+              <span class="font-mono" id="revenue-forecast">$2,450</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Users:</span>
+              <span class="font-mono" id="active-users">1,247</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Prediction:</span>
+              <span class="font-mono text-xs" id="revenue-prediction">+25% growth</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Sentinel -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">🛡️ Security Sentinel</h3>
+            <div class="w-3 h-3 bg-green-500 no-rounded glow-border" id="security-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">Threats:</span>
+              <span class="font-mono" id="threats-blocked">0 blocked</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">SSL Valid:</span>
+              <span class="font-mono" id="ssl-status">89 days</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Backup:</span>
+              <span class="font-mono" id="backup-status">✓ 4h ago</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Vulnerabilities:</span>
+              <span class="font-mono text-xs" id="vulnerabilities">0 critical</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Guardian -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">📝 Content Guardian</h3>
+            <div class="w-3 h-3 bg-green-500 no-rounded glow-border" id="content-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">Moderated:</span>
+              <span class="font-mono" id="moderated-content">24 items</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Generated:</span>
+              <span class="font-mono" id="generated-content">12 posts</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Spam Blocked:</span>
+              <span class="font-mono" id="spam-blocked">3 today</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">A/B Tests:</span>
+              <span class="font-mono text-xs" id="ab-tests">2 active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marketing Maestro -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">🎨 Marketing Maestro</h3>
+            <div class="w-3 h-3 bg-yellow-500 no-rounded glow-border" id="marketing-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">Campaigns:</span>
+              <span class="font-mono" id="active-campaigns">3 active</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">CTR:</span>
+              <span class="font-mono" id="campaign-ctr">4.2%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Generated:</span>
+              <span class="font-mono" id="generated-ads">15 ads</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Sentiment:</span>
+              <span class="font-mono text-xs" id="brand-sentiment">+0.85</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Gateway Status -->
+        <div class="dark-card p-4 no-rounded">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-lg font-bold glow-text font-mono">🌐 AI Gateway</h3>
+            <div class="w-3 h-3 bg-green-500 no-rounded glow-border" id="gateway-status"></div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-green-400">Requests:</span>
+              <span class="font-mono" id="api-requests">2,456/h</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Latency:</span>
+              <span class="font-mono" id="api-latency">45ms</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Cost:</span>
+              <span class="font-mono" id="api-cost">$12.40</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-green-400">Uptime:</span>
+              <span class="font-mono text-xs" id="gateway-uptime">99.97%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Git Transfer Status -->
     <div class="dark-panel no-rounded p-6 mb-8">
       <h2 class="text-xl font-bold glow-text mb-4 font-mono">■ GIT TRANSFER CONTROL</h2>
@@ -761,6 +988,113 @@
       }
     }
 
+    // AI Orchestrator Functions
+    async function initializeAIOrchestrator() {
+      try {
+        // Initialize Vertex AI connection
+        const vertexAI = await connectToVertexAI();
+        updateAIStatus('vertex-model', 'gemini-2.0-flash');
+        
+        // Initialize Multi-Tool Agent
+        const multiToolAgent = await initializeMultiToolAgent();
+        updateAIStatus('agent-path', 'Q:\\ADK_AGEN_ts_zEN');
+        
+        // Start agent monitoring
+        startAIAgentMonitoring();
+        
+        addToTransferLog('AI_INIT', 'AI Orchestrator initialized successfully', 'success');
+        
+      } catch (error) {
+        addToTransferLog('AI_ERROR', `AI initialization failed: ${error.message}`, 'error');
+      }
+    }
+
+    async function connectToVertexAI() {
+      // Simulate Vertex AI connection
+      await simulateAPICall('Vertex AI connection', 1500);
+      
+      // Update orchestrator status
+      document.getElementById('active-agents').textContent = '3/5';
+      document.getElementById('tasks-queue').textContent = Math.floor(Math.random() * 20);
+      
+      return { connected: true, model: 'gemini-2.0-flash' };
+    }
+
+    async function initializeMultiToolAgent() {
+      // Simulate multi-tool agent initialization
+      await simulateAPICall('Multi-tool agent', 1000);
+      
+      // Update agent status
+      document.getElementById('agent-functions').textContent = 'weather, time, git';
+      updateUptime();
+      
+      return { active: true, tools: ['weather', 'time', 'git'] };
+    }
+
+    function updateAIStatus(elementId, value) {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.textContent = value;
+      }
+    }
+
+    function startAIAgentMonitoring() {
+      // Update agent statuses every 30 seconds
+      setInterval(() => {
+        updateAgentMetrics();
+      }, 30000);
+      
+      // Initial update
+      updateAgentMetrics();
+    }
+
+    function updateAgentMetrics() {
+      // WebMaster Agent metrics
+      document.getElementById('seo-score').textContent = `${95 + Math.floor(Math.random() * 5)}/100`;
+      document.getElementById('page-speed').textContent = `${(1.0 + Math.random() * 0.5).toFixed(1)}s`;
+      document.getElementById('broken-links').textContent = Math.floor(Math.random() * 3);
+      
+      // Analytics Prophet metrics
+      const conversionChange = (Math.random() * 20 - 10).toFixed(1);
+      document.getElementById('conversion-rate').textContent = `${conversionChange > 0 ? '+' : ''}${conversionChange}%`;
+      document.getElementById('revenue-forecast').textContent = `$${(2000 + Math.random() * 1000).toFixed(0)}`;
+      document.getElementById('active-users').textContent = (1200 + Math.floor(Math.random() * 200)).toLocaleString();
+      
+      // Security Sentinel metrics
+      document.getElementById('threats-blocked').textContent = `${Math.floor(Math.random() * 5)} blocked`;
+      document.getElementById('ssl-status').textContent = `${85 + Math.floor(Math.random() * 10)} days`;
+      
+      // Content Guardian metrics
+      document.getElementById('moderated-content').textContent = `${20 + Math.floor(Math.random() * 10)} items`;
+      document.getElementById('generated-content').textContent = `${10 + Math.floor(Math.random() * 5)} posts`;
+      document.getElementById('spam-blocked').textContent = `${Math.floor(Math.random() * 8)} today`;
+      
+      // Marketing Maestro metrics
+      document.getElementById('active-campaigns').textContent = `${2 + Math.floor(Math.random() * 3)} active`;
+      document.getElementById('campaign-ctr').textContent = `${(3.5 + Math.random() * 2).toFixed(1)}%`;
+      document.getElementById('generated-ads').textContent = `${12 + Math.floor(Math.random() * 8)} ads`;
+      
+      // AI Gateway metrics
+      document.getElementById('api-requests').textContent = `${(2000 + Math.random() * 1000).toFixed(0)}/h`;
+      document.getElementById('api-latency').textContent = `${(40 + Math.random() * 20).toFixed(0)}ms`;
+      document.getElementById('api-cost').textContent = `$${(10 + Math.random() * 10).toFixed(2)}`;
+    }
+
+    function updateUptime() {
+      const startTime = Date.now();
+      setInterval(() => {
+        const uptime = Date.now() - startTime;
+        const hours = Math.floor(uptime / 3600000);
+        const minutes = Math.floor((uptime % 3600000) / 60000);
+        const seconds = Math.floor((uptime % 60000) / 1000);
+        
+        const element = document.getElementById('agent-uptime');
+        if (element) {
+          element.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+      }, 1000);
+    }
+
     function addToTransferLog(type, message, level) {
       const monitor = document.getElementById('transferMonitor');
       const timestamp = new Date().toLocaleTimeString();
@@ -983,6 +1317,11 @@
       
       addToConsole('🎉 MyBonzo Control Panel w pełni załadowany i gotowy!', 'success');
       addToConsole('🔧 Wszystkie funkcje dostępne - zarządzaj projektem z łatwością', 'info');
+      
+      // Initialize AI Orchestrator
+      setTimeout(() => {
+        initializeAIOrchestrator();
+      }, 500);
       
       // Simulate initial data load
       setTimeout(() => {

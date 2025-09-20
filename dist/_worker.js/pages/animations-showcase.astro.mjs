@@ -15,21 +15,21 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                               */
 
-function AnimationsShowcase($$payload, $$props) {
-	$$payload.component(($$payload) => {
+function AnimationsShowcase($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
 
-		$$payload.push(`<div class="animations-showcase svelte-1bsui5e">`);
+		$$renderer.push(`<div class="animations-showcase svelte-1bsui5e">`);
 
 		{
-			$$payload.push('<!--[!-->');
+			$$renderer.push('<!--[!-->');
 		}
 
-		$$payload.push(`<!--]--></div>`);
+		$$renderer.push(`<!--]--></div>`);
 	});
 }
 

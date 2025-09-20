@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_BHZTJLV0.mjs';
-export { d as renderers } from '../chunks/vendor_BHZTJLV0.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DH5CUiol.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/vendor_DlPT8CWO.mjs';
+export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
 /* empty css                                              */
 
 const $$BigqueryAnalytics = createComponent(async ($$result, $$props, $$slots) => {
