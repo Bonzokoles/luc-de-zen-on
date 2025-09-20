@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { z as onDestroy, A as attr_style, k as escape_html, l as stringify, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead, $ as $$Icon } from '../chunks/vendor_DlPT8CWO.mjs';
+import { z as onDestroy, A as attr_style, k as escape_html, l as stringify, i as ensure_array_like, n as attr, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead, $ as $$Icon } from '../chunks/vendor_DlPT8CWO.mjs';
 export { d as renderers } from '../chunks/vendor_DlPT8CWO.mjs';
 import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CINJPwTU.mjs';
 import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_BZj1gl0Z.mjs';
@@ -30,6 +30,8 @@ function QuickVoiceAI({ variant = "compact" }) {
 function GoogleVoiceAgent($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		let agentStatus = "disconnected";
+		let agentResults = {};
+		let newAgents = [];
 
 		onDestroy(() => {
 
@@ -95,7 +97,66 @@ function GoogleVoiceAgent($$renderer, $$props) {
 			$$renderer.push('<!--[!-->');
 		}
 
-		$$renderer.push(`<!--]--> <button class="toggle-agents-btn floating-widget-template svelte-53d72o"><span class="toggle-icon svelte-53d72o">🤖</span> <span class="toggle-text svelte-53d72o">Google<br class="svelte-53d72o"/>Agents</span></button>`);
+		$$renderer.push(`<!--]--> <button class="toggle-agents-btn floating-widget-template svelte-53d72o"><span class="toggle-icon svelte-53d72o">🤖</span> <span class="toggle-text svelte-53d72o">Google<br class="svelte-53d72o"/>Agents</span></button> `);
+
+		if (newAgents.length > 0) {
+			$$renderer.push('<!--[-->');
+			$$renderer.push(`<div class="floating-agents-container svelte-53d72o"><!--[-->`);
+
+			const each_array_5 = ensure_array_like(newAgents);
+
+			for (let index = 0, $$length = each_array_5.length; index < $$length; index++) {
+				let agent = each_array_5[index];
+
+				$$renderer.push(`<button class="floating-agent-btn svelte-53d72o"${attr_style(` background: linear-gradient(135deg, ${stringify(agent.color)}22, ${stringify(agent.color)}44); border-color: ${stringify(agent.color)}; bottom: ${stringify(80 + index * 70)}px; `)}${attr('title', `Activate ${stringify(agent.name)}`)}><span class="floating-agent-icon svelte-53d72o">${escape_html(agent.icon)}</span> <span class="floating-agent-name svelte-53d72o">${escape_html(agent.name)}</span> `);
+
+				if (agentResults[agent.id]) {
+					$$renderer.push('<!--[-->');
+					$$renderer.push(`<div class="agent-status-dot success svelte-53d72o"></div>`);
+				} else {
+					$$renderer.push('<!--[!-->');
+					$$renderer.push(`<div class="agent-status-dot ready svelte-53d72o"></div>`);
+				}
+
+				$$renderer.push(`<!--]--></button>`);
+			}
+
+			$$renderer.push(`<!--]--></div>`);
+		} else {
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]-->  `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]-->`);
 	});
 }
 

@@ -35,13 +35,13 @@
     "/fonts/Kenyan-Coffee-Bd.otf",
     "/fonts/Kenyan-Coffee-Rg-It.otf",
     "/fonts/Neuropol.otf",
-    "/styles/global.css",
-    "/scripts/system-buttons.js",
     "/komponenty/background.js",
     "/komponenty/DO_QUOTES_1.md",
     "/komponenty/DO_QUOTES_2.md",
     "/komponenty/O_MNIE.md",
     "/komponenty/RandomQuote.astro",
+    "/styles/global.css",
+    "/scripts/system-buttons.js",
     "/images/artists/placeholder.svg",
     "/posts"
   ]
