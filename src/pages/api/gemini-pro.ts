@@ -23,31 +23,56 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return createErrorResponse('Message is required', 400);
     }
 
-    // Tymczasowe rozwiązanie - używamy Cloudflare AI jako fallback
-    // TODO: Implementacja Google Vertex AI Gemini Pro
+    // Google AI Studio przez Cloudflare AI Gateway zgodnie z INSTR_4
     const runtime = (locals as any)?.runtime;
-    if (!runtime?.env?.AI) {
-      return createErrorResponse('AI service not available', 500);
+    const env = runtime?.env;
+    
+    if (!env?.GOOGLE_AI_STUDIO_TOKEN || !env?.CLOUDFLARE_ACCOUNT_ID || !env?.CLOUDFLARE_AI_GATEWAY_ID) {
+      return createErrorResponse('Google AI Studio configuration missing', 500);
     }
 
     const systemPrompt = language === 'en' 
       ? "You are Gemini Pro, Google's advanced AI model. Provide helpful, accurate, and detailed responses."
       : "Jesteś Gemini Pro, zaawansowanym modelem AI Google. Udzielaj pomocnych, dokładnych i szczegółowych odpowiedzi po polsku.";
 
+    // AI Gateway URL zgodnie z INSTR_4
+    const aiGatewayUrl = `https://gateway.ai.cloudflare.com/v1/${env.CLOUDFLARE_ACCOUNT_ID}/${env.CLOUDFLARE_AI_GATEWAY_ID}/google-ai-studio/v1/models/gemini-1.5-flash:generateContent`;
+
+    const requestBody = {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { text: `${systemPrompt}\n\n${message}` }
+          ]
+        }
+      ],
+      generationConfig: {
+        temperature: temperature,
+        maxOutputTokens: 2048
+      }
+    };
+
     try {
-      const aiResponse = await runtime.env.AI.run('@cf/google/gemma-3-12b-it', {
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: message }
-        ],
-        temperature
+      const response = await fetch(aiGatewayUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': env.GOOGLE_AI_STUDIO_TOKEN
+        },
+        body: JSON.stringify(requestBody)
       });
 
-      const response = aiResponse.response || 'Brak odpowiedzi od modelu AI.';
+      if (!response.ok) {
+        throw new Error(`Google AI Studio API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Brak odpowiedzi od Gemini Pro.';
 
       return createSuccessResponse({
-        response,
-        model: 'gemini-pro-fallback',
+        response: aiResponse,
+        model: 'gemini-1.5-flash',
         message: 'Success',
         timestamp: new Date().toISOString()
       });

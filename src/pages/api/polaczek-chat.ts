@@ -314,9 +314,16 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
             { role: 'user', content: prompt },
         ];
 
+        // Workers AI z AI Gateway zgodnie z INSTR_5
         const aiResp: any = await env.AI.run(modelId as any, {
             messages,
             temperature,
+        }, {
+            gateway: {
+                id: env.CLOUDFLARE_AI_GATEWAY_ID || "mybonzo-ai-gateway",
+                skipCache: false,
+                cacheTtl: 3360,
+            },
         });
 
         const answer: string = aiResp?.response || aiResp?.result || 'Brak odpowiedzi od modelu.';

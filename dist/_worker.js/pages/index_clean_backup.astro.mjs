@@ -17,8 +17,8 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DxBX4jvk.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_DhdKO-Jd.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_Cz5CaHU0.mjs';
 import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_pwNJ2uYL.mjs';
 import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_Dhk4XHtg.mjs';
 import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DbrtUkSA.mjs';

@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DxBX4jvk.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhpsI7E-.mjs';
 /* empty css                                         */
 export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 

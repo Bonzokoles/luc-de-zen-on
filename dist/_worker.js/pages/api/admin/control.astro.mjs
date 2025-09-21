@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { b as createErrorResponse, a as createSuccessResponse, d as addCORSHeaders } from '../../../chunks/corsUtils_DD_RavK2.mjs';
+import { b as createErrorResponse, a as createSuccessResponse, d as addCORSHeaders } from '../../../chunks/corsUtils_DfX9K_yD.mjs';
 export { r as renderers } from '../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const execAsync = promisify(exec);

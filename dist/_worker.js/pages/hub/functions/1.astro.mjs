@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                        */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_uj3Su3qj.mjs';
+import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_Si1iL7nJ.mjs';
 export { r as renderers } from '../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 const $$1 = createComponent(($$result, $$props, $$slots) => {

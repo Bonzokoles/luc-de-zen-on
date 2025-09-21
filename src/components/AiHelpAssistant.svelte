@@ -5,7 +5,7 @@
   let messages = [];
   let inputValue = "";
   let isTyping = false;
-  let agentStatus = "disconnected";
+  let agentStatus = "connecting"; // Start with connecting status
   let capabilities = [];
 
   let messagesContainer;
@@ -47,7 +47,9 @@
       console.log("🤖 POLACZEK API registered and ready");
     }
 
-    checkConnection();
+    // Auto-connect after small delay for better UX
+    setTimeout(() => checkConnection(), 100);
+
     return () => {
       // No WebSocket to clean up
     };

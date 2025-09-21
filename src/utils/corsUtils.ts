@@ -19,11 +19,13 @@ export const createOPTIONSHandler = (allowedMethods: string[] = ['GET', 'POST', 
 
 /**
  * Standard CORS headers for all API responses
+ * Enhanced for Google Cloud compatibility zgodnie z INSTR_1
  */
 export const getCORSHeaders = () => ({
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, x-goog-api-key, x-goog-user-project',
+  'Access-Control-Expose-Headers': 'X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-ID',
 });
 
 /**

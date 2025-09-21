@@ -23,7 +23,7 @@
   let confidence = 0;
   let isSupported = false;
   let recognition = null;
-  let agentStatus = "disconnected";
+  let agentStatus = "connecting"; // Start with connecting status
   let lastResult = "";
   let adkAdapter = null;
   let googleManager = null;

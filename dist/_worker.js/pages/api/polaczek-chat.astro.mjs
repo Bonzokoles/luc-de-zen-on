@@ -15,7 +15,7 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_DD_RavK2.mjs';
+import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_DfX9K_yD.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
 
 // Documentation Index for POLACZEK AI Assistant
@@ -500,6 +500,12 @@ const POST = async ({ request, locals }) => {
     const aiResp = await env.AI.run(modelId, {
       messages,
       temperature
+    }, {
+      gateway: {
+        id: env.CLOUDFLARE_AI_GATEWAY_ID || "mybonzo-ai-gateway",
+        skipCache: false,
+        cacheTtl: 3360
+      }
     });
     const answer = aiResp?.response || aiResp?.result || "Brak odpowiedzi od modelu.";
     return createSuccessResponse({
