@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 import { r as renderers } from './chunks/_@astro-renderers_CHiEcNgA.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_BPSaKOm2.mjs';
-import { manifest } from './manifest_MNVNy6E1.mjs';
+import { manifest } from './manifest_DIgRazqA.mjs';
 
 const serverIslandMap = new Map();;
 
