@@ -486,12 +486,21 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               const musicElement = document.querySelector('audio');
               
               if (musicElement && !window.MUSIC_ANALYSER && window.MUSIC) {
+                // Check if element already has audio context connection
+                if (musicElement._audioContextConnected) {
+                  console.log('🎵 Music element already connected to AudioContext');
+                  return;
+                }
+                
                 const analyser = audioContext.createAnalyser();
                 analyser.fftSize = 256;
                 
                 const source = audioContext.createMediaElementSource(musicElement);
                 source.connect(analyser);
                 analyser.connect(audioContext.destination);
+                
+                // Mark as connected to prevent duplicate connections
+                musicElement._audioContextConnected = true;
                 
                 window.MUSIC_ANALYSER = analyser;
                 window.dispatchEvent(new CustomEvent('music-analyser-ready'));
@@ -3356,11 +3365,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     }
   }
 
-  // EXPORT VOICE FUNCTIONS TO GLOBAL SCOPE - FIX for onclick handlers
+  // EXPORT ALL VOICE FUNCTIONS TO GLOBAL SCOPE - COMPLETE FIX for onclick handlers
+  
+  // Global Voice Control
+  window.toggleGlobalVoice = toggleGlobalVoice;
+  
   // Gemini Pro Voice Functions
   window.startGeminiProVoice = startGeminiProVoice;
   window.stopGeminiProVoice = stopGeminiProVoice;
   window.toggleGeminiProVoice = toggleGeminiProVoice;
+  
+  // Gemini Vision Voice Functions  
+  window.startGeminiVisionVoice = startGeminiVisionVoice;
+  window.stopGeminiVisionVoice = stopGeminiVisionVoice;
+  window.toggleGeminiVisionVoice = toggleGeminiVisionVoice;
   
   // Code Bison Voice Functions  
   window.startCodeBisonVoice = startCodeBisonVoice;
@@ -3372,10 +3390,28 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   window.stopTextBisonVoice = stopTextBisonVoice;
   window.toggleTextBisonVoice = toggleTextBisonVoice;
   
-  // Google Bard Voice Functions (correct function names)
-  window.startGoogleBardVoice = startBardVoice;
-  window.stopGoogleBardVoice = stopBardVoice;
-  window.toggleGoogleBardVoice = toggleBardVoice;
+  // Google Bard Voice Functions (mapped to correct function names)
+  window.startBardVoice = startBardVoice;
+  window.stopBardVoice = stopBardVoice;
+  window.toggleBardVoice = toggleBardVoice;
+  window.startGoogleBardVoice = startBardVoice; // Alias
+  window.stopGoogleBardVoice = stopBardVoice; // Alias
+  window.toggleGoogleBardVoice = toggleBardVoice; // Alias
+  
+  // PaLM Voice Functions
+  window.startPaLMVoice = startPaLMVoice;
+  window.stopPaLMVoice = stopPaLMVoice;
+  window.togglePaLMVoice = togglePaLMVoice;
+  
+  // Vertex Voice Functions
+  window.startVertexVoice = startVertexVoice;
+  window.stopVertexVoice = stopVertexVoice;
+  window.toggleVertexVoice = toggleVertexVoice;
+  
+  // AI Studio Voice Functions
+  window.startAIStudioVoice = startAIStudioVoice;
+  window.stopAIStudioVoice = stopAIStudioVoice;
+  window.toggleAIStudioVoice = toggleAIStudioVoice;
 
   console.log("✅ Voice functions exported to global scope");
 </script>
