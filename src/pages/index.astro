@@ -15,6 +15,7 @@ import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx"
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
+import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
 import { Icon } from 'astro-icon/components';
 ---
 
@@ -757,7 +758,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               />
               <button
                 class="action-btn primary"
-                onclick="openBigQuery()"
+                onclick="openBigQueryPopup()"
                 data-astro-cid-my52qgmw>Analizuj</button
               >
               <button
@@ -795,7 +796,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
               />
               <button
                 class="action-btn primary"
-                onclick="openKaggle()"
+                onclick="openKagglePopup()"
                 data-astro-cid-my52qgmw>Wyszukaj</button
               >
               <button
@@ -838,6 +839,40 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 class="action-btn secondary"
                 onclick="window.open('/tavily-search', '_blank')"
                 data-astro-cid-my52qgmw>Otwórz</button
+              >
+            </div>
+          </div>
+
+          <!-- Voice AI Worker -->
+          <div class="worker-card" data-worker="voice-ai" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              🎤 Voice AI Assistant
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Transkrypcja, synteza mowy i przetwarzanie komend głosowych
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Speech-to-Text</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Text-to-Speech</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Voice Commands</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="tekst do syntezy..."
+                class="quick-prompt"
+                id="voiceAiPrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openVoiceAIPopup()"
+                data-astro-cid-my52qgmw>🎤 Nagrywaj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="quickSynthesize()"
+                data-astro-cid-my52qgmw>🔊 Synteza</button
               >
             </div>
           </div>
@@ -1668,6 +1703,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       </button>
     </div>
   </div>
+
+  <!-- Universal Worker Communication Popup -->
+  <WorkerCommunicationPopup />
 </MyBonzoLayout>
 
 <!-- JavaScript Functions -->
@@ -3640,7 +3678,115 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   window.testAllFunctions = testAllFunctions;
   window.debugVoiceStatus = debugVoiceStatus;
 
-  console.log("✅ All Voice, AI, Control and Debug functions exported to global scope");
+  // Worker Communication Popup Functions
+  function openBigQueryPopup() {
+    console.log("🔍 Opening BigQuery Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("bigqueryPrompt")?.value || "";
+      window.openWorkerPopup("bigquery", "https://mybonzo.com/api/polaczek/bigquery", "BigQuery Analytics");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct BigQuery interface");
+      if (typeof window.BigQueryInterface !== 'undefined') {
+        const bigQueryInterface = new window.BigQueryInterface();
+        bigQueryInterface.openInterface();
+      } else {
+        // Fallback to original function
+        openBigQuery();
+      }
+    }
+  }
+
+  function openKagglePopup() {
+    console.log("🔍 Opening Kaggle Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("kagglePrompt")?.value || "";
+      window.openWorkerPopup("kaggle", "https://mybonzo.com/api/polaczek/kaggle", "Kaggle Datasets");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct Kaggle interface");
+      if (typeof window.KaggleInterface !== 'undefined') {
+        const kaggleInterface = new window.KaggleInterface();
+        kaggleInterface.openInterface();
+      } else {
+        // Fallback to original function
+        openKaggle();
+      }
+    }
+  }
+
+  function openVoiceAIPopup() {
+    console.log("🎤 Opening Voice AI Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("voiceAiPrompt")?.value || "";
+      window.openWorkerPopup("voice-ai", "https://mybonzo.com/api/polaczek/voice-ai", "Voice AI Assistant");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct Voice AI interface");
+      if (typeof window.VoiceAIInterface !== 'undefined') {
+        const voiceAIInterface = new window.VoiceAIInterface();
+        voiceAIInterface.quickTranscribe();
+      } else {
+        // Fallback alert
+        alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
+      }
+    }
+  }
+
+  function quickSynthesize() {
+    console.log("🔊 Quick Text Synthesis");
+    const text = document.getElementById("voiceAiPrompt")?.value;
+    if (!text || text.trim().length === 0) {
+      alert("Wprowadź tekst do syntezy w polu powyżej");
+      return;
+    }
+    
+    if (typeof window.VoiceAIInterface !== 'undefined') {
+      const voiceAIInterface = new window.VoiceAIInterface();
+      voiceAIInterface.quickSynthesize(text);
+    } else {
+      console.warn("Voice AI interface not loaded yet");
+      alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
+    }
+  }
+
+  // Export new popup functions to global scope
+  window.openBigQueryPopup = openBigQueryPopup;
+  window.openKagglePopup = openKagglePopup;
+  window.openVoiceAIPopup = openVoiceAIPopup;
+  window.quickSynthesize = quickSynthesize;
+
+  console.log("✅ All Voice AI, BigQuery, Kaggle popup functions exported to global scope");
+</script>
+
+<!-- BigQuery API Integration Script -->
+<script is:inline>
+  // Import BigQuery API functionality
+  import('../utils/bigQueryAPI.js').then(module => {
+    // Make BigQuery functions available globally
+    window.BigQueryAPI = module.BigQueryAPI;
+    window.BigQueryInterface = module.BigQueryInterface;
+    console.log('✅ BigQuery API loaded');
+  }).catch(err => console.warn('⚠️ BigQuery API load failed:', err));
+</script>
+
+<!-- Kaggle API Integration Script -->
+<script is:inline>
+  // Import Kaggle API functionality  
+  import('../utils/kaggleAPI.js').then(module => {
+    // Make Kaggle functions available globally
+    window.KaggleAPI = module.KaggleAPI;
+    window.KaggleInterface = module.KaggleInterface;
+    console.log('✅ Kaggle API loaded');
+  }).catch(err => console.warn('⚠️ Kaggle API load failed:', err));
+</script>
+
+<!-- Voice AI Integration Script -->
+<script is:inline>
+  // Import Voice AI functionality
+  import('../utils/voiceAiAPI.js').then(module => {
+    // Make Voice AI functions available globally
+    window.VoiceAIAPI = module.VoiceAIAPI;
+    window.VoiceAIInterface = module.VoiceAIInterface;
+    console.log('✅ Voice AI API loaded');
+  }).catch(err => console.warn('⚠️ Voice AI API load failed:', err));
 </script>
 
 <style>

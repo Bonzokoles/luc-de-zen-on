@@ -44,3 +44,20 @@ CACHE_TTL = "3600"
 ENVIRONMENT = "development" 
 DEBUG_MODE = "true"
 CACHE_TTL = "300"
+
+# KV Namespaces bindings
+[[kv_namespaces]]
+binding = "BIGQUERY_CACHE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+[[kv_namespaces]]
+binding = "ANALYTICS_STORE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+# R2 Buckets binding
+[[r2_buckets]]
+binding = "BIGQUERY_STORAGE"
+bucket_name = "mybonzo-storage"
+preview_bucket_name = "mybonzo-storage"

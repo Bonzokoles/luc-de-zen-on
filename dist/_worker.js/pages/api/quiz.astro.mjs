@@ -28,7 +28,7 @@ const POST = async ({ request }) => {
       });
     }
     const openai = new OpenAI({
-      apiKey: "sk-proj-..."
+      apiKey: undefined                              
     });
     const difficultyLevels = {
       beginner: "podstawowy - proste pytania wprowadzające",
