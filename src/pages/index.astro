@@ -1164,6 +1164,41 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       >
         🎤 VOICE OFF
       </button>
+      
+      <!-- DEBUG/TEST BUTTONS for Voice System -->
+      <div style="margin-top: 5px; display: flex; gap: 3px; flex-wrap: wrap;">
+        <button 
+          onclick="emergencyStopAll()"
+          title="Awaryjne zatrzymanie wszystkich systemów"
+          style="background: #ff0000; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🚨 STOP
+        </button>
+        
+        <button 
+          onclick="resetSystem()"
+          title="Reset całego systemu Voice"
+          style="background: #ffa500; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🔄 RESET
+        </button>
+        
+        <button 
+          onclick="testAllFunctions()"
+          title="Test dostępności wszystkich funkcji"
+          style="background: #0088ff; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🧪 TEST
+        </button>
+        
+        <button 
+          onclick="debugVoiceStatus()"
+          title="Wyświetl status wszystkich systemów Voice"
+          style="background: #00ff88; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          📊 DEBUG
+        </button>
+      </div>
     </div>
 
     <!-- Google Agent Widgets - Same structure as Music Player -->
@@ -2534,6 +2569,141 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     }
   }
 
+  // EMERGENCY SYSTEM CONTROLS
+  function emergencyStopAll() {
+    console.log("🚨 EMERGENCY STOP - Zatrzymuję wszystkie systemy");
+    
+    // Stop all voice systems
+    globalVoiceEnabled = false;
+    stopGeminiProVoice();
+    stopGeminiVisionVoice();
+    stopCodeBisonVoice();
+    stopTextBisonVoice();
+    stopBardVoice();
+    stopPaLMVoice();
+    stopVertexVoice();
+    stopAIStudioVoice();
+    
+    // Clear all instances
+    voiceRecognitionInstances = {};
+    
+    // Update global voice button
+    const voiceBtn = document.getElementById("globalVoiceBtn");
+    if (voiceBtn) {
+      voiceBtn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
+      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE OFF</span>';
+    }
+    
+    // Clear all audio contexts
+    if (window.globalAudioContext) {
+      try {
+        window.globalAudioContext.close();
+        window.globalAudioContext = null;
+      } catch (e) {
+        console.log("AudioContext close error:", e);
+      }
+    }
+    
+    console.log("✅ System całkowicie zatrzymany");
+  }
+
+  function resetSystem() {
+    console.log("🔄 RESET SYSTEMU - Restartowanie wszystkich komponentów");
+    
+    // First stop everything
+    emergencyStopAll();
+    
+    // Wait a moment then reinitialize
+    setTimeout(() => {
+      globalVoiceEnabled = false;
+      voiceRecognitionInstances = {};
+      
+      // Reinitialize audio context
+      initializeAudioContext();
+      
+      console.log("✅ System zresetowany i gotowy do użycia");
+    }, 1000);
+  }
+
+  function initializeAudioContext() {
+    if (!window.globalAudioContext) {
+      try {
+        window.globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log("🎵 AudioContext zainicjalizowany");
+      } catch (e) {
+        console.log("❌ Błąd inicjalizacji AudioContext:", e);
+      }
+    }
+  }
+
+  // TEST AND DEBUG FUNCTIONS
+  function testAllFunctions() {
+    console.log("🧪 TESTING ALL FUNCTIONS - Comprehensive Check");
+    
+    const allFunctions = [
+      'sendToGeminiPro', 'clearGeminiPro', 'toggleGeminiPro',
+      'sendToGeminiVision', 'clearGeminiVision', 'toggleGeminiVision',
+      'sendToCodeBison', 'clearCodeBison', 'toggleCodeBison',
+      'sendToTextBison', 'clearTextBison', 'toggleTextBison',
+      'sendToGoogleBard', 'clearGoogleBard', 'toggleGoogleBard',
+      'sendToPaLMAPI', 'clearPaLMAPI', 'togglePaLMAPI',
+      'sendToVertexAI', 'clearVertexAI', 'toggleVertexAI',
+      'sendToAIStudio', 'clearAIStudio', 'toggleAIStudio',
+      'startGeminiProVoice', 'stopGeminiProVoice', 'toggleGeminiProVoice',
+      'startGeminiVisionVoice', 'stopGeminiVisionVoice', 'toggleGeminiVisionVoice',
+      'toggleGlobalVoice', 'emergencyStopAll', 'resetSystem'
+    ];
+    
+    let available = 0;
+    let missing = [];
+    
+    allFunctions.forEach(fn => {
+      if (typeof window[fn] === 'function') {
+        available++;
+      } else {
+        missing.push(fn);
+      }
+    });
+    
+    console.log(`✅ Dostępne funkcje: ${available}/${allFunctions.length}`);
+    if (missing.length > 0) {
+      console.log(`❌ Brakujące funkcje:`, missing);
+    }
+    
+    // Show result in alert for easy viewing
+    const result = `Funkcji dostępnych: ${available}/${allFunctions.length}\n${missing.length > 0 ? 'Brakujące: ' + missing.join(', ') : 'Wszystko OK!'}`;
+    alert(result);
+  }
+
+  function debugVoiceStatus() {
+    console.log("📊 DEBUG VOICE STATUS - Current System State");
+    console.log("Global Voice Enabled:", globalVoiceEnabled);
+    console.log("Voice Recognition Instances:", voiceRecognitionInstances);
+    console.log("Global Audio Context:", window.globalAudioContext?.state || "Not initialized");
+    
+    // Check each voice button status
+    const voiceButtons = [
+      'geminiProVoiceBtn', 'geminiVisionVoiceBtn', 'codeBisonVoiceBtn', 
+      'textBisonVoiceBtn', 'bardVoiceBtn', 'palmVoiceBtn', 'vertexVoiceBtn', 'aiStudioVoiceBtn'
+    ];
+    
+    const buttonStatus = {};
+    voiceButtons.forEach(btnId => {
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        buttonStatus[btnId] = btn.textContent || btn.innerHTML;
+      } else {
+        buttonStatus[btnId] = "Button not found";
+      }
+    });
+    
+    console.log("Voice Button Status:", buttonStatus);
+    
+    // Show summary in alert
+    const summary = `Global Voice: ${globalVoiceEnabled ? 'ON' : 'OFF'}\nActive Instances: ${Object.keys(voiceRecognitionInstances).length}\nAudio Context: ${window.globalAudioContext?.state || 'None'}`;
+    alert(summary);
+  }
+
   // Voice functions for each agent
   function toggleGeminiProVoice() {
     if (voiceRecognitionInstances.geminiPro) {
@@ -3460,8 +3630,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   
   // Global Helper Functions
   window.closeTab = closeTab;
+  
+  // Emergency Control Functions
+  window.emergencyStopAll = emergencyStopAll;
+  window.resetSystem = resetSystem;
+  window.initializeAudioContext = initializeAudioContext;
+  
+  // Test and Debug Functions
+  window.testAllFunctions = testAllFunctions;
+  window.debugVoiceStatus = debugVoiceStatus;
 
-  console.log("✅ All Voice and AI functions exported to global scope");
+  console.log("✅ All Voice, AI, Control and Debug functions exported to global scope");
 </script>
 
 <style>
