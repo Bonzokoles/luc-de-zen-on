@@ -3355,6 +3355,29 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
     }
   }
+
+  // EXPORT VOICE FUNCTIONS TO GLOBAL SCOPE - FIX for onclick handlers
+  // Gemini Pro Voice Functions
+  window.startGeminiProVoice = startGeminiProVoice;
+  window.stopGeminiProVoice = stopGeminiProVoice;
+  window.toggleGeminiProVoice = toggleGeminiProVoice;
+  
+  // Code Bison Voice Functions  
+  window.startCodeBisonVoice = startCodeBisonVoice;
+  window.stopCodeBisonVoice = stopCodeBisonVoice;
+  window.toggleCodeBisonVoice = toggleCodeBisonVoice;
+  
+  // Text Bison Voice Functions
+  window.startTextBisonVoice = startTextBisonVoice;
+  window.stopTextBisonVoice = stopTextBisonVoice;
+  window.toggleTextBisonVoice = toggleTextBisonVoice;
+  
+  // Google Bard Voice Functions (correct function names)
+  window.startGoogleBardVoice = startBardVoice;
+  window.stopGoogleBardVoice = stopBardVoice;
+  window.toggleGoogleBardVoice = toggleBardVoice;
+
+  console.log("✅ Voice functions exported to global scope");
 </script>
 
 <style>
