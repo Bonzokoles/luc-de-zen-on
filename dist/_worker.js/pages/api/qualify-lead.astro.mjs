@@ -28,7 +28,7 @@ const POST = async ({ request }) => {
       });
     }
     const openai = new OpenAI({
-      apiKey: "sk-proj-..."
+      apiKey: undefined                              
     });
     const leadData = {
       name,

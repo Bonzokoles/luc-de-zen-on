@@ -34,11 +34,22 @@ zone_name = "mybonzo.com"
 pattern = "kaggle.polaczek.mybonzo.com/*"
 zone_name = "mybonzo.com"
 
-# KV Storage dla dataset cache - do konfiguracji później
-# [[kv_namespaces]]
-# binding = "KAGGLE_CACHE"
-# id = "kaggle_datasets_cache"
-# preview_id = "kaggle_cache_preview"
+# KV Storage dla dataset cache
+[[kv_namespaces]]
+binding = "KAGGLE_CACHE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+[[kv_namespaces]]
+binding = "DATASET_STORE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+# R2 Buckets binding
+[[r2_buckets]]
+binding = "KAGGLE_STORAGE"
+bucket_name = "mybonzo-storage"
+preview_bucket_name = "mybonzo-storage"
 
 # Environment variables
 [env.production.vars]

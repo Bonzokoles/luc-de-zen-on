@@ -31,7 +31,7 @@ const POST = async ({ request }) => {
     const correctAnswers = userAnswers.filter((answer) => answer.isCorrect).length;
     const score = Math.round(correctAnswers / totalQuestions * 100);
     const openai = new OpenAI({
-      apiKey: "sk-proj-..."
+      apiKey: undefined                              
     });
     const systemMessage = {
       role: "system",

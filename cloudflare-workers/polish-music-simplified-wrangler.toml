@@ -36,3 +36,15 @@ cpu_ms = 10000
 [observability]
 enabled = true
 head_sampling_rate = 0.01
+
+# KV Namespaces bindings
+[[kv_namespaces]]
+binding = "POLISH_MUSIC_CACHE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+# R2 Buckets binding
+[[r2_buckets]]
+binding = "POLISH_MUSIC_STORAGE"
+bucket_name = "mybonzo-storage"
+preview_bucket_name = "mybonzo-storage"
