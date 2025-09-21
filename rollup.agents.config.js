@@ -10,14 +10,14 @@ export default {
     {
       file: 'public/agents-bundle.js',
       format: 'iife',
-      name: 'MyBonzoAgents',
+      name: 'AgentsBundle',
       sourcemap: false,
       exports: 'default'
     },
     {
       file: 'public/agents-bundle.min.js', 
       format: 'iife',
-      name: 'MyBonzoAgents',
+      name: 'AgentsBundle',
       plugins: [terser()],
       sourcemap: false,
       exports: 'default'
@@ -40,7 +40,16 @@ export default {
     typescript({
       declaration: false,
       sourceMap: false,
-      inlineSources: false
+      inlineSources: false,
+      noEmit: true,
+      allowImportingTsExtensions: false,
+      outDir: null,
+      declarationMap: false,
+      exclude: [
+        'src/utils/documentationIndex.js',
+        'src/utils/loadEnv.js', 
+        'src/utils/polaczekKnowledge.js'
+      ]
     })
   ],
   external: [],

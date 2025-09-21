@@ -1,4 +1,4 @@
-var MyBonzoAgents = (function () {
+var AgentsBundle = (function () {
     'use strict';
 
     /**

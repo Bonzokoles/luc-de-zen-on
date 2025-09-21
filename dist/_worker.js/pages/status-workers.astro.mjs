@@ -1,26 +1,10 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
+globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_yZl3yP8D.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_BEflDN07.mjs';
 /* empty css                                          */
-export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$StatusWorkers = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "STATUS WORKERS - Monitoring Dashboard | KAROL LISSON", "data-astro-cid-2ciyz5ox": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-2ciyz5ox> <!-- Header Section --> <section class="border border-edge" data-astro-cid-2ciyz5ox> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-2ciyz5ox> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-2ciyz5ox> <div class="mt-auto" data-astro-cid-2ciyz5ox> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-2ciyz5ox>

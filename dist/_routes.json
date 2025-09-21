@@ -29,14 +29,14 @@
     "/sw.js",
     "/user-picture.jpeg",
     "/voice-assistant-test.js",
+    "/admin/dashboard.html",
+    "/admin/image-generator.html",
     "/assets/ai-tools-icon.svg",
     "/fonts/atkinson-bold.woff",
     "/fonts/atkinson-regular.woff",
     "/fonts/Kenyan-Coffee-Bd.otf",
     "/fonts/Kenyan-Coffee-Rg-It.otf",
     "/fonts/Neuropol.otf",
-    "/admin/dashboard.html",
-    "/admin/image-generator.html",
     "/komponenty/background.js",
     "/komponenty/DO_QUOTES_1.md",
     "/komponenty/DO_QUOTES_2.md",
@@ -45,6 +45,10 @@
     "/scripts/system-buttons.js",
     "/styles/global.css",
     "/images/artists/placeholder.svg",
-    "/posts"
+    "/agents/mybonzo",
+    "/agents/polaczek",
+    "/agents/bielik",
+    "/agents/assistant",
+    "/chat/*"
   ]
 }

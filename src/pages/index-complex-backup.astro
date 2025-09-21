@@ -15,7 +15,21 @@ import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx"
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
-import { Icon } from 'astro-icon/components';
+// Heroicons React components
+import { 
+  MusicalNoteIcon,
+  CpuChipIcon,
+  MicrophoneIcon,
+  SparklesIcon,
+  EyeIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowPathIcon,
+  FolderIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -1101,7 +1115,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         class="right-btn"
         id="musicPlayerBtn"
       >
-        <Icon name="lucide:music" /> MUSIC PLAYER
+        <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget">
         <BackgroundMusicPlayerSimple client:load />
@@ -1115,7 +1129,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
-        <Icon name="lucide:bot" /> AI ASSISTANT
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget">
         <AiHelpAssistant client:load />
@@ -1129,7 +1143,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         id="googleVoiceBtn"
         title="Google Voice Agent do sterowania głosem"
       >
-        <Icon name="lucide:mic" /> GOOGLE VOICE
+        <MicrophoneIcon className="w-6 h-6 inline mr-2" /> GOOGLE VOICE
       </button>
       <div id="googleVoiceWidget" class="floating-widget">
         <GoogleVoiceAgent client:load />
@@ -1138,25 +1152,25 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
     <!-- Individual Google Agent Buttons -->
     <button onclick="openGeminiPro()" class="right-btn" title="Gemini Pro - Zaawansowany model językowy">
-      <Icon name="lucide:sparkles" /> GEMINI PRO
+      <SparklesIcon className="w-6 h-6 inline mr-2" /> GEMINI PRO
     </button>
     <button onclick="openGeminiVision()" class="right-btn" title="Gemini Vision - Analiza obrazów i wizji">
-      <Icon name="lucide:eye" /> GEMINI VISION
+      <EyeIcon className="w-6 h-6 inline mr-2" /> GEMINI VISION
     </button>
     <button onclick="openCodeBison()" class="right-btn" title="Code Bison - Asystent programowania">
-      <Icon name="lucide:code" /> CODE BISON
+      <CodeBracketIcon className="w-6 h-6 inline mr-2" /> CODE BISON
     </button>
     <button onclick="openTextBison()" class="right-btn" title="Text Bison - Generowanie tekstu">
-      <Icon name="lucide:file-text" /> TEXT BISON
+      <DocumentTextIcon className="w-6 h-6 inline mr-2" /> TEXT BISON
     </button>
     <button onclick="openBusinessAssistant()" class="right-btn" title="Business Assistant - Wsparcie biznesowe">
-      <Icon name="lucide:briefcase" /> BUSINESS
+      <BriefcaseIcon className="w-6 h-6 inline mr-2" /> BUSINESS
     </button>
 
-    <button onclick="openMainChat()" class="right-btn"> <Icon name="lucide:message-circle" /> MAIN CHAT </button>
-    <button onclick="openRefresh()" class="right-btn"> <Icon name="lucide:refresh-cw" /> REFRESH </button>
-    <button onclick="openFolder()" class="right-btn"> <Icon name="lucide:folder" /> FOLDER </button>
-    <button onclick="openClose()" class="right-btn"> <Icon name="lucide:x" /> CLOSE </button>
+    <button onclick="openMainChat()" class="right-btn"> <ChatBubbleLeftRightIcon className="w-6 h-6 inline mr-2" /> MAIN CHAT </button>
+    <button onclick="openRefresh()" class="right-btn"> <ArrowPathIcon className="w-6 h-6 inline mr-2" /> REFRESH </button>
+    <button onclick="openFolder()" class="right-btn"> <FolderIcon className="w-6 h-6 inline mr-2" /> FOLDER </button>
+    <button onclick="openClose()" class="right-btn"> <XMarkIcon className="w-6 h-6 inline mr-2" /> CLOSE </button>
   </div>
 
   <!-- Separator Section 4 -->
