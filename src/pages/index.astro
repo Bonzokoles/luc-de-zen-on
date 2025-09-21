@@ -457,48 +457,71 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         
         <!-- Script to connect music player with visualizer -->
         <script>
-          // Ensure music player analyser is available for visualizer
-          function connectMusicToVisualizer() {
-            if (typeof window !== 'undefined' && window.MUSIC) {
-              // Make sure music player has analyser ready
-              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-              const musicElement = document.querySelector('audio');
-              
-              if (musicElement && !window.MUSIC_ANALYSER) {
-                try {
-                  const analyser = audioContext.createAnalyser();
-                  analyser.fftSize = 256;
-                  
-                  const source = audioContext.createMediaElementSource(musicElement);
-                  source.connect(analyser);
-                  analyser.connect(audioContext.destination);
-                  
-                  window.MUSIC_ANALYSER = analyser;
-                  window.dispatchEvent(new CustomEvent('music-analyser-ready'));
-                  console.log('🎵 Music visualizer connected to player');
-                } catch (e) {
-                  console.warn('Failed to connect music visualizer:', e);
-                }
+          // Global audio context management to prevent multiple instances
+          let globalAudioContext = null;
+          let audioContextInitialized = false;
+          
+          function getOrCreateAudioContext() {
+            if (!globalAudioContext && typeof window !== 'undefined') {
+              try {
+                globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                window.GLOBAL_AUDIO_CONTEXT = globalAudioContext;
+                console.log('🎵 Global AudioContext created');
+              } catch (e) {
+                console.warn('🚫 AudioContext creation failed:', e.message);
+                return null;
               }
             }
-            
-            // Retry connection after music player loads
-            setTimeout(connectMusicToVisualizer, 1000);
+            return globalAudioContext;
           }
           
-          // Start connection attempts
-          document.addEventListener('DOMContentLoaded', connectMusicToVisualizer);
-          setTimeout(connectMusicToVisualizer, 500);
+          // Ensure music player analyser is available for visualizer
+          function connectMusicToVisualizer() {
+            if (audioContextInitialized || typeof window === 'undefined') return;
+            
+            try {
+              const audioContext = getOrCreateAudioContext();
+              if (!audioContext) return;
+              
+              const musicElement = document.querySelector('audio');
+              
+              if (musicElement && !window.MUSIC_ANALYSER && window.MUSIC) {
+                const analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                
+                const source = audioContext.createMediaElementSource(musicElement);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+                
+                window.MUSIC_ANALYSER = analyser;
+                window.dispatchEvent(new CustomEvent('music-analyser-ready'));
+                console.log('🎵 Music visualizer connected to player');
+                audioContextInitialized = true;
+              }
+            } catch (e) {
+              console.warn('🚫 Failed to connect music visualizer:', e.message);
+            }
+            
+            // Retry connection only if not initialized yet
+            if (!audioContextInitialized) {
+              setTimeout(connectMusicToVisualizer, 2000);
+            }
+          }
+          
+          // Start connection attempts with delay
+          document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(connectMusicToVisualizer, 1000);
+          });
           
           // Fix audio issue - ensure audio context is resumed on user interaction
           document.addEventListener('click', function resumeAudio() {
-            if (typeof window !== 'undefined' && window.AudioContext) {
-              const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-              if (audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
-                  console.log('🎵 Audio context resumed');
-                });
-              }
+            const audioContext = getOrCreateAudioContext();
+            if (audioContext && audioContext.state === 'suspended') {
+              audioContext.resume().then(() => {
+                console.log('🎵 Audio context resumed on user interaction');
+              }).catch(e => {
+                console.warn('🚫 Failed to resume audio context:', e.message);
+              });
             }
           }, { once: true });
         </script>
