@@ -16,7 +16,22 @@ import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimp
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
-import { Icon } from 'astro-icon/components';
+// Heroicons React components
+import { 
+  MusicalNoteIcon,
+  CpuChipIcon,
+  SparklesIcon,
+  EyeIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  BoltIcon,
+  PaintBrushIcon,
+  BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowPathIcon,
+  FolderIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -1168,7 +1183,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         class="right-btn"
         id="musicPlayerBtn"
       >
-        <Icon name="lucide:music" /> MUSIC PLAYER
+        <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget">
         <BackgroundMusicPlayerSimple client:load />
@@ -1182,7 +1197,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
-        <Icon name="lucide:bot" /> AI ASSISTANT
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget">
         <AiHelpAssistant client:load />
@@ -1239,7 +1254,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     <!-- Google Agent Widgets - Same structure as Music Player -->
     <div class="floating-widget-container">
       <button onclick="toggleGeminiPro()" class="right-btn" id="geminiProBtn" title="Gemini Pro - Zaawansowany model językowy">
-        <Icon name="lucide:sparkles" /> GEMINI PRO
+        <SparklesIcon className="w-6 h-6 inline mr-2" /> GEMINI PRO
       </button>
       <div id="geminiProWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1281,7 +1296,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
     <div class="floating-widget-container">
       <button onclick="toggleGeminiVision()" class="right-btn" id="geminiVisionBtn" title="Gemini Vision - Analiza obrazów i wizji">
-        <Icon name="lucide:eye" /> GEMINI VISION
+        <EyeIcon className="w-6 h-6 inline mr-2" /> GEMINI VISION
       </button>
       <div id="geminiVisionWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1323,7 +1338,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
     <div class="floating-widget-container">
       <button onclick="toggleCodeBison()" class="right-btn" id="codeBisonBtn" title="Code Bison - Asystent programowania">
-        <Icon name="lucide:code" /> CODE BISON
+        <CodeBracketIcon className="w-6 h-6 inline mr-2" /> CODE BISON
       </button>
       <div id="codeBisonWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1365,7 +1380,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
     <div class="floating-widget-container">
       <button onclick="toggleTextBison()" class="right-btn" id="textBisonBtn" title="Text Bison - Generowanie tekstu">
-        <Icon name="lucide:file-text" /> TEXT BISON
+        <DocumentTextIcon className="w-6 h-6 inline mr-2" /> TEXT BISON
       </button>
       <div id="textBisonWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1408,7 +1423,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     <!-- Google Bard Agent -->
     <div class="floating-widget-container">
       <button onclick="toggleGoogleBard()" class="right-btn" id="googleBardBtn" title="Google Bard - Zaawansowany AI Chat">
-        <Icon name="lucide:brain" /> GOOGLE BARD
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> GOOGLE BARD
       </button>
       <div id="googleBardWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1451,7 +1466,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     <!-- PaLM API Agent -->
     <div class="floating-widget-container">
       <button onclick="togglePaLMAPI()" class="right-btn" id="palmAPIBtn" title="PaLM API - Google's Large Language Model">
-        <Icon name="lucide:cpu" /> PALM API
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> PALM API
       </button>
       <div id="palmAPIWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1494,7 +1509,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     <!-- Vertex AI Agent -->
     <div class="floating-widget-container">
       <button onclick="toggleVertexAI()" class="right-btn" id="vertexAIBtn" title="Vertex AI - Google Cloud AI Platform">
-        <Icon name="lucide:zap" /> VERTEX AI
+        <BoltIcon className="w-6 h-6 inline mr-2" /> VERTEX AI
       </button>
       <div id="vertexAIWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1537,7 +1552,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     <!-- Google AI Studio Agent -->
     <div class="floating-widget-container">
       <button onclick="toggleAIStudio()" class="right-btn" id="aiStudioBtn" title="AI Studio - Google's AI Development Platform">
-        <Icon name="lucide:palette" /> AI STUDIO
+        <PaintBrushIcon className="w-6 h-6 inline mr-2" /> AI STUDIO
       </button>
       <div id="aiStudioWidget" class="floating-widget hidden">
         <div class="floating-widget-template">
@@ -1578,13 +1593,13 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     </div>
 
     <button onclick="openBusinessAssistant()" class="right-btn" title="Business Assistant - Wsparcie biznesowe">
-      <Icon name="lucide:briefcase" /> BUSINESS
+      <BriefcaseIcon className="w-6 h-6 inline mr-2" /> BUSINESS
     </button>
 
-    <button onclick="openMainChat()" class="right-btn"> <Icon name="lucide:message-circle" /> MAIN CHAT </button>
-    <button onclick="openRefresh()" class="right-btn"> <Icon name="lucide:refresh-cw" /> REFRESH </button>
-    <button onclick="openFolder()" class="right-btn"> <Icon name="lucide:folder" /> FOLDER </button>
-    <button onclick="openClose()" class="right-btn"> <Icon name="lucide:x" /> CLOSE </button>
+    <button onclick="openMainChat()" class="right-btn"> <ChatBubbleLeftRightIcon className="w-6 h-6 inline mr-2" /> MAIN CHAT </button>
+    <button onclick="openRefresh()" class="right-btn"> <ArrowPathIcon className="w-6 h-6 inline mr-2" /> REFRESH </button>
+    <button onclick="openFolder()" class="right-btn"> <FolderIcon className="w-6 h-6 inline mr-2" /> FOLDER </button>
+    <button onclick="openClose()" class="right-btn"> <XMarkIcon className="w-6 h-6 inline mr-2" /> CLOSE </button>
   </div>
 
   <!-- Separator Section 4 -->

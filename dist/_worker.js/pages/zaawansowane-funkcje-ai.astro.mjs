@@ -1,28 +1,12 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
+globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_Bu6Sz_a-.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_BUeQ2j04.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_CqFNIPY0.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
+import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_CDFI50iS.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_BN1iCHas.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_Cw7HP83S.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_CK37g4ft.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
-const $$Astro = createAstro("https://www.mybonzo.com");
+const $$Astro = createAstro("https://mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ZaawansowaneFunkcjeAi;

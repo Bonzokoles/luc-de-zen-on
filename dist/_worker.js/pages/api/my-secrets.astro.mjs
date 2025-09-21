@@ -1,24 +1,7 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
-import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_DfX9K_yD.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
+globalThis.process ??= {}; globalThis.process.env ??= {};
+import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
-var define_globalThis_process_env_default = {};
 class MySecretsAPI {
   constructor(env, config = {}) {
     this.env = env;
@@ -63,7 +46,7 @@ class MySecretsAPI {
       priority: 3,
       get: async (key) => {
         try {
-          return define_globalThis_process_env_default?.[key] || null;
+          return globalThis.process?.env?.[key] || null;
         } catch (error) {
           console.warn(`❌ ProcessEnvironment error for ${key}:`, error);
           return null;

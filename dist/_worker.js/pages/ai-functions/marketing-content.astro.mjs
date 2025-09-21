@@ -1,27 +1,11 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
+globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B_W4wGYR.mjs';
-import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_Bu6Sz_a-.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_1dOwT_HE.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { M as MarketingContentGenerator } from '../../chunks/MarketingContentGenerator_BN1iCHas.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
 /* empty css                                                */
-export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$MarketingContent = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Generator tre\u015Bci marketingowych | AI Functions | KAROL LISSON", "data-astro-cid-yw4jxik4": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-yw4jxik4": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-yw4jxik4> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-yw4jxik4> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-yw4jxik4></div> <div class="cyber-grid absolute inset-0" data-astro-cid-yw4jxik4></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-yw4jxik4> <div class="max-w-6xl mx-auto px-4 py-8" data-astro-cid-yw4jxik4> <div class="flex items-center justify-between mb-8" data-astro-cid-yw4jxik4> <div data-astro-cid-yw4jxik4> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']" data-astro-cid-yw4jxik4>

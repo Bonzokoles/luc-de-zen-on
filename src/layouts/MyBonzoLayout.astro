@@ -38,8 +38,13 @@ import "../styles/global.css";
 // Background animation and page transitions
 import BgAnimation from "../components/BgAnimation.svelte";
 import PageTransition from "../components/PageTransition.astro";
-// Icon component
-import { Icon } from 'astro-icon/components';
+// Heroicons React components  
+import { 
+  CircleStackIcon,
+  CreditCardIcon,
+  CpuChipIcon,
+  ServerIcon
+} from '@heroicons/react/24/outline';
 // Dock components for UI controls
 import RightDock from "../components/RightDock.astro";
 
@@ -399,7 +404,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="duckdb"
         onclick="openMCPModal('duckdb')"
       >
-        <Icon name="lucide:database" class="mcp-icon" />
+        <CircleStackIcon className="w-6 h-6 mcp-icon" />
         DuckDB
       </button>
       <button
@@ -407,7 +412,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="paypal"
         onclick="openMCPModal('paypal')"
       >
-        <Icon name="lucide:credit-card" class="mcp-icon" />
+        <CreditCardIcon className="w-6 h-6 mcp-icon" />
         PayPal
       </button>
       <button
@@ -415,7 +420,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="huggingface"
         onclick="openMCPModal('huggingface')"
       >
-        <Icon name="lucide:brain" class="mcp-icon" />
+        <CpuChipIcon className="w-6 h-6 mcp-icon" />
         HuggingFace
       </button>
       <button
@@ -423,7 +428,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="memory"
         onclick="openMCPModal('memory')"
       >
-        <Icon name="lucide:hard-drive" class="mcp-icon" />
+        <ServerIcon className="w-6 h-6 mcp-icon" />
         Memory
       </button>
     </div>

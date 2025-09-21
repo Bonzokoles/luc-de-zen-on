@@ -1,25 +1,9 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
+globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
 /* empty css                                          */
-export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$WorkersStatus = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "Workers Status & Store | AI Workers", "data-astro-cid-m36hpddc": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-m36hpddc> <!-- Header Section --> <section class="border border-edge" data-astro-cid-m36hpddc> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-m36hpddc> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-m36hpddc> <div class="mt-auto" data-astro-cid-m36hpddc> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-m36hpddc>
@@ -43,6 +27,7 @@ Bulk Purchase
 📈 Analityka użycia (ostatnie 7 dni)
 </h3> <div class="analytics-grid" data-astro-cid-m36hpddc> <div class="analytics-chart" data-astro-cid-m36hpddc> <h4 data-astro-cid-m36hpddc>Użycie tokenów</h4> <div class="chart-placeholder" data-astro-cid-m36hpddc> <div class="chart-bar" style="height: 60%" data-astro-cid-m36hpddc>Pon</div> <div class="chart-bar" style="height: 80%" data-astro-cid-m36hpddc>Wt</div> <div class="chart-bar" style="height: 45%" data-astro-cid-m36hpddc>Śr</div> <div class="chart-bar" style="height: 90%" data-astro-cid-m36hpddc>Czw</div> <div class="chart-bar" style="height: 70%" data-astro-cid-m36hpddc>Pt</div> <div class="chart-bar" style="height: 30%" data-astro-cid-m36hpddc>Sob</div> <div class="chart-bar" style="height: 25%" data-astro-cid-m36hpddc>Nie</div> </div> </div> <div class="analytics-summary" data-astro-cid-m36hpddc> <h4 data-astro-cid-m36hpddc>Podsumowanie</h4> <div class="summary-stats" data-astro-cid-m36hpddc> <div class="summary-item" data-astro-cid-m36hpddc> <span data-astro-cid-m36hpddc>Najczęściej używany:</span> <span class="highlight" data-astro-cid-m36hpddc>AI Chatbot</span> </div> <div class="summary-item" data-astro-cid-m36hpddc> <span data-astro-cid-m36hpddc>Średni koszt/dzień:</span> <span class="highlight" data-astro-cid-m36hpddc>18.50 PLN</span> </div> <div class="summary-item" data-astro-cid-m36hpddc> <span data-astro-cid-m36hpddc>Całkowite API calls:</span> <span class="highlight" data-astro-cid-m36hpddc>1,847</span> </div> <div class="summary-item" data-astro-cid-m36hpddc> <span data-astro-cid-m36hpddc>Success rate:</span> <span class="highlight success" data-astro-cid-m36hpddc>98.2%</span> </div> </div> </div> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/workers-status.astro?astro&type=script&index=0&lang.ts")}`;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/workers-status.astro", void 0);
+
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/workers-status.astro";
 const $$url = "/workers-status";
 

@@ -1,6 +1,8 @@
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   return [
     { params: { agentId: "mybonzo" } },

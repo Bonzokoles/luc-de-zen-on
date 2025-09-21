@@ -2,6 +2,17 @@
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import DynamicChat from "../../components/DynamicChat.svelte";
 
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return [
+    { params: { agentId: "mybonzo" } },
+    { params: { agentId: "polaczek" } },
+    { params: { agentId: "bielik" } },
+    { params: { agentId: "assistant" } },
+  ];
+}
+
 const { agentId } = Astro.params;
 
 let agent = null;

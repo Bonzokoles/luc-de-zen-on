@@ -1,23 +1,7 @@
-if (typeof MessageChannel === 'undefined') {
-  class __PolyfillPort {
-    constructor(){ this.onmessage = null; }
-    postMessage(data){ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> this.onmessage && this.onmessage(e)); }
-    start(){} close(){}
-  }
-  class MessageChannel {
-    constructor(){
-      this.port1 = new __PolyfillPort();
-      this.port2 = new __PolyfillPort();
-      const dispatch = (target, data)=>{ const e={data}; (typeof queueMicrotask==='function'?queueMicrotask:(f)=>setTimeout(f,0))(()=> target.onmessage && target.onmessage(e)); };
-      this.port1.postMessage = (d)=> dispatch(this.port2, d);
-      this.port2.postMessage = (d)=> dispatch(this.port1, d);
-    }
-  }
-  globalThis.MessageChannel = MessageChannel;
-}
-import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_D3Ir4Seh.mjs';
-import { i as isRemotePath } from '../chunks/path_CwaIWw79.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
+globalThis.process ??= {}; globalThis.process.env ??= {};
+import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_DtOL4QOR.mjs';
+import { i as isRemotePath } from '../chunks/path_Oj0iLohx.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const prerender = false;
 const GET = (ctx) => {
