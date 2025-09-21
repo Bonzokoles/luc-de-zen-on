@@ -23,10 +23,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return createErrorResponse('Message is required', 400);
     }
 
-    // Tymczasowe rozwiązanie - używamy Cloudflare AI jako fallback
+    // Google AI Studio przez Cloudflare AI Gateway zgodnie z INSTR_4
     const runtime = (locals as any)?.runtime;
-    if (!runtime?.env?.AI) {
-      return createErrorResponse('AI service not available', 500);
+    const env = runtime?.env;
+    
+    if (!env?.GOOGLE_AI_STUDIO_TOKEN || !env?.CLOUDFLARE_ACCOUNT_ID || !env?.CLOUDFLARE_AI_GATEWAY_ID) {
+      return createErrorResponse('Google AI Studio configuration missing', 500);
     }
 
     const systemPrompt = language === 'en' 

@@ -72,6 +72,7 @@
     "check": "astro build && tsc",
     "deploy": "wrangler pages deploy ./dist",
     "dev": "npm run build:agents && astro dev",
+    "dev:ai": "node dev-with-ai.mjs",
     "preview": "astro build && wrangler dev",
     "generate-types": "wrangler types",
     "deploy:workflows": "node scripts/deployWorkflows.js",
