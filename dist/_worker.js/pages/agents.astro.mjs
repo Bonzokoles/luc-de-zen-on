@@ -17,8 +17,8 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "AI Agents Dashboard | MyBonzo" }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh bg-black text-white"> <!-- Header --> <section class="border-b border-cyan-500/30"> <div class="max-w-6xl mx-auto p-6"> <h1 class="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent">

@@ -19,7 +19,7 @@ if (typeof MessageChannel === 'undefined') {
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../chunks/CyberpunkButton_DA-Dpp3I.mjs';
 /* empty css                                      */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$AgentsNew = createComponent(async ($$result, $$props, $$slots) => {

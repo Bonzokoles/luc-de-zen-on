@@ -17,15 +17,15 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_Cz5CaHU0.mjs';
-import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_pwNJ2uYL.mjs';
-import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_Dhk4XHtg.mjs';
-import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DbrtUkSA.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_IHPVuQ0I.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_BnrVOgAE.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_l0kxsNgn.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_CWiEw_av.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_ZZEDDkfU.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_yZl3yP8D.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_1dOwT_HE.mjs';
 /* empty css                                              */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 function ImageGeneratorWidget($$renderer) {}
 

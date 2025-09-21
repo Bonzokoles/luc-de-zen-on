@@ -19,8 +19,8 @@ if (typeof MessageChannel === 'undefined') {
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate } from '../../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$Layout } from '../../chunks/Layout_BQaCysfi.mjs';
 import { $ as $$Section } from '../../chunks/Section_D7wUeERK.mjs';
-import { r as renderEntry, g as getCollection } from '../../chunks/_astro_content_CCLtrUZY.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { r as renderEntry, g as getCollection } from '../../chunks/_astro_content_DHdi2QqH.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 async function getStaticPaths() {

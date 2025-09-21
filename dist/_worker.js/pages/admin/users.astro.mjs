@@ -19,7 +19,7 @@ if (typeof MessageChannel === 'undefined') {
 import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_DA-Dpp3I.mjs';
 /* empty css                                    */
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Users = createComponent(async ($$result, $$props, $$slots) => {
   const pageTitle = "Zarz\u0105dzanie u\u017Cytkownikami | MyBonzo Admin";

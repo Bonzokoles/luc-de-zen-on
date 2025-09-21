@@ -18,7 +18,7 @@ if (typeof MessageChannel === 'undefined') {
 /* empty css                                        */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_Si1iL7nJ.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$1 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Funkcja 1" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-3xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">Funkcja 1</h1> <p class="text-cyber-text-dim mt-4">Szczegóły Funkcji 1.</p> <div class="mt-8"> <a class="text-cyber-blue" href="/hub/functions">← Powrót do listy funkcji</a> </div> </section> ` })}`;

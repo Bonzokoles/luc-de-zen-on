@@ -18,7 +18,7 @@ if (typeof MessageChannel === 'undefined') {
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_DA-Dpp3I.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Login = createComponent(async ($$result, $$props, $$slots) => {
   const pageTitle = "Panel Administracyjny MyBonzo";

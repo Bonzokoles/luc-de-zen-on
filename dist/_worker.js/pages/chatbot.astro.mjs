@@ -17,9 +17,9 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
 /* empty css                                   */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Chatbot = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "AI Chatbot | AI Workers", "data-astro-cid-cpe23hkd": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-cpe23hkd> <!-- Chat Settings Panel               <select

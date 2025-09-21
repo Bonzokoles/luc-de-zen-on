@@ -17,9 +17,9 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-import { e as ensure_array_like, a as attr_class, b as escape_html, s as stringify, c as attr } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+import { e as ensure_array_like, a as attr_class, b as escape_html, s as stringify, c as attr } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 /* empty css                                                  */
 import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_1dOwT_HE.mjs';
 

@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { r as renderers } from './chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { r as renderers } from './chunks/_@astro-renderers_CHiEcNgA.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_BPSaKOm2.mjs';
-import { manifest } from './manifest_CCKRMjWD.mjs';
+import { manifest } from './manifest_Hf8kPXC5.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -221,7 +221,7 @@ const _page196 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
 const _page197 = () => import('./pages/zenon-mcp-server.astro.mjs');
 const _page198 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
-    ["node_modules/.pnpm/@astrojs+cloudflare@12.6.8__d03e06fb2d3baa4b7ecf41bd007475ad/node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
+    ["node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
     ["src/pages/admin/ai-chat.astro", _page1],
     ["src/pages/admin/ai-models.astro", _page2],
     ["src/pages/admin/dashboard.astro", _page3],

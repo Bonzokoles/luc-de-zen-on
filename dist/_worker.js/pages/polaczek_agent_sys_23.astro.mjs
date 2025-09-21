@@ -17,10 +17,10 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, aq as renderSlot, m as maybeRenderHead, g as addAttribute } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_1dOwT_HE.mjs';
 /* empty css                                 */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro$1 = createAstro("https://www.mybonzo.com");
 const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {

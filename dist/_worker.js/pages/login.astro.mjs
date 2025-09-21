@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Login = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate``;

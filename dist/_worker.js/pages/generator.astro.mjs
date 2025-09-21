@@ -19,8 +19,8 @@ if (typeof MessageChannel === 'undefined') {
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$Layout } from '../chunks/Layout_BQaCysfi.mjs';
 import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_tYnXk6q8.mjs';
-import { f as reactExports } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { f as reactExports } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 function StableDiffusionGenerator() {
   const [prompt, setPrompt] = reactExports.useState("");

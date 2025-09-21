@@ -18,7 +18,7 @@ if (typeof MessageChannel === 'undefined') {
 /* empty css                                  */
 import { c as createComponent, e as renderHead, b as renderScript, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
 /* empty css                                            */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$SystemDashboard = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl" data-astro-cid-5e72ur2p> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo System Dashboard</title>${renderHead()}</head> <body data-astro-cid-5e72ur2p> <div class="dashboard-container" data-astro-cid-5e72ur2p> <header class="header" data-astro-cid-5e72ur2p> <h1 data-astro-cid-5e72ur2p>🚀 MyBonzo System Dashboard</h1> <p data-astro-cid-5e72ur2p>Zarządzanie i diagnostyka platformy AI</p> </header> <div class="grid" data-astro-cid-5e72ur2p> <!-- System Health Card --> <div class="card" data-astro-cid-5e72ur2p> <h3 data-astro-cid-5e72ur2p><span class="icon" data-astro-cid-5e72ur2p>🏥</span>Zdrowie Systemu</h3> <div id="system-status" data-astro-cid-5e72ur2p> <div class="status-indicator status-loading" data-astro-cid-5e72ur2p></div> <span data-astro-cid-5e72ur2p>Sprawdzanie...</span> </div> <button class="action-btn primary-btn" onclick="runSystemCheck()" data-astro-cid-5e72ur2p>

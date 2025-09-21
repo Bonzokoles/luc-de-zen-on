@@ -16,9 +16,9 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { at as objectType, ax as stringType, aw as arrayType, aD as unionType, av as numberType, au as dateType, aE as recordType, aF as functionType, aG as promiseType, aH as anyType, aI as booleanType, aJ as preprocessType, aK as yellow } from '../chunks/astro/server_xZvTY01m.mjs';
-import { g as getCollection } from '../chunks/_astro_content_CCLtrUZY.mjs';
+import { g as getCollection } from '../chunks/_astro_content_DHdi2QqH.mjs';
 import { S as SiteDescription, s as siteTitle } from '../chunks/site_efiYLszo.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const nameStartChar = ':A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';
 const nameChar = nameStartChar + '\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040';

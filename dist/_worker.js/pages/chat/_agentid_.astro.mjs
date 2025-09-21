@@ -17,9 +17,9 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                     */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-import { b as escape_html, e as ensure_array_like, a as attr_class, s as stringify, c as attr, d as bind_props } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+import { b as escape_html, e as ensure_array_like, a as attr_class, s as stringify, c as attr, d as bind_props } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 /* empty css                                        */
 
 function DynamicChat($$renderer, $$props) {

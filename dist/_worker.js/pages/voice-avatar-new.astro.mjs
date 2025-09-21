@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$VoiceAvatarNew = createComponent(($$result, $$props, $$slots) => {

@@ -15,4 +15,4 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-export { r as renderers } from './chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from './chunks/_@astro-renderers_CHiEcNgA.mjs';
