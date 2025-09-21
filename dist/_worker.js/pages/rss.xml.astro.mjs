@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { at as objectType, ax as stringType, aw as arrayType, aD as unionType, av as numberType, au as dateType, aE as recordType, aF as functionType, aG as promiseType, aH as anyType, aI as booleanType, aJ as preprocessType, aK as yellow } from '../chunks/astro/server_xZvTY01m.mjs';
-import { g as getCollection } from '../chunks/_astro_content_DHdi2QqH.mjs';
+import { g as getCollection } from '../chunks/_astro_content_xfsTmydv.mjs';
 import { S as SiteDescription, s as siteTitle } from '../chunks/site_efiYLszo.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
