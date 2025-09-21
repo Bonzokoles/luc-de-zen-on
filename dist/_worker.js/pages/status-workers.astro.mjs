@@ -17,10 +17,10 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_IHPVuQ0I.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_yZl3yP8D.mjs';
 /* empty css                                          */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$StatusWorkers = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "STATUS WORKERS - Monitoring Dashboard | KAROL LISSON", "data-astro-cid-2ciyz5ox": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-2ciyz5ox> <!-- Header Section --> <section class="border border-edge" data-astro-cid-2ciyz5ox> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-2ciyz5ox> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-2ciyz5ox> <div class="mt-auto" data-astro-cid-2ciyz5ox> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-2ciyz5ox>

@@ -18,7 +18,7 @@ if (typeof MessageChannel === 'undefined') {
 /* empty css                                  */
 import { d as createAstro, c as createComponent, m as maybeRenderHead, g as addAttribute, aq as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_Si1iL7nJ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$HubCard = createComponent(($$result, $$props, $$slots) => {

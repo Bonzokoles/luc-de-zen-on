@@ -17,10 +17,10 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhpsI7E-.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B_W4wGYR.mjs';
 import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_1dOwT_HE.mjs';
 /* empty css                                       */
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$ApiKeys = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "API Keys Management | POLACZEK AGENTS SYS_23", "data-astro-cid-6p45ythe": true }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-6p45ythe": true })}  ${maybeRenderHead()}<div class="workers-vertical-line-left" data-astro-cid-6p45ythe></div> <div class="workers-vertical-line-right" data-astro-cid-6p45ythe></div> <main class="min-h-svh" data-astro-cid-6p45ythe> <!-- Top Separator Section --> <section class="border border-edge relative" data-astro-cid-6p45ythe> <div class="max-w-6xl mx-auto" data-astro-cid-6p45ythe> <div class="py-1" data-astro-cid-6p45ythe></div> </div> </section> <!-- Header Section --> <section class="border border-edge relative" data-astro-cid-6p45ythe> <div class="max-w-6xl mx-auto" data-astro-cid-6p45ythe> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-6p45ythe> <!-- Left corner --> <div class="mt-auto" style="max-width: 45vw;" data-astro-cid-6p45ythe> <div class="text-edge text-sm italic px-2" style="

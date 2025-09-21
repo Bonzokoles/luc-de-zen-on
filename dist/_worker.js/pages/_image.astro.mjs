@@ -15,9 +15,9 @@ if (typeof MessageChannel === 'undefined') {
   }
   globalThis.MessageChannel = MessageChannel;
 }
-import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_-KreuM-h.mjs';
+import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_D3Ir4Seh.mjs';
 import { i as isRemotePath } from '../chunks/path_CwaIWw79.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const prerender = false;
 const GET = (ctx) => {

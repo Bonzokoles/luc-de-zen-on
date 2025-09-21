@@ -19,7 +19,7 @@ if (typeof MessageChannel === 'undefined') {
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
 import { $ as $$Layout } from '../chunks/Layout_BQaCysfi.mjs';
 import { $ as $$Section } from '../chunks/Section_D7wUeERK.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "siteTitle": "Agent Builder 23", "siteDescription": "Uproszczona wersja narz\u0119dzia agent-builder-23", "headerCosmeticText": "AGENT BUILDER" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Section", $$Section, { "class": "min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<div class="max-w-md m-auto text-center"> <h1 class="text-3xl font-bold mb-4">Agent Builder 23</h1> <p class="text-xl mb-6">

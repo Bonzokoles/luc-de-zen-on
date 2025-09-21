@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_DfX9K_yD.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const artistStyles = [
   { "Name": "Aertsen, Pieter", "Prompt": "style of Pieter Aertsen", "Category": "Painting, Oil, Still Life, Portrait, Netherlands, 16th Century", "Type": "Classical" },

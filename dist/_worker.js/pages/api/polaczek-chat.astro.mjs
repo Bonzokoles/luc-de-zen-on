@@ -16,7 +16,7 @@ if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = MessageChannel;
 }
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_DfX9K_yD.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 // Documentation Index for POLACZEK AI Assistant
 // This file maps all available documentation for contextual responses
@@ -510,7 +510,10 @@ const POST = async ({ request, locals }) => {
     });
     const answer = aiResp?.response || aiResp?.result || "Brak odpowiedzi od modelu.";
     return createSuccessResponse({
+      response: answer,
+      // Changed from 'answer' to 'response' for compatibility
       answer,
+      // Keep both for backward compatibility
       modelUsed: modelId,
       persona: "POLACZEK",
       language,

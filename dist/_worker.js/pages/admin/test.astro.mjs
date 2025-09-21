@@ -18,7 +18,7 @@ if (typeof MessageChannel === 'undefined') {
 /* empty css                                     */
 import { d as createAstro, c as createComponent, e as renderHead, a as renderTemplate } from '../../chunks/astro/server_xZvTY01m.mjs';
 /* empty css                                   */
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$Test = createComponent(($$result, $$props, $$slots) => {

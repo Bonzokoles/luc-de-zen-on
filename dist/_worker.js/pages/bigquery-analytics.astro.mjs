@@ -17,9 +17,9 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhpsI7E-.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B_W4wGYR.mjs';
 /* empty css                                              */
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$BigqueryAnalytics = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "BigQuery Analytics | AI Workers", "data-astro-cid-kywjq26w": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-kywjq26w> <!-- Header Section --> <section class="border border-edge" data-astro-cid-kywjq26w> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-kywjq26w> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-kywjq26w> <div class="mt-auto" data-astro-cid-kywjq26w> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-kywjq26w>

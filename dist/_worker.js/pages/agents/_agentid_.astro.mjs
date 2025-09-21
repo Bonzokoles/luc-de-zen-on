@@ -17,8 +17,8 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                     */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, f as defineScriptVars, g as addAttribute, m as maybeRenderHead } from '../../chunks/astro/server_xZvTY01m.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhpsI7E-.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B_W4wGYR.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;

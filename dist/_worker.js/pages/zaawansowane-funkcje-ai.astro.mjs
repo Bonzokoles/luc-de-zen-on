@@ -17,10 +17,10 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_DSLWNQWo.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_Bnh8d4qx.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_NFmk1NKh.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_Bu6Sz_a-.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_BUeQ2j04.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_CqFNIPY0.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {

@@ -17,7 +17,7 @@ if (typeof MessageChannel === 'undefined') {
 }
 /* empty css                                  */
 import { c as createComponent, e as renderHead, a as renderTemplate } from '../chunks/astro/server_xZvTY01m.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_Dp3aPz4Y.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CHiEcNgA.mjs';
 
 const $$Mybonzo = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo AI Assistant</title><meta name="description" content="Twój inteligentny asystent AI">${renderHead()}</head> <body class="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900"> <main class="min-h-screen flex items-center justify-center p-4"> <div class="w-full max-w-4xl"> <h1 class="text-4xl font-bold text-cyan-300 mb-8 text-center">
