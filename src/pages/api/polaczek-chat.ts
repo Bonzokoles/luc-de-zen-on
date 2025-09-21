@@ -3,7 +3,8 @@ import { PolaczekKnowledgeBase } from '../../utils/polaczekKnowledge.js';
 import { findRelevantDocs } from '../../utils/documentationIndex.js';
 
 type ChatBody = {
-    prompt: string;
+    prompt?: string;
+    message?: string;
     model?: string;
     temperature?: number;
     language?: 'pl' | 'auto' | 'en';
@@ -267,11 +268,13 @@ ${context}
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
         const body = (await request.json()) as ChatBody;
-        const { prompt, model = 'qwen', temperature = 0.6, language = 'pl', context } = body;
+        const { prompt, message, model = 'qwen', temperature = 0.6, language = 'pl', context } = body;
         const env: any = locals.runtime?.env;
 
-        if (!prompt || typeof prompt !== 'string') {
-            return createErrorResponse('Pole "prompt" jest wymagane', 400);
+        // Accept both "prompt" and "message" for compatibility
+        const userInput = prompt || message;
+        if (!userInput || typeof userInput !== 'string') {
+            return createErrorResponse('Pole "prompt" lub "message" jest wymagane', 400);
         }
 
         if (!env?.AI) {
@@ -279,7 +282,7 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
         }
 
         // Get enhanced contextual knowledge about MyBonzo based on user query (with documentation)
-        const contextualKnowledge = await getEnhancedContext(prompt);
+        const contextualKnowledge = await getEnhancedContext(userInput);
 
         // Choose appropriate model - prefer Polish-friendly models
         let modelId: string;
@@ -311,7 +314,7 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
 
         const messages = [
             { role: 'system', content: systemPrompt },
-            { role: 'user', content: prompt },
+            { role: 'user', content: userInput },
         ];
 
         // Workers AI z AI Gateway zgodnie z INSTR_5
@@ -329,7 +332,8 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
         const answer: string = aiResp?.response || aiResp?.result || 'Brak odpowiedzi od modelu.';
 
         return createSuccessResponse({
-            answer,
+            response: answer,  // Changed from 'answer' to 'response' for compatibility
+            answer,           // Keep both for backward compatibility
             modelUsed: modelId,
             persona: 'POLACZEK',
             language: language,
