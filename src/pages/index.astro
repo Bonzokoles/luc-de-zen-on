@@ -2730,17 +2730,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     response.innerHTML = "🔄 Wysyłanie do Gemini Pro...";
     
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/gemini-pro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: input.value,
-          model: "gemini-pro"
+          language: "pl"
         })
       });
       
       const data = await res.json();
-      response.innerHTML = `<strong>Gemini Pro:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+      response.innerHTML = `<strong>Gemini Pro:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
     } catch (error) {
       response.innerHTML = `❌ Błąd: ${error.message}`;
     }
@@ -2756,17 +2756,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     response.innerHTML = "🔄 Wysyłanie do Gemini Vision...";
     
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/gemini-pro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: input.value,
-          model: "gemini-vision"
+          message: input.value + " [VISION REQUEST]",
+          language: "pl"
         })
       });
       
       const data = await res.json();
-      response.innerHTML = `<strong>Gemini Vision:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+      response.innerHTML = `<strong>Gemini Vision:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
     } catch (error) {
       response.innerHTML = `❌ Błąd: ${error.message}`;
     }
@@ -2782,17 +2782,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     response.innerHTML = "🔄 Wysyłanie do Code Bison...";
     
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/code-bison", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: input.value,
-          model: "code-bison"
+          language: "pl"
         })
       });
       
       const data = await res.json();
-      response.innerHTML = `<strong>Code Bison:</strong><br><pre>${data.response || data.message || "Błąd odpowiedzi"}</pre>`;
+      response.innerHTML = `<strong>Code Bison:</strong><br><pre>${data.data?.response || data.response || "Błąd odpowiedzi"}</pre>`;
     } catch (error) {
       response.innerHTML = `❌ Błąd: ${error.message}`;
     }
@@ -2808,17 +2808,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     response.innerHTML = "🔄 Wysyłanie do Text Bison...";
     
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/text-bison", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: input.value,
-          model: "text-bison"
+          language: "pl"
         })
       });
       
       const data = await res.json();
-      response.innerHTML = `<strong>Text Bison:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+      response.innerHTML = `<strong>Text Bison:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
     } catch (error) {
       response.innerHTML = `❌ Błąd: ${error.message}`;
     }
@@ -3135,17 +3135,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     response.innerHTML = "🔄 Wysyłanie do Google Bard...";
     
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/google-bard", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: input.value,
-          model: "google-bard"
+          language: "pl"
         })
       });
       
       const data = await res.json();
-      response.innerHTML = `<strong>Google Bard:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+      response.innerHTML = `<strong>Google Bard:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
     } catch (error) {
       response.innerHTML = `❌ Błąd: ${error.message}`;
     }
