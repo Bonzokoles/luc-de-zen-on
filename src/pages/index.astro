@@ -3413,7 +3413,55 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   window.stopAIStudioVoice = stopAIStudioVoice;
   window.toggleAIStudioVoice = toggleAIStudioVoice;
 
-  console.log("✅ Voice functions exported to global scope");
+  // EXPORT ALL MAIN AI FUNCTIONS TO GLOBAL SCOPE - FIX for onclick handlers
+  
+  // Gemini Pro Functions
+  window.sendToGeminiPro = sendToGeminiPro;
+  window.clearGeminiPro = clearGeminiPro;
+  
+  // Gemini Vision Functions
+  window.sendToGeminiVision = sendToGeminiVision;
+  window.clearGeminiVision = clearGeminiVision;
+  
+  // Code Bison Functions
+  window.sendToCodeBison = sendToCodeBison;
+  window.clearCodeBison = clearCodeBison;
+  
+  // Text Bison Functions
+  window.sendToTextBison = sendToTextBison;
+  window.clearTextBison = clearTextBison;
+  
+  // Google Bard Functions (correct function names)
+  window.sendToGoogleBard = sendToGoogleBard;
+  window.clearGoogleBard = clearGoogleBard;
+  window.toggleGoogleBard = toggleGoogleBard;
+  
+  // PaLM Functions (correct function names)
+  window.sendToPaLMAPI = sendToPaLMAPI;
+  window.clearPaLMAPI = clearPaLMAPI;
+  
+  // Vertex Functions (correct function names)
+  window.sendToVertexAI = sendToVertexAI;
+  window.clearVertexAI = clearVertexAI;
+  
+  // AI Studio Functions
+  window.sendToAIStudio = sendToAIStudio;
+  window.clearAIStudio = clearAIStudio;
+  
+  // Toggle Functions for Floating Buttons
+  window.toggleGeminiPro = toggleGeminiPro;
+  window.toggleGeminiVision = toggleGeminiVision;
+  window.toggleCodeBison = toggleCodeBison;
+  window.toggleTextBison = toggleTextBison;
+  window.toggleGoogleBard = toggleGoogleBard;
+  window.togglePaLMAPI = togglePaLMAPI;
+  window.toggleVertexAI = toggleVertexAI;
+  window.toggleAIStudio = toggleAIStudio;
+  
+  // Global Helper Functions
+  window.closeTab = closeTab;
+
+  console.log("✅ All Voice and AI functions exported to global scope");
 </script>
 
 <style>
