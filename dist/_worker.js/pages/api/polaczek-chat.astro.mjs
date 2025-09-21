@@ -460,15 +460,16 @@ ${context}
 const POST = async ({ request, locals }) => {
   try {
     const body = await request.json();
-    const { prompt, model = "qwen", temperature = 0.6, language = "pl", context } = body;
+    const { prompt, message, model = "qwen", temperature = 0.6, language = "pl", context } = body;
     const env = locals.runtime?.env;
-    if (!prompt || typeof prompt !== "string") {
-      return createErrorResponse('Pole "prompt" jest wymagane', 400);
+    const userInput = prompt || message;
+    if (!userInput || typeof userInput !== "string") {
+      return createErrorResponse('Pole "prompt" lub "message" jest wymagane', 400);
     }
     if (!env?.AI) {
       return createErrorResponse("Cloudflare AI nie jest dostępny w środowisku", 500);
     }
-    const contextualKnowledge = await getEnhancedContext(prompt);
+    const contextualKnowledge = await getEnhancedContext(userInput);
     let modelId;
     if (model.startsWith("@cf/")) {
       modelId = model;
@@ -495,7 +496,7 @@ const POST = async ({ request, locals }) => {
     const systemPrompt = buildSystemPrompt(language, contextualKnowledge);
     const messages = [
       { role: "system", content: systemPrompt },
-      { role: "user", content: prompt }
+      { role: "user", content: userInput }
     ];
     const aiResp = await env.AI.run(modelId, {
       messages,
