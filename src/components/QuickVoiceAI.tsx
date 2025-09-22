@@ -1,5 +1,5 @@
 import React from 'react';
-// import VoiceAvatarComponent from './voice-ai/VoiceAvatarComponent';
+import { VoiceAIComponent } from './voice-ai/VoiceAIComponent';
 
 interface QuickVoiceAIProps {
   variant?: 'hero' | 'compact' | 'floating';
@@ -8,7 +8,7 @@ interface QuickVoiceAIProps {
 export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps) {
   return (
     <div className="quick-voice-ai">
-      <p>Voice AI temporarily disabled</p>
+      <VoiceAIComponent variant={variant} />
     </div>
   );
 }
