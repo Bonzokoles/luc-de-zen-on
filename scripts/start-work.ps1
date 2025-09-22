@@ -14,7 +14,8 @@ if (-not $branchExists) {
     Write-Host "Tworzę branch mybonzo_zoo..." -ForegroundColor Yellow
     git checkout -b mybonzo_zoo
     git push -u origin mybonzo_zoo
-} else {
+}
+else {
     git checkout mybonzo_zoo
     git pull origin mybonzo_zoo
 }
