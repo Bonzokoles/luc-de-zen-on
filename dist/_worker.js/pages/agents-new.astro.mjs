@@ -1,11 +1,11 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../chunks/CyberpunkButton_o33dOkfg.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../chunks/CyberpunkButton_BsyRwZt1.mjs';
 /* empty css                                      */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro("https://www.mybonzo.com");
 const $$AgentsNew = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$AgentsNew;

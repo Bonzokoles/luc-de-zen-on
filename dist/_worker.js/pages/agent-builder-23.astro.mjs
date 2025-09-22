@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_tjJeb2dm.mjs';
-import { $ as $$Section } from '../chunks/Section_bC1VUfUh.mjs';
+import { $ as $$Layout } from '../chunks/Layout_CuqLrlqZ.mjs';
+import { $ as $$Section } from '../chunks/Section_wMU8ID4U.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {

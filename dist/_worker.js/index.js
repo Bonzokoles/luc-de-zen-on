@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { r as renderers } from './chunks/_@astro-renderers_DzCkhAcZ.mjs';
-import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_DoMLFR9N.mjs';
-import { manifest } from './manifest_DC6JgAjV.mjs';
+import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_C4rFPbqr.mjs';
+import { manifest } from './manifest_B8eALZW6.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -200,10 +200,11 @@ const _page191 = () => import('./pages/voice-avatar-new.astro.mjs');
 const _page192 = () => import('./pages/wildcards.astro.mjs');
 const _page193 = () => import('./pages/workers-status.astro.mjs');
 const _page194 = () => import('./pages/workers-status-test.astro.mjs');
-const _page195 = () => import('./pages/zaawansowane-funkcje-ai.astro.mjs');
-const _page196 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
-const _page197 = () => import('./pages/zenon-mcp-server.astro.mjs');
-const _page198 = () => import('./pages/index.astro.mjs');
+const _page195 = () => import('./pages/www.astro.mjs');
+const _page196 = () => import('./pages/zaawansowane-funkcje-ai.astro.mjs');
+const _page197 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
+const _page198 = () => import('./pages/zenon-mcp-server.astro.mjs');
+const _page199 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
     ["src/pages/admin/ai-chat.astro", _page1],
@@ -400,10 +401,11 @@ const pageMap = new Map([
     ["src/pages/wildcards.astro", _page192],
     ["src/pages/workers-status.astro", _page193],
     ["src/pages/workers-status-test.astro", _page194],
-    ["src/pages/zaawansowane-funkcje-ai.astro", _page195],
-    ["src/pages/zaawansowane-funkcje-ai-new.astro", _page196],
-    ["src/pages/zenon-mcp-server.astro", _page197],
-    ["src/pages/index.astro", _page198]
+    ["src/pages/www.astro", _page195],
+    ["src/pages/zaawansowane-funkcje-ai.astro", _page196],
+    ["src/pages/zaawansowane-funkcje-ai-new.astro", _page197],
+    ["src/pages/zenon-mcp-server.astro", _page198],
+    ["src/pages/index.astro", _page199]
 ]);
 
 const _manifest = Object.assign(manifest, {

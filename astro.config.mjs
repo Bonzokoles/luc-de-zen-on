@@ -6,7 +6,7 @@ import svelte from '@astrojs/svelte';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://mybonzo.com',
+  site: 'https://www.mybonzo.com',
   output: 'server',
   adapter: cloudflare({
     platformProxy: {

@@ -1,12 +1,12 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, an as renderSlot, m as maybeRenderHead, g as addAttribute } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_CxYxxMc2.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DdWhmxse.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                 */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
-const $$Astro$1 = createAstro("https://mybonzo.com");
+const $$Astro$1 = createAstro("https://www.mybonzo.com");
 const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$CyberpunkButton;
@@ -35,7 +35,7 @@ const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Tag", Tag, { "href": href, "type": type, "disabled": disabled, "onclick": onclick, "class": `cyberpunk-btn ${variantClasses[variant]} ${sizeClasses[size]} ${className}`, "data-astro-cid-kv7rg66x": true }, { "default": ($$result2) => renderTemplate`${icon && renderTemplate`${maybeRenderHead()}<span class="btn-icon" data-astro-cid-kv7rg66x>${icon}</span>`}${renderSlot($$result2, $$slots["default"])} ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/components/CyberpunkButton.astro?astro&type=script&index=0&lang.ts")}`;
 }, "Q:/mybonzo/mybonzo-github/src/components/CyberpunkButton.astro", void 0);
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro("https://www.mybonzo.com");
 const $$CyberStatCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$CyberStatCard;
