@@ -57,6 +57,58 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
     }
   };
 
+  // Agent AI Response - automatyczne odpowiadanie głosem
+  const handleAIResponse = async (userMessage: string) => {
+    try {
+      setTranscript(prev => `${prev}\n🤖 Agent myśli...`);
+      
+      const response = await fetch('/api/ai/advanced-chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userMessage,
+          language: 'pl-PL',
+          context: 'mybonzo-voice-chat',
+          features: ['speech', 'voice-response']
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const aiResponse = data.response;
+        
+        setTranscript(prev => `${prev.replace('🤖 Agent myśli...', '')}\n🤖 Agent: ${aiResponse}`);
+        
+        // AUTOMATYCZNIE ODTWÓRZ ODPOWIEDŹ GŁOSEM
+        await speakResponse(aiResponse);
+      } else {
+        setTranscript(prev => `${prev.replace('🤖 Agent myśli...', '')}\n❌ Agent nie odpowiedział`);
+      }
+    } catch (error) {
+      console.error('AI Response Error:', error);
+      setTranscript(prev => `${prev.replace('🤖 Agent myśli...', '')}\n❌ Błąd AI`);
+    }
+  };
+
+  // Text-to-Speech - agent odpowiada głosem
+  const speakResponse = async (text: string) => {
+    try {
+      console.log('🔊 Agent odpowiada głosem:', text);
+      
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'pl-PL';
+        utterance.rate = 0.9;
+        utterance.pitch = 1.1;
+        utterance.volume = 0.8;
+        
+        speechSynthesis.speak(utterance);
+      }
+    } catch (error) {
+      console.error('TTS Error:', error);
+    }
+  };
+
   const processAudio = async (audioBlob: Blob) => {
     try {
       // Tutaj będzie integracja z Cloudflare AI
@@ -70,7 +122,13 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
       
       if (response.ok) {
         const result = await response.json();
-        setTranscript(result.transcript || 'Nie rozpoznano mowy');
+        const userMessage = result.transcript || 'Nie rozpoznano mowy';
+        setTranscript(`Ty: ${userMessage}`);
+        
+        // DODAJEMY AI RESPONSE - Agent odpowiada automatycznie!
+        if (userMessage && userMessage !== 'Nie rozpoznano mowy') {
+          await handleAIResponse(userMessage);
+        }
       } else {
         setTranscript('❌ Błąd przetwarzania');
       }
