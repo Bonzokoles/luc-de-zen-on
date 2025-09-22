@@ -457,7 +457,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
               />
             </div>
             
-            <!-- Front layer: reacts to Avatar (mic) -->
+            <!-- Front layer: reacts to AI Assistant Voice Response -->
             <div 
               style="
                 position:absolute; 
@@ -466,15 +466,17 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
                 width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
                 max-width: 1212px;
                 height: 120px;
-                opacity: 0.8;
+                opacity: 0.9;
                 pointer-events:none;
+                z-index: 10;
               "
             >
               <EdgeAudioVisualizer
                 client:only="react"
                 height={120}
-                source="mic"
-                variant="mic"
+                source="ai-voice"
+                variant="ai-assistant"
+                color="#00d7ef"
               />
             </div>
           </div>

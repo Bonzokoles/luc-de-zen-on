@@ -6,15 +6,17 @@ import React, { useEffect, useRef } from 'react';
 
 export interface EdgeAudioVisualizerProps {
     height?: number; // canvas height in px
-    source?: 'auto' | 'music' | 'mic'; // which analyser to follow
-    variant?: 'edge' | 'music' | 'mic'; // color styling
+    source?: 'auto' | 'music' | 'mic' | 'ai-voice'; // which analyser to follow
+    variant?: 'edge' | 'music' | 'mic' | 'ai-assistant'; // color styling  
+    color?: string; // custom color for ai-assistant
 }
 
-export default function EdgeAudioVisualizer({ height = 120, source = 'auto', variant = 'edge' }: EdgeAudioVisualizerProps) {
+export default function EdgeAudioVisualizer({ height = 120, source = 'auto', variant = 'edge', color }: EdgeAudioVisualizerProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const rafRef = useRef<number | null>(null);
     const analyserRef = useRef<AnalyserNode | null>(null);
     const freqDataRef = useRef<Uint8Array | null>(null);
+    const aiVoiceActiveRef = useRef<boolean>(false);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -31,13 +33,32 @@ export default function EdgeAudioVisualizer({ height = 120, source = 'auto', var
         resize();
 
         let t = 0;
+        
+        // Listen for AI voice events (tylko dla ai-voice source)
+        const handleAIVoiceStart = () => {
+            if (source === 'ai-voice') {
+                aiVoiceActiveRef.current = true;
+            }
+        };
+        const handleAIVoiceEnd = () => {
+            if (source === 'ai-voice') {
+                aiVoiceActiveRef.current = false;
+            }
+        };
+        
+        if (source === 'ai-voice') {
+            window.addEventListener('ai-voice-start', handleAIVoiceStart);
+            window.addEventListener('ai-voice-end', handleAIVoiceEnd);
+        }
 
         function pickAnalyser(): AnalyserNode | null {
             const anyWin = window as any;
             const musicA: AnalyserNode | null = anyWin.MUSIC_ANALYSER || (anyWin.MUSIC && anyWin.MUSIC.getAnalyser && anyWin.MUSIC.getAnalyser());
             const micA: AnalyserNode | null = anyWin.MIC_ANALYSER || null;
+            const aiA: AnalyserNode | null = anyWin.AI_VOICE_ANALYSER || null;
             if (source === 'music') return musicA;
             if (source === 'mic') return micA;
+            if (source === 'ai-voice') return aiA;
             // auto: prefer music, else mic
             return musicA || micA;
         }
@@ -80,6 +101,9 @@ export default function EdgeAudioVisualizer({ height = 120, source = 'auto', var
             } else if (variant === 'mic') {
                 c1 = '#00e7ff';
                 c2 = edgeBase;
+            } else if (variant === 'ai-assistant') {
+                c1 = color || '#00d7ef';
+                c2 = '#0097b2'; // AI accent color
             }
 
             const analyser = analyserRef.current;
@@ -95,6 +119,10 @@ export default function EdgeAudioVisualizer({ height = 120, source = 'auto', var
                     const v = freqData[Math.min(idx, freqData.length - 1)] / 255; // 0..1
                     const emphasis = Math.pow(v, 0.85);
                     barH = Math.max(2, emphasis * h * 0.9);
+                } else if (source === 'ai-voice' && aiVoiceActiveRef.current) {
+                    // AI is speaking - enhanced pulse pattern
+                    const speakingPattern = 0.3 + 0.4 * Math.sin(t * 2 + i * 0.5) + 0.2 * Math.sin(t * 3 + i * 0.7);
+                    barH = Math.max(8, speakingPattern * h * 0.7);
                 } else {
                     // Idle pulse pattern fallback
                     const base = 0.08 + 0.06 * Math.sin(t + i * 0.35);
@@ -125,6 +153,10 @@ export default function EdgeAudioVisualizer({ height = 120, source = 'auto', var
             window.removeEventListener('resize', onResize);
             window.removeEventListener('music-analyser-ready', tryAttachAnalyser);
             window.removeEventListener('mic-analyser-ready', tryAttachAnalyser);
+            if (source === 'ai-voice') {
+                window.removeEventListener('ai-voice-start', handleAIVoiceStart);
+                window.removeEventListener('ai-voice-end', handleAIVoiceEnd);
+            }
         };
     }, [height, source, variant]);
 
