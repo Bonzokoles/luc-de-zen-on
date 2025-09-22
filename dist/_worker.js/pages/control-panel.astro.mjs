@@ -7,7 +7,7 @@ const $$Astro = createAstro("https://mybonzo.com");
 const $$ControlPanel = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ControlPanel;
-  return renderTemplate`<html lang="pl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo Control Panel</title>${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/control-panel.astro?astro&type=script&index=0&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/control-panel.astro?astro&type=script&index=1&lang.ts")}${renderHead()}</head> <body class="bg-gray-900 text-white min-h-screen"> <div id="app" class="container mx-auto p-6"> <!-- Header --> <header class="mb-8"> <div class="flex items-center justify-between"> <div> <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+  return renderTemplate`<html lang="pl"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyBonzo Control Panel</title>${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/control-panel.astro?astro&type=script&index=0&lang.ts")}${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/control-panel.astro?astro&type=script&index=1&lang.ts")}${renderHead()}</head> <body class="bg-gray-900 text-white min-h-screen"> <div id="app" class="container mx-auto p-6"> <!-- Header --> <header class="mb-8"> <div class="flex items-center justify-between"> <div> <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
 🚀 MyBonzo Control Panel
 </h1> <p class="text-gray-400 mt-2">Zarządzanie aplikacją i deploymentami</p> </div> <div class="flex items-center gap-4"> <div class="flex items-center gap-2"> <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div> <span class="text-green-400">System Online</span> </div> <div class="text-gray-400 text-sm">
 Ostatnia aktualizacja: <span id="lastUpdated"></span> </div> </div> </div> </header> <!-- Quick Status Cards --> <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"> <div class="bg-gray-800 rounded-lg p-6 border border-gray-700"> <div class="flex items-center gap-3"> <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
@@ -55,10 +55,10 @@ Ostatnie sprawdzenie: <span id="lastHealthCheck">Nigdy</span> </div> </div> </di
 🗑️ Wyczyść
 </button> <button onclick="toggleAutoScroll()" id="autoScrollBtn" class="bg-blue-600 hover:bg-blue-500 px-3 py-1 rounded text-sm transition-colors">
 📜 Auto-scroll
-</button> </div> </div> <div id="consoleOutput" class="bg-black rounded p-4 h-64 overflow-y-auto font-mono text-sm"> <div class="text-green-400">[12:34:56] MyBonzo Control Panel zainicjalizowany</div> <div class="text-blue-400">[12:34:57] Łączenie z usługami backend...</div> <div class="text-green-400">[12:34:58] Wszystkie systemy online ✓</div> </div> </div> </div> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/control-panel.astro?astro&type=script&index=2&lang.ts")} </body> </html>`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/control-panel.astro", void 0);
+</button> </div> </div> <div id="consoleOutput" class="bg-black rounded p-4 h-64 overflow-y-auto font-mono text-sm"> <div class="text-green-400">[12:34:56] MyBonzo Control Panel zainicjalizowany</div> <div class="text-blue-400">[12:34:57] Łączenie z usługami backend...</div> <div class="text-green-400">[12:34:58] Wszystkie systemy online ✓</div> </div> </div> </div> ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/control-panel.astro?astro&type=script&index=2&lang.ts")} </body> </html>`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/control-panel.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/control-panel.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/control-panel.astro";
 const $$url = "/control-panel";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

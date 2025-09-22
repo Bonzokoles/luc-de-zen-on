@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_BEflDN07.mjs';
 /* empty css                                          */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
@@ -23,7 +23,7 @@ Kompleksowy system monitorowania statusu wszystkich Cloudflare
 Odśwież
 </button> <button onclick="exportData()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm" data-astro-cid-2ciyz5ox>
 Eksport
-</button> </div> </div> <!-- Full Dashboard --> <div class="p-6" data-astro-cid-2ciyz5ox> ${renderComponent($$result2, "WorkersStatusDashboard", WorkersStatusDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/WorkersStatusDashboard.svelte", "client:component-export": "default", "data-astro-cid-2ciyz5ox": true })} </div> </div> <!-- Additional Information Section --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-astro-cid-2ciyz5ox> <!-- Monitoring Features --> <div class="bg-black/40 border border-[#00d7ef]/20 p-6" data-astro-cid-2ciyz5ox> <h3 class="text-xl font-bold text-[#00d7ef] mb-4" data-astro-cid-2ciyz5ox>
+</button> </div> </div> <!-- Full Dashboard --> <div class="p-6" data-astro-cid-2ciyz5ox> ${renderComponent($$result2, "WorkersStatusDashboard", WorkersStatusDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/WorkersStatusDashboard.svelte", "client:component-export": "default", "data-astro-cid-2ciyz5ox": true })} </div> </div> <!-- Additional Information Section --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-astro-cid-2ciyz5ox> <!-- Monitoring Features --> <div class="bg-black/40 border border-[#00d7ef]/20 p-6" data-astro-cid-2ciyz5ox> <h3 class="text-xl font-bold text-[#00d7ef] mb-4" data-astro-cid-2ciyz5ox>
 📊 Funkcje Monitorowania
 </h3> <ul class="space-y-2 text-gray-300" data-astro-cid-2ciyz5ox> <li data-astro-cid-2ciyz5ox>• Status wszystkich Workers w czasie rzeczywistym</li> <li data-astro-cid-2ciyz5ox>• Monitoring API endpoints i połączeń</li> <li data-astro-cid-2ciyz5ox>• Wykrywanie błędów i anomalii</li> <li data-astro-cid-2ciyz5ox>• Historia aktywności i logów</li> <li data-astro-cid-2ciyz5ox>• Alerty o nieprawidłowościach</li> </ul> </div> <!-- Performance Metrics --> <div class="bg-black/40 border border-[#00d7ef]/20 p-6" data-astro-cid-2ciyz5ox> <h3 class="text-xl font-bold text-[#00d7ef] mb-4" data-astro-cid-2ciyz5ox>
 ⚡ Metryki Wydajności
@@ -79,10 +79,10 @@ System monitorowania STATUS WORKERS zapewnia pełną kontrolę nad
 AI Workers Manager →
 </a> <a href="/api-demo" class="hover:brightness-125 duration-200 text-[#00d7ef]" data-astro-cid-2ciyz5ox>
 API Demo →
-</a> </div> </div> </div> </section> </main> ` })} ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/status-workers.astro?astro&type=script&index=0&lang.ts")} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/status-workers.astro", void 0);
+</a> </div> </div> </div> </section> </main> ` })} ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/status-workers.astro?astro&type=script&index=0&lang.ts")} `;
+}, "Q:/mybonzo/mybonzo-github/src/pages/status-workers.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/status-workers.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/status-workers.astro";
 const $$url = "/status-workers";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

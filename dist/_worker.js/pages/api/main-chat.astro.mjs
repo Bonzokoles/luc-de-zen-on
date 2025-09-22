@@ -51,9 +51,9 @@ const ALL = async ({ request }) => {
 };
 const $$MainChat = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/api/main-chat.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/api/main-chat.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api/main-chat.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/api/main-chat.astro";
 const $$url = "/api/main-chat";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

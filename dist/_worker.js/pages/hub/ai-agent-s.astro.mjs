@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                         */
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -21,10 +21,10 @@ Examples:
 </li> <li data-astro-cid-ab2dfuya> <strong data-astro-cid-ab2dfuya>Technical Expertise:</strong> Deep domain knowledge
 </li> </ul> <p class="instruction" data-astro-cid-ab2dfuya>
 Enter a prompt above to see advanced AI analysis in action.
-</p> </div> </div> </div> </div> </div> </main>  ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/hub/ai-agent-s.astro?astro&type=script&index=0&lang.ts")} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/hub/ai-agent-s.astro", void 0);
+</p> </div> </div> </div> </div> </div> </main>  ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/hub/ai-agent-s.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/hub/ai-agent-s.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/hub/ai-agent-s.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/hub/ai-agent-s.astro";
 const $$url = "/hub/ai-agent-s";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

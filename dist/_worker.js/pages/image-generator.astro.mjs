@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                           */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -12,10 +12,10 @@ Podaj opis i wybierz parametry. Otrzymasz PNG bezpośrednio z serwera.
 Wygenerowany obraz
 </h3> <div class="border border-edge rounded-lg p-3" style="background: rgba(0,0,0,0.5);" data-astro-cid-rs35j4zi> <img id="generatedImage" class="w-full rounded mb-3" alt="Wygenerowany obraz" data-astro-cid-rs35j4zi> <div class="flex gap-2 flex-wrap" data-astro-cid-rs35j4zi> <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm" onclick="downloadImage()" data-astro-cid-rs35j4zi>💾 Pobierz</button> <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm" onclick="shareImage()" data-astro-cid-rs35j4zi>📤 Udostępnij</button> <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm" onclick="generateVariation()" data-astro-cid-rs35j4zi>🔄 Wariacja</button> </div> </div> </div> </div> <!-- History --> <div class="mt-8" data-astro-cid-rs35j4zi> <h3 class="text-xl font-semibold mb-3 text-primary-foreground" data-astro-cid-rs35j4zi>
 Historia
-</h3> <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4" data-astro-cid-rs35j4zi></div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/image-generator.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/image-generator.astro", void 0);
+</h3> <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4" data-astro-cid-rs35j4zi></div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/image-generator.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/image-generator.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/image-generator.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/image-generator.astro";
 const $$url = "/image-generator";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

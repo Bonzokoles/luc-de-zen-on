@@ -5,9 +5,9 @@ export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$StreamlineIconsDemo = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/streamline-icons-demo.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/streamline-icons-demo.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/streamline-icons-demo.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/streamline-icons-demo.astro";
 const $$url = "/streamline-icons-demo";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

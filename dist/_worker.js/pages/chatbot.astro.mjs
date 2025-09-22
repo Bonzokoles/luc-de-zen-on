@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                   */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -55,10 +55,10 @@ Szybkie akcje:
 Ustawienia czatu:
 </h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-astro-cid-cpe23hkd> <div data-astro-cid-cpe23hkd> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-cpe23hkd>Model AI:</label> <select id="aiModel" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-cpe23hkd> <option value="gpt-4" data-astro-cid-cpe23hkd>GPT-4 (Zalecany)</option> <option value="gpt-3.5-turbo" data-astro-cid-cpe23hkd>GPT-3.5 Turbo</option> <option value="claude" data-astro-cid-cpe23hkd>Claude</option> <option value="bielik" data-astro-cid-cpe23hkd>Bielik</option> </select> </div> <div data-astro-cid-cpe23hkd> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-cpe23hkd>Temperatura:</label> <select id="temperature" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-cpe23hkd> <option value="0.1" data-astro-cid-cpe23hkd>Precyzyjny (0.1)</option> <option value="0.7" selected data-astro-cid-cpe23hkd>Zbalansowany (0.7)</option> <option value="1.0" data-astro-cid-cpe23hkd>Kreatywny (1.0)</option> </select> </div> <div data-astro-cid-cpe23hkd> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-cpe23hkd>Język:</label> <select id="language" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground" data-astro-cid-cpe23hkd> <option value="pl" data-astro-cid-cpe23hkd>Polski</option> <option value="en" data-astro-cid-cpe23hkd>English</option> <option value="auto" data-astro-cid-cpe23hkd>Automatyczny</option> </select> </div> </div> </div> <!-- Chat History --> <div class="chat-history mt-8" data-astro-cid-cpe23hkd> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-cpe23hkd>
 Ostatnie rozmowy:
-</h3> <div id="chatHistoryList" class="space-y-2" data-astro-cid-cpe23hkd> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/chatbot.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/chatbot.astro", void 0);
+</h3> <div id="chatHistoryList" class="space-y-2" data-astro-cid-cpe23hkd> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/chatbot.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/chatbot.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/chatbot.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/chatbot.astro";
 const $$url = "/chatbot";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

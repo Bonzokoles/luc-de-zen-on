@@ -38,24 +38,24 @@ Automatyczne generowanie treści marketingowych
 </h2> <p class="text-gray-400 font-mono max-w-3xl">
 Wykorzystuje zaawansowane modele językowe AI do tworzenia profesjonalnych treści marketingowych na podstawie podanego tematu. 
                             System generuje różne rodzaje treści: posty na social media, e-maile marketingowe, opisy produktów i więcej.
-</p> </div> ${renderComponent($$result, "MarketingContentGenerator", MarketingContentGenerator, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/MarketingContentGenerator.svelte", "client:component-export": "default" })} </div> <!-- Recommendations Widget --> <div id="recommendations" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">2</span>
+</p> </div> ${renderComponent($$result, "MarketingContentGenerator", MarketingContentGenerator, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/MarketingContentGenerator.svelte", "client:component-export": "default" })} </div> <!-- Recommendations Widget --> <div id="recommendations" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">2</span>
 Personalizowane rekomendacje produktów/usług
 </h2> <p class="text-gray-400 font-mono max-w-3xl">
 System rekomendacyjny analizuje preferencje użytkownika i historię, aby wygenerować spersonalizowane propozycje produktów i usług. 
                             Wykorzystuje AI do zrozumienia potrzeb klienta i dopasowania najlepszych rozwiązań.
-</p> </div> ${renderComponent($$result, "RecommendationsWidget", RecommendationsWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/RecommendationsWidget.svelte", "client:component-export": "default" })} </div> <!-- Lead Qualification Form --> <div id="leads" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">3</span>
+</p> </div> ${renderComponent($$result, "RecommendationsWidget", RecommendationsWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/RecommendationsWidget.svelte", "client:component-export": "default" })} </div> <!-- Lead Qualification Form --> <div id="leads" class="scroll-mt-8"> <div class="mb-8"> <h2 class="text-3xl font-bold text-cyan-300 mb-4 uppercase tracking-wider flex items-center"> <span class="w-8 h-8 bg-cyan-500 rounded mr-4 flex items-center justify-center text-black font-bold">3</span>
 Automatyzacja obsługi klienta i leadów
 </h2> <p class="text-gray-400 font-mono max-w-3xl">
 Inteligentny system kwalifikacji leadów który automatycznie analizuje zapytania klientów, ocenia ich wartość biznesową 
                             i generuje profesjonalne odpowiedzi. Integruje się z systemami CRM dla pełnej automatyzacji procesów sprzedażowych.
-</p> </div> ${renderComponent($$result, "LeadQualificationForm", LeadQualificationForm, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/LeadQualificationForm.svelte", "client:component-export": "default" })} </div> </div> </section> <!-- Footer --> <footer class="border-t border-cyan-500/30 mt-16"> <div class="max-w-6xl mx-auto px-4 py-8"> <div class="flex justify-between items-center"> <div class="text-gray-400 font-mono text-sm">
+</p> </div> ${renderComponent($$result, "LeadQualificationForm", LeadQualificationForm, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/LeadQualificationForm.svelte", "client:component-export": "default" })} </div> </div> </section> <!-- Footer --> <footer class="border-t border-cyan-500/30 mt-16"> <div class="max-w-6xl mx-auto px-4 py-8"> <div class="flex justify-between items-center"> <div class="text-gray-400 font-mono text-sm">
 © 2025 MyBonzo AI System - Zaawansowane funkcje AI
 </div> <div class="text-cyan-400 font-mono text-sm uppercase tracking-wide">
 Powered by OpenAI GPT-4
-</div> </div> </div> </footer> </main> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai.astro", void 0);
+</div> </div> </div> </footer> </main> ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai.astro";
 const $$url = "/zaawansowane-funkcje-ai";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

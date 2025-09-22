@@ -105,9 +105,9 @@ async function GET() {
 }
 const $$AiAgentS = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/api/ai-agent-s.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/api/ai-agent-s.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api/ai-agent-s.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/api/ai-agent-s.astro";
 const $$url = "/api/ai-agent-s";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

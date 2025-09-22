@@ -51,9 +51,9 @@ const ALL = async ({ request }) => {
 };
 const $$PolaczekSysT = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/api/polaczek-sys-t.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/api/polaczek-sys-t.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api/polaczek-sys-t.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/api/polaczek-sys-t.astro";
 const $$url = "/api/polaczek-sys-t";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

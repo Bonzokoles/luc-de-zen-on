@@ -12,10 +12,10 @@ Testowa strona dla weryfikacji działania systemu monitorowania
           Cloudflare Workers.
 </p> <p data-astro-cid-onxdzcec>
 Dashboard automatycznie wczyta się poniżej z przykładowymi danymi.
-</p> </div> <!-- Dashboard Component --> ${renderComponent($$result, "WorkersStatusDashboard", WorkersStatusDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/WorkersStatusDashboard.svelte", "client:component-export": "default", "data-astro-cid-onxdzcec": true })} </div> </body>`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/workers-status-test.astro", void 0);
+</p> </div> <!-- Dashboard Component --> ${renderComponent($$result, "WorkersStatusDashboard", WorkersStatusDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/WorkersStatusDashboard.svelte", "client:component-export": "default", "data-astro-cid-onxdzcec": true })} </div> </body>`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/workers-status-test.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/workers-status-test.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/workers-status-test.astro";
 const $$url = "/workers-status-test";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

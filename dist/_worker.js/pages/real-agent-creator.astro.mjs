@@ -5,9 +5,9 @@ export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$RealAgentCreator = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/real-agent-creator.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/real-agent-creator.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/real-agent-creator.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/real-agent-creator.astro";
 const $$url = "/real-agent-creator";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

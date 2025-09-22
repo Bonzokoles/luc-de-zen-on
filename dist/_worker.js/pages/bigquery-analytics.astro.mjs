@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                              */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -47,10 +47,10 @@ Window functions, RANK, LAG
 Historia zapytań:
 </h3> <div id="queryHistoryList" class="space-y-2" data-astro-cid-kywjq26w> <!-- History items will be populated here --> </div> </div> <!-- Schema Browser --> <div class="schema-browser mt-8 border border-edge rounded-lg p-6" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-kywjq26w>
 Przeglądarka schematów:
-</h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-astro-cid-kywjq26w> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Projekty:</label> <div id="projectsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wczytaj projekty...</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Datasety:</label> <div id="datasetsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz projekt</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Tabele:</label> <div id="tablesList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz dataset</div> </div> </div> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro", void 0);
+</h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-astro-cid-kywjq26w> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Projekty:</label> <div id="projectsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wczytaj projekty...</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Datasety:</label> <div id="datasetsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz projekt</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Tabele:</label> <div id="tablesList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz dataset</div> </div> </div> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/bigquery-analytics.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/bigquery-analytics.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/bigquery-analytics.astro";
 const $$url = "/bigquery-analytics";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

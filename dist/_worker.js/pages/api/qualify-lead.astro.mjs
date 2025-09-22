@@ -12,7 +12,7 @@ const POST = async ({ request }) => {
       });
     }
     const openai = new OpenAI({
-      apiKey: undefined                              
+      apiKey: "your-openai-api-key-here"
     });
     const leadData = {
       name,

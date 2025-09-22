@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
@@ -41,10 +41,10 @@ Możesz utworzyć własnego agenta z konfigurowalnymi funkcjami
 Stwórz Agenta
 </button> </div> </div> </div> </section> <!-- System Status --> <section class="max-w-6xl mx-auto p-6"> <div class="border border-green-500/30 rounded-lg bg-gray-900/30 p-4"> <h3 class="text-lg font-semibold mb-4 text-green-400">
 📊 Status Systemu
-</h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="system-status"> <div class="text-center"> <div class="text-2xl text-green-400" id="active-agents">4</div> <div class="text-sm text-gray-400">Aktywne Agenty</div> </div> <div class="text-center"> <div class="text-2xl text-blue-400" id="total-messages">0</div> <div class="text-sm text-gray-400">Wiadomości</div> </div> <div class="text-center"> <div class="text-2xl text-purple-400" id="images-generated">0</div> <div class="text-sm text-gray-400">Wygenerowane Obrazy</div> </div> <div class="text-center"> <div class="text-2xl text-yellow-400" id="tasks-completed">0</div> <div class="text-sm text-gray-400">Ukończone Zadania</div> </div> </div> </div> </section> </main> ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/agents/index.astro?astro&type=script&index=0&lang.ts")} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/agents/index.astro", void 0);
+</h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="system-status"> <div class="text-center"> <div class="text-2xl text-green-400" id="active-agents">4</div> <div class="text-sm text-gray-400">Aktywne Agenty</div> </div> <div class="text-center"> <div class="text-2xl text-blue-400" id="total-messages">0</div> <div class="text-sm text-gray-400">Wiadomości</div> </div> <div class="text-center"> <div class="text-2xl text-purple-400" id="images-generated">0</div> <div class="text-sm text-gray-400">Wygenerowane Obrazy</div> </div> <div class="text-center"> <div class="text-2xl text-yellow-400" id="tasks-completed">0</div> <div class="text-sm text-gray-400">Ukończone Zadania</div> </div> </div> </div> </section> </main> ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/agents/index.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/agents/index.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/agents/index.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/agents/index.astro";
 const $$url = "/agents";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
