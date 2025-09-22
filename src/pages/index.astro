@@ -10,7 +10,7 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import { VoiceAIComponent } from "../components/voice-ai/VoiceAIComponent.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
@@ -359,7 +359,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
         {
           /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
         }
-        <QuickVoiceAI client:load />
+        <VoiceAIComponent client:load variant="hero" className="voice-ai-hero" />
 
         {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
         {
