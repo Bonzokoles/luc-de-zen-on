@@ -90,7 +90,7 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
     }
   };
 
-  // Text-to-Speech - agent odpowiada głosem
+  // Text-to-Speech - agent odpowiada głosem z wizualizacją
   const speakResponse = async (text: string) => {
     try {
       console.log('🔊 Agent odpowiada głosem:', text);
@@ -101,6 +101,18 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
         utterance.rate = 0.9;
         utterance.pitch = 1.1;
         utterance.volume = 0.8;
+        
+        // Emit event for AI visualizer when speaking starts
+        utterance.onstart = () => {
+          window.dispatchEvent(new CustomEvent('ai-voice-start', { 
+            detail: { text, duration: text.length * 100 } 
+          }));
+        };
+        
+        // Stop visualizer when speech ends
+        utterance.onend = () => {
+          window.dispatchEvent(new CustomEvent('ai-voice-end'));
+        };
         
         speechSynthesis.speak(utterance);
       }
