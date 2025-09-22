@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, m as maybeRenderHead, g as addAttribute, an as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_hpa4ArTP.mjs';
+import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_i2zefgs1.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro("https://www.mybonzo.com");
 const $$HubCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$HubCard;
