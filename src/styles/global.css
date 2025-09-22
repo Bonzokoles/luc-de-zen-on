@@ -64,6 +64,10 @@
     /* Basic colors compatibility */
     --black: #000000;
     --white: #ffffff;
+    
+    /* Edge decorative lines */
+    --edge-color: rgba(0, 217, 255, 0.2);
+    --edge-border: rgba(0, 217, 255, 0.3);
   }
   
   /* Base font configuration */
@@ -831,4 +835,103 @@ input::placeholder,
 textarea::placeholder,
 select::placeholder {
   color: #6b7280 !important;
+}
+
+/* Edge decorative lines classes */
+.bg-edge {
+  background-color: var(--edge-color);
+  z-index: 1 !important;
+}
+
+.border-edge {
+  border-color: var(--edge-border);
+  z-index: 1 !important;
+}
+
+/* Floating buttons modal styles */
+.schowek-item {
+  padding: 8px 12px;
+  margin: 4px 0;
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 4px;
+  color: #00d7ef;
+}
+
+.schowek-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 16px 0;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.tool-btn, .backup-btn, .archive-btn, .emergency-btn {
+  padding: 12px;
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  color: #00d7ef;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.tool-btn:hover, .backup-btn:hover, .archive-btn:hover, .emergency-btn:hover {
+  background: rgba(0, 217, 255, 0.2);
+  border-color: rgba(0, 217, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 16px 0;
+}
+
+.catalog-section {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.catalog-section h3 {
+  color: #00d7ef;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.large-modal .modal-content {
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.instruction-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  color: #00d7ef;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: rgba(0, 217, 255, 0.2);
+  border-bottom-color: transparent;
 }
