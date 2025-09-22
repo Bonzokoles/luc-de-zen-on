@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { n as noop, c as attr, i as store_get, b as escape_html, u as unsubscribe_stores } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 /* empty css                                                  */
@@ -239,7 +239,7 @@ Zaawansowany system budowania i zarządzania agentami AI z wizualnym
 Reset
 </button> <button onclick="saveAgent()" class="px-3 py-1 bg-green-500/20 border border-green-500/40 rounded text-green-400 hover:bg-green-500/30 transition-all text-sm" data-astro-cid-s5hu4jl2>
 Save Agent
-</button> </div> </div> <div class="agent-content p-8" data-astro-cid-s5hu4jl2> <!-- Agent Builder z wbudowaną autoryzacją --> ${renderComponent($$result2, "AgentBuilderWrapper", AgentBuilderWrapper, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AgentBuilderWrapper.svelte", "client:component-export": "default", "data-astro-cid-s5hu4jl2": true })} </div> </div> <!-- Quick Actions Section --> <div class="quick-actions mt-12" data-astro-cid-s5hu4jl2> <h3 class="text-xl font-semibold mb-6 text-primary-foreground text-center" data-astro-cid-s5hu4jl2>
+</button> </div> </div> <div class="agent-content p-8" data-astro-cid-s5hu4jl2> <!-- Agent Builder z wbudowaną autoryzacją --> ${renderComponent($$result2, "AgentBuilderWrapper", AgentBuilderWrapper, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/AgentBuilderWrapper.svelte", "client:component-export": "default", "data-astro-cid-s5hu4jl2": true })} </div> </div> <!-- Quick Actions Section --> <div class="quick-actions mt-12" data-astro-cid-s5hu4jl2> <h3 class="text-xl font-semibold mb-6 text-primary-foreground text-center" data-astro-cid-s5hu4jl2>
 AKCJE SYSTEMOWE
 </h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-astro-cid-s5hu4jl2> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>🤖 Zarządzaj Agentami</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
 Zobacz listę wszystkich agentów systemowych i stworzonych przez
@@ -262,10 +262,10 @@ Odblokuj zaawansowane funkcje systemu z subskrypcją Pro lub
 Zobacz Plany
 </button> <button class="action-btn secondary" onclick="checkSubscription()" data-astro-cid-s5hu4jl2>
 Status
-</button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro", void 0);
+</button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro";
 const $$url = "/polaczek-agents-system";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

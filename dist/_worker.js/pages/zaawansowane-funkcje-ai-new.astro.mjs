@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                                       */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -74,9 +74,9 @@ API Integration
 </div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>🛡️</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
 Enterprise Security
 </div> </div> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai-new.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai-new.astro";
 const $$url = "/zaawansowane-funkcje-ai-new";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

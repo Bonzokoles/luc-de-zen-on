@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_BAEiW9Iu.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_o33dOkfg.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$Login = createComponent(async ($$result, $$props, $$slots) => {
@@ -37,10 +37,10 @@ Konfiguruj zabezpieczenia i kontrolę dostępu
 🔌 API Management
 </h3> <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
 Zarządzaj kluczami API i limitami zapytań
-</p> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Zarz\u0105dzaj API", "variant": "outline", "size": "sm", "onclick": "openAPIManagement()" })} </div> </div> ` })} <!-- Recent Activity --> ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F550} Ostatnia aktywno\u015B\u0107", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="max-height: 300px; overflow-y: auto;"> <div id="activityLog" style="space-y: 10px;"> <!-- Activity items will be loaded here --> </div> </div> <div style="text-align: center; margin-top: 20px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Od\u015Bwie\u017C logi", "variant": "outline", "size": "sm", "onclick": "refreshActivityLog()" })} </div> ` })} <!-- Logout --> <div style="text-align: center; margin-top: 30px;"> ${renderComponent($$result2, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F6AA} Wyloguj si\u0119", "variant": "outline", "size": "md", "onclick": "logout()" })} </div> </div> ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/login.astro?astro&type=script&index=0&lang.ts")} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/login.astro", void 0);
+</p> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Zarz\u0105dzaj API", "variant": "outline", "size": "sm", "onclick": "openAPIManagement()" })} </div> </div> ` })} <!-- Recent Activity --> ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F550} Ostatnia aktywno\u015B\u0107", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="max-height: 300px; overflow-y: auto;"> <div id="activityLog" style="space-y: 10px;"> <!-- Activity items will be loaded here --> </div> </div> <div style="text-align: center; margin-top: 20px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Od\u015Bwie\u017C logi", "variant": "outline", "size": "sm", "onclick": "refreshActivityLog()" })} </div> ` })} <!-- Logout --> <div style="text-align: center; margin-top: 30px;"> ${renderComponent($$result2, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F6AA} Wyloguj si\u0119", "variant": "outline", "size": "md", "onclick": "logout()" })} </div> </div> ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/admin/login.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/admin/login.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/admin/login.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/admin/login.astro";
 const $$url = "/admin/login";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

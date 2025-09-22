@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DHHm2gNj.mjs';
-import { $ as $$Section } from '../chunks/Section_CvOZnhJG.mjs';
+import { $ as $$Layout } from '../chunks/Layout_tjJeb2dm.mjs';
+import { $ as $$Section } from '../chunks/Section_bC1VUfUh.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {
@@ -10,9 +10,9 @@ const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {
 Uproszczona wersja narzędzia do zarządzania agentami, stworzona w stylu
         i kolorystyce strony głównej.
 </p> <ul class="text-lg list-disc list-inside"> <li>Tworzenie i edycja agentów</li> <li>Podgląd statusu agentów</li> <li>Podstawowe statystyki</li> <li>Prosty interfejs użytkownika</li> </ul> </div> ` })} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/agent-builder-23.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/agent-builder-23.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/agent-builder-23.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/agent-builder-23.astro";
 const $$url = "/agent-builder-23";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

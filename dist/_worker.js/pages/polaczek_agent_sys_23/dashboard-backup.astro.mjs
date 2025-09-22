@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$DashboardBackup = createComponent(async ($$result, $$props, $$slots) => {
@@ -48,10 +48,10 @@ CONTROL
 Anuluj
 </button> <button id="modal-action" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors">
 Wykonaj
-</button> </div> </div> </div> </div> ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro?astro&type=script&index=0&lang.ts")} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro", void 0);
+</button> </div> </div> </div> </div> ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23/dashboard-backup";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

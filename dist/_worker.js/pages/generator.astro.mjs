@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DHHm2gNj.mjs';
+import { $ as $$Layout } from '../chunks/Layout_tjJeb2dm.mjs';
 import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_DoH26EBh.mjs';
 import { d as reactExports } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
@@ -314,10 +314,10 @@ const $$Generator = createComponent(($$result, $$props, $$slots) => {
 STABLE DIFFUSION GENERATOR
 </h1> <p class="neon-white sci-fi-type text-lg opacity-80">
 Zaawansowany generator obrazów AI z interfejsem cyberpunk
-</p> </div> ${renderComponent($$result2, "StableDiffusionGenerator", StableDiffusionGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/StableDiffusionGenerator.jsx", "client:component-export": "default" })} </div> ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/generator.astro", void 0);
+</p> </div> ${renderComponent($$result2, "StableDiffusionGenerator", StableDiffusionGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/StableDiffusionGenerator.jsx", "client:component-export": "default" })} </div> ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/generator.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/generator.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/generator.astro";
 const $$url = "/generator";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

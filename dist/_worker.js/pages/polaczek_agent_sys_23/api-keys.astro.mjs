@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                       */
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -69,10 +69,10 @@ Konfiguruj klucze API do zewnętrznych serwisów AI. Połącz OpenAI, Anthropic,
 📥 Importuj konfigurację
 </button> <button onclick="clearAllKeys()" class="global-action-btn danger" data-astro-cid-6p45ythe>
 🗑️ Wyczyść wszystkie klucze
-</button> </div> </div> <!-- Usage Statistics --> <div class="usage-stats" data-astro-cid-6p45ythe> <h3 class="stats-title" data-astro-cid-6p45ythe>STATYSTYKI UŻYCIA</h3> <div class="stats-grid" data-astro-cid-6p45ythe> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Skonfigurowane dostawcy</div> <div class="stat-value" id="configured-providers" data-astro-cid-6p45ythe>0/6</div> </div> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Ostatni test</div> <div class="stat-value" id="last-test" data-astro-cid-6p45ythe>Nigdy</div> </div> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Status bezpieczeństwa</div> <div class="stat-value security" id="security-status" data-astro-cid-6p45ythe>🔒 Bezpieczne</div> </div> </div> </div> <!-- Test Output --> <div class="test-output-section" data-astro-cid-6p45ythe> <h3 class="output-title" data-astro-cid-6p45ythe>WYNIKI TESTÓW</h3> <div class="test-output" id="testOutput" data-astro-cid-6p45ythe> <div class="output-placeholder" data-astro-cid-6p45ythe>Wyniki testów API pojawią się tutaj...</div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro", void 0);
+</button> </div> </div> <!-- Usage Statistics --> <div class="usage-stats" data-astro-cid-6p45ythe> <h3 class="stats-title" data-astro-cid-6p45ythe>STATYSTYKI UŻYCIA</h3> <div class="stats-grid" data-astro-cid-6p45ythe> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Skonfigurowane dostawcy</div> <div class="stat-value" id="configured-providers" data-astro-cid-6p45ythe>0/6</div> </div> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Ostatni test</div> <div class="stat-value" id="last-test" data-astro-cid-6p45ythe>Nigdy</div> </div> <div class="stat-card" data-astro-cid-6p45ythe> <div class="stat-label" data-astro-cid-6p45ythe>Status bezpieczeństwa</div> <div class="stat-value security" id="security-status" data-astro-cid-6p45ythe>🔒 Bezpieczne</div> </div> </div> </div> <!-- Test Output --> <div class="test-output-section" data-astro-cid-6p45ythe> <h3 class="output-title" data-astro-cid-6p45ythe>WYNIKI TESTÓW</h3> <div class="test-output" id="testOutput" data-astro-cid-6p45ythe> <div class="output-placeholder" data-astro-cid-6p45ythe>Wyniki testów API pojawią się tutaj...</div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23/api-keys";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

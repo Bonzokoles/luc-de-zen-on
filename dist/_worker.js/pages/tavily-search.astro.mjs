@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                         */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -67,10 +67,10 @@ Analityka wyszukiwań:
 -
 </div> <div class="text-sm text-gray-400" data-astro-cid-viyex4t6>Najczęstsza domena</div> </div> </div> </div> <!-- Search History --> <div class="search-history mt-8" data-astro-cid-viyex4t6> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-viyex4t6>
 Historia wyszukiwań:
-</h3> <div id="searchHistoryList" class="space-y-2" data-astro-cid-viyex4t6> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/tavily-search.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/tavily-search.astro", void 0);
+</h3> <div id="searchHistoryList" class="space-y-2" data-astro-cid-viyex4t6> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/tavily-search.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/tavily-search.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/tavily-search.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/tavily-search.astro";
 const $$url = "/tavily-search";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

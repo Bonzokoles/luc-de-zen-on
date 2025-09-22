@@ -51,9 +51,9 @@ const ALL = async ({ request }) => {
 };
 const $$DeepseekSearch = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/api/deepseek-search.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/api/deepseek-search.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api/deepseek-search.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/api/deepseek-search.astro";
 const $$url = "/api/deepseek-search";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

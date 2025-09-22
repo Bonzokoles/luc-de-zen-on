@@ -11,16 +11,8 @@ async function post({ request }) {
       );
     }
     const FLOWISE_API_URL = undefined                                || "https://api.flowise.com/api/v1";
-    const FLOWISE_API_TOKEN = undefined                                 ;
-    if (!FLOWISE_API_TOKEN) {
-      return new Response(
-        JSON.stringify({
-          error: "Flowise API token nie jest skonfigurowany. Sprawdź plik .env",
-          fallback: "Używam symulowanej odpowiedzi Flowise AI"
-        }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    const FLOWISE_API_TOKEN = "your_flowise_api_token_here";
+    if (!FLOWISE_API_TOKEN) ;
     const flowiseEndpoint = `${FLOWISE_API_URL}/chatflows/${workflowId || "default"}/prediction`;
     const response = await fetch(flowiseEndpoint, {
       method: "POST",
@@ -111,7 +103,7 @@ async function get() {
     },
     configuration: {
       FLOWISE_API_URL: "not configured",
-      FLOWISE_API_TOKEN: "not configured"
+      FLOWISE_API_TOKEN: "configured" 
     }
   }), {
     status: 200,

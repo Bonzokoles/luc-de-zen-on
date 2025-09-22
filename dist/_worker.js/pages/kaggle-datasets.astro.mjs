@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 /* empty css                                           */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -58,10 +58,10 @@ Popularne wyszukiwania:
 Statystyki Kaggle:
 </h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-astro-cid-3dzqupyy> <div class="stat-card bg-black/40 border border-edge rounded p-4 text-center" data-astro-cid-3dzqupyy> <div class="text-2xl font-bold text-orange-400" data-astro-cid-3dzqupyy>2.5M+</div> <div class="text-sm text-gray-400" data-astro-cid-3dzqupyy>Zbiory danych</div> </div> <div class="stat-card bg-black/40 border border-edge rounded p-4 text-center" data-astro-cid-3dzqupyy> <div class="text-2xl font-bold text-blue-400" data-astro-cid-3dzqupyy>150K+</div> <div class="text-sm text-gray-400" data-astro-cid-3dzqupyy>Konkursy</div> </div> <div class="stat-card bg-black/40 border border-edge rounded p-4 text-center" data-astro-cid-3dzqupyy> <div class="text-2xl font-bold text-green-400" data-astro-cid-3dzqupyy>8M+</div> <div class="text-sm text-gray-400" data-astro-cid-3dzqupyy>Użytkowników</div> </div> <div class="stat-card bg-black/40 border border-edge rounded p-4 text-center" data-astro-cid-3dzqupyy> <div class="text-2xl font-bold text-purple-400" data-astro-cid-3dzqupyy>500K+</div> <div class="text-sm text-gray-400" data-astro-cid-3dzqupyy>Notebooks</div> </div> </div> </div> <!-- Search History --> <div class="search-history mt-8" data-astro-cid-3dzqupyy> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-3dzqupyy>
 Historia wyszukiwań:
-</h3> <div id="searchHistoryList" class="space-y-2" data-astro-cid-3dzqupyy> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/kaggle-datasets.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/kaggle-datasets.astro", void 0);
+</h3> <div id="searchHistoryList" class="space-y-2" data-astro-cid-3dzqupyy> <!-- History items will be populated here --> </div> </div> </div> </section> </main>  ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/kaggle-datasets.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/kaggle-datasets.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/kaggle-datasets.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/kaggle-datasets.astro";
 const $$url = "/kaggle-datasets";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

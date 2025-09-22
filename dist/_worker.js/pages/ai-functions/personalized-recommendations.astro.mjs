@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { R as RecommendationsWidget } from '../../chunks/RecommendationsWidget_Cw7HP83S.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$PersonalizedRecommendations = createComponent(($$result, $$props, $$slots) => {
@@ -16,7 +16,7 @@ STATUS: <span class="text-[#00ffff]">ANALYZING</span> </div> <div>ML ACCURACY: <
 ← Powrót do głównej
 </a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12"> <div class="max-w-4xl mx-auto px-4"> <!-- Recommendations Widget --> ${renderComponent($$result2, "RecommendationsWidget", RecommendationsWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/RecommendationsWidget.svelte", "client:component-export": "default" })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect"> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Jak to działa</h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']"> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
+</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12"> <div class="max-w-4xl mx-auto px-4"> <!-- Recommendations Widget --> ${renderComponent($$result2, "RecommendationsWidget", RecommendationsWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/RecommendationsWidget.svelte", "client:component-export": "default" })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect"> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Jak to działa</h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']"> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
 Analiza preferencji użytkownika
 </li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
 Machine Learning algorithms
@@ -33,9 +33,9 @@ Targeted suggestions
 </li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
 Performance tracking
 </li> </ul> </div> </div> </div> </section> </main> ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/personalized-recommendations.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/personalized-recommendations.astro";
 const $$url = "/ai-functions/personalized-recommendations";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

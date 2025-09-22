@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, an as renderSlot, m as maybeRenderHead, g as addAttribute } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                 */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -32,8 +32,8 @@ const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {
     danger: "cyberpunk-btn-danger",
     success: "cyberpunk-btn-success"
   };
-  return renderTemplate`${renderComponent($$result, "Tag", Tag, { "href": href, "type": type, "disabled": disabled, "onclick": onclick, "class": `cyberpunk-btn ${variantClasses[variant]} ${sizeClasses[size]} ${className}`, "data-astro-cid-kv7rg66x": true }, { "default": ($$result2) => renderTemplate`${icon && renderTemplate`${maybeRenderHead()}<span class="btn-icon" data-astro-cid-kv7rg66x>${icon}</span>`}${renderSlot($$result2, $$slots["default"])} ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/components/CyberpunkButton.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/components/CyberpunkButton.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "Tag", Tag, { "href": href, "type": type, "disabled": disabled, "onclick": onclick, "class": `cyberpunk-btn ${variantClasses[variant]} ${sizeClasses[size]} ${className}`, "data-astro-cid-kv7rg66x": true }, { "default": ($$result2) => renderTemplate`${icon && renderTemplate`${maybeRenderHead()}<span class="btn-icon" data-astro-cid-kv7rg66x>${icon}</span>`}${renderSlot($$result2, $$slots["default"])} ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/components/CyberpunkButton.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/components/CyberpunkButton.astro", void 0);
 
 const $$Astro = createAstro("https://mybonzo.com");
 const $$CyberStatCard = createComponent(($$result, $$props, $$slots) => {
@@ -60,7 +60,7 @@ const $$CyberStatCard = createComponent(($$result, $$props, $$slots) => {
     stable: "\u2192"
   };
   return renderTemplate`${maybeRenderHead()}<div${addAttribute(`cyber-stat-card ${colorClasses[color]}`, "class")} data-astro-cid-j4wl2dju> <div class="stat-header" data-astro-cid-j4wl2dju> <span class="stat-icon" data-astro-cid-j4wl2dju>${icon}</span> <span class="stat-title" data-astro-cid-j4wl2dju>${title}</span> <span class="stat-trend" data-astro-cid-j4wl2dju>${trendIcons[trend]}</span> </div> <div class="stat-content" data-astro-cid-j4wl2dju> ${loading ? renderTemplate`<div class="stat-loading" data-astro-cid-j4wl2dju> <div class="loading-spinner" data-astro-cid-j4wl2dju></div> <span class="loading-text" data-astro-cid-j4wl2dju>Loading...</span> </div>` : renderTemplate`<div class="stat-value" data-astro-cid-j4wl2dju> <span class="value-number" data-astro-cid-j4wl2dju>${value}</span> ${unit && renderTemplate`<span class="value-unit" data-astro-cid-j4wl2dju>${unit}</span>`} </div>`} </div> <div class="stat-footer" data-astro-cid-j4wl2dju> ${renderSlot($$result, $$slots["default"])} </div> </div> `;
-}, "Q:/mybonzo/luc-de-zen-on/src/components/CyberStatCard.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/components/CyberStatCard.astro", void 0);
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "POLACZEK AGENTS SYS_23 | Advanced AI SDK", "data-astro-cid-mwcm4pqh": true }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-mwcm4pqh": true })}  ${maybeRenderHead()}<div class="workers-vertical-line-left" data-astro-cid-mwcm4pqh></div> <div class="workers-vertical-line-right" data-astro-cid-mwcm4pqh></div> <main class="min-h-svh" data-astro-cid-mwcm4pqh> <!-- Top Separator Section --> <section class="border border-edge relative" data-astro-cid-mwcm4pqh> <div class="max-w-6xl mx-auto" data-astro-cid-mwcm4pqh> <div class="py-1" data-astro-cid-mwcm4pqh></div> </div> </section> <!-- Header Section --> <section class="border border-edge relative" data-astro-cid-mwcm4pqh> <div class="max-w-6xl mx-auto" data-astro-cid-mwcm4pqh> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-mwcm4pqh> <!-- Left corner - POLACZEK System info --> <div class="mt-auto" style="max-width: 45vw;" data-astro-cid-mwcm4pqh> <div class="text-edge text-sm italic px-2" style="
@@ -140,10 +140,10 @@ Otwórz Manager
 Otwórz Manager
 </button> </div> <div class="action-card" data-astro-cid-mwcm4pqh> <h4 data-astro-cid-mwcm4pqh>📊 Monitoring</h4> <p data-astro-cid-mwcm4pqh>Status i analityka wszystkich agentów</p> <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="action-btn" data-astro-cid-mwcm4pqh>
 Otwórz Monitor
-</button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/index.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/index.astro", void 0);
+</button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/index.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/index.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/index.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/index.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

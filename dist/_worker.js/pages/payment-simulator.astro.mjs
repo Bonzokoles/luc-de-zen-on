@@ -9,10 +9,10 @@ const $$PaymentSimulator = createComponent(($$result, $$props, $$slots) => {
 ✅ Symuluj Sukces
 </button> <button class="btn btn-cancel" onclick="processPayment(false)" data-astro-cid-auwpx3mw>
 ❌ Symuluj Błąd
-</button> </div> </div> <div class="processing" id="processing" data-astro-cid-auwpx3mw> <div class="spinner" data-astro-cid-auwpx3mw></div> <p data-astro-cid-auwpx3mw>Przetwarzanie płatności...</p> </div> </div> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/payment-simulator.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/payment-simulator.astro", void 0);
+</button> </div> </div> <div class="processing" id="processing" data-astro-cid-auwpx3mw> <div class="spinner" data-astro-cid-auwpx3mw></div> <p data-astro-cid-auwpx3mw>Przetwarzanie płatności...</p> </div> </div> ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/payment-simulator.astro?astro&type=script&index=0&lang.ts")} </body> </html>`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/payment-simulator.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/payment-simulator.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/payment-simulator.astro";
 const $$url = "/payment-simulator";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

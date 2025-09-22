@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { T as TicketSubmissionWidget } from '../../chunks/TicketSubmissionWidget_DZnLuiEG.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                         */
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -18,7 +18,7 @@ QUEUE: <span class="text-[#00ffff] animate-pulse" data-astro-cid-6t3e7dfk>23 tic
 ← Powrót do głównej
 </a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-6t3e7dfk>
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-6t3e7dfk> <div class="max-w-4xl mx-auto px-4" data-astro-cid-6t3e7dfk> <!-- Ticket Submission Widget --> ${renderComponent($$result2, "TicketSubmissionWidget", TicketSubmissionWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/TicketSubmissionWidget.svelte", "client:component-export": "default", "data-astro-cid-6t3e7dfk": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-6t3e7dfk> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-6t3e7dfk> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-6t3e7dfk>
+</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-6t3e7dfk> <div class="max-w-4xl mx-auto px-4" data-astro-cid-6t3e7dfk> <!-- Ticket Submission Widget --> ${renderComponent($$result2, "TicketSubmissionWidget", TicketSubmissionWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/TicketSubmissionWidget.svelte", "client:component-export": "default", "data-astro-cid-6t3e7dfk": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-6t3e7dfk> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-6t3e7dfk> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-6t3e7dfk>
 Funkcjonalności
 </h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']" data-astro-cid-6t3e7dfk> <li class="flex items-center gap-2" data-astro-cid-6t3e7dfk> <span class="text-[#00ffff]" data-astro-cid-6t3e7dfk>✓</span>
 Automatyczna klasyfikacja zgłoszeń
@@ -94,9 +94,9 @@ Automatyczne workflow zapewniają synchronizację ticketów między wszystkimi
               systemami, powiadomienia email/SMS, eskalację SLA oraz raportowanie
               metryk obsługi klienta.
 </p> </div> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/ai-tickets.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/ai-tickets.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/ai-tickets.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/ai-tickets.astro";
 const $$url = "/ai-functions/ai-tickets";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

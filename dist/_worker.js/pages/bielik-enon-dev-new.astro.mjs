@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DHHm2gNj.mjs';
+import { $ as $$Layout } from '../chunks/Layout_tjJeb2dm.mjs';
 /* empty css                                               */
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -36,9 +36,9 @@ const analytics = await bielik.getUsage(&#123;
 </li> </ul> <div class="feature-highlight" data-astro-cid-xhrpbhnz> <h3 data-astro-cid-xhrpbhnz>Możliwości modelu BIELIK:</h3> <ul data-astro-cid-xhrpbhnz> <li data-astro-cid-xhrpbhnz>🇵🇱 Optymalizacja dla języka polskiego</li> <li data-astro-cid-xhrpbhnz>🧠 Rozumienie kontekstu kulturowego</li> <li data-astro-cid-xhrpbhnz>💬 Naturalne konwersacje</li> <li data-astro-cid-xhrpbhnz>📚 Analiza tekstu i tłumaczenia</li> <li data-astro-cid-xhrpbhnz>🔧 Zadania programistyczne</li> <li data-astro-cid-xhrpbhnz>📊 Analiza danych</li> </ul> </div> <p data-astro-cid-xhrpbhnz>
 Narzędzie umożliwia bezpośrednie testowanie modelu oraz monitorowanie
           jego wydajności w czasie rzeczywistym.
-</p> </div> </div> </div> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro", void 0);
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/bielik-enon-dev-new.astro";
+</p> </div> </div> </div> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/bielik-enon-dev-new.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/bielik-enon-dev-new.astro", void 0);
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/bielik-enon-dev-new.astro";
 const $$url = "/bielik-enon-dev-new";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout, F as ForwardRef$3 } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_BzdTUtQR.mjs';
+import { $ as $$MyBonzoLayout, F as ForwardRef$3 } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_BNZxycy-.mjs';
 import { Q as QuickVoiceAI, F as ForwardRef$2, a as ForwardRef$4, b as ForwardRef$5, c as ForwardRef$6, d as ForwardRef$7, e as ForwardRef$8, f as ForwardRef$9, g as ForwardRef$a, h as ForwardRef$b, i as ForwardRef$c } from '../chunks/QuickVoiceAI_CJfn3uF9.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                 */
 import { d as reactExports } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
@@ -70,8 +70,8 @@ Dodaj
 Dalej
 </button> <button class="btn-tertiary" onclick="closeWorkerPopup()" data-astro-cid-ugabcofn> <span class="btn-icon" data-astro-cid-ugabcofn>🔙</span>
 Wróć
-</button> </div> </div> </div>  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/components/WorkerCommunicationPopup.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/components/WorkerCommunicationPopup.astro", void 0);
+</button> </div> </div> </div>  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/components/WorkerCommunicationPopup.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/mybonzo-github/src/components/WorkerCommunicationPopup.astro", void 0);
 
 var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
@@ -131,7 +131,7 @@ GitHub
 Platforma integruje wyspecjalizowane Workery AI, działające w
             chmurze Cloudflare, aby dostarczać kompleksowe rozwiązania
             automatyzacji z wykorzystaniem sztucznej inteligencji.
-</p> </div>  ${renderComponent($$result2, "QuickVoiceAI", QuickVoiceAI, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/QuickVoiceAI.tsx", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })}   <!-- Full-width Music Visualizer - Extended to Left Screen Edge --> <div style="
+</p> </div>  ${renderComponent($$result2, "QuickVoiceAI", QuickVoiceAI, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/QuickVoiceAI.tsx", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })}   <!-- Full-width Music Visualizer - Extended to Left Screen Edge --> <div style="
             position: relative;
             left: 0;
             right: 0;
@@ -160,7 +160,7 @@ Platforma integruje wyspecjalizowane Workery AI, działające w
                 opacity: 0.4;
                 filter: hue-rotate(30deg) brightness(1.2);
                 pointer-events:none;
-              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "music", "variant": "music", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color --> <div style="
+              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "music", "variant": "music", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color --> <div style="
                 position:absolute; 
                 left: 50%; 
                 transform: translateX(-50%) scaleY(1.03) scaleX(-1); 
@@ -170,7 +170,7 @@ Platforma integruje wyspecjalizowane Workery AI, działające w
                 opacity: 0.3;
                 filter: hue-rotate(30deg) brightness(0.8);
                 pointer-events:none;
-              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "music", "variant": "music", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> <!-- Front layer: reacts to Avatar (mic) --> <div style="
+              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "music", "variant": "music", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> <!-- Front layer: reacts to Avatar (mic) --> <div style="
                 position:absolute; 
                 left: 50%; 
                 transform: translateX(-50%); 
@@ -179,7 +179,7 @@ Platforma integruje wyspecjalizowane Workery AI, działające w
                 height: 120px;
                 opacity: 0.8;
                 pointer-events:none;
-              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "mic", "variant": "mic", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> </div> <!-- Script to connect music player with visualizer --> ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/index.astro?astro&type=script&index=0&lang.ts")} </div> <!-- Dashboard Buttons Section (only buttons after login) --> <div class="dashboard-buttons-section hidden" id="dashboardButtons" data-astro-cid-j7pv25f6> <a href="/admin/" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>ADMIN PANEL</a> <a href="/dashboard" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>DASHBOARD</a> <a href="/admin/ai-models" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>AI MODELS</a> </div> <!-- Small Tags Section --> <div class="tags-section" style="
+              " data-astro-cid-j7pv25f6> ${renderComponent($$result2, "EdgeAudioVisualizer", null, { "client:only": "react", "height": 120, "source": "mic", "variant": "mic", "client:component-hydration": "only", "data-astro-cid-j7pv25f6": true, "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/voice-ai/EdgeAudioVisualizer.tsx", "client:component-export": "default" })} </div> </div> <!-- Script to connect music player with visualizer --> ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/index.astro?astro&type=script&index=0&lang.ts")} </div> <!-- Dashboard Buttons Section (only buttons after login) --> <div class="dashboard-buttons-section hidden" id="dashboardButtons" data-astro-cid-j7pv25f6> <a href="/admin/" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>ADMIN PANEL</a> <a href="/dashboard" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>DASHBOARD</a> <a href="/admin/ai-models" class="dashboard-btn" data-astro-cid-my52qgmw data-astro-cid-j7pv25f6>AI MODELS</a> </div> <!-- Small Tags Section --> <div class="tags-section" style="
                display: flex !important;
                justify-content: center !important;
                gap: 1rem !important;
@@ -329,8 +329,8 @@ Generator treści marketingowych
 Automatyczne generowanie i publikacja treści marketingowych
                 przez AI
 </div> </div> </div> </div> </div> </section> </main>  <div class="right-panel-fixed" data-astro-cid-j7pv25f6> <div class="floating-widget-container" data-astro-cid-j7pv25f6> <button onclick="toggleMusicPlayer()" class="right-btn" id="musicPlayerBtn" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "MusicalNoteIcon", ForwardRef$2, { "className": "w-6 h-6 inline mr-2", "data-astro-cid-j7pv25f6": true })} MUSIC PLAYER
-</button> <div id="musicPlayerWidget" class="floating-widget" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "BackgroundMusicPlayerSimple", BackgroundMusicPlayerSimple, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/BackgroundMusicPlayerSimple.svelte", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })} </div> </div> <div class="floating-widget-container" data-astro-cid-j7pv25f6> <button onclick="togglePolaczekAssistant()" class="right-btn" id="polaczekBtn" title="AI Assistant do wyjaśniania funkcji na stronie" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "CpuChipIcon", ForwardRef$3, { "className": "w-6 h-6 inline mr-2", "data-astro-cid-j7pv25f6": true })} AI ASSISTANT
-</button> <div id="polaczekWidget" class="floating-widget" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "AiHelpAssistant", AiHelpAssistant, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AiHelpAssistant.svelte", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })} </div> </div> <div class="floating-widget-container" data-astro-cid-j7pv25f6> <button onclick="toggleGlobalVoice()" class="right-btn" id="globalVoiceBtn" title="Globalny system Voice - Włącz/wyłącz wszystkie agenty Voice" style="background: linear-gradient(45deg, #ff4444, #0f3846);" data-astro-cid-j7pv25f6>
+</button> <div id="musicPlayerWidget" class="floating-widget" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "BackgroundMusicPlayerSimple", BackgroundMusicPlayerSimple, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/BackgroundMusicPlayerSimple.svelte", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })} </div> </div> <div class="floating-widget-container" data-astro-cid-j7pv25f6> <button onclick="togglePolaczekAssistant()" class="right-btn" id="polaczekBtn" title="AI Assistant do wyjaśniania funkcji na stronie" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "CpuChipIcon", ForwardRef$3, { "className": "w-6 h-6 inline mr-2", "data-astro-cid-j7pv25f6": true })} AI ASSISTANT
+</button> <div id="polaczekWidget" class="floating-widget" data-astro-cid-j7pv25f6> ${renderComponent($$result2, "AiHelpAssistant", AiHelpAssistant, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/AiHelpAssistant.svelte", "client:component-export": "default", "data-astro-cid-j7pv25f6": true })} </div> </div> <div class="floating-widget-container" data-astro-cid-j7pv25f6> <button onclick="toggleGlobalVoice()" class="right-btn" id="globalVoiceBtn" title="Globalny system Voice - Włącz/wyłącz wszystkie agenty Voice" style="background: linear-gradient(45deg, #ff4444, #0f3846);" data-astro-cid-j7pv25f6>
 🎤 VOICE OFF
 </button> <!-- DEBUG/TEST BUTTONS for Voice System --> <div style="margin-top: 5px; display: flex; gap: 3px; flex-wrap: wrap;" data-astro-cid-j7pv25f6> <button onclick="emergencyStopAll()" title="Awaryjne zatrzymanie wszystkich systemów" style="background: #ff0000; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;" data-astro-cid-j7pv25f6>
 🚨 STOP
@@ -384,10 +384,10 @@ W mojej pracy skupiam się na integracji technologii w chmurze,
 SYSTEM AGENTS
 <svg style="--rotation: -45deg" class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-j7pv25f6> <path d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-j7pv25f6></path> </svg> </a> <div class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60" data-astro-cid-j7pv25f6> <span class="group-hover:hidden" data-astro-cid-j7pv25f6>100% HANDMADE</span> <span class="hidden group-hover:inline" data-astro-cid-j7pv25f6>0% AI</span> </div> </div> </div> </div> </section>  <div class="admin-panel-fixed" data-astro-cid-j7pv25f6> <a href="/admin/" class="admin-btn" data-astro-cid-j7pv25f6> Panel Administracyjny </a> <!-- Login Section Below Admin Panel --> <div class="login-container-fixed" id="loginContainer" data-astro-cid-j7pv25f6> <input type="text" id="dashboardLogin" maxlength="16" placeholder="Podaj login" class="login-input-fixed" data-astro-cid-j7pv25f6> <button onclick="checkDashboardLogin()" class="login-btn-fixed" data-astro-cid-j7pv25f6>
 Zaloguj się
-</button> </div> </div>  ${renderComponent($$result2, "WorkerCommunicationPopup", $$WorkerCommunicationPopup, { "data-astro-cid-j7pv25f6": true })} ` }), renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/index.astro?astro&type=script&index=1&lang.ts"));
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/index.astro", void 0);
+</button> </div> </div>  ${renderComponent($$result2, "WorkerCommunicationPopup", $$WorkerCommunicationPopup, { "data-astro-cid-j7pv25f6": true })} ` }), renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/index.astro?astro&type=script&index=1&lang.ts"));
+}, "Q:/mybonzo/mybonzo-github/src/pages/index.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/index.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/index.astro";
 const $$url = "";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

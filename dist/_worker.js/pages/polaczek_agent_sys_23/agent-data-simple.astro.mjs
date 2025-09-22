@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                                */
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -28,9 +28,9 @@ Zarządzaj danymi, treściami i bazą wiedzy dla swoich agentów AI.
 Pełny interfejs do zarządzania danymi agentów będzie dostępny wkrótce.
             Obecnie możesz korzystać z podstawowych funkcji API.
 </p> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23/agent-data-simple";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { E as EducationRecommendationsWidget } from '../../chunks/EducationRecommendationsWidget_CPXzC5l-.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
 /* empty css                                                        */
 export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
@@ -18,7 +18,7 @@ STATUS: <span class="text-[#00ffff]" data-astro-cid-osy5j6vf>LEARNING</span> </d
 ← Powrót do głównej
 </a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-osy5j6vf>
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-osy5j6vf> <div class="max-w-4xl mx-auto px-4" data-astro-cid-osy5j6vf> <!-- Education Recommendations Widget --> ${renderComponent($$result2, "EducationRecommendationsWidget", EducationRecommendationsWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/EducationRecommendationsWidget.svelte", "client:component-export": "default", "data-astro-cid-osy5j6vf": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-osy5j6vf> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-osy5j6vf> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-osy5j6vf>
+</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12" data-astro-cid-osy5j6vf> <div class="max-w-4xl mx-auto px-4" data-astro-cid-osy5j6vf> <!-- Education Recommendations Widget --> ${renderComponent($$result2, "EducationRecommendationsWidget", EducationRecommendationsWidget, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/EducationRecommendationsWidget.svelte", "client:component-export": "default", "data-astro-cid-osy5j6vf": true })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" data-astro-cid-osy5j6vf> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect" data-astro-cid-osy5j6vf> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-osy5j6vf>
 Funkcjonalności
 </h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']" data-astro-cid-osy5j6vf> <li class="flex items-center gap-2" data-astro-cid-osy5j6vf> <span class="text-[#00ffff]" data-astro-cid-osy5j6vf>✓</span>
 Profilowanie potrzeb edukacyjnych
@@ -98,9 +98,9 @@ GAP
 </div> <div class="text-xs text-[#a0a0a0] uppercase tracking-wide" data-astro-cid-osy5j6vf>
 Machine Learning
 </div> </div> </div> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/education-recommendations.astro", void 0);
+}, "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/education-recommendations.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/education-recommendations.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/ai-functions/education-recommendations.astro";
 const $$url = "/ai-functions/education-recommendations";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

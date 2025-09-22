@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                        */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$DecorativeLines } from '../../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+import { $ as $$MyBonzoLayout } from '../../../chunks/MyBonzoLayout_BYicRfIX.mjs';
+import { $ as $$DecorativeLines } from '../../../chunks/DecorativeLines_cAs3q6CP.mjs';
 export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 
 const $$Create = createComponent(async ($$result, $$props, $$slots) => {
@@ -54,10 +54,10 @@ Poziom Aktywności
 👁️ Podgląd
 </button> <button type="submit" style="background: rgba(34, 197, 94, 0.8); border-radius: 0; padding: 0.75rem 2rem; color: white; border: none; cursor: pointer;" class="hover:opacity-80 transition-opacity">
 🚀 Stwórz Agenta
-</button> </div> </form> </div> <!-- Status Panel --> <div id="status-panel" class="mt-8" style="display: none;"> <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid white; border-radius: 0; padding: 1.5rem;"> <h3 class="text-lg font-bold text-white mb-4">📊 Status Tworzenia</h3> <div id="status-content" class="text-gray-300"> <!-- Status będzie wstawiany dynamicznie --> </div> </div> </div> </div> </div> </section> </main>  ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro?astro&type=script&index=0&lang.ts")} ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro", void 0);
+</button> </div> </form> </div> <!-- Status Panel --> <div id="status-panel" class="mt-8" style="display: none;"> <div style="background: rgba(0, 0, 0, 0.3); border: 1px solid white; border-radius: 0; padding: 1.5rem;"> <h3 class="text-lg font-bold text-white mb-4">📊 Status Tworzenia</h3> <div id="status-content" class="text-gray-300"> <!-- Status będzie wstawiany dynamicznie --> </div> </div> </div> </div> </div> </section> </main>  ${renderScript($$result2, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23/agents/create";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

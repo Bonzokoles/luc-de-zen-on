@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BYicRfIX.mjs';
 import { c as attr, e as ensure_array_like, b as escape_html, a as attr_class, s as stringify } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
 /* empty css                                              */
@@ -132,10 +132,10 @@ function AIWorkersManager($$renderer, $$props) {
 }
 
 const $$AiWorkersManager = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "AI Workers Manager - Zarz\u0105dzanie AI Workers", "data-astro-cid-656rxf6d": true }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="manager-container" data-astro-cid-656rxf6d> ${renderComponent($$result2, "AIWorkersManager", AIWorkersManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AIWorkersManager.svelte", "client:component-export": "default", "data-astro-cid-656rxf6d": true })} </div> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-workers-manager.astro", void 0);
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "AI Workers Manager - Zarz\u0105dzanie AI Workers", "data-astro-cid-656rxf6d": true }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="manager-container" data-astro-cid-656rxf6d> ${renderComponent($$result2, "AIWorkersManager", AIWorkersManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/AIWorkersManager.svelte", "client:component-export": "default", "data-astro-cid-656rxf6d": true })} </div> ` })} `;
+}, "Q:/mybonzo/mybonzo-github/src/pages/ai-workers-manager.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-workers-manager.astro";
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/ai-workers-manager.astro";
 const $$url = "/ai-workers-manager";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
