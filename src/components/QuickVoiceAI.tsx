@@ -14,7 +14,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
 
   const startRecording = async () => {
     try {
-<<<<<<< HEAD
       // Check microphone permissions first
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         setTranscript('❌ Przeglądarka nie obsługuje nagrywania audio');
@@ -30,8 +29,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
 
       setTranscript('🔄 Łączenie z mikrofonem...');
 
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       const stream = await navigator.mediaDevices.getUserMedia({ 
         audio: {
           echoCancellation: true,
@@ -40,7 +37,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
         } 
       });
       
-<<<<<<< HEAD
       // Check if MediaRecorder is supported
       if (!MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
         console.warn('WEBM/Opus not supported, falling back to default format');
@@ -50,28 +46,19 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
         mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus') 
           ? 'audio/webm;codecs=opus' 
           : 'audio/webm'
-=======
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm;codecs=opus'
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       });
       
       mediaRecorderRef.current = mediaRecorder;
       audioChunksRef.current = [];
       
       mediaRecorder.ondataavailable = (event) => {
-<<<<<<< HEAD
         if (event.data.size > 0) {
           audioChunksRef.current.push(event.data);
         }
-=======
-        audioChunksRef.current.push(event.data);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       };
       
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-<<<<<<< HEAD
         
         // Validate audio blob
         if (audioBlob.size === 0) {
@@ -111,19 +98,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
       } else {
         setTranscript('❌ Nieznany błąd mikrofonu');
       }
-=======
-        await processAudio(audioBlob);
-        stream.getTracks().forEach(track => track.stop());
-      };
-      
-      mediaRecorder.start(100);
-      setIsRecording(true);
-      setTranscript('🎤 Nagrywam...');
-      
-    } catch (error) {
-      console.error('Error starting recording:', error);
-      setTranscript('❌ Błąd dostępu do mikrofonu');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   };
 
@@ -135,7 +109,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
     }
   };
 
-<<<<<<< HEAD
   // Agent AI Response - automatyczne odpowiadanie głosem
   const handleAIResponse = async (userMessage: string) => {
     try {
@@ -421,37 +394,6 @@ export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps)
       if ('speechSynthesis' in window) {
         speechSynthesis.cancel();
       }
-=======
-  const processAudio = async (audioBlob: Blob) => {
-    try {
-      // Tutaj będzie integracja z Cloudflare AI
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
-      
-      const response = await fetch('/api/voice/recognition', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (response.ok) {
-        const result = await response.json();
-        setTranscript(result.transcript || 'Nie rozpoznano mowy');
-      } else {
-        setTranscript('❌ Błąd przetwarzania');
-      }
-    } catch (error) {
-      console.error('Error processing audio:', error);
-      setTranscript('❌ Błąd połączenia');
-    }
-  };
-
-  const toggleConnection = () => {
-    setIsConnected(!isConnected);
-    if (!isConnected) {
-      setTranscript('✅ Połączono z Voice AI');
-    } else {
-      setTranscript('❌ Rozłączono');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   };
 

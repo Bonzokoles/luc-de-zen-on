@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import RandomQuote from "../components/RandomQuote.astro";
@@ -13,15 +10,7 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-<<<<<<< HEAD
-import QuickVoiceAI from "../components/QuickVoiceAI.astro";
-import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
-import BackgroundMusicPlayerFixed from "../components/BackgroundMusicPlayerFixed.svelte";
-import DecorativeLines from "../components/DecorativeLines.astro";
-import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.svelte";
-// import { Icon } from "astro-icon/components";
-=======
-import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import { VoiceAIComponent } from "../components/voice-ai/VoiceAIComponent.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
@@ -51,7 +40,6 @@ import {
   StarIcon,
   RocketLaunchIcon
 } from '@heroicons/react/24/outline';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -129,17 +117,10 @@ import {
                 hyphens: auto;
               "
             >
-<<<<<<< HEAD
-              Pasjonat technologii i programista z misj�.<br />
-              Tworz� nowoczesne rozwi�zania, kt�re ��cz�<br />
-              sztuczn� inteligencj� z automatyzacj�.<br />
-              Moim celem jest budowanie u�ytecznych narz�dzi.
-=======
               Pasjonat technologii i programista z misją.<br />
               Tworzę nowoczesne rozwiązania, które łączą<br />
               sztuczną inteligencję z automatyzacją.<br />
               Moim celem jest budowanie użytecznych narzędzi.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
           </div>
           <span class="mt-auto">
@@ -291,11 +272,7 @@ import {
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-<<<<<<< HEAD
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
-=======
 t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         >
         </div>
         <div
@@ -319,11 +296,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
 
     <!-- AI Workers Section - Centered -->
     <section
-<<<<<<< HEAD
-      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative z-[1]"
-=======
       class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       id="ai-workers"
     >
       <div class="absolute left-0 right-0 h-full">
@@ -386,11 +359,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
         {
           /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
         }
-<<<<<<< HEAD
-        <QuickVoiceAI />
-=======
-        <QuickVoiceAI client:load />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+        <VoiceAIComponent client:load variant="hero" className="voice-ai-hero" />
 
         {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
         {
@@ -432,11 +401,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             style="position:absolute; left:0; right:0; bottom:0; height:1px; background:#ffffff;"
           >
           </div>
-<<<<<<< HEAD
-
-=======
           
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- Music Visualizer - Two waves: Music Player and Mic -->
           <div
             style="
@@ -449,11 +414,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             "
           >
             <!-- Back layer: reacts to Music Player, same height but wave 3% taller -->
-<<<<<<< HEAD
-            <div
-=======
             <div 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -473,15 +434,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
                 variant="music"
               />
             </div>
-<<<<<<< HEAD
-
-            <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
-            <div
-=======
             
             <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
             <div 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -501,15 +456,9 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
                 variant="music"
               />
             </div>
-<<<<<<< HEAD
-
-            <!-- Front layer: reacts to Avatar (mic) -->
-            <div
-=======
             
-            <!-- Front layer: reacts to Avatar (mic) -->
+            <!-- Front layer: reacts to AI Assistant Voice Response -->
             <div 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -517,84 +466,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
                 width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
                 max-width: 1212px;
                 height: 120px;
-                opacity: 0.8;
+                opacity: 0.9;
                 pointer-events:none;
+                z-index: 10;
               "
             >
               <EdgeAudioVisualizer
                 client:only="react"
                 height={120}
-                source="mic"
-                variant="mic"
+                source="ai-voice"
+                variant="ai-assistant"
+                color="#00d7ef"
               />
             </div>
           </div>
-<<<<<<< HEAD
-
-          <!-- Optimized Script - Single Audio Context -->
-          <script>
-            // OPTIMIZED: Single audio context for all visualizers
-            let globalAudioContext = null;
-            let visualizerInitialized = false;
-
-            function initializeSharedAudioContext() {
-              if (visualizerInitialized) return;
-
-              try {
-                if (!globalAudioContext) {
-                  globalAudioContext = new (window.AudioContext ||
-                    window.webkitAudioContext)();
-                  window.SHARED_AUDIO_CONTEXT = globalAudioContext;
-                }
-
-                // Only connect if music player is ready
-                if (window.MUSIC && !window.MUSIC_ANALYSER) {
-                  const musicElement = document.querySelector("audio");
-                  if (musicElement) {
-                    const analyser = globalAudioContext.createAnalyser();
-                    analyser.fftSize = 256;
-                    analyser.smoothingTimeConstant = 0.8;
-
-                    const source =
-                      globalAudioContext.createMediaElementSource(musicElement);
-                    source.connect(analyser);
-                    analyser.connect(globalAudioContext.destination);
-
-                    window.MUSIC_ANALYSER = analyser;
-                    window.dispatchEvent(
-                      new CustomEvent("music-analyser-ready")
-                    );
-                    visualizerInitialized = true;
-                    console.log("🎵 Optimized visualizer connected");
-                  }
-                }
-              } catch (e) {
-                console.warn("Visualizer init failed:", e);
-              }
-            }
-
-            // Delayed initialization to prevent conflicts
-            document.addEventListener("DOMContentLoaded", () => {
-              setTimeout(initializeSharedAudioContext, 2000); // Wait 2 seconds
-            });
-
-            // Resume audio context on user interaction
-            document.addEventListener(
-              "click",
-              function resumeAudio() {
-                if (
-                  globalAudioContext &&
-                  globalAudioContext.state === "suspended"
-                ) {
-                  globalAudioContext.resume().then(() => {
-                    console.log("🎵 Shared audio context resumed");
-                  });
-                }
-              },
-              { once: true }
-            );
-          </script>
-=======
         
         <!-- Script to connect music player with visualizer -->
         <script>
@@ -675,27 +560,11 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             }
           }, { once: true });
         </script>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
 
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">
           <a
-<<<<<<< HEAD
-            href="/dashboard/klienci"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>KLIENCI_DSH_BON</a
-          >
-          <a
-            href="/dashboard/statystyki"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>AKYW_STATYSTIC</a
-          >
-          <a
-            href="/dashboard/prywatne"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>PRIV_STAFF</a
-=======
             href="/admin/"
             class="dashboard-btn"
             data-astro-cid-my52qgmw>ADMIN PANEL</a
@@ -709,7 +578,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             href="/admin/ai-models"
             class="dashboard-btn"
             data-astro-cid-my52qgmw>AI MODELS</a
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           >
         </div>
 
@@ -915,11 +783,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
               />
               <button
                 class="action-btn primary"
-<<<<<<< HEAD
-                onclick="openBigQuery()"
-=======
                 onclick="openBigQueryPopup()"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 data-astro-cid-my52qgmw>Analizuj</button
               >
               <button
@@ -957,11 +821,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
               />
               <button
                 class="action-btn primary"
-<<<<<<< HEAD
-                onclick="openKaggle()"
-=======
                 onclick="openKagglePopup()"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 data-astro-cid-my52qgmw>Wyszukaj</button
               >
               <button
@@ -1008,8 +868,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             </div>
           </div>
 
-<<<<<<< HEAD
-=======
           <!-- Voice AI Worker -->
           <div class="worker-card" data-worker="voice-ai" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>
@@ -1044,7 +902,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             </div>
           </div>
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- STATUS WORKERS - Basic Opening Element -->
           <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>
@@ -1136,117 +993,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
             </div>
           </div>
 
-<<<<<<< HEAD
-          <!-- Content Creator Agent -->
-          <div class="worker-card" data-worker="content-creator" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>Content Creator Agent</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Automatyczne generowanie treści, artykułów i postów na bloga.
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>AI Content</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Blog</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>SEO</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Podaj temat treści..."
-                class="quick-prompt"
-                id="contentCreatorPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="window.open('/agents/content-creator', '_blank')"
-                data-astro-cid-my52qgmw>Generuj</button
-              >
-            </div>
-          </div>
-
-          <!-- Customer Experience Agent -->
-          <div class="worker-card" data-worker="customer-experience" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>Customer Experience Agent</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Analiza opinii klientów, automatyczne odpowiedzi i rekomendacje.
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Feedback</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>CRM</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>AI Support</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Wpisz zapytanie klienta..."
-                class="quick-prompt"
-                id="customerExperiencePrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="window.open('/agents/customer-experience', '_blank')"
-                data-astro-cid-my52qgmw>Analizuj</button
-              >
-            </div>
-          </div>
-
-          <!-- Analytics Prophet Agent -->
-          <div class="worker-card" data-worker="analytics-prophet" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>Analytics Prophet Agent</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Prognozowanie trendów i analiza danych biznesowych.
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Forecast</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Business</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>AI Analytics</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Opisz dane do analizy..."
-                class="quick-prompt"
-                id="analyticsProphetPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="window.open('/agents/analytics-prophet', '_blank')"
-                data-astro-cid-my52qgmw>Prognozuj</button
-              >
-            </div>
-          </div>
-
-          <!-- Security Sentinel Agent -->
-          <div class="worker-card" data-worker="security-sentinel" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>Security Sentinel Agent</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Monitorowanie bezpieczeństwa, wykrywanie zagrożeń i alerty.
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Security</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>AI Alert</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Podaj incydent lub zapytanie..."
-                class="quick-prompt"
-                id="securitySentinelPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="window.open('/agents/security-sentinel', '_blank')"
-                data-astro-cid-my52qgmw>Monitoruj</button
-              >
-            </div>
-          </div>
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- Activepieces Card -->
           <div
             class="worker-card"
@@ -1408,11 +1154,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
               onclick="openFunction('quizy')"
               data-astro-cid-my52qgmw
             >
-<<<<<<< HEAD
-              <div class="feature-icon" data-astro-cid-my52qgmw>�</div>
-=======
               <div class="feature-icon" data-astro-cid-my52qgmw>🧠</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <div class="feature-title" data-astro-cid-my52qgmw>
                 Quizy i testy interaktywne
               </div>
@@ -1451,17 +1193,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
         class="right-btn"
         id="musicPlayerBtn"
       >
-<<<<<<< HEAD
-        <Icon name="lucide:music" /> MUSIC PLAYER
-      </button>
-      <div id="musicPlayerWidget" class="floating-widget hidden">
-        <BackgroundMusicPlayerFixed client:load />
-=======
         <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget">
         <BackgroundMusicPlayerSimple client:load />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
 
@@ -1472,98 +1207,13 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
-<<<<<<< HEAD
-        <Icon name="lucide:bot" /> AI ASSISTANT
-      </button>
-      <div id="polaczekWidget" class="floating-widget hidden">
-=======
         <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <AiHelpAssistant client:load />
       </div>
     </div>
 
-<<<<<<< HEAD
-    <button onclick="openMainChat()" class="right-btn">
-      <Icon name="lucide:message-circle" /> MAIN CHAT
-    </button>
-    <button onclick="openRefresh()" class="right-btn">
-      <Icon name="lucide:refresh-cw" /> REFRESH
-    </button>
-    <button onclick="openFolder()" class="right-btn">
-      <Icon name="lucide:folder" /> FOLDER
-    </button>
-    <button onclick="openClose()" class="right-btn">
-      <Icon name="lucide:x" /> CLOSE
-    </button>
-
-    <!-- New Floating Buttons - Extended Set -->
-    <button
-      onclick="openSchowek()"
-      class="right-btn"
-      title="Schowek - Zbieranie informacji z r�nych stron"
-    >
-      <Icon name="lucide:archive" /> SCHOWEK
-    </button>
-    <button
-      onclick="openKalendarz()"
-      class="right-btn"
-      title="Kalendarz - Organizacja zada� i termin�w"
-    >
-      <Icon name="lucide:calendar-days" /> KALENDARZ
-    </button>
-    <button
-      onclick="openDodatki()"
-      class="right-btn"
-      title="Dodatki - Narz�dzia pomocnicze"
-    >
-      <Icon name="lucide:wrench" /> DODATKI
-    </button>
-    <button
-      onclick="openFolder2()"
-      class="right-btn"
-      title="Folder 2 - Dodatkowy organizer plik�w"
-    >
-      <Icon name="lucide:folder-plus" /> FOLDER 2
-    </button>
-    <button
-      onclick="openKatalogStron()"
-      class="right-btn"
-      title="Katalog Stron - Nawigacja po wszystkich funkcjach"
-    >
-      <Icon name="lucide:list" /> KATALOG
-    </button>
-    <button
-      onclick="openInstrukcje()"
-      class="right-btn"
-      title="Instrukcje - Pomoc i przewodniki"
-    >
-      <Icon name="lucide:book-open" /> INSTRUKCJE
-    </button>
-    <button
-      onclick="openZapas1()"
-      class="right-btn"
-      title="Zapas 1 - Funkcja do przysz�ego wykorzystania"
-    >
-      <Icon name="lucide:star" /> ZAPAS 1
-    </button>
-    <button
-      onclick="openZapas2()"
-      class="right-btn"
-      title="Zapas 2 - Funkcja do przysz�ego wykorzystania"
-    >
-      <Icon name="lucide:zap" /> ZAPAS 2
-    </button>
-    <button
-      onclick="openZapas3()"
-      class="right-btn"
-      title="Zapas 3 - Funkcja do przysz�ego wykorzystania"
-    >
-      <Icon name="lucide:rocket" /> ZAPAS 3
-    </button>
-=======
     <div class="floating-widget-container">
       <button 
         onclick="toggleGlobalVoice()"
@@ -1971,33 +1621,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     <button onclick="openZapas1()" class="right-btn" title="Zapas 1 - Funkcja do przyszłego wykorzystania"> <StarIcon className="w-6 h-6 inline mr-2" /> ZAPAS 1 </button>
     <button onclick="openZapas2()" class="right-btn" title="Zapas 2 - Funkcja do przyszłego wykorzystania"> <BoltIcon className="w-6 h-6 inline mr-2" /> ZAPAS 2 </button>
     <button onclick="openZapas3()" class="right-btn" title="Zapas 3 - Funkcja do przyszłego wykorzystania"> <RocketLaunchIcon className="w-6 h-6 inline mr-2" /> ZAPAS 3 </button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </div>
 
   <!-- Separator Section 4 -->
   <section class="border border-edge relative z-[1]">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
-<<<<<<< HEAD
-      <div
-        class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
-      >
-=======
       <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
       </div>
       <!-- Outer vertical lines -->
-<<<<<<< HEAD
-      <div
-        class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
-      >
-=======
       <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
@@ -2013,26 +1650,14 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
   <section class="border border-edge relative z-[1]">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
-<<<<<<< HEAD
-      <div
-        class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
-      >
-=======
       <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
       </div>
       <!-- Outer vertical lines -->
-<<<<<<< HEAD
-      <div
-        class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
-      >
-=======
       <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
@@ -2115,11 +1740,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     </div>
   </div>
 
-<<<<<<< HEAD
-  <!-- OpenRouter Floating AI Buttons -->
-  <OpenRouterFloatingButtons client:load />
-</MyBonzoLayout>
-=======
   <!-- Universal Worker Communication Popup -->
   <WorkerCommunicationPopup />
 </MyBonzoLayout>
@@ -4986,4 +4606,3 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     display: none;
   }
 </style>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
