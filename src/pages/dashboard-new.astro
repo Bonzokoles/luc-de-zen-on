@@ -1,0 +1,333 @@
+﻿---
+import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
+import GlassPanel from "../layouts/components/GlassPanel.astro";
+import CyberpunkButton from "../layouts/components/CyberpunkButton.astro";
+
+const pageTitle = "Dashboard MyBonzo AI";
+const pageDescription = "Centrum kontroli wszystkich funkcji i narzÄ™dzi AI";
+const pageQuote = "NajlepszÄ… broniÄ… przeciwko zmianom jest wiedza, adaptacja i ciÄ…gĹ‚e uczenie siÄ™.";
+const pageAuthor = "Peter Drucker";
+---
+
+<UniversalPageLayout 
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  pageQuote={pageQuote}
+  pageAuthor={pageAuthor}
+  showRandomQuote={false}
+>
+    <!-- Quick Stats Overview -->
+    <GlassPanel title="đź“Š PrzeglÄ…d aktywnoĹ›ci" variant="highlight" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div style="background: rgba(0,217,255,0.1); padding: 20px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2.5rem; font-weight: 700;" id="todayQueries">156</div>
+                <div style="color: rgba(255,255,255,0.7);">Zapytania dzisiaj</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 20px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2.5rem; font-weight: 700;" id="activeAgents">8</div>
+                <div style="color: rgba(255,255,255,0.7);">Aktywne agenty</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 20px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2.5rem; font-weight: 700;" id="imagesGenerated">23</div>
+                <div style="color: rgba(255,255,255,0.7);">Obrazy wygenerowane</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 20px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2.5rem; font-weight: 700;" id="sessionTime">2.5h</div>
+                <div style="color: rgba(255,255,255,0.7);">Czas sesji</div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <CyberpunkButton 
+                text="đź“ SzczegĂłĹ‚owe statystyki" 
+                variant="outline" 
+                size="md"
+                onclick="showDetailedStats()"
+            />
+        </div>
+    </GlassPanel>
+
+    <!-- Quick Access Tools -->
+    <GlassPanel title="đźš€ Szybki dostÄ™p do narzÄ™dzi" variant="default" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            
+            <!-- AI Chat -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">đź’¬</div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">Chat AI</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    Rozmawiaj z zaawansowanymi modelami AI. Zadawaj pytania, proĹ› o pomoc, twĂłrz treĹ›ci.
+                </p>
+                <CyberpunkButton 
+                    text="Rozpocznij chat" 
+                    variant="primary" 
+                    size="md"
+                    href="/chatbot"
+                />
+            </div>
+
+            <!-- Image Generation -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">đźŽ¨</div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">Generator obrazĂłw</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    TwĂłrz unikalne obrazy za pomocÄ… AI. Od fotorealistycznych po artystyczne style.
+                </p>
+                <CyberpunkButton 
+                    text="Generuj obrazy" 
+                    variant="primary" 
+                    size="md"
+                    href="/image-generator"
+                />
+            </div>
+
+            <!-- Agents Management -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">đź¤–</div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">ZarzÄ…dzanie agentami</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    TwĂłrz i konfiguruj spersonalizowanych agentĂłw AI do konkretnych zadaĹ„.
+                </p>
+                <CyberpunkButton 
+                    text="ZarzÄ…dzaj agentami" 
+                    variant="primary" 
+                    size="md"
+                    href="/agents"
+                />
+            </div>
+
+            <!-- Prompt Enhancer -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">âś¨</div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">SupaGruen SD CheatSheet</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    Baza stylĂłw artystĂłw dla generowania obrazĂłw. Ponad 833 style do wyboru.
+                </p>
+                <CyberpunkButton 
+                    text="PrzeglÄ…daj style" 
+                    variant="primary" 
+                    size="md"
+                    href="/prompt-enhancer"
+                />
+            </div>
+
+            <!-- Quiz AI -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">đź§ </div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">Quiz AI</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    Testuj swojÄ… wiedzÄ™ z interaktywnym quizem generowanym przez AI.
+                </p>
+                <CyberpunkButton 
+                    text="Rozpocznij quiz" 
+                    variant="primary" 
+                    size="md"
+                    href="/quiz"
+                />
+            </div>
+
+            <!-- System Status -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
+                <div style="font-size: 3rem; margin-bottom: 15px;">đź“Š</div>
+                <h3 style="color: #00d9ff; margin-bottom: 12px;">Status systemu</h3>
+                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
+                    Monitoruj status wszystkich workerĂłw AI i wydajnoĹ›Ä‡ systemu.
+                </p>
+                <CyberpunkButton 
+                    text="Zobacz status" 
+                    variant="primary" 
+                    size="md"
+                    href="/status-workers"
+                />
+            </div>
+        </div>
+    </GlassPanel>
+
+    <!-- Recent Activity -->
+    <GlassPanel title="đź• Ostatnia aktywnoĹ›Ä‡" variant="default" padding="lg">
+        <div style="max-height: 400px; overflow-y: auto;">
+            <div id="activityFeed">
+                <!-- Activity items will be loaded here -->
+                <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #00d9ff; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="color: #00d9ff; font-weight: 600;">đź’¬ Chat z AI</span>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2 min temu</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
+                        Zapytanie o strategie marketingowe dla startupĂłw technologicznych
+                    </p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #22c55e; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="color: #22c55e; font-weight: 600;">đźŽ¨ Obraz wygenerowany</span>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">15 min temu</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
+                        "Cyberpunk cityscape at night, neon lights, futuristic"
+                    </p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #f59e0b; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="color: #f59e0b; font-weight: 600;">đź¤– Nowy agent</span>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">1h temu</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
+                        Utworzono agenta "Marketing Specialist Pro"
+                    </p>
+                </div>
+
+                <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #8b5cf6; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="color: #8b5cf6; font-weight: 600;">đź§  Quiz ukoĹ„czony</span>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2h temu</span>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
+                        Quiz "Technologie AI" - wynik: 85% (17/20 pytaĹ„)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <CyberpunkButton 
+                text="đź”„ OdĹ›wieĹĽ aktywnoĹ›Ä‡" 
+                variant="outline" 
+                size="sm"
+                onclick="refreshActivity()"
+            />
+        </div>
+    </GlassPanel>
+
+    <!-- Quick Actions Panel -->
+    <GlassPanel title="âšˇ Szybkie akcje" variant="default" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            <CyberpunkButton 
+                text="đź“ť Nowy projekt" 
+                variant="primary" 
+                size="md"
+                onclick="startNewProject()"
+            />
+            <CyberpunkButton 
+                text="đź“Š Eksportuj dane" 
+                variant="outline" 
+                size="md"
+                onclick="exportData()"
+            />
+            <CyberpunkButton 
+                text="âš™ď¸Ź Ustawienia" 
+                variant="outline" 
+                size="md"
+                href="/admin/"
+            />
+            <CyberpunkButton 
+                text="đź“± Aplikacja mobilna" 
+                variant="outline" 
+                size="md"
+                onclick="showMobileInfo()"
+            />
+        </div>
+    </GlassPanel>
+
+    <style>
+        .tool-card:hover {
+            border-color: rgba(0,217,255,0.6) !important;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,217,255,0.2);
+        }
+
+        #activityFeed::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #activityFeed::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.3);
+            border-radius: 3px;
+        }
+
+        #activityFeed::-webkit-scrollbar-thumb {
+            background: rgba(0,217,255,0.3);
+            border-radius: 3px;
+        }
+
+        #activityFeed::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,217,255,0.5);
+        }
+    </style>
+
+    <script>
+        // Update stats with real-time data simulation
+        function updateStats() {
+            document.getElementById('todayQueries').textContent = Math.floor(Math.random() * 50) + 120;
+            document.getElementById('activeAgents').textContent = Math.floor(Math.random() * 5) + 6;
+            document.getElementById('imagesGenerated').textContent = Math.floor(Math.random() * 10) + 18;
+            
+            // Update session time
+            const startTime = sessionStorage.getItem('sessionStart') || Date.now();
+            const elapsed = Math.floor((Date.now() - startTime) / (1000 * 60 * 60 * 10)) / 100; // in hours
+            document.getElementById('sessionTime').textContent = elapsed.toFixed(1) + 'h';
+        }
+
+        // Initialize session tracking
+        if (!sessionStorage.getItem('sessionStart')) {
+            sessionStorage.setItem('sessionStart', Date.now());
+        }
+
+        // Quick action functions
+        function showDetailedStats() {
+            window.open('/status-workers', '_blank');
+        }
+
+        function refreshActivity() {
+            // Simulate refresh with animation
+            const feed = document.getElementById('activityFeed');
+            feed.style.opacity = '0.5';
+            setTimeout(() => {
+                feed.style.opacity = '1';
+                // In real app, this would fetch new data
+            }, 500);
+        }
+
+        function startNewProject() {
+            const projects = [
+                'Marketing Campaign AI',
+                'Content Creation Workflow',
+                'Data Analysis Project',
+                'Chatbot Development',
+                'Image Generation Series'
+            ];
+            
+            const project = projects[Math.floor(Math.random() * projects.length)];
+            if (confirm(`Czy chcesz rozpoczÄ…Ä‡ nowy projekt: "${project}"?`)) {
+                alert('đźš€ Projekt zostaĹ‚ utworzony! Przekierowanie do workspace...');
+                // In real app, redirect to project workspace
+            }
+        }
+
+        function exportData() {
+            alert('đź“Š Funkcja eksportu danych bÄ™dzie dostÄ™pna wkrĂłtce!');
+        }
+
+        function showMobileInfo() {
+            alert('đź“± Aplikacja mobilna MyBonzo AI jest w fazie rozwoju. Zostaniesz powiadomiony o premierze!');
+        }
+
+        // Auto-update stats every 30 seconds
+        setInterval(updateStats, 30000);
+        
+        // Initial load
+        updateStats();
+
+        // Welcome message for new users
+        document.addEventListener('DOMContentLoaded', function() {
+            const isFirstVisit = !localStorage.getItem('dashboardVisited');
+            if (isFirstVisit) {
+                setTimeout(() => {
+                    alert('đźŽ‰ Witaj w Dashboard MyBonzo AI! Eksploruj wszystkie dostÄ™pne narzÄ™dzia AI.');
+                    localStorage.setItem('dashboardVisited', 'true');
+                }, 1000);
+            }
+        });
+    </script>
+</UniversalPageLayout>

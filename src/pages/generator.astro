@@ -1,0 +1,20 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+import StableDiffusionGenerator from "../components/StableDiffusionGenerator.jsx";
+---
+
+<Layout title="AI Image Generator - Stable Diffusion">
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-8">
+      <h1 class="neon-cyan sci-fi-type text-4xl font-bold mb-4">
+        STABLE DIFFUSION GENERATOR
+      </h1>
+      <p class="neon-white sci-fi-type text-lg opacity-80">
+        Zaawansowany generator obraz├│w AI z interfejsem cyberpunk
+      </p>
+    </div>
+
+    <StableDiffusionGenerator client:load />
+  </div>
+</Layout>
+

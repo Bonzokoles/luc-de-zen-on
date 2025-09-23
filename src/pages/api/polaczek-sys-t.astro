@@ -1,0 +1,57 @@
+﻿---
+import type { APIRoute } from "astro";
+
+export const ALL: APIRoute = async ({ request }) => {
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  };
+
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 200,
+      headers: corsHeaders,
+    });
+  }
+
+  try {
+    const workerUrl =
+      "https://polaczek-sys-t.lissonkarol-msa.workers.dev/api/polaczek-sys-t";
+
+    const response = await fetch(workerUrl, {
+      method: request.method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: request.body,
+    });
+
+    const data = await response.text();
+
+    return new Response(data, {
+      status: response.status,
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error: any) {
+    console.error("POLACZEK_SYS_T proxy error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "POLACZEK_SYS_T service unavailable",
+        details: error?.message || "Unknown error",
+      }),
+      {
+        status: 503,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+};
+---
+

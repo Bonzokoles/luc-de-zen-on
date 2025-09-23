@@ -1,0 +1,150 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import ActivityDashboard from "../../components/ActivityDashboard.svelte";
+---
+
+<MyBonzoLayout siteTitle="Monitorowanie i Raportowanie | MyBonzo AI">
+  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4">
+          đź“Š Monitorowanie i Raportowanie
+        </h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
+          Dashboard z automatycznym generowaniem raportĂłw i alertami o anomaliach
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Key Metrics -->
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">đź”„</span>
+            <h3 class="text-lg font-semibold text-orange-400">AktywnoĹ›Ä‡</h3>
+          </div>
+          <div class="text-3xl font-bold text-white mb-2">1,234</div>
+          <div class="text-sm text-green-400">+12% z zeszĹ‚ego tygodnia</div>
+        </div>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">đź‘Ą</span>
+            <h3 class="text-lg font-semibold text-orange-400">UĹĽytkownicy</h3>
+          </div>
+          <div class="text-3xl font-bold text-white mb-2">567</div>
+          <div class="text-sm text-blue-400">89 nowych dzisiaj</div>
+        </div>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">âšˇ</span>
+            <h3 class="text-lg font-semibold text-orange-400">API Calls</h3>
+          </div>
+          <div class="text-3xl font-bold text-white mb-2">15.2K</div>
+          <div class="text-sm text-yellow-400">234 w ostatniej godzinie</div>
+        </div>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="text-2xl">đźš¨</span>
+            <h3 class="text-lg font-semibold text-orange-400">Alerty</h3>
+          </div>
+          <div class="text-3xl font-bold text-white mb-2">3</div>
+          <div class="text-sm text-red-400">1 wymaga uwagi</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Dashboard -->
+        <div class="lg:col-span-2">
+          <ActivityDashboard client:load />
+          
+          <!-- Real-time Activity Feed -->
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mt-6">
+            <h3 class="text-xl font-semibold mb-4 text-orange-400">Live Activity Feed</h3>
+            <div class="space-y-3 max-h-64 overflow-y-auto">
+              <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
+                <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                <div class="flex-1">
+                  <div class="text-sm font-medium">Nowy uĹĽytkownik zarejestrowany</div>
+                  <div class="text-xs text-slate-400">2 minuty temu</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
+                <span class="w-3 h-3 bg-blue-400 rounded-full"></span>
+                <div class="flex-1">
+                  <div class="text-sm font-medium">API Call: Generate Image</div>
+                  <div class="text-xs text-slate-400">5 minut temu</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
+                <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                <div class="flex-1">
+                  <div class="text-sm font-medium">Wysokie zuĹĽycie CPU</div>
+                  <div class="text-xs text-slate-400">8 minut temu</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Controls -->
+        <div class="space-y-6">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-orange-400">Kontrola</h3>
+            <div class="space-y-3">
+              <button class="w-full bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                đź“‹ Generuj Raport
+              </button>
+              <button class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                đź“Š Eksportuj Dane
+              </button>
+              <button class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                đź”” Ustawienia AlertĂłw
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-orange-400">System Status</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-300">API Gateway</span>
+                <span class="px-2 py-1 bg-green-600 rounded text-xs">ONLINE</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-300">AI Workers</span>
+                <span class="px-2 py-1 bg-green-600 rounded text-xs">RUNNING</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-300">Database</span>
+                <span class="px-2 py-1 bg-yellow-600 rounded text-xs">SLOW</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-300">Cache</span>
+                <span class="px-2 py-1 bg-green-600 rounded text-xs">OPTIMAL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-orange-400">Automatyczne Raporty</h3>
+            <ul class="space-y-2 text-slate-300 text-sm">
+              <li>đź“§ Email co 24h</li>
+              <li>đź“± SMS przy alertach</li>
+              <li>đź“Š Weekly Dashboard</li>
+              <li>đź“ Monthly Analytics</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  }
+</style>
+

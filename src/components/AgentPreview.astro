@@ -1,0 +1,11 @@
+﻿---
+const { agent } = Astro.props;
+---
+
+<article>
+  <h2>{agent.data.title}</h2>
+  <p>{agent.data.description}</p>
+  <p>Status: {agent.data.status}</p>
+  <small>{agent.data.date}</small>
+</article>
+

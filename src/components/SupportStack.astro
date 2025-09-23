@@ -1,0 +1,21 @@
+﻿---
+import AiHelpAssistant from "./AiHelpAssistant.svelte";
+import BackgroundMusicPlayer from "./BackgroundMusicPlayerSimple.svelte";
+---
+
+<section class="support-stack">
+  <AiHelpAssistant client:load />
+  <BackgroundMusicPlayer client:load />
+</section>
+
+<style>
+  .support-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 980px;
+    margin: 1.5rem auto;
+    padding: 0 1rem;
+  }
+</style>
+

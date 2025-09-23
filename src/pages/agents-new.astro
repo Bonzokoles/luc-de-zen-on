@@ -1,0 +1,364 @@
+﻿---
+import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
+import GlassPanel from "../layouts/components/GlassPanel.astro";
+import CyberpunkButton from "../layouts/components/CyberpunkButton.astro";
+
+const pageTitle = "ZarzÄ…dzanie Agentami AI";
+const pageDescription = "TwĂłrz, konfiguruj i zarzÄ…dzaj agentami sztucznej inteligencji";
+const pageQuote = "PrzyszĹ‚oĹ›Ä‡ naleĹĽy do tych, ktĂłrzy potrafiÄ… wspĂłĹ‚pracowaÄ‡ z maszynami.";
+const pageAuthor = "Garry Kasparov";
+
+// Fetch user-created agents
+let userAgents = [];
+try {
+  const response = await fetch(new URL("/api/agents/list", Astro.url.origin));
+  if (response.ok) {
+    userAgents = await response.json();
+  }
+} catch (e) {
+  console.error("Could not fetch user agents:", e);
+}
+---
+
+<UniversalPageLayout 
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  pageQuote={pageQuote}
+  pageAuthor={pageAuthor}
+  showRandomQuote={false}
+>
+    <!-- Agent Creation Panel -->
+    <GlassPanel title="đź¤– Kreator Nowego Agenta" variant="highlight" padding="lg">
+        <div style="margin-bottom: 20px;">
+            <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.6;">
+                StwĂłrz spersonalizowanego agenta AI dostosowanego do Twoich potrzeb. 
+                Wybierz specjalizacjÄ™, ustaw parametry i rozpocznij pracÄ™ z AI asystentem.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            
+            <!-- Quick Agent Templates -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">âšˇ Szybkie szablony</h3>
+                
+                <div style="space-y: 10px;">
+                    <button class="agent-template-btn" data-template="business" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
+                        đź’Ľ Agent Biznesowy
+                    </button>
+                    <button class="agent-template-btn" data-template="creative" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
+                        đźŽ¨ Agent Kreatywny
+                    </button>
+                    <button class="agent-template-btn" data-template="technical" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
+                        đź”§ Agent Techniczny
+                    </button>
+                    <button class="agent-template-btn" data-template="research" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
+                        đź“Š Agent Badawczy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Agent Configuration -->
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">âš™ď¸Ź Konfiguracja</h3>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Nazwa agenta</label>
+                    <input 
+                        type="text" 
+                        id="agentName" 
+                        placeholder="np. MĂłj Asystent Biznesowy"
+                        style="width: 100%; padding: 10px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;"
+                    />
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Specjalizacja</label>
+                    <select 
+                        id="agentSpecialization"
+                        style="width: 100%; padding: 10px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;"
+                    >
+                        <option value="">Wybierz specjalizacjÄ™...</option>
+                        <option value="general">Asystent ogĂłlny</option>
+                        <option value="marketing">Marketing i sprzedaĹĽ</option>
+                        <option value="content">Tworzenie treĹ›ci</option>
+                        <option value="analysis">Analiza danych</option>
+                        <option value="coding">Programowanie</option>
+                        <option value="education">Edukacja</option>
+                        <option value="customer">ObsĹ‚uga klienta</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Poziom kreatywnoĹ›ci</label>
+                    <input 
+                        type="range" 
+                        id="creativityLevel" 
+                        min="0" 
+                        max="100" 
+                        value="50"
+                        style="width: 100%;"
+                    />
+                    <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-top: 5px;">
+                        <span>Konserwatywny</span>
+                        <span>Zbalansowany</span>
+                        <span>Kreatywny</span>
+                    </div>
+                </div>
+
+                <CyberpunkButton 
+                    text="đźš€ StwĂłrz Agenta" 
+                    variant="primary" 
+                    size="md"
+                    onclick="createAgent()"
+                />
+            </div>
+        </div>
+
+        <!-- Agent Personality -->
+        <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+            <h3 style="color: #00d9ff; margin-bottom: 15px;">đźŽ­ OsobowoĹ›Ä‡ i styl komunikacji</h3>
+            <textarea 
+                id="agentPersonality" 
+                placeholder="Opisz jak agent ma siÄ™ zachowywaÄ‡, jaki ma byÄ‡ jego styl komunikacji, jakie ma mieÄ‡ specjalne umiejÄ™tnoĹ›ci..."
+                style="width: 100%; height: 120px; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; resize: vertical;"
+            ></textarea>
+        </div>
+    </GlassPanel>
+
+    <!-- Existing Agents -->
+    <GlassPanel title="đź‘Ą Twoi Agenci AI" variant="default" padding="lg">
+        <div id="agentsContainer">
+            {userAgents && userAgents.length > 0 ? (
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    {userAgents.map((agent) => (
+                        <div class="agent-card" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px; transition: all 0.3s ease;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                                <h3 style="color: #00d9ff; margin: 0;">{agent.name}</h3>
+                                <span style="background: rgba(34,197,94,0.2); color: #22c55e; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">
+                                    Aktywny
+                                </span>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 5px;">
+                                    <strong>Specjalizacja:</strong> {agent.specialization || 'OgĂłlna'}
+                                </div>
+                                <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 10px;">
+                                    <strong>Utworzony:</strong> {new Date(agent.createdAt).toLocaleDateString()}
+                                </div>
+                                <p style="color: rgba(255,255,255,0.8); font-size: 0.9rem; line-height: 1.4;">
+                                    {agent.description?.substring(0, 100)}...
+                                </p>
+                            </div>
+
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <CyberpunkButton 
+                                    text="đź’¬ Chat" 
+                                    variant="primary" 
+                                    size="sm"
+                                    href={`/chat/${agent.id}`}
+                                />
+                                <CyberpunkButton 
+                                    text="âš™ď¸Ź Edytuj" 
+                                    variant="outline" 
+                                    size="sm"
+                                    onclick={`editAgent('${agent.id}')`}
+                                />
+                                <CyberpunkButton 
+                                    text="đź“Š Stats" 
+                                    variant="outline" 
+                                    size="sm"
+                                    onclick={`showAgentStats('${agent.id}')`}
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="color: rgba(255,255,255,0.6); font-size: 1.1rem; margin-bottom: 20px;">
+                        Nie masz jeszcze ĹĽadnych agentĂłw AI
+                    </div>
+                    <p style="color: rgba(255,255,255,0.4); margin-bottom: 20px;">
+                        StwĂłrz swojego pierwszego agenta uĹĽywajÄ…c kreatora powyĹĽej
+                    </p>
+                    <CyberpunkButton 
+                        text="đźš€ StwĂłrz pierwszego agenta" 
+                        variant="primary" 
+                        size="lg"
+                        onclick="scrollToCreator()"
+                    />
+                </div>
+            )}
+        </div>
+
+        <!-- Agent Templates Examples -->
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,217,255,0.2);">
+            <h3 style="color: #00d9ff; margin-bottom: 20px; text-align: center;">đź’ˇ PrzykĹ‚ady agentĂłw do stworzenia</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
+                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đź“§ Email Marketing Specialist</div>
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Ekspert od kampanii mailowych i automation marketingu</div>
+                </div>
+                
+                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
+                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đź“Š Data Analyst</div>
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Analizuje dane i tworzy raporty biznesowe</div>
+                </div>
+                
+                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
+                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">âśŤď¸Ź Content Writer</div>
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Tworzy angaĹĽujÄ…ce treĹ›ci dla social media i blogĂłw</div>
+                </div>
+                
+                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
+                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đźŽ“ Learning Assistant</div>
+                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Pomaga w nauce i rozwoju zawodowym</div>
+                </div>
+            </div>
+        </div>
+    </GlassPanel>
+
+    <style>
+        .agent-template-btn:hover {
+            background: rgba(0,217,255,0.2) !important;
+            border-color: rgba(0,217,255,0.6) !important;
+            transform: translateY(-2px);
+        }
+
+        .agent-card:hover {
+            border-color: rgba(0,217,255,0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,217,255,0.2);
+        }
+
+        #creativityLevel {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0,217,255,0.3);
+            border-radius: 4px;
+            height: 6px;
+        }
+
+        #creativityLevel::-webkit-slider-thumb {
+            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        // Agent templates data
+        const agentTemplates = {
+            business: {
+                name: "Asystent Biznesowy Pro",
+                specialization: "marketing",
+                personality: "Profesjonalny, analityczny asystent biznesowy. Specjalizuje siÄ™ w strategii marketingowej, analizie rynku i planowaniu biznesowym. Komunikuje siÄ™ jasno i konkretnie, zawsze podaje ĹşrĂłdĹ‚a i dane."
+            },
+            creative: {
+                name: "Kreatywny AI Artysta",
+                specialization: "content",
+                personality: "Kreatywny, inspirujÄ…cy asystent skupiony na treĹ›ciach artystycznych. Pomaga w pisaniu, projektowaniu i burzy mĂłzgĂłw. Ma ĹĽywy styl komunikacji i lubi eksperymentowaÄ‡ z nowymi pomysĹ‚ami."
+            },
+            technical: {
+                name: "Dev Assistant Pro",
+                specialization: "coding",
+                personality: "Techniczny ekspert programowania. Zna wiele jÄ™zykĂłw programowania, frameworki i najlepsze praktyki. Komunikuje siÄ™ precyzyjnie, podaje przykĹ‚ady kodu i wyjaĹ›nia zĹ‚oĹĽone koncepty w prosty sposĂłb."
+            },
+            research: {
+                name: "Research Specialist",
+                specialization: "analysis",
+                personality: "Metodyczny badacz i analityk. Specjalizuje siÄ™ w gromadzeniu informacji, analizie danych i tworzeniu raportĂłw. Zawsze weryfikuje ĹşrĂłdĹ‚a i przedstawia obiektywne analizy."
+            }
+        };
+
+        // Template selection
+        document.querySelectorAll('.agent-template-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const template = agentTemplates[this.dataset.template];
+                if (template) {
+                    document.getElementById('agentName').value = template.name;
+                    document.getElementById('agentSpecialization').value = template.specialization;
+                    document.getElementById('agentPersonality').value = template.personality;
+                    
+                    // Visual feedback
+                    this.style.background = 'rgba(0,217,255,0.3)';
+                    setTimeout(() => {
+                        this.style.background = 'rgba(0,217,255,0.1)';
+                    }, 300);
+                }
+            });
+        });
+
+        // Create agent function
+        async function createAgent() {
+            const name = document.getElementById('agentName').value;
+            const specialization = document.getElementById('agentSpecialization').value;
+            const personality = document.getElementById('agentPersonality').value;
+            const creativity = document.getElementById('creativityLevel').value;
+
+            if (!name.trim()) {
+                alert('ProszÄ™ podaÄ‡ nazwÄ™ agenta');
+                return;
+            }
+
+            if (!specialization) {
+                alert('ProszÄ™ wybraÄ‡ specjalizacjÄ™');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/agents/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name,
+                        specialization,
+                        personality,
+                        creativity: parseInt(creativity),
+                        description: personality.substring(0, 200)
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Agent zostaĹ‚ stworzony pomyĹ›lnie! đźŽ‰');
+                    window.location.reload();
+                } else {
+                    throw new Error('Failed to create agent');
+                }
+            } catch (error) {
+                console.error('Error creating agent:', error);
+                alert('WystÄ…piĹ‚ bĹ‚Ä…d podczas tworzenia agenta. SprĂłbuj ponownie.');
+            }
+        }
+
+        // Agent management functions
+        function editAgent(agentId) {
+            window.open(`/agents/${agentId}`, '_blank');
+        }
+
+        function showAgentStats(agentId) {
+            alert(`đź“Š Statystyki dla agenta ${agentId} bÄ™dÄ… wkrĂłtce dostÄ™pne!`);
+        }
+
+        function scrollToCreator() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update creativity level display
+        document.getElementById('creativityLevel').addEventListener('input', function() {
+            const value = this.value;
+            let label = 'Zbalansowany';
+            if (value < 30) label = 'Konserwatywny';
+            else if (value > 70) label = 'Kreatywny';
+            
+            // Could add a display element for current value
+        });
+    </script>
+</UniversalPageLayout>

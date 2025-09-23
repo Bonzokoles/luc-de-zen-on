@@ -1,0 +1,89 @@
+﻿---
+import Layout from "../../layouts/BackroomInterface.astro";
+import HubCard from "../../components/HubCard.astro";
+---
+
+<Layout siteTitle="AI WORKERS HUB">
+  <section class="max-w-6xl mx-auto py-12">
+    <h1 class="text-3xl font-bold text-cyber-blue text-center">AI WORKERS</h1>
+    <p class="text-center text-cyber-text-dim mt-4">
+      Zaawansowane narzÄ™dzia AI dostÄ™pne na platformie
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+      <HubCard
+        title="Generator ObrazĂłw"
+        description="TwĂłrz obrazy z tekstu."
+        href="/hub/generator"
+      >
+        <span slot="icon">đź–Ľď¸Ź</span>
+      </HubCard>
+
+      <HubCard
+        title="AI Chatbot"
+        description="Inteligentny asystent do rozmĂłw."
+        href="/hub/chatbot"
+      >
+        <span slot="icon">đź’¬</span>
+      </HubCard>
+
+      <HubCard
+        title="BigQuery Analytics"
+        description="Analizuj dane i wykonuj zapytania SQL."
+        href="/hub/bigquery"
+      >
+        <span slot="icon">đź“Š</span>
+      </HubCard>
+
+      <HubCard
+        title="Kaggle Datasets"
+        description="Przeszukuj zbiory danych i konkursy."
+        href="/hub/kaggle"
+      >
+        <span slot="icon">đź“</span>
+      </HubCard>
+
+      <HubCard
+        title="Tavily AI Search"
+        description="Zaawansowane wyszukiwanie internetowe."
+        href="/hub/tavily"
+      >
+        <span slot="icon">đź”Ž</span>
+      </HubCard>
+
+      <HubCard
+        title="Status WorkerĂłw"
+        description="SprawdĹş status i dostÄ™pnoĹ›Ä‡ API."
+        href="/hub/status"
+      >
+        <span slot="icon">đź›°ď¸Ź</span>
+      </HubCard>
+    </div>
+
+    <h2 class="text-2xl font-bold text-cyber-blue mt-12">Dodatkowe funkcje</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <HubCard
+        title="Funkcja 1"
+        description="Opis funkcji 1"
+        href="/hub/functions/1"><span slot="icon">đź”§</span></HubCard
+      >
+      <HubCard
+        title="Funkcja 2"
+        description="Opis funkcji 2"
+        href="/hub/functions/2"><span slot="icon">âš™ď¸Ź</span></HubCard
+      >
+      <HubCard
+        title="Funkcja 3"
+        description="Opis funkcji 3"
+        href="/hub/functions/3"><span slot="icon">đź§°</span></HubCard
+      >
+    </div>
+
+    <div class="mt-12 text-center">
+      <a class="text-cyber-blue underline" href="/dashboard"
+        >OtwĂłrz Dashboard (aktualna strona)</a
+      >
+    </div>
+  </section>
+</Layout>
+

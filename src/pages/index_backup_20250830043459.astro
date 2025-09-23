@@ -1,0 +1,64 @@
+﻿---
+import Layout from "../layouts/Layout.astro";
+import Section from "../components/Section.astro";
+import Posts from "../components/reactive/Posts.svelte";
+import Chatbot from "../components/Chatbot.svelte";
+import Tags from "../components/reactive/Tags.svelte";
+import CosmeticText from "../components/CosmeticText.astro";
+import AgentPreview from "../components/AgentPreview.astro";
+import AgentsDashboard from "../components/AgentsDashboard.astro";
+import AgentsList from "../components/AgentsList.astro";
+import AgentEditor from "../components/AgentEditor.astro";
+import ImageGenerator from "../components/ImageGenerator.astro";
+import AIWorkersNav from "../components/AIWorkersNav.astro";
+// ...existing code...
+
+import { siteTitle, SiteDescription } from "../data/site.json";
+import { userProfessionalDescription } from "../data/user-professional.json";
+import { userIntroduction, userName } from "../data/user-personal.json";
+import profileImage from "../../public/profile-image.png";
+import { getCollection } from "astro:content";
+
+const allPosts = (await getCollection("posts")).filter(
+  (post) => post.data.published
+);
+
+const heroTags: Set<string> = new Set(
+  allPosts.flatMap((post) => post.data.tags)
+);
+
+const cosmeticTexts: { [section: string]: string } = {
+  header: "BACKROOM",
+  hero: "CLICK ON A TAG",
+  about: "ABOUT ME",
+};
+
+const agents = await getCollection("posts", (post) => post.data.published);
+const stats = {
+  activeAgents: agents.filter((a) => a.data.published).length,
+  totalAgents: agents.length,
+  requestsToday: 15,
+  errorsToday: 1,
+};
+---
+
+<Layout
+  siteTitle={siteTitle}
+  siteDescription={SiteDescription}
+  headerCosmeticText={cosmeticTexts.header}
+>
+  <!-- HERO -->
+  <Section
+    class="relative flex min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent"
+  >
+    <div class="max-w-md m-auto text-center">
+      <span class="text-2xl">{userProfessionalDescription}</span>
+      <Tags client:load tags={heroTags} />
+    </div>
+    <CosmeticText text={cosmeticTexts.hero} vertical />
+  </Section>
+
+  <!-- AI WORKERS NAVIGATION -->
+  <AIWorkersNav />
+</Layout>
+

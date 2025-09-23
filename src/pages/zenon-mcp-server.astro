@@ -1,0 +1,198 @@
+﻿---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout 
+  siteTitle="ZENON MCP SERVER - LUC de ZEN ON" 
+  description="Model Context Protocol Server z zaawansowanymi narzedziami AI"
+  themeColor="280"
+>
+  <div class="header-with-help">
+    <h1 class="page-title">âšˇ ZENON MCP SERVER</h1>
+    <button id="helpButton" class="help-icon">?</button>
+  </div>
+
+  <!-- Server Status -->
+  <div class="server-status">
+    <!-- ... existing server status content ... -->
+  </div>
+
+  <!-- Bulk Packages Section -->
+  <div class="bulk-packages">
+    <h2>Pakiety Subskrypcji (Bulk Packages)</h2>
+    <p class="packages-subtitle">Wybierz plan, aby odblokowac pelny potencjal tworzenia i zarzadzania agentami AI.</p>
+    <div class="packages-grid">
+      <!-- Basic Plan -->
+      <div class="package-card">
+        <div class="package-header">
+          <h3>Basic</h3>
+          <div class="price">$49<span>/miesiÄ…c</span></div>
+        </div>
+        <ul class="features-list">
+          <li><strong>5</strong> WĹ‚asnych AgentĂłw AI</li>
+          <li><strong>10,000</strong> ZapytaĹ„ API / miesiÄ…c</li>
+          <li>DostÄ™p do podstawowych modeli AI</li>
+          <li>Podstawowe narzÄ™dzia (Search, Filesystem)</li>
+          <li>Wsparcie spoĹ‚ecznoĹ›ciowe</li>
+        </ul>
+        <button class="package-btn">Wybierz Plan Basic</button>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="package-card recommended">
+        <div class="package-header">
+          <h3>Pro</h3>
+          <div class="price">$99<span>/miesiÄ…c</span></div>
+        </div>
+        <ul class="features-list">
+          <li><strong>25</strong> WĹ‚asnych AgentĂłw AI</li>
+          <li><strong>50,000</strong> ZapytaĹ„ API / miesiÄ…c</li>
+          <li>DostÄ™p do wszystkich modeli AI (w tym premium)</li>
+          <li>Wszystkie narzÄ™dzia (w tym GitHub, Perplexity)</li>
+          <li>Priorytetowe wsparcie email</li>
+        </ul>
+        <button class="package-btn">Wybierz Plan Pro</button>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="package-card">
+        <div class="package-header">
+          <h3>Enterprise</h3>
+          <div class="price">Kontakt<span></span></div>
+        </div>
+        <ul class="features-list">
+          <li><strong>Nielimitowani</strong> Agenci AI</li>
+          <li><strong>Nielimitowane</strong> Zapytania API</li>
+          <li>Dedykowana infrastruktura i modele</li>
+          <li>NarzÄ™dzia na zamĂłwienie i integracje</li>
+          <li>Dedykowane wsparcie techniczne (SLA)</li>
+        </ul>
+        <button class="package-btn">Skontaktuj siÄ™ z nami</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MCP Tools -->
+  <div class="mcp-tools">
+    <!-- ... existing mcp tools content ... -->
+  </div>
+
+  <!-- ... rest of the file ... -->
+
+  <script>
+    // ... existing script content ...
+  </script>
+</MyBonzoLayout>
+
+<style>
+  /* ... existing styles ... */
+
+  .bulk-packages {
+    margin-bottom: 40px;
+  }
+
+  .bulk-packages h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .packages-subtitle {
+      text-align: center;
+      color: #cccccc;
+      margin-bottom: 25px;
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+  }
+
+  .package-card {
+    background: rgba(168, 85, 247, 0.05);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .package-card:hover, .package-card.recommended {
+    transform: translateY(-10px);
+    border-color: rgba(168, 85, 247, 0.6);
+    box-shadow: 0 20px 50px rgba(168, 85, 247, 0.2);
+  }
+
+  .package-card.recommended {
+      border-width: 2px;
+  }
+
+  .package-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .package-header h3 {
+    color: #a855f7;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 10px;
+  }
+
+  .price span {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #cccccc;
+      margin-left: 5px;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+    flex-grow: 1;
+  }
+
+  .features-list li {
+    color: #cccccc;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .features-list li strong {
+      color: #ffffff;
+      font-weight: 600;
+  }
+
+  .features-list li:last-child {
+      border-bottom: none;
+  }
+
+  .package-btn {
+      background-color: #a855f7;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+  }
+
+  .package-btn:hover {
+      background-color: #9333ea;
+  }
+
+</style>

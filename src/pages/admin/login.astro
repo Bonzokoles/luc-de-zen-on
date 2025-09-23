@@ -1,0 +1,325 @@
+﻿---
+import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
+import GlassPanel from "../../layouts/components/GlassPanel.astro";
+import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
+
+const pageTitle = "Panel Administracyjny MyBonzo";
+const pageDescription = "Centrum kontroli i zarzÄ…dzania systemem MyBonzo AI";
+const pageQuote = "Z wielkÄ… mocÄ… idzie wielka odpowiedzialnoĹ›Ä‡.";
+const pageAuthor = "Stan Lee";
+---
+
+<UniversalPageLayout 
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  pageQuote={pageQuote}
+  pageAuthor={pageAuthor}
+  showRandomQuote={false}
+>
+    <!-- Login Section -->
+    <div id="loginSection">
+        <GlassPanel title="đź” Autoryzacja Administratora" variant="warning" padding="lg">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
+                    DostÄ™p tylko dla autoryzowanych administratorĂłw systemu MyBonzo
+                </div>
+            </div>
+
+            <div style="max-width: 400px; margin: 0 auto;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">HasĹ‚o dostÄ™pu</label>
+                    <input 
+                        type="password" 
+                        id="adminPassword" 
+                        placeholder="WprowadĹş hasĹ‚o administratora..."
+                        style="width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; font-size: 16px;"
+                        onkeypress="handleEnterKey(event)"
+                    />
+                </div>
+
+                <div style="text-align: center;">
+                    <CyberpunkButton 
+                        text="đźš€ Zaloguj siÄ™" 
+                        variant="primary" 
+                        size="lg"
+                        onclick="checkPassword()"
+                    />
+                </div>
+
+                <div id="errorMessage" style="color: #ff4444; text-align: center; margin-top: 15px; display: none;">
+                    NieprawidĹ‚owe hasĹ‚o! DostÄ™p zabroniony.
+                </div>
+            </div>
+        </GlassPanel>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" style="display: none;">
+        
+        <!-- Admin Stats -->
+        <GlassPanel title="đź“Š Status Systemu" variant="highlight" padding="lg">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                    <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">247</div>
+                    <div style="color: rgba(255,255,255,0.7);">Aktywni uĹĽytkownicy</div>
+                </div>
+                <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                    <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="totalRequests">12,384</div>
+                    <div style="color: rgba(255,255,255,0.7);">Zapytania dzisiaj</div>
+                </div>
+                <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                    <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemUptime">99.8%</div>
+                    <div style="color: rgba(255,255,255,0.7);">Uptime systemu</div>
+                </div>
+                <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                    <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="aiModels">15</div>
+                    <div style="color: rgba(255,255,255,0.7);">Aktywne modele AI</div>
+                </div>
+            </div>
+        </GlassPanel>
+
+        <!-- Admin Actions -->
+        <GlassPanel title="âšˇ Szybkie Akcje" variant="default" padding="lg">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                
+                <!-- User Management -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź‘Ą ZarzÄ…dzanie uĹĽytkownikami
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        PrzeglÄ…daj, edytuj i zarzÄ…dzaj kontami uĹĽytkownikĂłw
+                    </p>
+                    <CyberpunkButton 
+                        text="ZarzÄ…dzaj uĹĽytkownikami" 
+                        variant="outline" 
+                        size="sm"
+                        onclick="openUserManagement()"
+                    />
+                </div>
+
+                <!-- System Monitoring -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź“Š Monitoring systemu
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        Monitoruj wydajnoĹ›Ä‡ i logi systemowe
+                    </p>
+                    <CyberpunkButton 
+                        text="Zobacz monitoring" 
+                        variant="outline" 
+                        size="sm"
+                        onclick="openSystemMonitoring()"
+                    />
+                </div>
+
+                <!-- AI Models Management -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź¤– Modele AI
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        Konfiguruj i zarzÄ…dzaj modelami sztucznej inteligencji
+                    </p>
+                    <CyberpunkButton 
+                        text="ZarzÄ…dzaj modelami" 
+                        variant="outline" 
+                        size="sm"
+                        onclick="openAIModels()"
+                    />
+                </div>
+
+                <!-- Database Management -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź—„ď¸Ź Baza danych
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        ZarzÄ…dzaj bazÄ… danych i wykonuj kopie zapasowe
+                    </p>
+                    <CyberpunkButton 
+                        text="ZarzÄ…dzaj bazÄ…" 
+                        variant="outline" 
+                        size="sm"
+                        onclick="openDatabaseManagement()"
+                    />
+                </div>
+
+                <!-- Security Center -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź”’ Centrum bezpieczeĹ„stwa
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        Konfiguruj zabezpieczenia i kontrolÄ™ dostÄ™pu
+                    </p>
+                    <CyberpunkButton 
+                        text="Zabezpieczenia" 
+                        variant="warning" 
+                        size="sm"
+                        onclick="openSecurityCenter()"
+                    />
+                </div>
+
+                <!-- API Management -->
+                <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+                    <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                        đź”Ś API Management
+                    </h3>
+                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
+                        ZarzÄ…dzaj kluczami API i limitami zapytaĹ„
+                    </p>
+                    <CyberpunkButton 
+                        text="ZarzÄ…dzaj API" 
+                        variant="outline" 
+                        size="sm"
+                        onclick="openAPIManagement()"
+                    />
+                </div>
+            </div>
+        </GlassPanel>
+
+        <!-- Recent Activity -->
+        <GlassPanel title="đź• Ostatnia aktywnoĹ›Ä‡" variant="default" padding="lg">
+            <div style="max-height: 300px; overflow-y: auto;">
+                <div id="activityLog" style="space-y: 10px;">
+                    <!-- Activity items will be loaded here -->
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <CyberpunkButton 
+                    text="OdĹ›wieĹĽ logi" 
+                    variant="outline" 
+                    size="sm"
+                    onclick="refreshActivityLog()"
+                />
+            </div>
+        </GlassPanel>
+
+        <!-- Logout -->
+        <div style="text-align: center; margin-top: 30px;">
+            <CyberpunkButton 
+                text="đźšŞ Wyloguj siÄ™" 
+                variant="danger" 
+                size="md"
+                onclick="logout()"
+            />
+        </div>
+    </div>
+
+    <script>
+        // Admin password - HAOS77
+        const ADMIN_PASSWORD = "HAOS77";
+
+        function checkPassword() {
+            const password = document.getElementById('adminPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                loadDashboardData();
+            } else {
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+
+        function logout() {
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('adminPassword').value = '';
+        }
+
+        function loadDashboardData() {
+            // Simulate real-time data updates
+            updateStats();
+            loadActivityLog();
+            
+            // Update stats every 30 seconds
+            setInterval(updateStats, 30000);
+        }
+
+        function updateStats() {
+            // Simulate live data
+            document.getElementById('activeUsers').textContent = Math.floor(Math.random() * 100) + 200;
+            document.getElementById('totalRequests').textContent = (Math.floor(Math.random() * 5000) + 10000).toLocaleString();
+            document.getElementById('systemUptime').textContent = (99.5 + Math.random() * 0.5).toFixed(1) + '%';
+            document.getElementById('aiModels').textContent = Math.floor(Math.random() * 5) + 12;
+        }
+
+        function loadActivityLog() {
+            const activities = [
+                { time: "14:23", action: "Nowy uĹĽytkownik zarejestrowany", type: "info" },
+                { time: "14:18", action: "Model AI aktualizowany", type: "success" },
+                { time: "14:15", action: "Backup bazy danych zakoĹ„czony", type: "success" },
+                { time: "14:12", action: "Alert bezpieczeĹ„stwa - podejrzana aktywnoĹ›Ä‡", type: "warning" },
+                { time: "14:08", action: "API call limit przekroczony dla IP: 192.168.1.100", type: "warning" },
+                { time: "14:05", action: "System restart zakoĹ„czony pomyĹ›lnie", type: "success" }
+            ];
+
+            const logContainer = document.getElementById('activityLog');
+            logContainer.innerHTML = activities.map(activity => `
+                <div style="background: rgba(0,0,0,0.3); border-left: 3px solid ${getActivityColor(activity.type)}; padding: 12px; margin-bottom: 8px; border-radius: 4px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: white; font-size: 0.9rem;">${activity.action}</span>
+                        <span style="color: rgba(255,255,255,0.6); font-size: 0.8rem;">${activity.time}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getActivityColor(type) {
+            switch(type) {
+                case 'success': return '#22c55e';
+                case 'warning': return '#f59e0b';
+                case 'error': return '#ef4444';
+                default: return '#00d9ff';
+            }
+        }
+
+        function refreshActivityLog() {
+            loadActivityLog();
+        }
+
+        // Quick action functions
+        function openUserManagement() {
+            alert('đźš§ ModuĹ‚ zarzÄ…dzania uĹĽytkownikami w przygotowaniu...');
+        }
+
+        function openSystemMonitoring() {
+            window.open('/status-workers', '_blank');
+        }
+
+        function openAIModels() {
+            window.open('/ai-workers-manager', '_blank');
+        }
+
+        function openDatabaseManagement() {
+            alert('đźš§ ModuĹ‚ zarzÄ…dzania bazÄ… danych w przygotowaniu...');
+        }
+
+        function openSecurityCenter() {
+            alert('đźš§ Centrum bezpieczeĹ„stwa w przygotowaniu...');
+        }
+
+        function openAPIManagement() {
+            alert('đźš§ ZarzÄ…dzanie API w przygotowaniu...');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus on password input
+            document.getElementById('adminPassword').focus();
+        });
+    </script>
+</UniversalPageLayout>

@@ -1,0 +1,317 @@
+﻿---
+// Simple Astro component for prompt enhancement modal
+---
+
+<div
+  id="promptEnhancerModal"
+  class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50"
+  onclick="closePromptEnhancer(event)"
+>
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <div
+      class="bg-black/90 border border-cyan-400/30 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto cyber-grid"
+      onclick="event.stopPropagation()"
+    >
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-2xl font-bold text-cyan-400">đźŽ¨ Prompt Enhancer</h2>
+          <button
+            onclick="closePromptEnhancer()"
+            class="text-gray-400 hover:text-white text-2xl"
+            >Ă—</button
+          >
+        </div>
+
+        <!-- Enhanced Prompt Input -->
+        <div class="mb-6">
+          <label class="block text-lg font-semibold text-primary-foreground mb-2">
+            Ulepszony prompt:
+          </label>
+          <textarea
+            id="enhancedPromptArea"
+            rows="4"
+            class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
+            style="background: rgba(0,0,0,0.5);"
+            placeholder="Tutaj pojawi siÄ™ ulepszony prompt..."
+          ></textarea>
+        </div>
+
+        <!-- Enhancement Options -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Quick Actions -->
+          <div>
+            <h3 class="text-lg font-semibold text-cyan-400 mb-3">âšˇ Szybkie akcje</h3>
+            <div class="grid grid-cols-2 gap-2">
+              <button class="enhance-btn" onclick="addRandomArtist()">đźŽ¨ Dodaj artystÄ™</button>
+              <button class="enhance-btn" onclick="addRandomMedium()">đź–Ľď¸Ź Dodaj medium</button>
+              <button class="enhance-btn" onclick="addQualityBoost()">â­ ZwiÄ™ksz jakoĹ›Ä‡</button>
+              <button class="enhance-btn" onclick="addRandomMood()">đźŚ Dodaj nastrĂłj</button>
+              <button class="enhance-btn" onclick="addLighting()">đź’ˇ Dodaj oĹ›wietlenie</button>
+              <button class="enhance-btn" onclick="addComposition()">đź“ Kompozycja</button>
+            </div>
+          </div>
+
+          <!-- Style Selectors -->
+          <div>
+            <h3 class="text-lg font-semibold text-cyan-400 mb-3">đźŽ­ Style i efekty</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm text-gray-300 mb-1">Styl artysty:</label>
+                <select id="artistSelect" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="">Wybierz artystÄ™...</option>
+                  <option value="Vincent van Gogh">Vincent van Gogh</option>
+                  <option value="Pablo Picasso">Pablo Picasso</option>
+                  <option value="Claude Monet">Claude Monet</option>
+                  <option value="Salvador Dali">Salvador Dali</option>
+                  <option value="Andy Warhol">Andy Warhol</option>
+                  <option value="Frida Kahlo">Frida Kahlo</option>
+                  <option value="Banksy">Banksy</option>
+                  <option value="Leonardo da Vinci">Leonardo da Vinci</option>
+                  <option value="Hayao Miyazaki">Hayao Miyazaki</option>
+                  <option value="H.R. Giger">H.R. Giger</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm text-gray-300 mb-1">Paleta kolorĂłw:</label>
+                <select id="colorPaletteSelect" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="">Wybierz paletÄ™...</option>
+                  <option value="cyberpunk">Cyberpunk (neon)</option>
+                  <option value="vintage">Vintage (sepie)</option>
+                  <option value="monochrome">Monochromatyczna</option>
+                  <option value="vibrant">Ĺ»ywe kolory</option>
+                  <option value="pastel">Pastelowa</option>
+                  <option value="earth">Ziemista</option>
+                  <option value="ocean">Oceaniczna</option>
+                  <option value="sunset">ZachĂłd sĹ‚oĹ„ca</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3 justify-end">
+          <button
+            onclick="resetEnhancement()"
+            class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded"
+          >
+            đź”„ Reset
+          </button>
+          <button
+            onclick="applyEnhancement()"
+            class="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded font-semibold"
+          >
+            âś… Zastosuj
+          </button>
+        </div>
+
+        <!-- Statistics -->
+        <div class="mt-4 p-3 bg-gray-900/50 rounded border border-gray-700">
+          <div class="text-sm text-gray-400">
+            <span id="promptStats">DĹ‚ugoĹ›Ä‡: 0 znakĂłw</span>
+            <span class="mx-2">â€˘</span>
+            <span id="enhancementCount">Ulepszenia: 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .enhance-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .enhance-btn:hover {
+    background-color: #374151;
+    border-color: #00bcd4;
+    color: #00bcd4;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  var enhancementCount = 0;
+  var originalPrompt = "";
+
+  // Artist and enhancement data
+  var artists = [
+    'Vincent van Gogh', 'Pablo Picasso', 'Claude Monet', 'Salvador Dali',
+    'Andy Warhol', 'Frida Kahlo', 'Banksy', 'Leonardo da Vinci', 
+    'Hayao Miyazaki', 'H.R. Giger', 'Katsushika Hokusai', 'Gustav Klimt'
+  ];
+  
+  var mediumTypes = [
+    'oil painting', 'watercolor', 'digital art', 'photography', 'pencil drawing',
+    'concept art', 'street art', 'acrylic painting', 'charcoal drawing', 'ink drawing'
+  ];
+  
+  var qualityTerms = [
+    'highly detailed', '4K resolution', 'ultra realistic', 'professional photography',
+    'award winning', 'masterpiece', 'cinematic lighting', 'sharp focus',
+    'trending on artstation', 'octane render'
+  ];
+  
+  var moods = [
+    'dramatic', 'peaceful', 'mysterious', 'energetic', 'romantic',
+    'futuristic', 'vintage', 'dark', 'bright', 'surreal', 'ethereal', 'powerful'
+  ];
+  
+  var lightingEffects = [
+    'golden hour lighting', 'dramatic shadows', 'soft diffused light', 'neon lighting',
+    'candlelight', 'studio lighting', 'natural sunlight', 'moody lighting'
+  ];
+  
+  var compositions = [
+    'rule of thirds', 'symmetrical composition', 'dynamic angle', 'close-up portrait',
+    'wide establishing shot', 'bird\'s eye view', 'low angle shot', 'minimalist composition'
+  ];
+
+  function updateStats() {
+    var textarea = document.getElementById('enhancedPromptArea');
+    var statsEl = document.getElementById('promptStats');
+    var countEl = document.getElementById('enhancementCount');
+    
+    if (textarea && statsEl && countEl) {
+      var length = textarea.value.length;
+      statsEl.textContent = 'DĹ‚ugoĹ›Ä‡: ' + length + ' znakĂłw';
+      countEl.textContent = 'Ulepszenia: ' + enhancementCount;
+    }
+  }
+
+  function addRandomArtist() {
+    var artist = artists[Math.floor(Math.random() * artists.length)];
+    appendToPrompt('in the style of ' + artist);
+  }
+  
+  function addRandomMedium() {
+    var medium = mediumTypes[Math.floor(Math.random() * mediumTypes.length)];
+    appendToPrompt(medium);
+  }
+  
+  function addQualityBoost() {
+    var quality = qualityTerms[Math.floor(Math.random() * qualityTerms.length)];
+    appendToPrompt(quality);
+  }
+  
+  function addRandomMood() {
+    var mood = moods[Math.floor(Math.random() * moods.length)];
+    appendToPrompt(mood + ' atmosphere');
+  }
+  
+  function addLighting() {
+    var lighting = lightingEffects[Math.floor(Math.random() * lightingEffects.length)];
+    appendToPrompt(lighting);
+  }
+  
+  function addComposition() {
+    var comp = compositions[Math.floor(Math.random() * compositions.length)];
+    appendToPrompt(comp);
+  }
+
+  function appendToPrompt(addition) {
+    var textarea = document.getElementById('enhancedPromptArea');
+    if (textarea) {
+      var current = textarea.value.trim();
+      if (current && !current.includes(addition)) {
+        textarea.value = current + ', ' + addition;
+        enhancementCount++;
+        updateStats();
+      }
+    }
+  }
+
+  function resetEnhancement() {
+    var textarea = document.getElementById('enhancedPromptArea');
+    if (textarea) {
+      textarea.value = originalPrompt;
+      enhancementCount = 0;
+      updateStats();
+    }
+  }
+
+  function applyEnhancement() {
+    var textarea = document.getElementById('enhancedPromptArea');
+    var mainPrompt = document.getElementById('imagePrompt');
+    
+    if (textarea && mainPrompt) {
+      mainPrompt.value = textarea.value;
+      closePromptEnhancer();
+      
+      // Show success feedback
+      var feedback = document.createElement('div');
+      feedback.className = 'fixed top-4 right-4 bg-green-900/90 border border-green-600 rounded p-3 text-green-200 z-50';
+      feedback.textContent = 'âś… Prompt zostaĹ‚ ulepszony!';
+      document.body.appendChild(feedback);
+      
+      setTimeout(function() {
+        if (feedback.parentNode) {
+          feedback.parentNode.removeChild(feedback);
+        }
+      }, 3000);
+    }
+  }
+
+  // Handle select changes
+  document.addEventListener('change', function(e) {
+    if (e.target.id === 'artistSelect' && e.target.value) {
+      appendToPrompt('in the style of ' + e.target.value);
+      e.target.value = '';
+    }
+    
+    if (e.target.id === 'colorPaletteSelect' && e.target.value) {
+      var colorMappings = {
+        cyberpunk: 'neon colors, electric blue, hot pink',
+        vintage: 'sepia tone, muted colors, warm browns',
+        monochrome: 'black and white, high contrast',
+        vibrant: 'saturated colors, bold colors, vivid',
+        pastel: 'soft pastels, light colors, powder blue',
+        earth: 'earth tones, browns, greens, natural colors',
+        ocean: 'ocean blues, teals, aqua colors',
+        sunset: 'warm oranges, reds, golden colors'
+      };
+      
+      var colors = colorMappings[e.target.value];
+      if (colors) {
+        appendToPrompt(colors);
+        e.target.value = '';
+      }
+    }
+  });
+
+  // Global functions for modal control
+  window.openPromptEnhancer = function() {
+    var modal = document.getElementById('promptEnhancerModal');
+    var textarea = document.getElementById('enhancedPromptArea');
+    var mainPrompt = document.getElementById('imagePrompt');
+    
+    if (modal && textarea && mainPrompt) {
+      originalPrompt = mainPrompt.value;
+      textarea.value = originalPrompt;
+      enhancementCount = 0;
+      updateStats();
+      modal.classList.remove('hidden');
+    }
+  };
+
+  window.closePromptEnhancer = function(event) {
+    if (event && event.target.id !== 'promptEnhancerModal') {
+      return;
+    }
+    
+    var modal = document.getElementById('promptEnhancerModal');
+    if (modal) {
+      modal.classList.add('hidden');
+    }
+  };
+</script>

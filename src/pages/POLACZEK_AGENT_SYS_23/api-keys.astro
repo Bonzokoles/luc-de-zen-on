@@ -1,0 +1,1155 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="API Keys Management | POLACZEK AGENTS SYS_23">
+  <DecorativeLines />
+
+  <!-- Global vertical lines -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <main class="min-h-svh">
+    <!-- Top Separator Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Header Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <!-- Left corner -->
+          <div class="mt-auto" style="max-width: 45vw;">
+            <div
+              class="text-edge text-sm italic px-2"
+              style="
+                transform: scale(1.32);
+                transform-origin: left center;
+                margin: 15px;
+                margin-left: 0px;
+                width: calc(45vw - 30px);
+                max-width: 380px;
+                line-height: 1.4;
+                word-wrap: break-word;
+                hyphens: auto;
+              "
+            >
+              API Keys Management - ZarzÄ…dzaj<br />
+              kluczami API zewnÄ™trznych serwisĂłw AI.<br />
+              OpenAI, Anthropic, Cohere, Mistral i inne<br />
+              dostawcy modeli jÄ™zykowych.
+            </div>
+          </div>
+          <span class="mt-auto">
+            <div
+              style="
+              transform: scale(1.56);
+              transform-origin: center right;
+              margin: 15px;
+              width: calc(50vw - 576px - 10px - 20px - 30px);
+              max-width: 400px;
+              text-align: right;
+              word-wrap: break-word;
+              hyphens: auto;
+            "
+            >
+              <span class="text-primary-foreground text-sm italic">
+                "Connect your favorite AI models"
+              </span>
+            </div>
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              SEP 2025
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Header-Navigation Separator -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/POLACZEK_AGENT_SYS_23">
+            <h1 class="text-4xl sm:text-5xl">API KEYS MANAGEMENT</h1>
+            <h2 class="text-2xl sm:text-3xl">External AI Services Configuration</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a
+              class="ml-auto hover:brightness-125 duration-200"
+              href="/POLACZEK_AGENT_SYS_23"
+            >
+              â† PowrĂłt do POLACZEK SYS
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <div class="flex flex-row-reverse flex-wrap gap-4">
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/dashboard"
+              >
+                Dashboard
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  </svg>
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/agents/create"
+              >
+                Create Agent
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section
+      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
+      id="api-keys-management"
+    >
+      <div class="max-w-6xl mx-auto w-full">
+        <div class="section-container">
+          <h2 class="system-title">API KEYS MANAGEMENT</h2>
+
+          <!-- Separator after title -->
+          <div
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            margin: 0 auto;
+            border-t: 1px solid #ffffff;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+          "
+          ></div>
+
+          <p
+            class="section-description"
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px) - 40px);
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-left: calc(50% - 10px);
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 0 15px;
+          "
+          >
+            Konfiguruj klucze API do zewnÄ™trznych serwisĂłw AI. PoĹ‚Ä…cz OpenAI, Anthropic, Cohere i inne modele 
+            jÄ™zykowe z systemem POLACZEK. Wszystkie klucze sÄ… bezpiecznie przechowywane i szyfrowane.
+          </p>
+
+          <!-- API Providers Grid -->
+          <div class="api-providers-grid">
+            <!-- OpenAI -->
+            <div class="api-provider-card" data-provider="openai">
+              <div class="provider-header">
+                <div class="provider-icon">đź§ </div>
+                <h3 class="provider-name">OpenAI</h3>
+                <div class="provider-status" id="openai-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">GPT-4</span>
+                <span class="model-tag">GPT-3.5</span>
+                <span class="model-tag">Claude</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="openai-key" 
+                  placeholder="sk-..." 
+                  class="api-key-input"
+                  data-provider="openai"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('openai')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('openai')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('openai')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Anthropic -->
+            <div class="api-provider-card" data-provider="anthropic">
+              <div class="provider-header">
+                <div class="provider-icon">đź¤–</div>
+                <h3 class="provider-name">Anthropic</h3>
+                <div class="provider-status" id="anthropic-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">Claude 3.5</span>
+                <span class="model-tag">Claude 3</span>
+                <span class="model-tag">Claude Instant</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="anthropic-key" 
+                  placeholder="sk-ant-..." 
+                  class="api-key-input"
+                  data-provider="anthropic"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('anthropic')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('anthropic')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('anthropic')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cohere -->
+            <div class="api-provider-card" data-provider="cohere">
+              <div class="provider-header">
+                <div class="provider-icon">âšˇ</div>
+                <h3 class="provider-name">Cohere</h3>
+                <div class="provider-status" id="cohere-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">Command R+</span>
+                <span class="model-tag">Command R</span>
+                <span class="model-tag">Embed</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="cohere-key" 
+                  placeholder="..." 
+                  class="api-key-input"
+                  data-provider="cohere"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('cohere')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('cohere')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('cohere')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mistral -->
+            <div class="api-provider-card" data-provider="mistral">
+              <div class="provider-header">
+                <div class="provider-icon">đź”Ą</div>
+                <h3 class="provider-name">Mistral AI</h3>
+                <div class="provider-status" id="mistral-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">Mistral Large</span>
+                <span class="model-tag">Mistral 7B</span>
+                <span class="model-tag">Codestral</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="mistral-key" 
+                  placeholder="..." 
+                  class="api-key-input"
+                  data-provider="mistral"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('mistral')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('mistral')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('mistral')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Google AI -->
+            <div class="api-provider-card" data-provider="google">
+              <div class="provider-header">
+                <div class="provider-icon">đź§¬</div>
+                <h3 class="provider-name">Google AI</h3>
+                <div class="provider-status" id="google-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">Gemini Pro</span>
+                <span class="model-tag">Gemini Ultra</span>
+                <span class="model-tag">PaLM</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="google-key" 
+                  placeholder="..." 
+                  class="api-key-input"
+                  data-provider="google"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('google')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('google')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('google')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hugging Face -->
+            <div class="api-provider-card" data-provider="huggingface">
+              <div class="provider-header">
+                <div class="provider-icon">đź¤—</div>
+                <h3 class="provider-name">Hugging Face</h3>
+                <div class="provider-status" id="huggingface-status">âťŚ Nie skonfigurowane</div>
+              </div>
+              <div class="provider-models">
+                <span class="model-tag">LLaMA</span>
+                <span class="model-tag">Falcon</span>
+                <span class="model-tag">Custom Models</span>
+              </div>
+              <div class="provider-config">
+                <input 
+                  type="password" 
+                  id="huggingface-key" 
+                  placeholder="hf_..." 
+                  class="api-key-input"
+                  data-provider="huggingface"
+                >
+                <div class="provider-actions">
+                  <button onclick="testAPIKey('huggingface')" class="test-btn">Test</button>
+                  <button onclick="saveAPIKey('huggingface')" class="save-btn">Save</button>
+                  <button onclick="deleteAPIKey('huggingface')" class="delete-btn">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Global Actions -->
+          <div class="global-actions">
+            <h3 class="actions-title">ZARZÄ„DZANIE GLOBALNE</h3>
+            <div class="actions-grid">
+              <button onclick="testAllKeys()" class="global-action-btn test">
+                đź”Ť Test wszystkich kluczy
+              </button>
+              <button onclick="exportConfig()" class="global-action-btn export">
+                đź“¦ Eksportuj konfiguracjÄ™
+              </button>
+              <button onclick="importConfig()" class="global-action-btn import">
+                đź“Ą Importuj konfiguracjÄ™
+              </button>
+              <button onclick="clearAllKeys()" class="global-action-btn danger">
+                đź—‘ď¸Ź WyczyĹ›Ä‡ wszystkie klucze
+              </button>
+            </div>
+          </div>
+
+          <!-- Usage Statistics -->
+          <div class="usage-stats">
+            <h3 class="stats-title">STATYSTYKI UĹ»YCIA</h3>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-label">Skonfigurowane dostawcy</div>
+                <div class="stat-value" id="configured-providers">0/6</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Ostatni test</div>
+                <div class="stat-value" id="last-test">Nigdy</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Status bezpieczeĹ„stwa</div>
+                <div class="stat-value security" id="security-status">đź”’ Bezpieczne</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Test Output -->
+          <div class="test-output-section">
+            <h3 class="output-title">WYNIKI TESTĂ“W</h3>
+            <div class="test-output" id="testOutput">
+              <div class="output-placeholder">Wyniki testĂłw API pojawiÄ… siÄ™ tutaj...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Global styles */
+  .workers-vertical-line-left,
+  .workers-vertical-line-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .workers-vertical-line-left {
+    left: calc(50vw - 600px);
+  }
+  
+  .workers-vertical-line-right {
+    right: calc(50vw - 600px);
+  }
+
+  .system-title {
+    color: #00d7ef !important;
+    font-weight: 900 !important;
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important;
+    font-family: "Rajdhani", sans-serif !important;
+    text-shadow: 0 0 10px rgba(0, 215, 239, 0.3);
+  }
+
+  .ai-workers-section {
+    background: rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+  }
+
+  .section-container {
+    padding: 2rem;
+    width: 100%;
+  }
+
+  .section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #d1d5db;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* API Providers Grid */
+  .api-providers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .api-provider-card {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 217, 255, 0.1);
+  }
+
+  .api-provider-card:hover {
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(0, 0, 0, 0.60);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+  }
+
+  .provider-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .provider-icon {
+    font-size: 2rem;
+  }
+
+  .provider-name {
+    color: #00d9ff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    flex-grow: 1;
+  }
+
+  .provider-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .provider-status:contains("âś…") {
+    color: #10b981;
+  }
+
+  .provider-models {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .model-tag {
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: #00d9ff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .provider-config {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .api-key-input {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .api-key-input:focus {
+    outline: none;
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .provider-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .test-btn, .save-btn, .delete-btn {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .test-btn {
+    background: rgba(255, 165, 0, 0.1);
+    border-color: rgba(255, 165, 0, 0.4);
+    color: #ffa500;
+  }
+
+  .test-btn:hover {
+    background: rgba(255, 165, 0, 0.2);
+    border-color: rgba(255, 165, 0, 0.6);
+  }
+
+  .save-btn {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+  }
+
+  .save-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .delete-btn {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+  }
+
+  .delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.6);
+  }
+
+  /* Global Actions */
+  .global-actions {
+    margin: 3rem 0;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 2rem;
+  }
+
+  .actions-title {
+    color: #00d7ef;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .global-action-btn {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    text-align: center;
+  }
+
+  .global-action-btn.test {
+    background: rgba(255, 165, 0, 0.1);
+    border-color: rgba(255, 165, 0, 0.4);
+    color: #ffa500;
+  }
+
+  .global-action-btn.export {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.4);
+    color: #22c55e;
+  }
+
+  .global-action-btn.import {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+  }
+
+  .global-action-btn.danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+  }
+
+  .global-action-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+  }
+
+  /* Usage Statistics */
+  .usage-stats {
+    margin: 3rem 0;
+  }
+
+  .stats-title {
+    color: #00d7ef;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .stat-label {
+    color: #d1d5db;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    color: #00d9ff;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .stat-value.security {
+    color: #10b981;
+  }
+
+  /* Test Output */
+  .test-output-section {
+    margin: 3rem 0;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 2rem;
+  }
+
+  .output-title {
+    color: #00d7ef;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .test-output {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+    min-height: 200px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #d1d5db;
+    white-space: pre-wrap;
+    overflow-y: auto;
+  }
+
+  .output-placeholder {
+    color: #6b7280;
+    font-style: italic;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .api-providers-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .provider-actions {
+      flex-direction: column;
+    }
+    
+    .actions-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // MY-SECRETS-API Integration
+  const API_BASE = '/api/my-secrets';
+  let apiKeys = {};
+  let systemStatus = {};
+  
+  // Load keys from my-secrets-API on page load
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadSystemStatus();
+    await loadApiKeysStatus();
+    updateStatistics();
+    console.log('đź”‘ API Keys Management - Ready (My-Secrets-API)');
+  });
+
+  // Load system status from my-secrets-API
+  async function loadSystemStatus() {
+    try {
+      appendToOutput('đź”Ť Sprawdzanie statusu systemu my-secrets-API...');
+      const response = await fetch(`${API_BASE}?action=status`);
+      const result = await response.json();
+      
+      if (result.success) {
+        systemStatus = result.data;
+        appendToOutput(`âś… System aktywny: ${result.data.summary.providersWithKeys}/${result.data.summary.totalProviders} dostawcĂłw skonfigurowanych`);
+        
+        // Update providers based on real status
+        updateProvidersFromAPI(result.data.providers);
+      } else {
+        appendToOutput(`âťŚ BĹ‚Ä…d statusu: ${result.error}`);
+      }
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d poĹ‚Ä…czenia z my-secrets-API: ${error.message}`);
+      console.error('System status error:', error);
+    }
+  }
+
+  // Load API keys status
+  async function loadApiKeysStatus() {
+    try {
+      const response = await fetch(`${API_BASE}?action=providers`);
+      const result = await response.json();
+      
+      if (result.success) {
+        const providers = result.data.providers;
+        
+        // Update UI for each provider
+        Object.keys(providers).forEach(key => {
+          const provider = key.toLowerCase().replace('_api_key', '').replace('huggingface', 'huggingface');
+          const hasKey = providers[key];
+          
+          updateProviderUI(provider, hasKey);
+        });
+        
+        appendToOutput(`đź“Š Status kluczy zaĹ‚adowany: ${result.data.available}/${result.data.total} dostÄ™pnych`);
+      }
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d Ĺ‚adowania statusu kluczy: ${error.message}`);
+      console.error('Keys status error:', error);
+    }
+  }
+
+  // Update provider UI based on API status
+  function updateProviderUI(provider, hasKey) {
+    const input = document.getElementById(`${provider}-key`);
+    const status = document.getElementById(`${provider}-status`);
+    
+    if (status) {
+      if (hasKey) {
+        status.textContent = 'âś… Skonfigurowany (My-Secrets-API)';
+        status.style.color = '#10b981';
+        if (input) input.placeholder = 'â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘';
+      } else {
+        status.textContent = 'âťŚ Nie skonfigurowane';
+        status.style.color = '#ef4444';
+      }
+    }
+  }
+
+  // Update providers grid from API response
+  function updateProvidersFromAPI(providers) {
+    if (!providers || !Array.isArray(providers)) return;
+    
+    providers.forEach(providerData => {
+      const provider = providerData.provider.toLowerCase().replace(' ', '').replace('ai', '');
+      updateProviderUI(provider, providerData.hasKey);
+      
+      if (providerData.hasKey) {
+        apiKeys[provider] = '[CONFIGURED_IN_SECRETS]'; // Placeholder
+      }
+    });
+  }
+
+  // Save API key using my-secrets-API
+  async function saveAPIKey(provider) {
+    const input = document.getElementById(`${provider}-key`);
+    
+    if (!input) return;
+    
+    const key = input.value.trim();
+    
+    if (!key || key === 'â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘') {
+      alert('WprowadĹş poprawny klucz API');
+      return;
+    }
+
+    // Basic validation
+    const validationRules = {
+      'openai': /^sk-[a-zA-Z0-9]{48}$/,
+      'anthropic': /^sk-ant-[a-zA-Z0-9-]{95,}$/,
+      'cohere': /^[a-zA-Z0-9]{40}$/,
+      'mistral': /^[a-zA-Z0-9]{32}$/,
+      'google': /^[a-zA-Z0-9_-]{39}$/,
+      'huggingface': /^hf_[a-zA-Z0-9]{37}$/
+    };
+
+    if (validationRules[provider] && !validationRules[provider].test(key)) {
+      alert(`Niepoprawny format klucza dla ${provider}. SprawdĹş dokumentacjÄ™.`);
+      return;
+    }
+
+    try {
+      appendToOutput(`đź’ľ Zapisywanie klucza dla ${provider} do my-secrets-API...`);
+      
+      // Convert provider name to API key format
+      let keyName = provider.toUpperCase() + '_API_KEY';
+      if (provider === 'huggingface') {
+        keyName = 'HUGGINGFACE_API_KEY';
+      }
+      
+      const response = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'saveSecret',
+          key: keyName,
+          value: key
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success && result.data.saved) {
+        // Update UI
+        input.value = '';
+        input.placeholder = 'â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘â€˘';
+        updateProviderUI(provider, true);
+        
+        apiKeys[provider] = '[CONFIGURED_IN_SECRETS]';
+        updateStatistics();
+        appendToOutput(`âś… Klucz API dla ${provider} zostaĹ‚ zapisany w my-secrets-API`);
+        
+      } else {
+        appendToOutput(`âťŚ BĹ‚Ä…d zapisywania klucza: ${result.error || 'Unknown error'}`);
+        alert('BĹ‚Ä…d podczas zapisywania klucza do my-secrets-API');
+      }
+      
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d poĹ‚Ä…czenia: ${error.message}`);
+      console.error('Save key error:', error);
+      alert('BĹ‚Ä…d podczas zapisywania klucza API');
+    }
+  }
+
+  // Test API key using my-secrets-API
+  async function testAPIKey(provider) {
+    try {
+      appendToOutput(`đź”Ť Testowanie klucza API dla ${provider} przez my-secrets-API...`);
+      
+      const response = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'testProvider',
+          provider: provider
+        })
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        const testData = result.data;
+        
+        if (testData.test === 'passed') {
+          appendToOutput(`âś… Test ${provider} ZAKOĹCZONY POMYĹšLNIE`);
+          appendToOutput(`   Klucz: ${testData.hasKey ? 'dostÄ™pny' : 'niedostÄ™pny'}`);
+          appendToOutput(`   Auth Header: ${testData.authHeaderType || 'N/A'}`);
+          appendToOutput(`   ${testData.note || ''}\n`);
+        } else {
+          appendToOutput(`âťŚ Test ${provider} NIEPOMYĹšLNY`);
+          appendToOutput(`   PowĂłd: ${testData.reason || 'Unknown'}`);
+          appendToOutput(`   Klucz: ${testData.hasKey ? 'dostÄ™pny' : 'niedostÄ™pny'}\n`);
+        }
+        
+        document.getElementById('last-test').textContent = new Date().toLocaleTimeString();
+        
+      } else {
+        appendToOutput(`âťŚ BĹ‚Ä…d testu ${provider}: ${result.error}\n`);
+      }
+      
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d podczas testowania ${provider}: ${error.message}\n`);
+      console.error('Test error:', error);
+    }
+  }
+
+  // Delete API key (from my-secrets-API)
+  async function deleteAPIKey(provider) {
+    if (!confirm(`Czy na pewno chcesz usunÄ…Ä‡ klucz API dla ${provider} z my-secrets-API?`)) {
+      return;
+    }
+
+    try {
+      appendToOutput(`đź—‘ď¸Ź Usuwanie klucza dla ${provider} z my-secrets-API...`);
+      
+      // Note: my-secrets-API doesn't have delete endpoint in current implementation
+      // This would need to be added to the API if needed
+      appendToOutput(`âš ď¸Ź Funkcja usuwania wymaga rozszerzenia my-secrets-API`);
+      appendToOutput(`   Klucz moĹĽe byÄ‡ nadpisany przez zapisanie nowego`);
+      
+      // For now, just update UI
+      const input = document.getElementById(`${provider}-key`);
+      if (input) {
+        input.value = '';
+        input.placeholder = `WprowadĹş klucz dla ${provider}`;
+      }
+      updateProviderUI(provider, false);
+      
+      delete apiKeys[provider];
+      updateStatistics();
+      
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d podczas usuwania: ${error.message}`);
+      console.error('Delete error:', error);
+    }
+  }
+
+  // Test all keys using my-secrets-API
+  async function testAllKeys() {
+    appendToOutput(`đź”Ť ROZPOCZÄCIE TESTOWANIA WSZYSTKICH KLUCZY API przez my-secrets-API\n`);
+
+    try {
+      const response = await fetch(`${API_BASE}?action=validate`);
+      const result = await response.json();
+      
+      if (result.success) {
+        const validation = result.data.validation;
+        
+        appendToOutput(`đź“Š Wyniki walidacji wszystkich kluczy:`);
+        appendToOutput(`   DostÄ™pne klucze: ${result.data.hasAnyKeys ? 'TAK' : 'NIE'}`);
+        
+        for (const provider of validation) {
+          const status = provider.hasKey ? 'âś… DZIAĹA' : 'âťŚ BRAK KLUCZA';
+          appendToOutput(`   ${provider.provider}: ${status}`);
+          
+          if (provider.source) {
+            appendToOutput(`     ĹąrĂłdĹ‚o: ${provider.source}`);
+          }
+        }
+        
+        if (result.data.missingProviders.length > 0) {
+          appendToOutput(`\nâš ď¸Ź BrakujÄ…ce dostawcy: ${result.data.missingProviders.join(', ')}`);
+        }
+        
+        appendToOutput(`\nâś… ZAKOĹCZONO WALIDACJÄ WSZYSTKICH KLUCZY`);
+        document.getElementById('last-test').textContent = new Date().toLocaleTimeString();
+        
+      } else {
+        appendToOutput(`âťŚ BĹ‚Ä…d walidacji: ${result.error}`);
+      }
+      
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d podczas walidacji: ${error.message}`);
+      console.error('Validation error:', error);
+    }
+  }
+
+  // Export configuration from my-secrets-API
+  async function exportConfig() {
+    try {
+      appendToOutput(`đź“¦ Eksportowanie konfiguracji z my-secrets-API...`);
+      
+      const response = await fetch(`${API_BASE}?action=debug`);
+      const result = await response.json();
+      
+      if (result.success) {
+        const config = {
+          version: '2.0',
+          system: 'my-secrets-API',
+          exported_at: new Date().toISOString(),
+          sources: result.data.sources,
+          note: 'Eksport z systemu my-secrets-API - klucze nie sÄ… eksportowane ze wzglÄ™dĂłw bezpieczeĹ„stwa'
+        };
+
+        const dataStr = JSON.stringify(config, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `my-secrets-api_config_${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+
+        appendToOutput(`âś… Konfiguracja my-secrets-API wyeksportowana`);
+        
+      } else {
+        appendToOutput(`âťŚ BĹ‚Ä…d eksportu: ${result.error}`);
+      }
+      
+    } catch (error) {
+      appendToOutput(`âťŚ BĹ‚Ä…d podczas eksportu: ${error.message}`);
+      console.error('Export error:', error);
+    }
+  }
+
+  function importConfig() {
+    appendToOutput(`đź“Ą Import konfiguracji`);
+    appendToOutput(`âš ď¸Ź Funkcja importu dla my-secrets-API wymaga implementacji`);
+    appendToOutput(`   Klucze API muszÄ… byÄ‡ wprowadzone rÄ™cznie ze wzglÄ™dĂłw bezpieczeĹ„stwa`);
+  }
+
+  async function clearAllKeys() {
+    if (!confirm('âš ď¸Ź UWAGA: Ta opcja nie usunie kluczy z my-secrets-API!\n\nMoĹĽesz tylko nadpisaÄ‡ je nowymi wartoĹ›ciami.\nCzy chcesz odĹ›wieĹĽyÄ‡ status?')) {
+      return;
+    }
+
+    await loadSystemStatus();
+    await loadApiKeysStatus();
+    updateStatistics();
+    appendToOutput(`đź”„ Status kluczy odĹ›wieĹĽony z my-secrets-API`);
+  }
+
+  function updateStatistics() {
+    const configuredCount = Object.keys(apiKeys).length;
+    const totalProviders = 6;
+    
+    document.getElementById('configured-providers').textContent = `${configuredCount}/${totalProviders}`;
+    
+    const securityStatus = document.getElementById('security-status');
+    if (configuredCount > 0) {
+      securityStatus.textContent = 'đź”’ My-Secrets-API';
+      securityStatus.style.color = '#10b981';
+    } else {
+      securityStatus.textContent = 'âš ď¸Ź Brak konfiguracji';
+      securityStatus.style.color = '#fbbf24';
+    }
+  }
+
+  function appendToOutput(message) {
+    const output = document.getElementById('testOutput');
+    if (output.querySelector('.output-placeholder')) {
+      output.innerHTML = '';
+    }
+    
+    const timestamp = new Date().toLocaleTimeString();
+    output.textContent += `[${timestamp}] ${message}\n`;
+    output.scrollTop = output.scrollHeight;
+  }
+
+  // Refresh system status
+  async function refreshSystemStatus() {
+    appendToOutput(`đź”„ OdĹ›wieĹĽanie statusu systemu...`);
+    await loadSystemStatus();
+    await loadApiKeysStatus();
+    updateStatistics();
+  }
+
+  // Add refresh button functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    // You can add a refresh button if needed
+    // const refreshBtn = document.getElementById('refreshSystemBtn');
+    // if (refreshBtn) refreshBtn.addEventListener('click', refreshSystemStatus);
+  });
+</script>

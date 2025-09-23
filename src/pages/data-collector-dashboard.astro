@@ -1,0 +1,782 @@
+﻿---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout title="AI Data Collector Dashboard | MyBonzo">
+  <main class="min-h-svh interactive-page" id="mainContent">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              DATA
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              COLLECTOR
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">AI DATA COLLECTOR</h1>
+            <h2 class="text-2xl sm:text-3xl">Automatic Knowledge Base Builder</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              â† PowrĂłt do strony gĹ‚Ăłwnej
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <section
+      class="dashboard-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="collector-section"
+    >
+      <div class="section-container max-w-7xl mx-auto">
+        <h2 class="section-title">DASHBOARD ZBIERANIA DANYCH</h2>
+        <p class="section-description">
+          Automatyczne zbieranie i organizacja danych tematycznych na Google Drive (1.8TB dostÄ™pne)
+        </p>
+
+        <!-- Storage Overview -->
+        <div class="storage-overview mt-8">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="storage-card">
+              <div class="storage-icon">đź’ľ</div>
+              <div class="storage-title">CaĹ‚kowita przestrzeĹ„</div>
+              <div class="storage-value">2TB</div>
+              <div class="storage-desc">Google Drive</div>
+            </div>
+            <div class="storage-card">
+              <div class="storage-icon">đź‘¤</div>
+              <div class="storage-title">Zarezerwowane dla Ciebie</div>
+              <div class="storage-value">200GB</div>
+              <div class="storage-desc">Twoje pliki</div>
+            </div>
+            <div class="storage-card">
+              <div class="storage-icon">đź¤–</div>
+              <div class="storage-title">DostÄ™pne dla AI</div>
+              <div class="storage-value">1.8TB</div>
+              <div class="storage-desc">Zbieranie danych</div>
+            </div>
+            <div class="storage-card">
+              <div class="storage-icon">đź“Š</div>
+              <div class="storage-title">Obecnie zebrane</div>
+              <div class="storage-value" id="collectedSize">1.2TB</div>
+              <div class="storage-desc">2,847 plikĂłw</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection Controls -->
+        <div class="collection-controls mt-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Left Panel - Start Collection -->
+            <div class="control-panel">
+              <div class="panel-card">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">Nowe zbieranie danych</span>
+                  </div>
+                </div>
+
+                <div class="panel-content space-y-6">
+                  <!-- Topic Selection -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      Wybierz tematy do zbierania:
+                    </label>
+                    <div class="topics-grid" id="topicsGrid">
+                      <!-- Topics will be populated here -->
+                    </div>
+                    <div class="mt-3">
+                      <button
+                        onclick="selectAllTopics()"
+                        class="text-sm text-blue-400 hover:text-blue-300"
+                      >
+                        Zaznacz wszystkie
+                      </button>
+                      <span class="text-gray-500 mx-2">|</span>
+                      <button
+                        onclick="selectNoneTopics()"
+                        class="text-sm text-blue-400 hover:text-blue-300"
+                      >
+                        Odznacz wszystkie
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Sources Selection -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      ĹąrĂłdĹ‚a danych:
+                    </label>
+                    <div class="sources-grid">
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="sourceTavily" checked class="rounded">
+                        <span class="text-sm text-primary-foreground">Tavily AI Search</span>
+                        <span class="text-xs text-gray-400">(Najlepsze wyniki)</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="sourceWeb" checked class="rounded">
+                        <span class="text-sm text-primary-foreground">Web Search APIs</span>
+                        <span class="text-xs text-gray-400">(Szerokie pokrycie)</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="sourceKaggle" class="rounded">
+                        <span class="text-sm text-primary-foreground">Kaggle Datasets</span>
+                        <span class="text-xs text-gray-400">(Dane naukowe)</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Collection Settings -->
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        GĹ‚Ä™bokoĹ›Ä‡:
+                      </label>
+                      <select id="collectionDepth" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                        <option value="basic">Podstawowa (szybka)</option>
+                        <option value="advanced" selected>Zaawansowana</option>
+                        <option value="comprehensive">Kompleksowa (wolna)</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        PlikĂłw na temat:
+                      </label>
+                      <input
+                        type="number"
+                        id="maxFiles"
+                        value="50"
+                        min="10"
+                        max="200"
+                        class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Start Collection Button -->
+                  <button
+                    id="startCollectionBtn"
+                    onclick="startDataCollection()"
+                    class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded font-semibold transition-colors"
+                  >
+                    đźš€ Rozpocznij zbieranie danych
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel - Status & Progress -->
+            <div class="status-panel">
+              <!-- Current Jobs -->
+              <div class="panel-card mb-6">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">Aktywne zadania</span>
+                  </div>
+                </div>
+                <div class="panel-content">
+                  <div id="activeJobs" class="space-y-3">
+                    <!-- Active jobs will be populated here -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Collection Progress -->
+              <div id="progressSection" class="panel-card hidden">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">PostÄ™p zbierania</span>
+                  </div>
+                </div>
+                <div class="panel-content">
+                  <div class="progress-info mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-sm text-gray-300">PostÄ™p:</span>
+                      <span class="text-blue-400 font-mono" id="progressPercent">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-3">
+                      <div id="progressBar" class="bg-blue-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="progress-stats grid grid-cols-2 gap-4">
+                    <div class="stat-item">
+                      <div class="stat-label">Zebrane pliki:</div>
+                      <div class="stat-value" id="collectedFiles">0</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-label">Rozmiar danych:</div>
+                      <div class="stat-value" id="collectedDataSize">0 MB</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-label">Czas pozostaĹ‚y:</div>
+                      <div class="stat-value" id="timeRemaining">--:--</div>
+                    </div>
+                    <div class="stat-item">
+                      <div class="stat-label">Aktualny temat:</div>
+                      <div class="stat-value" id="currentTopic">--</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topics Overview -->
+        <div class="topics-overview mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            đź“š PrzeglÄ…d tematĂłw (32 kategorii):
+          </h3>
+          <div class="topics-categories">
+            <div class="category-section">
+              <h4 class="category-title">đź¤– Technologia & AI (8 tematĂłw)</h4>
+              <div class="category-topics">
+                <span class="topic-tag">Artificial Intelligence</span>
+                <span class="topic-tag">Machine Learning</span>
+                <span class="topic-tag">Cloud Computing</span>
+                <span class="topic-tag">Cybersecurity</span>
+                <span class="topic-tag">Blockchain</span>
+                <span class="topic-tag">Quantum Computing</span>
+                <span class="topic-tag">Edge Computing</span>
+                <span class="topic-tag">IoT</span>
+              </div>
+            </div>
+
+            <div class="category-section">
+              <h4 class="category-title">đź’Ľ Business & Marketing (8 tematĂłw)</h4>
+              <div class="category-topics">
+                <span class="topic-tag">Digital Marketing</span>
+                <span class="topic-tag">E-commerce</span>
+                <span class="topic-tag">Startup Funding</span>
+                <span class="topic-tag">Business Automation</span>
+                <span class="topic-tag">Customer Experience</span>
+                <span class="topic-tag">Data Analytics</span>
+                <span class="topic-tag">Project Management</span>
+                <span class="topic-tag">Remote Work</span>
+              </div>
+            </div>
+
+            <div class="category-section">
+              <h4 class="category-title">đźŽ“ RozwĂłj osobisty (8 tematĂłw)</h4>
+              <div class="category-topics">
+                <span class="topic-tag">Programming Tutorials</span>
+                <span class="topic-tag">Career Development</span>
+                <span class="topic-tag">Leadership Skills</span>
+                <span class="topic-tag">Productivity Tools</span>
+                <span class="topic-tag">Online Education</span>
+                <span class="topic-tag">Certifications</span>
+                <span class="topic-tag">Skill Assessment</span>
+                <span class="topic-tag">Professional Networking</span>
+              </div>
+            </div>
+
+            <div class="category-section">
+              <h4 class="category-title">đźŹ­ BranĹĽowe (8 tematĂłw)</h4>
+              <div class="category-topics">
+                <span class="topic-tag">Fintech</span>
+                <span class="topic-tag">Healthcare Tech</span>
+                <span class="topic-tag">EdTech</span>
+                <span class="topic-tag">Real Estate Tech</span>
+                <span class="topic-tag">Automotive</span>
+                <span class="topic-tag">Renewable Energy</span>
+                <span class="topic-tag">Smart Cities</span>
+                <span class="topic-tag">AgriTech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collection Statistics -->
+        <div class="collection-stats mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
+            đź“ Statystyki zbierania:
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="stat-card">
+              <div class="stat-value" id="totalCollections">2,847</div>
+              <div class="stat-label">Zebrane pliki</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="totalDataSize">1.2TB</div>
+              <div class="stat-label">Rozmiar danych</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="activeTopics">32</div>
+              <div class="stat-label">Aktywne tematy</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="dailyCollections">127</div>
+              <div class="stat-label">Dzisiaj zebrane</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Management -->
+        <div class="schedule-management mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">Harmonogram automatyczny</span>
+              </div>
+              <button
+                onclick="toggleSchedule()"
+                class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+              >
+                âš™ď¸Ź Konfiguruj
+              </button>
+            </div>
+            <div class="panel-content">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="schedule-item">
+                  <div class="schedule-title">Codziennie</div>
+                  <div class="schedule-desc">10 tematĂłw, 50 plikĂłw kaĹĽdy</div>
+                  <div class="schedule-status active">AKTYWNY</div>
+                  <div class="schedule-next">NastÄ™pne: 03:00</div>
+                </div>
+                <div class="schedule-item">
+                  <div class="schedule-title">Co tydzieĹ„</div>
+                  <div class="schedule-desc">Wszystkie tematy, gĹ‚Ä™boka analiza</div>
+                  <div class="schedule-status">NIEAKTYWNY</div>
+                  <div class="schedule-next">NastÄ™pne: Niedziela</div>
+                </div>
+                <div class="schedule-item">
+                  <div class="schedule-title">Co miesiÄ…c</div>
+                  <div class="schedule-desc">Kompletna aktualizacja bazy</div>
+                  <div class="schedule-status">NIEAKTYWNY</div>
+                  <div class="schedule-next">NastÄ™pne: 1 lutego</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Collections -->
+        <div class="recent-collections mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">Ostatnie zbierania</span>
+              </div>
+              <button
+                onclick="refreshRecentCollections()"
+                class="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded text-sm"
+              >
+                đź”„ OdĹ›wieĹĽ
+              </button>
+            </div>
+            <div class="panel-content">
+              <div id="recentCollectionsList" class="space-y-3">
+                <!-- Recent collections will be populated here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Future: DigitalOcean Integration -->
+        <div class="future-integrations mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">PrzyszĹ‚e integracje</span>
+              </div>
+            </div>
+            <div class="panel-content">
+              <div class="integration-preview">
+                <div class="integration-item">
+                  <div class="integration-icon">đźŚŠ</div>
+                  <div class="integration-info">
+                    <div class="integration-name">DigitalOcean Spaces</div>
+                    <div class="integration-desc">Dodatkowe 5TB storage dla danych</div>
+                    <div class="integration-status">W PLANACH</div>
+                  </div>
+                </div>
+                <div class="integration-item">
+                  <div class="integration-icon">âď¸Ź</div>
+                  <div class="integration-info">
+                    <div class="integration-name">AWS S3 Integration</div>
+                    <div class="integration-desc">Backup i archiwizacja</div>
+                    <div class="integration-status">W PLANACH</div>
+                  </div>
+                </div>
+                <div class="integration-item">
+                  <div class="integration-icon">đź“ˇ</div>
+                  <div class="integration-info">
+                    <div class="integration-name">Real-time Data Streams</div>
+                    <div class="integration-desc">Live data feeds</div>
+                    <div class="integration-status">W PLANACH</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Interactive page lighting effects */
+  .interactive-page {
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
+    transition: all 0.5s ease;
+  }
+
+  .interactive-page.active {
+    background: radial-gradient(circle at center, rgba(0, 20, 40, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
+  }
+
+  .interactive-page.highly-active {
+    background: radial-gradient(circle at center, rgba(0, 40, 80, 0.6) 0%, rgba(0, 10, 20, 0.85) 100%);
+  }
+
+  /* Base styles */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  /* Storage Cards */
+  .storage-overview {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .storage-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .storage-card:hover {
+    border-color: #00d7ef;
+    background: rgba(0, 217, 255, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .storage-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .storage-title {
+    color: #888;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .storage-value {
+    color: #00d7ef;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .storage-desc {
+    color: #666;
+    font-size: 0.75rem;
+  }
+
+  /* Panel Cards */
+  .panel-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .panel-content {
+    padding: 1.5rem;
+  }
+
+  /* Topics Grid */
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .topic-checkbox {
+    display: flex;
+    align-items: center;
+    space-x: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .topic-checkbox:hover {
+    background: rgba(0, 217, 255, 0.1);
+  }
+
+  .topic-checkbox input {
+    margin-right: 0.5rem;
+  }
+
+  .topic-checkbox label {
+    color: #d1d5db;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  /* Sources Grid */
+  .sources-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Statistics Cards */
+  .stat-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    border-color: #00d7ef;
+    background: rgba(0, 217, 255, 0.05);
+  }
+
+  .stat-value {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: #888;
+    font-size: 0.875rem;
+  }
+
+  /* Progress Stats */
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-item .stat-label {
+    color: #888;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-item .stat-value {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  /* Topics Categories */
+  .topics-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .category-title {
+    color: #00d7ef;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .category-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .topic-tag {
+    background: rgba(0, 217, 255, 0.1);
+    color: #00d7ef;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  /* Schedule Items */
+  .schedule-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .schedule-title {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .schedule-desc {
+    color: #888;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .schedule-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .schedule-status.active {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid #00ff00;
+  }
+
+  .schedule-status:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #888;
+    border: 1px solid #555;
+  }
+
+  .schedule-next {
+    color: #666;
+    font-size: 0.75rem;
+  }
+
+  /* Integration Items */
+  .integration-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .integration-icon {
+    font-size: 2rem;
+  }
+
+  .integration-info {
+    flex: 1;
+  }
+
+  .integration-name {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .integration-desc {
+    color: #888;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .integration-status {
+    color: #ffaa00;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .topics-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .topics-categories {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  let selectedTopics = [];
+  let activityLevel = 0;
+  let collectionInProgress = false;
+
+  // TODO: Add dashboard functionality here
+</script>

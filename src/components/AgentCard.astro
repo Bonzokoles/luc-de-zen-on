@@ -1,0 +1,12 @@
+﻿---
+const { agent } = Astro.props;
+---
+
+<div class="agent-card" style="border:1px solid #123; border-radius:8px; padding:1rem; margin-bottom:1rem;">
+  <h3>{agent.title}</h3>
+  <p>{agent.description}</p>
+  <p>Status: <b>{agent.status}</b></p>
+  <p>{agent.tags && agent.tags.map(tag => (
+    <span style="background:#1e293b;color:#fff;border-radius:5px;padding:0.2rem 0.5rem;font-size:0.85em;margin-right:0.5em;">{tag}</span>
+  ))}</p>
+</div>

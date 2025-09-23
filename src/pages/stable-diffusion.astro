@@ -1,0 +1,424 @@
+﻿---
+import StableDiffusionLayout from "../layouts/StableDiffusionLayout.astro";
+import StableDiffusionHeader from "../components/StableDiffusionHeader.astro";
+import WildcardsBrowser from "../components/WildcardsBrowser.astro";
+
+const title = "ZENON AI Generator | Stable Diffusion";
+---
+
+<StableDiffusionLayout title={title}>
+  <main class="container mx-auto px-4 py-6 space-y-6">
+    <!-- Header with navigation -->
+    <StableDiffusionHeader />
+
+    <!-- Main content sections -->
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+      <!-- Left column - Generation interface -->
+      <div class="xl:col-span-2 space-y-6">
+        <!-- Image display area -->
+        <div class="glossy-black rounded-lg p-6 transition-glossy">
+          <div class="border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+              <h3 class="neon-cyan text-xl font-bold">Podglad Obrazu</h3>
+            </div>
+          </div>
+
+          <div
+            id="imageDisplay"
+            class="border border-white/10 rounded-lg min-h-96 flex items-center justify-center bg-black/30"
+          >
+            <div class="text-center">
+              <span class="text-6xl mb-4 block">🎨</span>
+              <h4 class="neon-white text-2xl font-bold mb-2">
+                WYGENEROWANY OBRAZ
+              </h4>
+              <p class="text-gray-400">
+                Twoj obraz pojawi sie tutaj po generacji
+              </p>
+            </div>
+          </div>
+
+          <div id="imageControls" class="hidden mt-4 flex gap-3 justify-center">
+            <button class="btn-glossy-black px-4 py-2 rounded-lg">
+              <span class="neon-cyan">📥 Pobierz</span>
+            </button>
+            <button class="btn-glossy-black px-4 py-2 rounded-lg">
+              <span class="neon-magenta">🔗 Udostepnij</span>
+            </button>
+            <button class="btn-glossy-black px-4 py-2 rounded-lg">
+              <span class="neon-white">🖼️ Wariacja</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Prompt input section -->
+        <div class="glossy-black rounded-lg p-6 transition-glossy">
+          <div class="border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">✨</span>
+                <h3 class="neon-cyan text-xl font-bold">Generator Promptow</h3>
+              </div>
+              <div class="flex gap-2">
+                <button class="btn-glossy-black px-3 py-1 rounded text-sm">
+                  <span class="neon-magenta">⚡ Ulepsz</span>
+                </button>
+                <button class="btn-glossy-black px-3 py-1 rounded text-sm">
+                  <span class="neon-white">🎲 Losowy</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-white text-sm font-medium mb-2">
+                G┼é├│wny prompt (u┼╝yj wildcards)
+              </label>
+              <textarea
+                id="mainPrompt"
+                rows="4"
+                class="input-glossy w-full px-4 py-3 rounded-lg resize-none"
+                placeholder="Opisz sw├│j obraz szczeg├│┼éowo... mo┼╝esz u┼╝ywa─ç wildcards jak 'Greg Rutkowski' z sekcji Arty┼Ťci"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-white text-sm font-medium mb-2">
+                Negatywny prompt (opcjonalnie)
+              </label>
+              <textarea
+                id="negativePrompt"
+                rows="2"
+                class="input-glossy w-full px-4 py-3 rounded-lg resize-none"
+                placeholder="Co chcesz wykluczyc z obrazu..."></textarea>
+            </div>
+
+            <div class="flex justify-center pt-4">
+              <button
+                id="generateBtn"
+                class="btn-glossy-black px-12 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-all"
+              >
+                <span class="neon-cyan">🎨 GENERUJ OBRAZ</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column - Settings and controls -->
+      <div class="space-y-6">
+        <!-- Settings panel -->
+        <div class="glossy-black rounded-lg p-6 transition-glossy">
+          <div class="border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">⚙️</span>
+              <h3 class="neon-cyan text-xl font-bold">Ustawienia</h3>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-white text-sm font-medium mb-2"
+                >Model:</label
+              >
+              <select class="input-glossy w-full px-3 py-2 rounded">
+                <option value="sdxl">Stable Diffusion XL</option>
+                <option value="dreamshaper">DreamShaper 8</option>
+                <option value="flux">Flux-1 Schnell</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-white text-sm font-medium mb-2"
+                >Rozmiar:</label
+              >
+              <select class="input-glossy w-full px-3 py-2 rounded">
+                <option value="512x512">512x512</option>
+                <option value="768x512">768x512 (landscape)</option>
+                <option value="512x768">512x768 (portrait)</option>
+                <option value="1024x1024">1024x1024</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-white text-sm font-medium mb-2"
+                >Kroki:</label
+              >
+              <select class="input-glossy w-full px-3 py-2 rounded">
+                <option value="15">15 (szybko)</option>
+                <option value="25" selected>25 (standard)</option>
+                <option value="50">50 (wysoka jakosc)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo to Photo -->
+        <div class="glossy-black rounded-lg p-6 transition-glossy">
+          <div class="border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">📷</span>
+              <h3 class="neon-magenta text-xl font-bold">Photo to Photo</h3>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <input
+              type="file"
+              accept="image/*"
+              class="input-glossy w-full px-3 py-2 text-sm rounded"
+            />
+            <textarea
+              rows="2"
+              class="input-glossy w-full px-3 py-2 text-sm rounded resize-none"
+              placeholder="Jak chcesz przeksztalcic obraz?"></textarea>
+            <button
+              class="w-full btn-glossy-black py-2 px-4 rounded font-medium"
+            >
+              <span class="neon-magenta">🎨 Przetwarz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="glossy-black rounded-lg p-6 transition-glossy">
+          <div class="border-b border-white/10 pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">📜</span>
+              <h3 class="neon-white text-xl font-bold">Historia</h3>
+            </div>
+          </div>
+
+          <div id="historyItems" class="space-y-2 max-h-48 overflow-y-auto">
+            <div class="text-center text-gray-400 text-sm py-4">
+              Brak historii generacji
+            </div>
+          </div>
+
+          <div class="flex gap-2 mt-4">
+            <button class="flex-1 btn-glossy-black py-1 px-2 rounded text-xs">
+              <span class="text-red-400">Wyczy┼Ť─ç</span>
+            </button>
+            <button class="flex-1 btn-glossy-black py-1 px-2 rounded text-xs">
+              <span class="text-blue-400">Eksport</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wildcards browser section -->
+    <WildcardsBrowser />
+  </main>
+
+  <!-- Loading modal -->
+  <div
+    id="loadingModal"
+    class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+  >
+    <div class="glossy-black rounded-lg p-8 text-center">
+      <div class="loading-pulse">
+        <div
+          class="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4"
+        >
+        </div>
+        <p class="neon-cyan text-lg font-bold">Generowanie obrazu...</p>
+        <p class="text-gray-400 text-sm mt-2">To mo┼╝e potrwa─ç kilka sekund</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error notification -->
+  <div
+    id="errorNotification"
+    class="hidden fixed top-4 right-4 bg-red-900/80 border border-red-500/50 rounded-lg p-4 text-red-200 z-50"
+  >
+    <div class="flex items-center gap-2">
+      <span class="text-red-400">❌</span>
+      <span id="errorMessage">Blad generacji</span>
+      <button onclick="hideError()" class="ml-2 text-red-400 hover:text-red-300"
+        >X</button
+      >
+    </div>
+  </div>
+
+  <script>
+    // Page initialization and event handlers
+    document.addEventListener("DOMContentLoaded", () => {
+      initializeApp();
+    });
+
+    function initializeApp() {
+      console.log("🎨 ZENON Stable Diffusion Generator initialized");
+      setupEventListeners();
+      loadInitialData();
+    }
+
+    function setupEventListeners() {
+      // Listen for wildcard selections
+      window.addEventListener("wildcardSelected", (event) => {
+        const wildcard = event.detail.wildcard;
+        insertWildcardIntoPrompt(wildcard);
+      });
+
+      // Generate button
+      const generateBtn = document.getElementById("generateBtn");
+      if (generateBtn) {
+        generateBtn.addEventListener("click", generateImage);
+      }
+    }
+
+    function insertWildcardIntoPrompt(wildcard) {
+      const promptTextarea = document.getElementById("mainPrompt");
+      if (promptTextarea) {
+        const currentValue = promptTextarea.value;
+        const newValue = currentValue
+          ? `${currentValue}, ${wildcard}`
+          : wildcard;
+        promptTextarea.value = newValue;
+
+        // Focus and scroll into view
+        promptTextarea.focus();
+        promptTextarea.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        // Show visual feedback
+        promptTextarea.style.borderColor = "rgba(0, 255, 255, 0.8)";
+        setTimeout(() => {
+          promptTextarea.style.borderColor = "";
+        }, 1000);
+      }
+    }
+
+    async function generateImage() {
+      const mainPrompt = document.getElementById("mainPrompt")?.value?.trim();
+      const negativePrompt = document.getElementById("negativePrompt")?.value?.trim();
+
+      if (!mainPrompt) {
+        showError("Wprowadz opis obrazu w polu prompt");
+        return;
+      }
+
+      const loadingModal = document.getElementById("loadingModal");
+      const generateBtn = document.getElementById("generateBtn");
+
+      try {
+        // Show loading
+        if (loadingModal) loadingModal.classList.remove("hidden");
+        if (generateBtn) {
+          generateBtn.disabled = true;
+          generateBtn.textContent = "GENEROWANIE...";
+        }
+
+        // Call real AI API
+        const response = await fetch('/api/generate-image', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            prompt: mainPrompt,
+            negative_prompt: negativePrompt,
+            width: 512,
+            height: 512,
+            steps: 25,
+            enhancePrompt: true
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // Get image blob and create URL
+        const imageBlob = await response.blob();
+        const imageUrl = URL.createObjectURL(imageBlob);
+
+        // Display result
+        displayGeneratedImage(imageUrl, mainPrompt);
+        showSuccess("Obraz wygenerowany pomyslnie!");
+        
+      } catch (error) {
+        console.error('Generation error:', error);
+        showError("Blad podczas generowania: " + error.message);
+      } finally {
+        // Hide loading
+        if (loadingModal) loadingModal.classList.add("hidden");
+        if (generateBtn) {
+          generateBtn.disabled = false;
+          generateBtn.textContent = "🎨 GENERUJ OBRAZ";
+        }
+      }
+    }
+
+    function displayGeneratedImage(imageUrl, prompt) {
+      const imageDisplay = document.getElementById("imageDisplay");
+      const imageControls = document.getElementById("imageControls");
+
+      if (imageDisplay && imageControls) {
+        imageDisplay.innerHTML = `
+          <img src="${imageUrl}" alt="Generated image" class="w-full h-auto rounded-lg cursor-pointer hover:scale-105 transition-transform" onclick="openImageModal('${imageUrl}', '${prompt}')"/>
+        `;
+        imageControls.classList.remove("hidden");
+      }
+    }
+
+    function openImageModal(imageUrl, prompt) {
+      // Implementation for image modal
+      console.log("Opening modal for:", imageUrl, prompt);
+    }
+
+    function showError(message) {
+      const errorNotification = document.getElementById("errorNotification");
+      const errorMessage = document.getElementById("errorMessage");
+
+      if (errorNotification && errorMessage) {
+        errorMessage.textContent = message;
+        errorNotification.classList.remove("hidden");
+
+        setTimeout(() => {
+          errorNotification.classList.add("hidden");
+        }, 5000);
+      }
+    }
+
+    function showSuccess(message) {
+      // Create temporary success notification
+      const successDiv = document.createElement("div");
+      successDiv.className =
+        "fixed top-4 right-4 bg-green-900/80 border border-green-500/50 rounded-lg p-4 text-green-200 z-50";
+      successDiv.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-green-400">Ôťů</span>
+          <span>${message}</span>
+        </div>
+      `;
+
+      document.body.appendChild(successDiv);
+
+      setTimeout(() => {
+        successDiv.remove();
+      }, 3000);
+    }
+
+    function hideError() {
+      const errorNotification = document.getElementById("errorNotification");
+      if (errorNotification) {
+        errorNotification.classList.add("hidden");
+      }
+    }
+
+    function loadInitialData() {
+      // Load any initial data needed
+      console.log("Loading initial data...");
+    }
+
+    // Make functions globally available
+    (window as any).hideError = hideError;
+    (window as any).openImageModal = openImageModal;
+  </script>
+</StableDiffusionLayout>
+
+
+

@@ -1,0 +1,703 @@
+﻿---
+title: "MyBonzo Control Panel"
+description: "Comprehensive administration dashboard"
+---
+
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBonzo Control Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#8b5cf6',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+  <div id="app" class="container mx-auto p-6">
+    <!-- Header -->
+    <header class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            đźš€ MyBonzo Control Panel
+          </h1>
+          <p class="text-gray-400 mt-2">ZarzÄ…dzanie aplikacjÄ… i deploymentami</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-green-400">System Online</span>
+          </div>
+          <div class="text-gray-400 text-sm">
+            Ostatnia aktualizacja: <span id="lastUpdated"></span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Quick Status Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+            âś…
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Status Produkcji</p>
+            <p class="text-xl font-bold text-green-400" id="prodStatus">Zdrowy</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+            âšˇ
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Aktywne Deploymenty</p>
+            <p class="text-xl font-bold text-blue-400" id="deployCount">2</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+            âš ď¸Ź
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Alerty BezpieczeĹ„stwa</p>
+            <p class="text-xl font-bold text-yellow-400" id="alertCount">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+            đź’ľ
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">DostÄ™pne Backupy</p>
+            <p class="text-xl font-bold text-purple-400" id="backupCount">5</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Control Sections -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Deployment Controls -->
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          đźš€ Kontrola DeploymentĂłw
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Production Deploy -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <h3 class="font-semibold text-green-400">Deploy Produkcyjny</h3>
+                <p class="text-sm text-gray-400">WdroĹĽenie do Ĺ›rodowiska produkcyjnego</p>
+              </div>
+              <div class="text-right">
+                <p class="text-xs text-gray-500">Ostatni: 2h temu</p>
+                <p class="text-xs text-green-400">Status: Sukces</p>
+              </div>
+            </div>
+            
+            <div class="flex gap-2 mb-3">
+              <button onclick="deployProduction()" 
+                      class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                đźš€ Deploy Produkcja
+              </button>
+              <button onclick="deployProductionForce()" 
+                      class="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                âšˇ Force Deploy
+              </button>
+            </div>
+            
+            <div class="text-xs">
+              <label class="flex items-center gap-2 text-gray-400">
+                <input type="checkbox" id="skipTests" class="rounded">
+                PomiĹ„ testy (nie zalecane)
+              </label>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-blue-400 mb-3">Szybkie Akcje</h3>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button onclick="startDevServer()" 
+                      class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded transition-colors">
+                â–¶ď¸Ź Start Dev
+              </button>
+              <button onclick="buildLocal()" 
+                      class="bg-purple-600 hover:bg-purple-500 px-3 py-2 rounded transition-colors">
+                đź”¨ Build
+              </button>
+              <button onclick="runSecurityScan()" 
+                      class="bg-red-600 hover:bg-red-500 px-3 py-2 rounded transition-colors">
+                đź”Ť Security
+              </button>
+              <button onclick="createQuickBackup()" 
+                      class="bg-purple-600 hover:bg-purple-500 px-3 py-2 rounded transition-colors">
+                đź’ľ Backup
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Status & Controls -->
+      <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+          đź“Š Status Systemu
+        </h2>
+        
+        <div class="space-y-4">
+          <!-- Git Status -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-orange-400 mb-3">Git Repository</h3>
+            
+            <div id="gitStatus" class="space-y-2 text-sm mb-4">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Branch:</span>
+                <span class="text-white" id="currentBranch">main</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Commit:</span>
+                <span class="text-white font-mono text-xs" id="currentCommit">abc1234</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Status:</span>
+                <span class="text-green-400" id="repoStatus">Czysty</span>
+              </div>
+            </div>
+            
+            <div class="flex gap-2 text-xs">
+              <button onclick="refreshGitStatus()" 
+                      class="bg-orange-600 hover:bg-orange-500 px-3 py-2 rounded transition-colors">
+                đź”„ OdĹ›wieĹĽ
+              </button>
+              <button onclick="validateCode()" 
+                      class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded transition-colors">
+                âś… Waliduj
+              </button>
+            </div>
+          </div>
+
+          <!-- Health Monitoring -->
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="font-semibold text-cyan-400 mb-3">Monitoring</h3>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs mb-3">
+              <button onclick="checkProduction()" 
+                      class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded transition-colors">
+                âś… Produkcja
+              </button>
+              <button onclick="checkStaging()" 
+                      class="bg-yellow-600 hover:bg-yellow-500 px-3 py-2 rounded transition-colors">
+                đźŽ­ Staging
+              </button>
+            </div>
+            
+            <div id="healthStatus" class="text-xs text-gray-400">
+              Ostatnie sprawdzenie: <span id="lastHealthCheck">Nigdy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Controls -->
+    <div class="mt-8 bg-red-900/20 border border-red-500/30 rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-red-400">
+        đźš¨ Kontrole Awaryjne
+      </h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <!-- Quick Backup -->
+        <div class="bg-gray-800 rounded-lg p-4">
+          <h3 class="font-semibold text-purple-400 mb-3">Szybki Backup</h3>
+          <input type="text" id="quickBackupReason" placeholder="PowĂłd..." 
+                 class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm mb-3">
+          <button onclick="createQuickBackup()" 
+                  class="w-full bg-purple-600 hover:bg-purple-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            đź’ľ UtwĂłrz Backup
+          </button>
+        </div>
+
+        <!-- Emergency Rollback -->
+        <div class="bg-gray-800 rounded-lg p-4">
+          <h3 class="font-semibold text-red-400 mb-3">Awaryjny Rollback</h3>
+          <select id="rollbackVersion" class="w-full bg-gray-600 border border-gray-500 rounded px-3 py-2 text-sm mb-3" title="Wybierz wersjÄ™ do rollbacku">
+            <option value="">Wybierz wersjÄ™...</option>
+          </select>
+          <button onclick="performEmergencyRollback()" 
+                  class="w-full bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            đźš¨ ROLLBACK
+          </button>
+        </div>
+
+        <!-- System Info -->
+        <div class="bg-gray-800 rounded-lg p-4">
+          <h3 class="font-semibold text-blue-400 mb-3">Info Systemu</h3>
+          <div class="space-y-1 text-xs">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Node.js:</span>
+              <span id="nodeVersion">v22.18.0</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Astro:</span>
+              <span id="astroVersion">5.13.5</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Uptime:</span>
+              <span id="systemUptime">15d 4h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Console Output -->
+    <div class="mt-8 bg-gray-800 rounded-lg p-6 border border-gray-700">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">Konsola Systemowa</h2>
+        <div class="flex gap-2">
+          <button onclick="clearConsole()" 
+                  class="bg-red-600 hover:bg-red-500 px-3 py-1 rounded text-sm transition-colors">
+            đź—‘ď¸Ź WyczyĹ›Ä‡
+          </button>
+          <button onclick="toggleAutoScroll()" id="autoScrollBtn"
+                  class="bg-blue-600 hover:bg-blue-500 px-3 py-1 rounded text-sm transition-colors">
+            đź“ś Auto-scroll
+          </button>
+        </div>
+      </div>
+      
+      <div id="consoleOutput" class="bg-black rounded p-4 h-64 overflow-y-auto font-mono text-sm">
+        <div class="text-green-400">[12:34:56] MyBonzo Control Panel zainicjalizowany</div>
+        <div class="text-blue-400">[12:34:57] ĹÄ…czenie z usĹ‚ugami backend...</div>
+        <div class="text-green-400">[12:34:58] Wszystkie systemy online âś“</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Stan globalny
+    let consoleAutoScroll = true;
+    let systemStatus = {
+      devServerRunning: false,
+      monitoringActive: false,
+      lastHealthCheck: null
+    };
+
+    // Funkcje pomocnicze
+    function addToConsole(message, type = 'info') {
+      const console = document.getElementById('consoleOutput');
+      const timestamp = new Date().toLocaleTimeString();
+      const colors = {
+        info: 'text-white',
+        success: 'text-green-400',
+        warning: 'text-yellow-400',
+        error: 'text-red-400',
+        system: 'text-blue-400'
+      };
+      
+      const logLine = `<div class="${colors[type]}">[${timestamp}] ${message}</div>`;
+      console.innerHTML += logLine;
+      
+      if (consoleAutoScroll) {
+        console.scrollTop = console.scrollHeight;
+      }
+    }
+
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-600' : 
+        type === 'error' ? 'bg-red-600' : 
+        type === 'warning' ? 'bg-yellow-600' : 'bg-blue-600'
+      } text-white max-w-sm`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 5000);
+    }
+
+    // API Helper - uproszczony dla bezpoĹ›redniego dostÄ™pu
+    async function callAPI(endpoint, method = 'GET', data = null) {
+      try {
+        addToConsole(`API Call: ${method} ${endpoint}`, 'system');
+        
+        // Symulacja opĂłĹşnienia API
+        await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
+        
+        // Symulacja odpowiedzi w zaleĹĽnoĹ›ci od endpoint
+        const mockResponse = getMockResponse(endpoint, method, data);
+        
+        addToConsole(`API Response: ${mockResponse.status}`, 'success');
+        return mockResponse.data;
+      } catch (error) {
+        addToConsole(`API Error: ${error.message}`, 'error');
+        showNotification(`BĹ‚Ä…d: ${error.message}`, 'error');
+        throw error;
+      }
+    }
+
+    function getMockResponse(endpoint, method, data) {
+      // Prosta symulacja odpowiedzi API
+      if (endpoint.includes('deploy')) {
+        return {
+          status: 200,
+          data: {
+            success: true,
+            deploymentId: `deploy_${Date.now()}`,
+            environment: data?.environment || 'production',
+            duration: '2.5 minutes',
+            url: 'https://mybonzo.com'
+          }
+        };
+      }
+      
+      if (endpoint.includes('git-status')) {
+        return {
+          status: 200,
+          data: {
+            branch: 'main',
+            commit: 'abc1234567890abcdef',
+            clean: true
+          }
+        };
+      }
+      
+      if (endpoint.includes('backup')) {
+        return {
+          status: 200,
+          data: {
+            success: true,
+            backupName: `backup_${new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)}`,
+            size: '2.1MB'
+          }
+        };
+      }
+      
+      if (endpoint.includes('health-check')) {
+        return {
+          status: 200,
+          data: {
+            healthy: true,
+            responseTime: 245,
+            timestamp: new Date().toISOString()
+          }
+        };
+      }
+      
+      return {
+        status: 200,
+        data: { success: true, message: 'Operation completed' }
+      };
+    }
+
+    // Funkcje deploymentu
+    async function deployProduction() {
+      addToConsole('đźš€ Rozpoczynanie deploymentu produkcyjnego...', 'system');
+      showNotification('Deployment produkcyjny rozpoczÄ™ty', 'info');
+      
+      const skipTests = document.getElementById('skipTests').checked;
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'deploy',
+          environment: 'production',
+          skipTests: skipTests
+        });
+        
+        addToConsole('âś… Deployment produkcyjny zakoĹ„czony sukcesem', 'success');
+        showNotification('Produkcja wdroĹĽona pomyĹ›lnie!', 'success');
+        
+        // Aktualizuj status
+        document.getElementById('prodStatus').textContent = 'WdroĹĽony';
+        
+      } catch (error) {
+        addToConsole(`âťŚ Deployment produkcyjny nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    async function deployProductionForce() {
+      if (!confirm('âš ď¸Ź Force deployment bypasses safety checks. Continue?')) {
+        return;
+      }
+      
+      addToConsole('âšˇ FORCE deployment produkcyjny...', 'warning');
+      await deployProduction();
+    }
+
+    async function startDevServer() {
+      addToConsole('â–¶ď¸Ź Uruchamianie serwera deweloperskiego...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'dev-server',
+          operation: 'start'
+        });
+        
+        systemStatus.devServerRunning = true;
+        addToConsole('âś… Serwer deweloperski uruchomiony na porcie 4321', 'success');
+        showNotification('Serwer dev uruchomiony!', 'success');
+      } catch (error) {
+        addToConsole(`âťŚ Nie udaĹ‚o siÄ™ uruchomiÄ‡ serwera dev: ${error.message}`, 'error');
+      }
+    }
+
+    async function buildLocal() {
+      addToConsole('đź”¨ Budowanie aplikacji lokalnie...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'build'
+        });
+        
+        addToConsole('âś… Lokalne budowanie zakoĹ„czone sukcesem', 'success');
+        showNotification('Build zakoĹ„czony!', 'success');
+      } catch (error) {
+        addToConsole(`âťŚ Build nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    // Funkcje bezpieczeĹ„stwa i Git
+    async function refreshGitStatus() {
+      addToConsole('đź”„ OdĹ›wieĹĽanie statusu Git...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control?action=git-status');
+        
+        document.getElementById('currentBranch').textContent = result.branch;
+        document.getElementById('currentCommit').textContent = result.commit.substring(0, 8);
+        document.getElementById('repoStatus').textContent = result.clean ? 'Czysty' : 'Zmodyfikowany';
+        
+        addToConsole('âś… Status Git odĹ›wieĹĽony', 'success');
+      } catch (error) {
+        addToConsole(`âťŚ Nie udaĹ‚o siÄ™ odĹ›wieĹĽyÄ‡ statusu Git: ${error.message}`, 'error');
+      }
+    }
+
+    async function validateCode() {
+      addToConsole('âś… Uruchamianie walidacji kodu...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'validate-code'
+        });
+        
+        addToConsole('âś… Walidacja kodu przeszĹ‚a pomyĹ›lnie', 'success');
+        showNotification('Walidacja kodu przeszĹ‚a!', 'success');
+      } catch (error) {
+        addToConsole(`âťŚ BĹ‚Ä…d walidacji kodu: ${error.message}`, 'error');
+      }
+    }
+
+    async function runSecurityScan() {
+      addToConsole('đź”Ť Uruchamianie kompleksowego skanu bezpieczeĹ„stwa...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'security-scan'
+        });
+        
+        addToConsole('âś… Skan bezpieczeĹ„stwa zakoĹ„czony - brak problemĂłw', 'success');
+        showNotification('Skan bezpieczeĹ„stwa zakoĹ„czony', 'info');
+        
+        // Aktualizuj licznik alertĂłw
+        document.getElementById('alertCount').textContent = '0';
+      } catch (error) {
+        addToConsole(`âťŚ Skan bezpieczeĹ„stwa nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    // Health checks
+    async function checkProduction() {
+      addToConsole('âś… Sprawdzanie zdrowia produkcji...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'health-check',
+          environment: 'production'
+        });
+        
+        if (result.healthy) {
+          addToConsole('âś… Produkcja: ZDROWA', 'success');
+          document.getElementById('prodStatus').textContent = 'Zdrowy';
+          document.getElementById('prodStatus').className = 'text-xl font-bold text-green-400';
+        } else {
+          addToConsole('âťŚ Produkcja: NIEZDROWA', 'error');
+          document.getElementById('prodStatus').textContent = 'Niezdrowy';
+          document.getElementById('prodStatus').className = 'text-xl font-bold text-red-400';
+        }
+        
+        document.getElementById('lastHealthCheck').textContent = new Date().toLocaleTimeString();
+        showNotification(`Produkcja: ${result.healthy ? 'Zdrowy' : 'Niezdrowy'}`, 
+                        result.healthy ? 'success' : 'error');
+      } catch (error) {
+        addToConsole(`âťŚ Sprawdzenie zdrowia produkcji nieudane: ${error.message}`, 'error');
+      }
+    }
+
+    async function checkStaging() {
+      addToConsole('đźŽ­ Sprawdzanie zdrowia staging...', 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'health-check',
+          environment: 'staging'
+        });
+        
+        addToConsole('âś… Staging: ZDROWY', 'success');
+        showNotification('Staging: Zdrowy', 'success');
+      } catch (error) {
+        addToConsole(`âťŚ Sprawdzenie zdrowia staging nieudane: ${error.message}`, 'error');
+      }
+    }
+
+    // Backup functions
+    async function createQuickBackup() {
+      const reason = document.getElementById('quickBackupReason').value || 'Quick backup from control panel';
+      
+      addToConsole(`đź’ľ Tworzenie szybkiego backupu: ${reason}`, 'system');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'backup',
+          type: 'manual',
+          reason: reason
+        });
+        
+        addToConsole(`âś… Backup utworzony: ${result.backupName}`, 'success');
+        showNotification('Backup utworzony pomyĹ›lnie!', 'success');
+        
+        // WyczyĹ›Ä‡ pole
+        document.getElementById('quickBackupReason').value = '';
+        
+        // Aktualizuj licznik backupĂłw
+        const currentCount = parseInt(document.getElementById('backupCount').textContent) + 1;
+        document.getElementById('backupCount').textContent = currentCount.toString();
+        
+        // Dodaj do listy rollback
+        refreshRollbackList();
+      } catch (error) {
+        addToConsole(`âťŚ Tworzenie backupu nieudane: ${error.message}`, 'error');
+      }
+    }
+
+    async function performEmergencyRollback() {
+      const version = document.getElementById('rollbackVersion').value;
+      
+      if (!version) {
+        showNotification('Wybierz wersjÄ™ do rollbacku', 'warning');
+        return;
+      }
+      
+      if (!confirm(`đźš¨ UWAGA: To przywrĂłci system do ${version}. Nie moĹĽna cofnÄ…Ä‡. KontynuowaÄ‡?`)) {
+        return;
+      }
+      
+      addToConsole(`đźš¨ AWARYJNY ROLLBACK do ${version}`, 'warning');
+      
+      try {
+        const result = await callAPI('/api/admin/control', 'POST', {
+          action: 'rollback',
+          version: version,
+          reason: 'Emergency rollback from control panel'
+        });
+        
+        addToConsole('đźŽ‰ Rollback zakoĹ„czony pomyĹ›lnie', 'success');
+        showNotification('Rollback zakoĹ„czony!', 'success');
+        
+        document.getElementById('rollbackVersion').value = '';
+        
+      } catch (error) {
+        addToConsole(`âťŚ Rollback nieudany: ${error.message}`, 'error');
+      }
+    }
+
+    async function refreshRollbackList() {
+      try {
+        // Symulacja listy backupĂłw
+        const mockBackups = [
+          'backup_2024-12-09_14-30-45',
+          'backup_2024-12-09_10-15-22', 
+          'backup_2024-12-08_16-45-33'
+        ];
+        
+        const rollbackSelect = document.getElementById('rollbackVersion');
+        rollbackSelect.innerHTML = '<option value="">Wybierz wersjÄ™...</option>';
+        
+        mockBackups.forEach(backup => {
+          const option = document.createElement('option');
+          option.value = backup;
+          option.textContent = backup;
+          rollbackSelect.appendChild(option);
+        });
+      } catch (error) {
+        addToConsole(`âťŚ Nie udaĹ‚o siÄ™ odĹ›wieĹĽyÄ‡ listy rollback: ${error.message}`, 'error');
+      }
+    }
+
+    // Console functions
+    function clearConsole() {
+      document.getElementById('consoleOutput').innerHTML = '';
+      addToConsole('Konsola wyczyszczona', 'system');
+    }
+
+    function toggleAutoScroll() {
+      consoleAutoScroll = !consoleAutoScroll;
+      const button = document.getElementById('autoScrollBtn');
+      button.textContent = consoleAutoScroll ? 'đź“ś Auto-scroll' : 'đź“ś RÄ™czny scroll';
+      button.className = consoleAutoScroll ? 
+        'bg-blue-600 hover:bg-blue-500 px-3 py-1 rounded text-sm transition-colors' :
+        'bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded text-sm transition-colors';
+      
+      addToConsole(`Auto-scroll ${consoleAutoScroll ? 'wĹ‚Ä…czony' : 'wyĹ‚Ä…czony'}`, 'system');
+    }
+
+    // Inicjalizacja
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      
+      refreshGitStatus();
+      refreshRollbackList();
+      
+      addToConsole('MyBonzo Control Panel gotowy âś“', 'success');
+      addToConsole('Wszystkie systemy poĹ‚Ä…czone z Q:\\mybonzo\\luc-de-zen-on', 'info');
+      
+      setInterval(() => {
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+      }, 60000);
+    });
+  </script>
+</body>
+</html>

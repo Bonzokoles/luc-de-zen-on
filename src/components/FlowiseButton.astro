@@ -1,0 +1,39 @@
+﻿---
+// Komponent przycisku Flowise - integracja z API
+---
+
+<input type="text" id="flowise-input" placeholder="Wpisz prompt do Flowise..." />
+
+<button onclick="handleFlowise()">
+  Uruchom Flowise
+</button>
+
+<script>
+function handleFlowise() {
+  const inputElement = document.getElementById('flowise-input');
+  if (!inputElement) {
+    alert('Element nie znaleziony');
+    return;
+  }
+  
+  const prompt = (inputElement as HTMLInputElement).value;
+  if (!prompt.trim()) {
+    alert("Wpisz prompt");
+    return;
+  }
+
+  fetch('/api/flowise', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt }),
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.error || JSON.stringify(data));
+  })
+  .catch(err => {
+    alert('BĹ‚Ä…d sieci');
+  });
+}
+</script>
+

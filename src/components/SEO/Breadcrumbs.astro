@@ -1,0 +1,172 @@
+---
+export interface BreadcrumbItem {
+  name: string;
+  url: string;
+  current?: boolean;
+}
+
+export interface Props {
+  items: BreadcrumbItem[];
+  separator?: string;
+  showHome?: boolean;
+  className?: string;
+}
+
+const {
+  items,
+  separator = "/",
+  showHome = true,
+  className = ""
+} = Astro.props;
+
+// Always include home if showHome is true
+const breadcrumbItems = showHome && items[0]?.url !== "/" 
+  ? [{ name: "Strona główna", url: "/" }, ...items]
+  : items;
+
+// Generate structured data for breadcrumbs
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": new URL(item.url, Astro.site).toString()
+  }))
+};
+---
+
+<nav aria-label="Ścieżka nawigacji" class={`breadcrumbs ${className}`} role="navigation">
+  <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    {breadcrumbItems.map((item, index) => (
+      <li 
+        class="breadcrumb-item"
+        itemprop="itemListElement" 
+        itemscope 
+        itemtype="https://schema.org/ListItem"
+      >
+        <meta itemprop="position" content={index + 1} />
+        {item.current ? (
+          <span 
+            class="breadcrumb-current"
+            aria-current="page"
+            itemprop="name"
+          >
+            {item.name}
+          </span>
+        ) : (
+          <a 
+            href={item.url}
+            class="breadcrumb-link"
+            itemprop="item"
+          >
+            <span itemprop="name">{item.name}</span>
+          </a>
+        )}
+        {index < breadcrumbItems.length - 1 && (
+          <span class="breadcrumb-separator" aria-hidden="true">
+            {separator}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+<style>
+  .breadcrumbs {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-edge);
+    background: var(--color-background);
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-link {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-accent);
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .breadcrumb-link:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .breadcrumb-current {
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .breadcrumb-separator {
+    color: var(--color-secondary);
+    font-size: 0.875rem;
+    opacity: 0.6;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 640px) {
+    .breadcrumb-list {
+      font-size: 0.75rem;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-current {
+      font-size: 0.75rem;
+      padding: 0.125rem 0.25rem;
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .breadcrumb-link {
+      border: 1px solid transparent;
+    }
+
+    .breadcrumb-link:hover,
+    .breadcrumb-link:focus {
+      border-color: var(--color-accent);
+      background: var(--color-background);
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .breadcrumb-link {
+      transition: none;
+    }
+  }
+
+  /* Dark mode adjustments */
+  :global(.dark-mode) .breadcrumb-link:hover {
+    background: rgba(59, 130, 246, 0.2);
+  }
+</style>

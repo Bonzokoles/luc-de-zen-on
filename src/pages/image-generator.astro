@@ -1,0 +1,1753 @@
+﻿---
+import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
+import ThreePaneAI from "../layouts/ThreePaneAI.astro";
+import PromptEnhancerModal from "../components/PromptEnhancerModal.astro";
+import DecorativeLines from "../components/DecorativeLines.astro";
+import ArtistsGallery from "../components/ArtistsGallery.astro";
+import ChatHistoryHTML from "../components/ChatHistoryHTML.astro";
+---
+
+<UniversalPageLayout
+  siteTitle="Generator ObrazĂłw AI | AI Workers"
+  description="Generuj obrazy z tekstu za pomocÄ… Cloudflare AI."
+>
+  <main class="min-h-svh cyber-grid" style="background: rgba(0,0,0,0.5);">
+    <DecorativeLines />
+    <section class="ai-workers-section py-10">
+      <div class="section-container max-w-full mx-auto px-4">
+        <!-- Test Marker: deterministic SSR element for smoke tests -->
+        <div data-testid="image-generator-marker" class="sr-only" aria-hidden="true">generate-image form</div>
+        <h1 class="section-title">GENERATOR OBRAZĂ“W AI</h1>
+        <p class="section-description">
+          Podaj opis i wybierz parametry. Otrzymasz PNG bezpoĹ›rednio z serwera.
+        </p>
+
+        <ThreePaneAI>
+          <div slot="left">
+            <h2 class="text-xl font-bold text-purple-400 mb-4 flex items-center">
+              <span class="mr-2">đź—‚ď¸Ź</span> Historia Generacji
+            </h2>
+            <p class="text-sm text-gray-300 mb-6">Interaktywny chat z historiÄ… twoich obrazĂłw</p>
+            <div class="h-[600px]"><ChatHistoryHTML /></div>
+            <div class="mt-4 grid grid-cols-2 gap-3 text-center">
+              <div class="bg-gray-800/50 rounded border border-cyan-600/30 p-3">
+                <div class="text-cyan-400 font-bold text-lg" id="totalGenerated">0</div>
+                <div class="text-gray-400 text-xs">Wygenerowane</div>
+              </div>
+              <div class="bg-gray-800/50 rounded border border-purple-600/30 p-3">
+                <div class="text-purple-400 font-bold text-lg" id="todayGenerated">0</div>
+                <div class="text-gray-400 text-xs">Dzisiaj</div>
+              </div>
+            </div>
+          </div>
+
+          <div slot="center">
+            <h2 class="text-2xl font-bold text-cyan-400 mb-4">đźŽ¨ Text-to-Image Generator</h2>
+            <div class="mb-6">
+              <div class="flex items-center justify-between mb-3">
+                <label for="imagePrompt" class="block text-xl font-semibold text-primary-foreground">Opis obrazu</label>
+                <div class="flex gap-3">
+                  <button id="openPromptEnhancerBtn" class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 text-sm font-medium transition-colors" onclick="openPromptEnhancer()">đź”§ OtwĂłrz enhancer</button>
+                  <button id="enhancePromptBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 text-sm font-medium transition-colors" onclick="enhancePrompt()">âś¨ Ulepsz prompt</button>
+                </div>
+              </div>
+              <textarea id="imagePrompt" rows="6" class="w-full p-4 text-primary-foreground placeholder-gray-400 focus:outline-none resize-none text-lg" style="background: rgba(0,0,0,0.5);" placeholder="Opisz swĂłj obraz szczegĂłĹ‚owo. Np: Futurystyczne miasto o zachodzie sĹ‚oĹ„ca, neonowe Ĺ›wiatĹ‚a odbijajÄ…ce siÄ™ w szkle drapaczy chmur, styl cyberpunk, 4K, bardzo szczegĂłĹ‚owe..."></textarea>
+            </div>
+            <div class="mb-6">
+              <h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><span class="mr-2">đźŽ­</span> Galeria ArtystĂłw (1000+ stylĂłw)</h3>
+              <ArtistsGallery />
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">API Provider</label>
+                <select id="apiProvider" class="w-full p-3 text-primary-foreground" style="background: rgba(0,0,0,0.5);" onchange="updateModelOptions()">
+                  <option value="cloudflare" selected>Cloudflare Workers AI</option>
+                  <option value="huggingface">Hugging Face API</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Model</label>
+                <select id="imageModel" class="w-full p-3 text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0" selected>Stable Diffusion XL</option>
+                  <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper 8 LCM</option>
+                  <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
+                  <option value="@cf/runwayml/stable-diffusion-v1-5">Stable Diffusion v1.5</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Styl</label>
+                <select id="imageStyle" class="w-full p-3 text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="photographic">Fotograficzny</option>
+                  <option value="artistic">Artystyczny</option>
+                  <option value="digital">Cyfrowy</option>
+                  <option value="anime">Anime</option>
+                  <option value="abstract">Abstrakcyjny</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Rozmiar</label>
+                <select id="imageSize" class="w-full p-3 text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="512x512">512Ă—512 (kwadrat)</option>
+                  <option value="768x512">768Ă—512 (poziomo)</option>
+                  <option value="512x768">512Ă—768 (pionowo)</option>
+                  <option value="1024x1024">1024Ă—1024 (duĹĽy)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Kroki</label>
+                <select id="imageSteps" class="w-full p-3 text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+                  <option value="15">15</option>
+                  <option value="25" selected>25</option>
+                  <option value="35">35</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-6">
+              <button id="generateBtn" class="w-full bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700 text-white py-4 px-6 font-bold text-xl rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg" onclick="console.log('Button clicked!'); generateImage();">đźŽ¨ Generuj Obraz</button>
+            </div>
+            <div class="mb-6 text-right">
+              <button id="toggleAdvancedBtn" type="button" class="text-xs px-3 py-1 rounded border border-cyan-600/40 text-cyan-300 hover:bg-cyan-600/10 transition" onclick="toggleAdvancedSettings()">âš™ď¸Ź Zaawansowane</button>
+            </div>
+            <div id="advancedSettings" class="mb-6 hidden text-left border border-cyan-600/30 rounded-lg p-4 bg-black/40 space-y-4">
+              <h3 class="text-cyan-300 font-semibold text-sm tracking-wide">Zaawansowane Ustawienia</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Negative Prompt</label>
+                  <textarea id="negativePrompt" rows="2" class="w-full p-2 text-xs bg-black/50 border border-gray-700 rounded focus:outline-none focus:border-cyan-500 text-gray-200" placeholder="artefakty, rozmazane, znieksztaĹ‚cone..."></textarea>
+                </div>
+                <div>
+                  <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Seed</label>
+                  <input id="seedInput" type="number" class="w-full p-2 text-xs bg-black/50 border border-gray-700 rounded focus:outline-none focus:border-cyan-500 text-gray-200" placeholder="Losowy jeĹ›li puste" />
+                </div>
+                <div>
+                  <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Guidance</label>
+                  <input id="guidanceScale" type="number" step="0.5" min="1" max="30" value="7.5" class="w-full p-2 text-xs bg-black/50 border border-gray-700 rounded focus:outline-none focus:border-cyan-500 text-gray-200" />
+                </div>
+                <div>
+                  <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">Batch</label>
+                  <input id="batchCount" type="number" min="1" max="6" value="1" class="w-full p-2 text-xs bg-black/50 border border-gray-700 rounded focus:outline-none focus:border-cyan-500 text-gray-200" />
+                </div>
+                <div>
+                  <label class="block text-xs uppercase tracking-wide text-gray-400 mb-1">CFG (HF)</label>
+                  <input id="cfgScale" type="number" step="0.5" min="1" max="30" value="7.5" class="w-full p-2 text-xs bg-black/50 border border-gray-700 rounded focus:outline-none focus:border-cyan-500 text-gray-200" />
+                </div>
+                <div class="flex items-end gap-2">
+                  <label class="flex items-center gap-2 text-xs text-gray-300"><input id="tilingToggle" type="checkbox" class="accent-cyan-500" /> Tiling</label>
+                  <label class="flex items-center gap-2 text-xs text-gray-300"><input id="hiResToggle" type="checkbox" class="accent-cyan-500" /> Hi-Res</label>
+                </div>
+              </div>
+              <div class="pt-2 border-t border-cyan-600/20 text-[10px] text-gray-400 leading-relaxed">
+                Te ustawienia sÄ… opcjonalne. Wysokie wartoĹ›ci guidance/CFG mogÄ… powodowaÄ‡ utratÄ™ kreatywnoĹ›ci. Batch > 1 generuje kilka wariantĂłw sekwencyjnie.
+              </div>
+            </div>
+            <div id="batchResults" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8 hidden"></div>
+            <div id="loading" class="text-center py-4 hidden">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-4 border-cyan-400"></div>
+              <p class="mt-2 text-sm text-muted-foreground">Generowanie obrazu...</p>
+            </div>
+            <div id="previewWindow" class="hidden">
+              <div class="border border-cyan-400/30 p-4 glass-effect rounded-lg" style="background: rgba(0,0,0,0.5);">
+                <div class="mb-4">
+                  <div class="flex justify-between text-sm text-gray-300 mb-2">
+                    <span id="progressLabel">Przygotowywanie...</span>
+                    <span id="progressPercent">0%</span>
+                  </div>
+                  <div class="w-full bg-gray-700 rounded-full h-3">
+                    <div id="progressBar" class="bg-gradient-to-r from-cyan-500 to-purple-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="aspect-square bg-gray-900/50 rounded-lg border border-gray-600 flex items-center justify-center overflow-hidden">
+                  <div id="placeholderContent" class="text-center">
+                    <div class="animate-pulse">
+                      <div class="w-16 h-16 bg-cyan-400/20 rounded-full mx-auto mb-3 flex items-center justify-center"><span class="text-2xl">đźŽ¨</span></div>
+                      <p class="text-gray-400">Generowanie obrazu...</p>
+                    </div>
+                  </div>
+                  <img id="previewImage" class="hidden w-full h-full object-contain rounded-lg" alt="PodglÄ…d obrazu" />
+                </div>
+              </div>
+            </div>
+            <div id="errorBox" class="mt-4 p-3 bg-red-900/50 border border-red-600 rounded-lg hidden text-red-200"></div>
+          </div>
+
+          <div slot="right">
+            <h2 class="text-xl font-bold text-orange-400 mb-4 flex items-center"><span class="mr-2">đź“¸</span> AI CHATBOX</h2>
+            <p class="text-sm text-gray-300 mb-6">Przetwarzanie obrazu na obraz z AI</p>
+            <div class="mb-6 p-4 bg-gray-800/50 rounded-lg border border-orange-600/30">
+              <h3 class="text-sm font-bold text-orange-300 mb-3">1. ZDJÄCIE</h3>
+              <div class="aspect-square bg-gray-900/50 rounded border-2 border-dashed border-orange-600/50 flex items-center justify-center mb-3" id="photoUploadPreview">
+                <div class="text-center"><span class="text-orange-400 text-2xl mb-2 block">đź“·</span><span class="text-gray-400 text-xs">PrzeciÄ…gnij lub kliknij</span></div>
+              </div>
+              <input type="file" id="photoToPhotoImage" class="w-full p-2 text-xs text-primary-foreground rounded" style="background: rgba(0,0,0,0.5);" accept="image/*" />
+            </div>
+            <div class="mb-6 p-4 bg-gray-800/50 rounded-lg border border-orange-600/30">
+              <h3 class="text-sm font-bold text-orange-300 mb-3">2. AI CHAT PROMPT</h3>
+              <div class="chat-input-container mb-3">
+                <div class="flex items-end gap-2">
+                  <div class="flex-1 relative">
+                    <textarea id="photoPrompt" rows="3" class="w-full p-3 text-sm text-primary-foreground placeholder-gray-400 focus:outline-none resize-none chat-input" style="background: rgba(0,0,0,0.7); border: 1px solid rgba(79, 209, 197, 0.3); border-radius: 8px;" placeholder="Opisz jak chcesz przeksztaĹ‚ciÄ‡ obraz... đź’¬"></textarea>
+                  </div>
+                  <button id="sendChatPrompt" class="bg-gradient-to-r from-cyan-600 to-purple-600 hover:from-cyan-700 hover:to-purple-700 text-white p-3 rounded-lg transition-all duration-300 flex items-center justify-center" onclick="sendChatMessage()" style="min-width: 45px; height: 45px;">đź“¤</button>
+                </div>
+              </div>
+              <div class="chat-messages-area bg-gray-900/50 rounded-lg p-3 mb-3" style="height: 120px; overflow-y: auto; border: 1px solid rgba(147, 51, 234, 0.3);">
+                <div id="chatMessagesArea" class="space-y-2">
+                  <div class="text-center text-gray-500 text-xs">đź’­ Rozpocznij konwersacjÄ™ z AI...</div>
+                </div>
+              </div>
+              <button id="generatePhotoToPhotoBtn" class="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white py-2 px-4 font-bold text-sm rounded-lg transition-all duration-300" onclick="generatePhotoToPhotoImage()">đźŽ¨ PrzetwĂłrz Obraz z AI</button>
+            </div>
+            <div class="p-4 bg-gray-800/50 rounded-lg border border-orange-600/30">
+              <h3 class="text-sm font-bold text-orange-300 mb-3">3. REZULTAT</h3>
+              <div class="aspect-square bg-gray-900/50 rounded border border-orange-600/30 flex items-center justify-center" id="photoResult">
+                <div class="text-center"><span class="text-orange-400 text-2xl mb-2 block">âś¨</span><span class="text-gray-400 text-xs">Przetworzony obraz</span></div>
+              </div>
+              <div id="loadingPhotoToPhoto" class="text-center py-3 hidden"><div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-orange-400"></div><p class="mt-1 text-xs text-muted-foreground">Przetwarzanie...</p></div>
+              <div id="errorBoxPhotoToPhoto" class="mt-3 p-2 bg-red-900/50 border border-red-600 rounded hidden text-red-200 text-xs"></div>
+            </div>
+          </div>
+        </ThreePaneAI>
+
+        <!-- Result Section -->
+        <div id="resultSection" class="hidden mt-8 max-w-4xl mx-auto">
+          <h3 class="text-2xl font-semibold mb-4 text-primary-foreground">âś… Wygenerowany obraz</h3>
+          <div class="border border-green-500/30 rounded-lg p-4" style="background: rgba(0,0,0,0.5);">
+            <img
+              id="generatedImage"
+              class="w-full rounded mb-4 cursor-pointer hover:scale-105 transition-transform"
+              alt="Wygenerowany obraz"
+              onclick="openImageModal()"
+            />
+            <div class="flex gap-2 flex-wrap justify-center">
+              <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm" onclick="downloadImage()">đź’ľ Pobierz</button>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm" onclick="shareImage()">đź“¤ UdostÄ™pnij</button>
+              <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm" onclick="generateVariation()">đź”„ Wariacja</button>
+              <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded text-sm" onclick="openImageModal()">đź”Ť PeĹ‚ny ekran</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prompt Enhancer Modal -->
+        <PromptEnhancerModal />
+
+        <!-- Full Screen Image Modal -->
+        <div id="imageModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden z-50" onclick="closeImageModal(event)">
+          <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="relative max-w-7xl w-full">
+              <button
+                onclick="closeImageModal()"
+                class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center text-xl z-10">Ă—</button>
+              <img id="modalImage" class="w-full h-auto max-h-[90vh] object-contain rounded-lg" alt="Obraz w peĹ‚nej rozdzielczoĹ›ci" />
+              <div class="absolute bottom-4 left-4 right-4 bg-black/70 rounded-lg p-3">
+                <p id="modalPrompt" class="text-white text-sm mb-2"></p>
+                <div class="flex gap-2 justify-center">
+                  <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm" onclick="downloadImageFromModal()">đź’ľ Pobierz</button>
+                  <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="shareImageFromModal()">đź“¤ UdostÄ™pnij</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .section-container {
+        padding: 2rem;
+        text-align: center;
+      }
+      .section-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #00bcd4;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+      .section-description {
+        font-size: 1.1rem;
+        color: #d1d5db;
+        margin-bottom: 1.25rem;
+      }
+      .ai-workers-section {
+        min-height: 100vh;
+      }
+      .quick-prompt-btn {
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid #374151;
+        color: #d1d5db;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .quick-prompt-btn:hover {
+        background-color: #374151;
+        border-color: #00bcd4;
+        color: #00bcd4;
+      }
+
+      /* Preview Window Animations */
+      .glass-effect {
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+      }
+
+      #previewWindow {
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      #progressBar {
+        background: linear-gradient(90deg, #00bcd4 0%, #8b5cf6 100%);
+        box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+      }
+
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Image hover effects */
+      #generatedImage:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+        transition: transform 0.3s ease;
+      }
+
+      /* Modal animations */
+      #imageModal {
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* History grid improvements */
+      .history-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+      }
+    </style>
+
+    <script>
+      // @ts-nocheck
+      // Enhanced Frontend for New Layout Generator
+      var generationHistory = [];
+      var userGalleryImages = [];
+      var lastThreeGenerated = [];
+      
+      try {
+        generationHistory = JSON.parse(localStorage.getItem("imageHistory") || "[]");
+        userGalleryImages = JSON.parse(localStorage.getItem("userGallery") || "[]");
+        lastThreeGenerated = JSON.parse(localStorage.getItem("lastThreeGenerated") || "[]");
+      } catch (e) {
+        generationHistory = [];
+        userGalleryImages = [];
+        lastThreeGenerated = [];
+      }
+
+      // Artist styles and enhancement data
+      var popularArtists = [
+        "Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet", "Salvador Dali",
+        "Andy Warhol", "Frida Kahlo", "Banksy", "Hayao Miyazaki", "H.R. Giger"
+      ];
+
+      var artMedia = [
+        "Oil painting", "Watercolor", "Digital art", "Photography", "Pencil drawing",
+        "Concept art", "Street art", "Sculpture", "Acrylic painting", "Charcoal drawing"
+      ];
+
+      var qualityTerms = [
+        "highly detailed", "4K resolution", "ultra realistic", "professional photography",
+        "award winning", "masterpiece", "cinematic lighting", "sharp focus"
+      ];
+
+      function parseSize(size) {
+        var parts = String(size || "").split("x");
+        var w = parseInt(parts[0], 10);
+        var h = parseInt(parts[1], 10);
+        if (isNaN(w) || isNaN(h)) { w = 512; h = 512; }
+        return { width: w, height: h };
+      }
+
+      function blobToDataUrl(blob) {
+        return new Promise(function (resolve, reject) {
+          var r = new FileReader();
+          r.onloadend = function () { resolve(String(r.result || "")); };
+          r.onerror = reject;
+          r.readAsDataURL(blob);
+        });
+      }
+
+      // Enhanced prompt enhancement
+      async function enhancePrompt() {
+        var promptEl = document.getElementById("imagePrompt");
+        var btn = document.getElementById("enhancePromptBtn");
+
+        if (!promptEl) return;
+        var currentPrompt = String(promptEl.value).trim();
+        if (!currentPrompt) {
+          alert("Najpierw wprowadĹş podstawowy opis obrazu");
+          return;
+        }
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "đź”„ Ulepszanie...";
+        }
+
+        try {
+          var response = await fetch("/api/enhance-prompt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              prompt: currentPrompt,
+              options: { quality: "high", enhanceCreativity: true }
+            })
+          });
+
+          if (response.ok) {
+            var data = await response.json();
+            if (data.enhanced) {
+              promptEl.value = data.enhanced;
+              showNotification("âś… Prompt zostaĹ‚ ulepszony!", "success");
+            }
+          }
+        } catch (error) {
+          console.error("Enhancement error:", error);
+          showNotification("âťŚ BĹ‚Ä…d podczas ulepszania promptu", "error");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "âś¨ Ulepsz prompt";
+          }
+        }
+      }
+
+      // Main generation function with new layout
+      async function generateImage() {
+        console.log("đźŽ¨ generateImage() called!");
+        var promptEl = document.getElementById("imagePrompt");
+        var modelEl = document.getElementById("imageModel");
+        var styleEl = document.getElementById("imageStyle");
+        var sizeEl = document.getElementById("imageSize");
+        var stepsEl = document.getElementById("imageSteps");
+        var loading = document.getElementById("loading");
+        var errorBox = document.getElementById("errorBox");
+        var btn = document.getElementById("generateBtn");
+        var result = document.getElementById("resultSection");
+        var preview = document.getElementById("previewWindow");
+
+        var prompt = promptEl ? String(promptEl.value).trim() : "";
+        if (!prompt) {
+          alert("ProszÄ™ wprowadziÄ‡ opis obrazu");
+          return;
+        }
+
+        // Ustalenie providera przed startem animacji progresu
+        var apiProvider = document.getElementById("apiProvider")?.value || "cloudflare";
+
+        // Reset and show preview
+        if (errorBox) {
+          errorBox.classList.add("hidden");
+          errorBox.textContent = "";
+        }
+        if (result) result.classList.add("hidden");
+        if (preview) preview.classList.remove("hidden");
+
+        resetPreviewWindow();
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "đźŽ¨ Generowanie...";
+        }
+
+  var startTime = Date.now();
+  var progressInterval = startProgressAnimation(apiProvider);
+
+  // Advanced inputs capture
+  var negativePromptEl = document.getElementById("negativePrompt");
+  var seedEl = document.getElementById("seedInput");
+  var guidanceEl = document.getElementById("guidanceScale");
+  var batchEl = document.getElementById("batchCount");
+  var cfgEl = document.getElementById("cfgScale");
+  var tilingEl = document.getElementById("tilingToggle");
+  var hiResEl = document.getElementById("hiResToggle");
+
+        try {
+          var model = modelEl ? String(modelEl.value) : "";
+          var style = styleEl ? String(styleEl.value) : "";
+          var steps = stepsEl ? parseInt(String(stepsEl.value), 10) : undefined;
+          var size = sizeEl ? String(sizeEl.value) : "512x512";
+          var dims = parseSize(size);
+
+          // Choose API endpoint based on provider
+          var apiEndpoint = apiProvider === "huggingface" ? "/api/generate-hf" : "/api/generate-image";
+          
+          var requestBody = {
+            prompt: prompt,
+            model: model,
+            width: dims.width,
+            height: dims.height,
+            steps: steps
+          };
+
+          // Add provider-specific parameters
+          if (apiProvider === "cloudflare") {
+            requestBody.style = style;
+            requestBody.enhancePrompt = true;
+            requestBody.enhanceOptions = { quality: "high", enhanceCreativity: true };
+          } else if (apiProvider === "huggingface") {
+            var cfg = cfgEl ? parseFloat(cfgEl.value) : 7.5;
+            requestBody.guidance_scale = isNaN(cfg) ? 7.5 : cfg;
+            requestBody.negative_prompt = (negativePromptEl && negativePromptEl.value.trim()) || "blurry, bad quality, distorted, ugly";
+          }
+
+          // Common advanced fields
+          if (seedEl && seedEl.value) {
+            var seedVal = parseInt(seedEl.value, 10);
+            if (!isNaN(seedVal)) requestBody.seed = seedVal;
+          }
+          if (guidanceEl && guidanceEl.value && apiProvider === "cloudflare") {
+            var gVal = parseFloat(guidanceEl.value);
+            if (!isNaN(gVal)) requestBody.guidance = gVal; // hypothetical support
+          }
+          if (tilingEl && tilingEl.checked) requestBody.tiling = true;
+            
+          // High Resolution upscale hint (front-end hint only)
+          if (hiResEl && hiResEl.checked) requestBody.hiRes = true;
+
+          var res = await fetch(apiEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody)
+          });
+
+          if (!res.ok) {
+            var errMsg = "BĹ‚Ä…d generacji obrazu";
+            try {
+              var j = await res.json();
+              if (j && j.error) errMsg = j.error;
+            } catch (e) {}
+            throw new Error(errMsg);
+          }
+
+          var resultData, objUrl, blob = null;
+          if (apiProvider === "huggingface") {
+            resultData = await res.json();
+            objUrl = resultData.imageUrl; // data URL already
+          } else {
+            blob = await res.blob();
+            objUrl = URL.createObjectURL(blob); // Direct blob URL
+          }
+
+          clearInterval(progressInterval);
+          completePreview(objUrl, prompt);
+
+          var img = document.getElementById("generatedImage");
+          if (img) img.src = objUrl;
+
+          setTimeout(function () {
+            if (result) result.classList.remove("hidden");
+            if (preview) {
+              setTimeout(function () {
+                preview.classList.add("hidden");
+              }, 2000);
+            }
+          }, 1000);
+
+          // Update galleries and history
+          try {
+            // Store objUrl directly; for HF it's data URL, for CF it's blob URL.
+            var dataUrl = objUrl;
+            
+            var item = {
+              id: Date.now(),
+              prompt: prompt,
+              imageUrl: dataUrl,
+              ts: new Date().toISOString(),
+              settings: { 
+                apiProvider: apiProvider,
+                model: model, 
+                style: style, 
+                width: dims.width, 
+                height: dims.height, 
+                steps: steps 
+              }
+            };
+            
+            // Add to main history
+            generationHistory.unshift(item);
+            if (generationHistory.length > 50) generationHistory = generationHistory.slice(0, 50);
+            
+            // Add to last three generated
+            lastThreeGenerated.unshift(item);
+            if (lastThreeGenerated.length > 3) lastThreeGenerated = lastThreeGenerated.slice(0, 3);
+            
+            // Add to user gallery
+            userGalleryImages.unshift(item);
+            if (userGalleryImages.length > 4) userGalleryImages = userGalleryImages.slice(0, 4);
+            
+            localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
+            localStorage.setItem("lastThreeGenerated", JSON.stringify(lastThreeGenerated));
+            localStorage.setItem("userGallery", JSON.stringify(userGalleryImages));
+            
+            updateAllGalleries();
+            refreshChatHistory();
+            showNotification("đźŽ‰ Obraz wygenerowany pomyĹ›lnie!", "success");
+            
+            // Clean up blob URLs after some time (only for Cloudflare provider)
+            if (apiProvider !== "huggingface" && objUrl && objUrl.startsWith("blob:")) {
+              setTimeout(function() {
+                URL.revokeObjectURL(objUrl);
+              }, 60000); // Clean up after 1 minute
+            }
+          } catch (e) {
+            console.error("Storage error:", e);
+          }
+        } catch (err) {
+          console.error("Generation error:", err);
+          clearInterval(progressInterval);
+          if (preview) preview.classList.add("hidden");
+
+          if (errorBox) {
+            errorBox.textContent = err && err.message ? err.message : String(err);
+            errorBox.classList.remove("hidden");
+          }
+          showNotification("âťŚ " + (err.message || "BĹ‚Ä…d generacji"), "error");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "đźŽ¨ Generuj Obraz";
+          }
+        }
+      }
+
+      // Photo-to-Photo generation with new layout
+      async function generatePhotoToPhotoImage() {
+        var photoEl = document.getElementById("photoToPhotoImage");
+        var promptEl = document.getElementById("photoPrompt");
+        var btn = document.getElementById("generatePhotoToPhotoBtn");
+        var loading = document.getElementById("loadingPhotoToPhoto");
+        var errorBox = document.getElementById("errorBoxPhotoToPhoto");
+        var resultDiv = document.getElementById("photoResult");
+
+        if (!photoEl || !photoEl.files || !photoEl.files[0]) {
+          alert("ProszÄ™ wybraÄ‡ zdjÄ™cie do przetworzenia");
+          return;
+        }
+
+        var prompt = promptEl ? String(promptEl.value).trim() : "";
+        if (!prompt) {
+          alert("ProszÄ™ wprowadziÄ‡ opis transformacji");
+          return;
+        }
+
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "đź”„ Przetwarzanie...";
+        }
+        if (loading) loading.classList.remove("hidden");
+        if (errorBox) errorBox.classList.add("hidden");
+
+        try {
+          var formData = new FormData();
+          formData.append("image", photoEl.files[0]);
+          formData.append("prompt", prompt);
+
+          var res = await fetch("/api/generate-image", {
+            method: "POST",
+            body: formData
+          });
+
+          if (!res.ok) {
+            throw new Error("BĹ‚Ä…d przetwarzania obrazu");
+          }
+
+          var blob = await res.blob();
+          var objUrl = URL.createObjectURL(blob);
+
+          // Show result in the photo-to-photo result section
+          if (resultDiv) {
+            resultDiv.innerHTML = `
+              <img src="${objUrl}" alt="Przetworzony obraz" 
+                   class="w-full h-full object-cover rounded cursor-pointer" 
+                   onclick="openImageModal('${objUrl}')" />
+            `;
+          }
+
+          showNotification("đźŽ‰ Obraz przetworzony pomyĹ›lnie!", "success");
+        } catch (err) {
+          console.error("Photo-to-Photo error:", err);
+          if (errorBox) {
+            errorBox.textContent = err.message || "BĹ‚Ä…d przetwarzania";
+            errorBox.classList.remove("hidden");
+          }
+          showNotification("âťŚ " + (err.message || "BĹ‚Ä…d przetwarzania"), "error");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "đźŽ¨ PrzetwĂłrz Obraz";
+          }
+          if (loading) loading.classList.add("hidden");
+        }
+      }
+
+      // Update all galleries with new layout
+      function updateAllGalleries() {
+        updateChatStats();
+      }
+
+      function updateChatStats() {
+        try {
+          // Update total generated count
+          var totalEl = document.getElementById("totalGenerated");
+          if (totalEl && generationHistory) {
+            totalEl.textContent = generationHistory.length.toString();
+          }
+          
+          // Update today's count
+          var todayEl = document.getElementById("todayGenerated");
+          if (todayEl && generationHistory) {
+            var today = new Date().toDateString();
+            var todayCount = generationHistory.filter(function(item) {
+              try {
+                return new Date(item.ts).toDateString() === today;
+              } catch (e) {
+                return false;
+              }
+            }).length;
+            todayEl.textContent = todayCount.toString();
+          }
+        } catch (e) {
+          console.error('Error updating chat stats:', e);
+        }
+      }
+
+      // Trigger chat history refresh when new image is generated
+      function refreshChatHistory() {
+        try {
+          // Trigger a custom event to refresh the React component
+          window.dispatchEvent(new CustomEvent('refreshChatHistory', {
+            detail: { 
+              history: generationHistory,
+              latest: generationHistory[0]
+            }
+          }));
+        } catch (e) {
+          console.error('Error refreshing chat history:', e);
+        }
+      }
+
+      // Enhanced preview functions
+      function resetPreviewWindow() {
+        var placeholder = document.getElementById("placeholderContent");
+        var previewImg = document.getElementById("previewImage");
+        var progressBar = document.getElementById("progressBar");
+        var progressLabel = document.getElementById("progressLabel");
+        var progressPercent = document.getElementById("progressPercent");
+
+        if (placeholder) placeholder.classList.remove("hidden");
+        if (previewImg) previewImg.classList.add("hidden");
+        if (progressBar) progressBar.style.width = "0%";
+        if (progressLabel) progressLabel.textContent = "Przygotowywanie...";
+        if (progressPercent) progressPercent.textContent = "0%";
+      }
+
+      function startProgressAnimation(provider) {
+        var progressBar = document.getElementById("progressBar");
+        var progressLabel = document.getElementById("progressLabel");
+        var progressPercent = document.getElementById("progressPercent");
+
+        var progress = 0;
+        var stages, speed;
+        
+        if (provider === "huggingface") {
+          // Hugging Face moĹĽe byÄ‡ wolniejszy
+          stages = [
+            { percent: 10, label: "ĹÄ…czenie z Hugging Face..." },
+            { percent: 25, label: "Ĺadowanie modelu..." },
+            { percent: 45, label: "Generowanie obrazu..." },
+            { percent: 70, label: "Przetwarzanie..." },
+            { percent: 90, label: "Finalizacja..." }
+          ];
+          speed = 0.8; // Wolniejszy progress
+        } else {
+          // Cloudflare Workers AI
+          stages = [
+            { percent: 15, label: "Inicjalizacja modelu..." },
+            { percent: 30, label: "Analiza promptu..." },
+            { percent: 50, label: "Generowanie obrazu..." },
+            { percent: 75, label: "Optymalizacja..." },
+            { percent: 95, label: "Finalizacja..." }
+          ];
+          speed = 1.2; // Szybszy progress
+        }
+
+        var stageIndex = 0;
+
+        return setInterval(function () {
+          if (stageIndex < stages.length && progress >= stages[stageIndex].percent - 5) {
+            var stage = stages[stageIndex];
+            progress = Math.min(stage.percent, progress + Math.random() * 3 * speed);
+
+            if (progressBar) progressBar.style.width = progress + "%";
+            if (progressLabel) progressLabel.textContent = stage.label;
+            if (progressPercent) progressPercent.textContent = Math.floor(progress) + "%";
+
+            if (progress >= stage.percent) stageIndex++;
+          } else if (progress < 90) {
+            progress += Math.random() * 0.8;
+            if (progressBar) progressBar.style.width = progress + "%";
+            if (progressPercent) progressPercent.textContent = Math.floor(progress) + "%";
+          }
+        }, 250);
+      }
+
+      function completePreview(imageUrl, prompt) {
+        var placeholder = document.getElementById("placeholderContent");
+        var previewImg = document.getElementById("previewImage");
+        var progressBar = document.getElementById("progressBar");
+        var progressLabel = document.getElementById("progressLabel");
+        var progressPercent = document.getElementById("progressPercent");
+
+        if (progressBar) progressBar.style.width = "100%";
+        if (progressLabel) progressLabel.textContent = "Gotowe!";
+        if (progressPercent) progressPercent.textContent = "100%";
+
+        setTimeout(function () {
+          if (placeholder) placeholder.classList.add("hidden");
+          if (previewImg) {
+            previewImg.src = imageUrl;
+            previewImg.classList.remove("hidden");
+          }
+        }, 500);
+      }
+
+      // Utility functions
+      function showNotification(message, type = "info") {
+        var notification = document.createElement("div");
+        notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transition-all duration-300 ${
+          type === "success" ? "bg-green-600" : type === "error" ? "bg-red-600" : "bg-blue-600"
+        }`;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.opacity = "0";
+          notification.style.transform = "translateX(100%)";
+          setTimeout(() => {
+            if (notification.parentNode) notification.parentNode.removeChild(notification);
+          }, 300);
+        }, 3000);
+      }
+
+      function openImageModal(src) {
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImage");
+        if (modal && modalImg) {
+          modalImg.src = src || "";
+          modal.classList.remove("hidden");
+        }
+      }
+
+      function closeImageModal(event) {
+        if (event && event.target.id !== "imageModal") return;
+        var modal = document.getElementById("imageModal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      function downloadImage(src) {
+        var link = document.createElement("a");
+        link.href = src || document.getElementById("generatedImage").src;
+        link.download = "generated-image-" + Date.now() + ".png";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      function shareImage(src) {
+        var url = src || document.getElementById("generatedImage").src;
+        if (navigator.share) {
+          navigator.share({ title: "Wygenerowany obraz AI", url: url }).catch(() => {});
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url);
+          showNotification("Link do obrazu skopiowany do schowka!", "success");
+        }
+      }
+
+      function generateVariation() {
+        var promptEl = document.getElementById("imagePrompt");
+        var currentPrompt = promptEl ? String(promptEl.value) : "";
+        var variations = [
+          ", w innym stylu", ", z innymi kolorami", ", z innej perspektywy", 
+          ", w wersji artystycznej", ", z dodatkowymi detalami"
+        ];
+        var add = variations[Math.floor(Math.random() * variations.length)];
+        if (promptEl) promptEl.value = currentPrompt + add;
+        generateImage();
+      }
+
+      // Initialize galleries on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        updateAllGalleries();
+        
+        // Setup file upload preview
+        var photoInput = document.getElementById("photoToPhotoImage");
+        if (photoInput) {
+          photoInput.addEventListener("change", function(e) {
+            var file = e.target.files[0];
+            if (file) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                var preview = document.getElementById("photoUploadPreview");
+                if (preview) {
+                  preview.innerHTML = `
+                    <img src="${e.target.result}" alt="Upload preview" 
+                         class="w-full h-full object-cover rounded" />
+                  `;
+                }
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        }
+      });
+
+      // Chat interface functions for AI CHATBOX
+      function sendChatMessage() {
+        const chatInput = document.getElementById('photoPrompt');
+        const chatArea = document.getElementById('chatMessagesArea');
+        
+        if (!chatInput || !chatArea) return;
+        
+        const message = chatInput.value.trim();
+        if (!message) return;
+        
+        // Add user message
+        addChatMessage(message, 'user');
+        
+        // Simulate AI response (you can integrate with real AI later)
+        setTimeout(() => {
+          const aiResponse = generateAIResponse(message);
+          addChatMessage(aiResponse, 'ai');
+        }, 1000);
+        
+        // Clear input
+        chatInput.value = '';
+      }
+
+      function addChatMessage(message, type) {
+        const chatArea = document.getElementById('chatMessagesArea');
+        if (!chatArea) return;
+        
+        // Clear empty state on first message
+        if (chatArea.innerHTML.includes('Rozpocznij konwersacjÄ™')) {
+          chatArea.innerHTML = '';
+        }
+        
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chat-message ${type}`;
+        messageDiv.textContent = message;
+        
+        chatArea.appendChild(messageDiv);
+        chatArea.scrollTop = chatArea.scrollHeight;
+      }
+
+      function generateAIResponse(userMessage) {
+        const responses = [
+          `Rozumiem! Chcesz przeksztaĹ‚ciÄ‡ obraz: "${userMessage}". Zaraz to zrobiÄ™! đźŽ¨`,
+          `Ĺšwietny pomysĹ‚! "${userMessage}" brzmi interesujÄ…co. PrzygotowujÄ™ transformacjÄ™...`,
+          `AI: AnalizujÄ™ twĂłj request "${userMessage}". BÄ™dzie rewelacyjnie! âś¨`,
+          `Przetwarzam: "${userMessage}". AI wie co robiÄ‡! đź¤–`,
+          `Fantastyczne! "${userMessage}" to ciekawe wyzwanie dla AI! đźš€`
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+      }
+
+      // Handle Enter key in chat input
+      document.addEventListener('DOMContentLoaded', function() {
+        const chatInput = document.getElementById('photoPrompt');
+        if (chatInput) {
+          chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              sendChatMessage();
+            }
+          });
+        }
+
+        // Desktop app keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+          // Ctrl+Enter - Generate image (desktop-style shortcut)
+          if (e.ctrlKey && e.key === 'Enter') {
+            e.preventDefault();
+            generateImage();
+          }
+          
+          // Ctrl+Shift+G - Focus on prompt (like desktop apps)
+          if (e.ctrlKey && e.shiftKey && e.key === 'G') {
+            e.preventDefault();
+            const promptEl = document.getElementById('imagePrompt');
+            if (promptEl) promptEl.focus();
+          }
+          
+          // F5 - Refresh chat history (desktop-style)
+          if (e.key === 'F5' && !e.ctrlKey) {
+            e.preventDefault();
+            window.dispatchEvent(new Event('refreshChatHistory'));
+          }
+          
+          // Escape - Close modals (desktop standard)
+          if (e.key === 'Escape') {
+            closeImageModal();
+            closePromptEnhancer();
+          }
+          
+          // F1 - Show keyboard shortcuts (desktop standard)
+          if (e.key === 'F1') {
+            e.preventDefault();
+            toggleKeyboardShortcuts();
+          }
+          
+          // Alt+M - Minimize panels
+          if (e.altKey && e.key === 'm') {
+            e.preventDefault();
+            toggleAllPanels('minimize');
+          }
+        });
+
+        // Desktop-style window management functions
+        window.minimizePanel = function(panelId) {
+          const panel = document.querySelector(`[data-panel="${panelId}"]`) || 
+                       document.querySelector('.xl\\:col-span-3, .xl\\:col-span-6');
+          if (panel) {
+            panel.classList.toggle('panel-minimized');
+          }
+        };
+
+        // API Provider management - Hugging Face integration
+        window.updateModelOptions = function() {
+          const apiProvider = document.getElementById('apiProvider').value;
+          const modelSelect = document.getElementById('imageModel');
+          
+          // Clear existing options
+          modelSelect.innerHTML = '';
+          
+          if (apiProvider === 'cloudflare') {
+            // Cloudflare Workers AI models
+            modelSelect.innerHTML = `
+              <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0" selected>Stable Diffusion XL</option>
+              <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper 8 LCM</option>
+              <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
+              <option value="@cf/runwayml/stable-diffusion-v1-5">Stable Diffusion v1.5</option>
+            `;
+          } else if (apiProvider === 'huggingface') {
+            // Hugging Face Stable Diffusion models
+            modelSelect.innerHTML = `
+              <option value="stabilityai/stable-diffusion-2-1" selected>Stable Diffusion 2.1</option>
+              <option value="stabilityai/stable-diffusion-xl-base-1.0">SDXL Base 1.0</option>
+              <option value="runwayml/stable-diffusion-v1-5">SD v1.5</option>
+              <option value="CompVis/stable-diffusion-v1-4">SD v1.4</option>
+              <option value="dreamlike-art/dreamlike-diffusion-1.0">Dreamlike Diffusion</option>
+              <option value="nitrosocke/Ghibli-Diffusion">Ghibli Style</option>
+            `;
+          }
+        };
+
+        window.maximizePanel = function(panelId) {
+          const panel = document.querySelector(`[data-panel="${panelId}"]`) || 
+                       document.querySelector('.xl\\:col-span-3, .xl\\:col-span-6');
+          if (panel) {
+            panel.classList.toggle('panel-maximized');
+          }
+        };
+
+        window.toggleAllPanels = function(action) {
+          const panels = document.querySelectorAll('.xl\\:col-span-3, .xl\\:col-span-6');
+          panels.forEach(panel => {
+            if (action === 'minimize') {
+              panel.classList.toggle('panel-minimized');
+            }
+          });
+        };
+
+        // Hide advanced settings on load by default
+        var advPanel = document.getElementById('advancedSettings');
+        if (advPanel) advPanel.classList.add('hidden');
+
+
+      function toggleAdvancedSettings() {
+        var panel = document.getElementById('advancedSettings');
+        var btn = document.getElementById('toggleAdvancedBtn');
+        if (!panel) return;
+        var isHidden = panel.classList.contains('hidden');
+        if (isHidden) {
+          panel.classList.remove('hidden');
+          if (btn) btn.textContent = 'âš™ď¸Ź Ukryj';
+        } else {
+          panel.classList.add('hidden');
+          if (btn) btn.textContent = 'âš™ď¸Ź Zaawansowane';
+        }
+      }
+
+      async function generateBatchIfNeeded(baseRequestBody, apiEndpoint, batchCount) {
+        if (!batchCount || batchCount <= 1) return null;
+        var batchContainer = document.getElementById('batchResults');
+        if (batchContainer) {
+          batchContainer.innerHTML = '';
+          batchContainer.classList.remove('hidden');
+        }
+        var results = [];
+        for (var i = 1; i < batchCount; i++) {
+          try {
+            var body = { ...baseRequestBody };
+            if (!body.seed) body.seed = Math.floor(Math.random() * 1000000);
+            var r = await fetch(apiEndpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+            });
+            if (!r.ok) throw new Error('BĹ‚Ä…d batch #' + (i + 1));
+            var isHF = apiEndpoint.indexOf('generate-hf') !== -1;
+            var imgUrl;
+            if (isHF) {
+              var jd = await r.json();
+              imgUrl = jd.imageUrl;
+            } else {
+              var bb = await r.blob();
+              imgUrl = URL.createObjectURL(bb);
+            }
+            results.push(imgUrl);
+            if (batchContainer) {
+              var thumb = document.createElement('div');
+              thumb.className = 'relative group border border-cyan-600/30 rounded overflow-hidden bg-black/40';
+              thumb.innerHTML = '<img src="' + imgUrl + '" class="w-full h-full object-cover" />';
+              batchContainer.appendChild(thumb);
+            }
+          } catch (e) {
+            console.error('Batch gen error', e);
+          }
+        }
+        return results;
+      }
+        window.toggleKeyboardShortcuts = function() {
+          let shortcuts = document.getElementById('keyboardShortcuts');
+          if (!shortcuts) {
+            shortcuts = createKeyboardShortcutsPanel();
+            document.body.appendChild(shortcuts);
+          }
+          shortcuts.classList.toggle('show');
+        };
+
+        function createKeyboardShortcutsPanel() {
+          const panel = document.createElement('div');
+          panel.id = 'keyboardShortcuts';
+          panel.className = 'keyboard-shortcuts';
+          panel.innerHTML = `
+            <div style="font-weight: bold; margin-bottom: 0.5rem; color: #4fd1c5;">âŚ¨ď¸Ź SkrĂłty klawiszowe</div>
+            <div class="shortcut-item">
+              <span>Generuj obraz</span>
+              <span class="shortcut-key">Ctrl+Enter</span>
+            </div>
+            <div class="shortcut-item">
+              <span>Focus na prompt</span>
+              <span class="shortcut-key">Ctrl+Shift+G</span>
+            </div>
+            <div class="shortcut-item">
+              <span>OdĹ›wieĹĽ historiÄ™</span>
+              <span class="shortcut-key">F5</span>
+            </div>
+            <div class="shortcut-item">
+              <span>Zamknij modaĹ‚y</span>
+              <span class="shortcut-key">Escape</span>
+            </div>
+            <div class="shortcut-item">
+              <span>Minimalizuj panele</span>
+              <span class="shortcut-key">Alt+M</span>
+            </div>
+            <div class="shortcut-item">
+              <span>PokaĹĽ skrĂłty</span>
+              <span class="shortcut-key">F1</span>
+            </div>
+            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(79, 209, 197, 0.2); color: #64748b; font-size: 0.7rem;">
+              Aplikacja w stylu desktop â€˘ v2.0
+            </div>
+          `;
+          return panel;
+        }
+      });
+    </script>
+
+    <style>
+      .wildcard-btn {
+        background-color: rgb(55, 65, 81);
+        border: 1px solid rgb(75, 85, 99);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0;
+        font-size: 0.75rem;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+
+      .wildcard-btn:hover {
+        background-color: rgb(8, 145, 178);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+      }
+
+      .quick-prompt-btn {
+        background-color: rgb(31, 41, 55);
+        border: 1px solid rgb(75, 85, 99);
+        color: rgb(209, 213, 219);
+        padding: 0.25rem 0.75rem;
+        border-radius: 0;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+      }
+
+      .quick-prompt-btn:hover {
+        background-color: rgb(55, 65, 81);
+        color: white;
+      }
+
+      .image-history-item {
+        position: relative;
+        cursor: pointer;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+      }
+
+      .image-history-item img {
+        width: 100%;
+        height: 5rem;
+        object-fit: cover;
+      }
+
+      .image-history-item:hover {
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+        outline: 2px solid rgb(34, 197, 94);
+      }
+
+      .progress-glow {
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+      }
+
+      /* Custom scrollbar for image history */
+      #imageHistory::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      #imageHistory::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0;
+      }
+
+      #imageHistory::-webkit-scrollbar-thumb {
+        background: rgba(6, 182, 212, 0.5);
+        border-radius: 0;
+      }
+
+      #imageHistory::-webkit-scrollbar-thumb:hover {
+        background: rgba(6, 182, 212, 0.7);
+      }
+
+      /* Modal styles */
+      .image-modal {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        padding: 1rem;
+      }
+
+      .image-modal img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 0;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      }
+
+      /* Animation for generated images */
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slide-in-up {
+        animation: slideInUp 0.5s ease-out;
+      }
+
+      /* Enhanced styles for new layout */
+      .section-container {
+        padding: 2rem;
+        text-align: center;
+      }
+      .section-title {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #00bcd4;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+      .section-description {
+        font-size: 1.1rem;
+        color: #d1d5db;
+        margin-bottom: 1.25rem;
+      }
+      .ai-workers-section {
+        min-height: 100vh;
+      }
+
+      /* Glass effects and backgrounds */
+      .glass-effect {
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(0, 255, 255, 0.2);
+      }
+
+      /* Gallery hover effects */
+      .gallery-item {
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+        border-color: currentColor;
+        box-shadow: 0 8px 25px rgba(0, 188, 212, 0.3);
+      }
+
+      /* Photo-to-Photo upload area */
+      .upload-area {
+        border: 2px dashed rgba(255, 165, 0, 0.5);
+        transition: all 0.3s ease;
+      }
+
+      .upload-area:hover {
+        border-color: rgba(255, 165, 0, 0.8);
+        background: rgba(255, 165, 0, 0.1);
+      }
+
+      /* Progress animations */
+      .progress-glow {
+        box-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+      }
+
+      @keyframes slideInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slide-in-up {
+        animation: slideInUp 0.5s ease-out;
+      }
+
+      /* Preview window enhancements */
+      #previewWindow {
+        animation: slideIn 0.5s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Enhanced progress bar */
+      #progressBar {
+        background: linear-gradient(90deg, #00bcd4 0%, #8b5cf6 100%);
+        box-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+        transition: all 0.5s ease;
+      }
+
+      .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      /* Modal enhancements */
+      #imageModal {
+        animation: fadeIn 0.3s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Color-coded sections */
+      .user-gallery-section {
+        border-left: 4px solid #8b5cf6;
+      }
+
+      .generator-section {
+        border-left: 4px solid #06b6d4;
+      }
+
+      .photo-section {
+        border-left: 4px solid #f97316;
+      }
+
+      /* Enhanced button styles */
+      .cyberpunk-btn {
+        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cyberpunk-btn:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+      }
+
+      .cyberpunk-btn:hover:before {
+        left: 100%;
+      }
+
+      /* Enhanced scrollbars */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+      }
+
+      /* Chat-like interface styles */
+      .chat-input-container {
+        position: relative;
+      }
+
+      .chat-input {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .chat-input:focus {
+        border-color: rgba(79, 209, 197, 0.6) !important;
+        box-shadow: 0 0 10px rgba(79, 209, 197, 0.3);
+      }
+
+      .chat-messages-area {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(79, 209, 197, 0.3) rgba(0, 0, 0, 0.2);
+      }
+
+      .chat-messages-area::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .chat-messages-area::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+      }
+
+      .chat-messages-area::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #4fd1c5, #9f7aea);
+        border-radius: 2px;
+      }
+
+      .chat-message {
+        padding: 0.5rem;
+        margin: 0.25rem 0;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        line-height: 1.3;
+        animation: chatSlideIn 0.3s ease-out;
+      }
+
+      .chat-message.user {
+        background: rgba(79, 209, 197, 0.1);
+        border: 1px solid rgba(79, 209, 197, 0.3);
+        text-align: right;
+        margin-left: 1rem;
+      }
+
+      .chat-message.ai {
+        background: rgba(147, 51, 234, 0.1);
+        border: 1px solid rgba(147, 51, 234, 0.3);
+        margin-right: 1rem;
+      }
+
+      @keyframes chatSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Photo-to-Photo background enhancement */
+      .photo-to-photo-bg {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .photo-to-photo-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+          radial-gradient(circle at 20% 30%, rgba(79, 209, 197, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 80%, rgba(245, 101, 101, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .photo-to-photo-bg > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Desktop-style window controls */
+      .desktop-panel {
+        border: 1px solid rgba(79, 209, 197, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .desktop-panel:hover {
+        border-color: rgba(79, 209, 197, 0.4);
+        box-shadow: 0 0 20px rgba(79, 209, 197, 0.1);
+      }
+
+      .window-header {
+        user-select: none;
+        cursor: move;
+      }
+
+      .window-controls {
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+      }
+
+      .window-controls:hover {
+        opacity: 1;
+      }
+
+      .window-btn {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 1px solid rgba(79, 209, 197, 0.4);
+        background: rgba(0, 0, 0, 0.6);
+        color: #4fd1c5;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: monospace;
+      }
+
+      .window-btn:hover {
+        background: rgba(79, 209, 197, 0.2);
+        transform: scale(1.1);
+      }
+
+      .minimize-btn:hover {
+        background: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+        border-color: #ffc107;
+      }
+
+      .maximize-btn:hover {
+        background: rgba(40, 167, 69, 0.2);
+        color: #28a745;
+        border-color: #28a745;
+      }
+
+      .refresh-btn:hover {
+        background: rgba(0, 123, 255, 0.2);
+        color: #007bff;
+        border-color: #007bff;
+      }
+
+      /* Panel states */
+      .panel-minimized {
+        height: auto !important;
+        min-height: auto !important;
+      }
+
+      .panel-minimized .panel-content {
+        display: none;
+      }
+
+      .panel-maximized {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        z-index: 1000;
+        transform: none !important;
+      }
+
+      /* Keyboard shortcuts help */
+      .keyboard-shortcuts {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid rgba(79, 209, 197, 0.3);
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .keyboard-shortcuts.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .shortcut-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.25rem;
+      }
+
+      .shortcut-key {
+        background: rgba(79, 209, 197, 0.1);
+        border: 1px solid rgba(79, 209, 197, 0.3);
+        border-radius: 3px;
+        padding: 0.1rem 0.3rem;
+        font-family: monospace;
+        color: #4fd1c5;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(6, 182, 212, 0.5);
+        border-radius: 4px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(6, 182, 212, 0.7);
+      }
+
+      /* Responsive adjustments for 200% scaling */
+      @media (min-width: 1280px) {
+        .main-layout-grid {
+          transform: scale(2);
+          transform-origin: top center;
+          margin-top: 5rem;
+          margin-bottom: 10rem;
+        }
+      }
+
+      @media (max-width: 1279px) {
+        .main-layout-grid {
+          transform: scale(1.5);
+          transform-origin: top center;
+          margin-top: 3rem;
+          margin-bottom: 6rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .main-layout-grid {
+          transform: scale(1);
+          margin-top: 1rem;
+          margin-bottom: 2rem;
+        }
+        
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+
+      /* Loading states */
+      .loading-shimmer {
+        background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+
+      .progress-pulse {
+        animation: pulse 2s infinite;
+      }
+    </style>
+
+  </main>
+</UniversalPageLayout>
+

@@ -1,0 +1,23 @@
+globalThis.process ??= {}; globalThis.process.env ??= {};
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
+/* empty css                                            */
+export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
+
+const $$ZenonMcpServer = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "ZENON MCP SERVER - LUC de ZEN ON", "description": "Model Context Protocol Server z zaawansowanymi narzedziami AI", "themeColor": "280", "data-astro-cid-dzbvmgjo": true }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="header-with-help" data-astro-cid-dzbvmgjo> <h1 class="page-title" data-astro-cid-dzbvmgjo>âšˇ ZENON MCP SERVER</h1> <button id="helpButton" class="help-icon" data-astro-cid-dzbvmgjo>?</button> </div>  <div class="server-status" data-astro-cid-dzbvmgjo> <!-- ... existing server status content ... --> </div>  <div class="bulk-packages" data-astro-cid-dzbvmgjo> <h2 data-astro-cid-dzbvmgjo>Pakiety Subskrypcji (Bulk Packages)</h2> <p class="packages-subtitle" data-astro-cid-dzbvmgjo>Wybierz plan, aby odblokowac pelny potencjal tworzenia i zarzadzania agentami AI.</p> <div class="packages-grid" data-astro-cid-dzbvmgjo> <!-- Basic Plan --> <div class="package-card" data-astro-cid-dzbvmgjo> <div class="package-header" data-astro-cid-dzbvmgjo> <h3 data-astro-cid-dzbvmgjo>Basic</h3> <div class="price" data-astro-cid-dzbvmgjo>$49<span data-astro-cid-dzbvmgjo>/miesiÄ…c</span></div> </div> <ul class="features-list" data-astro-cid-dzbvmgjo> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>5</strong> WĹ‚asnych AgentĂłw AI</li> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>10,000</strong> ZapytaĹ„ API / miesiÄ…c</li> <li data-astro-cid-dzbvmgjo>DostÄ™p do podstawowych modeli AI</li> <li data-astro-cid-dzbvmgjo>Podstawowe narzÄ™dzia (Search, Filesystem)</li> <li data-astro-cid-dzbvmgjo>Wsparcie spoĹ‚ecznoĹ›ciowe</li> </ul> <button class="package-btn" data-astro-cid-dzbvmgjo>Wybierz Plan Basic</button> </div> <!-- Pro Plan --> <div class="package-card recommended" data-astro-cid-dzbvmgjo> <div class="package-header" data-astro-cid-dzbvmgjo> <h3 data-astro-cid-dzbvmgjo>Pro</h3> <div class="price" data-astro-cid-dzbvmgjo>$99<span data-astro-cid-dzbvmgjo>/miesiÄ…c</span></div> </div> <ul class="features-list" data-astro-cid-dzbvmgjo> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>25</strong> WĹ‚asnych AgentĂłw AI</li> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>50,000</strong> ZapytaĹ„ API / miesiÄ…c</li> <li data-astro-cid-dzbvmgjo>DostÄ™p do wszystkich modeli AI (w tym premium)</li> <li data-astro-cid-dzbvmgjo>Wszystkie narzÄ™dzia (w tym GitHub, Perplexity)</li> <li data-astro-cid-dzbvmgjo>Priorytetowe wsparcie email</li> </ul> <button class="package-btn" data-astro-cid-dzbvmgjo>Wybierz Plan Pro</button> </div> <!-- Enterprise Plan --> <div class="package-card" data-astro-cid-dzbvmgjo> <div class="package-header" data-astro-cid-dzbvmgjo> <h3 data-astro-cid-dzbvmgjo>Enterprise</h3> <div class="price" data-astro-cid-dzbvmgjo>Kontakt<span data-astro-cid-dzbvmgjo></span></div> </div> <ul class="features-list" data-astro-cid-dzbvmgjo> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>Nielimitowani</strong> Agenci AI</li> <li data-astro-cid-dzbvmgjo><strong data-astro-cid-dzbvmgjo>Nielimitowane</strong> Zapytania API</li> <li data-astro-cid-dzbvmgjo>Dedykowana infrastruktura i modele</li> <li data-astro-cid-dzbvmgjo>NarzÄ™dzia na zamĂłwienie i integracje</li> <li data-astro-cid-dzbvmgjo>Dedykowane wsparcie techniczne (SLA)</li> </ul> <button class="package-btn" data-astro-cid-dzbvmgjo>Skontaktuj siÄ™ z nami</button> </div> </div> </div>  <div class="mcp-tools" data-astro-cid-dzbvmgjo> <!-- ... existing mcp tools content ... --> </div>   ` })} `;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/zenon-mcp-server.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zenon-mcp-server.astro";
+const $$url = "/zenon-mcp-server";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$ZenonMcpServer,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

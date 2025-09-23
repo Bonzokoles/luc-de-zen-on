@@ -1,0 +1,39 @@
+﻿---
+// Komponent przycisku ActivePieces - integracja z API
+---
+
+<textarea rows="4" id="activepieces-input" placeholder='WprowadĹş JSON jako dane wejĹ›ciowe'></textarea>
+
+<button onclick="handleActivePieces()">
+  Uruchom ActivePieces
+</button>
+
+<script>
+function handleActivePieces() {
+  const inputElement = document.getElementById('activepieces-input');
+  if (!inputElement) {
+    alert('Element nie znaleziony');
+    return;
+  }
+  
+  const inputJson = (inputElement as HTMLTextAreaElement).value;
+  try {
+    const data = JSON.parse(inputJson);
+    fetch('/api/activepieces', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    .then(res => res.json())
+    .then(respData => {
+      alert(respData.error || JSON.stringify(respData));
+    })
+    .catch(err => {
+      alert('NieprawidĹ‚owy JSON lub bĹ‚Ä…d sieci');
+    });
+  } catch {
+    alert('NieprawidĹ‚owy JSON');
+  }
+}
+</script>
+

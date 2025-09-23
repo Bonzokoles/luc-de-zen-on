@@ -1,0 +1,361 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import TicketSubmissionWidget from "../../components/TicketSubmissionWidget.svelte";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="System ticketĂłw AI | AI Functions | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"
+      >
+      </div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1
+              class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']"
+            >
+              System ticketĂłw AI
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Automatyczna klasyfikacja zgĹ‚oszeĹ„ z integracjÄ… Jira/Zendesk
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">PROCESSING</span>
+            </div>
+            <div>
+              QUEUE: <span class="text-[#00ffff] animate-pulse">23 tickets</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            â† PowrĂłt do gĹ‚Ăłwnej
+          </a>
+          <a
+            href="/zaawansowane-funkcje-ai"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Wszystkie funkcje AI
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        <!-- Ticket Submission Widget -->
+        <TicketSubmissionWidget client:load />
+
+        <!-- Features Description -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3
+              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+            >
+              FunkcjonalnoĹ›ci
+            </h3>
+            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âś“</span>
+                Automatyczna klasyfikacja zgĹ‚oszeĹ„
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âś“</span>
+                Priorytetyzacja na podstawie pilnoĹ›ci
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âś“</span>
+                Przypisywanie do odpowiednich zespoĹ‚Ăłw
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âś“</span>
+                Integracja z Jira, Zendesk, ServiceNow
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âś“</span>
+                Automatyczne odpowiedzi i eskalacja
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3
+              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+            >
+              MoĹĽliwoĹ›ci AI
+            </h3>
+            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âšˇ</span>
+                Analiza sentymentu i pilnoĹ›ci
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âšˇ</span>
+                Przewidywanie czasu rozwiÄ…zania
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âšˇ</span>
+                Sugerowanie rozwiÄ…zaĹ„ z bazy wiedzy
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âšˇ</span>
+                Wykrywanie duplikatĂłw
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">âšˇ</span>
+                Automatyzacja workflow
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Classification System -->
+        <div
+          class="mt-8 p-6 bg-gradient-to-r from-cyan-900/20 to-cyan-800/20 border border-[#00ffff]/30 glass-effect"
+        >
+          <h3
+            class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+          >
+            đźŽŻ System klasyfikacji
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-red-900/30 border border-red-400/50">
+              <div class="text-3xl mb-2">đźš¨</div>
+              <div class="text-lg font-bold text-red-400 font-['Neuropol']">
+                CRITICAL
+              </div>
+              <div class="text-xs text-[#a0a0a0] uppercase tracking-wide">
+                System Down
+              </div>
+              <div class="text-xs text-red-300 mt-1">â‰¤ 1h SLA</div>
+            </div>
+            <div
+              class="text-center p-4 bg-orange-900/30 border border-orange-400/50"
+            >
+              <div class="text-3xl mb-2">âš ď¸Ź</div>
+              <div class="text-lg font-bold text-orange-400 font-['Neuropol']">
+                HIGH
+              </div>
+              <div class="text-xs text-[#a0a0a0] uppercase tracking-wide">
+                Business Impact
+              </div>
+              <div class="text-xs text-orange-300 mt-1">â‰¤ 4h SLA</div>
+            </div>
+            <div
+              class="text-center p-4 bg-yellow-900/30 border border-yellow-400/50"
+            >
+              <div class="text-3xl mb-2">đź“‹</div>
+              <div class="text-lg font-bold text-yellow-400 font-['Neuropol']">
+                MEDIUM
+              </div>
+              <div class="text-xs text-[#a0a0a0] uppercase tracking-wide">
+                Functionality
+              </div>
+              <div class="text-xs text-yellow-300 mt-1">â‰¤ 24h SLA</div>
+            </div>
+            <div
+              class="text-center p-4 bg-green-900/30 border border-green-400/50"
+            >
+              <div class="text-3xl mb-2">đź’ˇ</div>
+              <div class="text-lg font-bold text-green-400 font-['Neuropol']">
+                LOW
+              </div>
+              <div class="text-xs text-[#a0a0a0] uppercase tracking-wide">
+                Enhancement
+              </div>
+              <div class="text-xs text-green-300 mt-1">â‰¤ 72h SLA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Assignment -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3
+              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+            >
+              đź‘Ą Automatyczne przypisywanie
+            </h3>
+            <div class="space-y-3">
+              <div
+                class="flex justify-between items-center p-3 bg-[#00ffff]/10 border border-[#00ffff]/30"
+              >
+                <div>
+                  <div class="font-bold text-[#00ffff] font-['Neuropol']">
+                    TECHNICAL SUPPORT
+                  </div>
+                  <div class="text-xs text-[#a0a0a0]">
+                    BĹ‚Ä™dy systemu, API, integrace
+                  </div>
+                </div>
+                <span
+                  class="px-2 py-1 bg-blue-500/20 text-blue-400 text-xs font-['Neuropol'] uppercase"
+                  >12 tickets</span
+                >
+              </div>
+              <div
+                class="flex justify-between items-center p-3 bg-[#00ffff]/10 border border-[#00ffff]/30"
+              >
+                <div>
+                  <div class="font-bold text-[#00ffff] font-['Neuropol']">
+                    CUSTOMER SUCCESS
+                  </div>
+                  <div class="text-xs text-[#a0a0a0]">
+                    Onboarding, szkolenia, konsultacje
+                  </div>
+                </div>
+                <span
+                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
+                  >7 tickets</span
+                >
+              </div>
+              <div
+                class="flex justify-between items-center p-3 bg-[#00ffff]/10 border border-[#00ffff]/30"
+              >
+                <div>
+                  <div class="font-bold text-[#00ffff] font-['Neuropol']">
+                    BILLING & ACCOUNT
+                  </div>
+                  <div class="text-xs text-[#a0a0a0]">
+                    PĹ‚atnoĹ›ci, faktury, zmiany planu
+                  </div>
+                </div>
+                <span
+                  class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-['Neuropol'] uppercase"
+                  >4 tickets</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3
+              class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+            >
+              đź“Š Statystyki obsĹ‚ugi
+            </h3>
+            <div class="p-4 bg-[#111111]/50 border border-[#333333] rounded">
+              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee'] italic">
+                đź“Š Statystyki obsĹ‚ugi bÄ™dÄ… wyĹ›wietlane po skonfigurowaniu
+                systemu ticketĂłw.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integration Systems -->
+        <div class="mt-8 p-6 bg-[#111111] border border-[#333333] glass-effect">
+          <h3
+            class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']"
+          >
+            đź”— Integracje systemĂłw ticketowych
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div
+              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
+            >
+              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
+                JIRA
+              </div>
+              <div class="text-xs text-[#a0a0a0]">Atlassian Suite</div>
+              <div class="mt-2">
+                <span
+                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
+                  >Connected</span
+                >
+              </div>
+            </div>
+            <div
+              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
+            >
+              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
+                ZENDESK
+              </div>
+              <div class="text-xs text-[#a0a0a0]">Customer Service</div>
+              <div class="mt-2">
+                <span
+                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
+                  >Connected</span
+                >
+              </div>
+            </div>
+            <div
+              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
+            >
+              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
+                SERVICENOW
+              </div>
+              <div class="text-xs text-[#a0a0a0]">ITSM Platform</div>
+              <div class="mt-2">
+                <span
+                  class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-['Neuropol'] uppercase"
+                  >Setup</span
+                >
+              </div>
+            </div>
+            <div
+              class="p-3 bg-[#00ffff]/10 border border-[#00ffff]/30 text-center"
+            >
+              <div class="text-lg font-bold text-[#00ffff] font-['Neuropol']">
+                FRESHDESK
+              </div>
+              <div class="text-xs text-[#a0a0a0]">Cloud Helpdesk</div>
+              <div class="mt-2">
+                <span
+                  class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-['Neuropol'] uppercase"
+                  >Connected</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 p-4 bg-gradient-to-r from-cyan-800/20 to-blue-800/20 border border-[#00ffff]/20"
+          >
+            <p class="text-[#e0e0e0] text-sm font-['Kenyan_Coffee']">
+              <strong class="text-[#00ffff]">ActivePieces Integration:</strong>
+              Automatyczne workflow zapewniajÄ… synchronizacjÄ™ ticketĂłw miÄ™dzy wszystkimi
+              systemami, powiadomienia email/SMS, eskalacjÄ™ SLA oraz raportowanie
+              metryk obsĹ‚ugi klienta.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(17, 17, 17, 0.8);
+  }
+
+  .cyber-grid {
+    background:
+      linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+</style>
+

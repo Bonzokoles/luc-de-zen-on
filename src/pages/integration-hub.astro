@@ -1,0 +1,265 @@
+---
+// MyBonzo Universal Integration Hub - Łączenie wszystkich funkcji AI
+title: "MyBonzo AI Platform - Complete Integration"
+description: "Centralny hub wszystkich funkcji AI, API endpoints i komponentów"
+---
+
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  <title>MyBonzo AI Platform - Complete Integration</title>
+  
+  <style>
+    /* Cyber-futuristic styling for integration hub */
+    :root {
+      --cyber-blue: #00ff88;
+      --cyber-purple: #8b5cf6;
+      --cyber-dark: #0a0a0f;
+      --cyber-glow: 0 0 20px var(--cyber-blue);
+    }
+    
+    body {
+      background: var(--cyber-dark);
+      color: var(--cyber-blue);
+      font-family: 'Orbitron', monospace;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    .integration-hub {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .function-card {
+      background: linear-gradient(145deg, #1a1a2e, #16213e);
+      border: 1px solid var(--cyber-blue);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: var(--cyber-glow);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .function-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px var(--cyber-blue);
+    }
+    
+    .function-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+      animation: scan 2s infinite;
+    }
+    
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .card-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--cyber-blue);
+    }
+    
+    .api-status {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+    
+    .status-active {
+      background: rgba(0, 255, 136, 0.2);
+      color: var(--cyber-blue);
+    }
+    
+    .status-testing {
+      background: rgba(255, 193, 7, 0.2);
+      color: #ffc107;
+    }
+    
+    .integration-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .integration-item {
+      padding: 0.5rem;
+      background: rgba(139, 92, 246, 0.1);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="integration-hub">
+    
+    <!-- AI Chat & Models Integration -->
+    <div class="function-card">
+      <h3 class="card-title">🤖 AI Models & Chat</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">6 MODELI</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Gemma 2B (Cloudflare)</div>
+        <div class="integration-item">Llama 3.1 (Cloudflare)</div>
+        <div class="integration-item">Qwen 2.5 (Cloudflare)</div>
+        <div class="integration-item">Mistral 7B (Cloudflare)</div>
+        <div class="integration-item">Bielik 7B (HuggingFace)</div>
+        <div class="integration-item">POLACZEK (Custom AI)</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/chat, /api/gemma-polish, /api/llama-polish, /api/qwen-polish, /api/mistral-polish, /api/bielik, /api/polaczek-chat</p>
+      <p><strong>Komponenty:</strong> AiHelpAssistant.svelte, Chatbot.svelte, MainChatWidget.svelte</p>
+    </div>
+
+    <!-- Image Generation -->
+    <div class="function-card">
+      <h3 class="card-title">🎨 AI Image Generation</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">STABLE DIFFUSION</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Stable Diffusion XL</div>
+        <div class="integration-item">Flux Schnell</div>
+        <div class="integration-item">Quick Generator</div>
+        <div class="integration-item">Advanced Controls</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/generate-image, /api/generate-image-modern, /api/photo-to-photo</p>
+      <p><strong>Komponenty:</strong> StableDiffusionGenerator.jsx, ImageGeneratorWidget.svelte, QuickImageGenerator.astro</p>
+    </div>
+
+    <!-- BigQuery Analytics -->
+    <div class="function-card">
+      <h3 class="card-title">📊 BigQuery Analytics</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">GOOGLE CLOUD</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Data Analysis</div>
+        <div class="integration-item">Custom Queries</div>
+        <div class="integration-item">Real-time Stats</div>
+        <div class="integration-item">Export Functions</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/bigquery, /api/data-analyze, /api/data-collector</p>
+      <p><strong>Komponenty:</strong> BigQueryWidget.svelte</p>
+    </div>
+
+    <!-- Voice AI Ecosystem -->
+    <div class="function-card">
+      <h3 class="card-title">🔊 Voice AI Ecosystem</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-testing">BETA</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Speech Recognition</div>
+        <div class="integration-item">Voice Synthesis</div>
+        <div class="integration-item">AI Voice Avatar</div>
+        <div class="integration-item">WebSocket Support</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/voice/recognition, /api/voice-handler, /api/voice-ai/websocket</p>
+      <p><strong>Komponenty:</strong> AdvancedVoiceAIEcosystem.tsx, QuickVoiceAI.tsx</p>
+    </div>
+
+    <!-- Search & Discovery -->
+    <div class="function-card">
+      <h3 class="card-title">🔍 Search & Discovery</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">TAVILY + KAGGLE</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Tavily AI Search</div>
+        <div class="integration-item">Kaggle Datasets</div>
+        <div class="integration-item">DeepSeek Search</div>
+        <div class="integration-item">Wildcards System</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/tavi, /api/kaggle, /api/deepseek-search, /api/wildcards, /api/search</p>
+      <p><strong>Komponenty:</strong> TavilyWidget.svelte, KaggleWidget.svelte</p>
+    </div>
+
+    <!-- AI Agents System -->
+    <div class="function-card">
+      <h3 class="card-title">🤖 AI Agents System</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">MULTI-AGENT</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Agent Builder</div>
+        <div class="integration-item">Agent Manager</div>
+        <div class="integration-item">Multi-Agent Chat</div>
+        <div class="integration-item">Agent Analytics</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/agents, /api/agent, /api/ai-agent-s</p>
+      <p><strong>Komponenty:</strong> AgentBuilder.svelte, AgentManager.svelte, AgentsPanel.svelte</p>
+    </div>
+
+    <!-- Admin & Monitoring -->
+    <div class="function-card">
+      <h3 class="card-title">🛡️ Admin & Monitoring</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">REAL-TIME</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">Workers Status</div>
+        <div class="integration-item">Activity Monitor</div>
+        <div class="integration-item">Analytics Dashboard</div>
+        <div class="integration-item">Security Panel</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/admin/*, /api/workers-status, /api/activity-monitor, /api/health</p>
+      <p><strong>Komponenty:</strong> WorkersStatusDashboard.svelte, MonitoringDashboard.tsx, ActivityDashboard.svelte</p>
+    </div>
+
+    <!-- Business AI Functions -->
+    <div class="function-card">
+      <h3 class="card-title">💼 Business AI Functions</h3>
+      <span class="api-status status-active">AKTYWNE</span>
+      <span class="api-status status-active">AUTOMATION</span>
+      
+      <div class="integration-grid">
+        <div class="integration-item">FAQ Generator</div>
+        <div class="integration-item">Lead Qualification</div>
+        <div class="integration-item">Ticket System</div>
+        <div class="integration-item">Recommendations</div>
+      </div>
+      
+      <p><strong>API Endpoints:</strong> /api/faq-generator, /api/qualify-lead, /api/tickets, /api/recommendations</p>
+      <p><strong>Komponenty:</strong> FAQGeneratorWidget.svelte, LeadQualificationForm.svelte, TicketSubmissionWidget.svelte, RecommendationsWidget.svelte</p>
+    </div>
+
+  </div>
+
+  <script>
+    console.log('🚀 MyBonzo AI Platform - Complete Integration Hub Loaded');
+    console.log('📊 Total Functions: 8 major categories');
+    console.log('🤖 AI Models: 6 integrated');
+    console.log('🔗 API Endpoints: 50+ active');
+    console.log('⚛️ Components: React + Svelte ecosystem');
+  </script>
+</body>
+</html>

@@ -1,0 +1,714 @@
+﻿---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout 
+  siteTitle="KLF SHEED SHOP - LUC de ZEN ON" 
+  description="Zaawansowana platforma e-commerce dedykowana sprzedaĹĽy narzÄ™dzi AI i rozwiÄ…zaĹ„ technologicznych"
+  themeColor="25"
+>
+  <div class="header-with-help">
+    <h1 class="page-title">đź›’ KLF SHEED SHOP</h1>
+    <button id="helpButton" class="help-icon">?</button>
+  </div>
+
+  <!-- Agent Services Dashboard -->
+  <div class="shop-dashboard">
+    <div class="dashboard-grid">
+      <div class="metric-card">
+        <div class="metric-icon">đź¤–</div>
+        <div class="metric-content">
+          <h3>Active Agents</h3>
+          <div class="metric-value">47</div>
+          <p class="metric-subtitle">+12 this month</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">âšˇ</div>
+        <div class="metric-content">
+          <h3>Automation Runs</h3>
+          <div class="metric-value">2,847</div>
+          <p class="metric-subtitle">Today</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">đź’°</div>
+        <div class="metric-content">
+          <h3>Revenue</h3>
+          <div class="metric-value">$8,742</div>
+          <p class="metric-subtitle">This month</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon">đź‘Ą</div>
+        <div class="metric-content">
+          <h3>Active Clients</h3>
+          <div class="metric-value">89</div>
+          <p class="metric-subtitle">+8 this week</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Categories -->
+  <div class="product-categories">
+    <h2>Product Categories</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <div class="category-icon">đź¤–</div>
+        <h3>AI Tools & Services</h3>
+        <p>Zaawansowane narzÄ™dzia AI, modele jÄ™zykowe i usĹ‚ugi automatyzacji</p>
+        <div class="category-stats">
+          <span>45 products</span>
+          <span>$2,890 revenue</span>
+        </div>
+        <button class="manage-btn">Manage Category</button>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">đź’»</div>
+        <h3>Software Solutions</h3>
+        <p>RozwiÄ…zania software'owe, aplikacje i systemy zarzÄ…dzania</p>
+        <div class="category-stats">
+          <span>32 products</span>
+          <span>$1,567 revenue</span>
+        </div>
+        <button class="manage-btn">Manage Category</button>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">đź”§</div>
+        <h3>Development Tools</h3>
+        <p>NarzÄ™dzia programistyczne, biblioteki i frameworki</p>
+        <div class="category-stats">
+          <span>28 products</span>
+          <span>$987 revenue</span>
+        </div>
+        <button class="manage-btn">Manage Category</button>
+      </div>
+
+      <div class="category-card">
+        <div class="category-icon">đź“š</div>
+        <h3>Digital Resources</h3>
+        <p>E-booki, kursy online i materiaĹ‚y edukacyjne</p>
+        <div class="category-stats">
+          <span>51 products</span>
+          <span>$3,245 revenue</span>
+        </div>
+        <button class="manage-btn">Manage Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agent Service Pricing -->
+  <div class="featured-products">
+    <h2>Agent Service Pricing</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-image">đźš€</div>
+        <div class="product-info">
+          <h3>Basic Agent Setup</h3>
+          <p class="product-description">Podstawowe uruchomienie agenta AI z konfiguracjÄ…</p>
+          <div class="product-price">$99.99</div>
+          <div class="product-rating">
+            <span class="stars">â­â­â­â­â­</span>
+            <span class="reviews">(89 reviews)</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart">Purchase Now</button>
+            <button class="quick-view">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">âšˇ</div>
+        <div class="product-info">
+          <h3>Advanced Automation</h3>
+          <p class="product-description">Zaawansowana automatyzacja procesĂłw biznesowych</p>
+          <div class="product-price">$249.99</div>
+          <div class="product-rating">
+            <span class="stars">â­â­â­â­â†</span>
+            <span class="reviews">(67 reviews)</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart">Purchase Now</button>
+            <button class="quick-view">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">đźŚ</div>
+        <div class="product-info">
+          <h3>Multi-Platform Integration</h3>
+          <p class="product-description">Integracja wielu platform i systemĂłw</p>
+          <div class="product-price">$399.99</div>
+          <div class="product-rating">
+            <span class="stars">â­â­â­â­â­</span>
+            <span class="reviews">(124 reviews)</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart">Purchase Now</button>
+            <button class="quick-view">Details</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">đźŹ˘</div>
+        <div class="product-info">
+          <h3>Enterprise Solution</h3>
+          <p class="product-description">Kompleksowe rozwiÄ…zanie dla przedsiÄ™biorstw</p>
+          <div class="product-price">$899.99</div>
+          <div class="product-rating">
+            <span class="stars">â­â­â­â­â­</span>
+            <span class="reviews">(45 reviews)</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-to-cart">Purchase Now</button>
+            <button class="quick-view">Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E-commerce Integration -->
+  <div class="ecommerce-integration">
+    <h2>E-commerce Integration</h2>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <h3>đź›’ Shopping Cart API</h3>
+        <pre><code>// Add product to cart
+const cartResponse = await fetch('/api/cart/add', &#123;
+  method: 'POST',
+  headers: &#123; 'Content-Type': 'application/json' &#125;,
+  body: JSON.stringify(&#123;
+    productId: 'ai-agent-builder-pro',
+    quantity: 1,
+    userId: 'user123'
+  &#125;)
+&#125;);</code></pre>
+        <button class="test-api-btn">Test API</button>
+      </div>
+
+      <div class="integration-card">
+        <h3>đź’ł Payment Processing</h3>
+        <pre><code>// Process payment
+const payment = await stripe.paymentIntents.create(&#123;
+  amount: 29999, // $299.99
+  currency: 'usd',
+  metadata: &#123;
+    productId: 'ai-agent-builder-pro',
+    customerId: 'customer123'
+  &#125;
+&#125;);</code></pre>
+        <button class="test-api-btn">Test Payment</button>
+      </div>
+
+      <div class="integration-card">
+        <h3>đź“¦ Order Management</h3>
+        <pre><code>// Create order
+const order = await createOrder(&#123;
+  customerId: 'customer123',
+  items: [&#123;
+    productId: 'ai-agent-builder-pro',
+    quantity: 1,
+    price: 299.99
+  &#125;],
+  status: 'pending'
+&#125;);</code></pre>
+        <button class="test-api-btn">Test Orders</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="recent-orders">
+    <h2>Recent Orders</h2>
+    <div class="orders-table">
+      <div class="table-header">
+        <span>Order ID</span>
+        <span>Customer</span>
+        <span>Product</span>
+        <span>Amount</span>
+        <span>Status</span>
+        <span>Date</span>
+      </div>
+      
+      <div class="table-row">
+        <span>#ORD-2025-0830-001</span>
+        <span>John Doe</span>
+        <span>AI Agent Builder Pro</span>
+        <span>$299.99</span>
+        <span class="status completed">Completed</span>
+        <span>2025-08-30</span>
+      </div>
+      
+      <div class="table-row">
+        <span>#ORD-2025-0830-002</span>
+        <span>Jane Smith</span>
+        <span>Analytics Dashboard</span>
+        <span>$199.99</span>
+        <span class="status processing">Processing</span>
+        <span>2025-08-30</span>
+      </div>
+      
+      <div class="table-row">
+        <span>#ORD-2025-0829-023</span>
+        <span>Mike Johnson</span>
+        <span>Research AI Assistant</span>
+        <span>$149.99</span>
+        <span class="status shipped">Shipped</span>
+        <span>2025-08-29</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div id="helpModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>KLF SHEED SHOP - SzczegĂłĹ‚owy opis</h2>
+        <span id="closeModal" class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p>
+          <strong>KLF SHEED SHOP to zaawansowana platforma e-commerce dedykowana sprzedaĹĽy narzÄ™dzi AI i rozwiÄ…zaĹ„ technologicznych.</strong>
+        </p>
+
+        <h3>Funkcje sklepu:</h3>
+        <ul>
+          <li><strong>Product Management</strong> - zarzÄ…dzanie produktami, kategoriami i cenami</li>
+          <li><strong>Order Processing</strong> - peĹ‚ny system obsĹ‚ugi zamĂłwieĹ„</li>
+          <li><strong>Payment Integration</strong> - integracja z systemami pĹ‚atnoĹ›ci</li>
+          <li><strong>Customer Management</strong> - zarzÄ…dzanie klientami i ich historiÄ…</li>
+        </ul>
+
+        <h3>Kategorie produktĂłw:</h3>
+        <ul>
+          <li><strong>AI Tools & Services</strong> - narzÄ™dzia AI i modele jÄ™zykowe</li>
+          <li><strong>Software Solutions</strong> - aplikacje i systemy</li>
+          <li><strong>Development Tools</strong> - narzÄ™dzia programistyczne</li>
+          <li><strong>Digital Resources</strong> - kursy i materiaĹ‚y edukacyjne</li>
+        </ul>
+
+        <div class="feature-highlight">
+          <h3>Zalety platformy:</h3>
+          <ul>
+            <li>đź›’ Intuicyjny interfejs zakupĂłw</li>
+            <li>đź’ł Bezpieczne pĹ‚atnoĹ›ci</li>
+            <li>đź“Š Zaawansowana analityka</li>
+            <li>đź”„ Automatyzacja procesĂłw</li>
+            <li>đź“± Responsywny design</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Help modal functionality
+    const helpButton = document.getElementById("helpButton");
+    const helpModal = document.getElementById("helpModal");
+    const closeModal = document.getElementById("closeModal");
+
+    if (helpButton && helpModal && closeModal) {
+      helpButton.addEventListener("click", () => {
+        helpModal.style.display = "flex";
+      });
+
+      closeModal.addEventListener("click", () => {
+        helpModal.style.display = "none";
+      });
+
+      helpModal.addEventListener("click", (e) => {
+        if (e.target === helpModal) {
+          helpModal.style.display = "none";
+        }
+      });
+    }
+
+    // Shopping cart functionality
+    document.querySelectorAll(".add-to-cart").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (!target) return;
+
+        const productCard = target.closest(".product-card");
+        if (!productCard) return;
+
+        const productName = productCard.querySelector("h3")?.textContent;
+        alert(`Added "${productName}" to cart!`);
+        
+        target.textContent = "Added âś“";
+        target.style.background = "#10b981";
+        
+        setTimeout(() => {
+          target.textContent = "Add to Cart";
+          target.style.background = "";
+        }, 2000);
+      });
+    });
+
+    // Quick view functionality
+    document.querySelectorAll(".quick-view").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (!target) return;
+
+        const productCard = target.closest(".product-card");
+        if (!productCard) return;
+
+        const productName = productCard.querySelector("h3")?.textContent;
+        alert(`Quick view for "${productName}"`);
+      });
+    });
+
+    // Category management
+    document.querySelectorAll(".manage-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (!target) return;
+
+        const categoryCard = target.closest(".category-card");
+        if (!categoryCard) return;
+
+        const categoryName = categoryCard.querySelector("h3")?.textContent;
+        alert(`Managing category: ${categoryName}`);
+      });
+    });
+
+    // API testing
+    document.querySelectorAll(".test-api-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (!target) return;
+
+        const integrationCard = target.closest(".integration-card");
+        if (!integrationCard) return;
+
+        const apiName = integrationCard.querySelector("h3")?.textContent;
+        
+        target.textContent = "Testing...";
+        (target as HTMLButtonElement).disabled = true;
+        
+        setTimeout(() => {
+          target.textContent = "Test Success âś“";
+          target.style.background = "#10b981";
+          
+          setTimeout(() => {
+            target.textContent = "Test API";
+            target.style.background = "";
+            (target as HTMLButtonElement).disabled = false;
+          }, 3000);
+        }, 2000);
+      });
+    });
+
+    // Real-time dashboard updates
+    setInterval(() => {
+      const salesValue = document.querySelector('.metric-value');
+      if (salesValue && salesValue.textContent) {
+        const current = parseFloat(salesValue.textContent.replace('$', '').replace(',', ''));
+        const newValue = current + Math.floor(Math.random() * 100);
+        salesValue.textContent = `$${newValue.toLocaleString()}`;
+      }
+    }, 10000);
+  </script>
+</MyBonzoLayout>
+
+<style>
+  .shop-dashboard {
+    margin-bottom: 40px;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .metric-card {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .metric-icon {
+    font-size: 2.5rem;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .metric-content h3 {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #f97316;
+    margin-bottom: 5px;
+  }
+
+  .metric-subtitle {
+    color: #cccccc;
+    font-size: 0.8rem;
+    margin: 0;
+  }
+
+  .product-categories, .featured-products, .ecommerce-integration, .recent-orders {
+    margin-bottom: 40px;
+  }
+
+  .product-categories h2, .featured-products h2, .ecommerce-integration h2, .recent-orders h2 {
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+  }
+
+  .categories-grid, .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .category-card, .product-card {
+    background: rgba(249, 115, 22, 0.05);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover, .product-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(249, 115, 22, 0.4);
+    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.2);
+  }
+
+  .category-icon, .product-image {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .category-card h3, .product-info h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+
+  .category-card p, .product-description {
+    color: #cccccc;
+    margin-bottom: 15px;
+  }
+
+  .category-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #f97316;
+  }
+
+  .manage-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .manage-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+  }
+
+  .product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f97316;
+    margin-bottom: 10px;
+  }
+
+  .product-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .stars {
+    color: #fbbf24;
+  }
+
+  .reviews {
+    color: #cccccc;
+    font-size: 0.9rem;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .add-to-cart, .quick-view {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .add-to-cart {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #ffffff;
+  }
+
+  .quick-view {
+    background: rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+  }
+
+  .add-to-cart:hover, .quick-view:hover {
+    transform: translateY(-2px);
+  }
+
+  .integration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+  }
+
+  .integration-card {
+    background: rgba(249, 115, 22, 0.05);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  .integration-card h3 {
+    color: #f97316;
+    margin-bottom: 15px;
+  }
+
+  .integration-card pre {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    overflow-x: auto;
+  }
+
+  .integration-card code {
+    color: #f97316;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .test-api-btn {
+    background: rgba(249, 115, 22, 0.2);
+    color: #f97316;
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .test-api-btn:hover {
+    background: rgba(249, 115, 22, 0.3);
+    color: #ffffff;
+  }
+
+  .orders-table {
+    background: rgba(249, 115, 22, 0.05);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 15px 20px;
+    align-items: center;
+  }
+
+  .table-header {
+    background: rgba(249, 115, 22, 0.1);
+    color: #f97316;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .table-row {
+    border-bottom: 1px solid rgba(249, 115, 22, 0.1);
+    color: #e0e0e0;
+  }
+
+  .table-row:last-child {
+    border-bottom: none;
+  }
+
+  .status {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .status.completed {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .status.processing {
+    background: rgba(245, 158, 11, 0.2);
+    color: #f59e0b;
+  }
+
+  .status.shipped {
+    background: rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-grid, .categories-grid, .products-grid, .integration-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .table-header, .table-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .product-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+

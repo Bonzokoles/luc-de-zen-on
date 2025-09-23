@@ -1,0 +1,220 @@
+﻿---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import APIDemo from "../components/APIDemo.svelte";
+---
+
+<MyBonzoLayout siteTitle="API Demo - Cloudflare Workers Integration">
+  <div class="demo-page">
+    <div class="hero-section">
+      <h1>đźš€ Cloudflare Workers API Integration</h1>
+      <p class="hero-subtitle">
+        Demonstracja peĹ‚nej integracji z Cloudflare Workers w Ĺ›rodowisku Astro +
+        Svelte
+      </p>
+    </div>
+
+    <APIDemo client:load />
+
+    <div class="documentation-section">
+      <h2>đź“– Dokumentacja Integracji</h2>
+
+      <div class="docs-grid">
+        <div class="doc-card">
+          <h3>đź”§ ModuĹ‚ cloudflareApi.ts</h3>
+          <p>Centralny moduĹ‚ do komunikacji z Cloudflare Workers API</p>
+          <ul>
+            <li><code>fetchFromWorker()</code> - gĹ‚Ăłwna funkcja fetch</li>
+            <li><code>postToWorker()</code> - wrapper dla POST requests</li>
+            <li><code>getFromWorker()</code> - wrapper dla GET requests</li>
+          </ul>
+        </div>
+
+        <div class="doc-card">
+          <h3>đź›ˇď¸Ź CORS i BezpieczeĹ„stwo</h3>
+          <p>Wszystkie endpointy majÄ… peĹ‚nÄ… obsĹ‚ugÄ™ CORS i OPTIONS</p>
+          <ul>
+            <li>Standardowe nagĹ‚Ăłwki CORS</li>
+            <li>ObsĹ‚uga preflight requests</li>
+            <li>Walidacja i sanityzacja danych</li>
+          </ul>
+        </div>
+
+        <div class="doc-card">
+          <h3>đź“Š DostÄ™pne API Endpoints</h3>
+          <p>PeĹ‚na lista aktywnych Workers API</p>
+          <ul>
+            <li><code>/api/chat</code> - AI Chat Assistant</li>
+            <li><code>/api/generate-image</code> - Image Generator</li>
+            <li><code>/api/data-analyze</code> - Data Analysis</li>
+            <li><code>/api/ai-workers</code> - Workers Management</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="implementation-example">
+        <h3>đź’ˇ PrzykĹ‚ad Implementacji w Svelte</h3>
+        <pre
+          class="code-block"><code>{`<script lang="ts">
+  import { postToWorker } from '../cloudflareApi';
+  
+  let response = '';
+  let loading = false;
+
+  async function handleSubmit() {
+    loading = true;
+    try {
+      const result = await postToWorker('/api/chat', {
+        message: 'Hello from Svelte!'
+      });
+      response = result.message;
+    } catch (error) {
+      response = 'Error: ' + error.message;
+    } finally {
+      loading = false;
+    }
+  }
+</script>
+
+<button on:click={handleSubmit} disabled={loading}>
+  {loading ? 'Processing...' : 'Send Message'}
+</button>
+
+{#if response}
+  <p>{response}</p>
+{/if}`}</code></pre>
+      </div>
+    </div>
+  </div>
+</MyBonzoLayout>
+
+<style>
+  .demo-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .hero-section {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    color: white;
+  }
+
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .documentation-section {
+    max-width: 1200px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+  }
+
+  .documentation-section h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .doc-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .doc-card h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .doc-card p {
+    color: #4a5568;
+    margin-bottom: 1rem;
+  }
+
+  .doc-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .doc-card li {
+    padding: 0.5rem 0;
+    color: #4a5568;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .doc-card li:last-child {
+    border-bottom: none;
+  }
+
+  .doc-card code {
+    background: #f7fafc;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+    color: #3182ce;
+  }
+
+  .implementation-example {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .implementation-example h3 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .code-block {
+    background: #1a202c;
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    margin: 0;
+  }
+
+  .code-block code {
+    color: #e2e8f0;
+    font-family: "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+
+    .docs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .documentation-section {
+      padding: 0 1rem;
+    }
+  }
+</style>
+

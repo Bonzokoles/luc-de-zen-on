@@ -1,0 +1,974 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+import CyberpunkButton from "../../components/CyberpunkButton.astro";
+import CyberStatCard from "../../components/CyberStatCard.astro";
+---
+
+<MyBonzoLayout siteTitle="POLACZEK AGENTS SYS_23 | Advanced AI SDK">
+  <DecorativeLines />
+
+  <!-- Global vertical lines for workers sections -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <main class="min-h-svh">
+    <!-- Top Separator Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Header Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <!-- Left corner - POLACZEK System info -->
+          <div class="mt-auto" style="max-width: 45vw;">
+            <div
+              class="text-edge text-sm italic px-2"
+              style="
+                transform: scale(1.32);
+                transform-origin: left center;
+                margin: 15px;
+                margin-left: 0px;
+                width: calc(45vw - 30px);
+                max-width: 380px;
+                line-height: 1.4;
+                word-wrap: break-word;
+                hyphens: auto;
+              "
+            >
+              POLACZEK AGENTS SYS_23 - Najnowsza<br />
+              generacja AI SDK z peĹ‚nÄ… funkcjonalnoĹ›ciÄ….<br />
+              TwĂłrz, zarzÄ…dzaj i optymalizuj agentĂłw AI<br />
+              dla kaĹĽdego zastosowania biznesowego.
+            </div>
+          </div>
+          <span class="mt-auto">
+            <div
+              style="
+              transform: scale(1.56);
+              transform-origin: center right;
+              margin: 15px;
+              width: calc(50vw - 576px - 10px - 20px - 30px);
+              max-width: 400px;
+              text-align: right;
+              word-wrap: break-word;
+              hyphens: auto;
+            "
+            >
+              <span class="text-primary-foreground text-sm italic">
+                "AI that understands, adapts, and delivers"
+              </span>
+            </div>
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              SEP 2025
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Header-Navigation Separator -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">POLACZEK AGENTS SYS_23</h1>
+            <h2 class="text-2xl sm:text-3xl">Advanced AI SDK Platform</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a
+              class="ml-auto hover:brightness-125 duration-200"
+              href="/"
+            >
+              â† PowrĂłt do MyBonzo Hub
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+            <div class="flex flex-row-reverse flex-wrap gap-4">
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/api-keys"
+              >
+                API Keys
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  </svg>
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/agent-data-simple"
+              >
+                Agent Data
+                <svg
+                  style="--rotation: -45deg"
+                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                  </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separator Section 1 -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="py-1"></div>
+      </div>
+    </section>
+
+    <!-- System Statistics Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto p-6">
+        <h3 class="text-2xl font-bold text-primary-foreground mb-6 text-center">System Status - POLACZEK AGENTS</h3>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <CyberStatCard 
+            title="Active Agents" 
+            value="12" 
+            icon="đź¤–" 
+            color="success"
+            trend="up"
+          >
+            Online & Ready
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="CPU Usage" 
+            value="67" 
+            unit="%" 
+            icon="âšˇ" 
+            color="warning"
+            trend="stable"
+          >
+            System Load
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="Memory" 
+            value="4.2" 
+            unit="GB" 
+            icon="đź’ľ" 
+            color="primary"
+            trend="up"
+          >
+            RAM Usage
+          </CyberStatCard>
+          
+          <CyberStatCard 
+            title="Requests" 
+            value="1.2k" 
+            icon="đź“Š" 
+            color="success" 
+            trend="up"
+          >
+            Last 24h
+          </CyberStatCard>
+        </div>
+
+        <div class="flex flex-wrap gap-4 justify-center">
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/dashboard" variant="primary" size="lg" icon="đźŽŻ">
+            Dashboard
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/agents/create" variant="success" size="lg" icon="âž•">
+            Create Agent
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/api-keys" variant="secondary" size="lg" icon="đź”‘">
+            API Keys
+          </CyberpunkButton>
+          
+          <CyberpunkButton href="/POLACZEK_AGENT_SYS_23/monitoring" variant="danger" size="lg" icon="đź”Ť">
+            Monitoring
+          </CyberpunkButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main POLACZEK SDK Section -->
+    <section
+      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
+      id="polaczek-sdk"
+    >
+      <div class="max-w-6xl mx-auto w-full">
+        <div class="section-container">
+          <h2 class="system-title">POLACZEK AGENTS SYS_23</h2>
+
+          <!-- Separator after title -->
+          <div
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            margin: 0 auto;
+            border-t: 1px solid #ffffff;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+          "
+          ></div>
+
+          <p
+            class="section-description"
+            style="
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px) - 40px);
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-left: calc(50% - 10px);
+            transform: translateX(-50%);
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding: 0 15px;
+          "
+          >
+            Kompletne SDK do tworzenia, zarzÄ…dzania i optymalizacji agentĂłw AI. 
+            Zaawansowane funkcje wyszukiwania, analizy, generowania treĹ›ci i personalizacji 
+            zintegrowane z bazÄ… wiedzy MyBonzo.
+          </p>
+
+          <!-- SDK Functions Grid -->
+          <div class="sdk-functions-grid">
+            <h3 class="functions-title">ZAAWANSOWANE FUNKCJE SDK</h3>
+            
+            <div class="functions-grid">
+              <!-- Chat Function -->
+              <div class="function-card" data-function="chat">
+                <div class="function-icon">đź’¬</div>
+                <h4 class="function-name">Chat</h4>
+                <p class="function-desc">Standardowa konwersacja AI z kontekstem MyBonzo</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('chat')" class="test-btn">Test</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="docs-btn">Dashboard</button>
+                </div>
+              </div>
+
+              <!-- Search Function -->
+              <div class="function-card" data-function="search">
+                <div class="function-icon">đź”Ť</div>
+                <h4 class="function-name">Search</h4>
+                <p class="function-desc">Zaawansowane wyszukiwanie w bazie wiedzy MyBonzo</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('search')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('search')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Analyze Function -->
+              <div class="function-card" data-function="analyze">
+                <div class="function-icon">đź“Š</div>
+                <h4 class="function-name">Analyze</h4>
+                <p class="function-desc">GĹ‚Ä™boka analiza tekstu i danych z AI insights</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('analyze')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('analyze')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Generate Function -->
+              <div class="function-card" data-function="generate">
+                <div class="function-icon">âś¨</div>
+                <h4 class="function-name">Generate</h4>
+                <p class="function-desc">Generowanie treĹ›ci, raportĂłw i materiaĹ‚Ăłw</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('generate')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('generate')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Recommend Function -->
+              <div class="function-card" data-function="recommend">
+                <div class="function-icon">đźŽŻ</div>
+                <h4 class="function-name">Recommend</h4>
+                <p class="function-desc">Personalizowane rekomendacje i sugestie</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('recommend')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('recommend')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Translate Function -->
+              <div class="function-card" data-function="translate">
+                <div class="function-icon">đźŚŤ</div>
+                <h4 class="function-name">Translate</h4>
+                <p class="function-desc">Kontekstowe tĹ‚umaczenie miÄ™dzy jÄ™zykami</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('translate')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('translate')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Summarize Function -->
+              <div class="function-card" data-function="summarize">
+                <div class="function-icon">đź“ť</div>
+                <h4 class="function-name">Summarize</h4>
+                <p class="function-desc">Inteligentne streszczanie dĹ‚ugich treĹ›ci</p>
+                <div class="function-actions">
+                  <button onclick="testSDKFunction('summarize')" class="test-btn">Test</button>
+                  <button onclick="viewSDKDocs('summarize')" class="docs-btn">Docs</button>
+                </div>
+              </div>
+
+              <!-- Agent Create Function -->
+              <div class="function-card" data-function="agent_create">
+                <div class="function-icon">đź¤–</div>
+                <h4 class="function-name">Agent Create</h4>
+                <p class="function-desc">Tworzenie niestandardowych agentĂłw AI</p>
+                <div class="function-actions">
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="test-btn">Create</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="docs-btn">Dashboard</button>
+                </div>
+              </div>
+
+              <!-- Agent Manage Function -->
+              <div class="function-card" data-function="agent_manage">
+                <div class="function-icon">âš™ď¸Ź</div>
+                <h4 class="function-name">Agent Manage</h4>
+                <p class="function-desc">ZarzÄ…dzanie i konfiguracja agentĂłw</p>
+                <div class="function-actions">
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="test-btn">Dashboard</button>
+                  <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agents/create', '_blank')" class="docs-btn">Create</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SDK Testing Interface -->
+          <div class="sdk-tester-section">
+            <h3 class="tester-title">LIVE SDK TESTER</h3>
+            <div class="tester-container">
+              <div class="tester-controls">
+                <div class="control-group">
+                  <label>Funkcja SDK:</label>
+                  <select id="sdkFunction" class="sdk-select">
+                    <option value="chat">Chat - Standardowa konwersacja</option>
+                    <option value="search">Search - Wyszukiwanie</option>
+                    <option value="analyze">Analyze - Analiza</option>
+                    <option value="generate">Generate - Generowanie</option>
+                    <option value="recommend">Recommend - Rekomendacje</option>
+                    <option value="translate">Translate - TĹ‚umaczenie</option>
+                    <option value="summarize">Summarize - Streszczanie</option>
+                    <option value="agent_create">Agent Create - Tworzenie agenta</option>
+                    <option value="agent_manage">Agent Manage - ZarzÄ…dzanie</option>
+                  </select>
+                </div>
+                <div class="control-group">
+                  <label>Model AI:</label>
+                  <select id="sdkModel" class="sdk-select">
+                    <option value="qwen">Qwen 1.5 7B (Rekomendowany)</option>
+                    <option value="gemma">Gemma 7B (Multilingual)</option>
+                    <option value="fast">Qwen 0.5B (Szybki)</option>
+                    <option value="advanced">Llama 3.3 70B (Zaawansowany)</option>
+                    <option value="claude">Claude 3 Haiku (Kreatywny)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="tester-input">
+                <textarea 
+                  id="sdkPrompt" 
+                  placeholder="WprowadĹş zapytanie do przetestowania SDK..."
+                  class="sdk-textarea"
+                ></textarea>
+                <div class="tester-actions">
+                  <button onclick="executeSDKTest()" class="execute-btn">Wykonaj Test SDK</button>
+                  <button onclick="clearSDKTest()" class="clear-btn">WyczyĹ›Ä‡</button>
+                </div>
+              </div>
+              <div class="tester-output" id="sdkOutput">
+                <div class="output-placeholder">Wyniki testĂłw SDK pojawiÄ… siÄ™ tutaj...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Section -->
+          <div class="quick-actions-section">
+            <h3 class="actions-title">SZYBKIE AKCJE</h3>
+            <div class="actions-grid">
+              <div class="action-card">
+                <h4>ďż˝ API Keys Manager</h4>
+                <p>ZarzÄ…dzanie kluczami zewnÄ™trznych API</p>
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/api-keys', '_blank')" class="action-btn">
+                  OtwĂłrz Manager
+                </button>
+              </div>
+              <div class="action-card">
+                <h4>ďż˝ Agent Data Manager</h4>
+                <p>Dodawaj wĹ‚asne treĹ›ci i dane do agentĂłw</p>
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/agent-data1', '_blank')" class="action-btn">
+                  OtwĂłrz Manager
+                </button>
+              </div>
+              <div class="action-card">
+                <h4>đź“Š Monitoring</h4>
+                <p>Status i analityka wszystkich agentĂłw</p>
+                <button onclick="window.open('/POLACZEK_AGENT_SYS_23/dashboard', '_blank')" class="action-btn">
+                  OtwĂłrz Monitor
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Global vertical lines for workers sections */
+  .workers-vertical-line-left {
+    position: fixed;
+    left: calc(50vw - 600px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .workers-vertical-line-right {
+    position: fixed;
+    right: calc(50vw - 600px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+
+
+  /* System title - enlarged and bold */
+  .system-title {
+    color: #00d7ef !important;
+    font-weight: 900 !important;
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important;
+    font-family: "Rajdhani", sans-serif !important;
+    text-shadow: 0 0 10px rgba(0, 215, 239, 0.3), 0 0 20px rgba(0, 215, 239, 0.1);
+  }
+
+  .ai-workers-section {
+    background: rgba(0, 0, 0, 0.1);
+    min-height: 100vh;
+  }
+
+  .section-container {
+    padding: 2rem;
+    width: 100%;
+  }
+
+  .section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #d1d5db;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* SDK Functions Grid */
+  .sdk-functions-grid {
+    margin: 4rem 0;
+  }
+
+  .functions-title {
+    color: #00d7ef;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .functions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .function-card {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 217, 255, 0.1);
+  }
+
+  .function-card:hover {
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(0, 0, 0, 0.60);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .function-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .function-name {
+    color: #00d9ff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .function-desc {
+    color: #d1d5db;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  .function-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .test-btn, .docs-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .test-btn {
+    background: rgba(0, 217, 255, 0.1);
+    border-color: rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+  }
+
+  .test-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .docs-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #d1d5db;
+  }
+
+  .docs-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  /* SDK Tester */
+  .sdk-tester-section {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.15);
+  }
+
+  .tester-title {
+    color: #00d7ef;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tester-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .tester-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .control-group label {
+    color: #d1d5db;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  .sdk-select {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+  }
+
+  .sdk-select:focus {
+    outline: none;
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .tester-input {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sdk-textarea {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    min-height: 120px;
+    resize: vertical;
+    font-family: 'Fira Code', monospace;
+  }
+
+  .sdk-textarea:focus {
+    outline: none;
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .tester-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .execute-btn {
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+    padding: 0.75rem 2rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .execute-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  .clear-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #d1d5db;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .clear-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .tester-output {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+    min-height: 200px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: #d1d5db;
+    white-space: pre-wrap;
+    overflow-y: auto;
+  }
+
+  .output-placeholder {
+    color: #6b7280;
+    font-style: italic;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  /* Quick Actions */
+  .quick-actions-section {
+    margin: 3rem 0;
+  }
+
+  .actions-title {
+    color: #00d7ef;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .action-card {
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid white;
+    border-radius: 0;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+  }
+
+  .action-card:hover {
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(0, 0, 0, 0.60);
+    transform: translateY(-2px);
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.15), 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .action-card h4 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .action-card p {
+    color: #d1d5db;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .action-btn {
+    background: rgba(0, 217, 255, 0.1);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    color: #00d9ff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+
+  .action-btn:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.6);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tester-controls {
+      grid-template-columns: 1fr;
+    }
+    
+    .tester-actions {
+      flex-direction: column;
+    }
+    
+    .functions-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // SDK Testing Functions
+  async function executeSDKTest() {
+    const functionSelect = document.getElementById('sdkFunction') as HTMLSelectElement;
+    const modelSelect = document.getElementById('sdkModel') as HTMLSelectElement;
+    const promptTextarea = document.getElementById('sdkPrompt') as HTMLTextAreaElement;
+    const outputDiv = document.getElementById('sdkOutput');
+    
+    if (!functionSelect || !modelSelect || !promptTextarea || !outputDiv) {
+      console.error('Required elements not found');
+      return;
+    }
+    
+    const selectedFunction = functionSelect.value;
+    const selectedModel = modelSelect.value;
+    const prompt = promptTextarea.value.trim();
+    
+    if (!prompt) {
+      outputDiv.textContent = 'BĹ‚Ä…d: WprowadĹş zapytanie do przetestowania.';
+      return;
+    }
+    
+    outputDiv.textContent = 'Wykonywanie testu SDK...';
+    
+    try {
+      const response = await fetch('/POLACZEK_AGENT_SYS_23/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          function: selectedFunction,
+          model: selectedModel,
+          language: 'pl',
+          session_id: `test_${Date.now()}`
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        const formattedOutput = `âś… TEST SDK ZAKOĹCZONY POMYĹšLNIE
+
+đź“‹ PARAMETRY TESTU:
+- Funkcja: ${selectedFunction}
+- Model: ${selectedModel}
+- Session ID: ${data.session_id}
+- Timestamp: ${data.timestamp}
+
+đź¤– ODPOWIEDĹą AI:
+${data.answer}
+
+đź“Š METADATA:
+- Model uĹĽywany: ${data.modelUsed}
+- JÄ™zyk: ${data.language}
+- Kontekst: ${data.context}
+- ĹąrĂłdĹ‚o wiedzy: ${data.knowledge_source}
+- Wersja SDK: ${data.sdk_version}
+
+${data.recommendations ? `đźŽŻ REKOMENDACJE:\n${data.recommendations.join('\n')}` : ''}
+
+${data.data_processed ? `đź“ PRZETWORZONE DANE:\n${JSON.stringify(data.data_processed, null, 2)}` : ''}
+
+${data.agent_info ? `đź¤– INFO AGENTA:\n${JSON.stringify(data.agent_info, null, 2)}` : ''}`;
+        
+        outputDiv.textContent = formattedOutput;
+      } else {
+        outputDiv.textContent = `âťŚ BĹÄ„D TESTU SDK:\n\n${data.error || 'Nieznany bĹ‚Ä…d'}`;
+      }
+    } catch (error) {
+      outputDiv.textContent = `âťŚ BĹÄ„D POĹÄ„CZENIA:\n\n${error.message}`;
+      console.error('SDK Test Error:', error);
+    }
+  }
+  
+  function clearSDKTest() {
+    const promptTextarea = document.getElementById('sdkPrompt') as HTMLTextAreaElement;
+    const outputDiv = document.getElementById('sdkOutput');
+    
+    if (promptTextarea) {
+      promptTextarea.value = '';
+    }
+    
+    if (outputDiv) {
+      outputDiv.innerHTML = '<div class="output-placeholder">Wyniki testĂłw SDK pojawiÄ… siÄ™ tutaj...</div>';
+    }
+  }
+  
+  function testSDKFunction(functionName: string) {
+    const functionSelect = document.getElementById('sdkFunction') as HTMLSelectElement;
+    const promptTextarea = document.getElementById('sdkPrompt') as HTMLTextAreaElement;
+    
+    if (functionSelect) {
+      functionSelect.value = functionName;
+    }
+    
+    if (promptTextarea) {
+      const examplePrompts = {
+        'chat': 'CzeĹ›Ä‡! Opowiedz mi o moĹĽliwoĹ›ciach POLACZEK Agent System.',
+        'search': 'ZnajdĹş informacje o sztucznej inteligencji w MyBonzo',
+        'analyze': 'Przeanalizuj potencjaĹ‚ AI w e-commerce',
+        'generate': 'Wygeneruj plan marketingowy dla startupu AI',
+        'recommend': 'Polecaj mi najlepsze narzÄ™dzia do automatyzacji',
+        'translate': 'PrzetĹ‚umacz: "Advanced AI agent system with full SDK"',
+        'summarize': 'StreĹ›Ä‡ gĹ‚Ăłwne korzyĹ›ci z uĹĽywania agentĂłw AI w biznesie',
+        'agent_create': 'StwĂłrz agenta do obsĹ‚ugi klienta e-commerce',
+        'agent_manage': 'PokaĹĽ listÄ™ aktywnych agentĂłw w systemie'
+      };
+      
+      promptTextarea.value = examplePrompts[functionName as keyof typeof examplePrompts] || 'Test funkcji ' + functionName;
+    }
+    
+    // Scroll to tester
+    document.querySelector('.sdk-tester-section')?.scrollIntoView({ behavior: 'smooth' });
+  }
+  
+  function viewSDKDocs(functionName: string) {
+    // Open API documentation for specific function
+    window.open(`/POLACZEK_AGENT_SYS_23/api/chat?function=${functionName}`, '_blank');
+  }
+  
+  // Add Enter key support for textarea
+  document.addEventListener('DOMContentLoaded', () => {
+    const promptTextarea = document.getElementById('sdkPrompt') as HTMLTextAreaElement;
+    
+    if (promptTextarea) {
+      promptTextarea.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'Enter') {
+          executeSDKTest();
+        }
+      });
+    }
+    
+    console.log('đźš€ POLACZEK AGENTS SYS_23 - SDK Interface Ready');
+    console.log('đź’ˇ UĹĽyj Ctrl+Enter w obszarze tekstowym aby szybko wykonaÄ‡ test');
+  });
+</script>

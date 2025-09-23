@@ -1,0 +1,237 @@
+﻿---
+title: "MyBonzo Agent Test"
+description: "Test the integrated MyBonzo agent functionality"
+---
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBonzo Agent Test</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            color: #00fff3;
+            font-family: 'Orbitron', monospace;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-section {
+            background: rgba(0, 255, 243, 0.1);
+            border: 1px solid #00fff3;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .test-button {
+            background: #00fff3;
+            color: #0a0a0a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-weight: bold;
+        }
+        
+        .test-button:hover {
+            background: #00cccc;
+        }
+        
+        .result {
+            background: #001a33;
+            border: 1px solid #0066cc;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        
+        .error {
+            background: #330000;
+            border: 1px solid #ff0000;
+            color: #ff6666;
+        }
+        
+        .success {
+            background: #003300;
+            border: 1px solid #00ff00;
+            color: #66ff66;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>đź¤– MyBonzo Agent Integration Test</h1>
+        
+        <div class="test-section">
+            <h2>đź”— Agent Connection Test</h2>
+            <button class="test-button" onclick="testConnection()">Test Connection</button>
+            <div id="connection-result" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>đź’¬ Chat Test</h2>
+            <input type="text" id="chat-message" placeholder="Napisz wiadomoĹ›Ä‡..." style="width: 70%; padding: 10px; background: #0a0a0a; border: 1px solid #00fff3; color: #00fff3; border-radius: 5px; margin-right: 10px;">
+            <button class="test-button" onclick="testChat()">Send Chat</button>
+            <div id="chat-result" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>đź“Š Status Test</h2>
+            <button class="test-button" onclick="testStatus()">Get Status</button>
+            <div id="status-result" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>đźŽŻ Task Test</h2>
+            <button class="test-button" onclick="testTask('research', {topic: 'AI w 2025'})">Research Task</button>
+            <button class="test-button" onclick="testTask('creative', {prompt: 'futurystyczne miasto', style: 'cyberpunk'})">Creative Task</button>
+            <button class="test-button" onclick="testTask('code', {request: 'React component example'})">Code Task</button>
+            <div id="task-result" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>đź–Ľď¸Ź Image Generation Test</h2>
+            <input type="text" id="image-prompt" placeholder="Opisz obraz do wygenerowania..." style="width: 70%; padding: 10px; background: #0a0a0a; border: 1px solid #00fff3; color: #00fff3; border-radius: 5px; margin-right: 10px;">
+            <button class="test-button" onclick="testImageGeneration()">Generate Image</button>
+            <div id="image-result" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/agents/mybonzo';
+        const AGENT_ID = 'test-user-' + Date.now();
+        
+        function showResult(elementId, content, isError = false) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = 'result ' + (isError ? 'error' : 'success');
+            element.textContent = typeof content === 'object' ? JSON.stringify(content, null, 2) : content;
+        }
+        
+        async function testConnection() {
+            try {
+                const response = await fetch(API_BASE);
+                const data = await response.json();
+                showResult('connection-result', data, !response.ok);
+            } catch (error) {
+                showResult('connection-result', 'Connection Error: ' + error.message, true);
+            }
+        }
+        
+        async function testChat() {
+            const message = document.getElementById('chat-message').value;
+            if (!message.trim()) {
+                showResult('chat-result', 'Please enter a message', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        agentId: AGENT_ID,
+                        endpoint: 'chat',
+                        message: message,
+                        model: '@cf/google/gemma-3-12b-it'
+                    })
+                });
+                
+                const data = await response.json();
+                showResult('chat-result', data, !response.ok);
+                
+                if (response.ok) {
+                    document.getElementById('chat-message').value = '';
+                }
+            } catch (error) {
+                showResult('chat-result', 'Chat Error: ' + error.message, true);
+            }
+        }
+        
+        async function testStatus() {
+            try {
+                const response = await fetch(`${API_BASE}?action=status&id=${AGENT_ID}`);
+                const data = await response.json();
+                showResult('status-result', data, !response.ok);
+            } catch (error) {
+                showResult('status-result', 'Status Error: ' + error.message, true);
+            }
+        }
+        
+        async function testTask(taskType, taskData) {
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        agentId: AGENT_ID,
+                        endpoint: 'task',
+                        taskType: taskType,
+                        taskData: taskData
+                    })
+                });
+                
+                const data = await response.json();
+                showResult('task-result', data, !response.ok);
+            } catch (error) {
+                showResult('task-result', 'Task Error: ' + error.message, true);
+            }
+        }
+        
+        async function testImageGeneration() {
+            const prompt = document.getElementById('image-prompt').value;
+            if (!prompt.trim()) {
+                showResult('image-result', 'Please enter an image prompt', true);
+                return;
+            }
+            
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        agentId: AGENT_ID,
+                        endpoint: 'image',
+                        prompt: prompt,
+                        model: '@cf/black-forest-labs/flux-1-schnell'
+                    })
+                });
+                
+                const data = await response.json();
+                showResult('image-result', data, !response.ok);
+                
+                if (response.ok) {
+                    document.getElementById('image-prompt').value = '';
+                }
+            } catch (error) {
+                showResult('image-result', 'Image Error: ' + error.message, true);
+            }
+        }
+        
+        // Add Enter key support for inputs
+        document.getElementById('chat-message').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') testChat();
+        });
+        
+        document.getElementById('image-prompt').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') testImageGeneration();
+        });
+        
+        // Auto-test connection on page load
+        window.addEventListener('load', function() {
+            setTimeout(testConnection, 1000);
+        });
+    </script>
+</body>
+</html>

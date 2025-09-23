@@ -1,0 +1,104 @@
+.transformers-voice-ai {
+  background: linear-gradient(145deg, #1e1e2e, #2d2d47);
+  border: 1px solid #404040;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.voice-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-section .text-input {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 14px;
+  resize: vertical;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.control-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.speak-btn, .stop-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.speak-btn {
+  background: linear-gradient(145deg, #00d4ff, #0099cc);
+  color: white;
+}
+
+.speak-btn:hover:not(:disabled) {
+  background: linear-gradient(145deg, #00b8e6, #0088bb);
+  transform: translateY(-2px);
+}
+
+.stop-btn {
+  background: linear-gradient(145deg, #ff4757, #cc3644);
+  color: white;
+}
+
+.stop-btn:hover:not(:disabled) {
+  background: linear-gradient(145deg, #e63946, #bb2d3a);
+  transform: translateY(-2px);
+}
+
+.speak-btn:disabled, .stop-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.status-info {
+  text-align: center;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.loading {
+  color: #ffd700;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.ready {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+.error {
+  color: #ff4757;
+  background: rgba(255, 71, 87, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+}

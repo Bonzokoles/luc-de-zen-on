@@ -1,0 +1,20 @@
+﻿---
+import AgentCard from "./AgentCard.astro";
+const { agents } = Astro.props;
+---
+
+<section>
+  {
+    agents.length === 0 ? (
+      <div class="border border-gray-800 bg-gray-900/50 p-8 text-center">
+        <p class="text-gray-400 text-lg">BRAK AGENTĂ“W DO WYĹšWIETLENIA</p>
+        <p class="text-gray-500 text-sm mt-2">
+          UtwĂłrz swojego pierwszego agenta AI
+        </p>
+      </div>
+    ) : (
+      agents.map((agent) => <AgentCard agent={agent} />)
+    )
+  }
+</section>
+

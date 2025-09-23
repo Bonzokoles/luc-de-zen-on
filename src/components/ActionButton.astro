@@ -1,0 +1,13 @@
+﻿---
+const {
+  label = "Akcja",
+  onClick = null,
+  type = "button",
+  color = "primary",
+} = Astro.props;
+---
+
+<button type={type} onclick={onClick} class={`btn btn-${color}`}>
+  {label}
+</button>
+

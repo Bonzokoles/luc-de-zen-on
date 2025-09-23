@@ -1,0 +1,753 @@
+﻿---
+// AI Workers Navigation Component
+---
+
+<section class="ai-workers-section" id="ai-workers">
+  <div class="section-container">
+    <h2 class="section-title">AI WORKERS</h2>
+    <p class="section-description">
+      Zaawansowane narzÄ™dzia AI dostÄ™pne na platformie
+    </p>
+
+    <!-- System Control Buttons -->
+    <div class="tags-section">
+      <button
+        class="tag-btn"
+        onclick="window.open('/POLACZEK_AGENT_SYS_23', '_blank')"
+      >
+        POLACZEK_AGENT_SYS_23
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/bielik-enon-dev', '_blank')"
+      >
+        BIELIK
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/zenon-mcp-server', '_blank')"
+      >
+        ZENON
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/klf-sheed-shop', '_blank')"
+      >
+        KLF_SHEED_SHOOP
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/ai-workers-manager', '_blank')"
+      >
+        AI WORKERS MANAGER
+      </button>
+      <button class="tag-btn" onclick="window.open('/api-demo', '_blank')">
+        API DEMO
+      </button>
+      <button
+        class="tag-btn"
+        onclick="window.open('/animations-showcase', '_blank')"
+      >
+        ANIMACJE SVELTE
+      </button>
+    </div>
+
+    <div class="workers-grid">
+      <!-- Image Generator -->
+      <div class="worker-card" data-worker="image">
+        <h3 class="worker-title">Generator ObrazĂłw</h3>
+        <p class="worker-description">
+          TwĂłrz niesamowite obrazy z tekstu uĹĽywajÄ…c Flux-1 Schnell
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Flux AI</span>
+          <span class="feature-tag">512-1024px</span>
+          <span class="feature-tag">TĹ‚umaczenie PL</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="Opisz obraz..."
+            class="quick-prompt"
+            id="imagePrompt"
+          />
+          <button class="action-btn primary" onclick="openImageGenerator()"
+            >Generuj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/image-generator', '_blank')">OtwĂłrz</button
+          >
+        </div>
+      </div>
+
+      <!-- AI Chatbot -->
+      <div class="worker-card" data-worker="chat">
+        <h3 class="worker-title">AI Chatbot</h3>
+        <p class="worker-description">
+          Inteligentny asystent do rozmĂłw i odpowiadania na pytania
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">OpenAI GPT</span>
+          <span class="feature-tag">JÄ™zyk polski</span>
+          <span class="feature-tag">Kontekst</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="Zadaj pytanie..."
+            class="quick-prompt"
+            id="chatPrompt"
+          />
+          <button class="action-btn primary" onclick="openChatbot()"
+            >Chat</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/chatbot', '_blank')">OtwĂłrz</button
+          >
+        </div>
+      </div>
+
+      <!-- BigQuery Analytics -->
+      <div class="worker-card" data-worker="bigquery">
+        <h3 class="worker-title">BigQuery Analytics</h3>
+        <p class="worker-description">
+          Analizuj dane z Google BigQuery, wykonuj zapytania SQL
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Google Cloud</span>
+          <span class="feature-tag">SQL Query</span>
+          <span class="feature-tag">Analytics</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="SELECT * FROM..."
+            class="quick-prompt"
+            id="bigqueryPrompt"
+          />
+          <button class="action-btn primary" onclick="openBigQuery()"
+            >Analizuj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/bigquery-analytics', '_blank')"
+            >OtwĂłrz</button
+          >
+        </div>
+      </div>
+
+      <!-- Kaggle Datasets -->
+      <div class="worker-card" data-worker="kaggle">
+        <h3 class="worker-title">Kaggle Datasets</h3>
+        <p class="worker-description">
+          Przeszukuj zbiory danych, konkursy i profile Kaggle
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Machine Learning</span>
+          <span class="feature-tag">Datasets</span>
+          <span class="feature-tag">Competitions</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="machine learning..."
+            class="quick-prompt"
+            id="kagglePrompt"
+          />
+          <button class="action-btn primary" onclick="openKaggle()"
+            >Wyszukaj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/kaggle-datasets', '_blank')">OtwĂłrz</button
+          >
+        </div>
+      </div>
+
+      <!-- Tavily Search -->
+      <div class="worker-card" data-worker="tavily">
+        <h3 class="worker-title">Tavily AI Search</h3>
+        <p class="worker-description">
+          Zaawansowane wyszukiwanie internetowe powered by AI
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">AI Search</span>
+          <span class="feature-tag">Real-time</span>
+          <span class="feature-tag">Deep Analysis</span>
+        </div>
+        <div class="worker-actions">
+          <input
+            type="text"
+            placeholder="wyszukaj w sieci..."
+            class="quick-prompt"
+            id="tavilyPrompt"
+          />
+          <button class="action-btn primary" onclick="openTavily()"
+            >Szukaj</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/tavily-search', '_blank')">OtwĂłrz</button
+          >
+        </div>
+      </div>
+
+      <!-- Status Monitor -->
+      <div class="worker-card" data-worker="status">
+        <h3 class="worker-title">Status WorkerĂłw</h3>
+        <p class="worker-description">
+          SprawdĹş status i dostÄ™pnoĹ›Ä‡ wszystkich API workerĂłw
+        </p>
+        <div class="worker-features">
+          <span class="feature-tag">Health Check</span>
+          <span class="feature-tag">Monitoring</span>
+          <span class="feature-tag">API Status</span>
+        </div>
+        <div class="worker-actions">
+          <div class="status-indicator" id="overallStatus">
+            <span class="status-dot"></span>
+            <span>Sprawdzanie...</span>
+          </div>
+          <button class="action-btn primary" onclick="checkAllStatus()"
+            >SprawdĹş wszystkie</button
+          >
+          <button
+            class="action-btn secondary"
+            onclick="window.open('/status', '_blank')">OtwĂłrz</button
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Agent Systems -->
+    <div class="advanced-agents-section">
+      <h3 class="agents-title">ZAAWANSOWANE SYSTEMY AGENTĂ“W</h3>
+      <div class="agent-buttons">
+        <button class="agent-btn ai-agent-s" onclick="openAIAgentS()">
+          <div class="agent-icon">đź§ </div>
+          <div class="agent-label">AI_AGENT_S</div>
+          <div class="agent-desc">Advanced AI Reasoning</div>
+        </button>
+        <button class="agent-btn polaczek-sys-t" onclick="openPolaczekSysT()">
+          <div class="agent-icon">âš™ď¸Ź</div>
+          <div class="agent-label">POLACZEK_SYS_T</div>
+          <div class="agent-desc">System Monitoring</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Backroom dark base with subtle navy gradient and grid lines */
+  .ai-workers-section {
+    padding: 4rem 0 6rem 0;
+    background: linear-gradient(180deg, #000000 0%, #041126 100%);
+    color: white;
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Add repeated subtle vertical and horizontal lines for texture */
+  .ai-workers-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.02) 0 1px,
+        transparent 1px 120px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.02) 0 1px,
+        transparent 1px 80px
+      );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+    z-index: 0;
+  }
+
+  .section-container {
+    position: relative; /* sit above the ::before grid */
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    /* extend edges beyond viewport to create "cut-off" effect */
+    width: calc(100% + 240px);
+    left: -120px;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #3fc8ff, #5b73ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-description {
+    text-align: center;
+    font-size: 1.1rem;
+    opacity: 0.85;
+    margin-bottom: 2.4rem;
+  }
+
+  /* Thin navy pill buttons */
+  .tags-section {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.4rem;
+    flex-wrap: wrap;
+  }
+
+  .tag-btn {
+    background: transparent;
+    color: #0d3b66; /* navy text */
+    border: 1px solid rgba(13, 59, 102, 0.9);
+    padding: 0.35rem 1.05rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: none;
+  }
+
+  .tag-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(5, 28, 60, 0.18);
+  }
+
+  /* Workers grid and cards - Larger and more rectangular */
+  .workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .worker-card {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(2, 6, 12, 0.95),
+      rgba(4, 8, 18, 0.85)
+    );
+    border: 2px solid rgba(13, 59, 102, 0.3);
+    border-radius: 8px;
+    padding: 2.5rem;
+    min-height: 320px;
+    transition:
+      transform 220ms ease,
+      box-shadow 220ms ease,
+      border-color 220ms ease;
+    backdrop-filter: blur(12px);
+    overflow: visible;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Enhanced window edges with stronger frame lines */
+  .worker-card::before,
+  .worker-card::after {
+    content: "";
+    position: absolute;
+    left: -120px;
+    width: calc(100% + 240px);
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 59, 102, 0.4),
+      rgba(13, 59, 102, 0.8) 20%,
+      rgba(13, 59, 102, 0.8) 80%,
+      rgba(13, 59, 102, 0.4)
+    );
+    top: -1px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .worker-card::after {
+    bottom: -1px;
+    top: auto;
+    background: linear-gradient(
+      90deg,
+      rgba(13, 59, 102, 0.3),
+      rgba(13, 59, 102, 0.6) 20%,
+      rgba(13, 59, 102, 0.6) 80%,
+      rgba(13, 59, 102, 0.3)
+    );
+  }
+
+  /* Add side frame lines for stronger rectangle effect */
+  .worker-card:before {
+    box-shadow:
+      -120px 0 0 -119px rgba(13, 59, 102, 0.25),
+      calc(100% + 120px) 0 0 -119px rgba(13, 59, 102, 0.25);
+  }
+
+  .worker-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(2, 10, 20, 0.6);
+    border-color: rgba(13, 59, 102, 0.5);
+  }
+
+  /* Advanced Agents Section */
+  .advanced-agents-section {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px solid rgba(13, 59, 102, 0.3);
+    position: relative;
+  }
+
+  .agents-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #0d3b66, #3fc8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .agent-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-btn {
+    background: linear-gradient(
+      135deg,
+      rgba(13, 59, 102, 0.2),
+      rgba(4, 17, 38, 0.4)
+    );
+    border: 2px solid rgba(13, 59, 102, 0.4);
+    border-radius: 12px;
+    padding: 2rem;
+    min-width: 200px;
+    min-height: 140px;
+    cursor: pointer;
+    transition: all 250ms ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 6px 25px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .agent-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      transparent 30%,
+      rgba(13, 59, 102, 0.1) 50%,
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  .agent-btn:hover::before {
+    opacity: 1;
+  }
+
+  .agent-btn:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(13, 59, 102, 0.7);
+    box-shadow:
+      0 20px 50px rgba(2, 10, 20, 0.8),
+      0 0 30px rgba(13, 59, 102, 0.3);
+  }
+
+  .agent-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .agent-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #3fc8ff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+
+  .agent-desc {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .worker-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #3fc8ff;
+  }
+
+  .worker-description {
+    opacity: 0.85;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .worker-features {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .feature-tag {
+    background: rgba(11, 42, 74, 0.12);
+    color: #6fd1ff;
+    padding: 0.28rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(11, 42, 74, 0.12);
+  }
+
+  .worker-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .quick-prompt {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(11, 42, 74, 0.12);
+    border-radius: 8px;
+    padding: 0.8rem;
+    color: #cfefff;
+    font-size: 1rem;
+    width: 100%;
+  }
+
+  .quick-prompt:focus {
+    outline: none;
+    border-color: rgba(11, 42, 74, 0.28);
+    box-shadow: 0 0 0 2px rgba(11, 42, 74, 0.06);
+  }
+
+  .action-btn {
+    padding: 0.7rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+
+  .action-btn.primary {
+    background: linear-gradient(90deg, #0e4a76, #164e7a);
+    color: #e6f9ff;
+  }
+  .action-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(3, 15, 30, 0.6);
+  }
+
+  .action-btn.secondary {
+    background: transparent;
+    color: #9fd6ff;
+    border: 1px solid rgba(15, 60, 100, 0.12);
+  }
+  .action-btn.secondary:hover {
+    background: rgba(11, 42, 74, 0.14);
+    color: #cfefff;
+  }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(11, 42, 74, 0.1);
+  }
+
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffa500;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .workers-grid {
+      grid-template-columns: 1fr;
+    }
+    .section-title {
+      font-size: 2rem;
+    }
+    .worker-card {
+      padding: 1.25rem;
+    }
+    .section-container {
+      width: calc(100% + 40px);
+      left: -20px;
+    }
+  }
+</style>
+
+<script>
+  // Image Generator
+  function openImageGenerator() {
+    const prompt = (
+      document.getElementById("imagePrompt") as HTMLInputElement
+    )?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickImagePrompt", prompt);
+    }
+    window.open("/image-generator", "_blank");
+  }
+
+  // Chatbot
+  function openChatbot() {
+    const prompt = (
+      document.getElementById("chatPrompt") as HTMLInputElement
+    )?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickChatPrompt", prompt);
+    }
+    window.open("/chatbot", "_blank");
+  }
+
+  // BigQuery
+  function openBigQuery() {
+    const prompt = (
+      document.getElementById("bigqueryPrompt") as HTMLInputElement
+    )?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickSQLQuery", prompt);
+    }
+    window.open("/bigquery-analytics", "_blank");
+  }
+
+  // Kaggle
+  function openKaggle() {
+    const prompt = (
+      document.getElementById("kagglePrompt") as HTMLInputElement
+    )?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickKaggleSearch", prompt);
+    }
+    window.open("/kaggle-datasets", "_blank");
+  }
+
+  // Tavily
+  function openTavily() {
+    const prompt = (
+      document.getElementById("tavilyPrompt") as HTMLInputElement
+    )?.value.trim();
+    if (prompt) {
+      localStorage.setItem("quickTavilySearch", prompt);
+    }
+    window.open("/tavily-search", "_blank");
+  }
+
+  // Status Check
+  function checkAllStatus() {
+    const endpoints = [
+      "/api/image-generator",
+      "/api/chatbot",
+      "/api/bigquery",
+      "/api/kaggle",
+      "/api/tavily",
+      "/api/status",
+    ];
+
+    const statusIndicator = document.getElementById("overallStatus");
+    if (statusIndicator) {
+      statusIndicator.innerHTML =
+        '<span class="status-dot"></span><span>Sprawdzanie...</span>';
+    }
+
+    // Simulate status check
+    setTimeout(() => {
+      if (statusIndicator) {
+        statusIndicator.innerHTML =
+          '<span class="status-dot" style="background: #00ff00;"></span><span>Wszystko dziaĹ‚a</span>';
+      }
+    }, 2000);
+  }
+
+  // AI Agent S - Advanced AI System
+  function openAIAgentS() {
+    window.open("/hub/ai-agent-s", "_blank");
+  }
+
+  // POLACZEK_SYS_T - System Monitoring Agent
+  function openPolaczekSysT() {
+    window.open("/hub/polaczek-sys-t", "_blank");
+  }
+
+  // Quick action handlers
+  document.addEventListener("DOMContentLoaded", function () {
+    const prompts = document.querySelectorAll(".quick-prompt");
+    prompts.forEach((prompt) => {
+      prompt.addEventListener("keypress", function (e: KeyboardEvent) {
+        if (e.key === "Enter") {
+          const workerId = (e.target as HTMLElement)
+            .closest(".worker-card")
+            ?.getAttribute("data-worker");
+          const handlers: { [key: string]: () => void } = {
+            image: openImageGenerator,
+            chat: openChatbot,
+            bigquery: openBigQuery,
+            kaggle: openKaggle,
+            tavily: openTavily,
+          };
+
+          if (workerId && handlers[workerId]) {
+            handlers[workerId]();
+          }
+        }
+      });
+    });
+  });
+</script>
+

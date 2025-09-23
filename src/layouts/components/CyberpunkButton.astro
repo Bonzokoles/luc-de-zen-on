@@ -1,0 +1,197 @@
+---
+// Komponent uniwersalnych przycisków w stylu cyberpunk
+interface Props {
+  text: string;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "danger" | "success" | "outline";
+  size?: "sm" | "md" | "lg";
+  icon?: string;
+  disabled?: boolean;
+  className?: string;
+  onclick?: string;
+}
+
+const {
+  text,
+  href,
+  type = "button",
+  variant = "primary",
+  size = "md",
+  icon,
+  disabled = false,
+  className = "",
+  onclick,
+} = Astro.props;
+
+const baseClasses = "cyberpunk-btn";
+const variantClasses = {
+  primary: "cyberpunk-btn-primary",
+  secondary: "cyberpunk-btn-secondary",
+  danger: "cyberpunk-btn-danger",
+  success: "cyberpunk-btn-success",
+  outline: "cyberpunk-btn-outline"
+};
+
+const sizeClasses = {
+  sm: "cyberpunk-btn-sm",
+  md: "cyberpunk-btn-md", 
+  lg: "cyberpunk-btn-lg"
+};
+
+const buttonClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={buttonClasses}>
+    {icon && <span class="cyberpunk-btn-icon">{icon}</span>}
+    <span>{text}</span>
+  </a>
+) : (
+  <button 
+    type={type} 
+    class={buttonClasses} 
+    disabled={disabled}
+    onclick={onclick}
+  >
+    {icon && <span class="cyberpunk-btn-icon">{icon}</span>}
+    <span>{text}</span>
+  </button>
+)}
+
+<style>
+  .cyberpunk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid;
+    border-radius: 0;
+    font-family: "Rajdhani", system-ui;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .cyberpunk-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.2) 50%, 
+      transparent 100%
+    );
+    transition: left 0.6s ease;
+  }
+
+  .cyberpunk-btn:hover::before {
+    left: 100%;
+  }
+
+  /* Variants */
+  .cyberpunk-btn-primary {
+    background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+    border-color: #00d9ff;
+    color: #000;
+  }
+
+  .cyberpunk-btn-primary:hover {
+    background: linear-gradient(135deg, #00ffff 0%, #00d9ff 100%);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .cyberpunk-btn-secondary {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+  }
+
+  .cyberpunk-btn-secondary:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+  }
+
+  .cyberpunk-btn-danger {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    border-color: #dc2626;
+    color: #fff;
+  }
+
+  .cyberpunk-btn-danger:hover {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.6);
+  }
+
+  .cyberpunk-btn-success {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    border-color: #16a34a;
+    color: #fff;
+  }
+
+  .cyberpunk-btn-success:hover {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  }
+
+  .cyberpunk-btn-outline {
+    background: transparent;
+    border-color: #00d9ff;
+    color: #00d9ff;
+  }
+
+  .cyberpunk-btn-outline:hover {
+    background: rgba(0, 217, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 217, 255, 0.2);
+  }
+
+  /* Sizes */
+  .cyberpunk-btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .cyberpunk-btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .cyberpunk-btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+
+  /* Icon */
+  .cyberpunk-btn-icon {
+    font-size: 1.2em;
+  }
+
+  /* Disabled state */
+  .cyberpunk-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .cyberpunk-btn:disabled:hover {
+    box-shadow: none !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .cyberpunk-btn-lg {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+</style>

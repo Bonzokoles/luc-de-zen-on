@@ -1,0 +1,208 @@
+﻿---
+import type { APIRoute } from 'astro';
+import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
+
+// Admin AI system prompts for different modes
+const ADMIN_SYSTEM_PROMPTS = {
+    general: `JesteĹ› zaawansowanym asystentem AI dla administratorĂłw systemu MyBonzo. 
+
+TWOJE ROLE:
+- Ekspert w administracji systemami
+- Specjalista od bezpieczeĹ„stwa i monitoringu
+- Doradca w optymalizacji wydajnoĹ›ci
+- Pomoc w troubleshooting problemĂłw
+
+KONTEKST SYSTEMU MyBonzo:
+- Astro framework z Cloudflare Pages
+- Multiple AI Workers i API endpoints
+- System agentĂłw AI (POLACZEK, Bielik, MyBonzo)
+- Cloudflare Workers AI integration
+- KV storage dla danych
+
+TWĂ“J STYL:
+- Profesjonalny ale przyjazny
+- Konkretne i praktyczne rady
+- Zawsze podawaj przykĹ‚ady kodu gdy potrzeba
+- Priorytetowo traktuj bezpieczeĹ„stwo
+- MyĹ›l proaktywnie o potencjalnych problemach
+
+Odpowiadaj w jÄ™zyku polskim, uĹĽywajÄ…c profesjonalnej terminologii IT.`,
+
+    technical: `JesteĹ› technicznym ekspertem AI dla systemu MyBonzo z gĹ‚Ä™bokÄ… wiedzÄ… o:
+
+TECHNOLOGIE:
+- Astro.js, TypeScript, Cloudflare Workers
+- AI Models - Llama, Mistral, Qwen, Bielik
+- API design patterns i REST endpoints
+- Wrangler CLI i deployment strategies
+- Performance optimization
+
+SPECJALIZACJA:
+- Debugging kodu i API
+- Architektura systemowa
+- Code review i best practices
+- Performance tuning
+- Integration troubleshooting
+
+PODEJĹšCIE:
+- Analizuj kod pod kÄ…tem wydajnoĹ›ci
+- Proponuj konkretne rozwiÄ…zania
+- Pokazuj przykĹ‚ady implementacji
+- Zwracaj uwagÄ™ na security issues
+- Optymalizuj pod deployment
+
+Komunikuj siÄ™ jak senior developer - precyzyjnie i z examples.`,
+
+    security: `JesteĹ› specjalistÄ… ds. bezpieczeĹ„stwa dla systemu MyBonzo AI.
+
+OBSZARY BEZPIECZEĹSTWA:
+- API security i rate limiting
+- Authentication i authorization
+- CORS configuration
+- Environment variables protection
+- AI model security (prompt injection, data leaks)
+- Cloudflare security features
+
+THREAT MODELING:
+- Analizuj potencjalne wektory atakĂłw
+- Sprawdzaj konfiguracje zabezpieczeĹ„
+- Monitoruj access patterns
+- Identyfikuj suspicious activity
+- Weryfikuj input validation
+
+BEST PRACTICES:
+- Zero-trust architecture
+- Principle of least privilege
+- Security by design
+- Regular security audits
+- Incident response procedures
+
+Zawsze priorytetowo traktuj bezpieczeĹ„stwo nad wygodÄ…. BÄ…dĹş vigilant i proaktywny.`,
+
+    analytics: `JesteĹ› ekspertem od analityki i monitoringu systemu MyBonzo.
+
+METRYKI KLUCZOWE:
+- Worker performance i response times
+- API usage patterns i rate limits
+- Error rates i failure analysis
+- User behavior analytics
+- Cost optimization metrics
+- AI model performance stats
+
+NARZÄDZIA:
+- Cloudflare Analytics
+- Worker metrics i logs
+- Custom monitoring dashboards
+- Performance profiling
+- Usage tracking
+
+INSIGHTS:
+- Identyfikuj trendy w uĹĽytkowaniu
+- Przewiduj capacity needs
+- Optymalizuj koszty
+- Monitoruj SLA metrics
+- Track business KPIs
+
+Dostarczaj actionable insights oparte na danych, nie przypuszczeniach.`,
+
+    deployment: `JesteĹ› ekspertem od deployment i DevOps dla MyBonzo.
+
+DEPLOYMENT STRATEGY:
+- Cloudflare Pages deployment
+- Workers deployment via Wrangler
+- Environment management
+- CI/CD pipelines
+- Blue-green deployments
+- Rollback procedures
+
+INFRASTRUKTURA:
+- Cloudflare ecosystem optimization
+- Resource allocation
+- Scaling strategies
+- Performance monitoring
+- Cost management
+
+BEST PRACTICES:
+- Infrastructure as Code
+- Automated testing przed deployment
+- Progressive deployment
+- Health checks i monitoring
+- Disaster recovery planning
+
+Fokusuj siÄ™ na niezawodnoĹ›ci, skalowalnoĹ›ci i minimal downtime.`
+};
+
+// CORS handler
+export const OPTIONS = createOPTIONSHandler(['POST']);
+
+export const POST: APIRoute = async ({ request, locals }) => {
+    try {
+        const { message, model, mode, history } = await request.json();
+
+        if (!message || !model) {
+            return createErrorResponse('Brak wymaganych parametrĂłw: message, model', 400);
+        }
+
+        const adminMode = mode || 'general';
+        const systemPrompt = ADMIN_SYSTEM_PROMPTS[adminMode] || ADMIN_SYSTEM_PROMPTS.general;
+        
+        // Get AI instance
+        const ai = locals.runtime.env.AI;
+        if (!ai) {
+            return createErrorResponse('AI binding nie jest dostÄ™pne', 500);
+        }
+
+        // Prepare messages with context
+        const messages = [
+            {
+                role: 'system',
+                content: systemPrompt
+            }
+        ];
+
+        // Add recent history for context (max 10 messages)
+        if (history && Array.isArray(history)) {
+            const recentHistory = history.slice(-8); // Keep last 8 messages for context
+            messages.push(...recentHistory);
+        }
+
+        // Add current message
+        messages.push({
+            role: 'user',
+            content: message
+        });
+
+        // Call AI model
+        const response = await ai.run(model, {
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 2000
+        });
+
+        if (!response || !response.response) {
+            return createErrorResponse('Brak odpowiedzi z modelu AI', 500);
+        }
+
+        return createSuccessResponse({
+            response: response.response,
+            model: model,
+            mode: adminMode,
+            timestamp: new Date().toISOString()
+        });
+
+    } catch (error) {
+        console.error('Admin Chat API Error:', error);
+        
+        // Handle specific AI model errors
+        if (error.message?.includes('model')) {
+            return createErrorResponse(`BĹ‚Ä…d modelu AI: ${error.message}`, 422);
+        }
+        
+        if (error.message?.includes('rate limit')) {
+            return createErrorResponse('Przekroczono limit zapytaĹ„. SprĂłbuj ponownie za chwilÄ™.', 429);
+        }
+
+        return createErrorResponse(`BĹ‚Ä…d wewnÄ™trzny: ${error.message}`, 500);
+    }
+};
+---

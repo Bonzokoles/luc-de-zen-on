@@ -1,0 +1,28 @@
+﻿---
+import QuickVoiceAI from "./QuickVoiceAI.tsx";
+---
+
+<section id="quick-voice-ai" class="py-20 my-10">
+  <div
+    class="max-w-6xl mx-auto border-x border-gray-800 bg-black/50 backdrop-blur-sm"
+  >
+    <div class="container mx-auto text-center px-8">
+      <QuickVoiceAI client:load variant="hero" />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Stylowanie dla Voice AI hero section */
+  .voice-ai-hero {
+    /* Dodatkowe style jeĹ›li potrzebne */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    #quick-voice-ai {
+      padding: 3rem 0;
+      margin: 1.5rem 0;
+    }
+  }
+</style>

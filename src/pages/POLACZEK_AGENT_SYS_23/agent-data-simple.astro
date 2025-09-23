@@ -1,0 +1,170 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Agent Data Management | POLACZEK AGENTS SYS_23">
+  <DecorativeLines />
+
+  <!-- Global vertical lines -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/POLACZEK_AGENT_SYS_23">
+            <h1 class="text-4xl sm:text-5xl" style="border: 1px solid white;">AGENT DATA MANAGER</h1>
+            <h2 class="text-2xl sm:text-3xl">Custom Content & Knowledge Base</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a
+              class="ml-auto hover:brightness-125 duration-200"
+              href="/POLACZEK_AGENT_SYS_23"
+            >
+              â† PowrĂłt do SDK
+            </a>
+            <div class="flex flex-row-reverse flex-wrap gap-4">
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/api-keys"
+                style="border: 1px solid white; padding: 8px;"
+              >
+                API Keys
+              </a>
+              <a
+                class="hover:brightness-125 duration-200"
+                href="/POLACZEK_AGENT_SYS_23/dashboard"
+                style="border: 1px solid white; padding: 8px;"
+              >
+                Dashboard
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="border border-edge relative">
+      <div class="max-w-6xl mx-auto p-8">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl font-bold mb-4">AGENT DATA MANAGEMENT</h3>
+          <p class="text-lg mb-6">
+            ZarzÄ…dzaj danymi, treĹ›ciami i bazÄ… wiedzy dla swoich agentĂłw AI.
+            Dodawaj pliki, teksty, linki i strukturalne dane.
+          </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div class="feature-card" style="border: 1px solid white; padding: 20px; text-align: center;">
+            <div class="text-4xl mb-4">đź“</div>
+            <h4 class="text-xl font-semibold mb-2">Upload Files</h4>
+            <p class="text-sm">PDF, DOC, TXT, Images</p>
+          </div>
+          
+          <div class="feature-card" style="border: 1px solid white; padding: 20px; text-align: center;">
+            <div class="text-4xl mb-4">âśŤď¸Ź</div>
+            <h4 class="text-xl font-semibold mb-2">Custom Text</h4>
+            <p class="text-sm">WĹ‚asne treĹ›ci i instrukcje</p>
+          </div>
+          
+          <div class="feature-card" style="border: 1px solid white; padding: 20px; text-align: center;">
+            <div class="text-4xl mb-4">đź”—</div>
+            <h4 class="text-xl font-semibold mb-2">URL Import</h4>
+            <p class="text-sm">Automatyczny import z linkĂłw</p>
+          </div>
+          
+          <div class="feature-card" style="border: 1px solid white; padding: 20px; text-align: center;">
+            <div class="text-4xl mb-4">đź“Š</div>
+            <h4 class="text-xl font-semibold mb-2">Structured Data</h4>
+            <p class="text-sm">JSON, CSV, YAML</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center space-y-4">
+          <div class="space-x-4">
+            <button 
+              class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg"
+              style="border: 1px solid white;"
+            >
+              đź“ Upload Files
+            </button>
+            <button 
+              class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg"
+              style="border: 1px solid white;"
+            >
+              âśŤď¸Ź Add Text
+            </button>
+          </div>
+          <div class="space-x-4">
+            <button 
+              class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg"
+              style="border: 1px solid white;"
+            >
+              đź”— Import URL
+            </button>
+            <button 
+              class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg"
+              style="border: 1px solid white;"
+            >
+              đź“Š Add Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Status Info -->
+        <div class="mt-8 p-6" style="border: 1px solid white; background: rgba(0,0,0,0.3);">
+          <h4 class="text-xl font-semibold mb-4">đź“ STATUS</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-green-400">Ready</div>
+              <div class="text-sm">System Status</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-blue-400">0</div>
+              <div class="text-sm">Uploaded Files</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-purple-400">0 MB</div>
+              <div class="text-sm">Storage Used</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coming Soon Notice -->
+        <div class="mt-8 p-6 text-center" style="border: 2px dashed white; background: rgba(255,255,255,0.1);">
+          <h4 class="text-xl font-semibold mb-2">đźš§ FUNKCJONALNOĹšÄ† W ROZWOJU</h4>
+          <p>
+            PeĹ‚ny interfejs do zarzÄ…dzania danymi agentĂłw bÄ™dzie dostÄ™pny wkrĂłtce.
+            Obecnie moĹĽesz korzystaÄ‡ z podstawowych funkcji API.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  .feature-card {
+    transition: all 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.1);
+  }
+  
+  button {
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    transform: translateY(-2px);
+  }
+</style>

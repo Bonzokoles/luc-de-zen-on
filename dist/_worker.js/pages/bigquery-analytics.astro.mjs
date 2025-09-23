@@ -1,0 +1,66 @@
+globalThis.process ??= {}; globalThis.process.env ??= {};
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
+/* empty css                                              */
+export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
+
+const $$BigqueryAnalytics = createComponent(async ($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "BigQuery Analytics | AI Workers", "data-astro-cid-kywjq26w": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-kywjq26w> <!-- Header Section --> <section class="border border-edge" data-astro-cid-kywjq26w> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-kywjq26w> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-kywjq26w> <div class="mt-auto" data-astro-cid-kywjq26w> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-kywjq26w>
+BIG_QUERY
+</span> </div> <span class="mt-auto" data-astro-cid-kywjq26w> <span style="" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-kywjq26w>
+ANALYTICS
+</span> </span> </div> </div> </section> <!-- Navigation Section --> <section class="border border-edge" data-astro-cid-kywjq26w> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-kywjq26w> <div class="flex flex-row p-2" data-astro-cid-kywjq26w> <a class="hover:brightness-125" href="/" data-astro-cid-kywjq26w> <h1 class="text-4xl sm:text-5xl" data-astro-cid-kywjq26w>BIGQUERY ANALYTICS</h1> <h2 class="text-2xl sm:text-3xl" data-astro-cid-kywjq26w>Google Cloud Data Analysis</h2> </a> <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col" data-astro-cid-kywjq26w> <a class="ml-auto hover:brightness-125 duration-200" href="/" data-astro-cid-kywjq26w>
+â† PowrĂłt do strony gĹ‚Ăłwnej
+<svg style="--rotation: -45deg" class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-kywjq26w> <path d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-kywjq26w></path> </svg> </a> </div> </div> </div> </section> <!-- BigQuery Section --> <section class="ai-workers-section flex items-center justify-center py-16" id="bigquery" data-astro-cid-kywjq26w> <div class="section-container max-w-6xl mx-auto" data-astro-cid-kywjq26w> <h2 class="section-title" data-astro-cid-kywjq26w>BIGQUERY ANALYTICS</h2> <p class="section-description" data-astro-cid-kywjq26w>
+Analizuj dane z Google BigQuery, wykonuj zapytania SQL i generuj
+          raporty
+</p> <!-- Query Interface --> <div class="query-container border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <!-- Query Header --> <div class="query-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);" data-astro-cid-kywjq26w> <div class="flex items-center gap-3" data-astro-cid-kywjq26w> <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse" data-astro-cid-kywjq26w></div> <span class="text-primary-foreground font-semibold" data-astro-cid-kywjq26w>BigQuery Console</span> </div> <div class="flex gap-2" data-astro-cid-kywjq26w> <button onclick="saveQuery()" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+Zapisz
+</button> <button onclick="loadQuery()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+Wczytaj
+</button> <button onclick="clearQuery()" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+WyczyĹ›Ä‡
+</button> </div> </div> <!-- SQL Editor --> <div class="sql-editor p-4" data-astro-cid-kywjq26w> <label for="sqlQuery" class="block text-lg font-semibold mb-3 text-primary-foreground" data-astro-cid-kywjq26w>
+Zapytanie SQL:
+</label> <div class="relative" data-astro-cid-kywjq26w> <textarea id="sqlQuery" rows="8" class="w-full p-4 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none font-mono text-sm" style="background: rgba(0, 0, 0, 0.5);" placeholder="SELECT * FROM \`project.dataset.table\` WHERE ..." data-astro-cid-kywjq26w></textarea> <div class="absolute top-2 right-2 text-xs text-gray-400" id="lineCounter" data-astro-cid-kywjq26w>
+Linia: 1, Kolumna: 1
+</div> </div> </div> <!-- Query Settings --> <div class="query-settings p-4 border-t border-edge" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="grid grid-cols-1 md:grid-cols-4 gap-4" data-astro-cid-kywjq26w> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Projekt:</label> <input id="projectId" type="text" placeholder="project-id" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Dataset:</label> <input id="datasetId" type="text" placeholder="dataset_name" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Limit wynikĂłw:</label> <select id="rowLimit" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <option value="100" data-astro-cid-kywjq26w>100 wierszy</option> <option value="1000" data-astro-cid-kywjq26w>1,000 wierszy</option> <option value="10000" data-astro-cid-kywjq26w>10,000 wierszy</option> <option value="0" data-astro-cid-kywjq26w>Bez limitu</option> </select> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Format:</label> <select id="outputFormat" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <option value="table" data-astro-cid-kywjq26w>Tabela</option> <option value="json" data-astro-cid-kywjq26w>JSON</option> <option value="csv" data-astro-cid-kywjq26w>CSV</option> </select> </div> </div> </div> <!-- Execute Button --> <div class="execute-section p-4 border-t border-edge" data-astro-cid-kywjq26w> <button id="executeBtn" onclick="executeQuery()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50" data-astro-cid-kywjq26w>
+đźš€ Wykonaj Zapytanie
+</button> </div> <!-- Progress Section --> <div id="progressSection" class="progress-section hidden p-4 border-t border-edge" data-astro-cid-kywjq26w> <div class="border border-edge rounded-lg p-4" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="flex items-center justify-between mb-2" data-astro-cid-kywjq26w> <span class="text-primary-foreground" data-astro-cid-kywjq26w>Wykonywanie zapytania...</span> <span id="queryTime" class="text-cyan-400" data-astro-cid-kywjq26w>0s</span> </div> <div class="w-full bg-gray-700 rounded-full h-2" data-astro-cid-kywjq26w> <div id="progressBar" class="bg-cyan-400 h-2 rounded-full transition-all duration-300 animate-pulse" style="width: 100%" data-astro-cid-kywjq26w></div> </div> </div> </div> </div> <!-- Results Section --> <div id="resultsSection" class="results-section hidden mt-8" data-astro-cid-kywjq26w> <div class="border border-edge rounded-lg" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <!-- Results Header --> <div class="results-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);" data-astro-cid-kywjq26w> <div data-astro-cid-kywjq26w> <h3 class="text-xl font-semibold text-primary-foreground" data-astro-cid-kywjq26w>
+Wyniki zapytania
+</h3> <p id="resultsInfo" class="text-gray-400 text-sm" data-astro-cid-kywjq26w></p> </div> <div class="flex gap-2" data-astro-cid-kywjq26w> <button onclick="exportResults('csv')" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+Export CSV
+</button> <button onclick="exportResults('json')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+Export JSON
+</button> <button onclick="createChart()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm" data-astro-cid-kywjq26w>
+Wykres
+</button> </div> </div> <!-- Results Content --> <div id="resultsContent" class="results-content p-4 max-h-96 overflow-auto" data-astro-cid-kywjq26w> <!-- Results will be populated here --> </div> </div> </div> <!-- Quick Queries --> <div class="quick-queries mt-8" data-astro-cid-kywjq26w> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-kywjq26w>
+PrzykĹ‚adowe zapytania:
+</h3> <div class="grid grid-cols-1 md:grid-cols-2 gap-4" data-astro-cid-kywjq26w> <button class="quick-query-btn text-left" onclick="setQuery(exampleQueries.basic)" data-astro-cid-kywjq26w> <div class="font-semibold text-cyan-400" data-astro-cid-kywjq26w>
+đź“Š Podstawowe zapytanie
+</div> <div class="text-sm text-gray-300" data-astro-cid-kywjq26w>
+SELECT * FROM table LIMIT 100
+</div> </button> <button class="quick-query-btn text-left" onclick="setQuery(exampleQueries.aggregate)" data-astro-cid-kywjq26w> <div class="font-semibold text-cyan-400" data-astro-cid-kywjq26w>
+đź“ Agregacja danych
+</div> <div class="text-sm text-gray-300" data-astro-cid-kywjq26w>COUNT, SUM, AVG, GROUP BY</div> </button> <button class="quick-query-btn text-left" onclick="setQuery(exampleQueries.join)" data-astro-cid-kywjq26w> <div class="font-semibold text-cyan-400" data-astro-cid-kywjq26w>đź”— JOIN tabeli</div> <div class="text-sm text-gray-300" data-astro-cid-kywjq26w>LEFT JOIN, INNER JOIN</div> </button> <button class="quick-query-btn text-left" onclick="setQuery(exampleQueries.analytics)" data-astro-cid-kywjq26w> <div class="font-semibold text-cyan-400" data-astro-cid-kywjq26w>đź§® Analityka</div> <div class="text-sm text-gray-300" data-astro-cid-kywjq26w>
+Window functions, RANK, LAG
+</div> </button> </div> </div> <!-- Query History --> <div class="query-history mt-8" data-astro-cid-kywjq26w> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-kywjq26w>
+Historia zapytaĹ„:
+</h3> <div id="queryHistoryList" class="space-y-2" data-astro-cid-kywjq26w> <!-- History items will be populated here --> </div> </div> <!-- Schema Browser --> <div class="schema-browser mt-8 border border-edge rounded-lg p-6" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-kywjq26w>
+PrzeglÄ…darka schematĂłw:
+</h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-4" data-astro-cid-kywjq26w> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Projekty:</label> <div id="projectsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wczytaj projekty...</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Datasety:</label> <div id="datasetsList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz projekt</div> </div> </div> <div data-astro-cid-kywjq26w> <label class="block text-sm font-medium mb-2 text-primary-foreground" data-astro-cid-kywjq26w>Tabele:</label> <div id="tablesList" class="border border-edge rounded p-3 h-32 overflow-y-auto" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-kywjq26w> <div class="text-gray-400 text-sm" data-astro-cid-kywjq26w>Wybierz dataset</div> </div> </div> </div> </div> </div> </section> </main>  <div id="main-modal" style="display: none;" data-astro-cid-kywjq26w></div>  ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro?astro&type=script&index=0&lang.ts")}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro", void 0);
+
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/bigquery-analytics.astro";
+const $$url = "/bigquery-analytics";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$BigqueryAnalytics,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
