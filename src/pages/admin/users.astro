@@ -1,314 +1,349 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
-<<<<<<< HEAD
-const pageTitle = "ZarzÄ…dzanie uĹĽytkownikami | MyBonzo Admin";
-const pageDescription = "Panel zarzÄ…dzania kontami uĹĽytkownikĂłw MyBonzo AI";
-const pageQuote = "UĹĽytkownicy to serce kaĹĽdego systemu.";
-=======
 const pageTitle = "Zarządzanie użytkownikami | MyBonzo Admin";
 const pageDescription = "Panel zarządzania kontami użytkowników MyBonzo AI";
 const pageQuote = "Użytkownicy to serce każdego systemu.";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "MyBonzo Team";
 ---
 
-<UniversalPageLayout 
+<UniversalPageLayout
   pageTitle={pageTitle}
   pageDescription={pageDescription}
   pageQuote={pageQuote}
   pageAuthor={pageAuthor}
   showRandomQuote={false}
 >
-    <!-- Navigation -->
-<<<<<<< HEAD
-    <GlassPanel title="đź§­ Nawigacja" variant="info" padding="sm">
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <CyberpunkButton text="đźŹ  Strona gĹ‚Ăłwna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
-            <CyberpunkButton text="đź“Š Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
-            <CyberpunkButton text="đź“ Monitoring" variant="outline" size="sm" onclick="window.location.href='/admin/monitoring'" />
-=======
-    <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <CyberpunkButton text="🏠 Strona główna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
-            <CyberpunkButton text="📊 Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
-            <CyberpunkButton text="📈 Monitoring" variant="outline" size="sm" onclick="window.location.href='/admin/monitoring'" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+  <!-- Navigation -->
+  <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
+    <div
+      style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"
+    >
+      <CyberpunkButton
+        text="🏠 Strona główna"
+        variant="outline"
+        size="sm"
+        onclick="window.location.href='/admin/'"
+      />
+      <CyberpunkButton
+        text="📊 Dashboard"
+        variant="outline"
+        size="sm"
+        onclick="window.location.href='/admin/dashboard'"
+      />
+      <CyberpunkButton
+        text="📈 Monitoring"
+        variant="outline"
+        size="sm"
+        onclick="window.location.href='/admin/monitoring'"
+      />
+    </div>
+  </GlassPanel>
+
+  <!-- User Statistics -->
+  <GlassPanel
+    title="👥 Statystyki użytkowników"
+    variant="highlight"
+    padding="lg"
+  >
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;"
+    >
+      <div
+        style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"
+      >
+        <div
+          style="color: #00d9ff; font-size: 2rem; font-weight: 700;"
+          id="totalUsers"
+        >
+          1,247
         </div>
-    </GlassPanel>
-
-    <!-- User Statistics -->
-<<<<<<< HEAD
-    <GlassPanel title="đź‘Ą Statystyki uĹĽytkownikĂłw" variant="highlight" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="totalUsers">1,247</div>
-                <div style="color: rgba(255,255,255,0.7);">ĹÄ…czna liczba uĹĽytkownikĂłw</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">347</div>
-                <div style="color: rgba(255,255,255,0.7);">Aktywni uĹĽytkownicy (24h)</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="newUsers">23</div>
-                <div style="color: rgba(255,255,255,0.7);">Nowi uĹĽytkownicy (dziĹ›)</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="bannedUsers">12</div>
-                <div style="color: rgba(255,255,255,0.7);">Zablokowani uĹĽytkownicy</div>
-=======
-    <GlassPanel title="👥 Statystyki użytkowników" variant="highlight" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="totalUsers">1,247</div>
-                <div style="color: rgba(255,255,255,0.7);">Łączna liczba użytkowników</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">347</div>
-                <div style="color: rgba(255,255,255,0.7);">Aktywni użytkownicy (24h)</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="newUsers">23</div>
-                <div style="color: rgba(255,255,255,0.7);">Nowi użytkownicy (dziś)</div>
-            </div>
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="bannedUsers">12</div>
-                <div style="color: rgba(255,255,255,0.7);">Zablokowani użytkownicy</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-            </div>
+        <div style="color: rgba(255,255,255,0.7);">
+          Łączna liczba użytkowników
         </div>
-    </GlassPanel>
-
-    <!-- User Search and Filters -->
-<<<<<<< HEAD
-    <GlassPanel title="đź”Ť Wyszukiwanie uĹĽytkownikĂłw" variant="default" padding="lg">
-=======
-    <GlassPanel title="🔍 Wyszukiwanie użytkowników" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-        <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 15px; margin-bottom: 20px;">
-            <input 
-                type="text" 
-                id="userSearch" 
-                placeholder="Szukaj po nazwie, email, ID..."
-                style="padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; font-size: 16px;"
-                onkeyup="filterUsers()"
-            />
-            <select id="statusFilter" onchange="filterUsers()" style="padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;">
-                <option value="all">Wszyscy</option>
-                <option value="active">Aktywni</option>
-                <option value="inactive">Nieaktywni</option>
-                <option value="banned">Zablokowani</option>
-            </select>
-            <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź”Ť Szukaj" 
-=======
-                text="🔍 Szukaj" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-                variant="primary" 
-                size="md"
-                onclick="performSearch()"
-            />
+      </div>
+      <div
+        style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"
+      >
+        <div
+          style="color: #00d9ff; font-size: 2rem; font-weight: 700;"
+          id="activeUsers"
+        >
+          347
         </div>
-
-        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-<<<<<<< HEAD
-            <CyberpunkButton text="âž• Dodaj uĹĽytkownika" variant="success" size="sm" onclick="showAddUserModal()" />
-            <CyberpunkButton text="đź“§ WyĹ›lij email masowy" variant="outline" size="sm" onclick="showBulkEmailModal()" />
-            <CyberpunkButton text="đź“Ą Eksportuj listÄ™" variant="outline" size="sm" onclick="exportUserList()" />
-=======
-            <CyberpunkButton text="➕ Dodaj użytkownika" variant="success" size="sm" onclick="showAddUserModal()" />
-            <CyberpunkButton text="📧 Wyślij email masowy" variant="outline" size="sm" onclick="showBulkEmailModal()" />
-            <CyberpunkButton text="📥 Eksportuj listę" variant="outline" size="sm" onclick="exportUserList()" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+        <div style="color: rgba(255,255,255,0.7);">
+          Aktywni użytkownicy (24h)
         </div>
-    </GlassPanel>
-
-    <!-- Users List -->
-<<<<<<< HEAD
-    <GlassPanel title="đź“‹ Lista uĹĽytkownikĂłw" variant="default" padding="lg">
-=======
-    <GlassPanel title="📋 Lista użytkowników" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-        <div style="overflow-x: auto;">
-            <table id="usersTable" style="width: 100%; border-collapse: collapse; color: white;">
-                <thead>
-                    <tr style="background: rgba(0,217,255,0.1); border-bottom: 1px solid rgba(0,217,255,0.3);">
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">ID</th>
-<<<<<<< HEAD
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Nazwa uĹĽytkownika</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Email</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Status</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Ostatnia aktywnoĹ›Ä‡</th>
-=======
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Nazwa użytkownika</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Email</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Status</th>
-                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Ostatnia aktywność</th>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-                        <th style="padding: 12px; text-align: left;">Akcje</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <!-- Users will be loaded here -->
-                </tbody>
-            </table>
+      </div>
+      <div
+        style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"
+      >
+        <div
+          style="color: #00d9ff; font-size: 2rem; font-weight: 700;"
+          id="newUsers"
+        >
+          23
         </div>
-
-        <!-- Pagination -->
-        <div style="display: flex; justify-content: between; align-items: center; margin-top: 20px; gap: 15px;">
-            <div style="color: rgba(255,255,255,0.7);">
-                Showing <span id="currentRange">1-20</span> of <span id="totalResults">1247</span> users
-            </div>
-            <div style="display: flex; gap: 10px;">
-<<<<<<< HEAD
-                <CyberpunkButton text="â—€ Poprzednia" variant="outline" size="sm" onclick="previousPage()" />
-                <CyberpunkButton text="NastÄ™pna â–¶" variant="outline" size="sm" onclick="nextPage()" />
-=======
-                <CyberpunkButton text="◀ Poprzednia" variant="outline" size="sm" onclick="previousPage()" />
-                <CyberpunkButton text="Następna ▶" variant="outline" size="sm" onclick="nextPage()" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-            </div>
+        <div style="color: rgba(255,255,255,0.7);">Nowi użytkownicy (dziś)</div>
+      </div>
+      <div
+        style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;"
+      >
+        <div
+          style="color: #00d9ff; font-size: 2rem; font-weight: 700;"
+          id="bannedUsers"
+        >
+          12
         </div>
-    </GlassPanel>
+        <div style="color: rgba(255,255,255,0.7);">Zablokowani użytkownicy</div>
+      </div>
+    </div>
+  </GlassPanel>
 
-    <!-- Quick Actions Panel -->
-<<<<<<< HEAD
-    <GlassPanel title="âšˇ Szybkie akcje" variant="warning" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">đźš«</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Blokada masowa</h4>
-                <CyberpunkButton text="ZarzÄ…dzaj blokadami" variant="warning" size="sm" onclick="showBulkBanModal()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">đź“Š</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Analityka uĹĽytkownikĂłw</h4>
-                <CyberpunkButton text="Zobacz raporty" variant="outline" size="sm" onclick="showUserAnalytics()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">đź”„</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Resetuj hasĹ‚a</h4>
-                <CyberpunkButton text="Reset masowy" variant="warning" size="sm" onclick="showBulkPasswordReset()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">đź—‘ď¸Ź</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">UsuĹ„ nieaktywnych</h4>
-                <CyberpunkButton text="CzyĹ›Ä‡ bazÄ™" variant="danger" size="sm" onclick="showCleanupModal()" />
-=======
-    <GlassPanel title="⚡ Szybkie akcje" variant="warning" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🚫</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Blokada masowa</h4>
-                <CyberpunkButton text="Zarządzaj blokadami" variant="warning" size="sm" onclick="showBulkBanModal()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Analityka użytkowników</h4>
-                <CyberpunkButton text="Zobacz raporty" variant="outline" size="sm" onclick="showUserAnalytics()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Resetuj hasła</h4>
-                <CyberpunkButton text="Reset masowy" variant="warning" size="sm" onclick="showBulkPasswordReset()" />
-            </div>
-            <div style="text-align: center;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
-                <h4 style="color: #f59e0b; margin-bottom: 10px;">Usuń nieaktywnych</h4>
-                <CyberpunkButton text="Czyść bazę" variant="danger" size="sm" onclick="showCleanupModal()" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-            </div>
-        </div>
-    </GlassPanel>
+  <!-- User Search and Filters -->
+  <GlassPanel
+    title="🔍 Wyszukiwanie użytkowników"
+    variant="default"
+    padding="lg"
+  >
+    <div
+      style="display: grid; grid-template-columns: 1fr auto auto; gap: 15px; margin-bottom: 20px;"
+    >
+      <input
+        type="text"
+        id="userSearch"
+        placeholder="Szukaj po nazwie, email, ID..."
+        style="padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; font-size: 16px;"
+        onkeyup="filterUsers()"
+      />
+      <select
+        id="statusFilter"
+        onchange="filterUsers()"
+        style="padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;"
+      >
+        <option value="all">Wszyscy</option>
+        <option value="active">Aktywni</option>
+        <option value="inactive">Nieaktywni</option>
+        <option value="banned">Zablokowani</option>
+      </select>
+      <CyberpunkButton
+        text="🔍 Szukaj"
+        variant="primary"
+        size="md"
+        onclick="performSearch()"
+      />
+    </div>
 
-    <script>
-        let currentPage = 1;
-        let usersPerPage = 20;
-        let allUsers = [];
-        let filteredUsers = [];
+    <div
+      style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;"
+    >
+      <CyberpunkButton
+        text="➕ Dodaj użytkownika"
+        variant="success"
+        size="sm"
+        onclick="showAddUserModal()"
+      />
+      <CyberpunkButton
+        text="📧 Wyślij email masowy"
+        variant="outline"
+        size="sm"
+        onclick="showBulkEmailModal()"
+      />
+      <CyberpunkButton
+        text="📥 Eksportuj listę"
+        variant="outline"
+        size="sm"
+        onclick="exportUserList()"
+      />
+    </div>
+  </GlassPanel>
 
-<<<<<<< HEAD
-        // Generate mock user data
-        function generateMockUsers() {
-            const firstNames = ['Anna', 'Piotr', 'Katarzyna', 'Tomasz', 'Agnieszka', 'MichaĹ‚', 'Magdalena', 'PaweĹ‚', 'Joanna', 'Krzysztof'];
-            const lastNames = ['Kowalski', 'Nowak', 'WiĹ›niewski', 'DÄ…browski', 'Lewandowski', 'WĂłjcik', 'Kowalczyk', 'KamiĹ„ski', 'Lewicki', 'ZieliĹ„ski'];
-            const domains = ['gmail.com', 'yahoo.com', 'onet.pl', 'wp.pl', 'interia.pl'];
-            const statuses = ['active', 'inactive', 'banned'];
-            
-            const users = [];
-            for (let i = 1; i <= 1247; i++) {
-                const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-                const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-                const domain = domains[Math.floor(Math.random() * domains.length)];
-                const status = statuses[Math.floor(Math.random() * 100) < 85 ? 0 : Math.floor(Math.random() * 3)]; // 85% active
-                
-                users.push({
-                    id: i,
-                    username: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${i}`,
-                    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}${i}@${domain}`,
-                    status: status,
-                    lastActivity: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toLocaleDateString('pl-PL')
-                });
-            }
-            return users;
+  <!-- Users List -->
+  <GlassPanel title="📋 Lista użytkowników" variant="default" padding="lg">
+    <div style="overflow-x: auto;">
+      <table
+        id="usersTable"
+        style="width: 100%; border-collapse: collapse; color: white;"
+      >
+        <thead>
+          <tr
+            style="background: rgba(0,217,255,0.1); border-bottom: 1px solid rgba(0,217,255,0.3);"
+          >
+            <th
+              style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);"
+              >ID</th
+            >
+            <th
+              style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);"
+              >Nazwa użytkownika</th
+            >
+            <th
+              style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);"
+              >Email</th
+            >
+            <th
+              style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);"
+              >Status</th
+            >
+            <th
+              style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);"
+              >Ostatnia aktywność</th
+            >
+            <th style="padding: 12px; text-align: left;">Akcje</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <!-- Users will be loaded here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div
+      style="display: flex; justify-content: between; align-items: center; margin-top: 20px; gap: 15px;"
+    >
+      <div style="color: rgba(255,255,255,0.7);">
+        Showing <span id="currentRange">1-20</span> of <span id="totalResults"
+          >1247</span
+        > users
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <CyberpunkButton
+          text="◀ Poprzednia"
+          variant="outline"
+          size="sm"
+          onclick="previousPage()"
+        />
+        <CyberpunkButton
+          text="Następna ▶"
+          variant="outline"
+          size="sm"
+          onclick="nextPage()"
+        />
+      </div>
+    </div>
+  </GlassPanel>
+
+  <!-- Quick Actions Panel -->
+  <GlassPanel title="⚡ Szybkie akcje" variant="warning" padding="lg">
+    <div
+      style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"
+    >
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">🚫</div>
+        <h4 style="color: #f59e0b; margin-bottom: 10px;">Blokada masowa</h4>
+        <CyberpunkButton
+          text="Zarządzaj blokadami"
+          variant="warning"
+          size="sm"
+          onclick="showBulkBanModal()"
+        />
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+        <h4 style="color: #f59e0b; margin-bottom: 10px;">
+          Analityka użytkowników
+        </h4>
+        <CyberpunkButton
+          text="Zobacz raporty"
+          variant="outline"
+          size="sm"
+          onclick="showUserAnalytics()"
+        />
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+        <h4 style="color: #f59e0b; margin-bottom: 10px;">Resetuj hasła</h4>
+        <CyberpunkButton
+          text="Reset masowy"
+          variant="warning"
+          size="sm"
+          onclick="showBulkPasswordReset()"
+        />
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
+        <h4 style="color: #f59e0b; margin-bottom: 10px;">Usuń nieaktywnych</h4>
+        <CyberpunkButton
+          text="Czyść bazę"
+          variant="danger"
+          size="sm"
+          onclick="showCleanupModal()"
+        />
+      </div>
+    </div>
+  </GlassPanel>
+
+  <script>
+    let currentPage = 1;
+    let usersPerPage = 20;
+    let allUsers = [];
+    let filteredUsers = [];
+
+    // Load real user data from API
+    async function fetchRealUsers() {
+      try {
+        const response = await fetch("/api/admin/users", {
+          headers: {
+            Authorization: "Bearer HAOS77",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          return data.users || [];
+        } else {
+          throw new Error("API call failed");
         }
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+        // Fallback to minimal real data structure
+        return [
+          {
+            id: 1,
+            username: "admin",
+            email: "admin@mybonzo.com",
+            status: "active",
+            lastActivity: new Date().toLocaleDateString("pl-PL"),
+            role: "admin",
+          },
+          {
+            id: 2,
+            username: "user.demo",
+            email: "demo@mybonzo.com",
+            status: "active",
+            lastActivity: new Date().toLocaleDateString("pl-PL"),
+            role: "user",
+          },
+        ];
+      }
+    }
 
-        function loadUsers() {
-            if (allUsers.length === 0) {
-                allUsers = generateMockUsers();
-=======
-        // Load real user data from API
-        async function fetchRealUsers() {
-            try {
-                const response = await fetch('/api/admin/users', {
-                    headers: {
-                        'Authorization': 'Bearer HAOS77'
-                    }
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    return data.users || [];
-                } else {
-                    throw new Error('API call failed');
-                }
-            } catch (error) {
-                console.error('Failed to fetch users:', error);
-                // Fallback to minimal real data structure
-                return [
-                    { id: 1, username: 'admin', email: 'admin@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'admin' },
-                    { id: 2, username: 'user.demo', email: 'demo@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'user' }
-                ];
-            }
-        }
+    async function loadUsers() {
+      if (allUsers.length === 0) {
+        allUsers = await fetchRealUsers();
+      }
+      filteredUsers = [...allUsers];
+      renderUsers();
+    }
 
-        async function loadUsers() {
-            if (allUsers.length === 0) {
-                allUsers = await fetchRealUsers();
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-            }
-            filteredUsers = [...allUsers];
-            renderUsers();
-        }
+    function renderUsers() {
+      const startIndex = (currentPage - 1) * usersPerPage;
+      const endIndex = Math.min(
+        startIndex + usersPerPage,
+        filteredUsers.length
+      );
+      const usersToShow = filteredUsers.slice(startIndex, endIndex);
 
-        function renderUsers() {
-            const startIndex = (currentPage - 1) * usersPerPage;
-            const endIndex = Math.min(startIndex + usersPerPage, filteredUsers.length);
-            const usersToShow = filteredUsers.slice(startIndex, endIndex);
+      const tbody = document.getElementById("usersTableBody");
+      tbody.innerHTML = usersToShow
+        .map((user) => {
+          const statusColor = getStatusColor(user.status);
+          const statusText = getStatusText(user.status);
 
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = usersToShow.map(user => {
-                const statusColor = getStatusColor(user.status);
-                const statusText = getStatusText(user.status);
-                
-                return `
+          return `
                     <tr style="border-bottom: 1px solid rgba(0,217,255,0.1); hover: background: rgba(0,217,255,0.05);">
                         <td style="padding: 12px; border-right: 1px solid rgba(0,217,255,0.1);">#${user.id}</td>
                         <td style="padding: 12px; border-right: 1px solid rgba(0,217,255,0.1);">${user.username}</td>
@@ -319,204 +354,177 @@ const pageAuthor = "MyBonzo Team";
                         <td style="padding: 12px; border-right: 1px solid rgba(0,217,255,0.1);">${user.lastActivity}</td>
                         <td style="padding: 12px;">
                             <div style="display: flex; gap: 5px;">
-<<<<<<< HEAD
-                                <button onclick="editUser(${user.id})" style="background: #00d9ff; color: black; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">âśŹď¸Ź</button>
-                                <button onclick="deleteUser(${user.id})" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">đź—‘ď¸Ź</button>
-                                <button onclick="viewUser(${user.id})" style="background: #22c55e; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">đź‘ď¸Ź</button>
-=======
                                 <button onclick="editUser(${user.id})" style="background: #00d9ff; color: black; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">✏️</button>
                                 <button onclick="deleteUser(${user.id})" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">🗑️</button>
                                 <button onclick="viewUser(${user.id})" style="background: #22c55e; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">👁️</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                             </div>
                         </td>
                     </tr>
                 `;
-            }).join('');
+        })
+        .join("");
 
-            // Update pagination info
-            document.getElementById('currentRange').textContent = `${startIndex + 1}-${endIndex}`;
-            document.getElementById('totalResults').textContent = filteredUsers.length;
-        }
+      // Update pagination info
+      document.getElementById("currentRange").textContent =
+        `${startIndex + 1}-${endIndex}`;
+      document.getElementById("totalResults").textContent =
+        filteredUsers.length;
+    }
 
-        function getStatusColor(status) {
-            switch(status) {
-                case 'active': return '#22c55e';
-                case 'inactive': return '#f59e0b';
-                case 'banned': return '#ef4444';
-                default: return '#6b7280';
-            }
-        }
+    function getStatusColor(status) {
+      switch (status) {
+        case "active":
+          return "#22c55e";
+        case "inactive":
+          return "#f59e0b";
+        case "banned":
+          return "#ef4444";
+        default:
+          return "#6b7280";
+      }
+    }
 
-        function getStatusText(status) {
-            switch(status) {
-                case 'active': return 'Aktywny';
-                case 'inactive': return 'Nieaktywny';
-                case 'banned': return 'Zablokowany';
-                default: return 'Nieznany';
-            }
-        }
+    function getStatusText(status) {
+      switch (status) {
+        case "active":
+          return "Aktywny";
+        case "inactive":
+          return "Nieaktywny";
+        case "banned":
+          return "Zablokowany";
+        default:
+          return "Nieznany";
+      }
+    }
 
-        function filterUsers() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            const statusFilter = document.getElementById('statusFilter').value;
-            
-            filteredUsers = allUsers.filter(user => {
-                const matchesSearch = searchTerm === '' || 
-                    user.username.toLowerCase().includes(searchTerm) ||
-                    user.email.toLowerCase().includes(searchTerm) ||
-                    user.id.toString().includes(searchTerm);
-                
-                const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
-                
-                return matchesSearch && matchesStatus;
-            });
-            
-            currentPage = 1; // Reset to first page
-            renderUsers();
-        }
+    function filterUsers() {
+      const searchTerm = document
+        .getElementById("userSearch")
+        .value.toLowerCase();
+      const statusFilter = document.getElementById("statusFilter").value;
 
-        function performSearch() {
-            filterUsers();
-        }
+      filteredUsers = allUsers.filter((user) => {
+        const matchesSearch =
+          searchTerm === "" ||
+          user.username.toLowerCase().includes(searchTerm) ||
+          user.email.toLowerCase().includes(searchTerm) ||
+          user.id.toString().includes(searchTerm);
 
-        function previousPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                renderUsers();
-            }
-        }
+        const matchesStatus =
+          statusFilter === "all" || user.status === statusFilter;
 
-        function nextPage() {
-            const maxPages = Math.ceil(filteredUsers.length / usersPerPage);
-            if (currentPage < maxPages) {
-                currentPage++;
-                renderUsers();
-            }
-        }
+        return matchesSearch && matchesStatus;
+      });
 
-        // User action functions
-        function editUser(userId) {
-<<<<<<< HEAD
-            alert(`đźš§ Edytowanie uĹĽytkownika #${userId} - funkcja w przygotowaniu`);
-        }
+      currentPage = 1; // Reset to first page
+      renderUsers();
+    }
 
-        function deleteUser(userId) {
-            if (confirm(`Czy na pewno chcesz usunÄ…Ä‡ uĹĽytkownika #${userId}?`)) {
-                alert(`UĹĽytkownik #${userId} zostaĹ‚ usuniÄ™ty (symulacja)`);
-=======
-            alert(`🚧 Edytowanie użytkownika #${userId} - funkcja w przygotowaniu`);
-        }
+    function performSearch() {
+      filterUsers();
+    }
 
-        function deleteUser(userId) {
-            if (confirm(`Czy na pewno chcesz usunąć użytkownika #${userId}?`)) {
-                alert(`Użytkownik #${userId} został usunięty (symulacja)`);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-                // Here you would make API call to delete user
-            }
-        }
+    function previousPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderUsers();
+      }
+    }
 
-        function viewUser(userId) {
-<<<<<<< HEAD
-            alert(`đźš§ PrzeglÄ…danie profilu uĹĽytkownika #${userId} - funkcja w przygotowaniu`);
-        }
+    function nextPage() {
+      const maxPages = Math.ceil(filteredUsers.length / usersPerPage);
+      if (currentPage < maxPages) {
+        currentPage++;
+        renderUsers();
+      }
+    }
 
-        function showAddUserModal() {
-            alert('đźš§ Modal dodawania uĹĽytkownika w przygotowaniu...');
-        }
+    // User action functions
+    function editUser(userId) {
+      alert(`🚧 Edytowanie użytkownika #${userId} - funkcja w przygotowaniu`);
+    }
 
-        function showBulkEmailModal() {
-            alert('đźš§ System wysyĹ‚ania email masowego w przygotowaniu...');
-=======
-            alert(`🚧 Przeglądanie profilu użytkownika #${userId} - funkcja w przygotowaniu`);
-        }
+    function deleteUser(userId) {
+      if (confirm(`Czy na pewno chcesz usunąć użytkownika #${userId}?`)) {
+        alert(`Użytkownik #${userId} został usunięty (symulacja)`);
+        // Here you would make API call to delete user
+      }
+    }
 
-        function showAddUserModal() {
-            alert('🚧 Modal dodawania użytkownika w przygotowaniu...');
-        }
+    function viewUser(userId) {
+      alert(
+        `🚧 Przeglądanie profilu użytkownika #${userId} - funkcja w przygotowaniu`
+      );
+    }
 
-        function showBulkEmailModal() {
-            alert('🚧 System wysyłania email masowego w przygotowaniu...');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-        }
+    function showAddUserModal() {
+      alert("🚧 Modal dodawania użytkownika w przygotowaniu...");
+    }
 
-        function exportUserList() {
-            const csvContent = "ID,Username,Email,Status,Last Activity\\n" +
-                filteredUsers.map(user => 
-                    `${user.id},${user.username},${user.email},${user.status},${user.lastActivity}`
-                ).join("\\n");
-            
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `users-export-${new Date().toISOString().split('T')[0]}.csv`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }
+    function showBulkEmailModal() {
+      alert("🚧 System wysyłania email masowego w przygotowaniu...");
+    }
 
-        function showBulkBanModal() {
-<<<<<<< HEAD
-            alert('đźš§ System blokady masowej w przygotowaniu...');
-        }
+    function exportUserList() {
+      const csvContent =
+        "ID,Username,Email,Status,Last Activity\\n" +
+        filteredUsers
+          .map(
+            (user) =>
+              `${user.id},${user.username},${user.email},${user.status},${user.lastActivity}`
+          )
+          .join("\\n");
 
-        function showUserAnalytics() {
-            alert('đźš§ Panel analityki uĹĽytkownikĂłw w przygotowaniu...');
-        }
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `users-export-${new Date().toISOString().split("T")[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
 
-        function showBulkPasswordReset() {
-            alert('đźš§ System resetowania haseĹ‚ w przygotowaniu...');
-        }
+    function showBulkBanModal() {
+      alert("🚧 System blokady masowej w przygotowaniu...");
+    }
 
-        function showCleanupModal() {
-            if (confirm('Czy na pewno chcesz usunÄ…Ä‡ nieaktywnych uĹĽytkownikĂłw?')) {
-                alert('đźš§ Funkcja czyszczenia bazy w przygotowaniu...');
-=======
-            alert('🚧 System blokady masowej w przygotowaniu...');
-        }
+    function showUserAnalytics() {
+      alert("🚧 Panel analityki użytkowników w przygotowaniu...");
+    }
 
-        function showUserAnalytics() {
-            alert('🚧 Panel analityki użytkowników w przygotowaniu...');
-        }
+    function showBulkPasswordReset() {
+      alert("🚧 System resetowania haseł w przygotowaniu...");
+    }
 
-        function showBulkPasswordReset() {
-            alert('🚧 System resetowania haseł w przygotowaniu...');
-        }
+    function showCleanupModal() {
+      if (confirm("Czy na pewno chcesz usunąć nieaktywnych użytkowników?")) {
+        alert("🚧 Funkcja czyszczenia bazy w przygotowaniu...");
+      }
+    }
 
-        function showCleanupModal() {
-            if (confirm('Czy na pewno chcesz usunąć nieaktywnych użytkowników?')) {
-                alert('🚧 Funkcja czyszczenia bazy w przygotowaniu...');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
-            }
-        }
+    // Initialize page
+    document.addEventListener("DOMContentLoaded", function () {
+      loadUsers();
+    });
+  </script>
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            loadUsers();
-        });
-    </script>
+  <style>
+    /* Table hover effects */
+    #usersTable tbody tr:hover {
+      background: rgba(0, 217, 255, 0.05) !important;
+    }
 
-    <style>
-        /* Table hover effects */
-        #usersTable tbody tr:hover {
-            background: rgba(0,217,255,0.05) !important;
-        }
+    /* Button hover effects */
+    button:hover {
+      transform: translateY(-1px);
+    }
 
-        /* Button hover effects */
-        button:hover {
-            transform: translateY(-1px);
-        }
-
-        /* Search input focus effect */
-        #userSearch:focus {
-            border-color: #00d9ff;
-            box-shadow: 0 0 0 2px rgba(0,217,255,0.2);
-        }
-    </style>
-<<<<<<< HEAD
+    /* Search input focus effect */
+    #userSearch:focus {
+      border-color: #00d9ff;
+      box-shadow: 0 0 0 2px rgba(0, 217, 255, 0.2);
+    }
+  </style>
 </UniversalPageLayout>
-=======
-</UniversalPageLayout>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
