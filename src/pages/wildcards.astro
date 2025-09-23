@@ -1,28 +1,51 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import DecorativeLines from "../components/DecorativeLines.astro";
 ---
 
 <MyBonzoLayout
   siteTitle="Wildcards Gallery | AI Workers"
+<<<<<<< HEAD
   description="PeĹ‚na galeria wildcards do generowania obrazĂłw AI"
+=======
+  description="Pełna galeria wildcards do generowania obrazów AI"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 >
   <main class="min-h-svh cyber-grid">
     <DecorativeLines />
 
+<<<<<<< HEAD
     <!-- GĹ‚Ăłwne okno -->
     <div class="wildcards-main-window">
       <div class="wildcards-header">
         <h1>đźŽŻ WILDCARDS GALLERY</h1>
         <p>Kliknij na wildcard aby skopiowaÄ‡ prompt do schowka</p>
         <button onclick="window.close()" class="close-btn">âś• Zamknij</button>
+=======
+    <!-- Główne okno -->
+    <div class="wildcards-main-window">
+      <div class="wildcards-header">
+        <h1>🎯 WILDCARDS GALLERY</h1>
+        <p>Kliknij na wildcard aby skopiować prompt do schowka</p>
+        <button onclick="window.close()" class="close-btn">✕ Zamknij</button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
 
       <!-- Sekcje Wildcards -->
       <div class="wildcards-grid">
+<<<<<<< HEAD
         <!-- Style ArtystĂłw -->
         <div class="wildcard-section">
           <h2>đźŽ¨ Style ArtystĂłw</h2>
+=======
+        <!-- Style Artystów -->
+        <div class="wildcard-section">
+          <h2>🎨 Style Artystów</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -46,8 +69,13 @@ import DecorativeLines from "../components/DecorativeLines.astro";
             >
             <button
               class="wildcard-btn"
+<<<<<<< HEAD
               onclick="copyToClipboard('in the style of Salvador DalĂ­, surreal dreamscape')"
               >Salvador DalĂ­</button
+=======
+              onclick="copyToClipboard('in the style of Salvador Dalí, surreal dreamscape')"
+              >Salvador Dalí</button
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             >
             <button
               class="wildcard-btn"
@@ -79,7 +107,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
 
         <!-- Medium -->
         <div class="wildcard-section">
+<<<<<<< HEAD
           <h2>đź–Ľď¸Ź Medium</h2>
+=======
+          <h2>🖼️ Medium</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -119,9 +151,15 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- JakoĹ›Ä‡ -->
         <div class="wildcard-section">
           <h2>â­ JakoĹ›Ä‡</h2>
+=======
+        <!-- Jakość -->
+        <div class="wildcard-section">
+          <h2>⭐ Jakość</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -166,9 +204,15 @@ import DecorativeLines from "../components/DecorativeLines.astro";
           </div>
         </div>
 
+<<<<<<< HEAD
         <!-- NastrĂłj i OĹ›wietlenie -->
         <div class="wildcard-section">
           <h2>đźŚ NastrĂłj & ĹšwiatĹ‚o</h2>
+=======
+        <!-- Nastrój i Oświetlenie -->
+        <div class="wildcard-section">
+          <h2>🌈 Nastrój & Światło</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -215,7 +259,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
 
         <!-- Kolory -->
         <div class="wildcard-section">
+<<<<<<< HEAD
           <h2>đźŽ¨ Paleta KolorĂłw</h2>
+=======
+          <h2>🎨 Paleta Kolorów</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -262,7 +310,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
 
         <!-- Kompozycja -->
         <div class="wildcard-section">
+<<<<<<< HEAD
           <h2>đź“ Kompozycja</h2>
+=======
+          <h2>📐 Kompozycja</h2>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <div class="wildcard-buttons">
             <button
               class="wildcard-btn"
@@ -310,7 +362,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
 
       <!-- Status kopiowania -->
       <div id="copy-status" class="copy-status hidden">
+<<<<<<< HEAD
         âś… Skopiowano do schowka!
+=======
+        ✅ Skopiowano do schowka!
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
   </main>
@@ -461,7 +517,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
         await navigator.clipboard.writeText(text);
         showCopyStatus();
       } catch (err) {
+<<<<<<< HEAD
         // Fallback dla starszych przeglÄ…darek
+=======
+        // Fallback dla starszych przeglądarek
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         const textArea = document.createElement("textarea");
         textArea.value = text;
         document.body.appendChild(textArea);
@@ -480,7 +540,11 @@ import DecorativeLines from "../components/DecorativeLines.astro";
       }, 2000);
     }
 
+<<<<<<< HEAD
     // ZamkniÄ™cie na ESC
+=======
+    // Zamknięcie na ESC
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         window.close();
@@ -491,4 +555,7 @@ import DecorativeLines from "../components/DecorativeLines.astro";
     window.copyToClipboard = copyToClipboard;
   </script>
 </MyBonzoLayout>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

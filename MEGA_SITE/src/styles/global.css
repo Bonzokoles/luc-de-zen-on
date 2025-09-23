@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Global Styles */
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --gray-950: #030712;
+}
+
+/* Additional custom styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Rajdhani', system-ui, -apple-system, sans-serif;
+}
+
+/* Cyberpunk glow effects */
+.glow {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}
+
+/* Glass morphism effect */
+.bg-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Loading screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .mobile-hidden { display: none !important; }
+  .mobile-full { width: 100% !important; }
+}
+
+/* Custom fonts */
+.font-neuropol { 
+  font-family: 'Neuropol', 'Rajdhani', sans-serif; 
+}
+
+.font-steelfish { 
+  font-family: 'Steelfish', 'Rajdhani', sans-serif; 
+}

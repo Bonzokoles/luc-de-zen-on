@@ -1,10 +1,18 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const onAdmin = Astro.url.pathname.startsWith("/admin");
 ---
 
 {
   !onAdmin && (
+<<<<<<< HEAD
     <aside class="side-dock" aria-label="Panel skrĂłtĂłw">
+=======
+    <aside class="side-dock" aria-label="Panel skrótów">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       <a href="/admin/" class="dock-btn" title="Panel administracyjny">
         ADMIN
       </a>
@@ -24,6 +32,7 @@ const onAdmin = Astro.url.pathname.startsWith("/admin");
       >
         POLACZEK
       </button>
+<<<<<<< HEAD
       <button class="dock-btn dock-empty" aria-disabled="true" title="WkrĂłtce">
         â€”
       </button>
@@ -32,6 +41,16 @@ const onAdmin = Astro.url.pathname.startsWith("/admin");
       </button>
       <button class="dock-btn dock-empty" aria-disabled="true" title="WkrĂłtce">
         â€”
+=======
+      <button class="dock-btn dock-empty" aria-disabled="true" title="Wkrótce">
+        —
+      </button>
+      <button class="dock-btn dock-empty" aria-disabled="true" title="Wkrótce">
+        —
+      </button>
+      <button class="dock-btn dock-empty" aria-disabled="true" title="Wkrótce">
+        —
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </button>
     </aside>
   )
@@ -99,10 +118,17 @@ const onAdmin = Astro.url.pathname.startsWith("/admin");
 </style>
 
 <script>
+<<<<<<< HEAD
   // Bridge event to music component (if present) â€“ focuses the player
+=======
+  // Bridge event to music component (if present) – focuses the player
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   window.addEventListener("open-music", () => {
     const el = document.querySelector(".background-music-player");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Cloudflare Workers Entry Point for Astro
 // Polyfills for Cloudflare Workers compatibility
 
@@ -47,3 +48,10 @@ if (typeof process === 'undefined') {
 }
 
 // Export handler (will be dynamically imported by Astro)
+=======
+// Import polyfills first for Cloudflare compatibility
+import './worker-polyfills.js';
+
+export { renderers } from './dist/server/renderers.mjs';
+export { onRequest } from './dist/server/entry.mjs';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

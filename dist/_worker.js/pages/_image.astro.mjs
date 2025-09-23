@@ -1,4 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { i as imageConfig } from '../chunks/_astro_assets_twNce0_U.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
 
@@ -63,6 +64,11 @@ function isRemoteAllowed(src, {
   const url = new URL(src);
   return domains.some((domain) => matchHostname(url, domain)) || remotePatterns.some((remotePattern) => matchPattern(url, remotePattern));
 }
+=======
+import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_Dw0yUJJ8.mjs';
+import { i as isRemotePath } from '../chunks/path_Oj0iLohx.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 const prerender = false;
 const GET = (ctx) => {

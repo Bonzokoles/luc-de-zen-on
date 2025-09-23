@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿---
 import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../layouts/components/GlassPanel.astro";
@@ -331,3 +332,31 @@ const pageAuthor = "Peter Drucker";
         });
     </script>
 </UniversalPageLayout>
+=======
+---
+// ZENON Unified Dashboard Page
+// Bezpieczna integracja dashboardu bez naruszania istniejącej aplikacji
+import ZenonUnifiedDashboard from '../dashboard/ZenonUnifiedDashboard.astro';
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENON Unified Dashboard System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            background: #101014;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <ZenonUnifiedDashboard />
+</body>
+</html>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

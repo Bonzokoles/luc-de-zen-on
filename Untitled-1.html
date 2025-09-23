@@ -1,0 +1,361 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout title="Stable Diffusion | AI Workers">
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              STABLE_DIFF
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AI_GEN
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">STABLE DIFFUSION</h1>
+            <h2 class="text-2xl sm:text-3xl">Generator Obrazów AI</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              ← Powrót do strony głównej
+              <svg
+                style="--rotation: -45deg"
+                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stable Diffusion Section -->
+    <section
+      class="ai-workers-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="stable-diffusion"
+    >
+      <div class="section-container max-w-7xl mx-auto">
+        <h2 class="section-title">STABLE DIFFUSION</h2>
+        <p class="section-description">
+          Zaawansowany generator obrazów AI z wildcard system i tłumaczeniem polskich promptów
+        </p>
+
+        <!-- Main Layout -->
+        <div class="stable-diffusion-layout">
+          <!-- Lewa strona - Grafika i Prompt -->
+          <div class="left-panel">
+            <div class="graphics-area">
+              <div
+                class="graphics-container border border-edge rounded-lg overflow-hidden"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <div class="graphics-header border-b border-edge p-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-cyan-400 rounded-full"></div>
+                    <span class="text-primary-foreground font-semibold">Podgląd Obrazu</span>
+                  </div>
+                </div>
+                <div class="graphics-display flex items-center justify-center min-h-96" id="imageDisplay">
+                  <div class="placeholder-content text-center">
+                    <span class="text-6xl mb-4 block">🎨</span>
+                    <h3 class="text-xl font-semibold text-cyan-400 mb-2">WYGENEROWANY OBRAZ</h3>
+                    <p class="text-gray-400">Twój obraz pojawi się tutaj po generacji</p>
+                  </div>
+                  <img id="generatedImage" class="hidden w-full h-auto rounded" alt="Generated image" onclick="openImageModal()" />
+                </div>
+                <div class="graphics-footer border-t border-edge p-4 hidden" id="imageControls">
+                  <div class="flex gap-2 justify-center">
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm" onclick="downloadImage()">💾 Pobierz</button>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="shareImage()">📤 Udostępnij</button>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm" onclick="generateVariation()">🔄 Wariacja</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="prompt-area">
+              <div
+                class="prompt-container border border-edge rounded-lg"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <div class="prompt-header border-b border-edge p-4">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                      <span class="text-cyan-400 text-xl">📝</span>
+                      <span class="text-primary-foreground font-semibold">Opis Obrazu</span>
+                    </div>
+                    <div class="flex gap-2">
+                      <button
+                        onclick="enhancePrompt()"
+                        class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                        id="enhanceBtn"
+                      >
+                        ✨ Ulepsz
+                      </button>
+                      <button
+                        onclick="addWildcard()"
+                        class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded text-sm"
+                      >
+                        🎲 Wildcard
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="prompt-content p-4">
+                  <textarea
+                    id="imagePrompt"
+                    rows="4"
+                    placeholder="Opisz swój obraz szczegółowo (po polsku lub angielsku)..."
+                    class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-vertical"
+                    style="background: rgba(0, 0, 0, 0.5);"
+                  ></textarea>
+                  <div class="mt-3 flex justify-center">
+                    <button
+                      id="generateBtn"
+                      onclick="generateImage()"
+                      class="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
+                    >
+                      🎨 Generuj Obraz
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Prawa strona -->
+          <div class="right-panel">
+            <!-- Ustawienia -->
+            <div class="settings-panel">
+              <div
+                class="settings-container border border-edge rounded-lg p-4 mb-4"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <h4 class="text-primary-foreground font-semibold mb-4 flex items-center gap-2">
+                  <span class="text-cyan-400">⚙️</span> Ustawienia Generacji
+                </h4>
+                <div class="grid grid-cols-1 gap-3">
+                  <div>
+                    <label class="block text-sm font-medium mb-1 text-primary-foreground">Model:</label>
+                    <select
+                      id="imageModel"
+                      class="w-full p-2 border border-edge rounded text-primary-foreground"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    >
+                      <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+                      <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper 8 LCM</option>
+                      <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium mb-1 text-primary-foreground">Rozmiar:</label>
+                    <select
+                      id="imageSize"
+                      class="w-full p-2 border border-edge rounded text-primary-foreground"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    >
+                      <option value="512x512">512×512</option>
+                      <option value="768x512">768×512</option>
+                      <option value="512x768">512×768</option>
+                      <option value="1024x1024">1024×1024</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium mb-1 text-primary-foreground">Kroki:</label>
+                    <select
+                      id="imageSteps"
+                      class="w-full p-2 border border-edge rounded text-primary-foreground"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    >
+                      <option value="15">15</option>
+                      <option value="25" selected>25</option>
+                      <option value="50">50</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo2Photo -->
+            <div class="photo2photo-panel">
+              <div
+                class="photo2photo-container border border-edge rounded-lg p-4 mb-4"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <h4 class="text-primary-foreground font-semibold mb-4 flex items-center gap-2">
+                  <span class="text-orange-400">🔄</span> Photo to Photo
+                </h4>
+                <div class="space-y-3">
+                  <input
+                    type="file"
+                    id="photoToPhotoImage"
+                    accept="image/*"
+                    class="w-full p-2 text-sm text-primary-foreground rounded"
+                    style="background: rgba(0, 0, 0, 0.5);"
+                  />
+                  <textarea
+                    id="photoPrompt"
+                    rows="2"
+                    placeholder="Jak chcesz przekształcić obraz?"
+                    class="w-full p-2 text-sm border border-edge rounded text-primary-foreground placeholder-gray-400"
+                    style="background: rgba(0, 0, 0, 0.5);"
+                  ></textarea>
+                  <button
+                    onclick="generatePhotoToPhoto()"
+                    class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded font-medium"
+                    id="photoToPhotoBtn"
+                  >
+                    🎨 Przetwórz Obraz
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Wildcards -->
+            <div class="wildcards-panel">
+              <div
+                class="wildcards-container border border-edge rounded-lg p-4 mb-4"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <h4 class="text-primary-foreground font-semibold mb-4 flex items-center gap-2">
+                  <span class="text-purple-400">🎲</span> Wildcards
+                </h4>
+                <div class="grid grid-cols-2 gap-2">
+                  <button class="wildcard-btn" onclick="insertWildcard('{miejsce}')">🏞️ Miejsce</button>
+                  <button class="wildcard-btn" onclick="insertWildcard('{postac}')">👤 Postać</button>
+                  <button class="wildcard-btn" onclick="insertWildcard('{styl}')">🎨 Styl</button>
+                  <button class="wildcard-btn" onclick="insertWildcard('{kolor}')">🌈 Kolor</button>
+                  <button class="wildcard-btn" onclick="insertWildcard('{nastroj}')">💫 Nastrój</button>
+                  <button class="wildcard-btn" onclick="insertWildcard('{jakość}')">⭐ Jakość</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Historia -->
+            <div class="history-panel">
+              <div
+                class="history-container border border-edge rounded-lg p-4"
+                style="background: rgba(0, 0, 0, 0.5);"
+              >
+                <h4 class="text-primary-foreground font-semibold mb-4 flex items-center gap-2">
+                  <span class="text-green-400">📚</span> Historia
+                </h4>
+                <div id="historyItems" class="space-y-2 max-h-48 overflow-y-auto">
+                  <div class="text-center text-gray-400 text-sm py-4">
+                    Brak historii generacji
+                  </div>
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <button
+                    onclick="clearHistory()"
+                    class="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs"
+                  >
+                    Wyczyść
+                  </button>
+                  <button
+                    onclick="exportHistory()"
+                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs"
+                  >
+                    Eksport
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loading & Error States -->
+    <div id="loading" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+      <div class="bg-gray-900 border border-cyan-400 rounded-lg p-6 text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-4 border-cyan-400 mx-auto mb-4"></div>
+        <p class="text-cyan-400 font-semibold">Generowanie obrazu...</p>
+        <p class="text-gray-400 text-sm mt-2">To może potrwać kilka sekund</p>
+      </div>
+    </div>
+
+    <div id="errorBox" class="hidden fixed top-4 right-4 bg-red-900 border border-red-600 rounded-lg p-4 text-red-200 z-50">
+      <div class="flex items-center gap-2">
+        <span class="text-red-400">❌</span>
+        <span id="errorMessage">Błąd generacji</span>
+        <button onclick="hideError()" class="ml-2 text-red-400 hover:text-red-300">×</button>
+      </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-50" onclick="closeImageModal(event)">
+      <div class="relative max-w-5xl w-full p-4">
+        <button
+          onclick="closeImageModal()"
+          class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center text-xl z-10"
+        >×</button>
+        <img id="modalImage" class="w-full h-auto max-h-[90vh] object-contain rounded-lg" alt="Obraz w pełnej rozdzielczości" />
+        <div class="absolute bottom-4 left-4 right-4 bg-black/70 rounded-lg p-3">
+          <p id="modalPrompt" class="text-white text-sm mb-2"></p>
+          <div class="flex gap-2 justify-center">
+            <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm" onclick="downloadImageFromModal()">💾 Pobierz</button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="shareImageFromModal()">📤 Udostępnij</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <script>
+    // Stable Diffusion Enhanced Functionality
+    var generationHistory = [];
+    var wildcards = {
+      '{miejsce}': ['las', 'góry', 'miasto', 'plaża', 'pustynia', 'miasto nocą', 'kosmos', 'podwodny świat'],
+      '{postac}': ['smok', 'rycerz', 'elf', 'robot', 'czarodziej', 'księżniczka', 'wojownik', 'mag'],
+      '{styl}': ['renesansowy', 'cyberpunkowy', 'akwarelowy', 'surrealistyczny', 'steampunkowy', 'anime', 'fotorealistyczny'],
+      '{kolor}': ['żywe kolory', 'pastelowe', 'monochromatyczne', 'neonowe', 'ciepłe odcienie', 'zimne odcienie'],
+      '{nastroj}': ['mroczny', 'wesoly', 'tajemniczy', 'spokojny', 'dramatyczny', 'romantyczny', 'futurystyczny'],
+      '{jakość}': ['4K', 'ultra szczegółowe', 'profesjonalne', 'wysokiej jakości', 'realistyczne', 'artystyczne']
+    };
+
+    // Load history from localStorage
+    try {
+      generationHistory = JSON.parse(localStorage.getItem('stableDiffusionHistory') || '[]');
+      updateHistoryDisplay();
+    } catch (e) {
+      generationHistory = [];
+    }
+
+    // Enhanced prompt function with Polish translation
+    async function enhancePrompt() {
+      var promptEl = document.getElementById('imagePrompt');
+      var enhanceBtn = document.getElementById('enhanceBtn');
+      
+      if (!promptEl || !promptEl.value.trim()) {
+        showError('Najpierw wprowadź opis obraz

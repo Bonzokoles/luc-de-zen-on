@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_BDhFni3J.mjs';
 import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
@@ -84,3 +85,6 @@ const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 const page = () => _page;
 
 export { page };
+=======
+// Contents removed by Astro as it's used for prerendering only
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

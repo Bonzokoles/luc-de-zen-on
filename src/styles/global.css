@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
@@ -6,11 +7,25 @@
 @font-face {
   font-family: 'Neuropol X';
   src: url('/fonts/Neuropol X Rg.otf') format('opentype');
+=======
+/* Import Google Fonts first */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components; 
+@tailwind utilities;
+
+/* Local fonts: Neuropol for headings/uppercase, Kenyan Coffee for body */
+@font-face {
+  font-family: 'Neuropol';
+  src: url('/fonts/Neuropol.otf') format('opentype');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+<<<<<<< HEAD
 /* fledgling-sb.otf for przyciski klawiszy (button keys) */
 @font-face {
   font-family: 'Fledgling SB';
@@ -21,6 +36,8 @@
 }
 
 /* Kenyan Coffee for text content */
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 @font-face {
   font-family: 'Kenyan Coffee';
   src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
@@ -29,14 +46,28 @@
   font-display: swap;
 }
 
+<<<<<<< HEAD
 @font-face {
   font-family: 'Kenyan Coffee Bold';
+=======
+/* Bold weight for Kenyan Coffee */
+@font-face {
+  font-family: 'Kenyan Coffee';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
+<<<<<<< HEAD
+=======
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Custom theme configuration using @layer */
 @layer base {
   :root {
@@ -49,10 +80,13 @@
     --cyber-border: #333333;
     --cyber-grid: rgba(0, 255, 255, 0.1);
     
+<<<<<<< HEAD
     /* Edge colors for decorative lines */
     --edge-color: rgba(0, 217, 255, 0.2);
     --edge-border: rgba(0, 217, 255, 0.3);
     
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     /* Tailwind gray scale compatibility */
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
@@ -69,6 +103,7 @@
     /* Basic colors compatibility */
     --black: #000000;
     --white: #ffffff;
+<<<<<<< HEAD
   }
   
   /* POLSKIE FRONTY ZNAKÓW - Base configuration */
@@ -85,11 +120,33 @@
   }
 
   /* Headings and prominent uppercase use Neuropol X (big glowing headers) */
+=======
+    
+    /* Edge decorative lines */
+    --edge-color: rgba(0, 217, 255, 0.2);
+    --edge-border: rgba(0, 217, 255, 0.3);
+  }
+  
+  /* Base font configuration */
+  html {
+  font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+  }
+  
+  body {
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Headings and prominent uppercase use Neuropol */
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   h1, h2, h3, h4, h5, h6,
   .section-title,
   .worker-title,
   .widget-title,
   .dashboard-title,
+<<<<<<< HEAD
   .additional-title,
   .system-title {
     font-family: 'Neuropol X', 'Rajdhani', system-ui, sans-serif;
@@ -116,6 +173,16 @@
   .section-description, textarea, .text-area,
   blockquote, .quote, .content-text {
     font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+=======
+  .additional-title {
+    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+    letter-spacing: 0.06em;
+  }
+
+  /* Also prefer Neuropol on generic uppercase utility if present */
+  .uppercase, [class*="uppercase"] {
+    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
 }
 
@@ -128,10 +195,39 @@
       linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
   }
+<<<<<<< HEAD
   
   /* Glass effect components */
   .glass-effect {
     @apply backdrop-blur-sm bg-white/5 border border-white/10;
+=======
+
+  /* Subtle circuit-trace overlay: multiple thin 1px lines, slightly blurred, ~80% opacity */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0; /* behind page content which uses z-index > 0 */
+    /* layered, slightly different grid sizes and angles for a 'random' traces feel */
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(15deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(-20deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 120px 120px, 80px 80px, 220px 220px, 160px 160px;
+    mix-blend-mode: screen;
+    opacity: 0.8; /* overall requested transparency */
+    filter: blur(0.6px); /* soften edges so lines are not too sharp */
+    transform: translateZ(0); /* improve rendering on some browsers */
+  }
+  
+  /* Glass effect components */
+  .glass-effect {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
   
   /* Neon effects */
@@ -151,6 +247,7 @@
   .text-primary {
     color: var(--cyber-text);
   }
+<<<<<<< HEAD
   
   /* Edge decorative lines */
   .bg-edge {
@@ -162,6 +259,109 @@
     border-color: var(--edge-border);
     z-index: 1;
   }
+=======
+}
+
+/* Subtle circuit-trace overlay (three horizontal bands so traces don't cross) */
+html::before,
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: -1; /* keep behind UI */
+  opacity: 0.9; /* user requested brighter (~80% then +40% -> heavy visibility) */
+  mix-blend-mode: screen;
+  filter: blur(0.6px);
+}
+
+/* Solid white frame & cross lines: left (1) and right (2) verticals; horizontal cuts top, middle and two at bottom.
+   Placed in html::after to avoid colliding with existing band layers. */
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* bring above page background so lines are visible */
+  /* Multiple gradients: three verticals + four horizontals */
+  background-image:
+    /* Left vertical (1px) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Right vertical 1 (1px offset 0) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Right vertical 2 (1px offset 24px) */
+    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Top horizontal */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Middle horizontal */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Bottom horizontal 1 */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
+    /* Bottom horizontal 2 (24px above bottom) */
+    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px);
+
+  background-size:
+    1px 100%, /* left vertical */
+    1px 100%, /* right vertical 1 */
+    1px 100%, /* right vertical 2 */
+    100% 1px, /* top horizontal */
+    100% 1px, /* middle horizontal */
+    100% 1px, /* bottom horizontal 1 */
+    100% 1px; /* bottom horizontal 2 */
+
+  background-position:
+    left 0 top 0,
+    right 0 top 0,
+    right 24px top 0,
+    left 0 top 0,
+    left 0 center,
+    left 0 bottom 0,
+    left 0 calc(100% - 24px);
+
+  opacity: 1; /* full opacity for maximum contrast */
+  mix-blend-mode: normal; /* ensure white stays white on dark backgrounds */
+  filter: none; /* sharp lines */
+}
+
+/* Top band: mostly horizontal and short vertical turns */
+html::before {
+  top: 0;
+  height: 33vh;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 40px);
+  background-size: auto;
+}
+
+/* Middle band: diagonal traces, variable spacing */
+body::before {
+  top: 33vh;
+  height: 34vh;
+  clip-path: polygon(0 33%, 100% 33%, 100% 67%, 0 67%);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(6,182,212,0.2) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(60deg, rgba(6,182,212,0.14) 0 1px, transparent 1px 60px);
+}
+
+/* Bottom band: opposite diagonal / vertical accents */
+body::after {
+  top: 67vh;
+  height: 33vh;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  background-image:
+    repeating-linear-gradient(-45deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 48px);
+}
+
+/* Small responsive tweak so bands scale on short screens */
+@media (max-height: 600px) {
+  html::before { height: 34%; }
+  body::before { top: 34%; height: 33%; }
+  body::after { top: 67%; height: 33%; }
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 
 /* Utility classes */
@@ -307,6 +507,45 @@
   line-height: 1.5;
 }
 
+<<<<<<< HEAD
+=======
+/* Quick Stats for Status Monitor */
+.quick-stats[data-astro-cid-my52qgmw] {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 8px;
+}
+
+.stat-item[data-astro-cid-my52qgmw] {
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.stat-number[data-astro-cid-my52qgmw] {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #00d9ff;
+  margin-bottom: 0.25rem;
+}
+
+.stat-number.success[data-astro-cid-my52qgmw] {
+  color: #22c55e;
+}
+
+.stat-label[data-astro-cid-my52qgmw] {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 .worker-actions[data-astro-cid-my52qgmw] {
   display: flex;
   flex-direction: column;
@@ -506,6 +745,148 @@
   }
 }
 
+<<<<<<< HEAD
+=======
+/* Workers Status & Store Styles */
+.workers-status-list[data-astro-cid-my52qgmw] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.worker-status-item[data-astro-cid-my52qgmw] {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.worker-status-item:hover[data-astro-cid-my52qgmw] {
+  border-color: rgba(0, 217, 255, 0.5);
+  background: rgba(0, 217, 255, 0.05);
+}
+
+.worker-status-header[data-astro-cid-my52qgmw] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.worker-name[data-astro-cid-my52qgmw] {
+  font-weight: 600;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+}
+
+.status-badge[data-astro-cid-my52qgmw] {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.online[data-astro-cid-my52qgmw] {
+  background: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-badge.limited[data-astro-cid-my52qgmw] {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.status-badge.offline[data-astro-cid-my52qgmw] {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.worker-status-desc[data-astro-cid-my52qgmw] {
+  color: #a0a0a0;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.tokens-info[data-astro-cid-my52qgmw] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tokens-left[data-astro-cid-my52qgmw] {
+  font-size: 0.8rem;
+  color: #00d9ff;
+  font-weight: 500;
+}
+
+.tokens-left.warning[data-astro-cid-my52qgmw] {
+  color: #fbbf24;
+}
+
+.buy-tokens-btn[data-astro-cid-my52qgmw] {
+  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  border: none;
+  color: #000;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.buy-tokens-btn:hover[data-astro-cid-my52qgmw] {
+  background: linear-gradient(135deg, #0099cc 0%, #007799 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 217, 255, 0.3);
+}
+
+.buy-tokens-btn.premium[data-astro-cid-my52qgmw] {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #000;
+}
+
+.buy-tokens-btn.premium:hover[data-astro-cid-my52qgmw] {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 8px rgba(251, 191, 36, 0.3);
+}
+
+/* Responsive design for status cards */
+@media (max-width: 768px) {
+  .workers-status-list[data-astro-cid-my52qgmw] {
+    max-height: 300px;
+  }
+  
+  .worker-status-item[data-astro-cid-my52qgmw] {
+    padding: 0.75rem;
+  }
+  
+  .tokens-info[data-astro-cid-my52qgmw] {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .buy-tokens-btn[data-astro-cid-my52qgmw] {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Floating left nav (generic utility, if used elsewhere) */
 .floating-nav {
   position: fixed;
@@ -541,6 +922,49 @@
   border-color: #00aaff;
 }
 
+<<<<<<< HEAD
+=======
+/* Global input, textarea, select styles for all AI Workers */
+input, 
+textarea, 
+select {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid rgba(75, 85, 99, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #00d7ef !important;
+  box-shadow: 0 0 0 3px rgba(0, 215, 239, 0.2) !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Edge decorative lines classes */
+.bg-edge {
+  background-color: var(--edge-color);
+  z-index: 1;
+}
+
+.border-edge {
+  border-color: var(--edge-border);
+  z-index: 1;
+}
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Floating buttons modal styles */
 .schowek-item {
   padding: 8px 12px;

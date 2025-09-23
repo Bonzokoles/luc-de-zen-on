@@ -1,6 +1,11 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { a as addAgentToList } from '../../../../chunks/list_HzKUGT-m.mjs';
 export { r as renderers } from '../../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+=======
+import { a as addAgentToList } from '../../../../chunks/list_Be_Vk5wL.mjs';
+export { r as renderers } from '../../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 const POST = async ({ request }) => {
   try {
@@ -30,6 +35,7 @@ const POST = async ({ request }) => {
     }
     const config = await generateAgentConfig(agentData);
     const agentCode = await generateAgentCode(agentData, config);
+<<<<<<< HEAD
     const result = {
       success: true,
       files: [
@@ -46,6 +52,9 @@ const POST = async ({ request }) => {
       ],
       timestamp: (/* @__PURE__ */ new Date()).toISOString()
     };
+=======
+    const result = await createAgentFiles(name, type, config, agentCode);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const listAgent = addAgentToList({
       ...agentData,
       port: config.port,
@@ -58,8 +67,13 @@ const POST = async ({ request }) => {
       agent_name: name,
       agent_type: type,
       port: config.port,
+<<<<<<< HEAD
       config_file: result.files.find((f) => f.type === "config")?.path,
       script_file: result.files.find((f) => f.type === "agent")?.path,
+=======
+      config_file: result.configFile,
+      script_file: result.scriptFile,
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       message: `Agent ${name} created successfully and added to dashboard`,
       timestamp: (/* @__PURE__ */ new Date()).toISOString(),
       next_steps: [
@@ -698,6 +712,21 @@ if (require.main === module) {
 module.exports = ${config.name.replace(/[-_]/g, "")}Agent;
 `;
 }
+<<<<<<< HEAD
+=======
+async function createAgentFiles(name, type, config, code) {
+  const configFileName = `${name.toLowerCase()}_config.json`;
+  const scriptFileName = `${name.toLowerCase()}.${config.language === "python" ? "py" : "js"}`;
+  console.log(`[FILE CREATE] ${configFileName} - ${JSON.stringify(config).length} bytes`);
+  console.log(`[FILE CREATE] ${scriptFileName} - ${code.length} bytes`);
+  return {
+    configFile: configFileName,
+    scriptFile: scriptFileName,
+    configPath: `/agents/configs/${configFileName}`,
+    scriptPath: `/agents/scripts/${scriptFileName}`
+  };
+}
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 function generatePortFromName(name) {
   let hash = 0;
   for (let i = 0; i < name.length; i++) {

@@ -1,0 +1,490 @@
+---
+// Universal Worker Communication Popup Component
+// Uniwersalny komponent popup dla komunikacji z Workers
+---
+
+<!-- Universal Worker Communication Popup -->
+<div id="workerPopup" class="worker-popup-overlay" style="display: none;">
+  <div class="worker-popup-container">
+    <div class="worker-popup-header">
+      <h3 id="popupTitle">Worker Communication</h3>
+      <button class="popup-close" onclick="closeWorkerPopup()">✕</button>
+    </div>
+    
+    <div class="worker-popup-content">
+      <!-- Input Section -->
+      <div class="input-section">
+        <label for="workerInput">Zapytanie / Query:</label>
+        <textarea id="workerInput" placeholder="Wpisz swoją wiadomość lub zapytanie..."></textarea>
+      </div>
+      
+      <!-- Response Section -->
+      <div class="response-section">
+        <label for="workerResponse">Odpowiedź / Response:</label>
+        <div id="workerResponse" class="response-display">
+          <div class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <span>Przetwarzanie...</span>
+          </div>
+          <div class="response-content"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="worker-popup-actions">
+      <button class="btn-primary" onclick="sendWorkerQuery()">
+        <span class="btn-icon">📤</span>
+        Wyślij
+      </button>
+      <button class="btn-secondary" onclick="saveWorkerResponse()">
+        <span class="btn-icon">💾</span>
+        Zapisz
+      </button>
+      <button class="btn-secondary" onclick="addToHistory()">
+        <span class="btn-icon">➕</span>
+        Dodaj
+      </button>
+      <button class="btn-secondary" onclick="nextWorkerQuery()">
+        <span class="btn-icon">⏭️</span>
+        Dalej
+      </button>
+      <button class="btn-tertiary" onclick="closeWorkerPopup()">
+        <span class="btn-icon">🔙</span>
+        Wróć
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Universal Worker Communication Popup Styles */
+.worker-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.worker-popup-container {
+  background: rgba(20, 20, 20, 0.95);
+  border: 2px solid rgba(0, 255, 157, 0.3);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 255, 157, 0.2);
+  animation: slideIn 0.4s ease-out;
+}
+
+.worker-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 255, 157, 0.2);
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.1), rgba(0, 123, 255, 0.1));
+}
+
+.worker-popup-header h3 {
+  color: #00ff9d;
+  margin: 0;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  font-size: 1.3em;
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+}
+
+.popup-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.popup-close:hover {
+  background: rgba(255, 0, 0, 0.2);
+  transform: rotate(90deg);
+}
+
+.worker-popup-content {
+  padding: 20px;
+}
+
+.input-section, .response-section {
+  margin-bottom: 20px;
+}
+
+.input-section label, .response-section label {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+#workerInput {
+  width: 100%;
+  min-height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+#workerInput:focus {
+  outline: none;
+  border-color: #00ff9d;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#workerInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.response-display {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 255, 157, 0.2);
+  border-radius: 8px;
+  min-height: 150px;
+  padding: 15px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #00ff9d;
+  font-weight: 600;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 255, 157, 0.3);
+  border-left: 2px solid #00ff9d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.response-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.worker-popup-actions {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid rgba(0, 255, 157, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary, .btn-tertiary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00ff9d, #007bff);
+  color: #000;
+  flex: 1;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 157, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(0, 255, 157, 0.1);
+  color: #00ff9d;
+  border: 1px solid rgba(0, 255, 157, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 255, 157, 0.2);
+  border-color: #00ff9d;
+}
+
+.btn-tertiary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-tertiary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .worker-popup-container {
+    width: 95%;
+    max-height: 90vh;
+  }
+  
+  .worker-popup-actions {
+    flex-direction: column;
+  }
+  
+  .btn-primary, .btn-secondary, .btn-tertiary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+// Universal Worker Communication JavaScript Functions
+let currentWorkerType = '';
+let currentEndpoint = '';
+
+// Open popup for specific worker
+function openWorkerPopup(workerType, endpoint, title) {
+  currentWorkerType = workerType;
+  currentEndpoint = endpoint;
+  
+  const popup = document.getElementById('workerPopup');
+  const popupTitle = document.getElementById('popupTitle');
+  
+  popupTitle.textContent = title || `${workerType} Worker`;
+  popup.style.display = 'flex';
+  
+  // Clear previous content
+  document.getElementById('workerInput').value = '';
+  document.querySelector('.response-content').textContent = '';
+  
+  // Focus on input
+  setTimeout(() => {
+    document.getElementById('workerInput').focus();
+  }, 300);
+}
+
+// Close popup
+function closeWorkerPopup() {
+  const popup = document.getElementById('workerPopup');
+  popup.style.display = 'none';
+  currentWorkerType = '';
+  currentEndpoint = '';
+}
+
+// Send query to worker
+async function sendWorkerQuery() {
+  const input = document.getElementById('workerInput');
+  const responseContent = document.querySelector('.response-content');
+  const loadingIndicator = document.querySelector('.loading-indicator');
+  
+  if (!input.value.trim()) {
+    alert('Proszę wpisać zapytanie!');
+    return;
+  }
+  
+  // Show loading
+  loadingIndicator.style.display = 'flex';
+  responseContent.textContent = '';
+  
+  try {
+    const response = await fetch(currentEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: input.value,
+        type: currentWorkerType,
+        timestamp: new Date().toISOString()
+      })
+    });
+    
+    const data = await response.json();
+    
+    // Hide loading
+    loadingIndicator.style.display = 'none';
+    
+    // Display response
+    responseContent.textContent = JSON.stringify(data, null, 2);
+    
+    // Log to console for debugging
+    console.log(`${currentWorkerType} Response:`, data);
+    
+  } catch (error) {
+    // Hide loading
+    loadingIndicator.style.display = 'none';
+    
+    // Show error
+    responseContent.textContent = `Błąd: ${error.message}\n\nSprawdź połączenie z ${currentWorkerType} Worker.`;
+    
+    console.error(`${currentWorkerType} Error:`, error);
+  }
+}
+
+// Save response to localStorage
+function saveWorkerResponse() {
+  const response = document.querySelector('.response-content').textContent;
+  const input = document.getElementById('workerInput').value;
+  
+  if (!response) {
+    alert('Brak odpowiedzi do zapisania!');
+    return;
+  }
+  
+  const timestamp = new Date().toISOString();
+  const saveData = {
+    workerType: currentWorkerType,
+    query: input,
+    response: response,
+    timestamp: timestamp
+  };
+  
+  // Save to localStorage
+  const savedResponses = JSON.parse(localStorage.getItem('workerResponses') || '[]');
+  savedResponses.unshift(saveData);
+  
+  // Keep only last 100 responses
+  if (savedResponses.length > 100) {
+    savedResponses.splice(100);
+  }
+  
+  localStorage.setItem('workerResponses', JSON.stringify(savedResponses));
+  
+  alert('Odpowiedź została zapisana!');
+}
+
+// Add to history
+function addToHistory() {
+  const response = document.querySelector('.response-content').textContent;
+  const input = document.getElementById('workerInput').value;
+  
+  if (!response) {
+    alert('Brak odpowiedzi do dodania!');
+    return;
+  }
+  
+  // Add to session history
+  if (typeof window.addToWorkerHistory === 'function') {
+    window.addToWorkerHistory(currentWorkerType, input, response);
+  }
+  
+  console.log('Added to history:', { workerType: currentWorkerType, query: input, response });
+  alert('Dodano do historii!');
+}
+
+// Next query (clear current and prepare for new)
+function nextWorkerQuery() {
+  const input = document.getElementById('workerInput');
+  const responseContent = document.querySelector('.response-content');
+  
+  if (confirm('Czy chcesz przejść do nowego zapytania? Aktualna zawartość zostanie wyczyszczona.')) {
+    input.value = '';
+    responseContent.textContent = '';
+    input.focus();
+  }
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  const popup = document.getElementById('workerPopup');
+  
+  if (popup.style.display !== 'none') {
+    // Escape to close
+    if (e.key === 'Escape') {
+      closeWorkerPopup();
+    }
+    
+    // Ctrl+Enter to send
+    if (e.ctrlKey && e.key === 'Enter') {
+      sendWorkerQuery();
+    }
+    
+    // Ctrl+S to save
+    if (e.ctrlKey && e.key === 's') {
+      e.preventDefault();
+      saveWorkerResponse();
+    }
+  }
+});
+
+// Click outside to close
+document.getElementById('workerPopup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeWorkerPopup();
+  }
+});
+
+// Export functions to global scope
+window.openWorkerPopup = openWorkerPopup;
+window.closeWorkerPopup = closeWorkerPopup;
+window.sendWorkerQuery = sendWorkerQuery;
+window.saveWorkerResponse = saveWorkerResponse;
+window.addToHistory = addToHistory;
+window.nextWorkerQuery = nextWorkerQuery;
+</script>

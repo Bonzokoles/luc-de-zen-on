@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 ﻿---
 import "../styles/tailwind.css";
 import { siteTitle } from "../data/site.json";
 import { ClientRouter } from "astro:transitions";
+=======
+---
+import "../styles/tailwind.css";
+import { siteTitle } from "../data/site.json";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 interface Props {
   pageTitle: string;
@@ -61,6 +67,9 @@ const {
 <meta property="twitter:title" content={pageTitle} />
 <meta property="twitter:description" content={pageDescription} />
 <meta property="twitter:image" content={new URL(pageThumbnail, Astro.url)} />
+<<<<<<< HEAD
 
 <ClientRouter />
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

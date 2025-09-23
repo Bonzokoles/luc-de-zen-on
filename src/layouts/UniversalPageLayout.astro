@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 // 🚀 MyBonzo Universal Page Layout - Complete AI Platform Integration
 // Łączy wszystkie komponenty AI, API endpoints i funkcje biznesowe
 // Critical polyfill for React SSR on Cloudflare Workers
@@ -47,11 +48,20 @@ interface Props {
   pageTitle?: string;
   title?: string;
   description?: string;
+=======
+// Universal Page Layout for MyBonzo Admin Panel
+import SEOHead from "../components/SEO/SEOHead.astro";
+import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
+
+interface Props {
+  pageTitle: string;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   pageDescription?: string;
   pageQuote?: string;
   pageAuthor?: string;
   showRandomQuote?: boolean;
   themeColor?: string;
+<<<<<<< HEAD
   image?: string;
   article?: boolean;
   publishedTime?: string;
@@ -59,19 +69,27 @@ interface Props {
   author?: string;
   tags?: string[];
   canonicalURL?: string;
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   noindex?: boolean;
 }
 
 const {
+<<<<<<< HEAD
   siteTitle,
   pageTitle,
   title,
   description = "MyBonzo Admin Panel - Zarządzanie systemem AI",
   pageDescription,
+=======
+  pageTitle,
+  pageDescription = "MyBonzo Admin Panel - Zarządzanie systemem AI",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   pageQuote = "Zarządzanie to sztuka, kontrola to nauka.",
   pageAuthor = "MyBonzo Team",
   showRandomQuote = false,
   themeColor = "190",
+<<<<<<< HEAD
   image,
   article,
   publishedTime,
@@ -114,27 +132,71 @@ const finalDescription = pageDescription || description;
       @font-face {
         font-family: "Neuropol";
         src: url("/fonts/Neuropol.otf") format("opentype");
+=======
+  noindex = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pl" dir="ltr" style=`--themeColor: ${themeColor};`>
+  <head>
+    <SEOHead
+      siteTitle={pageTitle}
+      description={pageDescription}
+      themeColor={themeColor}
+      noindex={noindex}
+    />
+    
+    <!-- Import głównych stylów MyBonzo -->
+    <link rel="stylesheet" href="/src/styles/global.css">
+    
+    <style>
+      /* Import polskich fontów z głównej strony MyBonzo */
+      @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+      
+      @font-face {
+        font-family: 'Neuropol';
+        src: url('/fonts/Neuropol.otf') format('opentype');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
+<<<<<<< HEAD
 
       @font-face {
         font-family: "Kenyan Coffee";
         src: url("/fonts/Kenyan-Coffee-Rg-It.otf") format("opentype");
+=======
+      
+      @font-face {
+        font-family: 'Kenyan Coffee';
+        src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 400;
         font-style: italic;
         font-display: swap;
       }
+<<<<<<< HEAD
 
       @font-face {
         font-family: "Kenyan Coffee";
         src: url("/fonts/Kenyan-Coffee-Bd.otf") format("opentype");
+=======
+      
+      @font-face {
+        font-family: 'Kenyan Coffee';
+        src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 700;
         font-style: normal;
         font-display: swap;
       }
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       :root {
         /* MyBonzo cyberpunk color palette - zmniejszona intensywność neon */
         --primary-color: #00cccc;
@@ -161,7 +223,11 @@ const finalDescription = pageDescription || description;
       }
 
       body {
+<<<<<<< HEAD
         font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
+=======
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         background: #000000;
         color: var(--text-primary);
         min-height: 100vh;
@@ -171,12 +237,17 @@ const finalDescription = pageDescription || description;
 
       /* Główne tło MyBonzo z subtelnym grid pattern */
       body::before {
+<<<<<<< HEAD
         content: "";
+=======
+        content: '';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+<<<<<<< HEAD
         background-image: linear-gradient(
             rgba(255, 255, 255, 0.02) 1px,
             transparent 1px
@@ -187,6 +258,13 @@ const finalDescription = pageDescription || description;
           120px 120px,
           80px 80px,
           220px 220px;
+=======
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(15deg, rgba(0, 204, 204, 0.01) 1px, transparent 1px);
+        background-size: 120px 120px, 80px 80px, 220px 220px;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         pointer-events: none;
         z-index: -1;
         opacity: 0.6;
@@ -216,7 +294,11 @@ const finalDescription = pageDescription || description;
       }
 
       .page-title {
+<<<<<<< HEAD
         font-family: "Neuropol", "Rajdhani", system-ui, sans-serif;
+=======
+        font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-size: 2.5rem;
         font-weight: 700;
         color: var(--primary-color);
@@ -227,7 +309,11 @@ const finalDescription = pageDescription || description;
       }
 
       .page-description {
+<<<<<<< HEAD
         font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
+=======
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-size: 1.1rem;
         color: var(--text-secondary);
         margin-bottom: 20px;
@@ -235,7 +321,11 @@ const finalDescription = pageDescription || description;
       }
 
       .page-quote {
+<<<<<<< HEAD
         font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
+=======
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-style: italic;
         color: var(--secondary-color);
         font-size: 1rem;
@@ -244,12 +334,17 @@ const finalDescription = pageDescription || description;
       }
 
       /* Małe napisy zachowują polskie fonty */
+<<<<<<< HEAD
       small,
       .text-sm,
       .text-xs,
       .footnote,
       .caption {
         font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
+=======
+      small, .text-sm, .text-xs, .footnote, .caption {
+        font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 400;
       }
 
@@ -282,16 +377,24 @@ const finalDescription = pageDescription || description;
         align-items: center;
         gap: 8px;
         padding: 12px 24px;
+<<<<<<< HEAD
         font-family: "Rajdhani", system-ui, sans-serif;
+=======
+        font-family: 'Rajdhani', system-ui, sans-serif;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 600;
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+<<<<<<< HEAD
         background: linear-gradient(
           135deg,
           rgba(0, 255, 255, 0.1),
           rgba(139, 92, 246, 0.1)
         );
+=======
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(139, 92, 246, 0.1));
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         border: 1px solid var(--cyber-border);
         border-radius: 4px;
         color: var(--cyber-text);
@@ -303,29 +406,41 @@ const finalDescription = pageDescription || description;
       }
 
       .nav-button::before {
+<<<<<<< HEAD
         content: "";
+=======
+        content: '';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: absolute;
         top: 50%;
         left: 50%;
         width: 0;
         height: 0;
+<<<<<<< HEAD
         background: linear-gradient(
           45deg,
           transparent,
           var(--cyber-blue),
           transparent
         );
+=======
+        background: linear-gradient(45deg, transparent, var(--cyber-blue), transparent);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         transition: all 0.5s ease;
         transform: translate(-50%, -50%);
         z-index: -1;
       }
 
       .nav-button:hover {
+<<<<<<< HEAD
         background: linear-gradient(
           135deg,
           rgba(0, 204, 204, 0.15),
           rgba(139, 92, 246, 0.15)
         );
+=======
+        background: linear-gradient(135deg, rgba(0, 204, 204, 0.15), rgba(139, 92, 246, 0.15));
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 204, 204, 0.2);
         border-color: var(--cyber-blue);
@@ -357,28 +472,41 @@ const finalDescription = pageDescription || description;
 
       /* Header scanning animation */
       .page-header::before {
+<<<<<<< HEAD
         content: "";
+=======
+        content: '';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 2px;
+<<<<<<< HEAD
         background: linear-gradient(
           90deg,
           transparent,
           var(--cyber-blue),
           transparent
         );
+=======
+        background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         animation: scan 3s linear infinite;
       }
 
       @keyframes scan {
+<<<<<<< HEAD
         0% {
           left: -100%;
         }
         100% {
           left: 100%;
         }
+=======
+        0% { left: -100%; }
+        100% { left: 100%; }
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
 
       /* Ripple effect */
@@ -390,7 +518,11 @@ const finalDescription = pageDescription || description;
         animation: ripple 0.6s linear;
         pointer-events: none;
       }
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       @keyframes ripple {
         to {
           transform: scale(4);
@@ -403,6 +535,7 @@ const finalDescription = pageDescription || description;
         .main-container {
           padding: 15px;
         }
+<<<<<<< HEAD
 
         .page-title {
           font-size: 2rem;
@@ -412,6 +545,17 @@ const finalDescription = pageDescription || description;
           font-size: 1rem;
         }
 
+=======
+        
+        .page-title {
+          font-size: 2rem;
+        }
+        
+        .page-description {
+          font-size: 1rem;
+        }
+        
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         .navigation-footer {
           bottom: 10px;
           right: 10px;
@@ -422,6 +566,7 @@ const finalDescription = pageDescription || description;
 
     <!-- MyBonzo Interactive JavaScript -->
     <script>
+<<<<<<< HEAD
       document.addEventListener("DOMContentLoaded", function () {
         // Cyberpunk button hover effects
         const buttons = document.querySelectorAll(".nav-button");
@@ -454,11 +599,49 @@ const finalDescription = pageDescription || description;
         if (title) {
           let glitchInterval;
           title.addEventListener("mouseenter", function () {
+=======
+      document.addEventListener('DOMContentLoaded', function() {
+        // Cyberpunk button hover effects
+        const buttons = document.querySelectorAll('.nav-button');
+        buttons.forEach(button => {
+          button.addEventListener('mouseenter', function() {
+            this.style.textShadow = '0 0 5px rgba(0, 204, 204, 0.4)';
+          });
+          
+          button.addEventListener('mouseleave', function() {
+            this.style.textShadow = 'none';
+          });
+          
+          button.addEventListener('click', function(e) {
+            // Ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.height, rect.width);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            ripple.classList.add('ripple');
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+          });
+        });
+        
+        // Glitch effect for page title
+        const title = document.querySelector('.page-title');
+        if (title) {
+          let glitchInterval;
+          title.addEventListener('mouseenter', function() {
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             let counter = 0;
             glitchInterval = setInterval(() => {
               if (counter > 10) {
                 clearInterval(glitchInterval);
+<<<<<<< HEAD
                 this.style.transform = "none";
+=======
+                this.style.transform = 'none';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 return;
               }
               this.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
@@ -466,6 +649,7 @@ const finalDescription = pageDescription || description;
             }, 50);
           });
         }
+<<<<<<< HEAD
 
         // Console welcome message
         console.log(
@@ -479,6 +663,15 @@ const finalDescription = pageDescription || description;
       });
     </script>
 
+=======
+        
+        // Console welcome message
+        console.log('%c🤖 MyBonzo Admin Panel v2.0 - Cyberpunk Edition', 'color: #00ffff; font-size: 16px; font-weight: bold;');
+        console.log('%cSystem status: ONLINE ✓', 'color: #00ff00; font-size: 12px;');
+      });
+    </script>
+    
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <style>
       .ripple {
         position: absolute;
@@ -488,7 +681,11 @@ const finalDescription = pageDescription || description;
         animation: ripple 0.6s linear;
         pointer-events: none;
       }
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       @keyframes ripple {
         to {
           transform: scale(4);
@@ -500,12 +697,17 @@ const finalDescription = pageDescription || description;
 
   <body>
     <AccessibilityTools />
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <div class="main-container">
       <!-- Page Header -->
       <header class="page-header">
         <h1 class="page-title">{pageTitle}</h1>
         {pageDescription && <p class="page-description">{pageDescription}</p>}
+<<<<<<< HEAD
         {
           showRandomQuote && pageQuote && (
             <div>
@@ -514,6 +716,14 @@ const finalDescription = pageDescription || description;
             </div>
           )
         }
+=======
+        {showRandomQuote && pageQuote && (
+          <div>
+            <p class="page-quote">"{pageQuote}"</p>
+            {pageAuthor && <p class="page-author">— {pageAuthor}</p>}
+          </div>
+        )}
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </header>
 
       <!-- Main Content -->
@@ -522,6 +732,7 @@ const finalDescription = pageDescription || description;
       </main>
     </div>
 
+<<<<<<< HEAD
     <!-- Global Right Floating Panel - Available on all pages using UniversalPageLayout -->
     <div class="universal-right-panel-fixed">
       <div class="floating-widget-container">
@@ -578,6 +789,10 @@ const finalDescription = pageDescription || description;
     <footer
       style="text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid var(--border-color);"
     >
+=======
+    <!-- Footer Navigation -->
+    <footer style="text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid var(--border-color);">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       <div style="margin-bottom: 15px;">
         <a href="/admin" style="margin: 0 15px;">🏠 Admin Home</a>
         <a href="/" style="margin: 0 15px;">🌐 Main Site</a>
@@ -587,6 +802,7 @@ const finalDescription = pageDescription || description;
         MyBonzo Admin Panel © 2025
       </p>
     </footer>
+<<<<<<< HEAD
 
     <!-- Universal Floating Panels CSS and JavaScript -->
     <style>
@@ -862,5 +1078,7 @@ const finalDescription = pageDescription || description;
         });
       });
     </script>
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </body>
 </html>

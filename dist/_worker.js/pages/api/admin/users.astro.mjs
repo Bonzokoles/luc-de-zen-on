@@ -1,4 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
 
 async function GET() {
@@ -51,6 +52,68 @@ async function GET() {
       "Access-Control-Allow-Origin": "*"
     }
   });
+=======
+export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+
+async function GET({ request }) {
+  const auth = request.headers.get("authorization") || "";
+  const isAuth = auth.includes("HAOS77");
+  if (!isAuth) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  }
+  try {
+    const usersData = [
+      {
+        id: 1,
+        username: "bonzo.admin",
+        name: "Bonzo Admin",
+        email: "admin@mybonzo.com",
+        active: true,
+        role: "admin",
+        lastLogin: (/* @__PURE__ */ new Date()).toISOString()
+      },
+      {
+        id: 2,
+        username: "user.demo",
+        name: "Demo User",
+        email: "demo@mybonzo.com",
+        active: true,
+        role: "user",
+        lastLogin: new Date(Date.now() - 2 * 24 * 60 * 60 * 1e3).toISOString()
+      },
+      {
+        id: 3,
+        username: "test.account",
+        name: "Test Account",
+        email: "test@mybonzo.com",
+        active: false,
+        role: "user",
+        lastLogin: new Date(Date.now() - 7 * 24 * 60 * 60 * 1e3).toISOString()
+      }
+    ];
+    const userData = {
+      users: usersData.map((user) => ({
+        id: user.id,
+        username: user.username || user.name,
+        email: user.email,
+        status: user.active ? "active" : "inactive",
+        role: user.role,
+        lastActivity: new Date(user.lastLogin).toLocaleDateString("pl-PL")
+      })),
+      totalCount: usersData.length,
+      activeCount: usersData.filter((u) => u.active).length,
+      timestamp: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    return new Response(JSON.stringify(userData), {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
+  }
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 async function POST({ request }) {
   try {

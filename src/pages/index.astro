@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 import RandomQuote from "../components/RandomQuote.astro";
@@ -9,12 +13,45 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
+<<<<<<< HEAD
 import QuickVoiceAI from "../components/QuickVoiceAI.astro";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerFixed from "../components/BackgroundMusicPlayerFixed.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.svelte";
 // import { Icon } from "astro-icon/components";
+=======
+import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
+import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
+import DecorativeLines from "../components/DecorativeLines.astro";
+import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
+// Heroicons React components
+import { 
+  MusicalNoteIcon,
+  CpuChipIcon,
+  SparklesIcon,
+  EyeIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  BoltIcon,
+  PaintBrushIcon,
+  BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowPathIcon,
+  FolderIcon,
+  XMarkIcon,
+  ArchiveBoxIcon,
+  CalendarDaysIcon,
+  WrenchScrewdriverIcon,
+  FolderPlusIcon,
+  ListBulletIcon,
+  BookOpenIcon,
+  StarIcon,
+  RocketLaunchIcon
+} from '@heroicons/react/24/outline';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
@@ -92,10 +129,17 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
                 hyphens: auto;
               "
             >
+<<<<<<< HEAD
               Pasjonat technologii i programista z misj�.<br />
               Tworz� nowoczesne rozwi�zania, kt�re ��cz�<br />
               sztuczn� inteligencj� z automatyzacj�.<br />
               Moim celem jest budowanie u�ytecznych narz�dzi.
+=======
+              Pasjonat technologii i programista z misją.<br />
+              Tworzę nowoczesne rozwiązania, które łączą<br />
+              sztuczną inteligencję z automatyzacją.<br />
+              Moim celem jest budowanie użytecznych narzędzi.
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
           </div>
           <span class="mt-auto">
@@ -247,7 +291,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
+<<<<<<< HEAD
           class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+=======
+t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         >
         </div>
         <div
@@ -271,7 +319,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
 
     <!-- AI Workers Section - Centered -->
     <section
+<<<<<<< HEAD
       class="border border-edge ai-workers-section flex items-center justify-center py-16 relative z-[1]"
+=======
+      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       id="ai-workers"
     >
       <div class="absolute left-0 right-0 h-full">
@@ -334,7 +386,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
         {
           /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
         }
+<<<<<<< HEAD
         <QuickVoiceAI />
+=======
+        <QuickVoiceAI client:load />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
         {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
         {
@@ -376,7 +432,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             style="position:absolute; left:0; right:0; bottom:0; height:1px; background:#ffffff;"
           >
           </div>
+<<<<<<< HEAD
 
+=======
+          
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- Music Visualizer - Two waves: Music Player and Mic -->
           <div
             style="
@@ -389,7 +449,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             "
           >
             <!-- Back layer: reacts to Music Player, same height but wave 3% taller -->
+<<<<<<< HEAD
             <div
+=======
+            <div 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -409,9 +473,15 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
                 variant="music"
               />
             </div>
+<<<<<<< HEAD
 
             <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
             <div
+=======
+            
+            <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
+            <div 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -431,9 +501,15 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
                 variant="music"
               />
             </div>
+<<<<<<< HEAD
 
             <!-- Front layer: reacts to Avatar (mic) -->
             <div
+=======
+            
+            <!-- Front layer: reacts to Avatar (mic) -->
+            <div 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               style="
                 position:absolute; 
                 left: 50%; 
@@ -453,6 +529,7 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
               />
             </div>
           </div>
+<<<<<<< HEAD
 
           <!-- Optimized Script - Single Audio Context -->
           <script>
@@ -517,11 +594,94 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
               { once: true }
             );
           </script>
+=======
+        
+        <!-- Script to connect music player with visualizer -->
+        <script>
+          // Global audio context management to prevent multiple instances
+          let globalAudioContext = null;
+          let audioContextInitialized = false;
+          
+          function getOrCreateAudioContext() {
+            if (!globalAudioContext && typeof window !== 'undefined') {
+              try {
+                globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+                window.GLOBAL_AUDIO_CONTEXT = globalAudioContext;
+                console.log('🎵 Global AudioContext created');
+              } catch (e) {
+                console.warn('🚫 AudioContext creation failed:', e.message);
+                return null;
+              }
+            }
+            return globalAudioContext;
+          }
+          
+          // Ensure music player analyser is available for visualizer
+          function connectMusicToVisualizer() {
+            if (audioContextInitialized || typeof window === 'undefined') return;
+            
+            try {
+              const audioContext = getOrCreateAudioContext();
+              if (!audioContext) return;
+              
+              const musicElement = document.querySelector('audio');
+              
+              if (musicElement && !window.MUSIC_ANALYSER && window.MUSIC) {
+                // Check if element already has audio context connection
+                if (musicElement._audioContextConnected) {
+                  console.log('🎵 Music element already connected to AudioContext');
+                  return;
+                }
+                
+                const analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                
+                const source = audioContext.createMediaElementSource(musicElement);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+                
+                // Mark as connected to prevent duplicate connections
+                musicElement._audioContextConnected = true;
+                
+                window.MUSIC_ANALYSER = analyser;
+                window.dispatchEvent(new CustomEvent('music-analyser-ready'));
+                console.log('🎵 Music visualizer connected to player');
+                audioContextInitialized = true;
+              }
+            } catch (e) {
+              console.warn('🚫 Failed to connect music visualizer:', e.message);
+            }
+            
+            // Retry connection only if not initialized yet
+            if (!audioContextInitialized) {
+              setTimeout(connectMusicToVisualizer, 2000);
+            }
+          }
+          
+          // Start connection attempts with delay
+          document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(connectMusicToVisualizer, 1000);
+          });
+          
+          // Fix audio issue - ensure audio context is resumed on user interaction
+          document.addEventListener('click', function resumeAudio() {
+            const audioContext = getOrCreateAudioContext();
+            if (audioContext && audioContext.state === 'suspended') {
+              audioContext.resume().then(() => {
+                console.log('🎵 Audio context resumed on user interaction');
+              }).catch(e => {
+                console.warn('🚫 Failed to resume audio context:', e.message);
+              });
+            }
+          }, { once: true });
+        </script>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
 
         <!-- Dashboard Buttons Section (only buttons after login) -->
         <div class="dashboard-buttons-section hidden" id="dashboardButtons">
           <a
+<<<<<<< HEAD
             href="/dashboard/klienci"
             class="dashboard-btn"
             data-astro-cid-my52qgmw>KLIENCI_DSH_BON</a
@@ -535,6 +695,21 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             href="/dashboard/prywatne"
             class="dashboard-btn"
             data-astro-cid-my52qgmw>PRIV_STAFF</a
+=======
+            href="/admin/"
+            class="dashboard-btn"
+            data-astro-cid-my52qgmw>ADMIN PANEL</a
+          >
+          <a
+            href="/dashboard"
+            class="dashboard-btn"
+            data-astro-cid-my52qgmw>DASHBOARD</a
+          >
+          <a
+            href="/admin/ai-models"
+            class="dashboard-btn"
+            data-astro-cid-my52qgmw>AI MODELS</a
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           >
         </div>
 
@@ -740,7 +915,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
               />
               <button
                 class="action-btn primary"
+<<<<<<< HEAD
                 onclick="openBigQuery()"
+=======
+                onclick="openBigQueryPopup()"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 data-astro-cid-my52qgmw>Analizuj</button
               >
               <button
@@ -778,7 +957,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
               />
               <button
                 class="action-btn primary"
+<<<<<<< HEAD
                 onclick="openKaggle()"
+=======
+                onclick="openKagglePopup()"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 data-astro-cid-my52qgmw>Wyszukaj</button
               >
               <button
@@ -825,6 +1008,43 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             </div>
           </div>
 
+<<<<<<< HEAD
+=======
+          <!-- Voice AI Worker -->
+          <div class="worker-card" data-worker="voice-ai" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              🎤 Voice AI Assistant
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Transkrypcja, synteza mowy i przetwarzanie komend głosowych
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Speech-to-Text</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Text-to-Speech</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Voice Commands</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <input
+                type="text"
+                placeholder="tekst do syntezy..."
+                class="quick-prompt"
+                id="voiceAiPrompt"
+                data-astro-cid-my52qgmw
+              />
+              <button
+                class="action-btn primary"
+                onclick="openVoiceAIPopup()"
+                data-astro-cid-my52qgmw>🎤 Nagrywaj</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="quickSynthesize()"
+                data-astro-cid-my52qgmw>🔊 Synteza</button
+              >
+            </div>
+          </div>
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- STATUS WORKERS - Basic Opening Element -->
           <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>
@@ -916,6 +1136,7 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             </div>
           </div>
 
+<<<<<<< HEAD
           <!-- Content Creator Agent -->
           <div class="worker-card" data-worker="content-creator" data-astro-cid-my52qgmw>
             <h3 class="worker-title" data-astro-cid-my52qgmw>Content Creator Agent</h3>
@@ -1024,6 +1245,8 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
             </div>
           </div>
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <!-- Activepieces Card -->
           <div
             class="worker-card"
@@ -1185,7 +1408,11 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
               onclick="openFunction('quizy')"
               data-astro-cid-my52qgmw
             >
+<<<<<<< HEAD
               <div class="feature-icon" data-astro-cid-my52qgmw>�</div>
+=======
+              <div class="feature-icon" data-astro-cid-my52qgmw>🧠</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <div class="feature-title" data-astro-cid-my52qgmw>
                 Quizy i testy interaktywne
               </div>
@@ -1224,10 +1451,17 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
         class="right-btn"
         id="musicPlayerBtn"
       >
+<<<<<<< HEAD
         <Icon name="lucide:music" /> MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
         <BackgroundMusicPlayerFixed client:load />
+=======
+        <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
+      </button>
+      <div id="musicPlayerWidget" class="floating-widget">
+        <BackgroundMusicPlayerSimple client:load />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
 
@@ -1238,13 +1472,20 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
+<<<<<<< HEAD
         <Icon name="lucide:bot" /> AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget hidden">
+=======
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
+      </button>
+      <div id="polaczekWidget" class="floating-widget">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <AiHelpAssistant client:load />
       </div>
     </div>
 
+<<<<<<< HEAD
     <button onclick="openMainChat()" class="right-btn">
       <Icon name="lucide:message-circle" /> MAIN CHAT
     </button>
@@ -1322,24 +1563,441 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
     >
       <Icon name="lucide:rocket" /> ZAPAS 3
     </button>
+=======
+    <div class="floating-widget-container">
+      <button 
+        onclick="toggleGlobalVoice()"
+        class="right-btn"
+        id="globalVoiceBtn"
+        title="Globalny system Voice - Włącz/wyłącz wszystkie agenty Voice"
+        style="background: linear-gradient(45deg, #ff4444, #0f3846);"
+      >
+        🎤 VOICE OFF
+      </button>
+      
+      <!-- DEBUG/TEST BUTTONS for Voice System -->
+      <div style="margin-top: 5px; display: flex; gap: 3px; flex-wrap: wrap;">
+        <button 
+          onclick="emergencyStopAll()"
+          title="Awaryjne zatrzymanie wszystkich systemów"
+          style="background: #ff0000; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🚨 STOP
+        </button>
+        
+        <button 
+          onclick="resetSystem()"
+          title="Reset całego systemu Voice"
+          style="background: #ffa500; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🔄 RESET
+        </button>
+        
+        <button 
+          onclick="testAllFunctions()"
+          title="Test dostępności wszystkich funkcji"
+          style="background: #0088ff; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          🧪 TEST
+        </button>
+        
+        <button 
+          onclick="debugVoiceStatus()"
+          title="Wyświetl status wszystkich systemów Voice"
+          style="background: #00ff88; border: none; padding: 3px 6px; border-radius: 3px; color: white; cursor: pointer; font-size: 10px; font-weight: bold;"
+        >
+          📊 DEBUG
+        </button>
+      </div>
+    </div>
+
+    <!-- Google Agent Widgets - Same structure as Music Player -->
+    <div class="floating-widget-container">
+      <button onclick="toggleGeminiPro()" class="right-btn" id="geminiProBtn" title="Gemini Pro - Zaawansowany model językowy">
+        <SparklesIcon className="w-6 h-6 inline mr-2" /> GEMINI PRO
+      </button>
+      <div id="geminiProWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>✨ GEMINI PRO</span>
+            <button onclick="toggleGeminiPro()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Gemini Pro -->
+            <div style="background: rgba(27, 225, 255, 0.1); border: 1px solid #1be1ff; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #1be1ff; font-weight: bold;">🎤 VOICE GEMINI PRO</span>
+                <button onclick="toggleGeminiProVoice()" id="geminiProVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 5px 10px; border-radius: 4px; color: #1be1ff; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startGeminiProVoice()" style="background: linear-gradient(45deg, #00ff88, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopGeminiProVoice()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="geminiProVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #1be1ff; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Otwórz muzykę", "Uruchom asystenta", "Zamknij wszystko"
+              </div>
+            </div>
+            
+            <textarea id="geminiProInput" placeholder="Wpisz swoją wiadomość do Gemini Pro..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #1be1ff; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToGeminiPro()" style="background: linear-gradient(45deg, #1be1ff, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearGeminiPro()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 10px 20px; border-radius: 4px; color: #1be1ff; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="geminiProResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button onclick="toggleGeminiVision()" class="right-btn" id="geminiVisionBtn" title="Gemini Vision - Analiza obrazów i wizji">
+        <EyeIcon className="w-6 h-6 inline mr-2" /> GEMINI VISION
+      </button>
+      <div id="geminiVisionWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>👁️ GEMINI VISION</span>
+            <button onclick="toggleGeminiVision()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Gemini Vision -->
+            <div style="background: rgba(27, 225, 255, 0.1); border: 1px solid #1be1ff; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #1be1ff; font-weight: bold;">🎤 VOICE GEMINI VISION</span>
+                <button onclick="toggleGeminiVisionVoice()" id="geminiVisionVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 5px 10px; border-radius: 4px; color: #1be1ff; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startGeminiVisionVoice()" style="background: linear-gradient(45deg, #00ff88, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopGeminiVisionVoice()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="geminiVisionVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #1be1ff; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Opisz obraz", "Analizuj zdjęcie", "Co widzisz na ekranie"
+              </div>
+            </div>
+            
+            <textarea id="geminiVisionInput" placeholder="Wpisz swoją wiadomość do Gemini Vision..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #1be1ff; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToGeminiVision()" style="background: linear-gradient(45deg, #1be1ff, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearGeminiVision()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 10px 20px; border-radius: 4px; color: #1be1ff; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="geminiVisionResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button onclick="toggleCodeBison()" class="right-btn" id="codeBisonBtn" title="Code Bison - Asystent programowania">
+        <CodeBracketIcon className="w-6 h-6 inline mr-2" /> CODE BISON
+      </button>
+      <div id="codeBisonWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>💻 CODE BISON</span>
+            <button onclick="toggleCodeBison()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Code Bison -->
+            <div style="background: rgba(27, 225, 255, 0.1); border: 1px solid #1be1ff; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #1be1ff; font-weight: bold;">🎤 VOICE CODE BISON</span>
+                <button onclick="toggleCodeBisonVoice()" id="codeBisonVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 5px 10px; border-radius: 4px; color: #1be1ff; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startCodeBisonVoice()" style="background: linear-gradient(45deg, #00ff88, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopCodeBisonVoice()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="codeBisonVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #1be1ff; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Napisz funkcję JavaScript", "Debug ten kod", "Refaktoruj ten algorytm"
+              </div>
+            </div>
+            
+            <textarea id="codeBisonInput" placeholder="Wpisz swoje pytanie programistyczne..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #1be1ff; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToCodeBison()" style="background: linear-gradient(45deg, #1be1ff, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearCodeBison()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 10px 20px; border-radius: 4px; color: #1be1ff; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="codeBisonResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button onclick="toggleTextBison()" class="right-btn" id="textBisonBtn" title="Text Bison - Generowanie tekstu">
+        <DocumentTextIcon className="w-6 h-6 inline mr-2" /> TEXT BISON
+      </button>
+      <div id="textBisonWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>📝 TEXT BISON</span>
+            <button onclick="toggleTextBison()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Text Bison -->
+            <div style="background: rgba(27, 225, 255, 0.1); border: 1px solid #1be1ff; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #1be1ff; font-weight: bold;">🎤 VOICE TEXT BISON</span>
+                <button onclick="toggleTextBisonVoice()" id="textBisonVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 5px 10px; border-radius: 4px; color: #1be1ff; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startTextBisonVoice()" style="background: linear-gradient(45deg, #00ff88, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopTextBisonVoice()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="textBisonVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #1be1ff; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Napisz artykuł o AI", "Stwórz opis produktu", "Generuj treść marketingową"
+              </div>
+            </div>
+            
+            <textarea id="textBisonInput" placeholder="Wpisz tekst do wygenerowania..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #1be1ff; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToTextBison()" style="background: linear-gradient(45deg, #1be1ff, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearTextBison()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1be1ff; padding: 10px 20px; border-radius: 4px; color: #1be1ff; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="textBisonResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google Bard Agent -->
+    <div class="floating-widget-container">
+      <button onclick="toggleGoogleBard()" class="right-btn" id="googleBardBtn" title="Google Bard - Zaawansowany AI Chat">
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> GOOGLE BARD
+      </button>
+      <div id="googleBardWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🧠 GOOGLE BARD</span>
+            <button onclick="toggleGoogleBard()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Google Bard -->
+            <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #ffc107; font-weight: bold;">🎤 VOICE BARD</span>
+                <button onclick="toggleBardVoice()" id="bardVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #ffc107; padding: 5px 10px; border-radius: 4px; color: #ffc107; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startBardVoice()" style="background: linear-gradient(45deg, #ffc107, #ff8f00); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopBardVoice()" style="background: linear-gradient(45deg, #ff4444, #cc0000); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="bardVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #ffc107; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Co wiesz o AI?", "Pomóż mi w projekcie", "Wytłumacz koncepcję"
+              </div>
+            </div>
+            
+            <textarea id="googleBardInput" placeholder="Zapytaj Google Bard o cokolwiek..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ffc107; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToGoogleBard()" style="background: linear-gradient(45deg, #ffc107, #ff8f00); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearGoogleBard()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #ffc107; padding: 10px 20px; border-radius: 4px; color: #ffc107; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="googleBardResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PaLM API Agent -->
+    <div class="floating-widget-container">
+      <button onclick="togglePaLMAPI()" class="right-btn" id="palmAPIBtn" title="PaLM API - Google's Large Language Model">
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> PALM API
+      </button>
+      <div id="palmAPIWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🌴 PALM API</span>
+            <button onclick="togglePaLMAPI()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla PaLM API -->
+            <div style="background: rgba(76, 175, 80, 0.1); border: 1px solid #4caf50; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #4caf50; font-weight: bold;">🎤 VOICE PALM</span>
+                <button onclick="togglePaLMVoice()" id="palmVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #4caf50; padding: 5px 10px; border-radius: 4px; color: #4caf50; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startPaLMVoice()" style="background: linear-gradient(45deg, #4caf50, #388e3c); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopPaLMVoice()" style="background: linear-gradient(45deg, #ff4444, #cc0000); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="palmVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #4caf50; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Analizuj dane", "Przetwórz informacje", "Generuj odpowiedź"
+              </div>
+            </div>
+            
+            <textarea id="palmAPIInput" placeholder="Wprowadź zapytanie do PaLM API..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #4caf50; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToPaLMAPI()" style="background: linear-gradient(45deg, #4caf50, #388e3c); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearPaLMAPI()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #4caf50; padding: 10px 20px; border-radius: 4px; color: #4caf50; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="palmAPIResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertex AI Agent -->
+    <div class="floating-widget-container">
+      <button onclick="toggleVertexAI()" class="right-btn" id="vertexAIBtn" title="Vertex AI - Google Cloud AI Platform">
+        <BoltIcon className="w-6 h-6 inline mr-2" /> VERTEX AI
+      </button>
+      <div id="vertexAIWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>⚡ VERTEX AI</span>
+            <button onclick="toggleVertexAI()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Vertex AI -->
+            <div style="background: rgba(156, 39, 176, 0.1); border: 1px solid #9c27b0; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #9c27b0; font-weight: bold;">🎤 VOICE VERTEX</span>
+                <button onclick="toggleVertexVoice()" id="vertexVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #9c27b0; padding: 5px 10px; border-radius: 4px; color: #9c27b0; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startVertexVoice()" style="background: linear-gradient(45deg, #9c27b0, #7b1fa2); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopVertexVoice()" style="background: linear-gradient(45deg, #ff4444, #cc0000); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="vertexVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #9c27b0; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Przeprowadź analizę ML", "Trenuj model", "Predykcje biznesowe"
+              </div>
+            </div>
+            
+            <textarea id="vertexAIInput" placeholder="Użyj Vertex AI do zaawansowanych zadań..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #9c27b0; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToVertexAI()" style="background: linear-gradient(45deg, #9c27b0, #7b1fa2); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearVertexAI()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #9c27b0; padding: 10px 20px; border-radius: 4px; color: #9c27b0; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="vertexAIResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google AI Studio Agent -->
+    <div class="floating-widget-container">
+      <button onclick="toggleAIStudio()" class="right-btn" id="aiStudioBtn" title="AI Studio - Google's AI Development Platform">
+        <PaintBrushIcon className="w-6 h-6 inline mr-2" /> AI STUDIO
+      </button>
+      <div id="aiStudioWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🎨 AI STUDIO</span>
+            <button onclick="toggleAIStudio()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla AI Studio -->
+            <div style="background: rgba(255, 87, 34, 0.1); border: 1px solid #ff5722; border-radius: 4px; padding: 10px; margin-bottom: 15px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="color: #ff5722; font-weight: bold;">🎤 VOICE STUDIO</span>
+                <button onclick="toggleAIStudioVoice()" id="aiStudioVoiceBtn" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #ff5722; padding: 5px 10px; border-radius: 4px; color: #ff5722; cursor: pointer; font-size: 12px;">Rozłączony</button>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="startAIStudioVoice()" style="background: linear-gradient(45deg, #ff5722, #e64a19); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">▶ Słuchaj</button>
+                <button onclick="stopAIStudioVoice()" style="background: linear-gradient(45deg, #ff4444, #cc0000); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; font-size: 12px;">⏹ Stop</button>
+                <select id="aiStudioVoiceSelect" style="background: rgba(0, 0, 0, 0.7); border: 1px solid #ff5722; padding: 5px; border-radius: 4px; color: white; font-size: 12px;">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div style="font-size: 11px; color: #aaa; margin-top: 8px;">
+                Przykłady: "Zaprojektuj model AI", "Przetestuj algorytm", "Optymalizuj wydajność"
+              </div>
+            </div>
+            
+            <textarea id="aiStudioInput" placeholder="Pracuj z AI Studio nad projektami..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ff5722; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 15px;">
+              <button onclick="sendToAIStudio()" style="background: linear-gradient(45deg, #ff5722, #e64a19); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearAIStudio()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #ff5722; padding: 10px 20px; border-radius: 4px; color: #ff5722; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="aiStudioResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button onclick="openBusinessAssistant()" class="right-btn" title="Business Assistant - Wsparcie biznesowe">
+      <BriefcaseIcon className="w-6 h-6 inline mr-2" /> BUSINESS
+    </button>
+
+    <button onclick="openMainChat()" class="right-btn"> <ChatBubbleLeftRightIcon className="w-6 h-6 inline mr-2" /> MAIN CHAT </button>
+    <button onclick="openRefresh()" class="right-btn"> <ArrowPathIcon className="w-6 h-6 inline mr-2" /> REFRESH </button>
+    <button onclick="openFolder()" class="right-btn"> <FolderIcon className="w-6 h-6 inline mr-2" /> FOLDER </button>
+    <button onclick="openClose()" class="right-btn"> <XMarkIcon className="w-6 h-6 inline mr-2" /> CLOSE </button>
+    
+    <!-- New Floating Buttons - Extended Set -->
+    <button onclick="openSchowek()" class="right-btn" title="Schowek - Zbieranie informacji z różnych stron"> <ArchiveBoxIcon className="w-6 h-6 inline mr-2" /> SCHOWEK </button>
+    <button onclick="openKalendarz()" class="right-btn" title="Kalendarz - Organizacja zadań i terminów"> <CalendarDaysIcon className="w-6 h-6 inline mr-2" /> KALENDARZ </button>
+    <button onclick="openDodatki()" class="right-btn" title="Dodatki - Narzędzia pomocnicze"> <WrenchScrewdriverIcon className="w-6 h-6 inline mr-2" /> DODATKI </button>
+    <button onclick="openFolder2()" class="right-btn" title="Folder 2 - Dodatkowy organizer plików"> <FolderPlusIcon className="w-6 h-6 inline mr-2" /> FOLDER 2 </button>
+    <button onclick="openKatalogStron()" class="right-btn" title="Katalog Stron - Nawigacja po wszystkich funkcjach"> <ListBulletIcon className="w-6 h-6 inline mr-2" /> KATALOG </button>
+    <button onclick="openInstrukcje()" class="right-btn" title="Instrukcje - Pomoc i przewodniki"> <BookOpenIcon className="w-6 h-6 inline mr-2" /> INSTRUKCJE </button>
+    <button onclick="openZapas1()" class="right-btn" title="Zapas 1 - Funkcja do przyszłego wykorzystania"> <StarIcon className="w-6 h-6 inline mr-2" /> ZAPAS 1 </button>
+    <button onclick="openZapas2()" class="right-btn" title="Zapas 2 - Funkcja do przyszłego wykorzystania"> <BoltIcon className="w-6 h-6 inline mr-2" /> ZAPAS 2 </button>
+    <button onclick="openZapas3()" class="right-btn" title="Zapas 3 - Funkcja do przyszłego wykorzystania"> <RocketLaunchIcon className="w-6 h-6 inline mr-2" /> ZAPAS 3 </button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </div>
 
   <!-- Separator Section 4 -->
   <section class="border border-edge relative z-[1]">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
+<<<<<<< HEAD
       <div
         class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
+=======
+      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
       </div>
       <!-- Outer vertical lines -->
+<<<<<<< HEAD
       <div
         class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
+=======
+      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
@@ -1355,18 +2013,26 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
   <section class="border border-edge relative z-[1]">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
+<<<<<<< HEAD
       <div
         class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
+=======
+      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
       </div>
       <!-- Outer vertical lines -->
+<<<<<<< HEAD
       <div
         class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
       >
+=======
+      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
       <div
         class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
@@ -1449,6 +2115,2875 @@ import OpenRouterFloatingButtons from "../components/OpenRouterFloatingButtons.s
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- OpenRouter Floating AI Buttons -->
   <OpenRouterFloatingButtons client:load />
 </MyBonzoLayout>
+=======
+  <!-- Universal Worker Communication Popup -->
+  <WorkerCommunicationPopup />
+</MyBonzoLayout>
+
+<!-- JavaScript Functions -->
+<script>
+  // Initialize window properties
+  (window as any).apiTests = (window as any).apiTests || {};
+  (window as any).openImageGenerator =
+    (window as any).openImageGenerator || function () {};
+  (window as any).openChatbot = (window as any).openChatbot || function () {};
+  (window as any).openBigQuery = (window as any).openBigQuery || function () {};
+  (window as any).openKaggle = (window as any).openKaggle || function () {};
+  (window as any).openTavily = (window as any).openTavily || function () {};
+  (window as any).testButtonFunction =
+    (window as any).testButtonFunction || function () {};
+  (window as any).checkDashboardLogin =
+    (window as any).checkDashboardLogin || function () {};
+
+  // Init when page loads
+  window.addEventListener("DOMContentLoaded", async () => {
+    console.log("Loading API test functions...");
+    try {
+      const module = await import("../utils/apiTests.ts");
+      window.apiTests = module;
+      console.log(
+        "API Tests module loaded, available functions:",
+        Object.keys(module)
+      );
+    } catch (error) {
+      console.log("Failed to load API tests:", error);
+    }
+  });
+
+  // Worker Functions
+  function openImageGenerator() {
+    console.log("openImageGenerator() called");
+    const promptElement = document.getElementById(
+      "imagePrompt"
+    ) as HTMLInputElement;
+    const prompt = promptElement ? promptElement.value.trim() : "";
+    console.log("Image prompt:", prompt);
+    if (prompt) {
+      localStorage.setItem("quickPrompt", prompt);
+      console.log("Prompt saved in localStorage");
+    }
+    console.log("Opening /image-generator");
+    window.open("/image-generator", "_blank");
+  }
+
+  function openChatbot() {
+    console.log("💬 openChatbot() wywołana");
+    const promptElement = document.getElementById(
+      "chatPrompt"
+    ) as HTMLInputElement;
+    const prompt = promptElement ? promptElement.value.trim() : "";
+    console.log("Chat prompt:", prompt);
+    if (prompt) {
+      localStorage.setItem("quickChatPrompt", prompt);
+      console.log("Prompt saved in localStorage");
+    }
+    console.log("Opening /chatbot");
+    window.open("/chatbot", "_blank");
+  }
+
+  function openBigQuery() {
+    console.log("📊 openBigQuery() wywołana");
+    const promptElement = document.getElementById(
+      "bigqueryPrompt"
+    ) as HTMLInputElement;
+    const prompt = promptElement ? promptElement.value.trim() : "";
+    console.log("BigQuery prompt:", prompt);
+    if (prompt) {
+      localStorage.setItem("quickSQLQuery", prompt);
+      console.log("SQL Query saved in localStorage");
+    }
+    console.log("Opening /bigquery-analytics");
+    window.open("/bigquery-analytics", "_blank");
+  }
+
+  function openKaggle() {
+    console.log("🔍 openKaggle() wywołana");
+    const promptElement = document.getElementById(
+      "kagglePrompt"
+    ) as HTMLInputElement;
+    const prompt = promptElement ? promptElement.value.trim() : "";
+    console.log("Kaggle prompt:", prompt);
+    if (prompt) {
+      localStorage.setItem("quickKaggleSearch", prompt);
+      console.log("Kaggle search saved in localStorage");
+    }
+    console.log("Opening /kaggle-datasets");
+    window.open("/kaggle-datasets", "_blank");
+  }
+
+  function openTavily() {
+    console.log("🌐 openTavily() wywołana");
+    const promptElement = document.getElementById(
+      "tavilyPrompt"
+    ) as HTMLInputElement;
+    const prompt = promptElement ? promptElement.value.trim() : "";
+    console.log("Tavily prompt:", prompt);
+    if (prompt) {
+      localStorage.setItem("quickTavilySearch", prompt);
+      console.log("Tavily search saved in localStorage");
+    }
+    console.log("Opening /tavily-search");
+    window.open("/tavily-search", "_blank");
+  }
+
+  // Test function without popup (to test if buttons respond)
+  function testButtonFunction(buttonType: string) {
+    console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
+    alert(`Test udany! Przycisk ${buttonType} działa.`);
+    return false; // Prevent actual navigation
+  }
+
+  // API Testing Functions
+  async function runAllAPITests() {
+    console.log("Rozpoczynam testy wszystkich API...");
+
+    if (window.apiTests && window.apiTests.testAllAPIs) {
+      try {
+        await window.apiTests.testAllAPIs();
+        console.log("All API tests completed");
+      } catch (error) {
+        console.log("Error during API tests:", error);
+      }
+    } else {
+      console.log(
+        "⏳ API tests nie są jeszcze załadowane, próbuję ponownie..."
+      );
+      setTimeout(runAllAPITests, 1000);
+    }
+  }
+
+  function openAPITestConsole() {
+    console.log("Opening API test console...");
+    console.log("Available API tests:");
+    console.log("- window.apiTests.testChatAPI()");
+    console.log("- window.apiTests.testImageGeneration()");
+    console.log("- window.apiTests.testAIBot()");
+    console.log("- window.apiTests.testAllAPIs()");
+
+    if (window.apiTests) {
+      console.log(
+        "API Tests module loaded, available functions:",
+        Object.keys(window.apiTests)
+      );
+    } else {
+      console.log("API Tests module not loaded yet");
+    }
+  }
+
+  // Cloudflare Workers Integration
+  function openCloudflareWorkers() {
+    // Check if workers dashboard is available
+    const cloudflareUrl = "https://dash.cloudflare.com/";
+    window.open(cloudflareUrl, "_blank");
+  }
+
+  // Status Check Function
+  async function checkAllStatus() {
+    const statusElement = document.getElementById("overallStatus");
+    if (!statusElement) return;
+
+    const statusDot = statusElement.querySelector(".status-dot");
+    const statusText = statusElement.querySelector("span:last-child");
+
+    if (!statusDot || !statusText) return;
+
+    statusText.textContent = "Sprawdzanie...";
+    statusDot.className = "status-dot";
+
+    try {
+      const apis = [
+        "/api/generate-image",
+        "/api/chat",
+        "/api/bigquery",
+        "/api/kaggle",
+        "/api/tavi",
+      ];
+
+      const results = await Promise.allSettled(
+        apis.map((api) => fetch(api).then((res) => ({ api, ok: res.ok })))
+      );
+
+      const onlineCount = results.filter(
+        (result) => result.status === "fulfilled" && result.value.ok
+      ).length;
+
+      const totalCount = apis.length;
+
+      if (onlineCount === totalCount) {
+        statusDot.className = "status-dot online";
+        statusText.textContent = `Wszystkie online (${onlineCount}/${totalCount})`;
+      } else if (onlineCount > 0) {
+        statusDot.className = "status-dot";
+        statusText.textContent = `Częściowo online (${onlineCount}/${totalCount})`;
+      } else {
+        statusDot.className = "status-dot offline";
+        statusText.textContent = `Offline (${onlineCount}/${totalCount})`;
+      }
+    } catch (error) {
+      statusDot.className = "status-dot offline";
+      statusText.textContent = "Błąd sprawdzania";
+    }
+  }
+
+  // Dashboard Login Function
+  function checkDashboardLogin() {
+    const loginInput = document.getElementById(
+      "dashboardLogin"
+    ) as HTMLInputElement;
+    const loginContainer = document.getElementById("loginContainer");
+    const dashboardButtons = document.getElementById("dashboardButtons");
+
+    if (!loginInput || !loginContainer || !dashboardButtons) return;
+
+    const login = loginInput.value.trim();
+    console.log("Checking login:", login);
+
+    if (login === "HAOS77") {
+      loginContainer.classList.add("hidden");
+      dashboardButtons.classList.remove("hidden");
+      console.log("Login successful, showing dashboard buttons");
+    } else {
+      console.log("Invalid login");
+      loginInput.style.borderColor = "#ef4444";
+      setTimeout(() => {
+        loginInput.style.borderColor = "";
+      }, 2000);
+    }
+  }
+
+  // Flowise AI Functions
+  async function launchFlowise() {
+    console.log("🧠 launchFlowise() wywołana");
+
+    const prompt = window.prompt(
+      "Wprowadź zapytanie do Flowise AI:",
+      "Wygeneruj raport aktywności systemu MyBonzo"
+    );
+
+    if (!prompt) {
+      console.log("Anulowano - brak promptu");
+      return;
+    }
+
+    try {
+      console.log("Wysyłam zapytanie do Flowise API:", prompt);
+
+      const response = await fetch("/api/flowise", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          workflowId: "mybonzo-main",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.error && !data.fallback) {
+        alert(`Błąd Flowise API: ${data.error}`);
+        return;
+      }
+
+      // Show response in a new window or modal
+      const resultWindow = window.open(
+        "",
+        "_blank",
+        "width=800,height=600,scrollbars=yes"
+      );
+      if (resultWindow) {
+        resultWindow.document.write(`
+          <html>
+            <head>
+              <title>Flowise AI - Wynik</title>
+              <style>
+                body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+                .header { background: #007acc; color: white; padding: 10px; margin: -20px -20px 20px; }
+                .response { background: #f5f5f5; padding: 15px; border-radius: 8px; white-space: pre-wrap; }
+                .metadata { background: #e8f4fd; padding: 10px; margin-top: 15px; border-radius: 4px; font-size: 0.9em; }
+              </style>
+            </head>
+            <body>
+              <div class="header">
+                <h2>🧠 Flowise AI - MyBonzo Platform</h2>
+              </div>
+              <h3>Zapytanie:</h3>
+              <p><strong>${prompt}</strong></p>
+              <h3>Odpowiedź AI:</h3>
+              <div class="response">${data.text || JSON.stringify(data, null, 2)}</div>
+              <div class="metadata">
+                <strong>Timestamp:</strong> ${data.metadata?.timestamp || new Date().toISOString()}<br>
+                <strong>Source:</strong> ${data.metadata?.source || "flowise-api"}<br>
+                ${data.fallback ? "<strong>Mode:</strong> Fallback (sprawdź konfigurację API)<br>" : ""}
+                ${data.metadata?.simulation ? "<strong>Mode:</strong> Simulation (skonfiguruj FLOWISE_API_TOKEN)<br>" : ""}
+              </div>
+            </body>
+          </html>
+        `);
+      } else {
+        // Fallback if popup blocked
+        console.log("Flowise AI Response:", data);
+        alert(
+          `Flowise AI Response:\n\n${data.text || JSON.stringify(data, null, 2)}`
+        );
+      }
+    } catch (error) {
+      console.error("Błąd wywołania Flowise:", error);
+      alert(`Błąd połączenia z Flowise API: ${error.message}`);
+    }
+  }
+
+  // Open Function for 9 AI Functions - DEBUGOWANIE
+  function openFunction(functionName: string) {
+    console.log(`🎯 KLIKNIĘTO KAFELEK! Otwieranie funkcji: ${functionName}`);
+    alert(`DEBUGOWANIE: Kliknięto w funkcję: ${functionName}`);
+
+    const functionRoutes: { [key: string]: string } = {
+      rekomendacje: "/ai-functions/personalized-recommendations",
+      "obsługa-klienta": "/ai-functions/customer-automation",
+      monitorowanie: "/ai-functions/activity-monitoring",
+      przypomnienia: "/ai-functions/reminders-calendar",
+      "faq-generator": "/ai-functions/dynamic-faq",
+      edukacja: "/ai-functions/education-recommendations",
+      tickety: "/ai-functions/ai-tickets",
+      quizy: "/ai-functions/interactive-quizzes",
+      marketing: "/ai-functions/marketing-content",
+    };
+
+    const route = functionRoutes[functionName];
+    if (route) {
+      console.log(`Przekierowanie do: ${route}`);
+      window.open(route, "_blank");
+    } else {
+      console.error(`Nieznana funkcja: ${functionName}`);
+      alert(
+        `Funkcja "${functionName}" jest w trakcie implementacji. Spróbuj ponownie później.`
+      );
+    }
+  }
+
+  // Auto-check status on load and add Enter key handlers
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("🚀 DOM załadowany, inicjalizacja funkcji");
+
+    // Test dostępności funkcji openFunction
+    console.log("🧪 Test funkcji openFunction:", typeof openFunction);
+    console.log("🧪 Test window.openFunction:", typeof window.openFunction);
+
+    // Dodaj funkcję do window scope
+    (window as any).openFunction = openFunction;
+    console.log("✅ openFunction dodana do window scope");
+
+    // Dodaj event listenery bezpośrednio do kafelków
+    const featureTiles = document.querySelectorAll(
+      ".feature-tile[data-function]"
+    );
+    console.log(`🎯 Znaleziono ${featureTiles.length} kafelków funkcji`);
+
+    featureTiles.forEach((tile, index) => {
+      const functionName = tile
+        .getAttribute("onclick")
+        ?.match(/openFunction\('(.+?)'\)/)?.[1];
+      console.log(`🔗 Tile ${index}: ${functionName}`);
+
+      tile.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(`🎯 BEZPOŚREDNI KLIK na tile: ${functionName}`);
+        if (functionName) {
+          openFunction(functionName);
+        }
+      });
+    });
+
+    // Test czy wszystkie funkcje są dostępne
+    console.log("🧪 Test dostępności funkcji:");
+    console.log("- openImageGenerator:", typeof openImageGenerator);
+    console.log("- openChatbot:", typeof openChatbot);
+    console.log("- openBigQuery:", typeof openBigQuery);
+    console.log("- openKaggle:", typeof openKaggle);
+    console.log("- openTavily:", typeof openTavily);
+
+    // Test czy wszystkie elementy input istnieją
+    console.log("🧪 Test dostępności elementów input:");
+    console.log("- imagePrompt:", document.getElementById("imagePrompt"));
+    console.log("- chatPrompt:", document.getElementById("chatPrompt"));
+    console.log("- bigqueryPrompt:", document.getElementById("bigqueryPrompt"));
+    console.log("- kagglePrompt:", document.getElementById("kagglePrompt"));
+    console.log("- tavilyPrompt:", document.getElementById("tavilyPrompt"));
+
+    // Add quick prompt handlers
+    document.querySelectorAll(".quick-prompt").forEach((input) => {
+      const inputElement = input;
+      inputElement.addEventListener("keydown", function (e) {
+        // Use type assertion to bypass TypeScript strict typing
+        if ((e as any).code === "Enter" || (e as any).key === "Enter") {
+          const type = inputElement.id.replace("Prompt", "");
+          if (type === "image") openImageGenerator();
+          else if (type === "chat") openChatbot();
+          else if (type === "bigquery") openBigQuery();
+          else if (type === "kaggle") openKaggle();
+          else if (type === "tavily") openTavily();
+        }
+      });
+    });
+
+    // Add Enter key handler for dashboard login
+    const dashboardLoginInput = document.getElementById("dashboardLogin");
+    if (dashboardLoginInput) {
+      dashboardLoginInput.addEventListener("keydown", function (e) {
+        if ((e as any).key === "Enter") {
+          checkDashboardLogin();
+        }
+      });
+    }
+
+    // Clear any cached component states on page load
+    console.log("🧹 Clearing component cache and resetting state...");
+    
+    // Only clear if not already working
+    const componentsWorking = localStorage.getItem('components-working') === 'true';
+    
+    if (!componentsWorking) {
+      console.log("🧹 Components not working, clearing cache...");
+      // Clear potentially cached component states
+      delete window.MUSIC;
+      delete window.POLACZEK;
+      
+      // Clear any stale connection data
+      sessionStorage.removeItem('polaczek-status');
+      sessionStorage.removeItem('music-status');
+    } else {
+      console.log("✅ Components were working, preserving state...");
+    }
+    
+    // Force fresh initialization
+    localStorage.setItem('components-initialized', 'false');
+    
+    // Add page load event to detect when all components should be ready
+    let componentCheckAttempts = 0;
+    const maxComponentChecks = 50; // 5 seconds
+    
+    const forceComponentRefresh = () => {
+      componentCheckAttempts++;
+      console.log(`🔍 Component check attempt ${componentCheckAttempts}/${maxComponentChecks}`);
+      
+      const musicReady = window.MUSIC && typeof window.MUSIC.ensureLoaded === 'function';
+      const polaczekReady = window.POLACZEK && typeof window.POLACZEK.openAssistant === 'function';
+      
+      console.log(`🎵 Music ready: ${musicReady}, 🤖 POLACZEK ready: ${polaczekReady}`);
+      
+      if (musicReady && polaczekReady) {
+        console.log("✅ All components are ready!");
+        localStorage.setItem('components-initialized', 'true');
+        localStorage.setItem('components-working', 'true');
+        return;
+      }
+      
+      if (componentCheckAttempts < maxComponentChecks) {
+        setTimeout(forceComponentRefresh, 100);
+      } else {
+        console.warn("❌ Components not all ready after 5 seconds, but continuing without forced reload");
+        localStorage.setItem('components-initialized', 'partial');
+        // DO NOT force reload - let user manually refresh if needed
+      }
+    };
+    
+    // Check status on load
+    checkAllStatus();
+
+    // Start component monitoring
+    setTimeout(forceComponentRefresh, 500);
+
+    // Initialize components after page load
+    setTimeout(() => {
+      console.log("🔄 Auto-initializing components after page load...");
+      waitForMusicAPI();
+      waitForPolaczekAPI();
+    }, 1000); // Wait 1 second for components to load
+
+    // Make functions globally available for debugging
+    window.openImageGenerator = openImageGenerator;
+    window.openChatbot = openChatbot;
+    window.openBigQuery = openBigQuery;
+    window.openKaggle = openKaggle;
+    window.openTavily = openTavily;
+    window.testButtonFunction = testButtonFunction;
+    (window as any).checkDashboardLogin = checkDashboardLogin;
+    (window as any).openFunction = openFunction;
+    (window as any).toggleMusicPlayer = toggleMusicPlayer;
+    (window as any).toggleGeminiPro = toggleGeminiPro;
+    (window as any).toggleGeminiVision = toggleGeminiVision;
+    (window as any).toggleCodeBison = toggleCodeBison;
+    (window as any).toggleTextBison = toggleTextBison;
+    (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
+    (window as any).toggleGlobalVoice = toggleGlobalVoice;
+    (window as any).openMainChat = openMainChat;
+    (window as any).openRefresh = openRefresh;
+    (window as any).openFolder = openFolder;
+    (window as any).openClose = openClose;
+    
+    // NEW FLOATING BUTTONS - Global Scope
+    (window as any).openSchowek = openSchowek;
+    (window as any).addToSchowek = addToSchowek;
+    (window as any).removeFromSchowek = removeFromSchowek;
+    (window as any).exportSchowek = exportSchowek;
+    (window as any).clearSchowek = clearSchowek;
+    (window as any).openKalendarz = openKalendarz;
+    (window as any).openDodatki = openDodatki;
+    (window as any).openFolder2 = openFolder2;
+    (window as any).openKatalogStron = openKatalogStron;
+    (window as any).openInstrukcje = openInstrukcje;
+    (window as any).openZapas1 = openZapas1;
+    (window as any).openZapas2 = openZapas2;
+    (window as any).openZapas3 = openZapas3;
+    (window as any).checkAllStatus = checkAllStatus;
+    (window as any).runAllAPITests = runAllAPITests;
+    (window as any).openAPITestConsole = openAPITestConsole;
+    (window as any).resetComponents = resetComponents;
+    (window as any).hardResetComponents = hardResetComponents;
+
+    console.log("All functions assigned to window object");
+    console.log("🔧 Debug functions available:");
+    console.log("- resetComponents() - soft reset");
+    console.log("- hardResetComponents() - hard reset with page reload");
+    console.log("- checkAllStatus() - check API status");
+    console.log("- Check localStorage.getItem('components-working') for component status");
+  });
+
+  // New Toggle Functions with Button Scaling - ONLY manual clicks allowed
+  function toggleMusicPlayer(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Music Player");
+      return;
+    }
+    
+    console.log("🎵 Toggling Music Player (manual click)");
+    const btn = document.getElementById("musicPlayerBtn");
+    const widget = document.getElementById("musicPlayerWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+      
+      // Ensure music player is initialized after showing widget
+      if (!widget.classList.contains("hidden")) {
+        // Give Svelte component time to mount
+        setTimeout(() => {
+          console.log("🎵 Widget shown, checking Music API...");
+          if (window.MUSIC && window.MUSIC.ensureLoaded) {
+            console.log("🎵 Music API available, calling ensureLoaded...");
+            try {
+              window.MUSIC.ensureLoaded();
+            } catch (e) {
+              console.warn("Music ensureLoaded failed:", e);
+            }
+          } else {
+            console.log("🎵 Music API not available, waiting for initialization...");
+            waitForMusicAPI();
+          }
+        }, 500); // Wait 500ms for component to mount
+      }
+      
+      console.log("Music Player widget toggled");
+    }
+  }
+
+  function togglePolaczekAssistant(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for AI Assistant");
+      return;
+    }
+    
+    console.log("🤖 Toggling AI Assistant (manual click)");
+    const btn = document.getElementById("polaczekBtn");
+    const widget = document.getElementById("polaczekWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+      
+      // Ensure AI assistant is initialized after showing widget
+      if (!widget.classList.contains("hidden")) {
+        // Give Svelte component time to mount
+        setTimeout(() => {
+          console.log("🤖 Widget shown, checking POLACZEK API...");
+          if (window.POLACZEK && window.POLACZEK.openAssistant) {
+            console.log("🤖 POLACZEK API available, opening assistant...");
+            try {
+              window.POLACZEK.openAssistant();
+              // Also trigger reconnection if needed
+              if (window.POLACZEK.forceReconnect) {
+                window.POLACZEK.forceReconnect();
+              }
+            } catch (e) {
+              console.warn("POLACZEK openAssistant failed:", e);
+            }
+          } else {
+            console.log("🤖 POLACZEK API not available, waiting for initialization...");
+            waitForPolaczekAPI();
+          }
+        }, 500); // Wait 500ms for component to mount
+      }
+      
+      console.log("AI Assistant widget toggled");
+    }
+  }
+
+
+
+  // Wait for components to initialize their APIs
+  function waitForMusicAPI() {
+    console.log("🎵 Waiting for Music API...");
+    let attempts = 0;
+    const maxAttempts = 100; // 10 seconds max (increased)
+    
+    const checkAPI = () => {
+      attempts++;
+      console.log(`🎵 Music API check attempt ${attempts}/${maxAttempts}`);
+      
+      if (window.MUSIC && window.MUSIC.ensureLoaded) {
+        console.log("🎵 Music API ready! Initializing...");
+        try {
+          window.MUSIC.ensureLoaded();
+          sessionStorage.setItem('music-status', 'ready');
+          localStorage.setItem('components-working', 'true');
+          console.log("🎵 Music player initialized successfully!");
+        } catch (e) {
+          console.warn("Music ensureLoaded failed:", e);
+          sessionStorage.setItem('music-status', 'error');
+        }
+      } else if (attempts < maxAttempts) {
+        console.log("🎵 Music API not ready yet, retrying...");
+        setTimeout(checkAPI, 100);
+      } else {
+        console.error("🎵 Music API not ready after 10 seconds - component may not be loaded");
+        sessionStorage.setItem('music-status', 'timeout');
+        // Try to force reload the component by showing debug info
+        console.log("🎵 Debug info:");
+        console.log("- window.MUSIC exists:", !!window.MUSIC);
+        console.log("- window.MUSIC.ensureLoaded exists:", !!(window.MUSIC && window.MUSIC.ensureLoaded));
+        console.log("- Music widget element exists:", !!document.getElementById("musicPlayerWidget"));
+        
+        // NO AUTOMATIC RELOAD - let user decide
+        console.log("🎵 Use resetComponents() or hardResetComponents() in console if needed");
+      }
+    };
+    
+    checkAPI();
+  }
+
+  function waitForPolaczekAPI() {
+    console.log("🤖 Waiting for POLACZEK API...");
+    let attempts = 0;
+    const maxAttempts = 100; // 10 seconds max (increased)
+    
+    const checkAPI = () => {
+      attempts++;
+      console.log(`🤖 POLACZEK API check attempt ${attempts}/${maxAttempts}`);
+      
+      if (window.POLACZEK && window.POLACZEK.openAssistant) {
+        console.log("🤖 POLACZEK API ready! Connecting...");
+        try {
+          // Force connection check
+          if (window.POLACZEK.getStatus) {
+            const currentStatus = window.POLACZEK.getStatus();
+            console.log("🤖 Current POLACZEK status:", currentStatus);
+            
+            if (currentStatus === "disconnected") {
+              console.log("🤖 Triggering reconnection...");
+              window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
+            }
+          }
+          sessionStorage.setItem('polaczek-status', 'ready');
+          localStorage.setItem('components-working', 'true');
+          console.log("🤖 POLACZEK assistant initialized successfully!");
+        } catch (e) {
+          console.warn("POLACZEK initialization failed:", e);
+          sessionStorage.setItem('polaczek-status', 'error');
+        }
+      } else if (attempts < maxAttempts) {
+        console.log("🤖 POLACZEK API not ready yet, retrying...");
+        setTimeout(checkAPI, 100);
+      } else {
+        console.error("🤖 POLACZEK API not ready after 10 seconds - component may not be loaded");
+        sessionStorage.setItem('polaczek-status', 'timeout');
+        // Try to force reload the component by showing debug info
+        console.log("🤖 Debug info:");
+        console.log("- window.POLACZEK exists:", !!window.POLACZEK);
+        console.log("- window.POLACZEK.openAssistant exists:", !!(window.POLACZEK && window.POLACZEK.openAssistant));
+        console.log("- POLACZEK widget element exists:", !!document.getElementById("polaczekWidget"));
+        
+        // NO AUTOMATIC RELOAD - let user decide
+        console.log("🤖 Use resetComponents() or hardResetComponents() in console if needed");
+      }
+    };
+    
+    checkAPI();
+  }
+
+  function waitForGoogleVoiceAPI() {
+    console.log("🎤 Waiting for Google Voice API...");
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds max
+    
+    const checkAPI = () => {
+      attempts++;
+      console.log(`🎤 Google Voice API check attempt ${attempts}/${maxAttempts}`);
+      
+      if (window.GOOGLE_VOICE && window.GOOGLE_VOICE.isSupported) {
+        console.log("🎤 Google Voice API ready! Checking support...");
+        try {
+          const isSupported = window.GOOGLE_VOICE.isSupported();
+          console.log("🎤 Speech recognition supported:", isSupported);
+          sessionStorage.setItem('google-voice-status', isSupported ? 'ready' : 'not-supported');
+          localStorage.setItem('components-working', 'true');
+          console.log("🎤 Google Voice initialized successfully!");
+        } catch (e) {
+          console.warn("Google Voice initialization failed:", e);
+          sessionStorage.setItem('google-voice-status', 'error');
+        }
+      } else if (attempts < maxAttempts) {
+        console.log("🎤 Google Voice API not ready yet, retrying...");
+        setTimeout(checkAPI, 100);
+      } else {
+        console.error("🎤 Google Voice API not ready after 5 seconds - component may not be loaded");
+        sessionStorage.setItem('google-voice-status', 'timeout');
+        // Try to force reload the component by showing debug info
+        console.log("🎤 Debug info:");
+        console.log("- window.GOOGLE_VOICE exists:", !!window.GOOGLE_VOICE);
+        console.log("- window.GOOGLE_VOICE.isSupported exists:", !!(window.GOOGLE_VOICE && window.GOOGLE_VOICE.isSupported));
+        console.log("- Google Voice widget element exists:", !!document.getElementById("googleVoiceWidget"));
+        
+        // NO AUTOMATIC RELOAD - let user decide
+        console.log("🎤 Use resetComponents() or hardResetComponents() in console if needed");
+      }
+    };
+    
+    checkAPI();
+  }
+
+  // Manual component reset function
+  function resetComponents() {
+    console.log("🔄 Manually resetting all components...");
+    
+    // Clear all cached states
+    delete window.MUSIC;
+    delete window.POLACZEK;
+    delete window.GOOGLE_VOICE;
+    sessionStorage.clear();
+    localStorage.setItem('components-initialized', 'false');
+    localStorage.setItem('components-working', 'false');
+    
+    // Re-initialize
+    setTimeout(() => {
+      console.log("🔄 Re-initializing components...");
+      waitForMusicAPI();
+      waitForPolaczekAPI();
+      waitForGoogleVoiceAPI();
+    }, 500);
+    
+    console.log("🔄 Component reset completed!");
+  }
+
+  // Hard reset with page reload
+  function hardResetComponents() {
+    console.log("💣 Hard resetting - clearing everything and reloading page...");
+    
+    // Clear everything
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    // Clear component globals
+    delete window.MUSIC;
+    delete window.POLACZEK;
+    
+    // Force reload
+    window.location.reload(true);
+  }
+
+  // Google Agent Functions - Same toggle system as Music Player
+  function toggleGeminiPro(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Gemini Pro");
+      return;
+    }
+    
+    console.log("✨ Toggling Gemini Pro (manual click)");
+    const btn = document.getElementById("geminiProBtn");
+    const widget = document.getElementById("geminiProWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleGeminiVision(manualClick = true) {
+    if (!manualClick) {
+      console.log("� Auto-activation blocked for Gemini Vision");
+      return;
+    }
+    
+    console.log("👁️ Toggling Gemini Vision (manual click)");
+    const btn = document.getElementById("geminiVisionBtn");
+    const widget = document.getElementById("geminiVisionWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleCodeBison(manualClick = true) {
+    if (!manualClick) {
+      console.log("� Auto-activation blocked for Code Bison");
+      return;
+    }
+    
+    console.log("💻 Toggling Code Bison (manual click)");
+    const btn = document.getElementById("codeBisonBtn");
+    const widget = document.getElementById("codeBisonWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleTextBison(manualClick = true) {
+    if (!manualClick) {
+      console.log("� Auto-activation blocked for Text Bison");
+      return;
+    }
+    
+    console.log("📝 Toggling Text Bison (manual click)");
+    const btn = document.getElementById("textBisonBtn");
+    const widget = document.getElementById("textBisonWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  // Global Voice System Management
+  let globalVoiceEnabled = false;
+  let voiceRecognitionInstances = {};
+
+  function toggleGlobalVoice() {
+    globalVoiceEnabled = !globalVoiceEnabled;
+    const voiceBtn = document.getElementById("globalVoiceBtn");
+    
+    if (globalVoiceEnabled) {
+      voiceBtn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE ON</span>';
+      console.log("🎤 Global Voice System: ENABLED");
+    } else {
+      voiceBtn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
+      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE OFF</span>';
+      console.log("🎤 Global Voice System: DISABLED");
+      
+      // Stop all voice instances
+      stopGeminiProVoice();
+      stopGeminiVisionVoice();
+      stopCodeBisonVoice();
+      stopTextBisonVoice();
+      stopBardVoice();
+      stopPaLMVoice();
+      stopVertexVoice();
+      stopAIStudioVoice();
+      voiceRecognitionInstances = {};
+    }
+  }
+
+  // EMERGENCY SYSTEM CONTROLS
+  function emergencyStopAll() {
+    console.log("🚨 EMERGENCY STOP - Zatrzymuję wszystkie systemy");
+    
+    // Stop all voice systems
+    globalVoiceEnabled = false;
+    stopGeminiProVoice();
+    stopGeminiVisionVoice();
+    stopCodeBisonVoice();
+    stopTextBisonVoice();
+    stopBardVoice();
+    stopPaLMVoice();
+    stopVertexVoice();
+    stopAIStudioVoice();
+    
+    // Clear all instances
+    voiceRecognitionInstances = {};
+    
+    // Update global voice button
+    const voiceBtn = document.getElementById("globalVoiceBtn");
+    if (voiceBtn) {
+      voiceBtn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
+      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE OFF</span>';
+    }
+    
+    // Clear all audio contexts
+    if (window.globalAudioContext) {
+      try {
+        window.globalAudioContext.close();
+        window.globalAudioContext = null;
+      } catch (e) {
+        console.log("AudioContext close error:", e);
+      }
+    }
+    
+    console.log("✅ System całkowicie zatrzymany");
+  }
+
+  function resetSystem() {
+    console.log("🔄 RESET SYSTEMU - Restartowanie wszystkich komponentów");
+    
+    // First stop everything
+    emergencyStopAll();
+    
+    // Wait a moment then reinitialize
+    setTimeout(() => {
+      globalVoiceEnabled = false;
+      voiceRecognitionInstances = {};
+      
+      // Reinitialize audio context
+      initializeAudioContext();
+      
+      console.log("✅ System zresetowany i gotowy do użycia");
+    }, 1000);
+  }
+
+  function initializeAudioContext() {
+    if (!window.globalAudioContext) {
+      try {
+        window.globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log("🎵 AudioContext zainicjalizowany");
+      } catch (e) {
+        console.log("❌ Błąd inicjalizacji AudioContext:", e);
+      }
+    }
+  }
+
+  // TEST AND DEBUG FUNCTIONS
+  function testAllFunctions() {
+    console.log("🧪 TESTING ALL FUNCTIONS - Comprehensive Check");
+    
+    const allFunctions = [
+      'sendToGeminiPro', 'clearGeminiPro', 'toggleGeminiPro',
+      'sendToGeminiVision', 'clearGeminiVision', 'toggleGeminiVision',
+      'sendToCodeBison', 'clearCodeBison', 'toggleCodeBison',
+      'sendToTextBison', 'clearTextBison', 'toggleTextBison',
+      'sendToGoogleBard', 'clearGoogleBard', 'toggleGoogleBard',
+      'sendToPaLMAPI', 'clearPaLMAPI', 'togglePaLMAPI',
+      'sendToVertexAI', 'clearVertexAI', 'toggleVertexAI',
+      'sendToAIStudio', 'clearAIStudio', 'toggleAIStudio',
+      'startGeminiProVoice', 'stopGeminiProVoice', 'toggleGeminiProVoice',
+      'startGeminiVisionVoice', 'stopGeminiVisionVoice', 'toggleGeminiVisionVoice',
+      'toggleGlobalVoice', 'emergencyStopAll', 'resetSystem'
+    ];
+    
+    let available = 0;
+    let missing = [];
+    
+    allFunctions.forEach(fn => {
+      if (typeof window[fn] === 'function') {
+        available++;
+      } else {
+        missing.push(fn);
+      }
+    });
+    
+    console.log(`✅ Dostępne funkcje: ${available}/${allFunctions.length}`);
+    if (missing.length > 0) {
+      console.log(`❌ Brakujące funkcje:`, missing);
+    }
+    
+    // Show result in alert for easy viewing
+    const result = `Funkcji dostępnych: ${available}/${allFunctions.length}\n${missing.length > 0 ? 'Brakujące: ' + missing.join(', ') : 'Wszystko OK!'}`;
+    alert(result);
+  }
+
+  function debugVoiceStatus() {
+    console.log("📊 DEBUG VOICE STATUS - Current System State");
+    console.log("Global Voice Enabled:", globalVoiceEnabled);
+    console.log("Voice Recognition Instances:", voiceRecognitionInstances);
+    console.log("Global Audio Context:", window.globalAudioContext?.state || "Not initialized");
+    
+    // Check each voice button status
+    const voiceButtons = [
+      'geminiProVoiceBtn', 'geminiVisionVoiceBtn', 'codeBisonVoiceBtn', 
+      'textBisonVoiceBtn', 'bardVoiceBtn', 'palmVoiceBtn', 'vertexVoiceBtn', 'aiStudioVoiceBtn'
+    ];
+    
+    const buttonStatus = {};
+    voiceButtons.forEach(btnId => {
+      const btn = document.getElementById(btnId);
+      if (btn) {
+        buttonStatus[btnId] = btn.textContent || btn.innerHTML;
+      } else {
+        buttonStatus[btnId] = "Button not found";
+      }
+    });
+    
+    console.log("Voice Button Status:", buttonStatus);
+    
+    // Show summary in alert
+    const summary = `Global Voice: ${globalVoiceEnabled ? 'ON' : 'OFF'}\nActive Instances: ${Object.keys(voiceRecognitionInstances).length}\nAudio Context: ${window.globalAudioContext?.state || 'None'}`;
+    alert(summary);
+  }
+
+  // Voice functions for each agent
+  function toggleGeminiProVoice() {
+    if (voiceRecognitionInstances.geminiPro) {
+      stopGeminiProVoice();
+    } else {
+      startGeminiProVoice();
+    }
+  }
+
+  function startGeminiProVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Najpierw włącz globalny system Voice!");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      const language = document.getElementById("geminiProVoiceSelect").value;
+      recognition.lang = language;
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      
+      recognition.onstart = () => {
+        const btn = document.getElementById("geminiProVoiceBtn");
+        btn.innerHTML = "🟢 Połączony";
+        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+      };
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        document.getElementById("geminiProInput").value = transcript;
+      };
+      
+      recognition.onerror = () => {
+        stopGeminiProVoice();
+      };
+      
+      voiceRecognitionInstances.geminiPro = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopGeminiProVoice() {
+    if (voiceRecognitionInstances.geminiPro) {
+      voiceRecognitionInstances.geminiPro.stop();
+      delete voiceRecognitionInstances.geminiPro;
+      
+      const btn = document.getElementById("geminiProVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  function toggleGeminiVisionVoice() {
+    if (voiceRecognitionInstances.geminiVision) {
+      stopGeminiVisionVoice();
+    } else {
+      startGeminiVisionVoice();
+    }
+  }
+
+  function startGeminiVisionVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Najpierw włącz globalny system Voice!");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      const language = document.getElementById("geminiVisionVoiceSelect").value;
+      recognition.lang = language;
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      
+      recognition.onstart = () => {
+        const btn = document.getElementById("geminiVisionVoiceBtn");
+        btn.innerHTML = "🟢 Połączony";
+        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+      };
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        document.getElementById("geminiVisionInput").value = transcript;
+      };
+      
+      recognition.onerror = () => {
+        stopGeminiVisionVoice();
+      };
+      
+      voiceRecognitionInstances.geminiVision = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopGeminiVisionVoice() {
+    if (voiceRecognitionInstances.geminiVision) {
+      voiceRecognitionInstances.geminiVision.stop();
+      delete voiceRecognitionInstances.geminiVision;
+      
+      const btn = document.getElementById("geminiVisionVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  function toggleCodeBisonVoice() {
+    if (voiceRecognitionInstances.codeBison) {
+      stopCodeBisonVoice();
+    } else {
+      startCodeBisonVoice();
+    }
+  }
+
+  function startCodeBisonVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Najpierw włącz globalny system Voice!");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      const language = document.getElementById("codeBisonVoiceSelect").value;
+      recognition.lang = language;
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      
+      recognition.onstart = () => {
+        const btn = document.getElementById("codeBisonVoiceBtn");
+        btn.innerHTML = "🟢 Połączony";
+        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+      };
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        document.getElementById("codeBisonInput").value = transcript;
+      };
+      
+      recognition.onerror = () => {
+        stopCodeBisonVoice();
+      };
+      
+      voiceRecognitionInstances.codeBison = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopCodeBisonVoice() {
+    if (voiceRecognitionInstances.codeBison) {
+      voiceRecognitionInstances.codeBison.stop();
+      delete voiceRecognitionInstances.codeBison;
+      
+      const btn = document.getElementById("codeBisonVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  function toggleTextBisonVoice() {
+    if (voiceRecognitionInstances.textBison) {
+      stopTextBisonVoice();
+    } else {
+      startTextBisonVoice();
+    }
+  }
+
+  function startTextBisonVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Najpierw włącz globalny system Voice!");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      
+      const language = document.getElementById("textBisonVoiceSelect").value;
+      recognition.lang = language;
+      recognition.continuous = true;
+      recognition.interimResults = false;
+      
+      recognition.onstart = () => {
+        const btn = document.getElementById("textBisonVoiceBtn");
+        btn.innerHTML = "🟢 Połączony";
+        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+      };
+      
+      recognition.onresult = (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript;
+        document.getElementById("textBisonInput").value = transcript;
+      };
+      
+      recognition.onerror = () => {
+        stopTextBisonVoice();
+      };
+      
+      voiceRecognitionInstances.textBison = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopTextBisonVoice() {
+    if (voiceRecognitionInstances.textBison) {
+      voiceRecognitionInstances.textBison.stop();
+      delete voiceRecognitionInstances.textBison;
+      
+      const btn = document.getElementById("textBisonVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  // Agent communication functions
+  async function sendToGeminiPro() {
+    const input = document.getElementById("geminiProInput");
+    const response = document.getElementById("geminiProResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Gemini Pro...";
+    
+    try {
+      const res = await fetch("/api/gemini-pro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          language: "pl"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Gemini Pro:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToGeminiVision() {
+    const input = document.getElementById("geminiVisionInput");
+    const response = document.getElementById("geminiVisionResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Gemini Vision...";
+    
+    try {
+      const res = await fetch("/api/gemini-pro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value + " [VISION REQUEST]",
+          language: "pl"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Gemini Vision:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToCodeBison() {
+    const input = document.getElementById("codeBisonInput");
+    const response = document.getElementById("codeBisonResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Code Bison...";
+    
+    try {
+      const res = await fetch("/api/code-bison", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          language: "pl"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Code Bison:</strong><br><pre>${data.data?.response || data.response || "Błąd odpowiedzi"}</pre>`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToTextBison() {
+    const input = document.getElementById("textBisonInput");
+    const response = document.getElementById("textBisonResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Text Bison...";
+    
+    try {
+      const res = await fetch("/api/text-bison", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          language: "pl"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Text Bison:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToBusinessAssistant() {
+    const input = document.getElementById("businessAssistantInput");
+    const response = document.getElementById("businessAssistantResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Business Assistant...";
+    
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          model: "business-assistant"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Business Assistant:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  // Clear functions
+  function clearGeminiPro() {
+    document.getElementById("geminiProInput").value = "";
+    document.getElementById("geminiProResponse").style.display = "none";
+  }
+
+  function clearGeminiVision() {
+    document.getElementById("geminiVisionInput").value = "";
+    document.getElementById("geminiVisionResponse").style.display = "none";
+  }
+
+  function clearCodeBison() {
+    document.getElementById("codeBisonInput").value = "";
+    document.getElementById("codeBisonResponse").style.display = "none";
+  }
+
+  function clearTextBison() {
+    document.getElementById("textBisonInput").value = "";
+    document.getElementById("textBisonResponse").style.display = "none";
+  }
+
+  function clearBusinessAssistant() {
+    document.getElementById("businessAssistantInput").value = "";
+    document.getElementById("businessAssistantResponse").style.display = "none";
+  }
+
+  // Nowe funkcje Voice dla Google Bard
+  function toggleBardVoice() {
+    const btn = document.getElementById("bardVoiceBtn");
+    if (voiceRecognitionInstances.bard) {
+      stopBardVoice();
+    } else {
+      startBardVoice();
+    }
+  }
+
+  function startBardVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      const language = document.getElementById("bardVoiceSelect").value;
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = language;
+      
+      const btn = document.getElementById("bardVoiceBtn");
+      btn.innerHTML = "🎤 Nasłuchuje...";
+      btn.style.background = "linear-gradient(45deg, #ffc107, #ff8f00)";
+      
+      recognition.onresult = function(event) {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          document.getElementById("googleBardInput").value = finalTranscript;
+        }
+      };
+      
+      recognition.onerror = function(event) {
+        console.log('Voice recognition error:', event.error);
+        btn.innerHTML = "❌ Błąd";
+        btn.style.background = "rgba(255, 68, 68, 0.3)";
+      };
+      
+      voiceRecognitionInstances.bard = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopBardVoice() {
+    if (voiceRecognitionInstances.bard) {
+      voiceRecognitionInstances.bard.stop();
+      delete voiceRecognitionInstances.bard;
+      
+      const btn = document.getElementById("bardVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  // Nowe funkcje Voice dla PaLM API
+  function togglePaLMVoice() {
+    const btn = document.getElementById("palmVoiceBtn");
+    if (voiceRecognitionInstances.palm) {
+      stopPaLMVoice();
+    } else {
+      startPaLMVoice();
+    }
+  }
+
+  function startPaLMVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      const language = document.getElementById("palmVoiceSelect").value;
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = language;
+      
+      const btn = document.getElementById("palmVoiceBtn");
+      btn.innerHTML = "🎤 Nasłuchuje...";
+      btn.style.background = "linear-gradient(45deg, #4caf50, #388e3c)";
+      
+      recognition.onresult = function(event) {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          document.getElementById("palmAPIInput").value = finalTranscript;
+        }
+      };
+      
+      recognition.onerror = function(event) {
+        console.log('Voice recognition error:', event.error);
+        btn.innerHTML = "❌ Błąd";
+        btn.style.background = "rgba(255, 68, 68, 0.3)";
+      };
+      
+      voiceRecognitionInstances.palm = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopPaLMVoice() {
+    if (voiceRecognitionInstances.palm) {
+      voiceRecognitionInstances.palm.stop();
+      delete voiceRecognitionInstances.palm;
+      
+      const btn = document.getElementById("palmVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  // Nowe funkcje Voice dla Vertex AI
+  function toggleVertexVoice() {
+    const btn = document.getElementById("vertexVoiceBtn");
+    if (voiceRecognitionInstances.vertex) {
+      stopVertexVoice();
+    } else {
+      startVertexVoice();
+    }
+  }
+
+  function startVertexVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      const language = document.getElementById("vertexVoiceSelect").value;
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = language;
+      
+      const btn = document.getElementById("vertexVoiceBtn");
+      btn.innerHTML = "🎤 Nasłuchuje...";
+      btn.style.background = "linear-gradient(45deg, #9c27b0, #7b1fa2)";
+      
+      recognition.onresult = function(event) {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          document.getElementById("vertexAIInput").value = finalTranscript;
+        }
+      };
+      
+      recognition.onerror = function(event) {
+        console.log('Voice recognition error:', event.error);
+        btn.innerHTML = "❌ Błąd";
+        btn.style.background = "rgba(255, 68, 68, 0.3)";
+      };
+      
+      voiceRecognitionInstances.vertex = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopVertexVoice() {
+    if (voiceRecognitionInstances.vertex) {
+      voiceRecognitionInstances.vertex.stop();
+      delete voiceRecognitionInstances.vertex;
+      
+      const btn = document.getElementById("vertexVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  // Nowe funkcje Voice dla AI Studio
+  function toggleAIStudioVoice() {
+    const btn = document.getElementById("aiStudioVoiceBtn");
+    if (voiceRecognitionInstances.aiStudio) {
+      stopAIStudioVoice();
+    } else {
+      startAIStudioVoice();
+    }
+  }
+
+  function startAIStudioVoice() {
+    if (!globalVoiceEnabled) {
+      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
+      return;
+    }
+    
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new webkitSpeechRecognition();
+      const language = document.getElementById("aiStudioVoiceSelect").value;
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = language;
+      
+      const btn = document.getElementById("aiStudioVoiceBtn");
+      btn.innerHTML = "🎤 Nasłuchuje...";
+      btn.style.background = "linear-gradient(45deg, #ff5722, #e64a19)";
+      
+      recognition.onresult = function(event) {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          document.getElementById("aiStudioInput").value = finalTranscript;
+        }
+      };
+      
+      recognition.onerror = function(event) {
+        console.log('Voice recognition error:', event.error);
+        btn.innerHTML = "❌ Błąd";
+        btn.style.background = "rgba(255, 68, 68, 0.3)";
+      };
+      
+      voiceRecognitionInstances.aiStudio = recognition;
+      recognition.start();
+    }
+  }
+
+  function stopAIStudioVoice() {
+    if (voiceRecognitionInstances.aiStudio) {
+      voiceRecognitionInstances.aiStudio.stop();
+      delete voiceRecognitionInstances.aiStudio;
+      
+      const btn = document.getElementById("aiStudioVoiceBtn");
+      btn.innerHTML = "Rozłączony";
+      btn.style.background = "rgba(255, 255, 255, 0.1)";
+    }
+  }
+
+  // Nowe funkcje komunikacji z agentami
+  async function sendToGoogleBard() {
+    const input = document.getElementById("googleBardInput");
+    const response = document.getElementById("googleBardResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Google Bard...";
+    
+    try {
+      const res = await fetch("/api/google-bard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          language: "pl"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Google Bard:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToPaLMAPI() {
+    const input = document.getElementById("palmAPIInput");
+    const response = document.getElementById("palmAPIResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do PaLM API...";
+    
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          model: "palm-api"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>PaLM API:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToVertexAI() {
+    const input = document.getElementById("vertexAIInput");
+    const response = document.getElementById("vertexAIResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do Vertex AI...";
+    
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          model: "vertex-ai"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>Vertex AI:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  async function sendToAIStudio() {
+    const input = document.getElementById("aiStudioInput");
+    const response = document.getElementById("aiStudioResponse");
+    
+    if (!input.value.trim()) return;
+    
+    response.style.display = "block";
+    response.innerHTML = "🔄 Wysyłanie do AI Studio...";
+    
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input.value,
+          model: "ai-studio"
+        })
+      });
+      
+      const data = await res.json();
+      response.innerHTML = `<strong>AI Studio:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
+    } catch (error) {
+      response.innerHTML = `❌ Błąd: ${error.message}`;
+    }
+  }
+
+  // Nowe funkcje czyszczenia
+  function clearGoogleBard() {
+    document.getElementById("googleBardInput").value = "";
+    document.getElementById("googleBardResponse").style.display = "none";
+  }
+
+  function clearPaLMAPI() {
+    document.getElementById("palmAPIInput").value = "";
+    document.getElementById("palmAPIResponse").style.display = "none";
+  }
+
+  function clearVertexAI() {
+    document.getElementById("vertexAIInput").value = "";
+    document.getElementById("vertexAIResponse").style.display = "none";
+  }
+
+  function clearAIStudio() {
+    document.getElementById("aiStudioInput").value = "";
+    document.getElementById("aiStudioResponse").style.display = "none";
+  }
+
+  // Nowe funkcje toggle dla widgetów
+  function toggleGoogleBard() {
+    const widget = document.getElementById("googleBardWidget");
+    const btn = document.getElementById("googleBardBtn");
+    
+    if (widget.classList.contains("hidden")) {
+      widget.classList.remove("hidden");
+      btn.style.background = "linear-gradient(45deg, #ffc107, #ff8f00)";
+    } else {
+      widget.classList.add("hidden");
+      btn.style.background = "";
+      stopBardVoice();
+    }
+  }
+
+  function togglePaLMAPI() {
+    const widget = document.getElementById("palmAPIWidget");
+    const btn = document.getElementById("palmAPIBtn");
+    
+    if (widget.classList.contains("hidden")) {
+      widget.classList.remove("hidden");
+      btn.style.background = "linear-gradient(45deg, #4caf50, #388e3c)";
+    } else {
+      widget.classList.add("hidden");
+      btn.style.background = "";
+      stopPaLMVoice();
+    }
+  }
+
+  function toggleVertexAI() {
+    const widget = document.getElementById("vertexAIWidget");
+    const btn = document.getElementById("vertexAIBtn");
+    
+    if (widget.classList.contains("hidden")) {
+      widget.classList.remove("hidden");
+      btn.style.background = "linear-gradient(45deg, #9c27b0, #7b1fa2)";
+    } else {
+      widget.classList.add("hidden");
+      btn.style.background = "";
+      stopVertexVoice();
+    }
+  }
+
+  function toggleAIStudio() {
+    const widget = document.getElementById("aiStudioWidget");
+    const btn = document.getElementById("aiStudioBtn");
+    
+    if (widget.classList.contains("hidden")) {
+      widget.classList.remove("hidden");
+      btn.style.background = "linear-gradient(45deg, #ff5722, #e64a19)";
+    } else {
+      widget.classList.add("hidden");
+      btn.style.background = "";
+      stopAIStudioVoice();
+    }
+  }
+
+  function openMainChat() {
+    console.log("💬 Opening Main Chat");
+    window.open("/chatbot", "_blank");
+  }
+
+  function openRefresh() {
+    console.log("🔄 Refreshing page");
+    window.location.reload();
+  }
+
+  function openFolder() {
+    console.log("📁 Opening folder");
+    alert(
+      "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
+    );
+  }
+
+  function openClose() {
+    console.log("❌ Closing tab");
+    try {
+      window.close();
+    } catch (e) {
+      alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
+    }
+  }
+
+  // NEW FLOATING BUTTONS FUNCTIONS
+  function openSchowek() {
+    console.log("📦 Opening Schowek");
+    
+    // Pobierz zawartość schowka z localStorage
+    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
+    
+    // Utwórz modal do wyświetlania schowka
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); z-index: 10000; display: flex;
+      justify-content: center; align-items: center;
+    `;
+    
+    modal.innerHTML = `
+      <div style="background: #1a1a1a; border: 2px solid #00d7ef; border-radius: 10px; padding: 20px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h2 style="color: #00d7ef; margin: 0;">📦 SCHOWEK MyBonzo</h2>
+          <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: #ff4444; border: none; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer;">✕</button>
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+          <textarea id="newSchowekItem" placeholder="Dodaj nową informację..." style="width: 100%; height: 80px; background: #333; border: 1px solid #00d7ef; color: white; padding: 10px; border-radius: 4px; resize: vertical;"></textarea>
+          <button onclick="addToSchowek()" style="background: #00d7ef; border: none; color: #000; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-top: 8px; font-weight: bold;">➕ DODAJ</button>
+        </div>
+        
+        <div id="schowekList" style="color: white;">
+          ${schowekData.length === 0 ? '<p style="color: #888; text-align: center; padding: 20px;">Schowek pusty. Dodaj pierwszą informację!</p>' : 
+            schowekData.map((item, index) => `
+              <div style="background: #333; border-left: 4px solid #00d7ef; padding: 12px; margin-bottom: 8px; border-radius: 4px; position: relative;">
+                <div style="font-size: 12px; color: #888; margin-bottom: 5px;">${new Date(item.timestamp).toLocaleString()}</div>
+                <div style="margin-bottom: 8px;">${item.content}</div>
+                <button onclick="removeFromSchowek(${index})" style="position: absolute; top: 8px; right: 8px; background: #ff4444; border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">🗑️</button>
+              </div>
+            `).join('')
+          }
+        </div>
+        
+        <div style="margin-top: 15px; text-align: center;">
+          <button onclick="exportSchowek()" style="background: #4CAF50; border: none; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 0 5px;">📤 EKSPORT</button>
+          <button onclick="clearSchowek()" style="background: #ff9800; border: none; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 0 5px;">🗑️ WYCZYŚĆ</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+  }
+
+  // SCHOWEK HELPER FUNCTIONS
+  function addToSchowek() {
+    const textarea = document.getElementById('newSchowekItem');
+    const content = textarea.value.trim();
+    
+    if (!content) {
+      alert('Wpisz treść do dodania!');
+      return;
+    }
+    
+    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
+    schowekData.unshift({
+      content: content,
+      timestamp: new Date().toISOString(),
+      id: Date.now()
+    });
+    
+    localStorage.setItem('mybonzoSchowek', JSON.stringify(schowekData));
+    textarea.value = '';
+    
+    // Odśwież modal
+    document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
+    openSchowek();
+  }
+
+  function removeFromSchowek(index) {
+    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
+    schowekData.splice(index, 1);
+    localStorage.setItem('mybonzoSchowek', JSON.stringify(schowekData));
+    
+    // Odśwież modal
+    document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
+    openSchowek();
+  }
+
+  function exportSchowek() {
+    const schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
+    const exportText = schowekData.map(item => 
+      `[${new Date(item.timestamp).toLocaleString()}]\n${item.content}\n`
+    ).join('\n---\n\n');
+    
+    const blob = new Blob([exportText], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `mybonzo-schowek-${new Date().toISOString().split('T')[0]}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function clearSchowek() {
+    if (confirm('Czy na pewno chcesz wyczyścić cały schowek?')) {
+      localStorage.removeItem('mybonzoSchowek');
+      document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
+      openSchowek();
+    }
+  }
+
+  function openKalendarz() {
+    console.log("📅 Opening Kalendarz");  
+    // TODO: Implement Calendar functionality
+    alert("Kalendarz - Funkcja w budowie. Będzie służyć do organizacji zadań i terminów.");
+  }
+
+  function openDodatki() {
+    console.log("🔧 Opening Dodatki");
+    // TODO: Implement Tools functionality  
+    alert("Dodatki - Funkcja w budowie. Będzie zawierać narzędzia pomocnicze.");
+  }
+
+  function openFolder2() {
+    console.log("📁 Opening Folder 2");
+    // TODO: Implement additional folder functionality
+    alert("Folder 2 - Funkcja w budowie. Dodatkowy organizer plików.");
+  }
+
+  function openKatalogStron() {
+    console.log("📋 Opening Katalog Stron - Web Catalog Manager");
+    
+    // Otwórz Web Catalog Manager w nowym oknie/karcie
+    window.open('/katalog-stron', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+  }
+
+  function openInstrukcje() {
+    console.log("📖 Opening Instrukcje");
+    // TODO: Implement help/instructions functionality  
+    alert("Instrukcje - Funkcja w budowie. Pomoc i przewodniki użytkownika.");
+  }
+
+  function openZapas1() {
+    console.log("⭐ Opening Zapas 1");
+    alert("Zapas 1 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
+  }
+
+  function openZapas2() {
+    console.log("⚡ Opening Zapas 2");  
+    alert("Zapas 2 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
+  }
+
+  function openZapas3() {
+    console.log("🚀 Opening Zapas 3");
+    alert("Zapas 3 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
+  }
+
+  // EXPORT ALL VOICE FUNCTIONS TO GLOBAL SCOPE - COMPLETE FIX for onclick handlers
+  
+  // Global Voice Control
+  window.toggleGlobalVoice = toggleGlobalVoice;
+  
+  // Gemini Pro Voice Functions
+  window.startGeminiProVoice = startGeminiProVoice;
+  window.stopGeminiProVoice = stopGeminiProVoice;
+  window.toggleGeminiProVoice = toggleGeminiProVoice;
+  
+  // Gemini Vision Voice Functions  
+  window.startGeminiVisionVoice = startGeminiVisionVoice;
+  window.stopGeminiVisionVoice = stopGeminiVisionVoice;
+  window.toggleGeminiVisionVoice = toggleGeminiVisionVoice;
+  
+  // Code Bison Voice Functions  
+  window.startCodeBisonVoice = startCodeBisonVoice;
+  window.stopCodeBisonVoice = stopCodeBisonVoice;
+  window.toggleCodeBisonVoice = toggleCodeBisonVoice;
+  
+  // Text Bison Voice Functions
+  window.startTextBisonVoice = startTextBisonVoice;
+  window.stopTextBisonVoice = stopTextBisonVoice;
+  window.toggleTextBisonVoice = toggleTextBisonVoice;
+  
+  // Google Bard Voice Functions (mapped to correct function names)
+  window.startBardVoice = startBardVoice;
+  window.stopBardVoice = stopBardVoice;
+  window.toggleBardVoice = toggleBardVoice;
+  window.startGoogleBardVoice = startBardVoice; // Alias
+  window.stopGoogleBardVoice = stopBardVoice; // Alias
+  window.toggleGoogleBardVoice = toggleBardVoice; // Alias
+  
+  // PaLM Voice Functions
+  window.startPaLMVoice = startPaLMVoice;
+  window.stopPaLMVoice = stopPaLMVoice;
+  window.togglePaLMVoice = togglePaLMVoice;
+  
+  // Vertex Voice Functions
+  window.startVertexVoice = startVertexVoice;
+  window.stopVertexVoice = stopVertexVoice;
+  window.toggleVertexVoice = toggleVertexVoice;
+  
+  // AI Studio Voice Functions
+  window.startAIStudioVoice = startAIStudioVoice;
+  window.stopAIStudioVoice = stopAIStudioVoice;
+  window.toggleAIStudioVoice = toggleAIStudioVoice;
+
+  // EXPORT ALL MAIN AI FUNCTIONS TO GLOBAL SCOPE - FIX for onclick handlers
+  
+  // Gemini Pro Functions
+  window.sendToGeminiPro = sendToGeminiPro;
+  window.clearGeminiPro = clearGeminiPro;
+  
+  // Gemini Vision Functions
+  window.sendToGeminiVision = sendToGeminiVision;
+  window.clearGeminiVision = clearGeminiVision;
+  
+  // Code Bison Functions
+  window.sendToCodeBison = sendToCodeBison;
+  window.clearCodeBison = clearCodeBison;
+  
+  // Text Bison Functions
+  window.sendToTextBison = sendToTextBison;
+  window.clearTextBison = clearTextBison;
+  
+  // Google Bard Functions (correct function names)
+  window.sendToGoogleBard = sendToGoogleBard;
+  window.clearGoogleBard = clearGoogleBard;
+  window.toggleGoogleBard = toggleGoogleBard;
+  
+  // PaLM Functions (correct function names)
+  window.sendToPaLMAPI = sendToPaLMAPI;
+  window.clearPaLMAPI = clearPaLMAPI;
+  
+  // Vertex Functions (correct function names)
+  window.sendToVertexAI = sendToVertexAI;
+  window.clearVertexAI = clearVertexAI;
+  
+  // AI Studio Functions
+  window.sendToAIStudio = sendToAIStudio;
+  window.clearAIStudio = clearAIStudio;
+  
+  // Toggle Functions for Floating Buttons
+  window.toggleGeminiPro = toggleGeminiPro;
+  window.toggleGeminiVision = toggleGeminiVision;
+  window.toggleCodeBison = toggleCodeBison;
+  window.toggleTextBison = toggleTextBison;
+  window.toggleGoogleBard = toggleGoogleBard;
+  window.togglePaLMAPI = togglePaLMAPI;
+  window.toggleVertexAI = toggleVertexAI;
+  window.toggleAIStudio = toggleAIStudio;
+  
+  // Global Helper Functions
+  window.closeTab = closeTab;
+  
+  // Emergency Control Functions
+  window.emergencyStopAll = emergencyStopAll;
+  window.resetSystem = resetSystem;
+  window.initializeAudioContext = initializeAudioContext;
+  
+  // Test and Debug Functions
+  window.testAllFunctions = testAllFunctions;
+  window.debugVoiceStatus = debugVoiceStatus;
+
+  // Worker Communication Popup Functions
+  function openBigQueryPopup() {
+    console.log("🔍 Opening BigQuery Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("bigqueryPrompt")?.value || "";
+      window.openWorkerPopup("bigquery", "https://mybonzo.com/api/polaczek/bigquery", "BigQuery Analytics");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct BigQuery interface");
+      if (typeof window.BigQueryInterface !== 'undefined') {
+        const bigQueryInterface = new window.BigQueryInterface();
+        bigQueryInterface.openInterface();
+      } else {
+        // Fallback to original function
+        openBigQuery();
+      }
+    }
+  }
+
+  function openKagglePopup() {
+    console.log("🔍 Opening Kaggle Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("kagglePrompt")?.value || "";
+      window.openWorkerPopup("kaggle", "https://mybonzo.com/api/polaczek/kaggle", "Kaggle Datasets");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct Kaggle interface");
+      if (typeof window.KaggleInterface !== 'undefined') {
+        const kaggleInterface = new window.KaggleInterface();
+        kaggleInterface.openInterface();
+      } else {
+        // Fallback to original function
+        openKaggle();
+      }
+    }
+  }
+
+  function openVoiceAIPopup() {
+    console.log("🎤 Opening Voice AI Communication Popup");
+    if (typeof window.openWorkerPopup === 'function') {
+      const prompt = document.getElementById("voiceAiPrompt")?.value || "";
+      window.openWorkerPopup("voice-ai", "https://mybonzo.com/api/polaczek/voice-ai", "Voice AI Assistant");
+    } else {
+      console.warn("Worker popup functions not yet loaded, trying direct Voice AI interface");
+      if (typeof window.VoiceAIInterface !== 'undefined') {
+        const voiceAIInterface = new window.VoiceAIInterface();
+        voiceAIInterface.quickTranscribe();
+      } else {
+        // Fallback alert
+        alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
+      }
+    }
+  }
+
+  function quickSynthesize() {
+    console.log("🔊 Quick Text Synthesis");
+    const text = document.getElementById("voiceAiPrompt")?.value;
+    if (!text || text.trim().length === 0) {
+      alert("Wprowadź tekst do syntezy w polu powyżej");
+      return;
+    }
+    
+    if (typeof window.VoiceAIInterface !== 'undefined') {
+      const voiceAIInterface = new window.VoiceAIInterface();
+      voiceAIInterface.quickSynthesize(text);
+    } else {
+      console.warn("Voice AI interface not loaded yet");
+      alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
+    }
+  }
+
+  // Export new popup functions to global scope
+  window.openBigQueryPopup = openBigQueryPopup;
+  window.openKagglePopup = openKagglePopup;
+  window.openVoiceAIPopup = openVoiceAIPopup;
+  window.quickSynthesize = quickSynthesize;
+
+  console.log("✅ All Voice AI, BigQuery, Kaggle popup functions exported to global scope");
+</script>
+
+<!-- BigQuery API Integration Script -->
+<script is:inline>
+  // Import BigQuery API functionality
+  import('../utils/bigQueryAPI.js').then(module => {
+    // Make BigQuery functions available globally
+    window.BigQueryAPI = module.BigQueryAPI;
+    window.BigQueryInterface = module.BigQueryInterface;
+    console.log('✅ BigQuery API loaded');
+  }).catch(err => console.warn('⚠️ BigQuery API load failed:', err));
+</script>
+
+<!-- Kaggle API Integration Script -->
+<script is:inline>
+  // Import Kaggle API functionality  
+  import('../utils/kaggleAPI.js').then(module => {
+    // Make Kaggle functions available globally
+    window.KaggleAPI = module.KaggleAPI;
+    window.KaggleInterface = module.KaggleInterface;
+    console.log('✅ Kaggle API loaded');
+  }).catch(err => console.warn('⚠️ Kaggle API load failed:', err));
+</script>
+
+<!-- Voice AI Integration Script -->
+<script is:inline>
+  // Import Voice AI functionality
+  import('../utils/voiceAiAPI.js').then(module => {
+    // Make Voice AI functions available globally
+    window.VoiceAIAPI = module.VoiceAIAPI;
+    window.VoiceAIInterface = module.VoiceAIInterface;
+    console.log('✅ Voice AI API loaded');
+  }).catch(err => console.warn('⚠️ Voice AI API load failed:', err));
+</script>
+
+<style>
+  /* System title - enlarged and bold */
+  .system-title {
+    color: #00d7ef !important;
+    font-weight: 900 !important;
+    font-size: 3.5rem !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    text-shadow: 0 0 20px rgba(0, 215, 239, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  /* Dashboard login section */
+  .dashboard-login-section {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 32px 24px;
+    margin: 24px 0;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px;
+    box-shadow: 0 2px 18px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .login-input {
+    background: #131e28;
+    color: #00d7ef;
+    padding: 12px 16px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 200px;
+    transition: all 0.2s ease;
+  }
+
+  .login-input:focus {
+    outline: none;
+    border-color: #00d7ef;
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
+  }
+
+  .login-btn {
+    background-color: #164e63;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-btn:hover {
+    background-color: #1be1ff;
+    color: #000;
+    transform: translateY(-1px);
+  }
+
+  .dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .dashboard-btn {
+    background-color: #164e63;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    min-width: 220px;
+    box-shadow: 0 2px 18px rgba(0, 217, 255, 0.3);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  .dashboard-btn:hover {
+    background-color: #1be1ff;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.5);
+  }
+
+  /* Feature tiles for 9 functions */
+  .feature-tile {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px;
+    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
+    padding: 34px 24px 24px 24px;
+    margin: 0; /* grid gap controls spacing now */
+    text-align: left;
+    min-width: 270px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 52;
+    pointer-events: auto;
+  }
+
+  .feature-tile:hover {
+    border-color: #00d7ef;
+    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
+    transform: translateY(-3px);
+  }
+
+  .feature-title {
+    color: #00d7ef;
+    font-weight: 700;
+    font-size: 1.24rem;
+    margin-bottom: 0.46em;
+  }
+
+  .feature-desc {
+    color: #94aec4;
+    font-size: 1.09rem;
+    line-height: 1.5;
+  }
+
+  .feature-icon {
+    font-size: 2.7rem;
+    margin-bottom: 14px;
+    color: #1be1ff;
+    display: block;
+  }
+
+  /* Admin panel - fixed left side - moved to bottom */
+  .admin-panel-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Right panel - fixed right side */
+  .right-panel-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(27, 225, 255, 0.5) rgba(0, 0, 0, 0.2);
+  }
+
+  .right-panel-fixed::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .right-panel-fixed::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+  }
+
+  .right-panel-fixed::-webkit-scrollbar-thumb {
+    background: rgba(27, 225, 255, 0.5);
+    border-radius: 0;
+  }
+
+  .right-panel-fixed::-webkit-scrollbar-thumb:hover {
+    background: rgba(27, 225, 255, 0.7);
+  }
+
+  .right-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 0px;
+    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+    min-width: 235px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(20px);
+    font-family: 'Courier New', monospace;
+  }
+
+  .right-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+    color: #00d7ef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
+    border-color: #00d7ef;
+    backdrop-filter: blur(25px);
+  }
+
+  .right-btn:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
+  }
+
+  .admin-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 0px;
+    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.1);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+    min-width: 160px;
+    position: relative;
+    z-index: 10;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(20px);
+    font-family: 'Courier New', monospace;
+  }
+
+  .admin-btn:hover {
+    background: rgba(0, 217, 255, 0.15);
+    color: #00d7ef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    border-color: rgba(0, 217, 255, 0.8);
+    backdrop-filter: blur(25px);
+  }
+
+  /* Login container - fixed below admin panel */
+  .login-container-fixed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 16px;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-input-fixed {
+    background: #131e28;
+    color: #00d7ef;
+    padding: 10px 12px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    border-radius: 0px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 150px;
+    transition: all 0.2s ease;
+  }
+
+  .login-input-fixed:focus {
+    outline: none;
+    border-color: #00d7ef;
+    box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
+  }
+
+  .login-input-fixed::placeholder {
+    color: rgba(0, 217, 255, 0.6);
+  }
+
+  .login-btn-fixed {
+    background-color: #164e63;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.2);
+  }
+
+  .login-btn-fixed:hover {
+    background-color: #1be1ff;
+    color: #000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.4);
+  }
+
+  /* Override any existing rounded corners - FORCE 0px everywhere */
+  * {
+    border-radius: 0px !important;
+  }
+
+  .widget-container {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 0px !important;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .widget-container:hover {
+    border-color: #00d9ff;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Force 0px border radius on specific elements */
+  .additional-functions-section {
+    position: relative;
+    z-index: 50;
+    pointer-events: auto;
+  }
+
+  .additional-grid {
+    display: grid;
+    /* Force 3 columns on wide screens so the section is exactly 3x3 for 9 items */
+    grid-template-columns: repeat(3, 1fr);
+    /* tighter gap between items without changing tile internals */
+    gap: 0.75rem; /* ~12px */
+    margin-top: 2rem;
+    /* match width of top sections (approx Tailwind max-w-6xl = 72rem = 1152px) */
+    max-width: 72rem; /* 1152px */
+    width: 100%;
+    padding: 0 1rem; /* keep small horizontal padding on narrow screens */
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 51;
+  }
+
+  /* Responsive fallbacks: 2 columns on medium, 1 column on small */
+  @media (max-width: 1024px) {
+    .additional-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .additional-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  /* Left-style buttons - same style as admin panel buttons */
+  .left-style-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: #00d7ef;
+    padding: 12px 24px;
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    transition: all 0.2s ease;
+    display: inline-block;
+    text-align: center;
+    min-width: 180px;
+    cursor: pointer;
+  }
+
+  .left-style-btn:hover {
+    background: #00d7ef;
+    color: #131e28;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+  }
+
+  .left-style-btn:active {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
+  }
+
+  .left-style-buttons-section {
+    border-top: 1px solid rgba(0, 217, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+  }
+
+  /* Floating widget containers and widgets */
+  .floating-widget-container {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .floating-widget {
+    /* Let components handle their own positioning */
+    display: block;
+  }
+
+  /* Template CSS for all floating widgets - based on Music Player design */
+  .floating-widget-template {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.98),
+      rgba(0, 0, 0, 0.95)
+    );
+    border: 2px solid #1be1ff;
+    border-radius: 0;
+    backdrop-filter: blur(15px);
+    min-width: 480px;
+    max-width: 520px;
+    min-height: 450px;
+    max-height: 600px;
+    box-shadow:
+      0 0 12px rgba(27, 225, 255, 0.2),
+      0 0 25px rgba(27, 225, 255, 0.08),
+      inset 0 1px 0 rgba(27, 225, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1000;
+    font-family: "Rajdhani", sans-serif;
+  }
+
+  .floating-widget-template .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #0f3846, #1be1ff);
+    border-bottom: 2px solid #1be1ff;
+    border-radius: 0;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.4);
+    user-select: none;
+  }
+
+  .floating-widget-template .panel-content {
+    padding: 12px;
+    transition: all 0.3s ease;
+  }
+
+  /* Floating agent widgets */
+  .floating-agent-widget {
+    position: fixed !important;
+    right: 220px !important; /* Avoid left panel overlap */
+    z-index: 1000 !important;
+  }
+
+  /* Make sure existing widgets don't overlap */
+  #googleVoiceWidget {
+    position: fixed !important;
+    right: 10px !important;
+    bottom: 20px !important;
+    z-index: 999 !important;
+  }
+
+  /* Widget containers - let components handle their own positioning */
+  #polaczekWidget,
+  #musicPlayerWidget {
+    display: block;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .system-title {
+      font-size: 2.5rem !important;
+    }
+
+    .admin-panel-fixed {
+      bottom: 20px;
+      left: 10px;
+      gap: 12px;
+    }
+
+    .right-panel-fixed {
+      bottom: 20px;
+      right: 10px;
+      gap: 12px;
+    }
+
+    .admin-btn,
+    .right-btn {
+      min-width: 180px;
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+
+    .login-container-fixed {
+      padding: 12px;
+    }
+
+    .login-input-fixed {
+      min-width: 130px;
+      font-size: 0.9rem;
+      padding: 8px 10px;
+    }
+
+    .login-btn-fixed {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .admin-panel-fixed {
+      left: 8px;
+      bottom: 15px;
+      gap: 10px;
+    }
+
+    .right-panel-fixed {
+      right: 8px;
+      bottom: 15px;
+      gap: 10px;
+    }
+
+    .admin-btn,
+    .right-btn {
+      min-width: 150px;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+    }
+
+    .login-container-fixed {
+      padding: 10px;
+    }
+
+    .login-input-fixed {
+      min-width: 120px;
+      font-size: 0.85rem;
+      padding: 7px 8px;
+    }
+
+    .login-btn-fixed {
+      font-size: 0.85rem;
+      padding: 7px 10px;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1280px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Global vertical lines for workers sections */
+  .workers-vertical-line-left,
+  .workers-vertical-line-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #ffffff;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  .workers-vertical-line-left {
+    left: calc(
+      50vw - 576px - 10px - 21px
+    ); /* 21px more to the left (moved 4px to the right) */
+  }
+
+  .workers-vertical-line-right {
+    right: calc(50vw - 576px - 10px - 20px); /* 20px more to the right */
+  }
+
+  /* Remove body pseudo-elements */
+  body::before,
+  body::after {
+    display: none;
+  }
+</style>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

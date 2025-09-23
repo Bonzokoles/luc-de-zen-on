@@ -1,11 +1,21 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
+<<<<<<< HEAD
 const pageTitle = "Centrum BezpieczeĹ„stwa | MyBonzo Admin";
 const pageDescription = "ZarzÄ…dzanie bezpieczeĹ„stwem i kontrolÄ… dostÄ™pu MyBonzo AI";
 const pageQuote = "BezpieczeĹ„stwo to nie opcja, to koniecznoĹ›Ä‡.";
+=======
+const pageTitle = "Centrum Bezpieczeństwa | MyBonzo Admin";
+const pageDescription = "Zarządzanie bezpieczeństwem i kontrolą dostępu MyBonzo AI";
+const pageQuote = "Bezpieczeństwo to nie opcja, to konieczność.";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "MyBonzo Security Team";
 ---
 
@@ -17,15 +27,24 @@ const pageAuthor = "MyBonzo Security Team";
   showRandomQuote={false}
 >
     <!-- Navigation -->
+<<<<<<< HEAD
     <GlassPanel title="đź§­ Nawigacja" variant="info" padding="sm">
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <CyberpunkButton text="đźŹ  Strona gĹ‚Ăłwna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
             <CyberpunkButton text="đź“Š Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
             <CyberpunkButton text="đź‘Ą UĹĽytkownicy" variant="outline" size="sm" onclick="window.location.href='/admin/users'" />
+=======
+    <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <CyberpunkButton text="🏠 Strona główna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
+            <CyberpunkButton text="📊 Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
+            <CyberpunkButton text="👥 Użytkownicy" variant="outline" size="sm" onclick="window.location.href='/admin/users'" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
     </GlassPanel>
 
     <!-- Security Status Overview -->
+<<<<<<< HEAD
     <GlassPanel title="đź›ˇď¸Ź Status bezpieczeĹ„stwa" variant="warning" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: rgba(239,68,68,0.1); padding: 15px; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; text-align: center;">
@@ -43,12 +62,35 @@ const pageAuthor = "MyBonzo Security Team";
             <div style="background: rgba(34,197,94,0.1); padding: 15px; border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #22c55e; font-size: 2rem; font-weight: 700;" id="lastScan">2h ago</div>
                 <div style="color: rgba(255,255,255,0.7);">Ostatni skan bezpieczeĹ„stwa</div>
+=======
+    <GlassPanel title="🛡️ Status bezpieczeństwa" variant="warning" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div style="background: rgba(239,68,68,0.1); padding: 15px; border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #ef4444; font-size: 2rem; font-weight: 700;" id="threatLevel">🟡 MEDIUM</div>
+                <div style="color: rgba(255,255,255,0.7);">Poziom zagrożenia</div>
+            </div>
+            <div style="background: rgba(245,158,11,0.1); padding: 15px; border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #f59e0b; font-size: 2rem; font-weight: 700;" id="blockedAttempts">147</div>
+                <div style="color: rgba(255,255,255,0.7);">Zablokowane próby (24h)</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeFirewallRules">23</div>
+                <div style="color: rgba(255,255,255,0.7);">Aktywne reguły firewall</div>
+            </div>
+            <div style="background: rgba(34,197,94,0.1); padding: 15px; border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #22c55e; font-size: 2rem; font-weight: 700;" id="lastScan">2h ago</div>
+                <div style="color: rgba(255,255,255,0.7);">Ostatni skan bezpieczeństwa</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
 
         <div style="text-align: center;">
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”Ť Uruchom peĹ‚ny skan" 
+=======
+                text="🔍 Uruchom pełny skan" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="warning" 
                 size="lg"
                 onclick="startSecurityScan()"
@@ -57,25 +99,41 @@ const pageAuthor = "MyBonzo Security Team";
     </GlassPanel>
 
     <!-- Access Control -->
+<<<<<<< HEAD
     <GlassPanel title="đź” Kontrola dostÄ™pu" variant="default" padding="lg">
+=======
+    <GlassPanel title="🔐 Kontrola dostępu" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
             
             <!-- Authentication Settings -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+<<<<<<< HEAD
                     đź”‘ <span style="margin-left: 10px;">Ustawienia uwierzytelniania</span>
+=======
+                    🔑 <span style="margin-left: 10px;">Ustawienia uwierzytelniania</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </h3>
                 <div style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
                     <div style="margin-bottom: 10px;">
                         <label style="display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" id="require2FA" checked />
+<<<<<<< HEAD
                             Wymagaj 2FA dla adminĂłw
+=======
+                            Wymagaj 2FA dla adminów
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         </label>
                     </div>
                     <div style="margin-bottom: 10px;">
                         <label style="display: flex; align-items: center; gap: 10px;">
                             <input type="checkbox" id="strongPasswords" checked />
+<<<<<<< HEAD
                             WymuĹ› silne hasĹ‚a
+=======
+                            Wymuś silne hasła
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         </label>
                     </div>
                     <div style="margin-bottom: 15px;">
@@ -86,7 +144,11 @@ const pageAuthor = "MyBonzo Security Team";
                     </div>
                 </div>
                 <CyberpunkButton 
+<<<<<<< HEAD
                     text="đź’ľ Zapisz ustawienia" 
+=======
+                    text="💾 Zapisz ustawienia" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="sm"
                     onclick="saveAuthSettings()"
@@ -96,7 +158,11 @@ const pageAuthor = "MyBonzo Security Team";
             <!-- IP Whitelist/Blacklist -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+<<<<<<< HEAD
                     đźŚ <span style="margin-left: 10px;">ZarzÄ…dzanie IP</span>
+=======
+                    🌐 <span style="margin-left: 10px;">Zarządzanie IP</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </h3>
                 <div style="margin-bottom: 15px;">
                     <input 
@@ -106,8 +172,13 @@ const pageAuthor = "MyBonzo Security Team";
                         style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 4px; color: white; margin-bottom: 10px;"
                     />
                     <div style="display: flex; gap: 10px;">
+<<<<<<< HEAD
                         <CyberpunkButton text="âś… Whitelist" variant="success" size="sm" onclick="addToWhitelist()" />
                         <CyberpunkButton text="âťŚ Blacklist" variant="danger" size="sm" onclick="addToBlacklist()" />
+=======
+                        <CyberpunkButton text="✅ Whitelist" variant="success" size="sm" onclick="addToWhitelist()" />
+                        <CyberpunkButton text="❌ Blacklist" variant="danger" size="sm" onclick="addToBlacklist()" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </div>
                 </div>
                 <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6);">
@@ -119,7 +190,11 @@ const pageAuthor = "MyBonzo Security Team";
             <!-- API Security -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
+<<<<<<< HEAD
                     đź”Ś <span style="margin-left: 10px;">Zabezpieczenia API</span>
+=======
+                    🔌 <span style="margin-left: 10px;">Zabezpieczenia API</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </h3>
                 <div style="color: rgba(255,255,255,0.7); margin-bottom: 15px;">
                     <div style="margin-bottom: 10px;">Rate limiting: <span style="color: #00d9ff;">1000 req/h</span></div>
@@ -127,15 +202,24 @@ const pageAuthor = "MyBonzo Security Team";
                     <div style="margin-bottom: 15px;">Podejrzane zapytania: <span style="color: #ef4444;">3</span></div>
                 </div>
                 <div style="display: flex; gap: 10px;">
+<<<<<<< HEAD
                     <CyberpunkButton text="đź”‘ ZarzÄ…dzaj kluczami" variant="outline" size="sm" onclick="manageAPIKeys()" />
                     <CyberpunkButton text="đź“Š Logi API" variant="outline" size="sm" onclick="viewAPILogs()" />
+=======
+                    <CyberpunkButton text="🔑 Zarządzaj kluczami" variant="outline" size="sm" onclick="manageAPIKeys()" />
+                    <CyberpunkButton text="📊 Logi API" variant="outline" size="sm" onclick="viewAPILogs()" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </div>
             </div>
         </div>
     </GlassPanel>
 
     <!-- Security Incidents -->
+<<<<<<< HEAD
     <GlassPanel title="đźš¨ Incydenty bezpieczeĹ„stwa" variant="danger" padding="lg">
+=======
+    <GlassPanel title="🚨 Incydenty bezpieczeństwa" variant="danger" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
             <div id="securityIncidents">
                 <!-- Incidents will be loaded here -->
@@ -144,19 +228,31 @@ const pageAuthor = "MyBonzo Security Team";
         
         <div style="display: flex; gap: 15px; justify-content: center;">
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”„ OdĹ›wieĹĽ incydenty" 
+=======
+                text="🔄 Odśwież incydenty" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="sm"
                 onclick="loadSecurityIncidents()"
             />
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź“‹ Eksportuj raport" 
+=======
+                text="📋 Eksportuj raport" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="sm"
                 onclick="exportSecurityReport()"
             />
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="âś‰ď¸Ź Powiadom zespĂłĹ‚" 
+=======
+                text="✉️ Powiadom zespół" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="warning" 
                 size="sm"
                 onclick="notifySecurityTeam()"
@@ -165,54 +261,94 @@ const pageAuthor = "MyBonzo Security Team";
     </GlassPanel>
 
     <!-- Security Tools -->
+<<<<<<< HEAD
     <GlassPanel title="đź› ď¸Ź NarzÄ™dzia bezpieczeĹ„stwa" variant="default" padding="lg">
+=======
+    <GlassPanel title="🛠️ Narzędzia bezpieczeństwa" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
             
             <!-- Firewall Status -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź›ˇď¸Ź</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">Firewall</h4>
                 <div style="color: #22c55e; margin-bottom: 10px;">đźź˘ AKTYWNY</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Firewall</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 AKTYWNY</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Konfiguruj" variant="outline" size="sm" onclick="configureFirewall()" />
             </div>
 
             <!-- DDoS Protection -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź›ˇď¸Ź</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">DDoS Protection</h4>
                 <div style="color: #22c55e; margin-bottom: 10px;">đźź˘ AKTYWNY</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">🛡️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">DDoS Protection</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 AKTYWNY</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Status" variant="outline" size="sm" onclick="checkDDoSStatus()" />
             </div>
 
             <!-- SSL/TLS -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź”’</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">SSL/TLS</h4>
                 <div style="color: #22c55e; margin-bottom: 10px;">đźź˘ VALID</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔒</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">SSL/TLS</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 VALID</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Certyfikaty" variant="outline" size="sm" onclick="manageCertificates()" />
             </div>
 
             <!-- Vulnerability Scanner -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź”Ť</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">Skaner podatnoĹ›ci</h4>
                 <div style="color: #f59e0b; margin-bottom: 10px;">đźźˇ PENDING</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔍</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Skaner podatności</h4>
+                <div style="color: #f59e0b; margin-bottom: 10px;">🟡 PENDING</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Skanuj" variant="warning" size="sm" onclick="runVulnerabilityscan()" />
             </div>
 
             <!-- Intrusion Detection -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź‘ď¸Ź</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">IDS/IPS</h4>
                 <div style="color: #22c55e; margin-bottom: 10px;">đźź˘ MONITORING</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">👁️</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">IDS/IPS</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 MONITORING</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Logi" variant="outline" size="sm" onclick="viewIDSLogs()" />
             </div>
 
             <!-- Backup Security -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px; text-align: center;">
+<<<<<<< HEAD
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź’ľ</div>
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">Secure Backup</h4>
                 <div style="color: #22c55e; margin-bottom: 10px;">đźź˘ ENCRYPTED</div>
+=======
+                <div style="font-size: 2rem; margin-bottom: 10px;">💾</div>
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">Secure Backup</h4>
+                <div style="color: #22c55e; margin-bottom: 10px;">🟢 ENCRYPTED</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton text="Backup" variant="outline" size="sm" onclick="createSecureBackup()" />
             </div>
         </div>
@@ -280,8 +416,13 @@ const pageAuthor = "MyBonzo Security Team";
                         </div>
                         <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">${incident.description}</p>
                         <div style="margin-top: 10px; display: flex; gap: 10px;">
+<<<<<<< HEAD
                             <button onclick="investigateIncident('${incident.type}')" style="background: #00d9ff; color: black; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">đź”Ť Investigate</button>
                             <button onclick="resolveIncident('${incident.type}')" style="background: #22c55e; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">âś… Resolve</button>
+=======
+                            <button onclick="investigateIncident('${incident.type}')" style="background: #00d9ff; color: black; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">🔍 Investigate</button>
+                            <button onclick="resolveIncident('${incident.type}')" style="background: #22c55e; color: white; border: none; padding: 4px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">✅ Resolve</button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         </div>
                     </div>
                 `;
@@ -311,6 +452,7 @@ const pageAuthor = "MyBonzo Security Team";
         // Security functions
         function startSecurityScan() {
             const button = document.querySelector('[onclick="startSecurityScan()"]');
+<<<<<<< HEAD
             button.textContent = 'đź”„ Skanowanie...';
             button.style.opacity = '0.7';
             
@@ -319,6 +461,16 @@ const pageAuthor = "MyBonzo Security Team";
                 button.style.color = '#22c55e';
                 setTimeout(() => {
                     button.textContent = 'đź”Ť Uruchom peĹ‚ny skan';
+=======
+            button.textContent = '🔄 Skanowanie...';
+            button.style.opacity = '0.7';
+            
+            setTimeout(() => {
+                button.textContent = '✅ Skan zakończony';
+                button.style.color = '#22c55e';
+                setTimeout(() => {
+                    button.textContent = '🔍 Uruchom pełny skan';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     button.style.opacity = '1';
                     button.style.color = '';
                 }, 2000);
@@ -326,13 +478,21 @@ const pageAuthor = "MyBonzo Security Team";
         }
 
         function saveAuthSettings() {
+<<<<<<< HEAD
             alert('âś… Ustawienia uwierzytelniania zostaĹ‚y zapisane');
+=======
+            alert('✅ Ustawienia uwierzytelniania zostały zapisane');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function addToWhitelist() {
             const ip = document.getElementById('ipAddress').value;
             if (ip) {
+<<<<<<< HEAD
                 alert(`âś… IP ${ip} dodany do whitelisty`);
+=======
+                alert(`✅ IP ${ip} dodany do whitelisty`);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 document.getElementById('ipAddress').value = '';
                 const count = document.getElementById('whitelistCount');
                 count.textContent = parseInt(count.textContent) + 1;
@@ -342,7 +502,11 @@ const pageAuthor = "MyBonzo Security Team";
         function addToBlacklist() {
             const ip = document.getElementById('ipAddress').value;
             if (ip) {
+<<<<<<< HEAD
                 alert(`âťŚ IP ${ip} dodany do blacklisty`);
+=======
+                alert(`❌ IP ${ip} dodany do blacklisty`);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 document.getElementById('ipAddress').value = '';
                 const count = document.getElementById('blacklistCount');
                 count.textContent = parseInt(count.textContent) + 1;
@@ -350,11 +514,19 @@ const pageAuthor = "MyBonzo Security Team";
         }
 
         function manageAPIKeys() {
+<<<<<<< HEAD
             alert('đźš§ Panel zarzÄ…dzania kluczami API w przygotowaniu...');
         }
 
         function viewAPILogs() {
             alert('đźš§ PodglÄ…d logĂłw API w przygotowaniu...');
+=======
+            alert('🚧 Panel zarządzania kluczami API w przygotowaniu...');
+        }
+
+        function viewAPILogs() {
+            alert('🚧 Podgląd logów API w przygotowaniu...');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function exportSecurityReport() {
@@ -380,6 +552,7 @@ const pageAuthor = "MyBonzo Security Team";
         }
 
         function notifySecurityTeam() {
+<<<<<<< HEAD
             alert('đźš§ System powiadomieĹ„ zespoĹ‚u bezpieczeĹ„stwa w przygotowaniu...');
         }
 
@@ -389,10 +562,22 @@ const pageAuthor = "MyBonzo Security Team";
 
         function resolveIncident(type) {
             alert(`âś… Incydent "${type}" zostaĹ‚ oznaczony jako rozwiÄ…zany`);
+=======
+            alert('🚧 System powiadomień zespołu bezpieczeństwa w przygotowaniu...');
+        }
+
+        function investigateIncident(type) {
+            alert(`🔍 Rozpoczęto dochodzenie w sprawie: ${type}`);
+        }
+
+        function resolveIncident(type) {
+            alert(`✅ Incydent "${type}" został oznaczony jako rozwiązany`);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         // Security tools functions
         function configureFirewall() {
+<<<<<<< HEAD
             alert('đźš§ Konfiguracja firewalla w przygotowaniu...');
         }
 
@@ -414,6 +599,29 @@ const pageAuthor = "MyBonzo Security Team";
 
         function createSecureBackup() {
             alert('đźš§ System bezpiecznych kopii zapasowych w przygotowaniu...');
+=======
+            alert('🚧 Konfiguracja firewalla w przygotowaniu...');
+        }
+
+        function checkDDoSStatus() {
+            alert('✅ DDoS Protection: AKTYWNY\\n- Zablokowane ataki: 15\\n- Ostatni atak: 2h temu');
+        }
+
+        function manageCertificates() {
+            alert('🚧 Zarządzanie certyfikatami SSL/TLS w przygotowaniu...');
+        }
+
+        function runVulnerabilityScan() {
+            alert('🚧 Skaner podatności w przygotowaniu...');
+        }
+
+        function viewIDSLogs() {
+            alert('🚧 Logi IDS/IPS w przygotowaniu...');
+        }
+
+        function createSecureBackup() {
+            alert('🚧 System bezpiecznych kopii zapasowych w przygotowaniu...');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         // Initialize page
@@ -427,4 +635,8 @@ const pageAuthor = "MyBonzo Security Team";
             }, 60000);
         });
     </script>
+<<<<<<< HEAD
 </UniversalPageLayout>
+=======
+</UniversalPageLayout>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

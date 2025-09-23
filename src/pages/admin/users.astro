@@ -1,11 +1,21 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
+<<<<<<< HEAD
 const pageTitle = "ZarzÄ…dzanie uĹĽytkownikami | MyBonzo Admin";
 const pageDescription = "Panel zarzÄ…dzania kontami uĹĽytkownikĂłw MyBonzo AI";
 const pageQuote = "UĹĽytkownicy to serce kaĹĽdego systemu.";
+=======
+const pageTitle = "Zarządzanie użytkownikami | MyBonzo Admin";
+const pageDescription = "Panel zarządzania kontami użytkowników MyBonzo AI";
+const pageQuote = "Użytkownicy to serce każdego systemu.";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "MyBonzo Team";
 ---
 
@@ -17,15 +27,24 @@ const pageAuthor = "MyBonzo Team";
   showRandomQuote={false}
 >
     <!-- Navigation -->
+<<<<<<< HEAD
     <GlassPanel title="đź§­ Nawigacja" variant="info" padding="sm">
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <CyberpunkButton text="đźŹ  Strona gĹ‚Ăłwna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
             <CyberpunkButton text="đź“Š Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
             <CyberpunkButton text="đź“ Monitoring" variant="outline" size="sm" onclick="window.location.href='/admin/monitoring'" />
+=======
+    <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <CyberpunkButton text="🏠 Strona główna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
+            <CyberpunkButton text="📊 Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
+            <CyberpunkButton text="📈 Monitoring" variant="outline" size="sm" onclick="window.location.href='/admin/monitoring'" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
     </GlassPanel>
 
     <!-- User Statistics -->
+<<<<<<< HEAD
     <GlassPanel title="đź‘Ą Statystyki uĹĽytkownikĂłw" variant="highlight" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
@@ -43,12 +62,35 @@ const pageAuthor = "MyBonzo Team";
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="bannedUsers">12</div>
                 <div style="color: rgba(255,255,255,0.7);">Zablokowani uĹĽytkownicy</div>
+=======
+    <GlassPanel title="👥 Statystyki użytkowników" variant="highlight" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="totalUsers">1,247</div>
+                <div style="color: rgba(255,255,255,0.7);">Łączna liczba użytkowników</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">347</div>
+                <div style="color: rgba(255,255,255,0.7);">Aktywni użytkownicy (24h)</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="newUsers">23</div>
+                <div style="color: rgba(255,255,255,0.7);">Nowi użytkownicy (dziś)</div>
+            </div>
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="bannedUsers">12</div>
+                <div style="color: rgba(255,255,255,0.7);">Zablokowani użytkownicy</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
     </GlassPanel>
 
     <!-- User Search and Filters -->
+<<<<<<< HEAD
     <GlassPanel title="đź”Ť Wyszukiwanie uĹĽytkownikĂłw" variant="default" padding="lg">
+=======
+    <GlassPanel title="🔍 Wyszukiwanie użytkowników" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 15px; margin-bottom: 20px;">
             <input 
                 type="text" 
@@ -64,7 +106,11 @@ const pageAuthor = "MyBonzo Team";
                 <option value="banned">Zablokowani</option>
             </select>
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”Ť Szukaj" 
+=======
+                text="🔍 Szukaj" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="primary" 
                 size="md"
                 onclick="performSearch()"
@@ -72,23 +118,40 @@ const pageAuthor = "MyBonzo Team";
         </div>
 
         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+<<<<<<< HEAD
             <CyberpunkButton text="âž• Dodaj uĹĽytkownika" variant="success" size="sm" onclick="showAddUserModal()" />
             <CyberpunkButton text="đź“§ WyĹ›lij email masowy" variant="outline" size="sm" onclick="showBulkEmailModal()" />
             <CyberpunkButton text="đź“Ą Eksportuj listÄ™" variant="outline" size="sm" onclick="exportUserList()" />
+=======
+            <CyberpunkButton text="➕ Dodaj użytkownika" variant="success" size="sm" onclick="showAddUserModal()" />
+            <CyberpunkButton text="📧 Wyślij email masowy" variant="outline" size="sm" onclick="showBulkEmailModal()" />
+            <CyberpunkButton text="📥 Eksportuj listę" variant="outline" size="sm" onclick="exportUserList()" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
     </GlassPanel>
 
     <!-- Users List -->
+<<<<<<< HEAD
     <GlassPanel title="đź“‹ Lista uĹĽytkownikĂłw" variant="default" padding="lg">
+=======
+    <GlassPanel title="📋 Lista użytkowników" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="overflow-x: auto;">
             <table id="usersTable" style="width: 100%; border-collapse: collapse; color: white;">
                 <thead>
                     <tr style="background: rgba(0,217,255,0.1); border-bottom: 1px solid rgba(0,217,255,0.3);">
                         <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">ID</th>
+<<<<<<< HEAD
                         <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Nazwa uĹĽytkownika</th>
                         <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Email</th>
                         <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Status</th>
                         <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Ostatnia aktywnoĹ›Ä‡</th>
+=======
+                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Nazwa użytkownika</th>
+                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Email</th>
+                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Status</th>
+                        <th style="padding: 12px; text-align: left; border-right: 1px solid rgba(0,217,255,0.2);">Ostatnia aktywność</th>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         <th style="padding: 12px; text-align: left;">Akcje</th>
                     </tr>
                 </thead>
@@ -104,13 +167,19 @@ const pageAuthor = "MyBonzo Team";
                 Showing <span id="currentRange">1-20</span> of <span id="totalResults">1247</span> users
             </div>
             <div style="display: flex; gap: 10px;">
+<<<<<<< HEAD
                 <CyberpunkButton text="â—€ Poprzednia" variant="outline" size="sm" onclick="previousPage()" />
                 <CyberpunkButton text="NastÄ™pna â–¶" variant="outline" size="sm" onclick="nextPage()" />
+=======
+                <CyberpunkButton text="◀ Poprzednia" variant="outline" size="sm" onclick="previousPage()" />
+                <CyberpunkButton text="Następna ▶" variant="outline" size="sm" onclick="nextPage()" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
     </GlassPanel>
 
     <!-- Quick Actions Panel -->
+<<<<<<< HEAD
     <GlassPanel title="âšˇ Szybkie akcje" variant="warning" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
             <div style="text-align: center;">
@@ -132,6 +201,29 @@ const pageAuthor = "MyBonzo Team";
                 <div style="font-size: 2rem; margin-bottom: 10px;">đź—‘ď¸Ź</div>
                 <h4 style="color: #f59e0b; margin-bottom: 10px;">UsuĹ„ nieaktywnych</h4>
                 <CyberpunkButton text="CzyĹ›Ä‡ bazÄ™" variant="danger" size="sm" onclick="showCleanupModal()" />
+=======
+    <GlassPanel title="⚡ Szybkie akcje" variant="warning" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+            <div style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🚫</div>
+                <h4 style="color: #f59e0b; margin-bottom: 10px;">Blokada masowa</h4>
+                <CyberpunkButton text="Zarządzaj blokadami" variant="warning" size="sm" onclick="showBulkBanModal()" />
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">📊</div>
+                <h4 style="color: #f59e0b; margin-bottom: 10px;">Analityka użytkowników</h4>
+                <CyberpunkButton text="Zobacz raporty" variant="outline" size="sm" onclick="showUserAnalytics()" />
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🔄</div>
+                <h4 style="color: #f59e0b; margin-bottom: 10px;">Resetuj hasła</h4>
+                <CyberpunkButton text="Reset masowy" variant="warning" size="sm" onclick="showBulkPasswordReset()" />
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
+                <h4 style="color: #f59e0b; margin-bottom: 10px;">Usuń nieaktywnych</h4>
+                <CyberpunkButton text="Czyść bazę" variant="danger" size="sm" onclick="showCleanupModal()" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
     </GlassPanel>
@@ -142,6 +234,7 @@ const pageAuthor = "MyBonzo Team";
         let allUsers = [];
         let filteredUsers = [];
 
+<<<<<<< HEAD
         // Generate mock user data
         function generateMockUsers() {
             const firstNames = ['Anna', 'Piotr', 'Katarzyna', 'Tomasz', 'Agnieszka', 'MichaĹ‚', 'Magdalena', 'PaweĹ‚', 'Joanna', 'Krzysztof'];
@@ -170,6 +263,36 @@ const pageAuthor = "MyBonzo Team";
         function loadUsers() {
             if (allUsers.length === 0) {
                 allUsers = generateMockUsers();
+=======
+        // Load real user data from API
+        async function fetchRealUsers() {
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': 'Bearer HAOS77'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.users || [];
+                } else {
+                    throw new Error('API call failed');
+                }
+            } catch (error) {
+                console.error('Failed to fetch users:', error);
+                // Fallback to minimal real data structure
+                return [
+                    { id: 1, username: 'admin', email: 'admin@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'admin' },
+                    { id: 2, username: 'user.demo', email: 'demo@mybonzo.com', status: 'active', lastActivity: new Date().toLocaleDateString('pl-PL'), role: 'user' }
+                ];
+            }
+        }
+
+        async function loadUsers() {
+            if (allUsers.length === 0) {
+                allUsers = await fetchRealUsers();
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
             filteredUsers = [...allUsers];
             renderUsers();
@@ -196,9 +319,15 @@ const pageAuthor = "MyBonzo Team";
                         <td style="padding: 12px; border-right: 1px solid rgba(0,217,255,0.1);">${user.lastActivity}</td>
                         <td style="padding: 12px;">
                             <div style="display: flex; gap: 5px;">
+<<<<<<< HEAD
                                 <button onclick="editUser(${user.id})" style="background: #00d9ff; color: black; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">âśŹď¸Ź</button>
                                 <button onclick="deleteUser(${user.id})" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">đź—‘ď¸Ź</button>
                                 <button onclick="viewUser(${user.id})" style="background: #22c55e; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">đź‘ď¸Ź</button>
+=======
+                                <button onclick="editUser(${user.id})" style="background: #00d9ff; color: black; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">✏️</button>
+                                <button onclick="deleteUser(${user.id})" style="background: #ef4444; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">🗑️</button>
+                                <button onclick="viewUser(${user.id})" style="background: #22c55e; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">👁️</button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                             </div>
                         </td>
                     </tr>
@@ -268,17 +397,27 @@ const pageAuthor = "MyBonzo Team";
 
         // User action functions
         function editUser(userId) {
+<<<<<<< HEAD
             alert(`đźš§ Edytowanie uĹĽytkownika #${userId} - funkcja w przygotowaniu`);
         }
 
         function deleteUser(userId) {
             if (confirm(`Czy na pewno chcesz usunÄ…Ä‡ uĹĽytkownika #${userId}?`)) {
                 alert(`UĹĽytkownik #${userId} zostaĹ‚ usuniÄ™ty (symulacja)`);
+=======
+            alert(`🚧 Edytowanie użytkownika #${userId} - funkcja w przygotowaniu`);
+        }
+
+        function deleteUser(userId) {
+            if (confirm(`Czy na pewno chcesz usunąć użytkownika #${userId}?`)) {
+                alert(`Użytkownik #${userId} został usunięty (symulacja)`);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 // Here you would make API call to delete user
             }
         }
 
         function viewUser(userId) {
+<<<<<<< HEAD
             alert(`đźš§ PrzeglÄ…danie profilu uĹĽytkownika #${userId} - funkcja w przygotowaniu`);
         }
 
@@ -288,6 +427,17 @@ const pageAuthor = "MyBonzo Team";
 
         function showBulkEmailModal() {
             alert('đźš§ System wysyĹ‚ania email masowego w przygotowaniu...');
+=======
+            alert(`🚧 Przeglądanie profilu użytkownika #${userId} - funkcja w przygotowaniu`);
+        }
+
+        function showAddUserModal() {
+            alert('🚧 Modal dodawania użytkownika w przygotowaniu...');
+        }
+
+        function showBulkEmailModal() {
+            alert('🚧 System wysyłania email masowego w przygotowaniu...');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function exportUserList() {
@@ -308,6 +458,7 @@ const pageAuthor = "MyBonzo Team";
         }
 
         function showBulkBanModal() {
+<<<<<<< HEAD
             alert('đźš§ System blokady masowej w przygotowaniu...');
         }
 
@@ -322,6 +473,22 @@ const pageAuthor = "MyBonzo Team";
         function showCleanupModal() {
             if (confirm('Czy na pewno chcesz usunÄ…Ä‡ nieaktywnych uĹĽytkownikĂłw?')) {
                 alert('đźš§ Funkcja czyszczenia bazy w przygotowaniu...');
+=======
+            alert('🚧 System blokady masowej w przygotowaniu...');
+        }
+
+        function showUserAnalytics() {
+            alert('🚧 Panel analityki użytkowników w przygotowaniu...');
+        }
+
+        function showBulkPasswordReset() {
+            alert('🚧 System resetowania haseł w przygotowaniu...');
+        }
+
+        function showCleanupModal() {
+            if (confirm('Czy na pewno chcesz usunąć nieaktywnych użytkowników?')) {
+                alert('🚧 Funkcja czyszczenia bazy w przygotowaniu...');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
         }
 
@@ -348,4 +515,8 @@ const pageAuthor = "MyBonzo Team";
             box-shadow: 0 0 0 2px rgba(0,217,255,0.2);
         }
     </style>
+<<<<<<< HEAD
 </UniversalPageLayout>
+=======
+</UniversalPageLayout>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

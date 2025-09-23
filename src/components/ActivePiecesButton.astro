@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 ﻿---
 // Komponent przycisku ActivePieces - integracja z API
 ---
 
 <textarea rows="4" id="activepieces-input" placeholder='WprowadĹş JSON jako dane wejĹ›ciowe'></textarea>
+=======
+---
+// Komponent przycisku ActivePieces - integracja z API
+---
+
+<textarea rows="4" id="activepieces-input" placeholder='Wprowadź JSON jako dane wejściowe'></textarea>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 <button onclick="handleActivePieces()">
   Uruchom ActivePieces
@@ -29,6 +37,7 @@ function handleActivePieces() {
       alert(respData.error || JSON.stringify(respData));
     })
     .catch(err => {
+<<<<<<< HEAD
       alert('NieprawidĹ‚owy JSON lub bĹ‚Ä…d sieci');
     });
   } catch {
@@ -37,3 +46,12 @@ function handleActivePieces() {
 }
 </script>
 
+=======
+      alert('Nieprawidłowy JSON lub błąd sieci');
+    });
+  } catch {
+    alert('Nieprawidłowy JSON');
+  }
+}
+</script>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // Wildcards browser component matching the destroyed interface
 ---
 
@@ -13,14 +17,22 @@
       data-category="browse"
       onclick="switchWildcardTab('browse')"
     >
+<<<<<<< HEAD
       <span class="neon-cyan">­čöŹ Przegl─ůdaj kategorie</span>
+=======
+      <span class="neon-cyan">🔍 Przeglądaj kategorie</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </button>
     <button
       class="wildcard-tab"
       data-category="search"
       onclick="switchWildcardTab('search')"
     >
+<<<<<<< HEAD
       <span class="neon-magenta">­čöÄ Wyszukaj</span>
+=======
+      <span class="neon-magenta">🔎 Wyszukaj</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </button>
   </div>
 
@@ -28,7 +40,11 @@
   <div id="browse-section" class="wildcard-section active">
     <div class="mb-4">
       <h3 class="neon-white text-xl font-bold mb-2">
+<<<<<<< HEAD
         Wybierz kategori─Ö (0 dost─Öpnych):
+=======
+        Wybierz kategorię (0 dostępnych):
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </h3>
     </div>
 
@@ -42,10 +58,17 @@
         class="category-card glossy-black rounded-lg p-4 cursor-pointer transition-glossy hover:border-cyan-400/50"
       >
         <div class="flex items-center gap-3">
+<<<<<<< HEAD
           <span class="text-2xl">­čôü</span>
           <div>
             <h4 class="neon-cyan font-semibold">Wszystkie (0)</h4>
             <p class="text-gray-400 text-sm">Wszystkie dost─Öpne wildcards</p>
+=======
+          <span class="text-2xl">📁</span>
+          <div>
+            <h4 class="neon-cyan font-semibold">Wszystkie (0)</h4>
+            <p class="text-gray-400 text-sm">Wszystkie dostępne wildcards</p>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
         </div>
       </div>
@@ -55,13 +78,21 @@
     <div id="categoryContent" class="mt-6 hidden">
       <div class="flex justify-between items-center mb-4">
         <h4 class="neon-white text-lg font-bold" id="categoryTitle">
+<<<<<<< HEAD
           Pokazuj─Ö 0 z 0 artyst(├│w)
+=======
+          Pokazuję 0 z 0 artyst(ów)
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </h4>
         <button
           class="scifi-btn px-4 py-2 rounded-lg text-sm"
           onclick="goBackToCategories()"
         >
+<<<<<<< HEAD
           ← Powrot
+=======
+          ← Powrót
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </button>
       </div>
 
@@ -88,7 +119,11 @@
         <button
           class="absolute right-3 top-3 text-gray-400 hover:text-cyan-400"
         >
+<<<<<<< HEAD
           ­čöŹ
+=======
+          🔍
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </button>
       </div>
     </div>
@@ -99,7 +134,11 @@
     >
       <!-- Search results will appear here -->
       <div class="text-center text-gray-400 py-8 col-span-full">
+<<<<<<< HEAD
         Wprowad┼║ tekst aby wyszuka─ç wildcards
+=======
+        Wprowadź tekst aby wyszukać wildcards
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
   </div>
@@ -122,7 +161,11 @@
       // Mock data structure similar to work_page
       wildcardsData = {
         artists: {
+<<<<<<< HEAD
           name: "Arty┼Ťci",
+=======
+          name: "Artyści",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           icon: "🎨",
           items: [
             "Greg Rutkowski",
@@ -141,7 +184,11 @@
         },
         creatures: {
           name: "Stworzenia",
+<<<<<<< HEAD
           icon: "­čÉë",
+=======
+          icon: "🐉",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           items: [
             "dragon",
             "phoenix",
@@ -178,7 +225,11 @@
       updateCategoriesDisplay();
     } catch (error) {
       console.error("Error loading wildcards:", error);
+<<<<<<< HEAD
       showError("Nie uda┼éo si─Ö za┼éadowa─ç wildcards");
+=======
+      showError("Nie udało się załadować wildcards");
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   }
 
@@ -191,16 +242,27 @@
 
     // Update header
     document.querySelector("h3").textContent =
+<<<<<<< HEAD
       `Wybierz kategori─Ö (${Object.keys(wildcardsData).length} dost─Öpnych):`;
+=======
+      `Wybierz kategorię (${Object.keys(wildcardsData).length} dostępnych):`;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
     // Clear and rebuild grid
     grid.innerHTML = `
       <div class="category-card glossy-black rounded-lg p-4 cursor-pointer transition-glossy hover:border-cyan-400/50" onclick="showCategory('all')">
         <div class="flex items-center gap-3">
+<<<<<<< HEAD
           <span class="text-2xl">­čôü</span>
           <div>
             <h4 class="neon-cyan font-semibold">Wszystkie (${totalCount})</h4>
             <p class="text-gray-400 text-sm">Wszystkie dost─Öpne wildcards</p>
+=======
+          <span class="text-2xl">📁</span>
+          <div>
+            <h4 class="neon-cyan font-semibold">Wszystkie (${totalCount})</h4>
+            <p class="text-gray-400 text-sm">Wszystkie dostępne wildcards</p>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
         </div>
       </div>
@@ -240,11 +302,19 @@
 
     if (categoryKey === "all") {
       items = Object.values(wildcardsData).flatMap((cat) => cat.items);
+<<<<<<< HEAD
       title = `Pokazuj─Ö ${items.length} ze wszystkich wildcards`;
     } else {
       const category = wildcardsData[categoryKey];
       items = category.items;
       title = `Pokazuj─Ö ${items.length} z kategorii ${category.name}`;
+=======
+      title = `Pokazuję ${items.length} ze wszystkich wildcards`;
+    } else {
+      const category = wildcardsData[categoryKey];
+      items = category.items;
+      title = `Pokazuję ${items.length} z kategorii ${category.name}`;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
 
     categoryTitle.textContent = title;
@@ -318,7 +388,11 @@
       if (!query) {
         resultsContainer.innerHTML = `
           <div class="text-center text-gray-400 py-8 col-span-full">
+<<<<<<< HEAD
             Wprowad┼║ tekst aby wyszuka─ç wildcards
+=======
+            Wprowadź tekst aby wyszukać wildcards
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
         `;
         return;
@@ -420,5 +494,8 @@
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
   }
 </style>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

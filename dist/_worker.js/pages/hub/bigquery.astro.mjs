@@ -1,4 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_BDhFni3J.mjs';
 import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_CUKi2fNT.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
@@ -8,6 +9,18 @@ const $$Bigquery = createComponent(($$result, $$props, $$slots) => {
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/hub/bigquery.astro", void 0);
 
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/hub/bigquery.astro";
+=======
+/* empty css                                     */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_i2zefgs1.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+
+const $$Bigquery = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "BigQuery Analytics" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-4xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">BigQuery Analytics</h1> <p class="text-cyber-text-dim mt-4">Analiza danych i zapytania SQL.</p> <div class="mt-8">[KOMPONENT BIGQUERY TUTAJ]</div> <div class="mt-8"> <a class="text-cyber-blue" href="/hub">← Powrót do HUB</a> </div> </section> ` })}`;
+}, "Q:/mybonzo/mybonzo-github/src/pages/hub/bigquery.astro", void 0);
+
+const $$file = "Q:/mybonzo/mybonzo-github/src/pages/hub/bigquery.astro";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const $$url = "/hub/bigquery";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

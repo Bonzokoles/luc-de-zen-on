@@ -1,6 +1,11 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_BJuaHVI9.mjs';
 export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+=======
+import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 const OPTIONS = createOPTIONSHandler(["GET", "POST"]);
 const WORKERS = [

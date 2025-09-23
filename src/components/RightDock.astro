@@ -1,18 +1,33 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const onAdmin = Astro.url.pathname.startsWith('/admin');
 ---
 
 {!onAdmin && (
+<<<<<<< HEAD
   <aside class="right-dock" aria-label="Szybki dostÄ™p">
+=======
+  <aside class="right-dock" aria-label="Szybki dostęp">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <!-- Music button with expandable quick controls -->
     <div class="dock-group">
       <button class="dock-btn" type="button" title="Muzyka" onclick="toggleDock('music')">MUZYKA</button>
       <div id="dock-music" class="dock-panel" hidden>
         <div class="panel-row">
+<<<<<<< HEAD
           <button class="mini" onclick="window.MUSIC && window.MUSIC.prev()">âŹ®</button>
           <button class="mini" onclick="window.MUSIC && window.MUSIC.toggle()">âŹŻ</button>
           <button class="mini" onclick="window.MUSIC && window.MUSIC.next()">âŹ­</button>
           <button class="mini" onclick="window.MUSIC && window.MUSIC.togglePlaylist()">đź“‹</button>
+=======
+          <button class="mini" onclick="window.MUSIC && window.MUSIC.prev()">⏮</button>
+          <button class="mini" onclick="window.MUSIC && window.MUSIC.toggle()">⏯</button>
+          <button class="mini" onclick="window.MUSIC && window.MUSIC.next()">⏭</button>
+          <button class="mini" onclick="window.MUSIC && window.MUSIC.togglePlaylist()">📋</button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
         <div class="panel-row">
           <label class="vol">VOL</label>
@@ -25,13 +40,21 @@ const onAdmin = Astro.url.pathname.startsWith('/admin');
     <div class="dock-group">
       <button class="dock-btn" type="button" title="Asystent" onclick="toggleDock('ai')">
         <span>POLACZEK</span>
+<<<<<<< HEAD
         <span id="polaczek-dot" class="status-dot" aria-live="polite" title="status">â—Ź</span>
+=======
+        <span id="polaczek-dot" class="status-dot" aria-live="polite" title="status">●</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </button>
       <div id="dock-ai" class="dock-panel" hidden>
         <div class="panel-col">
           <div class="ai-row">
             <span class="ai-label">STATUS</span>
+<<<<<<< HEAD
             <span id="polaczek-status-text" class="ai-status">â€”</span>
+=======
+            <span id="polaczek-status-text" class="ai-status">—</span>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
           <button class="mini full" onclick="window.POLACZEK && window.POLACZEK.openAssistant && window.POLACZEK.openAssistant()">Open chat</button>
           <button class="mini full" onclick="window.dispatchEvent(new CustomEvent('polaczek-clear-chat'))">New chat</button>
@@ -47,9 +70,15 @@ const onAdmin = Astro.url.pathname.startsWith('/admin');
 
     <!-- Extra actions: refresh, close, open folder -->
     <div class="dock-group">
+<<<<<<< HEAD
       <button class="dock-btn" type="button" title="OdĹ›wieĹĽ stronÄ™" onclick="window.REFRESH_ALL && window.REFRESH_ALL()">REFRESH</button>
       <button class="dock-btn" type="button" title="Zamknij kartÄ™" onclick="window.CLOSE_TAB && window.CLOSE_TAB()">CLOSE</button>
   <button class="dock-btn" type="button" title="OtwĂłrz lokalny folder" onclick="(window.MUSIC && window.MUSIC.openFolderPicker) ? window.MUSIC.openFolderPicker() : (window.OPEN_LOCAL_FOLDER && window.OPEN_LOCAL_FOLDER())">FOLDER</button>
+=======
+      <button class="dock-btn" type="button" title="Odśwież stronę" onclick="window.REFRESH_ALL && window.REFRESH_ALL()">REFRESH</button>
+      <button class="dock-btn" type="button" title="Zamknij kartę" onclick="window.CLOSE_TAB && window.CLOSE_TAB()">CLOSE</button>
+  <button class="dock-btn" type="button" title="Otwórz lokalny folder" onclick="(window.MUSIC && window.MUSIC.openFolderPicker) ? window.MUSIC.openFolderPicker() : (window.OPEN_LOCAL_FOLDER && window.OPEN_LOCAL_FOLDER())">FOLDER</button>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </div>
   </aside>
 )}
@@ -112,4 +141,8 @@ const onAdmin = Astro.url.pathname.startsWith('/admin');
     alert('Opening a local folder is blocked by browsers. Provide a link or use a file input.');
     // Optional: document.getElementById('music-folder')?.click();
   };
+<<<<<<< HEAD
 </script>
+=======
+</script>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
