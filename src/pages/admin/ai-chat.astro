@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
 const pageTitle = "Admin AI Assistant";
+<<<<<<< HEAD
 const pageDescription = "Inteligentny asystent AI dla administratorĂłw systemu MyBonzo";
 const pageQuote = "Technologia wspiera ludzi, a nie na odwrĂłt.";
+=======
+const pageDescription = "Inteligentny asystent AI dla administratorów systemu MyBonzo";
+const pageQuote = "Technologia wspiera ludzi, a nie na odwrót.";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "MyBonzo Admin AI";
 ---
 
@@ -17,7 +26,11 @@ const pageAuthor = "MyBonzo Admin AI";
   showRandomQuote={false}
 >
     <!-- Admin AI Chat Interface -->
+<<<<<<< HEAD
     <GlassPanel title="đź¤– Admin AI Assistant" variant="highlight" padding="xl">
+=======
+    <GlassPanel title="🤖 Admin AI Assistant" variant="highlight" padding="xl">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div id="admin-ai-chat" style="height: 600px; display: flex; flex-direction: column;">
             
             <!-- Chat Controls -->
@@ -25,25 +38,45 @@ const pageAuthor = "MyBonzo Admin AI";
                 <div style="flex: 1;">
                     <label style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 5px; display: block;">Model AI:</label>
                     <select id="ai-model" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: #00d9ff; font-family: 'Courier New', monospace;">
+<<<<<<< HEAD
                         <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B (Zalecany)</option>
                         <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B</option>
                         <option value="@cf/qwen/qwen1.5-7b-chat-awq">Qwen 1.5 7B</option>
                         <option value="@cf/huggingface/bielik-7b-instruct-v0.1">Bielik 7B (Polski)</option>
+=======
+                        <option value="@cf/google/gemma-3-12b-it">Gemma 3 12B (Domyślny)</option>
+                        <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B</option>
+                        <option value="@cf/qwen/qwen2.5-7b-instruct">Qwen 2.5 7B</option>
+                        <option value="@cf/mistral/mistral-7b-instruct-v0.1">Mistral 7B</option>
+                        <option value="@cf/huggingface/bielik-7b-instruct-v0.1">Bielik 7B (Polski)</option>
+                        <option value="polaczek">POLACZEK Assistant 🇵🇱</option>
+                        <option value="polaczek">POLACZEK Assistant (Specjalny)</option>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </select>
                 </div>
                 <div style="flex: 1;">
                     <label style="color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-bottom: 5px; display: block;">Tryb administratora:</label>
                     <select id="admin-mode" style="width: 100%; padding: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.5); border-radius: 4px; color: #00d9ff; font-family: 'Courier New', monospace;">
+<<<<<<< HEAD
                         <option value="general">OgĂłlny Administrator</option>
                         <option value="technical">Wsparcie Techniczne</option>
                         <option value="security">BezpieczeĹ„stwo</option>
+=======
+                        <option value="general">Ogólny Administrator</option>
+                        <option value="technical">Wsparcie Techniczne</option>
+                        <option value="security">Bezpieczeństwo</option>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         <option value="analytics">Analityka</option>
                         <option value="deployment">Deployment</option>
                     </select>
                 </div>
                 <div style="display: flex; align-items: end;">
                     <CyberpunkButton 
+<<<<<<< HEAD
                         text="đź”„ Reset" 
+=======
+                        text="🔄 Reset" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="outline" 
                         size="sm"
                         onclick="clearChat()"
@@ -54,6 +87,7 @@ const pageAuthor = "MyBonzo Admin AI";
             <!-- Messages Container -->
             <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; margin-bottom: 15px;">
                 <div class="welcome-message" style="background: rgba(0,217,255,0.1); border-left: 4px solid #00d9ff; padding: 15px; margin-bottom: 15px; border-radius: 4px;">
+<<<<<<< HEAD
                     <div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">đź¤– Admin AI Assistant</div>
                     <div style="color: rgba(255,255,255,0.9);">
                         Witaj w panelu Admin AI Assistant! Jestem tutaj, aby pomĂłc Ci w zadaniach administracyjnych:
@@ -65,6 +99,19 @@ const pageAuthor = "MyBonzo Admin AI";
                             <li>Optymalizacja wydajnoĹ›ci</li>
                         </ul>
                         Zadaj pytanie lub opisz problem, z ktĂłrym potrzebujesz pomocy.
+=======
+                    <div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">🤖 Admin AI Assistant</div>
+                    <div style="color: rgba(255,255,255,0.9);">
+                        Witaj w panelu Admin AI Assistant! Jestem tutaj, aby pomóc Ci w zadaniach administracyjnych:
+                        <ul style="margin: 10px 0; padding-left: 20px; color: rgba(255,255,255,0.8);">
+                            <li>Monitorowanie systemu i diagnostyka</li>
+                            <li>Analiza logów i problemów</li>
+                            <li>Konfiguracja i deployment</li>
+                            <li>Zarządzanie użytkownikami i zabezpieczeniami</li>
+                            <li>Optymalizacja wydajności</li>
+                        </ul>
+                        Zadaj pytanie lub opisz problem, z którym potrzebujesz pomocy.
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </div>
                 </div>
             </div>
@@ -81,7 +128,11 @@ const pageAuthor = "MyBonzo Admin AI";
                 </div>
                 <div>
                     <CyberpunkButton 
+<<<<<<< HEAD
                         text="WyĹ›lij" 
+=======
+                        text="Wyślij" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="primary" 
                         size="md"
                         onclick="sendMessage()"
@@ -93,6 +144,7 @@ const pageAuthor = "MyBonzo Admin AI";
     </GlassPanel>
 
     <!-- Quick Admin Actions -->
+<<<<<<< HEAD
     <GlassPanel title="âšˇ Szybkie akcje administracyjne" variant="default" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
             
@@ -103,56 +155,111 @@ const pageAuthor = "MyBonzo Admin AI";
                     variant="outline" 
                     size="sm"
                     onclick="askAI('SprawdĹş aktualny status wszystkich komponentĂłw systemu MyBonzo. Czy wszystkie workery dziaĹ‚ajÄ… prawidĹ‚owo?')"
+=======
+    <GlassPanel title="⚡ Szybkie akcje administracyjne" variant="default" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+            
+            <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">🔍 Diagnostyka systemu</h4>
+                <CyberpunkButton 
+                    text="Sprawdź status systemu" 
+                    variant="outline" 
+                    size="sm"
+                    onclick="askAI('Sprawdź aktualny status wszystkich komponentów systemu MyBonzo. Czy wszystkie workery działają prawidłowo?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+<<<<<<< HEAD
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">đź“Š Analiza wydajnoĹ›ci</h4>
                 <CyberpunkButton 
                     text="Analizuj wydajnoĹ›Ä‡" 
                     variant="outline" 
                     size="sm"
                     onclick="askAI('Przeanalizuj wydajnoĹ›Ä‡ aplikacji. Jakie sÄ… gĹ‚Ăłwne bottlenecki i jak moĹĽna je zoptymalizowaÄ‡?')"
+=======
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">📊 Analiza wydajności</h4>
+                <CyberpunkButton 
+                    text="Analizuj wydajność" 
+                    variant="outline" 
+                    size="sm"
+                    onclick="askAI('Przeanalizuj wydajność aplikacji. Jakie są główne bottlenecki i jak można je zoptymalizować?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+<<<<<<< HEAD
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">đź›ˇď¸Ź BezpieczeĹ„stwo</h4>
                 <CyberpunkButton 
                     text="SprawdĹş zabezpieczenia" 
                     variant="warning" 
                     size="sm"
                     onclick="askAI('Przeanalizuj zabezpieczenia systemu. Czy sÄ… jakieĹ› potencjalne luki w bezpieczeĹ„stwie?')"
+=======
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">🛡️ Bezpieczeństwo</h4>
+                <CyberpunkButton 
+                    text="Sprawdź zabezpieczenia" 
+                    variant="warning" 
+                    size="sm"
+                    onclick="askAI('Przeanalizuj zabezpieczenia systemu. Czy są jakieś potencjalne luki w bezpieczeństwie?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+<<<<<<< HEAD
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">đźš€ Deployment</h4>
+=======
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">🚀 Deployment</h4>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton 
                     text="Pomocy z deployment" 
                     variant="outline" 
                     size="sm"
+<<<<<<< HEAD
                     onclick="askAI('PotrzebujÄ™ pomocy z deployment. Jakie sÄ… najlepsze praktyki dla bezpiecznego wdroĹĽenia?')"
+=======
+                    onclick="askAI('Potrzebuję pomocy z deployment. Jakie są najlepsze praktyki dla bezpiecznego wdrożenia?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+<<<<<<< HEAD
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">đź‘Ą ZarzÄ…dzanie uĹĽytkownikami</h4>
                 <CyberpunkButton 
                     text="Pomocy z uĹĽytkownikami" 
                     variant="outline" 
                     size="sm"
                     onclick="askAI('Jak mogÄ™ efektywnie zarzÄ…dzaÄ‡ uĹĽytkownikami systemu? Jakie sÄ… najlepsze praktyki?')"
+=======
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">👥 Zarządzanie użytkownikami</h4>
+                <CyberpunkButton 
+                    text="Pomocy z użytkownikami" 
+                    variant="outline" 
+                    size="sm"
+                    onclick="askAI('Jak mogę efektywnie zarządzać użytkownikami systemu? Jakie są najlepsze praktyki?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
 
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
+<<<<<<< HEAD
                 <h4 style="color: #00d9ff; margin-bottom: 10px;">đź“ť Logi i debugging</h4>
+=======
+                <h4 style="color: #00d9ff; margin-bottom: 10px;">📝 Logi i debugging</h4>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <CyberpunkButton 
                     text="Analizuj logi" 
                     variant="outline" 
                     size="sm"
+<<<<<<< HEAD
                     onclick="askAI('PomĂłĹĽ mi przeanalizowaÄ‡ logi systemu. Jak zidentyfikowaÄ‡ i rozwiÄ…zaÄ‡ problemy?')"
+=======
+                    onclick="askAI('Pomóż mi przeanalizować logi systemu. Jak zidentyfikować i rozwiązać problemy?')"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 />
             </div>
         </div>
@@ -165,12 +272,18 @@ const pageAuthor = "MyBonzo Admin AI";
         // Admin mode configurations
         const adminModes = {
             general: {
+<<<<<<< HEAD
                 name: "OgĂłlny Administrator",
                 icon: "đź‘¤",
+=======
+                name: "Ogólny Administrator",
+                icon: "👤",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 color: "#00d9ff"
             },
             technical: {
                 name: "Wsparcie Techniczne", 
+<<<<<<< HEAD
                 icon: "đź”§",
                 color: "#fbbf24"
             },
@@ -182,11 +295,28 @@ const pageAuthor = "MyBonzo Admin AI";
             analytics: {
                 name: "Analityka",
                 icon: "đź“Š",
+=======
+                icon: "🔧",
+                color: "#fbbf24"
+            },
+            security: {
+                name: "Bezpieczeństwo",
+                icon: "🛡️", 
+                color: "#00d9ff"
+            },
+            analytics: {
+                name: "Analityka",
+                icon: "📊",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 color: "#10b981"
             },
             deployment: {
                 name: "Deployment",
+<<<<<<< HEAD
                 icon: "đźš€",
+=======
+                icon: "🚀",
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 color: "#8b5cf6"
             }
         };
@@ -208,15 +338,25 @@ const pageAuthor = "MyBonzo Admin AI";
                 ${isUser 
                     ? `background: rgba(0,217,255,0.1); border-left: 4px solid #00d9ff; margin-left: 20px;`
                     : isError
+<<<<<<< HEAD
                         ? `background: rgba(239,68,68,0.1); border-left: 4px solid #ef4444;`
+=======
+                        ? `background: rgba(255,193,7,0.1); border-left: 4px solid #f59e0b;`
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         : `background: rgba(0,0,0,0.4); border-left: 4px solid ${modeConfig.color};`
                 }
             `;
 
             const header = isUser 
+<<<<<<< HEAD
                 ? `<div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">đź‘¤ Administrator</div>`
                 : isError
                     ? `<div style="color: #ef4444; font-weight: bold; margin-bottom: 8px;">âťŚ BĹ‚Ä…d</div>`
+=======
+                ? `<div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">👤 Administrator</div>`
+                : isError
+                    ? `<div style="color: #f59e0b; font-weight: bold; margin-bottom: 8px;">⚠️ Błąd</div>`
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     : `<div style="color: ${modeConfig.color}; font-weight: bold; margin-bottom: 8px;">${modeConfig.icon} ${modeConfig.name}</div>`;
 
             messageDiv.innerHTML = `
@@ -242,7 +382,11 @@ const pageAuthor = "MyBonzo Admin AI";
             // Clear input and set loading state
             input.value = '';
             isLoading = true;
+<<<<<<< HEAD
             sendButton.textContent = 'MyĹ›lÄ™...';
+=======
+            sendButton.textContent = 'Myślę...';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             sendButton.style.opacity = '0.6';
 
             try {
@@ -264,16 +408,29 @@ const pageAuthor = "MyBonzo Admin AI";
                 if (data.success) {
                     addMessage(data.response);
                     messageHistory.push({ role: 'assistant', content: data.response });
+<<<<<<< HEAD
                 } else {
                     addMessage(`BĹ‚Ä…d: ${data.error}`, false, true);
+=======
+                    saveConversationHistory(); // Save after each successful response
+                } else {
+                    addMessage(`Błąd: ${data.error}`, false, true);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 }
 
             } catch (error) {
                 console.error('Chat error:', error);
+<<<<<<< HEAD
                 addMessage(`BĹ‚Ä…d poĹ‚Ä…czenia: ${error.message}`, false, true);
             } finally {
                 isLoading = false;
                 sendButton.textContent = 'WyĹ›lij';
+=======
+                addMessage(`Błąd połączenia: ${error.message}`, false, true);
+            } finally {
+                isLoading = false;
+                sendButton.textContent = 'Wyślij';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 sendButton.style.opacity = '1';
             }
         }
@@ -283,21 +440,78 @@ const pageAuthor = "MyBonzo Admin AI";
             sendMessage();
         }
 
+<<<<<<< HEAD
+=======
+        function saveConversationHistory() {
+            try {
+                const conversationData = {
+                    messages: messageHistory,
+                    timestamp: new Date().toISOString(),
+                    sessionId: Date.now()
+                };
+                localStorage.setItem('admin-chat-history', JSON.stringify(conversationData));
+            } catch (error) {
+                console.warn('Nie udało się zapisać historii konwersacji:', error);
+            }
+        }
+
+        function loadConversationHistory() {
+            try {
+                const saved = localStorage.getItem('admin-chat-history');
+                if (saved) {
+                    const conversationData = JSON.parse(saved);
+                    messageHistory = conversationData.messages || [];
+                    
+                    // Restore visible messages
+                    const messagesContainer = document.getElementById('chat-messages');
+                    messagesContainer.innerHTML = '';
+                    
+                    messageHistory.forEach(msg => {
+                        if (msg.role === 'user') {
+                            addMessage(msg.content, true);
+                        } else if (msg.role === 'assistant') {
+                            addMessage(msg.content, false);
+                        }
+                    });
+                }
+            } catch (error) {
+                console.warn('Nie udało się załadować historii konwersacji:', error);
+                messageHistory = [];
+            }
+        }
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         function clearChat() {
             const messagesContainer = document.getElementById('chat-messages');
             messagesContainer.innerHTML = `
                 <div class="welcome-message" style="background: rgba(0,217,255,0.1); border-left: 4px solid #00d9ff; padding: 15px; margin-bottom: 15px; border-radius: 4px;">
+<<<<<<< HEAD
                     <div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">đź¤– Admin AI Assistant</div>
                     <div style="color: rgba(255,255,255,0.9);">
                         Chat zostaĹ‚ wyczyszczony. Jak mogÄ™ Ci pomĂłc w zadaniach administracyjnych?
+=======
+                    <div style="color: #00d9ff; font-weight: bold; margin-bottom: 8px;">🤖 Admin AI Assistant</div>
+                    <div style="color: rgba(255,255,255,0.9);">
+                        Chat został wyczyszczony. Jak mogę Ci pomóc w zadaniach administracyjnych?
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </div>
                 </div>
             `;
             messageHistory = [];
+<<<<<<< HEAD
+=======
+            localStorage.removeItem('admin-chat-history');
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+<<<<<<< HEAD
+=======
+            // Load previous conversation history
+            loadConversationHistory();
+            
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             // Focus on input
             document.getElementById('chat-input').focus();
             
@@ -312,4 +526,8 @@ const pageAuthor = "MyBonzo Admin AI";
             });
         });
     </script>
+<<<<<<< HEAD
 </UniversalPageLayout>
+=======
+</UniversalPageLayout>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

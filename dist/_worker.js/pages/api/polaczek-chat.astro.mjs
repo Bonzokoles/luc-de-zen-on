@@ -1,6 +1,11 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_BJuaHVI9.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+=======
+import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 // Documentation Index for POLACZEK AI Assistant
 // This file maps all available documentation for contextual responses
@@ -375,6 +380,7 @@ Wszystkie API obsługują CORS i są dostępne publicznie.`;
 }
 function buildSystemPrompt(language, context) {
   const lang = language === "en" ? "en" : "pl";
+<<<<<<< HEAD
   const sysPl = `Jesteś POLACZEK — polskim AI asystentem dla strony MyBonzo.
 Twoja rola: Pomagać użytkownikom korzystać z funkcji MyBonzo Portfolio.
 
@@ -391,6 +397,56 @@ ${context}
 • Promuj możliwości MyBonzo AI
 
 🚀 STYL: Przyjazny ekspert, krótkie odpowiedzi, konkretne fakty.`;
+=======
+  const sysPl = `Jesteś POLACZEK — polskim AI asystentem dla platformy MyBonzo AI.
+
+🎯 CZYM JEST MYBONZO:
+MyBonzo to zaawansowana polska platforma AI oferująca:
+• Generator obrazów AI (Stable Diffusion, Flux)
+• Polskie modele AI (Bielik, POLACZEK) 
+• Narzędzia analityczne i deweloperskie
+• System agentów AI
+• 6 modeli AI do wyboru
+• Cloudflare Workers AI integration
+
+🔥 GŁÓWNE FUNKCJE MYBONZO:
+• 🎨 AI Art Generator - tworzenie obrazów
+• 🧠 Chat z AI - 6 różnych modeli
+• 📊 Analiza danych - BigQuery  
+• 🎯 Wildcards System - rozszerzanie promptów
+• 🔊 Voice AI - synteza mowy
+• 🤖 AI Workers - API endpoints
+• 🛡️ Admin Panel - zarządzanie
+
+🚨 KRYTYCZNE OSTRZEŻENIE:
+MyBonzo NIE JEST:
+❌ MEMEM internetowym "My Bonzo" z psem w hełmie
+❌ Humorystycznym rysunkiem psa  
+❌ Popularnym memem autoironicznym
+❌ Absurdalną sytuacją z problemami codziennymi
+❌ Systemem zarządzania finansami osobistymi
+❌ Aplikacją do śledzenia wydatków
+❌ Narzędziem planowania budżetu  
+❌ Systemem oszczędzania pieniędzy
+❌ Aplikacją mobilną finansową
+❌ Platformą dropshippingu z Chin
+❌ Systemem e-commerce lub finansowym
+
+⚡ ZAWSZE poprawiaj błędne informacje o MyBonzo! NIGDY nie opisuj jako memu z psem!
+
+🎯 BAZA WIEDZY:
+${context}
+
+📋 INSTRUKCJE:
+• Odpowiadaj TYLKO po polsku  
+• Wyjaśniaj funkcje MyBonzo AI
+• Używaj konkretnych przykładów
+• Podawaj linki do narzędzi
+• Używaj emoji dla czytelności
+• Jeśli nie wiesz - powiedz "Nie mam tej informacji"
+
+🚀 STYL: Ekspert AI, przyjazny, konkretny, praktyczny.`;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   const sysEn = `You are POLACZEK — Polish AI assistant for MyBonzo website.
 Your role: Help users utilize MyBonzo Portfolio features.
 
@@ -412,15 +468,27 @@ ${context}
 const POST = async ({ request, locals }) => {
   try {
     const body = await request.json();
+<<<<<<< HEAD
     const { prompt, model = "qwen", temperature = 0.6, language = "pl", context } = body;
     const env = locals.runtime?.env;
     if (!prompt || typeof prompt !== "string") {
       return createErrorResponse('Pole "prompt" jest wymagane', 400);
+=======
+    const { prompt, message, model = "qwen", temperature = 0.6, language = "pl", context } = body;
+    const env = locals.runtime?.env;
+    const userInput = prompt || message;
+    if (!userInput || typeof userInput !== "string") {
+      return createErrorResponse('Pole "prompt" lub "message" jest wymagane', 400);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
     if (!env?.AI) {
       return createErrorResponse("Cloudflare AI nie jest dostępny w środowisku", 500);
     }
+<<<<<<< HEAD
     const contextualKnowledge = await getEnhancedContext(prompt);
+=======
+    const contextualKnowledge = await getEnhancedContext(userInput);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     let modelId;
     if (model.startsWith("@cf/")) {
       modelId = model;
@@ -447,15 +515,35 @@ const POST = async ({ request, locals }) => {
     const systemPrompt = buildSystemPrompt(language, contextualKnowledge);
     const messages = [
       { role: "system", content: systemPrompt },
+<<<<<<< HEAD
       { role: "user", content: prompt }
+=======
+      { role: "user", content: userInput }
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     ];
     const aiResp = await env.AI.run(modelId, {
       messages,
       temperature
+<<<<<<< HEAD
     });
     const answer = aiResp?.response || aiResp?.result || "Brak odpowiedzi od modelu.";
     return createSuccessResponse({
       answer,
+=======
+    }, {
+      gateway: {
+        id: env.CLOUDFLARE_AI_GATEWAY_ID || "mybonzo-ai-gateway",
+        skipCache: false,
+        cacheTtl: 3360
+      }
+    });
+    const answer = aiResp?.response || aiResp?.result || "Brak odpowiedzi od modelu.";
+    return createSuccessResponse({
+      response: answer,
+      // Changed from 'answer' to 'response' for compatibility
+      answer,
+      // Keep both for backward compatibility
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       modelUsed: modelId,
       persona: "POLACZEK",
       language,

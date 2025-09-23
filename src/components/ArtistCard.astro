@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 ﻿---
 // Komponent Artist Card - karta artysty z miniaturÄ… i informacjami
+=======
+---
+// Komponent Artist Card - karta artysty z miniaturą i informacjami
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 export interface Props {
   artist: {
     name: string;
@@ -125,13 +130,21 @@ function hexToRgb(hex: string): string {
   </div>
 
   <div class="artist-works">
+<<<<<<< HEAD
     {artist.famousWorks.length} dzieĹ‚
+=======
+    {artist.famousWorks.length} dzieł
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </div>
 </div>
 
 <script>
   function selectArtist(name: string, prompt: string) {
+<<<<<<< HEAD
     // Dodaj artystÄ™ do promptu
+=======
+    // Dodaj artystę do promptu
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const promptElement = document.getElementById(
       "prompt"
     ) as HTMLTextAreaElement;
@@ -139,12 +152,20 @@ function hexToRgb(hex: string): string {
       const currentPrompt = promptElement.value;
       const artistPrompt = prompt;
 
+<<<<<<< HEAD
       // SprawdĹş czy prompt juĹĽ zawiera styl artysty
+=======
+      // Sprawdź czy prompt już zawiera styl artysty
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       if (!currentPrompt.includes("in the style of")) {
         promptElement.value =
           currentPrompt + (currentPrompt ? ", " : "") + artistPrompt;
       } else {
+<<<<<<< HEAD
         // ZamieĹ„ istniejÄ…cy styl
+=======
+        // Zamień istniejący styl
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         const newPrompt = currentPrompt.replace(
           /in the style of[^,]+/g,
           artistPrompt
@@ -152,18 +173,27 @@ function hexToRgb(hex: string): string {
         promptElement.value = newPrompt;
       }
 
+<<<<<<< HEAD
       // PodĹ›wietl wybranÄ… kartÄ™
+=======
+      // Podświetl wybraną kartę
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       document
         .querySelectorAll(".artist-card")
         .forEach((card) => card.classList.remove("selected"));
       (event?.currentTarget as HTMLElement)?.classList.add("selected");
 
+<<<<<<< HEAD
       // PokaĹĽ tooltip z informacjami o artyĹ›cie
+=======
+      // Pokaż tooltip z informacjami o artyście
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       showArtistTooltip(name);
     }
   }
 
   function showArtistTooltip(artistName: string) {
+<<<<<<< HEAD
     // MoĹĽna dodaÄ‡ tooltip z dodatkowymi informacjami
     console.log(`Wybrano artystÄ™: ${artistName}`);
   }
@@ -172,3 +202,12 @@ function hexToRgb(hex: string): string {
   (window as any).selectArtist = selectArtist;
 </script>
 
+=======
+    // Można dodać tooltip z dodatkowymi informacjami
+    console.log(`Wybrano artystę: ${artistName}`);
+  }
+
+  // Globalne funkcje dostępne w window
+  (window as any).selectArtist = selectArtist;
+</script>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

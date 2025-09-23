@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stable Diffusion AI Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-blue': '#00ffff',
+                        'cyber-dark': '#0a0a0a',
+                        'cyber-gray': '#1a1a1a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Rajdhani', sans-serif !important;
+            background: #0a0a0a !important;
+            color: #e0e0e0 !important;
+            overflow-x: hidden;
+        }
+
+        /* Cyberpunk Grid Background */
+        .cyber-bg {
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.03) 2px,
+                    rgba(0, 255, 255, 0.03) 4px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 217, 255, 0.02) 2px,
+                    rgba(0, 217, 255, 0.02) 4px
+                );
+        }
+
+        /* Cyber Elements */
+        .cyber-title {
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .cyber-input {
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid #00ffff;
+            color: #e0e0e0;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-input:focus {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            outline: none;
+        }
+
+        .cyber-button {
+            background: linear-gradient(45deg, #00ffff, #00d9ff);
+            color: #0a0a0a;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .cyber-button:hover {
+            background: linear-gradient(45deg, #00d9ff, #00ffff);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .cyber-button:disabled {
+            background: rgba(0, 255, 255, 0.3);
+            color: rgba(224, 224, 224, 0.5);
+            cursor: not-allowed;
+        }
+
+        .cyber-card {
+            background: rgba(0, 0, 0, 0.7) !important;
+            border: 1px solid rgba(0, 255, 255, 0.3) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .wildcard-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #374151;
+            color: #d1d5db;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .wildcard-btn:hover {
+            background-color: #374151;
+            border-color: #00bcd4;
+            color: #00bcd4;
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            border: 4px solid rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Image Modal */
+        .image-modal {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        /* History Animation */
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="cyber-bg min-h-screen">
+    <!-- Header Section -->
+    <header class="border-b border-cyan-400/20 p-4 mb-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="cyber-title text-3xl md:text-4xl font-bold">ZENON_E_art_H_gnrd</h1>
+                    <p class="text-gray-400 text-xl mt-2">Zaawansowany Generator Obrazów AI</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-cyan-400 text-sm">SYSTEM_ACTIVE</span>
+                    <div class="w-3 h-3 bg-green-400 rounded-full inline-block ml-2 animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Interface -->
+    <main class="max-w-7xl mx-auto p-6" style="margin-top: 15px;">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Panel - Main Controls -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Image Display -->
+                <div class="cyber-card rounded-lg p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-3 h-3 bg-cyan-400 rounded-full"></div>
+                        <span class="text-cyan-400 font-semibold">Podgląd Obrazu</span>
+                    </div>
+                    <div class="border border-cyan-400/20 rounded-lg min-h-96 flex items-center justify-center" id="imageDisplay">
+                        <div class="text-center">
+                            <span class="text-6xl mb-4 block">🎨</span>
+                            <h3 class="text-xl font-semibold text-cyan-400 mb-2">WYGENEROWANY OBRAZ</h3>
+                            <p class="text-gray-400">Twój obraz pojawi się tutaj po generacji</p>
+                        </div>
+                        <img id="generatedImage" class="hidden w-full h-auto rounded cursor-pointer" alt="Generated image" onclick="openImageModal()" />
+                    </div>
+                    <div class="hidden mt-4 flex gap-2 justify-center" id="imageControls">
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" onclick="downloadImage()">💾 Pobierz</button>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded" onclick="shareImage()">📤 Udostępnij</button>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded" onclick="generateVariation()">🔄 Wariacja</button>
+                    </div>
+                </div>
+
+                <!-- Prompt Input -->
+                <div class="cyber-card rounded-lg p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="text-cyan-400 text-xl">📝</span>
+                            <span class="text-cyan-400 font-semibold">Opis Obrazu</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="enhancePrompt()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm">✨ Ulepsz</button>
+                            <button onclick="addRandomWildcard()" class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded text-sm">🎲 Wildcard</button>
+                        </div>
+                    </div>
+                    
+                    <textarea
+                        id="imagePrompt"
+                        rows="4"
+                        placeholder="Opisz swój obraz szczegółowo (po polsku lub angielsku)..."
+                        class="cyber-input w-full p-4 rounded-lg resize-none"
+                    ></textarea>
+                    
+                    <textarea
+                        id="negativePrompt"
+                        rows="2"
+                        placeholder="Co chcesz wykluczyć z obrazu... (opcjonalne)"
+                        class="cyber-input w-full p-4 rounded-lg resize-none mt-3"
+                    ></textarea>
+
+                    <div class="mt-6 flex justify-center">
+                        <button
+                            id="generateBtn"
+                            onclick="generateImage()"
+                            class="cyber-button px-12 py-4 rounded-lg text-lg font-bold"
+                        >
+                            🎨 Generuj Obraz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Style Selection -->
+                <div class="cyber-card rounded-lg p-6">
+                    <h4 class="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                        <span>🎭</span> Style i Artyści
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Artysta:</label>
+                            <select id="selectedArtist" class="cyber-input w-full p-3 rounded-lg">
+                                <option value="">Wybierz artystę</option>
+                                <option value="Greg Rutkowski">Greg Rutkowski</option>
+                                <option value="Artgerm">Artgerm</option>
+                                <option value="Charlie Bowater">Charlie Bowater</option>
+                                <option value="Makoto Shinkai">Makoto Shinkai</option>
+                                <option value="Studio Ghibli">Studio Ghibli</option>
+                                <option value="Boris Vallejo">Boris Vallejo</option>
+                                <option value="Frank Frazetta">Frank Frazetta</option>
+                                <option value="H.R. Giger">H.R. Giger</option>
+                                <option value="Salvador Dali">Salvador Dali</option>
+                                <option value="Van Gogh">Van Gogh</option>
+                                <option value="Leonardo da Vinci">Leonardo da Vinci</option>
+                                <option value="Picasso">Picasso</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Styl:</label>
+                            <select id="selectedStyle" class="cyber-input w-full p-3 rounded-lg">
+                                <option value="">Wybierz styl</option>
+                                <option value="cyberpunk">Cyberpunk</option>
+                                <option value="fantasy art">Fantasy Art</option>
+                                <option value="concept art">Concept Art</option>
+                                <option value="digital painting">Digital Painting</option>
+                                <option value="oil painting">Oil Painting</option>
+                                <option value="watercolor">Watercolor</option>
+                                <option value="anime style">Anime Style</option>
+                                <option value="photorealistic">Photorealistic</option>
+                                <option value="steampunk">Steampunk</option>
+                                <option value="surreal">Surreal</option>
+                                <option value="gothic">Gothic</option>
+                                <option value="minimalist">Minimalist</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div class="space-y-6">
+                <!-- Settings -->
+                <div class="cyber-card rounded-lg p-6">
+                    <h4 class="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                        <span>⚙️</span> Ustawienia
+                    </h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Model:</label>
+                            <select id="imageModel" class="cyber-input w-full p-2 rounded">
+                                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+                                <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper 8 LCM</option>
+                                <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Rozmiar:</label>
+                            <select id="imageSize" class="cyber-input w-full p-2 rounded">
+                                <option value="512x512">512×512</option>
+                                <option value="768x512">768×512</option>
+                                <option value="512x768">512×768</option>
+                                <option value="1024x1024">1024×1024</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Jakość:</label>
+                            <select id="quality" class="cyber-input w-full p-2 rounded">
+                                <option value="draft">Draft</option>
+                                <option value="standard">Standard</option>
+                                <option value="high">High Quality</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Kroki:</label>
+                            <select id="imageSteps" class="cyber-input w-full p-2 rounded">
+                                <option value="15">15</option>
+                                <option value="25" selected>25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wildcards -->
+                <div class="cyber-card rounded-lg p-6">
+                    <h4 class="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                        <span>🎲</span> Wildcards
+                    </h4>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button class="wildcard-btn" onclick="insertWildcard('{miejsce}')">🏞️ Miejsce</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{postac}')">👤 Postać</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{styl}')">🎨 Styl</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{kolor}')">🌈 Kolor</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{nastroj}')">💫 Nastrój</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{jakość}')">⭐ Jakość</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{zwierze}')">🐺 Zwierzę</button>
+                        <button class="wildcard-btn" onclick="insertWildcard('{pogoda}')">🌦️ Pogoda</button>
+                    </div>
+                </div>
+
+                <!-- Photo2Photo -->
+                <div class="cyber-card rounded-lg p-6">
+                    <h4 class="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                        <span>🔄</span> Photo to Photo
+                    </h4>
+                    <div class="space-y-3">
+                        <input
+                            type="file"
+                            id="photoToPhotoImage"
+                            accept="image/*"
+                            class="cyber-input w-full p-2 text-sm rounded"
+                        />
+                        <textarea
+                            id="photoPrompt"
+                            rows="2"
+                            placeholder="Jak chcesz przekształcić obraz?"
+                            class="cyber-input w-full p-2 text-sm rounded resize-none"
+                        ></textarea>
+                        <button
+                            onclick="generatePhotoToPhoto()"
+                            class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded font-medium"
+                            id="photoToPhotoBtn"
+                        >
+                            🎨 Przetwórz Obraz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- History -->
+                <div class="cyber-card rounded-lg p-6">
+                    <h4 class="text-cyan-400 font-semibold mb-4 flex items-center gap-2">
+                        <span>📚</span> Historia
+                    </h4>
+                    <div id="historyItems" class="space-y-2 max-h-48 overflow-y-auto">
+                        <div class="text-center text-gray-400 text-sm py-4">
+                            Brak historii generacji
+                        </div>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="clearHistory()" class="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs">Wyczyść</button>
+                        <button onclick="exportHistory()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs">Eksport</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Modal -->
+    <div id="loading" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+        <div class="cyber-card rounded-lg p-8 text-center">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <p class="text-cyan-400 font-semibold text-lg">Generowanie obrazu...</p>
+            <p class="text-gray-400 text-sm mt-2">To może potrwać kilka sekund</p>
+        </div>
+    </div>
+
+    <!-- Error Box -->
+    <div id="errorBox" class="hidden fixed top-4 right-4 bg-red-900 border border-red-600 rounded-lg p-4 text-red-200 z-50">
+        <div class="flex items-center gap-2">
+            <span class="text-red-400">❌</span>
+            <span id="errorMessage">Błąd generacji</span>
+            <button onclick="hideError()" class="ml-2 text-red-400 hover:text-red-300">×</button>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="hidden fixed inset-0 image-modal flex items-center justify-center z-50" onclick="closeImageModal(event)">
+        <div class="relative max-w-5xl w-full p-4">
+            <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center text-xl z-10">×</button>
+            <img id="modalImage" class="w-full h-auto max-h-[90vh] object-contain rounded-lg" alt="Obraz w pełnej rozdzielczości" />
+            <div class="absolute bottom-4 left-4 right-4 bg-black/70 rounded-lg p-3">
+                <p id="modalPrompt" class="text-white text-sm mb-2"></p>
+                <div class="flex gap-2 justify-center">
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm" onclick="downloadImageFromModal()">💾 Pobierz</button>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm" onclick="shareImageFromModal()">📤 Udostępnij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let generationHistory = JSON.parse(localStorage.getItem('stableDiffusionHistory') || '[]');
+        let currentImageData = null;
+
+        // Wildcards system
+        const wildcards = {
+            '{miejsce}': ['las', 'góry', 'miasto', 'plaża', 'pustynia', 'miasto nocą', 'kosmos', 'podwodny świat', 'zamek', 'jaskinia', 'dżungla', 'wieś'],
+            '{postac}': ['smok', 'rycerz', 'elf', 'robot', 'czarodziej', 'księżniczka', 'wojownik', 'mag', 'ninja', 'pirat', 'anioł', 'demon'],
+            '{styl}': ['renesansowy', 'cyberpunkowy', 'akwarelowy', 'surrealistyczny', 'steampunkowy', 'anime', 'fotorealistyczny', 'impresjonistyczny', 'minimalistyczny'],
+            '{kolor}': ['żywe kolory', 'pastelowe', 'monochromatyczne', 'neonowe', 'ciepłe odcienie', 'zimne odcienie', 'złociste', 'srebrne', 'tęczowe'],
+            '{nastroj}': ['mroczny', 'wesoly', 'tajemniczy', 'spokojny', 'dramatyczny', 'romantyczny', 'futurystyczny', 'nostalgiczny', 'epickie'],
+            '{jakość}': ['4K', 'ultra szczegółowe', 'profesjonalne', 'wysokiej jakości', 'realistyczne', 'artystyczne', 'masterpiece', 'octane render'],
+            '{zwierze}': ['wilk', 'orzeł', 'smok', 'koń', 'tygrys', 'phoenix', 'jednorożec', 'lew', 'sowa', 'żółw', 'delfin', 'wieloryb'],
+            '{pogoda}': ['słoneczna', 'burzowa', 'mglisty', 'śnieg', 'deszcz', 'zachód słońca', 'świt', 'chmury', 'tęcza', 'błyskawice']
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateHistoryDisplay();
+            console.log('Stable Diffusion Interface loaded successfully');
+        });
+
+        // Main generation function
+        async function generateImage() {
+            const prompt = document.getElementById('imagePrompt').value.trim();
+            const negativePrompt = document.getElementById('negativePrompt').value.trim();
+            const selectedArtist = document.getElementById('selectedArtist').value;
+            const selectedStyle = document.getElementById('selectedStyle').value;
+            const model = document.getElementById('imageModel').value;
+            const size = document.getElementById('imageSize').value;
+            const quality = document.getElementById('quality').value;
+            const steps = document.getElementById('imageSteps').value;
+
+            if (!prompt) {
+                showError('Wprowadź opis obrazu');
+                return;
+            }
+
+            // Build full prompt
+            let fullPrompt = prompt;
+            if (selectedArtist) fullPrompt += `, by ${selectedArtist}`;
+            if (selectedStyle) fullPrompt += `, ${selectedStyle} style`;
+
+            // Process wildcards
+            fullPrompt = processWildcards(fullPrompt);
+
+            const generateBtn = document.getElementById('generateBtn');
+            const loading = document.getElementById('loading');
+
+            try {
+                generateBtn.disabled = true;
+                generateBtn.textContent = 'GENEROWANIE...';
+                loading.classList.remove('hidden');
+
+                // Simulate API call (replace with actual API)
+                await simulateImageGeneration(fullPrompt, negativePrompt, model, size, quality, steps);
+
+            } catch (error) {
+                showError('Błąd podczas generowania: ' + error.message);
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = '🎨 GENERUJ OBRAZ';
+                loading.classList.add('hidden');
+            }
+        }
+
+        // Simulate image generation (replace with actual API call)
+        async function simulateImageGeneration(prompt, negativePrompt, model, size, quality, steps) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Generate random image for demo
+                    const imageUrl = `https://picsum.photos/${size.replace('x', '/')}.webp?random=${Date.now()}`;
+                    displayGeneratedImage(imageUrl, prompt);
+                    addToHistory(prompt, negativePrompt, imageUrl, model, size);
+                    resolve();
+                }, 3000);
+            });
+        }
+
+        // Display generated image
+        function displayGeneratedImage(imageUrl, prompt) {
+            const imageDisplay = document.getElementById('imageDisplay');
+            const generatedImage = document.getElementById('generatedImage');
+            const imageControls = document.getElementById('imageControls');
+
+            generatedImage.src = imageUrl;
+            generatedImage.classList.remove('hidden');
+            imageControls.classList.remove('hidden');
+            
+            currentImageData = { url: imageUrl, prompt: prompt };
+            
+            // Hide placeholder
+            imageDisplay.querySelector('.text-center').style.display = 'none';
+        }
+
+        // Process wildcards in prompt
+        function processWildcards(prompt) {
+            Object.keys(wildcards).forEach(wildcard => {
+                if (prompt.includes(wildcard)) {
+                    const options = wildcards[wildcard];
+                    const randomOption = options[Math.floor(Math.random() * options.length)];
+                    prompt = prompt.replace(wildcard, randomOption);
+                }
+            });
+            return prompt;
+        }
+
+        // Insert wildcard into prompt
+        function insertWildcard(wildcard) {
+            const promptInput = document.getElementById('imagePrompt');
+            const currentValue = promptInput.value;
+            const cursorPos = promptInput.selectionStart;
+            
+            const newValue = currentValue.substring(0, cursorPos) + ' ' + wildcard + ' ' + currentValue.substring(cursorPos);
+            promptInput.value = newValue;
+            promptInput.focus();
+            
+            // Set cursor after inserted wildcard
+            const newCursorPos = cursorPos + wildcard.length + 2;
+            promptInput.setSelectionRange(newCursorPos, newCursorPos);
+        }
+
+        // Add random wildcard
+        function addRandomWildcard() {
+            const wildcardKeys = Object.keys(wildcards);
+            const randomKey = wildcardKeys[Math.floor(Math.random() * wildcardKeys.length)];
+            insertWildcard(randomKey);
+        }
+
+        // Enhance prompt with AI (mock function)
+        async function enhancePrompt() {
+            const promptInput = document.getElementById('imagePrompt');
+            const currentPrompt = promptInput.value.trim();
+            
+            if (!currentPrompt) {
+                showError('Najpierw wprowadź podstawowy opis');
+                return;
+            }
+
+            // Mock enhancement
+            const enhancements = [
+                'highly detailed', 'masterpiece', '8k resolution', 'professional lighting',
+                'vibrant colors', 'sharp focus', 'intricate details', 'award winning photography'
+            ];
+            
+            const randomEnhancement = enhancements[Math.floor(Math.random() * enhancements.length)];
+            promptInput.value = currentPrompt + ', ' + randomEnhancement;
+        }
+
+        // Photo to Photo generation
+        async function generatePhotoToPhoto() {
+            const fileInput = document.getElementById('photoToPhotoImage');
+            const photoPrompt = document.getElementById('photoPrompt').value.trim();
+            
+            if (!fileInput.files.length) {
+                showError('Wybierz obraz do przetworzenia');
+                return;
+            }
+            
+            if (!photoPrompt) {
+                showError('Wprowadź opis transformacji');
+                return;
+            }
+
+            const photoBtn = document.getElementById('photoToPhotoBtn');
+            const loading = document.getElementById('loading');
+
+            try {
+                photoBtn.disabled = true;
+                photoBtn.textContent = 'PRZETWARZANIE...';
+                loading.classList.remove('hidden');
+
+                // Simulate photo processing
+                setTimeout(() => {
+                    const imageUrl = `https://picsum.photos/512/512.webp?random=${Date.now()}`;
+                    displayGeneratedImage(imageUrl, `Photo to Photo: ${photoPrompt}`);
+                    addToHistory(`Photo to Photo: ${photoPrompt}`, '', imageUrl, 'Photo2Photo', '512x512');
+                    
+                    photoBtn.disabled = false;
+                    photoBtn.textContent = '🎨 Przetwórz Obraz';
+                    loading.classList.add('hidden');
+                }, 3000);
+
+            } catch (error) {
+                showError('Błąd podczas przetwarzania: ' + error.message);
+                photoBtn.disabled = false;
+                photoBtn.textContent = '🎨 Przetwórz Obraz';
+                loading.classList.add('hidden');
+            }
+        }
+
+        // Generate variation of current image
+        function generateVariation() {
+            if (!currentImageData) {
+                showError('Brak obrazu do wariacji');
+                return;
+            }
+            
+            const prompt = currentImageData.prompt + ' variation';
+            document.getElementById('imagePrompt').value = prompt;
+            generateImage();
+        }
+
+        // Add to history
+        function addToHistory(prompt, negativePrompt, imageUrl, model, size) {
+            const historyItem = {
+                id: Date.now(),
+                prompt: prompt,
+                negativePrompt: negativePrompt,
+                imageUrl: imageUrl,
+                model: model,
+                size: size,
+                timestamp: new Date().toLocaleString('pl-PL')
+            };
+
+            generationHistory.unshift(historyItem);
+            
+            // Keep only last 20 items
+            if (generationHistory.length > 20) {
+                generationHistory = generationHistory.slice(0, 20);
+            }
+
+            localStorage.setItem('stableDiffusionHistory', JSON.stringify(generationHistory));
+            updateHistoryDisplay();
+        }
+
+        // Update history display
+        function updateHistoryDisplay() {
+            const historyContainer = document.getElementById('historyItems');
+            
+            if (generationHistory.length === 0) {
+                historyContainer.innerHTML = `
+                    <div class="text-center text-gray-400 text-sm py-4">
+                        Brak historii generacji
+                    </div>
+                `;
+                return;
+            }
+
+            historyContainer.innerHTML = generationHistory.map(item => `
+                <div class="history-item border border-cyan-400/20 rounded p-3 cursor-pointer hover:border-cyan-400 transition-colors fade-in" 
+                     onclick="loadFromHistory('${item.id}')">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1 mr-2">
+                            <p class="text-cyan-400 text-xs font-medium truncate">${item.prompt}</p>
+                            <p class="text-gray-400 text-xs">${item.timestamp}</p>
+                        </div>
+                        <button onclick="deleteFromHistory('${item.id}')" 
+                                class="text-red-400 hover:text-red-300 text-xs">✕</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load from history
+        function loadFromHistory(itemId) {
+            event.stopPropagation();
+            const item = generationHistory.find(h => h.id == itemId);
+            if (item) {
+                document.getElementById('imagePrompt').value = item.prompt;
+                if (item.negativePrompt) {
+                    document.getElementById('negativePrompt').value = item.negativePrompt;
+                }
+                displayGeneratedImage(item.imageUrl, item.prompt);
+            }
+        }
+
+        // Delete from history
+        function deleteFromHistory(itemId) {
+            event.stopPropagation();
+            if (confirm('Usunąć ten element z historii?')) {
+                generationHistory = generationHistory.filter(h => h.id != itemId);
+                localStorage.setItem('stableDiffusionHistory', JSON.stringify(generationHistory));
+                updateHistoryDisplay();
+            }
+        }
+
+        // Clear history
+        function clearHistory() {
+            if (confirm('Czy na pewno chcesz wyczyścić całą historię?')) {
+                generationHistory = [];
+                localStorage.setItem('stableDiffusionHistory', JSON.stringify(generationHistory));
+                updateHistoryDisplay();
+            }
+        }
+
+        // Export history
+        function exportHistory() {
+            if (generationHistory.length === 0) {
+                showError('Brak historii do eksportu');
+                return;
+            }
+
+            const exportData = {
+                exportDate: new Date().toISOString(),
+                version: '1.0',
+                history: generationHistory
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `stable-diffusion-history-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Image modal functions
+        function openImageModal() {
+            if (currentImageData) {
+                const modal = document.getElementById('imageModal');
+                const modalImage = document.getElementById('modalImage');
+                const modalPrompt = document.getElementById('modalPrompt');
+                
+                modalImage.src = currentImageData.url;
+                modalPrompt.textContent = currentImageData.prompt;
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeImageModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('imageModal').classList.add('hidden');
+        }
+
+        // Download functions
+        function downloadImage() {
+            if (currentImageData) {
+                const a = document.createElement('a');
+                a.href = currentImageData.url;
+                a.download = `stable-diffusion-${Date.now()}.jpg`;
+                a.click();
+            }
+        }
+
+        function downloadImageFromModal() {
+            downloadImage();
+        }
+
+        // Share functions
+        function shareImage() {
+            if (currentImageData && navigator.share) {
+                navigator.share({
+                    title: 'Stable Diffusion Generated Image',
+                    text: currentImageData.prompt,
+                    url: currentImageData.url
+                });
+            } else {
+                // Fallback: copy URL to clipboard
+                navigator.clipboard.writeText(currentImageData.url).then(() => {
+                    showSuccess('Link skopiowany do schowka');
+                });
+            }
+        }
+
+        function shareImageFromModal() {
+            shareImage();
+        }
+
+        // Error and success messages
+        function showError(message) {
+            const errorBox = document.getElementById('errorBox');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.textContent = message;
+            errorBox.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorBox.classList.add('hidden');
+            }, 5000);
+        }
+
+        function hideError() {
+            document.getElementById('errorBox').classList.add('hidden');
+        }
+
+        function showSuccess(message) {
+            // Create temporary success message
+            const successBox = document.createElement('div');
+            successBox.className = 'fixed top-4 right-4 bg-green-900 border border-green-600 rounded-lg p-4 text-green-200 z-50';
+            successBox.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="text-green-400">✓</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(successBox);
+            
+            setTimeout(() => {
+                successBox.remove();
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to generate
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                generateImage();
+            }
+            
+            // Escape to close modal
+            if (e.key === 'Escape') {
+                closeImageModal();
+                hideError();
+            }
+        });
+    </script>
+</body>

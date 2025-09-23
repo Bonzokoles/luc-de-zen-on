@@ -1,0 +1,50 @@
+# POLSKIE FRONTY ZNAKÓW - Polish Music Worker Configuration (Simplified)
+name = "polish-music-worker"
+main = "polish-music-worker.js"
+compatibility_date = "2024-09-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Polish Team Configuration
+[vars]
+POLISH_TEAM_LEAD = "Jakub Kowalski"
+SYSTEM_NAME = "POLSKIE_FRONTY_ZNAKOW"
+LANGUAGE = "pl-PL"
+TIMEZONE = "Europe/Warsaw"
+FONT_SYSTEM = "Neuropol_X_Fledgling_KenyanCoffee"
+API_URL = "https://polish-music-worker.mybonzo.workers.dev"
+TEAM_SIZE = "8"
+MAIN_LIBRARIES = "3"
+
+# Routes dla polskiego API
+[[routes]]
+pattern = "mybonzo.com/api/muzyka/*"
+zone_name = "mybonzo.com"
+
+[[routes]] 
+pattern = "*.mybonzo.com/polish-music/*"
+zone_name = "mybonzo.com"
+
+# Placement optimization
+[placement]
+mode = "smart"
+
+# Limits optimization
+[limits]
+cpu_ms = 10000
+
+# Observability for monitoring
+[observability]
+enabled = true
+head_sampling_rate = 0.01
+
+# KV Namespaces bindings
+[[kv_namespaces]]
+binding = "POLISH_MUSIC_CACHE"
+id = "77d84c01758a4064be011acc35b2c344"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+# R2 Buckets binding
+[[r2_buckets]]
+binding = "POLISH_MUSIC_STORAGE"
+bucket_name = "mybonzo-storage"
+preview_bucket_name = "mybonzo-storage"

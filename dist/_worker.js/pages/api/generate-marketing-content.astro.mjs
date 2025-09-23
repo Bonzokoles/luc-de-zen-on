@@ -1,4 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_BJuaHVI9.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
 
@@ -60,6 +61,46 @@ const POST = async ({ request, locals }) => {
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   GET,
+=======
+import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+
+const POST = async ({ request, locals }) => {
+  try {
+    const { prompt, contentType } = await request.json();
+    const env = locals.runtime.env;
+    if (!prompt || !contentType) {
+      return createErrorResponse("Missing required fields", 400);
+    }
+    if (!env.AI) {
+      return createErrorResponse("Cloudflare AI nie jest dostępny", 500);
+    }
+    const systemPrompt = "Jesteś ekspertem marketingu tworzącym angażujące teksty w stylu nowoczesnym i profesjonalnym. Używaj dynamicznego, przystępnego stylu z wyraźnym CTA zachęcającym do działania.";
+    const userPrompt = `Napisz ${contentType} na temat: ${prompt}. Użyj stylu: dynamiczny, przystępny, z CTA zachęcającym do działania. Tekst powinien być profesjonalny ale przyjazny.`;
+    const response = await env.AI.run(env.ADVANCED_TEXT_MODEL || "@cf/meta/llama-3.1-8b-instruct", {
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
+      ],
+      temperature: 0.7
+    });
+    const generatedText = response.response;
+    return createSuccessResponse({
+      success: true,
+      text: generatedText,
+      contentType,
+      prompt
+    });
+  } catch (error) {
+    console.error("Error generating marketing content:", error);
+    return createErrorResponse("Failed to generate marketing content", 500);
+  }
+};
+const OPTIONS = createOPTIONSHandler(["POST", "OPTIONS"]);
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   OPTIONS,
   POST
 }, Symbol.toStringTag, { value: 'Module' }));

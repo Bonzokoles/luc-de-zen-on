@@ -5,9 +5,14 @@
   let messages = [];
   let inputValue = "";
   let isTyping = false;
+<<<<<<< HEAD
   let agentStatus = "disconnected";
   let capabilities = [];
   let isMinimized = false;
+=======
+  let agentStatus = "connecting"; // Start with connecting status
+  let capabilities = [];
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
   let messagesContainer;
   let sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -30,7 +35,10 @@
       // Re-create fresh API
       window.POLACZEK = {
         openAssistant: () => {
+<<<<<<< HEAD
           isMinimized = false;
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           setTimeout(() => scrollToBottom(), 30);
         },
         getStatus: () => agentStatus,
@@ -49,7 +57,13 @@
       console.log("🤖 POLACZEK API registered and ready");
     }
 
+<<<<<<< HEAD
     checkConnection();
+=======
+    // Auto-connect after small delay for better UX
+    setTimeout(() => checkConnection(), 100);
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     return () => {
       // No WebSocket to clean up
     };
@@ -74,7 +88,11 @@
         capabilities = ["Chat AI", "Knowledge Base", "Help System"];
         addMessage(
           "system",
+<<<<<<< HEAD
           "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!",
+=======
+          "🤖 POLACZEK_T Assistant połączony i gotowy do pracy!"
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         );
       } else {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -107,7 +125,11 @@
     window.POLACZEK.status = agentStatus;
     try {
       window.dispatchEvent(
+<<<<<<< HEAD
         new CustomEvent("polaczek-status", { detail: { status: agentStatus } }),
+=======
+        new CustomEvent("polaczek-status", { detail: { status: agentStatus } })
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       );
     } catch (e) {}
   }
@@ -180,7 +202,11 @@
           .catch(() => ({ error: "Unknown error" }));
         addMessage(
           "error",
+<<<<<<< HEAD
           `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`,
+=======
+          `Błąd API (${response.status}): ${errorData.error || "Nieznany błąd"}`
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         );
         console.error("API Error:", response.status, errorData);
       }
@@ -226,10 +252,13 @@
     }
   }
 
+<<<<<<< HEAD
   function toggleMinimized() {
     isMinimized = !isMinimized;
   }
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   function clearChat() {
     messages = [];
   }
@@ -241,6 +270,7 @@
 </script>
 
 <div class="assistant-container">
+<<<<<<< HEAD
   <!-- Minimized View -->
   {#if isMinimized}
     <button
@@ -408,19 +438,152 @@
   .polaczek-launcher .status {
     font-size: 0.8rem;
   }
+=======
+  <!-- Expanded View -->
+  <div class="assistant-panel">
+    <!-- Header -->
+    <div class="assistant-header">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">🤖</span>
+        <span class="font-medium">POLACZEK_T Asystent</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class={`text-xs ${getStatusColor(agentStatus)}`}>
+          {getStatusIcon(agentStatus)}
+          {agentStatus}
+        </span>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div bind:this={messagesContainer} class="messages">
+      {#each messages as message (message.id)}
+        <div
+          class={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+        >
+          <div
+            class={`bubble ${
+              message.type === "user"
+                ? "bubble-user"
+                : message.type === "agent"
+                  ? "bubble-agent"
+                  : message.type === "system"
+                    ? "bubble-system"
+                    : "bg-red-100 text-red-800 border border-red-200"
+            }`}
+          >
+            <div>{message.content}</div>
+            <div
+              class={`text-xs mt-1 ${
+                message.type === "user" ? "text-blue-100" : "text-gray-500"
+              }`}
+            >
+              {message.timestamp}
+            </div>
+          </div>
+        </div>
+      {/each}
+
+      {#if isTyping}
+        <div class="flex justify-start">
+          <div
+            class="bg-white text-gray-800 border px-3 py-2 rounded-lg text-sm"
+          >
+            <div class="flex items-center gap-1">
+              <span>Agent pisze</span>
+              <div class="flex gap-1">
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                ></div>
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.1s;"
+                ></div>
+                <div
+                  class="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                  style="animation-delay: 0.2s;"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
+
+    <!-- Input -->
+    <div class="input-bar">
+      <div class="flex gap-2 mb-2">
+        <button
+          on:click={clearChat}
+          class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
+          disabled={messages.length === 0}
+        >
+          Wyczyść
+        </button>
+        <button
+          on:click={reconnect}
+          class="text-xs text-gray-400 hover:text-gray-200 px-2 py-1"
+          disabled={isConnected}
+        >
+          Połącz ponownie
+        </button>
+      </div>
+
+      <div class="flex gap-2">
+        <input
+          bind:value={inputValue}
+          on:keypress={handleKeyPress}
+          placeholder="Zadaj pytanie agentowi..."
+          disabled={!isConnected}
+          class="assistant-input"
+        />
+        <button
+          on:click={sendMessage}
+          disabled={!isConnected || !inputValue.trim()}
+          class="assistant-send"
+        >
+          Wyślij
+        </button>
+      </div>
+
+      {#if capabilities.length > 0}
+        <div class="mt-2 text-xs text-gray-400">
+          Funkcje: {capabilities.join(", ")}
+        </div>
+      {/if}
+    </div>
+  </div>
+</div>
+
+<style>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   .assistant-container {
     width: 100%;
   }
   .assistant-panel {
+<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.6);
     border: 2px solid #8b0000;
     border-radius: 0;
     width: 100%;
     max-width: 980px;
+=======
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.98),
+      rgba(0, 0, 0, 0.95)
+    );
+    border: 2px solid #1be1ff;
+    border-radius: 0;
+    backdrop-filter: blur(15px);
+    min-width: 480px;
+    max-width: 520px;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     height: 26rem;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
+<<<<<<< HEAD
     box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
   }
   .assistant-header {
@@ -431,17 +594,47 @@
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #8b0000;
+=======
+    box-shadow:
+      0 0 12px rgba(27, 225, 255, 0.2),
+      0 0 25px rgba(27, 225, 255, 0.08),
+      inset 0 1px 0 rgba(27, 225, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1000;
+  }
+  .assistant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(90deg, #0f3846, #1be1ff);
+    border-bottom: 2px solid #1be1ff;
+    border-radius: 0;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.4);
+    user-select: none;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
   .messages {
     flex: 1;
     overflow-y: auto;
+<<<<<<< HEAD
     padding: 0.75rem;
     background: #0b0b0b;
+=======
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
   .bubble {
     max-width: 70%;
     padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
+<<<<<<< HEAD
     border: 2px solid #333;
   }
   .bubble-user {
@@ -488,6 +681,65 @@
   .assistant-send:hover {
     border-color: #00e7ff;
     box-shadow: 0 0 10px rgba(0, 231, 255, 0.3);
+=======
+    border: 1px solid #1be1ff;
+    border-radius: 0;
+    background: rgba(15, 56, 70, 0.6);
+    backdrop-filter: blur(5px);
+  }
+  .bubble-user {
+    background: rgba(27, 225, 255, 0.2);
+    color: #fff;
+    border-color: #1be1ff;
+    margin-left: auto;
+  }
+  .bubble-agent {
+    background: rgba(15, 56, 70, 0.8);
+    color: #fff;
+    border-color: #1be1ff;
+  }
+  .bubble-system {
+    background: rgba(27, 225, 255, 0.15);
+    color: #1be1ff;
+    border-color: #1be1ff;
+  }
+  .input-bar {
+    padding: 12px;
+    background: rgba(15, 56, 70, 0.8);
+    border-top: 2px solid #1be1ff;
+  }
+  .assistant-input {
+    flex: 1;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    border: 1px solid #1be1ff;
+    border-radius: 0;
+    outline: none;
+    font-size: 12px;
+    backdrop-filter: blur(5px);
+  }
+  .assistant-input:focus {
+    border-color: #1be1ff;
+    box-shadow: 0 0 6px rgba(27, 225, 255, 0.3);
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .assistant-send {
+    background: rgba(27, 225, 255, 0.1);
+    color: #1be1ff;
+    border: 1px solid #1be1ff;
+    padding: 8px 16px;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
+  }
+  .assistant-send:hover {
+    background: rgba(27, 225, 255, 0.2);
+    box-shadow: 0 0 8px rgba(27, 225, 255, 0.4);
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
   @keyframes bounce {
     0%,

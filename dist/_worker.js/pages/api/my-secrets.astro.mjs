@@ -1,8 +1,14 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
+<<<<<<< HEAD
 import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_BJuaHVI9.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
 
 var define_globalThis_process_env_default = {};
+=======
+import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 class MySecretsAPI {
   constructor(env, config = {}) {
     this.env = env;
@@ -47,7 +53,11 @@ class MySecretsAPI {
       priority: 3,
       get: async (key) => {
         try {
+<<<<<<< HEAD
           return define_globalThis_process_env_default?.[key] || null;
+=======
+          return globalThis.process?.env?.[key] || null;
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         } catch (error) {
           console.warn(`❌ ProcessEnvironment error for ${key}:`, error);
           return null;

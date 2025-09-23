@@ -19,6 +19,7 @@
     error = null;
 
     try {
+<<<<<<< HEAD
       const response = await fetch(
         `/api/kaggle?search=${encodeURIComponent(query)}`,
         {
@@ -28,6 +29,15 @@
           },
         }
       );
+=======
+      const response = await fetch(`/api/polaczek/kaggle`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ search: query }),
+      });
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);

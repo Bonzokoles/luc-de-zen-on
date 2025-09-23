@@ -1,0 +1,560 @@
+// Simple API utilities for MyBonzo/**/**
+
+export interface APIResponse {
+
+    success: boolean; * Enhanced API Utilities for MyBonzo Platform * Enhanced API Utilities for MyBonzo Platform
+
+    data?: any;
+
+    error?: string; * Centralized handling for API operations, rate limiting, caching, and monitoring * Centralized handling for API operations, rate limiting, caching, and monitoring
+
+    timestamp: number;
+
+} */ */
+
+
+
+export function createSuccessResponse(data: any): Response {
+
+    const response: APIResponse = {
+
+        success: true,export interface APIRequest {export interface APIRequest {
+
+        data,
+
+        timestamp: Date.now()    method: string;    method: string;
+
+    };
+
+    url: string;    url: string;
+
+    return new Response(JSON.stringify(response), {
+
+        status: 200,    headers?: Record<string, string>;    headers?: Record<string, string>;
+
+        headers: {
+
+            'Content-Type': 'application/json',    body?: any;    body?: any;
+
+            'Access-Control-Allow-Origin': '*'
+
+        }    userAgent?: string;}
+
+    });
+
+}    ip?: string;
+
+
+
+export function createErrorResponse(error: string, status = 400): Response {}export interface APIResponse {
+
+    const response: APIResponse = {
+
+        success: false,    success: boolean;
+
+        error,
+
+        timestamp: Date.now()export interface APIResponse {    data?: any;
+
+    };
+
+    success: boolean;    error?: string;
+
+    return new Response(JSON.stringify(response), {
+
+        status,    data?: any;    timestamp: number;
+
+        headers: {
+
+            'Content-Type': 'application/json',    error?: string;    cached?: boolean;
+
+            'Access-Control-Allow-Origin': '*'
+
+        }    timestamp: number;}
+
+    });
+
+}    cached?: boolean;
+
+}export async function handleAPIRequest(
+
+    request: Request,
+
+export async function handleAPIRequest(    handler: (req: Request) => Promise<Response>,
+
+    request: Request,    errorContext?: string
+
+    handler: (req: Request) => Promise<Response>,): Promise<Response> {
+
+    errorContext?: string    try {
+
+): Promise<Response> {        if (request.method === 'OPTIONS') {
+
+    try {            return new Response(null, {
+
+        if (request.method === 'OPTIONS') {                status: 200,
+
+            return new Response(null, {                headers: {
+
+                status: 200,                    'Access-Control-Allow-Origin': '*',
+
+                headers: {                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+
+                    'Access-Control-Allow-Origin': '*',
+
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',                    'Access-Control-Allow-Headers': 'Content-Type, Authorization', try {
+
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',                        url: string;
+
+                }
+
+            });                    },
+
+        }
+
+                }); if (request.method === 'OPTIONS') {
+
+        return await handler(request);                    body ?: any;
+
+    } catch (error) {
+
+        console.error(`API Error${errorContext ? ` (${errorContext})` : ''}:`, error);                }
+
+        return createErrorResponse(
+
+            error instanceof Error ? error.message : 'Unknown error occurred',        return new Response(null, {
+
+            500            headers?: Record<string, string>;
+
+        );
+
+    }            return await handler(request);
+
+}
+
+        } catch (error) {
+
+export function createSuccessResponse(data: any, cached = false): Response {            status: 200, timestamp: number;
+
+    const response: APIResponse = {
+
+        success: true,            console.error(`API Error${errorContext ? ` (${errorContext})` : ''}:`, error);
+
+        data,
+
+        timestamp: Date.now(),            headers: {
+
+        cached                userAgent ?: string;
+
+    };
+
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+
+    return new Response(JSON.stringify(response), {
+
+        status: 200,                'Access-Control-Allow-Origin': '*', ip ?: string;
+
+        headers: {
+
+            'Content-Type': 'application/json',                return createErrorResponse(
+
+            'Access-Control-Allow-Origin': '*',
+
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',                    errorMessage, 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',}
+
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+
+        }            500,
+
+    });
+
+}            {
+
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+
+export function createErrorResponse(
+
+    errorMessage: string,                context: errorContext,
+
+    status = 400,
+
+    errorContext?: string                timestamp: new Date().toISOString()
+
+): Response {            },export interface APIResponse {
+
+    const response: APIResponse = {
+
+        success: false,            }
+
+        error: errorMessage,
+
+        timestamp: Date.now()    );
+
+    };        }); success: boolean;
+
+
+
+    return new Response(JSON.stringify(response), {    }
+
+        status,
+
+        headers: {}    }    data ?: any;
+
+            'Content-Type': 'application/json',
+
+            'Access-Control-Allow-Origin': '*',
+
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',export function validateRequiredFields(data: any, requiredFields: string[]): string | null {
+
+        }    error ?: string;
+
+    });
+
+}    for (const field of requiredFields) {
+
+
+
+// Rate limiting store        if (!data[field]) {
+
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();            return await handler(request); status: number;
+
+
+
+export const RATE_LIMITS = {            return `Missing required field: ${field}`;
+
+    DEFAULT: { requests: 100, windowMs: 60 * 1000 }, // 100 requests per minute
+
+    AUTH: { requests: 5, windowMs: 60 * 1000 }, // 5 login attempts per minute        }
+
+    AI_CHAT: { requests: 20, windowMs: 60 * 1000 }, // 20 AI requests per minute    } catch (error) {
+
+    IMAGE_GEN: { requests: 10, windowMs: 60 * 1000 }, // 10 image generations per minute        responseTime: number;
+
+    ADMIN: { requests: 200, windowMs: 60 * 1000 }, // 200 admin requests per minute
+
+};    }
+
+
+
+export function checkRateLimit(    return null; console.error(`API Error${errorContext ? ` (${errorContext})` : ''}:`, error); cached ?: boolean;
+
+    key: string,
+
+    endpoint: keyof typeof RATE_LIMITS = 'DEFAULT'}
+
+): { allowed: boolean; remaining: number; resetTime: number } {
+
+    const limit = RATE_LIMITS[endpoint];    }
+
+    const now = Date.now();
+
+    const entry = rateLimitStore.get(key);export function sanitizeInput(input: string, maxLength: number = 1000): string {
+
+
+
+    if (!entry || now > entry.resetTime) {    if (typeof input !== 'string') return ''; const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+
+        const newEntry = {
+
+            count: 1,    return input.trim().slice(0, maxLength);
+
+            resetTime: now + limit.windowMs
+
+        };}    // Rate limiting store (in production, use Redis or Cloudflare KV)
+
+        rateLimitStore.set(key, newEntry);
+
+        return {return createErrorResponse(const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+
+            allowed: true,
+
+            remaining: limit.requests - 1,errorMessage,
+
+            resetTime: newEntry.resetTime
+
+        };    500,/**
+
+    }
+
+      { * Rate limiting configuration
+
+    if (entry.count >= limit.requests) {
+
+        return {        context: errorContext, */
+
+            allowed: false,
+
+            remaining: 0,    timestamp: new Date().toISOString()export const RATE_LIMITS = {
+
+            resetTime: entry.resetTime
+
+        };    }    DEFAULT: { requests: 100, windowMs: 60 * 1000 }, // 100 requests per minute
+
+    }
+
+    ); AUTH: { requests: 5, windowMs: 60 * 1000 }, // 5 login attempts per minute
+
+    entry.count++;
+
+    rateLimitStore.set(key, entry);  }    AI_CHAT: { requests: 20, windowMs: 60 * 1000 }, // 20 AI requests per minute
+
+    
+
+    return {}    IMAGE_GEN: { requests: 10, windowMs: 60 * 1000 }, // 10 image generations per minute
+
+        allowed: true,
+
+        remaining: limit.requests - entry.count,ADMIN: { requests: 200, windowMs: 60 * 1000 }, // 200 admin requests per minute
+
+        resetTime: entry.resetTime
+
+    };export function validateRequiredFields(data: any, requiredFields: string[]): string | null { };
+
+}
+
+for (const field of requiredFields) {
+
+export function getClientIP(request: Request): string {
+
+    const forwarded = request.headers.get('x-forwarded-for');    if (!data[field]) {/**
+
+    const realIp = request.headers.get('x-real-ip');
+
+    const cfConnectingIp = request.headers.get('cf-connecting-ip');      return `Missing required field: ${field}`; * Check rate limit for a given key and endpoint type
+
+    
+
+    return cfConnectingIp || realIp || forwarded?.split(',')[0] || 'unknown';    } */
+
+}
+
+    } export function checkRateLimit(
+
+export function logRequest(request: Request, response?: Response) {
+
+    const timestamp = new Date().toISOString();  return null; key: string,
+
+    const method = request.method;
+
+    const url = request.url;} endpoint: keyof typeof RATE_LIMITS = 'DEFAULT'
+
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+
+    const ip = getClientIP(request);): { allowed: boolean; remaining: number; resetTime: number } {
+
+    const status = response?.status || 'unknown';
+
+        export function sanitizeInput(input: string, maxLength: number = 1000): string {
+
+    console.log(`[${timestamp}] ${method} ${url} - ${status} - ${ip} - ${userAgent}`);        const limit = RATE_LIMITS[endpoint];
+
+}
+        if (typeof input !== 'string') return ''; const now = Date.now();
+
+        return input.trim().slice(0, maxLength); const windowStart = now - limit.windowMs;
+
+    }
+    const current = rateLimitStore.get(key);
+
+    if (!current || current.resetTime < windowStart) {
+        // Reset window
+        rateLimitStore.set(key, { count: 1, resetTime: now + limit.windowMs });
+        return { allowed: true, remaining: limit.requests - 1, resetTime: now + limit.windowMs };
+    }
+
+    if (current.count >= limit.requests) {
+        return { allowed: false, remaining: 0, resetTime: current.resetTime };
+    }
+
+    // Increment count
+    current.count++;
+    return { allowed: true, remaining: limit.requests - current.count, resetTime: current.resetTime };
+}
+
+/**
+ * Enhanced API handler with rate limiting, monitoring, and error handling
+ */
+export async function handleAPIRequest(
+    request: Request,
+    handler: (request: Request) => Promise<Response>,
+    endpoint: keyof typeof RATE_LIMITS = 'DEFAULT'
+): Promise<Response> {
+    const startTime = Date.now();
+    const url = new URL(request.url);
+    const clientIP = request.headers.get('CF-Connecting-IP') ||
+        request.headers.get('X-Forwarded-For') ||
+        'unknown';
+
+    try {
+        // Rate limiting
+        const rateLimitKey = `${clientIP}:${url.pathname}`;
+        const rateLimit = checkRateLimit(rateLimitKey, endpoint);
+
+        if (!rateLimit.allowed) {
+            return new Response(
+                JSON.stringify({
+                    error: 'Rate limit exceeded',
+                    retryAfter: Math.ceil((rateLimit.resetTime - Date.now()) / 1000)
+                }),
+                {
+                    status: 429,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Retry-After': Math.ceil((rateLimit.resetTime - Date.now()) / 1000).toString(),
+                        'X-RateLimit-Limit': RATE_LIMITS[endpoint].requests.toString(),
+                        'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+                        'X-RateLimit-Reset': new Date(rateLimit.resetTime).toISOString(),
+                        ...getCORSHeaders()
+                    }
+                }
+            );
+        }
+
+        // Execute handler
+        const response = await handler(request);
+        const responseTime = Date.now() - startTime;
+
+        // Add rate limit headers to response
+        const enhancedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: {
+                ...Object.fromEntries(response.headers.entries()),
+                'X-RateLimit-Limit': RATE_LIMITS[endpoint].requests.toString(),
+                'X-RateLimit-Remaining': rateLimit.remaining.toString(),
+                'X-RateLimit-Reset': new Date(rateLimit.resetTime).toISOString(),
+                'X-Response-Time': `${responseTime}ms`,
+            }
+        });
+
+        // Log successful request
+        logAPIRequest({
+            method: request.method,
+            url: url.pathname,
+            body: request.method !== 'GET' ? await request.clone().text() : undefined,
+            headers: Object.fromEntries(request.headers.entries()),
+            timestamp: startTime,
+            userAgent: request.headers.get('User-Agent') || undefined,
+            ip: clientIP
+        }, {
+            success: true,
+            status: response.status,
+            responseTime,
+            cached: response.headers.get('X-Cache-Status') === 'HIT'
+        });
+
+        return enhancedResponse;
+
+    } catch (error: any) {
+        const responseTime = Date.now() - startTime;
+
+        // Log error
+        logAPIRequest({
+            method: request.method,
+            url: url.pathname,
+            timestamp: startTime,
+            ip: clientIP
+        }, {
+            success: false,
+            error: error.message,
+            status: 500,
+            responseTime
+        });
+
+        return createErrorResponse('Internal server error', 500, {
+            requestId: generateRequestId(),
+            timestamp: new Date().toISOString()
+        });
+    }
+}
+
+/**
+ * Simple caching implementation (in production, use Cloudflare KV or Cache API)
+ */
+const responseCache = new Map<string, { data: any; expires: number }>();
+
+export function getCachedResponse(key: string): any | null {
+    const cached = responseCache.get(key);
+    if (cached && cached.expires > Date.now()) {
+        return cached.data;
+    }
+    if (cached) {
+        responseCache.delete(key);
+    }
+    return null;
+}
+
+export function setCachedResponse(key: string, data: any, ttlMs: number = 300000): void {
+    responseCache.set(key, {
+        data,
+        expires: Date.now() + ttlMs
+    });
+}
+
+/**
+ * Generate unique request ID for tracking
+ */
+export function generateRequestId(): string {
+    return `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+/**
+ * API request logging (in production, send to analytics service)
+ */
+export function logAPIRequest(request: APIRequest, response: APIResponse): void {
+    const logEntry = {
+        ...request,
+        ...response,
+        timestamp: new Date().toISOString()
+    };
+
+    // Console logging for development
+    if (response.success) {
+        console.log(`✅ API ${request.method} ${request.url} - ${response.status} (${response.responseTime}ms)`);
+    } else {
+        console.error(`❌ API ${request.method} ${request.url} - ${response.status} (${response.responseTime}ms): ${response.error}`);
+    }
+
+    // Store in memory for admin dashboard (in production, use proper analytics)
+    storeAPIMetrics(logEntry);
+}
+
+// API metrics storage (simplified for demo)
+const apiMetrics = {
+    totalRequests: 0,
+    successfulRequests: 0,
+    errorRequests: 0,
+    averageResponseTime: 0,
+    recentRequests: [] as any[]
+};
+
+function storeAPIMetrics(logEntry: any): void {
+    apiMetrics.totalRequests++;
+    if (logEntry.success) {
+        apiMetrics.successfulRequests++;
+    } else {
+        apiMetrics.errorRequests++;
+    }
+
+    // Update average response time
+    apiMetrics.averageResponseTime =
+        (apiMetrics.averageResponseTime * (apiMetrics.totalRequests - 1) + logEntry.responseTime) /
+        apiMetrics.totalRequests;
+
+    // Keep last 100 requests
+    apiMetrics.recentRequests.unshift(logEntry);
+    if (apiMetrics.recentRequests.length > 100) {
+        apiMetrics.recentRequests.pop();
+    }
+}
+
+export function getAPIMetrics() {
+    return { ...apiMetrics };
+}
+
+// Import existing utilities
+import { getCORSHeaders, createErrorResponse, createSuccessResponse } from './corsUtils';
+
+export { getCORSHeaders, createErrorResponse, createSuccessResponse };

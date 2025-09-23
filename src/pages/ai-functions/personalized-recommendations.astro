@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 ---
@@ -42,11 +43,69 @@ import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
               â† PowrĂłt do strony gĹ‚Ăłwnej
             </a>
           </div>
+=======
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import RecommendationsWidget from "../../components/RecommendationsWidget.svelte";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Personalizowane Rekomendacje | AI Functions | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"
+      >
+      </div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1
+              class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']"
+            >
+              Personalizowane Rekomendacje
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              System rekomendacyjny produktów i usług z analizą preferencji użytkowników
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">ANALYZING</span>
+            </div>
+            <div>ML ACCURACY: <span class="text-[#00ffff]">97.2%</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            ← Powrót do głównej
+          </a>
+          <a
+            href="/zaawansowane-funkcje-ai"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Wszystkie funkcje AI
+          </a>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
       </div>
     </section>
 
     <!-- Main Content -->
+<<<<<<< HEAD
     <section
       class="ai-functions-section flex items-center justify-center py-16"
       style="background: rgba(0, 0, 0, 0.5);"
@@ -389,12 +448,64 @@ import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
               <div class="stat-value" id="userSatisfaction">4.8/5</div>
               <div class="stat-label">Ocena uĹĽytkownikĂłw</div>
             </div>
+=======
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        <!-- Recommendations Widget -->
+        <RecommendationsWidget client:visible />
+
+        <!-- Features Description -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Jak to działa</h3>
+            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Analiza preferencji użytkownika
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Machine Learning algorithms
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Personalizowane propozycje
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Continuous learning
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
+            <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Funkcje</h3>
+            <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']">
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                AI-powered recommendations
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Real-time analytics
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Targeted suggestions
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[#00ffff]">✓</span>
+                Performance tracking
+              </li>
+            </ul>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
         </div>
       </div>
     </section>
   </main>
 </MyBonzoLayout>
+<<<<<<< HEAD
 
 <style>
   /* Interactive page lighting effects */
@@ -963,3 +1074,5 @@ import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
   window.shareRecommendations = shareRecommendations;
 </script>
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

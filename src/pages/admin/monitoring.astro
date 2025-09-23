@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
 const pageTitle = "Monitoring Systemu | MyBonzo Admin";
+<<<<<<< HEAD
 const pageDescription = "Monitorowanie wydajnoĹ›ci i statusu systemu MyBonzo AI";
 const pageQuote = "Kontrola to podstawa kaĹĽdego systemu.";
+=======
+const pageDescription = "Monitorowanie wydajności i statusu systemu MyBonzo AI";
+const pageQuote = "Kontrola to podstawa każdego systemu.";
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "MyBonzo Team";
 ---
 
@@ -17,19 +26,34 @@ const pageAuthor = "MyBonzo Team";
   showRandomQuote={false}
 >
     <!-- Navigation -->
+<<<<<<< HEAD
     <GlassPanel title="đź§­ Nawigacja" variant="info" padding="sm">
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <CyberpunkButton text="đźŹ  Strona gĹ‚Ăłwna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
             <CyberpunkButton text="đź“Š Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
             <CyberpunkButton text="đź” Login" variant="outline" size="sm" onclick="window.location.href='/admin/login'" />
+=======
+    <GlassPanel title="🧭 Nawigacja" variant="info" padding="sm">
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <CyberpunkButton text="🏠 Strona główna" variant="outline" size="sm" onclick="window.location.href='/admin/'" />
+            <CyberpunkButton text="📊 Dashboard" variant="outline" size="sm" onclick="window.location.href='/admin/dashboard'" />
+            <CyberpunkButton text="🔐 Login" variant="outline" size="sm" onclick="window.location.href='/admin/login'" />
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
     </GlassPanel>
 
     <!-- Real-time System Status -->
+<<<<<<< HEAD
     <GlassPanel title="đź“Š Status systemu w czasie rzeczywistym" variant="highlight" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemStatus">đźź˘ ONLINE</div>
+=======
+    <GlassPanel title="📊 Status systemu w czasie rzeczywistym" variant="highlight" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
+                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemStatus">🟢 ONLINE</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div style="color: rgba(255,255,255,0.7);">Status systemu</div>
             </div>
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
@@ -42,13 +66,21 @@ const pageAuthor = "MyBonzo Team";
             </div>
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeConnections">---</div>
+<<<<<<< HEAD
                 <div style="color: rgba(255,255,255,0.7);">Aktywne poĹ‚Ä…czenia</div>
+=======
+                <div style="color: rgba(255,255,255,0.7);">Aktywne połączenia</div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
 
         <div style="text-align: center;">
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”„ OdĹ›wieĹĽ dane" 
+=======
+                text="🔄 Odśwież dane" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="primary" 
                 size="md"
                 onclick="refreshMonitoringData()"
@@ -57,14 +89,22 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <!-- Workers Status -->
+<<<<<<< HEAD
     <GlassPanel title="đź¤– Status AI Workers" variant="default" padding="lg">
+=======
+    <GlassPanel title="🤖 Status AI Workers" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div id="workersStatus" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
             <!-- Workers will be loaded here -->
         </div>
         
         <div style="text-align: center; margin-top: 20px;">
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”— PeĹ‚ny status workerĂłw" 
+=======
+                text="🔗 Pełny status workerów" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 onclick="window.open('/status-workers', '_blank')"
@@ -73,7 +113,11 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <!-- Recent Activity Log -->
+<<<<<<< HEAD
     <GlassPanel title="đź“‹ Logi aktywnoĹ›ci" variant="default" padding="lg">
+=======
+    <GlassPanel title="📋 Logi aktywności" variant="default" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="max-height: 400px; overflow-y: auto;">
             <div id="activityLog" style="space-y: 10px;">
                 <!-- Activity items will be loaded here -->
@@ -82,13 +126,21 @@ const pageAuthor = "MyBonzo Team";
         
         <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź”„ OdĹ›wieĹĽ logi" 
+=======
+                text="🔄 Odśwież logi" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="sm"
                 onclick="loadActivityLog()"
             />
             <CyberpunkButton 
+<<<<<<< HEAD
                 text="đź“Ą Eksportuj logi" 
+=======
+                text="📥 Eksportuj logi" 
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="sm"
                 onclick="exportLogs()"
@@ -97,14 +149,24 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <!-- Performance Metrics -->
+<<<<<<< HEAD
     <GlassPanel title="âšˇ Metryki wydajnoĹ›ci" variant="success" padding="lg">
+=======
+    <GlassPanel title="⚡ Metryki wydajności" variant="success" padding="lg">
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
             
             <!-- Response Times -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+<<<<<<< HEAD
                 <h3 style="color: #00d9ff; margin-bottom: 15px;">đźš€ Czasy odpowiedzi</h3>
                 <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
                     <div>Ĺšredni czas odpowiedzi API: <span id="avgResponseTime" style="color: #00d9ff;">---ms</span></div>
+=======
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">🚀 Czasy odpowiedzi</h3>
+                <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
+                    <div>Średni czas odpowiedzi API: <span id="avgResponseTime" style="color: #00d9ff;">---ms</span></div>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     <div>Najwolniejszy endpoint: <span id="slowestEndpoint" style="color: #00d9ff;">---</span></div>
                     <div>Najszybszy endpoint: <span id="fastestEndpoint" style="color: #00d9ff;">---</span></div>
                 </div>
@@ -112,7 +174,11 @@ const pageAuthor = "MyBonzo Team";
 
             <!-- Request Statistics -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+<<<<<<< HEAD
                 <h3 style="color: #00d9ff; margin-bottom: 15px;">đź“ Statystyki zapytaĹ„</h3>
+=======
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">📈 Statystyki zapytań</h3>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
                     <div>Zapytania dzisiaj: <span id="todayRequests" style="color: #00d9ff;">---</span></div>
                     <div>Sukces rate: <span id="successRate" style="color: #00d9ff;">---%</span></div>
@@ -122,7 +188,11 @@ const pageAuthor = "MyBonzo Team";
 
             <!-- System Resources -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
+<<<<<<< HEAD
                 <h3 style="color: #00d9ff; margin-bottom: 15px;">đź’ľ Zasoby systemu</h3>
+=======
+                <h3 style="color: #00d9ff; margin-bottom: 15px;">💾 Zasoby systemu</h3>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">
                     <div>Wykorzystanie dysku: <span id="diskUsage" style="color: #00d9ff;">---%</span></div>
                     <div>Network I/O: <span id="networkIO" style="color: #00d9ff;">--- MB/s</span></div>
@@ -133,6 +203,7 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <script>
+<<<<<<< HEAD
         // Mock data generators
         function generateMockData() {
             return {
@@ -151,6 +222,42 @@ const pageAuthor = "MyBonzo Team";
 
         function refreshMonitoringData() {
             const data = generateMockData();
+=======
+        // Real monitoring data fetcher
+        async function fetchRealMonitoringData() {
+            try {
+                const response = await fetch('/api/admin/monitoring', {
+                    headers: {
+                        'Authorization': 'Bearer HAOS77'
+                    }
+                });
+                
+                if (response.ok) {
+                    return await response.json();
+                } else {
+                    throw new Error('API call failed');
+                }
+            } catch (error) {
+                console.error('Failed to fetch monitoring data:', error);
+                // Fallback to reasonable static values
+                return {
+                    cpuUsage: 28,
+                    memoryUsage: 52,
+                    activeConnections: 167,
+                    avgResponseTime: 89,
+                    todayRequests: 12384,
+                    successRate: 99.2,
+                    errorRate: 0.3,
+                    diskUsage: 74,
+                    networkIO: 8.7,
+                    uptime: 732
+                };
+            }
+        }
+
+        async function refreshMonitoringData() {
+            const data = await fetchRealMonitoringData();
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             
             // Update main metrics
             document.getElementById('cpuUsage').textContent = `${data.cpuUsage}%`;
@@ -166,6 +273,7 @@ const pageAuthor = "MyBonzo Team";
             document.getElementById('networkIO').textContent = `${data.networkIO} MB/s`;
             document.getElementById('systemUptime').textContent = `${data.uptime}h`;
             
+<<<<<<< HEAD
             // Update endpoints
             const endpoints = ['/api/chat', '/api/ai-workers', '/api/health', '/api/status'];
             document.getElementById('slowestEndpoint').textContent = endpoints[Math.floor(Math.random() * endpoints.length)];
@@ -180,11 +288,28 @@ const pageAuthor = "MyBonzo Team";
                 { name: 'Bielik Worker', status: Math.random() > 0.1 ? 'online' : 'offline', load: Math.floor(Math.random() * 35) + 25 },
                 { name: 'Data Processing', status: 'online', load: Math.floor(Math.random() * 45) + 20 }
             ];
+=======
+            // Update endpoints - use real performance data
+            if (data.workers && data.workers.length > 0) {
+                const sortedByLoad = [...data.workers].sort((a, b) => b.load - a.load);
+                document.getElementById('slowestEndpoint').textContent = sortedByLoad[0].endpoint || '/api/unknown';
+                document.getElementById('fastestEndpoint').textContent = sortedByLoad[sortedByLoad.length - 1].endpoint || '/api/unknown';
+            }
+        }
+
+        async function loadWorkersStatus() {
+            const data = await fetchRealMonitoringData();
+            const workers = data.workers || [];
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
             const container = document.getElementById('workersStatus');
             container.innerHTML = workers.map(worker => {
                 const statusColor = worker.status === 'online' ? '#22c55e' : '#ef4444';
+<<<<<<< HEAD
                 const statusIcon = worker.status === 'online' ? 'đźź˘' : 'đź”´';
+=======
+                const statusIcon = worker.status === 'online' ? '🟢' : '🔴';
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 
                 return `
                     <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; padding: 15px;">
@@ -205,6 +330,7 @@ const pageAuthor = "MyBonzo Team";
 
         function loadActivityLog() {
             const activities = [
+<<<<<<< HEAD
                 { time: "14:23", action: "Nowy uĹĽytkownik zarejestrowany", type: "info" },
                 { time: "14:18", action: "Model AI zaktualizowany pomyĹ›lnie", type: "success" },
                 { time: "14:15", action: "Backup bazy danych zakoĹ„czony", type: "success" },
@@ -213,6 +339,16 @@ const pageAuthor = "MyBonzo Team";
                 { time: "14:05", action: "System restart zakoĹ„czony pomyĹ›lnie", type: "success" },
                 { time: "14:02", action: "BĹ‚Ä…d poĹ‚Ä…czenia z workerem 'bielik'", type: "error" },
                 { time: "14:00", action: "RozpoczÄ™to scheduled backup", type: "info" }
+=======
+                { time: "14:23", action: "Nowy użytkownik zarejestrowany", type: "info" },
+                { time: "14:18", action: "Model AI zaktualizowany pomyślnie", type: "success" },
+                { time: "14:15", action: "Backup bazy danych zakończony", type: "success" },
+                { time: "14:12", action: "Alert: Wysokie użycie CPU (85%)", type: "warning" },
+                { time: "14:08", action: "API rate limit przekroczony dla IP: 192.168.1.100", type: "warning" },
+                { time: "14:05", action: "System restart zakończony pomyślnie", type: "success" },
+                { time: "14:02", action: "Błąd połączenia z workerem 'bielik'", type: "error" },
+                { time: "14:00", action: "Rozpoczęto scheduled backup", type: "info" }
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             ];
 
             const logContainer = document.getElementById('activityLog');
@@ -267,4 +403,8 @@ const pageAuthor = "MyBonzo Team";
             }, 30000);
         });
     </script>
+<<<<<<< HEAD
 </UniversalPageLayout>
+=======
+</UniversalPageLayout>
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

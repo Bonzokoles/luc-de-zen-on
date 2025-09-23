@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿---
+=======
+---
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import {
   ARTISTS_DATABASE,
   ART_PERIODS,
@@ -6,7 +10,11 @@ import {
 } from "../data/artists-wildcards.js";
 import ArtistCard from "./ArtistCard.astro";
 
+<<<<<<< HEAD
 // Podziel artystĂłw na kategorie
+=======
+// Podziel artystów na kategorie
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const periodGroups = {};
 ARTISTS_DATABASE.forEach((artist) => {
   if (!periodGroups[artist.period]) {
@@ -15,7 +23,11 @@ ARTISTS_DATABASE.forEach((artist) => {
   periodGroups[artist.period].push(artist);
 });
 
+<<<<<<< HEAD
 // NajczÄ™Ĺ›ciej uĹĽywane kategorie na gĂłrze
+=======
+// Najczęściej używane kategorie na górze
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const popularPeriods = [
   "Renesans",
   "Impresjonizm",
@@ -29,7 +41,11 @@ const otherPeriods = Object.keys(periodGroups).filter(
 ---
 
 <div class="artists-gallery-container">
+<<<<<<< HEAD
   <!-- Wyszukiwarka artystĂłw -->
+=======
+  <!-- Wyszukiwarka artystów -->
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   <div class="artist-search-container mb-6">
     <div class="relative">
       <input
@@ -55,7 +71,11 @@ const otherPeriods = Object.keys(periodGroups).filter(
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- Filtry okresĂłw -->
+=======
+  <!-- Filtry okresów -->
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   <div class="period-filters mb-6">
     <div class="flex flex-wrap gap-2 mb-4">
       <button
@@ -87,9 +107,15 @@ const otherPeriods = Object.keys(periodGroups).filter(
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- Galeria artystĂłw -->
   <div class="artists-grid-container max-h-96 overflow-y-auto pr-2">
     {/* Popularne okresy na gĂłrze */}
+=======
+  <!-- Galeria artystów -->
+  <div class="artists-grid-container max-h-96 overflow-y-auto pr-2">
+    {/* Popularne okresy na górze */}
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     {
       popularPeriods.map(
         (period) =>
@@ -118,7 +144,11 @@ const otherPeriods = Object.keys(periodGroups).filter(
       )
     }
 
+<<<<<<< HEAD
     {/* PozostaĹ‚e okresy */}
+=======
+    {/* Pozostałe okresy */}
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     {
       otherPeriods.map(
         (period) =>
@@ -152,27 +182,45 @@ const otherPeriods = Object.keys(periodGroups).filter(
   <div class="gallery-footer mt-6 pt-4 border-t border-gray-700">
     <div class="flex justify-between items-center text-sm text-gray-400">
       <div>
+<<<<<<< HEAD
         ĹÄ…cznie: <span class="text-white font-bold"
           >{ARTISTS_DATABASE.length}</span
         > artystĂłw
+=======
+        Łącznie: <span class="text-white font-bold"
+          >{ARTISTS_DATABASE.length}</span
+        > artystów
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- Floating buttons - przesuniÄ™te w lewo -->
+=======
+  <!-- Floating buttons - przesunięte w lewo -->
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   <div class="floating-buttons fixed left-4 bottom-4 z-50 flex flex-col gap-2">
     <button
       id="open-wildcards"
       class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:opacity-80 transition-all duration-300 shadow-lg rounded-lg transform hover:scale-105"
       onclick="window.open('/wildcards', '_blank', 'width=1400,height=900,scrollbars=yes')"
     >
+<<<<<<< HEAD
       đźŽŻ Wildcards
+=======
+      🎯 Wildcards
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </button>
     <button
       id="random-artist"
       class="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:opacity-80 transition-all duration-300 shadow-lg rounded-lg transform hover:scale-105"
     >
+<<<<<<< HEAD
       đźŽ˛ Losowy artysta
+=======
+      🎲 Losowy artysta
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </button>
   </div>
 </div>
@@ -222,7 +270,11 @@ const otherPeriods = Object.keys(periodGroups).filter(
 </style>
 
 <script>
+<<<<<<< HEAD
   // Wyszukiwarka artystĂłw
+=======
+  // Wyszukiwarka artystów
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   const searchInput = document.getElementById(
     "artist-search"
   ) as HTMLInputElement;
@@ -272,7 +324,11 @@ const otherPeriods = Object.keys(periodGroups).filter(
     });
   }
 
+<<<<<<< HEAD
   // Aktualizuj widocznoĹ›Ä‡ sekcji (ukryj puste sekcje)
+=======
+  // Aktualizuj widoczność sekcji (ukryj puste sekcje)
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   function updateSectionVisibility() {
     periodSections.forEach((section) => {
       const visibleCards = section.querySelectorAll(
@@ -326,4 +382,7 @@ const otherPeriods = Object.keys(periodGroups).filter(
     updateSectionVisibility();
   });
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
