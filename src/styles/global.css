@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
-@import "tailwindcss";
-
-/* POLSKIE FRONTY ZNAKÓW - Polish Fonts Setup */
-/* Neuropol X Rg.otf for wszystkie mainnapisy (all main titles) */
-@font-face {
-  font-family: 'Neuropol X';
-  src: url('/fonts/Neuropol X Rg.otf') format('opentype');
-=======
 /* Import Google Fonts first */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
@@ -19,25 +9,11 @@
 @font-face {
   font-family: 'Neuropol';
   src: url('/fonts/Neuropol.otf') format('opentype');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
-<<<<<<< HEAD
-/* fledgling-sb.otf for przyciski klawiszy (button keys) */
-@font-face {
-  font-family: 'Fledgling SB';
-  src: url('/fonts/fledgling-sb.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Kenyan Coffee for text content */
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 @font-face {
   font-family: 'Kenyan Coffee';
   src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
@@ -46,28 +22,20 @@
   font-display: swap;
 }
 
-<<<<<<< HEAD
-@font-face {
-  font-family: 'Kenyan Coffee Bold';
-=======
 /* Bold weight for Kenyan Coffee */
 @font-face {
   font-family: 'Kenyan Coffee';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-<<<<<<< HEAD
-=======
 /* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Custom theme configuration using @layer */
 @layer base {
   :root {
@@ -80,13 +48,6 @@
     --cyber-border: #333333;
     --cyber-grid: rgba(0, 255, 255, 0.1);
     
-<<<<<<< HEAD
-    /* Edge colors for decorative lines */
-    --edge-color: rgba(0, 217, 255, 0.2);
-    --edge-border: rgba(0, 217, 255, 0.3);
-    
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     /* Tailwind gray scale compatibility */
     --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
@@ -103,24 +64,6 @@
     /* Basic colors compatibility */
     --black: #000000;
     --white: #ffffff;
-<<<<<<< HEAD
-  }
-  
-  /* POLSKIE FRONTY ZNAKÓW - Base configuration */
-  /* Kenyan Coffee for general text content */
-  html {
-    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
-  }
-  
-  body {
-    @apply bg-black text-white;
-    margin: 0;
-    padding: 0;
-    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
-  }
-
-  /* Headings and prominent uppercase use Neuropol X (big glowing headers) */
-=======
     
     /* Edge decorative lines */
     --edge-color: rgba(0, 217, 255, 0.2);
@@ -140,40 +83,11 @@
   }
 
   /* Headings and prominent uppercase use Neuropol */
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   h1, h2, h3, h4, h5, h6,
   .section-title,
   .worker-title,
   .widget-title,
   .dashboard-title,
-<<<<<<< HEAD
-  .additional-title,
-  .system-title {
-    font-family: 'Neuropol X', 'Rajdhani', system-ui, sans-serif;
-    letter-spacing: 0.06em;
-    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
-  }
-
-  /* Also prefer Neuropol X on generic uppercase utility and big text */
-  .uppercase, [class*="uppercase"],
-  .text-4xl, .text-5xl, .text-6xl, .text-7xl, .text-8xl, .text-9xl {
-    font-family: 'Neuropol X', 'Rajdhani', system-ui, sans-serif;
-  }
-
-  /* POLSKIE FRONTY ZNAKÓW - Button Keys (fledgling-sb.otf) */
-  button, .btn, [type="button"], [type="submit"], [type="reset"],
-  .button, .action-btn, .tag-btn, .additional-btn,
-  .floating-nav-btn, input[type="button"], input[type="submit"],
-  .keyboard-key, .key-button, .control-button {
-    font-family: 'Fledgling SB', 'Rajdhani', system-ui, sans-serif !important;
-  }
-
-  /* Text content areas use Kenyan Coffee */
-  p, .text-content, .description, .worker-description,
-  .section-description, textarea, .text-area,
-  blockquote, .quote, .content-text {
-    font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
-=======
   .additional-title {
     font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
     letter-spacing: 0.06em;
@@ -182,7 +96,6 @@
   /* Also prefer Neuropol on generic uppercase utility if present */
   .uppercase, [class*="uppercase"] {
     font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
 }
 
@@ -195,12 +108,6 @@
       linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 20px 20px;
   }
-<<<<<<< HEAD
-  
-  /* Glass effect components */
-  .glass-effect {
-    @apply backdrop-blur-sm bg-white/5 border border-white/10;
-=======
 
   /* Subtle circuit-trace overlay: multiple thin 1px lines, slightly blurred, ~80% opacity */
   body::before {
@@ -227,7 +134,6 @@
     backdrop-filter: blur(8px);
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
   
   /* Neon effects */
@@ -247,19 +153,6 @@
   .text-primary {
     color: var(--cyber-text);
   }
-<<<<<<< HEAD
-  
-  /* Edge decorative lines */
-  .bg-edge {
-    background-color: var(--edge-color);
-    z-index: 1;
-  }
-  
-  .border-edge {
-    border-color: var(--edge-border);
-    z-index: 1;
-  }
-=======
 }
 
 /* Subtle circuit-trace overlay (three horizontal bands so traces don't cross) */
@@ -361,7 +254,6 @@ body::after {
   html::before { height: 34%; }
   body::before { top: 34%; height: 33%; }
   body::after { top: 67%; height: 33%; }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 
 /* Utility classes */
@@ -507,8 +399,6 @@ body::after {
   line-height: 1.5;
 }
 
-<<<<<<< HEAD
-=======
 /* Quick Stats for Status Monitor */
 .quick-stats[data-astro-cid-my52qgmw] {
   display: grid;
@@ -545,7 +435,6 @@ body::after {
   letter-spacing: 0.5px;
 }
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 .worker-actions[data-astro-cid-my52qgmw] {
   display: flex;
   flex-direction: column;
@@ -745,8 +634,6 @@ body::after {
   }
 }
 
-<<<<<<< HEAD
-=======
 /* Workers Status & Store Styles */
 .workers-status-list[data-astro-cid-my52qgmw] {
   display: flex;
@@ -886,7 +773,6 @@ body::after {
   }
 }
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Floating left nav (generic utility, if used elsewhere) */
 .floating-nav {
   position: fixed;
@@ -922,8 +808,6 @@ body::after {
   border-color: #00aaff;
 }
 
-<<<<<<< HEAD
-=======
 /* Global input, textarea, select styles for all AI Workers */
 input, 
 textarea, 
@@ -956,15 +840,14 @@ select::placeholder {
 /* Edge decorative lines classes */
 .bg-edge {
   background-color: var(--edge-color);
-  z-index: 1;
+  z-index: 1 !important;
 }
 
 .border-edge {
   border-color: var(--edge-border);
-  z-index: 1;
+  z-index: 1 !important;
 }
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 /* Floating buttons modal styles */
 .schowek-item {
   padding: 8px 12px;
@@ -1005,26 +888,6 @@ select::placeholder {
   transform: translateY(-2px);
 }
 
-.folder-container, .calendar-container, .backup-container, .archive-container, .emergency-container {
-  margin: 16px 0;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 8px;
-}
-
-.document-list {
-  list-style: none;
-  padding: 0;
-}
-
-.document-list li {
-  padding: 8px 12px;
-  margin: 4px 0;
-  background: rgba(0, 217, 255, 0.05);
-  border-left: 3px solid rgba(0, 217, 255, 0.3);
-  color: #00d7ef;
-}
-
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1043,27 +906,6 @@ select::placeholder {
   color: #00d7ef;
   margin-bottom: 12px;
   font-size: 1.1rem;
-}
-
-.catalog-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.catalog-section li {
-  margin: 8px 0;
-}
-
-.catalog-section a {
-  color: #00d7ef;
-  text-decoration: none;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.catalog-section a:hover {
-  background: rgba(0, 217, 255, 0.1);
 }
 
 .large-modal .modal-content {
@@ -1092,22 +934,4 @@ select::placeholder {
 .tab-btn.active {
   background: rgba(0, 217, 255, 0.2);
   border-bottom-color: transparent;
-}
-
-.tab-btn:hover:not(.active) {
-  background: rgba(0, 217, 255, 0.1);
-}
-
-.instruction-content {
-  padding: 16px 0;
-  color: #00d7ef;
-}
-
-.instruction-content kbd {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 2px 6px;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  font-family: 'Courier New', monospace;
-  font-size: 0.85em;
 }
