@@ -1,11 +1,11 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { E as EducationRecommendationsWidget } from '../../chunks/EducationRecommendationsWidget_CPXzC5l-.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { E as EducationRecommendationsWidget } from '../../chunks/EducationRecommendationsWidget_VoOgH34L.mjs';
 import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
 /* empty css                                                        */
-export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const $$EducationRecommendations = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Rekomendacje edukacyjne | AI Functions | KAROL LISSON", "data-astro-cid-osy5j6vf": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-osy5j6vf": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-osy5j6vf> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-osy5j6vf> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-osy5j6vf></div> <div class="cyber-grid absolute inset-0" data-astro-cid-osy5j6vf></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-osy5j6vf> <div class="max-w-6xl mx-auto px-4 py-8" data-astro-cid-osy5j6vf> <div class="flex items-center justify-between mb-8" data-astro-cid-osy5j6vf> <div data-astro-cid-osy5j6vf> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']" data-astro-cid-osy5j6vf>

@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_CDFI50iS.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_BN1iCHas.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_Cw7HP83S.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_CK37g4ft.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_Yn5Mz22W.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_DBsFRx3r.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_JlAZN0ai.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const $$Astro = createAstro("https://mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {

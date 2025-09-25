@@ -1,6 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { b as createErrorResponse, a as createSuccessResponse, d as addCORSHeaders } from '../../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const execAsync = promisify(exec);
 const GET = async ({ request, params, locals }) => {

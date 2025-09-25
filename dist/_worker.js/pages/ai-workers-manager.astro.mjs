@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { c as attr, e as ensure_array_like, b as escape_html, a as attr_class, s as stringify } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { c as attr, e as ensure_array_like, b as escape_html, a as attr_class, s as stringify } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 /* empty css                                              */
 
 function AIWorkersManager($$renderer, $$props) {

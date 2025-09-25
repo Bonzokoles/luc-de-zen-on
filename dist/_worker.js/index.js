@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { r as renderers } from './chunks/_@astro-renderers_DzCkhAcZ.mjs';
+import { r as renderers } from './chunks/_@astro-renderers_iO87Dm24.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_CeB6BT-P.mjs';
-import { manifest } from './manifest_BiAUXKR-.mjs';
+import { manifest } from './manifest_DTZOEGfb.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -205,7 +205,7 @@ const _page196 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
 const _page197 = () => import('./pages/zenon-mcp-server.astro.mjs');
 const _page198 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
-    ["node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
+    ["node_modules/.pnpm/@astrojs+cloudflare@12.6.8__d03e06fb2d3baa4b7ecf41bd007475ad/node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
     ["src/pages/admin/ai-chat.astro", _page1],
     ["src/pages/admin/ai-models.astro", _page2],
     ["src/pages/admin/dashboard.astro", _page3],

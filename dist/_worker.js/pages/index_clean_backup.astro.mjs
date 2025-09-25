@@ -1,15 +1,15 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_BzdTUtQR.mjs';
-import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget__7kTk4Ho.mjs';
-import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_CPXzC5l-.mjs';
-import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DZnLuiEG.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_BEflDN07.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_-TYlM8Ci.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_CLAbCde1.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_VoOgH34L.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_DIhUAN7C.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_DotekDry.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
 /* empty css                                              */
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 function ImageGeneratorWidget($$renderer) {}
 

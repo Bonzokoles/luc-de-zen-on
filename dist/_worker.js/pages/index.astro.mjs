@@ -1,13 +1,13 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout, F as ForwardRef$3 } from '../chunks/MyBonzoLayout_B6La9NdR.mjs';
-import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_BzdTUtQR.mjs';
-import { Q as QuickVoiceAI, F as ForwardRef$2, a as ForwardRef$4, b as ForwardRef$5, c as ForwardRef$6, d as ForwardRef$7, e as ForwardRef$8, f as ForwardRef$9, g as ForwardRef$a, h as ForwardRef$b, i as ForwardRef$c } from '../chunks/QuickVoiceAI_CJfn3uF9.mjs';
+import { $ as $$MyBonzoLayout, F as ForwardRef$3 } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_-TYlM8Ci.mjs';
+import { Q as QuickVoiceAI, F as ForwardRef$2, a as ForwardRef$4, b as ForwardRef$5, c as ForwardRef$6, d as ForwardRef$7, e as ForwardRef$8, f as ForwardRef$9, g as ForwardRef$a, h as ForwardRef$b, i as ForwardRef$c } from '../chunks/QuickVoiceAI_CRzzRUMC.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
 /* empty css                                 */
-import { d as reactExports } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+import { d as reactExports } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 function BoltIcon({
   title,
