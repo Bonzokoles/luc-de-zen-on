@@ -1,21 +1,11 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../layouts/components/CyberpunkButton.astro";
 
-<<<<<<< HEAD
-const pageTitle = "ZarzÄ…dzanie Agentami AI";
-const pageDescription = "TwĂłrz, konfiguruj i zarzÄ…dzaj agentami sztucznej inteligencji";
-const pageQuote = "PrzyszĹ‚oĹ›Ä‡ naleĹĽy do tych, ktĂłrzy potrafiÄ… wspĂłĹ‚pracowaÄ‡ z maszynami.";
-=======
 const pageTitle = "Zarządzanie Agentami AI";
 const pageDescription = "Twórz, konfiguruj i zarządzaj agentami sztucznej inteligencji";
 const pageQuote = "Przyszłość należy do tych, którzy potrafią współpracować z maszynami.";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "Garry Kasparov";
 
 // Fetch user-created agents
@@ -38,19 +28,11 @@ try {
   showRandomQuote={false}
 >
     <!-- Agent Creation Panel -->
-<<<<<<< HEAD
-    <GlassPanel title="đź¤– Kreator Nowego Agenta" variant="highlight" padding="lg">
-        <div style="margin-bottom: 20px;">
-            <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.6;">
-                StwĂłrz spersonalizowanego agenta AI dostosowanego do Twoich potrzeb. 
-                Wybierz specjalizacjÄ™, ustaw parametry i rozpocznij pracÄ™ z AI asystentem.
-=======
     <GlassPanel title="🤖 Kreator Nowego Agenta" variant="highlight" padding="lg">
         <div style="margin-bottom: 20px;">
             <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.6;">
                 Stwórz spersonalizowanego agenta AI dostosowanego do Twoich potrzeb. 
                 Wybierz specjalizację, ustaw parametry i rozpocznij pracę z AI asystentem.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </p>
         </div>
 
@@ -58,22 +40,6 @@ try {
             
             <!-- Quick Agent Templates -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
-<<<<<<< HEAD
-                <h3 style="color: #00d9ff; margin-bottom: 15px;">âšˇ Szybkie szablony</h3>
-                
-                <div style="space-y: 10px;">
-                    <button class="agent-template-btn" data-template="business" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
-                        đź’Ľ Agent Biznesowy
-                    </button>
-                    <button class="agent-template-btn" data-template="creative" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
-                        đźŽ¨ Agent Kreatywny
-                    </button>
-                    <button class="agent-template-btn" data-template="technical" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
-                        đź”§ Agent Techniczny
-                    </button>
-                    <button class="agent-template-btn" data-template="research" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
-                        đź“Š Agent Badawczy
-=======
                 <h3 style="color: #00d9ff; margin-bottom: 15px;">⚡ Szybkie szablony</h3>
                 
                 <div style="space-y: 10px;">
@@ -88,29 +54,20 @@ try {
                     </button>
                     <button class="agent-template-btn" data-template="research" style="width: 100%; padding: 12px; background: rgba(0,217,255,0.1); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; cursor: pointer; transition: all 0.3s ease; margin-bottom: 8px;">
                         📊 Agent Badawczy
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </button>
                 </div>
             </div>
 
             <!-- Agent Configuration -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
-<<<<<<< HEAD
-                <h3 style="color: #00d9ff; margin-bottom: 15px;">âš™ď¸Ź Konfiguracja</h3>
-=======
                 <h3 style="color: #00d9ff; margin-bottom: 15px;">⚙️ Konfiguracja</h3>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Nazwa agenta</label>
                     <input 
                         type="text" 
                         id="agentName" 
-<<<<<<< HEAD
-                        placeholder="np. MĂłj Asystent Biznesowy"
-=======
                         placeholder="np. Mój Asystent Biznesowy"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         style="width: 100%; padding: 10px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;"
                     />
                 </div>
@@ -121,16 +78,6 @@ try {
                         id="agentSpecialization"
                         style="width: 100%; padding: 10px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white;"
                     >
-<<<<<<< HEAD
-                        <option value="">Wybierz specjalizacjÄ™...</option>
-                        <option value="general">Asystent ogĂłlny</option>
-                        <option value="marketing">Marketing i sprzedaĹĽ</option>
-                        <option value="content">Tworzenie treĹ›ci</option>
-                        <option value="analysis">Analiza danych</option>
-                        <option value="coding">Programowanie</option>
-                        <option value="education">Edukacja</option>
-                        <option value="customer">ObsĹ‚uga klienta</option>
-=======
                         <option value="">Wybierz specjalizację...</option>
                         <option value="general">Asystent ogólny</option>
                         <option value="marketing">Marketing i sprzedaż</option>
@@ -139,16 +86,11 @@ try {
                         <option value="coding">Programowanie</option>
                         <option value="education">Edukacja</option>
                         <option value="customer">Obsługa klienta</option>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </select>
                 </div>
 
                 <div style="margin-bottom: 20px;">
-<<<<<<< HEAD
-                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Poziom kreatywnoĹ›ci</label>
-=======
                     <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Poziom kreatywności</label>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     <input 
                         type="range" 
                         id="creativityLevel" 
@@ -165,11 +107,7 @@ try {
                 </div>
 
                 <CyberpunkButton 
-<<<<<<< HEAD
-                    text="đźš€ StwĂłrz Agenta" 
-=======
                     text="🚀 Stwórz Agenta" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="md"
                     onclick="createAgent()"
@@ -179,28 +117,17 @@ try {
 
         <!-- Agent Personality -->
         <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
-<<<<<<< HEAD
-            <h3 style="color: #00d9ff; margin-bottom: 15px;">đźŽ­ OsobowoĹ›Ä‡ i styl komunikacji</h3>
-            <textarea 
-                id="agentPersonality" 
-                placeholder="Opisz jak agent ma siÄ™ zachowywaÄ‡, jaki ma byÄ‡ jego styl komunikacji, jakie ma mieÄ‡ specjalne umiejÄ™tnoĹ›ci..."
-=======
             <h3 style="color: #00d9ff; margin-bottom: 15px;">🎭 Osobowość i styl komunikacji</h3>
             <textarea 
                 id="agentPersonality" 
                 placeholder="Opisz jak agent ma się zachowywać, jaki ma być jego styl komunikacji, jakie ma mieć specjalne umiejętności..."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 style="width: 100%; height: 120px; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; resize: vertical;"
             ></textarea>
         </div>
     </GlassPanel>
 
     <!-- Existing Agents -->
-<<<<<<< HEAD
-    <GlassPanel title="đź‘Ą Twoi Agenci AI" variant="default" padding="lg">
-=======
     <GlassPanel title="👥 Twoi Agenci AI" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div id="agentsContainer">
             {userAgents && userAgents.length > 0 ? (
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
@@ -215,11 +142,7 @@ try {
                             
                             <div style="margin-bottom: 15px;">
                                 <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 5px;">
-<<<<<<< HEAD
-                                    <strong>Specjalizacja:</strong> {agent.specialization || 'OgĂłlna'}
-=======
                                     <strong>Specjalizacja:</strong> {agent.specialization || 'Ogólna'}
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                                 </div>
                                 <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 10px;">
                                     <strong>Utworzony:</strong> {new Date(agent.createdAt).toLocaleDateString()}
@@ -231,31 +154,19 @@ try {
 
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                                 <CyberpunkButton 
-<<<<<<< HEAD
-                                    text="đź’¬ Chat" 
-=======
                                     text="💬 Chat" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                                     variant="primary" 
                                     size="sm"
                                     href={`/chat/${agent.id}`}
                                 />
                                 <CyberpunkButton 
-<<<<<<< HEAD
-                                    text="âš™ď¸Ź Edytuj" 
-=======
                                     text="⚙️ Edytuj" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                                     variant="outline" 
                                     size="sm"
                                     onclick={`editAgent('${agent.id}')`}
                                 />
                                 <CyberpunkButton 
-<<<<<<< HEAD
-                                    text="đź“Š Stats" 
-=======
                                     text="📊 Stats" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                                     variant="outline" 
                                     size="sm"
                                     onclick={`showAgentStats('${agent.id}')`}
@@ -267,15 +178,6 @@ try {
             ) : (
                 <div style="text-align: center; padding: 40px 20px;">
                     <div style="color: rgba(255,255,255,0.6); font-size: 1.1rem; margin-bottom: 20px;">
-<<<<<<< HEAD
-                        Nie masz jeszcze ĹĽadnych agentĂłw AI
-                    </div>
-                    <p style="color: rgba(255,255,255,0.4); margin-bottom: 20px;">
-                        StwĂłrz swojego pierwszego agenta uĹĽywajÄ…c kreatora powyĹĽej
-                    </p>
-                    <CyberpunkButton 
-                        text="đźš€ StwĂłrz pierwszego agenta" 
-=======
                         Nie masz jeszcze żadnych agentów AI
                     </div>
                     <p style="color: rgba(255,255,255,0.4); margin-bottom: 20px;">
@@ -283,7 +185,6 @@ try {
                     </p>
                     <CyberpunkButton 
                         text="🚀 Stwórz pierwszego agenta" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="primary" 
                         size="lg"
                         onclick="scrollToCreator()"
@@ -294,47 +195,26 @@ try {
 
         <!-- Agent Templates Examples -->
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,217,255,0.2);">
-<<<<<<< HEAD
-            <h3 style="color: #00d9ff; margin-bottom: 20px; text-align: center;">đź’ˇ PrzykĹ‚ady agentĂłw do stworzenia</h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
-                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đź“§ Email Marketing Specialist</div>
-=======
             <h3 style="color: #00d9ff; margin-bottom: 20px; text-align: center;">💡 Przykłady agentów do stworzenia</h3>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
                 <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
                     <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">📧 Email Marketing Specialist</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Ekspert od kampanii mailowych i automation marketingu</div>
                 </div>
                 
                 <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
-<<<<<<< HEAD
-                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đź“Š Data Analyst</div>
-=======
                     <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">📊 Data Analyst</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Analizuje dane i tworzy raporty biznesowe</div>
                 </div>
                 
                 <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
-<<<<<<< HEAD
-                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">âśŤď¸Ź Content Writer</div>
-                    <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Tworzy angaĹĽujÄ…ce treĹ›ci dla social media i blogĂłw</div>
-                </div>
-                
-                <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
-                    <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">đźŽ“ Learning Assistant</div>
-=======
                     <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">✍️ Content Writer</div>
                     <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Tworzy angażujące treści dla social media i blogów</div>
                 </div>
                 
                 <div style="background: rgba(0,217,255,0.05); border: 1px solid rgba(0,217,255,0.2); border-radius: 8px; padding: 15px;">
                     <div style="color: #00d9ff; font-weight: 600; margin-bottom: 8px;">🎓 Learning Assistant</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     <div style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Pomaga w nauce i rozwoju zawodowym</div>
                 </div>
             </div>
@@ -377,38 +257,22 @@ try {
             business: {
                 name: "Asystent Biznesowy Pro",
                 specialization: "marketing",
-<<<<<<< HEAD
-                personality: "Profesjonalny, analityczny asystent biznesowy. Specjalizuje siÄ™ w strategii marketingowej, analizie rynku i planowaniu biznesowym. Komunikuje siÄ™ jasno i konkretnie, zawsze podaje ĹşrĂłdĹ‚a i dane."
-=======
                 personality: "Profesjonalny, analityczny asystent biznesowy. Specjalizuje się w strategii marketingowej, analizie rynku i planowaniu biznesowym. Komunikuje się jasno i konkretnie, zawsze podaje źródła i dane."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             },
             creative: {
                 name: "Kreatywny AI Artysta",
                 specialization: "content",
-<<<<<<< HEAD
-                personality: "Kreatywny, inspirujÄ…cy asystent skupiony na treĹ›ciach artystycznych. Pomaga w pisaniu, projektowaniu i burzy mĂłzgĂłw. Ma ĹĽywy styl komunikacji i lubi eksperymentowaÄ‡ z nowymi pomysĹ‚ami."
-=======
                 personality: "Kreatywny, inspirujący asystent skupiony na treściach artystycznych. Pomaga w pisaniu, projektowaniu i burzy mózgów. Ma żywy styl komunikacji i lubi eksperymentować z nowymi pomysłami."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             },
             technical: {
                 name: "Dev Assistant Pro",
                 specialization: "coding",
-<<<<<<< HEAD
-                personality: "Techniczny ekspert programowania. Zna wiele jÄ™zykĂłw programowania, frameworki i najlepsze praktyki. Komunikuje siÄ™ precyzyjnie, podaje przykĹ‚ady kodu i wyjaĹ›nia zĹ‚oĹĽone koncepty w prosty sposĂłb."
-=======
                 personality: "Techniczny ekspert programowania. Zna wiele języków programowania, frameworki i najlepsze praktyki. Komunikuje się precyzyjnie, podaje przykłady kodu i wyjaśnia złożone koncepty w prosty sposób."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             },
             research: {
                 name: "Research Specialist",
                 specialization: "analysis",
-<<<<<<< HEAD
-                personality: "Metodyczny badacz i analityk. Specjalizuje siÄ™ w gromadzeniu informacji, analizie danych i tworzeniu raportĂłw. Zawsze weryfikuje ĹşrĂłdĹ‚a i przedstawia obiektywne analizy."
-=======
                 personality: "Metodyczny badacz i analityk. Specjalizuje się w gromadzeniu informacji, analizie danych i tworzeniu raportów. Zawsze weryfikuje źródła i przedstawia obiektywne analizy."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
         };
 
@@ -438,20 +302,12 @@ try {
             const creativity = document.getElementById('creativityLevel').value;
 
             if (!name.trim()) {
-<<<<<<< HEAD
-                alert('ProszÄ™ podaÄ‡ nazwÄ™ agenta');
-=======
                 alert('Proszę podać nazwę agenta');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 return;
             }
 
             if (!specialization) {
-<<<<<<< HEAD
-                alert('ProszÄ™ wybraÄ‡ specjalizacjÄ™');
-=======
                 alert('Proszę wybrać specjalizację');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 return;
             }
 
@@ -471,22 +327,14 @@ try {
                 });
 
                 if (response.ok) {
-<<<<<<< HEAD
-                    alert('Agent zostaĹ‚ stworzony pomyĹ›lnie! đźŽ‰');
-=======
                     alert('Agent został stworzony pomyślnie! 🎉');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     window.location.reload();
                 } else {
                     throw new Error('Failed to create agent');
                 }
             } catch (error) {
                 console.error('Error creating agent:', error);
-<<<<<<< HEAD
-                alert('WystÄ…piĹ‚ bĹ‚Ä…d podczas tworzenia agenta. SprĂłbuj ponownie.');
-=======
                 alert('Wystąpił błąd podczas tworzenia agenta. Spróbuj ponownie.');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
         }
 
@@ -496,11 +344,7 @@ try {
         }
 
         function showAgentStats(agentId) {
-<<<<<<< HEAD
-            alert(`đź“Š Statystyki dla agenta ${agentId} bÄ™dÄ… wkrĂłtce dostÄ™pne!`);
-=======
             alert(`📊 Statystyki dla agenta ${agentId} będą wkrótce dostępne!`);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function scrollToCreator() {
@@ -517,8 +361,4 @@ try {
             // Could add a display element for current value
         });
     </script>
-<<<<<<< HEAD
 </UniversalPageLayout>
-=======
-</UniversalPageLayout>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

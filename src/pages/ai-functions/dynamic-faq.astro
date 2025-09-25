@@ -1,44 +1,3 @@
-<<<<<<< HEAD
-﻿---
-import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
-import FAQGeneratorWidget from "../../components/FAQGeneratorWidget.svelte";
----
-
-<MyBonzoLayout siteTitle="Generator FAQ Dynamiczny | MyBonzo AI">
-  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-    <div class="container mx-auto px-4 py-8">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent mb-4">
-          âť“ Generator FAQ Dynamiczny
-        </h1>
-        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
-          AI generujÄ…cy dynamicznie pytania i odpowiedzi na podstawie bazy wiedzy
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main FAQ Generator -->
-        <div class="lg:col-span-2">
-          <FAQGeneratorWidget client:load />
-          
-          <!-- Generated FAQ Display -->
-          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mt-6">
-            <h3 class="text-xl font-semibold mb-4 text-purple-400">Wygenerowane FAQ</h3>
-            <div class="space-y-4">
-              <div class="border-l-4 border-purple-400 pl-4">
-                <h4 class="font-semibold text-white mb-2">Q: Jak dziaĹ‚a system AI MyBonzo?</h4>
-                <p class="text-slate-300 text-sm">
-                  A: System MyBonzo wykorzystuje zaawansowane modele AI do automatyzacji procesĂłw biznesowych. 
-                  Integruje multiple providery jak OpenAI, Anthropic, Google AI, oferujÄ…c kompleksowe rozwiÄ…zania.
-                </p>
-              </div>
-              
-              <div class="border-l-4 border-purple-400 pl-4">
-                <h4 class="font-semibold text-white mb-2">Q: Jakie sÄ… koszty korzystania z platformy?</h4>
-                <p class="text-slate-300 text-sm">
-                  A: Oferujemy elastyczne pakiety cenowe dostosowane do potrzeb. Podstawowy plan startuje od 99zĹ‚/miesiÄ…c 
-                  z moĹĽliwoĹ›ciÄ… skalowania w zaleĹĽnoĹ›ci od uĹĽycia.
-=======
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import FAQGeneratorWidget from "../../components/FAQGeneratorWidget.svelte";
@@ -128,28 +87,13 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
                 A: Tak, zapewniamy pełne wsparcie techniczne 24/7 poprzez chat, email i telefon. 
                   Dodatkowo oferujemy onboarding i szkolenia dla zespołów.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
               </div>
 
               <div class="border-l-4 border-purple-400 pl-4">
-<<<<<<< HEAD
-                <h4 class="font-semibold text-white mb-2">Q: Czy oferujecie wsparcie techniczne?</h4>
-                <p class="text-slate-300 text-sm">
-                  A: Tak, zapewniamy peĹ‚ne wsparcie techniczne 24/7 poprzez chat, email i telefon. 
-                  Dodatkowo oferujemy onboarding i szkolenia dla zespoĹ‚Ăłw.
-                </p>
-              </div>
-
-              <div class="border-l-4 border-purple-400 pl-4">
-                <h4 class="font-semibold text-white mb-2">Q: Jak bezpieczne sÄ… dane w systemie?</h4>
-                <p class="text-slate-300 text-sm">
-                  A: BezpieczeĹ„stwo to nasz priorytet. Wykorzystujemy szyfrowanie end-to-end, 
-=======
                 <h4 class="font-semibold text-white mb-2">Q: Jak bezpieczne są dane w systemie?</h4>
                 <p class="text-slate-300 text-sm">
                   A: Bezpieczeństwo to nasz priorytet. Wykorzystujemy szyfrowanie end-to-end, 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                   certyfikaty SSL, oraz compliance z RODO i SOC 2.
                 </p>
               </div>
@@ -157,15 +101,6 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
             <div class="mt-6 flex gap-3">
               <button class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-semibold transition-colors">
-<<<<<<< HEAD
-                đź”„ Regeneruj FAQ
-              </button>
-              <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">
-                đź“‹ Eksportuj
-              </button>
-              <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors">
-                đźŚ Publikuj na stronie
-=======
                 🔄 Regeneruj FAQ
               </button>
               <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">
@@ -173,7 +108,6 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               </button>
               <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors">
                 🌐 Publikuj na stronie
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               </button>
             </div>
           </div>
@@ -204,19 +138,11 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               </div>
 
               <div>
-<<<<<<< HEAD
-                <label class="block text-sm font-medium text-slate-300 mb-2">DĹ‚ugoĹ›Ä‡ odpowiedzi</label>
-                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
-                  <option value="short">KrĂłtkie</option>
-                  <option value="medium">Ĺšrednie</option>
-                  <option value="detailed">SzczegĂłĹ‚owe</option>
-=======
                 <label class="block text-sm font-medium text-slate-300 mb-2">Długość odpowiedzi</label>
                 <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
                   <option value="short">Krótkie</option>
                   <option value="medium">Średnie</option>
                   <option value="detailed">Szczegółowe</option>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </select>
               </div>
             </div>
@@ -234,11 +160,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
                 <span class="text-blue-400 font-semibold">23</span>
               </div>
               <div class="flex justify-between">
-<<<<<<< HEAD
-                <span class="text-slate-300">TrafnoĹ›Ä‡ AI:</span>
-=======
                 <span class="text-slate-300">Trafność AI:</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <span class="text-yellow-400 font-semibold">94%</span>
               </div>
             </div>
@@ -247,21 +169,12 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
           <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h3 class="text-xl font-semibold mb-4 text-purple-400">Funkcje</h3>
             <ul class="space-y-2 text-slate-300 text-sm">
-<<<<<<< HEAD
-              <li>đź¤– Auto-generowanie FAQ</li>
-              <li>đź”Ť Analiza czÄ™sto zadawanych pytaĹ„</li>
-              <li>đź“ť Multiple output formats</li>
-              <li>đźŚ Direct website integration</li>
-              <li>đź“Š Usage analytics</li>
-              <li>đź”„ Auto-updates</li>
-=======
               <li>🤖 Auto-generowanie FAQ</li>
               <li>🔍 Analiza często zadawanych pytań</li>
               <li>📝 Multiple output formats</li>
               <li>🌐 Direct website integration</li>
               <li>📊 Usage analytics</li>
               <li>🔄 Auto-updates</li>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </ul>
           </div>
         </div>
@@ -275,7 +188,3 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   }
 </style>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

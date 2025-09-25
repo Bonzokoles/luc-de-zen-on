@@ -1,11 +1,6 @@
 import type { APIRoute } from 'astro';
-<<<<<<< HEAD
-// import fs from 'fs/promises';
-// import path from 'path';
-=======
 import fs from 'fs/promises';
 import path from 'path';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import { addAgentToList } from './list';
 
 export const POST: APIRoute = async ({ request }) => {
@@ -45,28 +40,8 @@ export const POST: APIRoute = async ({ request }) => {
         // Generate agent code based on language
         const agentCode = await generateAgentCode(agentData, config);
 
-<<<<<<< HEAD
-        // Create agent files (mock implementation for Cloudflare Workers)  
-        const result = {
-            success: true,
-            files: [
-                {
-                    path: `agents/${name}/${name}.${config.language === 'python' ? 'py' : 'js'}`,
-                    size: agentCode.length,
-                    type: 'agent'
-                },
-                {
-                    path: `agents/${name}/config.json`,
-                    size: JSON.stringify(config).length,
-                    type: 'config'
-                }
-            ],
-            timestamp: new Date().toISOString()
-        };
-=======
         // Create agent files (in production, would create actual files)
         const result = await createAgentFiles(name, type, config, agentCode);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
         // Add agent to the list for dashboard display
         const listAgent = addAgentToList({
@@ -83,13 +58,8 @@ export const POST: APIRoute = async ({ request }) => {
             agent_name: name,
             agent_type: type,
             port: config.port,
-<<<<<<< HEAD
-            config_file: result.files.find(f => f.type === 'config')?.path,
-            script_file: result.files.find(f => f.type === 'agent')?.path,
-=======
             config_file: result.configFile,
             script_file: result.scriptFile,
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             message: `Agent ${name} created successfully and added to dashboard`,
             timestamp: new Date().toISOString(),
             next_steps: [

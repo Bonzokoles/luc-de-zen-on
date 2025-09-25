@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // Background Music Player Component for mybonzo.com
 ---
 
@@ -11,13 +7,8 @@
   <!-- Floating Music Control Panel -->
   <div class="music-control-panel" id="music-panel">
     <div class="panel-header" id="panel-handle">
-<<<<<<< HEAD
-      <span>đźŽµ MUSIC PLAYER</span>
-      <button class="minimize-btn" id="minimize-btn">â’</button>
-=======
       <span>🎵 MUSIC PLAYER</span>
       <button class="minimize-btn" id="minimize-btn">−</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </div>
 
     <div class="panel-content" id="panel-content">
@@ -34,26 +25,15 @@
 
       <!-- Controls -->
       <div class="player-controls">
-<<<<<<< HEAD
-        <button class="control-btn" id="prev-btn">âŹ®</button>
-        <button class="control-btn play-pause" id="play-btn">â–¶</button>
-        <button class="control-btn" id="next-btn">âŹ­</button>
-        <button class="control-btn" id="playlist-btn">đź“‹</button>
-=======
         <button class="control-btn" id="prev-btn">⏮</button>
         <button class="control-btn play-pause" id="play-btn">▶</button>
         <button class="control-btn" id="next-btn">⏭</button>
         <button class="control-btn" id="playlist-btn">📋</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
 
       <!-- Volume Control -->
       <div class="volume-control">
-<<<<<<< HEAD
-        <span>đź”Š</span>
-=======
         <span>🔊</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <input
           type="range"
           id="volume-slider"
@@ -76,13 +56,8 @@
   <!-- Playlist Panel -->
   <div class="playlist-panel" id="playlist-panel" style="display: none;">
     <div class="playlist-header">
-<<<<<<< HEAD
-      <span>đźŽµ PLAYLIST</span>
-      <button class="close-btn" id="close-playlist">Ă—</button>
-=======
       <span>🎵 PLAYLIST</span>
       <button class="close-btn" id="close-playlist">×</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </div>
     <div class="playlist-content" id="playlist-content">
       <div class="playlist-empty">No tracks loaded</div>
@@ -96,13 +71,8 @@
         accept="audio/*"
         style="display: none;"
       />
-<<<<<<< HEAD
-      <button class="action-btn" id="load-folder-btn">đź“ Load Folder</button>
-      <button class="action-btn" id="demo-playlist-btn">đźŽµ Demo Tracks</button>
-=======
       <button class="action-btn" id="load-folder-btn">📁 Load Folder</button>
       <button class="action-btn" id="demo-playlist-btn">🎵 Demo Tracks</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </div>
   </div>
 
@@ -584,11 +554,7 @@
 
       if (this.isPlaying) {
         this.audio.pause();
-<<<<<<< HEAD
-        this.elements.playBtn.textContent = "â–¶";
-=======
         this.elements.playBtn.textContent = "▶";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         this.isPlaying = false;
       } else {
         // Setup audio context on first play
@@ -599,11 +565,7 @@
         this.audio
           .play()
           .then(() => {
-<<<<<<< HEAD
-            this.elements.playBtn.textContent = "âŹ¸";
-=======
             this.elements.playBtn.textContent = "⏸";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             this.isPlaying = true;
             this.startVisualization();
           })
@@ -718,11 +680,7 @@
         this.elements.minimizeBtn.textContent = "+";
       } else {
         this.elements.content.style.display = "block";
-<<<<<<< HEAD
-        this.elements.minimizeBtn.textContent = "â’";
-=======
         this.elements.minimizeBtn.textContent = "−";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
     }
 
@@ -795,7 +753,3 @@
     new BackgroundMusicPlayer();
   });
 </script>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

@@ -1,59 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-
-async function GET() {
-  const users = [
-    {
-      id: 1,
-      name: "Jan Kowalski",
-      email: "jan.kowalski@example.com",
-      active: true,
-      role: "admin",
-      lastLogin: new Date(Date.now() - 36e5).toISOString()
-    },
-    {
-      id: 2,
-      name: "Anna Nowak",
-      email: "anna.nowak@example.com",
-      active: false,
-      role: "user",
-      lastLogin: new Date(Date.now() - 864e5).toISOString()
-    },
-    {
-      id: 3,
-      name: "Piotr Wiśniewski",
-      email: "piotr.wisniewski@example.com",
-      active: true,
-      role: "moderator",
-      lastLogin: new Date(Date.now() - 72e5).toISOString()
-    },
-    {
-      id: 4,
-      name: "Maria Kowalczyk",
-      email: "maria.kowalczyk@example.com",
-      active: true,
-      role: "user",
-      lastLogin: new Date(Date.now() - 18e5).toISOString()
-    },
-    {
-      id: 5,
-      name: "Tomasz Nowicki",
-      email: "tomasz.nowicki@example.com",
-      active: false,
-      role: "user",
-      lastLogin: new Date(Date.now() - 2592e5).toISOString()
-    }
-  ];
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*"
-    }
-  });
-=======
-export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 async function GET({ request }) {
   const auth = request.headers.get("authorization") || "";
@@ -113,7 +59,6 @@ async function GET({ request }) {
   } catch (error) {
     return new Response(JSON.stringify({ error: "Internal server error" }), { status: 500 });
   }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 async function POST({ request }) {
   try {

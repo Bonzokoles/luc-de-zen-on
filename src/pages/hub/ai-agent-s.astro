@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 ---
 
@@ -14,11 +10,7 @@ import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
     <main class="agent-interface">
       <div class="container">
         <div class="header">
-<<<<<<< HEAD
-          <h1 class="agent-title">đź§  AI_AGENT_S</h1>
-=======
           <h1 class="agent-title">🧠 AI_AGENT_S</h1>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           <p class="agent-subtitle">Advanced AI System for Complex Reasoning</p>
         </div>
 
@@ -39,11 +31,7 @@ Examples:
 - Provide strategic analysis for business decisions"
             ></textarea>
             <button id="analyzeBtn" class="analyze-btn"
-<<<<<<< HEAD
-              >đź”Ť Analyze with AI_AGENT_S</button
-=======
               >🔍 Analyze with AI_AGENT_S</button
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             >
           </div>
 
@@ -51,11 +39,7 @@ Examples:
             <h3 class="response-title">AI_AGENT_S Analysis</h3>
             <div id="response" class="response-area">
               <div class="capabilities">
-<<<<<<< HEAD
-                <h4>đźŽŻ Advanced Capabilities:</h4>
-=======
                 <h4>🎯 Advanced Capabilities:</h4>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <ul>
                   <li>
                     <strong>Complex Reasoning:</strong> Multi-layered problem analysis
@@ -283,19 +267,11 @@ Examples:
           }
 
           // Update button and show loading
-<<<<<<< HEAD
-          analyzeBtn.textContent = "đź”„ Analyzing...";
-          analyzeBtn.style.opacity = "0.7";
-
-          responseArea!.innerHTML =
-            '<div class="analysis-result">đź§  AI_AGENT_S is processing your request...\n\nAnalyzing complex patterns and generating comprehensive response...</div>';
-=======
           analyzeBtn.textContent = "🔄 Analyzing...";
           analyzeBtn.style.opacity = "0.7";
 
           responseArea!.innerHTML =
             '<div class="analysis-result">🧠 AI_AGENT_S is processing your request...\n\nAnalyzing complex patterns and generating comprehensive response...</div>';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
           try {
             const response = await fetch("/api/ai-agent-s", {
@@ -321,11 +297,7 @@ Examples:
 
             if (data.success) {
               responseArea!.innerHTML = `
-<<<<<<< HEAD
-            <h4>đź§  AI_AGENT_S Advanced Analysis:</h4>
-=======
             <h4>🧠 AI_AGENT_S Advanced Analysis:</h4>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             <div class="analysis-result">${data.response}</div>
             <div class="meta-info" style="margin-top: 1rem; padding: 1rem; background: rgba(13, 59, 102, 0.1); border-radius: 6px; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">
               <strong>Agent:</strong> ${data.agent}<br>
@@ -340,11 +312,7 @@ Examples:
             responseArea!.innerHTML = `<div class="analysis-result" style="color: #ff6b6b;">Connection Error: Failed to execute 'json' on 'Response': ${(error as Error).message}</div>`;
           } finally {
             // Reset button
-<<<<<<< HEAD
-            analyzeBtn.textContent = "đź”Ť Analyze with AI_AGENT_S";
-=======
             analyzeBtn.textContent = "🔍 Analyze with AI_AGENT_S";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             analyzeBtn.style.opacity = "1";
           }
         });
@@ -358,7 +326,3 @@ Examples:
       });
     </script>
 </MyBonzoLayout>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

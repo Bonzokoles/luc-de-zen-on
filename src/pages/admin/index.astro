@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-﻿---
-import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
-import GlassPanel from "../../layouts/components/GlassPanel.astro";
-import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
-import RandomPolishFonts from "../../components/admin/RandomPolishFonts.astro";
-import PolishAdminStyles from "../../components/admin/PolishAdminStyles.astro";
-import PolishFontsDemo from "../../components/admin/PolishFontsDemo.astro";
-
-const pageTitle = "Panel Administracyjny MyBonzo";
-const pageDescription = "Centrum kontroli i zarzÄ…dzania systemem MyBonzo AI";
-const pageQuote = "ZarzÄ…dzanie to sztuka, a kontrola to nauka.";
-const pageAuthor = "MyBonzo Team";
----
-
-<RandomPolishFonts />
-<PolishAdminStyles />
-
-=======
 ---
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
@@ -28,7 +9,6 @@ const pageQuote = "Kontrola i zarządzanie systemem w jednym miejscu.";
 const pageAuthor = "MyBonzo Team";
 ---
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 <UniversalPageLayout 
   pageTitle={pageTitle}
   pageDescription={pageDescription}
@@ -37,32 +17,16 @@ const pageAuthor = "MyBonzo Team";
   showRandomQuote={false}
 >
     <!-- Admin Hub Overview -->
-<<<<<<< HEAD
-    <GlassPanel title="đźŹ  Centrum Administracyjne MyBonzo" variant="highlight" padding="xl">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <div style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 20px;">
-                Witaj w centrum kontroli systemu MyBonzo AI. Wybierz obszar zarzÄ…dzania:
-=======
     <GlassPanel title="🏠 Centrum Administracyjne MyBonzo" variant="highlight" padding="xl">
         <div style="text-align: center; margin-bottom: 30px;">
             <div style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 20px;">
                 Witaj w centrum kontroli systemu MyBonzo AI. Wybierz obszar zarządzania:
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 30px;">
             <!-- Quick Login Panel -->
             <div style="background: rgba(0,217,255,0.1); border: 2px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 25px; text-align: center;">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź”</div>
-                <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Panel Logowania</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
-                    Szybki dostÄ™p do panelu administracyjnego z autoryzacjÄ…
-                </p>
-                <CyberpunkButton 
-                    text="PrzejdĹş do logowania" 
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">🔐</div>
                 <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Panel Logowania</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
@@ -70,7 +34,6 @@ const pageAuthor = "MyBonzo Team";
                 </p>
                 <CyberpunkButton 
                     text="Przejdź do logowania" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="md"
                     onclick="window.location.href='/admin/login'"
@@ -79,15 +42,6 @@ const pageAuthor = "MyBonzo Team";
 
             <!-- Advanced Dashboard -->
             <div style="background: rgba(0,217,255,0.1); border: 2px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 25px; text-align: center;">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź“Š</div>
-                <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Zaawansowany Dashboard</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
-                    Kompleksowy panel z monitoringiem i zarzÄ…dzaniem
-                </p>
-                <CyberpunkButton 
-                    text="OtwĂłrz Dashboard" 
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
                 <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Zaawansowany Dashboard</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
@@ -95,7 +49,6 @@ const pageAuthor = "MyBonzo Team";
                 </p>
                 <CyberpunkButton 
                     text="Otwórz Dashboard" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="md"
                     onclick="window.location.href='/admin/dashboard'"
@@ -103,17 +56,6 @@ const pageAuthor = "MyBonzo Team";
             </div>
 
             <!-- Admin AI Assistant -->
-<<<<<<< HEAD
-            <div style="background: rgba(139,92,246,0.1); border: 2px solid rgba(139,92,246,0.3); border-radius: 12px; padding: 25px; text-align: center;">
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź¤–</div>
-                <h3 style="color: #8b5cf6; margin-bottom: 15px; font-size: 1.4rem;">Admin AI Assistant</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">
-                    Inteligentny asystent dla zadaĹ„ administracyjnych
-                </p>
-                <CyberpunkButton 
-                    text="Rozpocznij Chat" 
-                    variant="secondary" 
-=======
             <div style="background: rgba(0,217,255,0.1); border: 2px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 25px; text-align: center;">
                 <div style="font-size: 3rem; margin-bottom: 15px;">🤖</div>
                 <h3 style="color: #00d9ff; margin-bottom: 15px; font-size: 1.4rem;">Admin AI Assistant</h3>
@@ -123,7 +65,6 @@ const pageAuthor = "MyBonzo Team";
                 <CyberpunkButton 
                     text="Rozpocznij Chat" 
                     variant="primary" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     size="md"
                     onclick="window.location.href='/admin/ai-chat'"
                 />
@@ -132,27 +73,16 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <!-- Quick Access Menu -->
-<<<<<<< HEAD
-    <GlassPanel title="âšˇ Szybki dostÄ™p" variant="default" padding="lg">
-=======
     <GlassPanel title="⚡ Szybki dostęp" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
             
             <!-- System Monitoring -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź“Š <span style="margin-left: 10px;">Monitoring systemu</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    Monitoruj wydajnoĹ›Ä‡, status workerĂłw i logi systemowe
-=======
                     📊 <span style="margin-left: 10px;">Monitoring systemu</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
                     Monitoruj wydajność, status workerów i logi systemowe
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Zobacz status" 
@@ -165,15 +95,6 @@ const pageAuthor = "MyBonzo Team";
             <!-- User Management -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź‘Ą <span style="margin-left: 10px;">ZarzÄ…dzanie uĹĽytkownikami</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    PrzeglÄ…daj, edytuj i zarzÄ…dzaj kontami uĹĽytkownikĂłw
-                </p>
-                <CyberpunkButton 
-                    text="ZarzÄ…dzaj" 
-=======
                     👥 <span style="margin-left: 10px;">Zarządzanie użytkownikami</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -181,7 +102,6 @@ const pageAuthor = "MyBonzo Team";
                 </p>
                 <CyberpunkButton 
                     text="Zarządzaj" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="outline" 
                     size="sm"
                     onclick="window.location.href='/admin/users'"
@@ -191,17 +111,10 @@ const pageAuthor = "MyBonzo Team";
             <!-- AI Models -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź¤– <span style="margin-left: 10px;">Modele AI</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    Konfiguruj i zarzÄ…dzaj modelami sztucznej inteligencji
-=======
                     🤖 <span style="margin-left: 10px;">Modele AI</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
                     Konfiguruj i zarządzaj modelami sztucznej inteligencji
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <div style="display: flex; gap: 8px;">
                     <CyberpunkButton 
@@ -222,16 +135,6 @@ const pageAuthor = "MyBonzo Team";
             <!-- Security Center -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź”’ <span style="margin-left: 10px;">Centrum bezpieczeĹ„stwa</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    Konfiguruj zabezpieczenia i kontrolÄ™ dostÄ™pu
-                </p>
-                <CyberpunkButton 
-                    text="Zabezpieczenia" 
-                    variant="warning" 
-=======
                     🔒 <span style="margin-left: 10px;">Centrum bezpieczeństwa</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -240,7 +143,6 @@ const pageAuthor = "MyBonzo Team";
                 <CyberpunkButton 
                     text="Zabezpieczenia" 
                     variant="outline" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     size="sm"
                     onclick="window.location.href='/admin/security'"
                 />
@@ -249,15 +151,6 @@ const pageAuthor = "MyBonzo Team";
             <!-- Database Management -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź—„ď¸Ź <span style="margin-left: 10px;">Baza danych</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    ZarzÄ…dzaj bazÄ… danych i wykonuj kopie zapasowe
-                </p>
-                <CyberpunkButton 
-                    text="ZarzÄ…dzaj" 
-=======
                     🗄️ <span style="margin-left: 10px;">Baza danych</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -265,7 +158,6 @@ const pageAuthor = "MyBonzo Team";
                 </p>
                 <CyberpunkButton 
                     text="Zarządzaj" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="outline" 
                     size="sm"
                     onclick="window.location.href='/admin/database'"
@@ -275,17 +167,10 @@ const pageAuthor = "MyBonzo Team";
             <!-- API Management -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                 <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                    đź”Ś <span style="margin-left: 10px;">API Management</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                    ZarzÄ…dzaj kluczami API i limitami zapytaĹ„
-=======
                     🔌 <span style="margin-left: 10px;">API Management</span>
                 </h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
                     Zarządzaj kluczami API i limitami zapytań
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Konfiguruj API" 
@@ -298,17 +183,10 @@ const pageAuthor = "MyBonzo Team";
     </GlassPanel>
 
     <!-- System Status Overview -->
-<<<<<<< HEAD
-    <GlassPanel title="đź“ PrzeglÄ…d systemu" variant="success" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemStatus">đźź˘ ONLINE</div>
-=======
     <GlassPanel title="📈 Przegląd systemu" variant="success" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="systemStatus">🟢 ONLINE</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div style="color: rgba(255,255,255,0.7);">Status systemu</div>
             </div>
             <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
@@ -327,42 +205,11 @@ const pageAuthor = "MyBonzo Team";
 
         <div style="text-align: center; margin-top: 25px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź”„ OdĹ›wieĹĽ dane" 
-=======
                 text="🔄 Odśwież dane" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 onclick="updateSystemStats()"
             />
-<<<<<<< HEAD
-            <CyberpunkButton 
-                text="đźŽ¨ Losowe polskie fonty" 
-                variant="secondary" 
-                size="md"
-                onclick="refreshAdminFonts()"
-            />
-        </div>
-    </GlassPanel>
-
-    <!-- Demo polskich fontĂłw -->
-    <PolishFontsDemo />
-
-    <script>
-        // System stats update function
-        function updateSystemStats() {
-            // Mock real-time data updates
-            const stats = {
-                workers: Math.floor(Math.random() * 3) + 7, // 7-9 workers
-                uptime: (99.5 + Math.random() * 0.5).toFixed(1),
-                requests: (Math.floor(Math.random() * 5) + 10).toFixed(1)
-            };
-
-            document.getElementById('activeWorkers').textContent = `${stats.workers}/10`;
-            document.getElementById('uptime').textContent = `${stats.uptime}%`;
-            document.getElementById('totalRequests').textContent = `${stats.requests}k`;
-=======
         </div>
     </GlassPanel>
 
@@ -404,16 +251,11 @@ const pageAuthor = "MyBonzo Team";
                 document.getElementById('uptime').textContent = 'N/A';
                 document.getElementById('totalRequests').textContent = 'N/A';
             }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
             // Show update confirmation
             const button = document.querySelector('[onclick="updateSystemStats()"]');
             const originalText = button.textContent;
-<<<<<<< HEAD
-            button.textContent = 'âś… Zaktualizowano';
-=======
             button.textContent = '✅ Zaktualizowano';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             button.style.color = '#22c55e';
             
             setTimeout(() => {
@@ -431,8 +273,4 @@ const pageAuthor = "MyBonzo Team";
             updateSystemStats();
         });
     </script>
-<<<<<<< HEAD
 </UniversalPageLayout>
-=======
-</UniversalPageLayout>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

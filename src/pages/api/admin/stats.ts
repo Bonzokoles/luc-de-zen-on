@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-// API endpoint: zestaw spójnych statystyk dla panelu admina i sekcji Quick Stats
-export async function GET({ request }: { request: Request }) {
-  // Opcjonalny nagłówek autoryzacji (demo)
-  const auth = request.headers.get('authorization') || '';
-  const isDemoAuth = auth.includes('HAOS77');
-
-  // Zwracamy oba formaty, których oczekują różne komponenty
-  const stats = {
-    // Oczekiwane przez AdminDashboard PanelStats
-    visitors: 12540,
-    queries: 3247,
-    uptime: formatUptime(3 * 24 * 60 * 60 * 1000 + 6 * 60 * 60 * 1000 + 12 * 60 * 1000), // "3:06:12"
-    responseTime: 142,
-    storage: 18.4, // GB
-    bandwidth: 92.7, // GB
-
-    // Oczekiwane przez sekcję quick-stats w admin.astro
-    totalAPIRequests: 3247,
-    errorAPIRequests: 6,
-
-    // Stary kształt (zgodność wsteczna)
-    totalVisitors: 12540,
-    activeUsers: 42,
-    openTickets: 11,
-    systemLoad: 63,
-    timestamp: new Date().toISOString(),
-
-    // Flaga informacyjna
-    demoAuth: isDemoAuth
-  };
-
-  return json(stats);
-=======
 // API endpoint: prawdziwe statystyki dla panelu admina
 export async function GET({ request }: { request: Request }) {
   // Sprawdzenie autoryzacji
@@ -251,7 +217,6 @@ async function getRealAPIMetrics() {
       errorRequests: 6
     };
   }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 
 function formatUptime(ms: number) {

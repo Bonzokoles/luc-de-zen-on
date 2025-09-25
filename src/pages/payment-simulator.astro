@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // Payment Simulator Page - tylko dla development
 ---
 
@@ -137,13 +133,8 @@
   <body>
     <div class="payment-container">
       <div class="payment-header">
-<<<<<<< HEAD
-        <h1 class="payment-title">đź’ł Payment Simulator</h1>
-        <p class="payment-subtitle">Development Mode - Symulacja pĹ‚atnoĹ›ci</p>
-=======
         <h1 class="payment-title">💳 Payment Simulator</h1>
         <p class="payment-subtitle">Development Mode - Symulacja płatności</p>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
 
       <div id="paymentForm">
@@ -153,28 +144,17 @@
 
         <div class="payment-actions">
           <button class="btn btn-success" onclick="processPayment(true)">
-<<<<<<< HEAD
-            âś… Symuluj Sukces
-          </button>
-          <button class="btn btn-cancel" onclick="processPayment(false)">
-            âťŚ Symuluj BĹ‚Ä…d
-=======
             ✅ Symuluj Sukces
           </button>
           <button class="btn btn-cancel" onclick="processPayment(false)">
             ❌ Symuluj Błąd
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </button>
         </div>
       </div>
 
       <div class="processing" id="processing">
         <div class="spinner"></div>
-<<<<<<< HEAD
-        <p>Przetwarzanie pĹ‚atnoĹ›ci...</p>
-=======
         <p>Przetwarzanie płatności...</p>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     </div>
 
@@ -194,19 +174,11 @@
         } catch (error) {
           console.error("Error parsing payment data:", error);
           document.getElementById("paymentDetails").innerHTML =
-<<<<<<< HEAD
-            '<p style="color: #ef4444;">BĹ‚Ä…d: NieprawidĹ‚owe dane pĹ‚atnoĹ›ci</p>';
-        }
-      } else {
-        document.getElementById("paymentDetails").innerHTML =
-          '<p style="color: #ef4444;">BĹ‚Ä…d: Brak danych pĹ‚atnoĹ›ci</p>';
-=======
             '<p style="color: #ef4444;">Błąd: Nieprawidłowe dane płatności</p>';
         }
       } else {
         document.getElementById("paymentDetails").innerHTML =
           '<p style="color: #ef4444;">Błąd: Brak danych płatności</p>';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
 
       function displayPaymentDetails() {
@@ -230,11 +202,7 @@
               '<div class="detail-row"><span>Zawiera:</span><span></span></div>';
             Object.entries(paymentData.package.tokens).forEach(
               ([key, value]) => {
-<<<<<<< HEAD
-                html += `<div style="margin-left: 1rem; font-size: 0.9rem; color: #94a3b8;">â€˘ ${value} tokenĂłw ${key}</div>`;
-=======
                 html += `<div style="margin-left: 1rem; font-size: 0.9rem; color: #94a3b8;">• ${value} tokenów ${key}</div>`;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               }
             );
           }
@@ -291,7 +259,3 @@
     </script>
   </body>
 </html>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

@@ -1,4 +1,24 @@
 
 
-#Ignore vscode AI rules
+# Ignore vscode AI rules
 .github\instructions\codacy.instructions.md
+
+# Node modules
+node_modules
+
+# Build outputs
+dist/
+
+# Environment files (CRITICAL SECURITY)
+.env
+.env.local
+.env.development
+.env.production
+.env.*.backup
+.env.*.local
+
+# Cloudflare secrets
+.wrangler/
+
+# IDE files
+.vscode/settings.json

@@ -1,16 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { b as attr } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DdWhmxse.mjs';
-import { c as attr } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { c as attr } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 /* empty css                                    */
 
 function APIDemo($$renderer, $$props) {
@@ -72,25 +65,14 @@ const analysisResponse = await postToWorker('/api/data-analyze', {
 	});
 }
 
-<<<<<<< HEAD
 const $$Astro = createAstro("https://mybonzo.com");
-const $$ApiDemo = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
-  Astro2.self = $$ApiDemo;
-  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "API Demo - Cloudflare Workers Integration", "data-astro-cid-mvmhwh7t": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="demo-page" data-astro-cid-mvmhwh7t> <div class="hero-section" data-astro-cid-mvmhwh7t> <h1 data-astro-cid-mvmhwh7t>đźš€ Cloudflare Workers API Integration</h1> <p class="hero-subtitle" data-astro-cid-mvmhwh7t>
-Demonstracja peĹ‚nej integracji z Cloudflare Workers w Ĺ›rodowisku Astro +
-        Svelte
-</p> </div> ${renderComponent($$result2, "APIDemo", APIDemo, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/APIDemo.svelte", "client:component-export": "default", "data-astro-cid-mvmhwh7t": true })} <div class="documentation-section" data-astro-cid-mvmhwh7t> <h2 data-astro-cid-mvmhwh7t>đź“– Dokumentacja Integracji</h2> <div class="docs-grid" data-astro-cid-mvmhwh7t> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>đź”§ ModuĹ‚ cloudflareApi.ts</h3> <p data-astro-cid-mvmhwh7t>Centralny moduĹ‚ do komunikacji z Cloudflare Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>fetchFromWorker()</code> - gĹ‚Ăłwna funkcja fetch</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>postToWorker()</code> - wrapper dla POST requests</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>getFromWorker()</code> - wrapper dla GET requests</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>đź›ˇď¸Ź CORS i BezpieczeĹ„stwo</h3> <p data-astro-cid-mvmhwh7t>Wszystkie endpointy majÄ… peĹ‚nÄ… obsĹ‚ugÄ™ CORS i OPTIONS</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t>Standardowe nagĹ‚Ăłwki CORS</li> <li data-astro-cid-mvmhwh7t>ObsĹ‚uga preflight requests</li> <li data-astro-cid-mvmhwh7t>Walidacja i sanityzacja danych</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>đź“Š DostÄ™pne API Endpoints</h3> <p data-astro-cid-mvmhwh7t>PeĹ‚na lista aktywnych Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/chat</code> - AI Chat Assistant</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/generate-image</code> - Image Generator</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/data-analyze</code> - Data Analysis</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/ai-workers</code> - Workers Management</li> </ul> </div> </div> <div class="implementation-example" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>đź’ˇ PrzykĹ‚ad Implementacji w Svelte</h3> <pre class="code-block" data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>${`<script lang="ts">
-=======
-const $$Astro = createAstro("https://www.mybonzo.com");
 const $$ApiDemo = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ApiDemo;
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "API Demo - Cloudflare Workers Integration", "data-astro-cid-mvmhwh7t": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="demo-page" data-astro-cid-mvmhwh7t> <div class="hero-section" data-astro-cid-mvmhwh7t> <h1 data-astro-cid-mvmhwh7t>🚀 Cloudflare Workers API Integration</h1> <p class="hero-subtitle" data-astro-cid-mvmhwh7t>
 Demonstracja pełnej integracji z Cloudflare Workers w środowisku Astro +
         Svelte
-</p> </div> ${renderComponent($$result2, "APIDemo", APIDemo, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/APIDemo.svelte", "client:component-export": "default", "data-astro-cid-mvmhwh7t": true })} <div class="documentation-section" data-astro-cid-mvmhwh7t> <h2 data-astro-cid-mvmhwh7t>📖 Dokumentacja Integracji</h2> <div class="docs-grid" data-astro-cid-mvmhwh7t> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>🔧 Moduł cloudflareApi.ts</h3> <p data-astro-cid-mvmhwh7t>Centralny moduł do komunikacji z Cloudflare Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>fetchFromWorker()</code> - główna funkcja fetch</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>postToWorker()</code> - wrapper dla POST requests</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>getFromWorker()</code> - wrapper dla GET requests</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>🛡️ CORS i Bezpieczeństwo</h3> <p data-astro-cid-mvmhwh7t>Wszystkie endpointy mają pełną obsługę CORS i OPTIONS</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t>Standardowe nagłówki CORS</li> <li data-astro-cid-mvmhwh7t>Obsługa preflight requests</li> <li data-astro-cid-mvmhwh7t>Walidacja i sanityzacja danych</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>📊 Dostępne API Endpoints</h3> <p data-astro-cid-mvmhwh7t>Pełna lista aktywnych Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/chat</code> - AI Chat Assistant</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/generate-image</code> - Image Generator</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/data-analyze</code> - Data Analysis</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/ai-workers</code> - Workers Management</li> </ul> </div> </div> <div class="implementation-example" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>💡 Przykład Implementacji w Svelte</h3> <pre class="code-block" data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>${`<script lang="ts">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+</p> </div> ${renderComponent($$result2, "APIDemo", APIDemo, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/APIDemo.svelte", "client:component-export": "default", "data-astro-cid-mvmhwh7t": true })} <div class="documentation-section" data-astro-cid-mvmhwh7t> <h2 data-astro-cid-mvmhwh7t>📖 Dokumentacja Integracji</h2> <div class="docs-grid" data-astro-cid-mvmhwh7t> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>🔧 Moduł cloudflareApi.ts</h3> <p data-astro-cid-mvmhwh7t>Centralny moduł do komunikacji z Cloudflare Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>fetchFromWorker()</code> - główna funkcja fetch</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>postToWorker()</code> - wrapper dla POST requests</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>getFromWorker()</code> - wrapper dla GET requests</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>🛡️ CORS i Bezpieczeństwo</h3> <p data-astro-cid-mvmhwh7t>Wszystkie endpointy mają pełną obsługę CORS i OPTIONS</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t>Standardowe nagłówki CORS</li> <li data-astro-cid-mvmhwh7t>Obsługa preflight requests</li> <li data-astro-cid-mvmhwh7t>Walidacja i sanityzacja danych</li> </ul> </div> <div class="doc-card" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>📊 Dostępne API Endpoints</h3> <p data-astro-cid-mvmhwh7t>Pełna lista aktywnych Workers API</p> <ul data-astro-cid-mvmhwh7t> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/chat</code> - AI Chat Assistant</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/generate-image</code> - Image Generator</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/data-analyze</code> - Data Analysis</li> <li data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>/api/ai-workers</code> - Workers Management</li> </ul> </div> </div> <div class="implementation-example" data-astro-cid-mvmhwh7t> <h3 data-astro-cid-mvmhwh7t>💡 Przykład Implementacji w Svelte</h3> <pre class="code-block" data-astro-cid-mvmhwh7t><code data-astro-cid-mvmhwh7t>${`<script lang="ts">
   import { postToWorker } from '../cloudflareApi';
   
   let response = '';
@@ -118,15 +100,9 @@ Demonstracja pełnej integracji z Cloudflare Workers w środowisku Astro +
 {#if response}
   <p>{response}</p>
 {/if}`}</code></pre> </div> </div> </div> ` })} `;
-<<<<<<< HEAD
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/api-demo.astro", void 0);
 
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api-demo.astro";
-=======
-}, "Q:/mybonzo/mybonzo-github/src/pages/api-demo.astro", void 0);
-
-const $$file = "Q:/mybonzo/mybonzo-github/src/pages/api-demo.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const $$url = "/api-demo";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

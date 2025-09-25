@@ -1,21 +1,9 @@
 ---
 // Critical polyfill for React SSR on Cloudflare Workers
-<<<<<<< HEAD
-import "../polyfills/react-scheduler.js";
-
-import SEOHead from "../components/SEO/SEOHead.astro";
-import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
-// Import AI Widgets for global access
-import BigQueryWidget from "../components/BigQueryWidget.svelte";
-import KaggleWidget from "../components/KaggleWidget.svelte";
-import TavilyWidget from "../components/TavilyWidget.svelte";
-import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-=======
 import '../polyfills/react-scheduler.js';
 
 import SEOHead from "../components/SEO/SEOHead.astro";
 import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 interface Props {
   siteTitle: string;
@@ -42,29 +30,13 @@ const {
   author,
   tags,
   canonicalURL,
-<<<<<<< HEAD
-  noindex,
-=======
   noindex
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 } = Astro.props;
 
 // Import CSS
 import "../styles/global.css";
 // Background animation and page transitions
 import BgAnimation from "../components/BgAnimation.svelte";
-<<<<<<< HEAD
-import PageTransition from "../components/PageTransition.svelte";
-// Dynamic header (installed package)
-import Header from "@sofidevo/astro-dynamic-header/Header";
-// Icon component
-// import { Icon } from "astro-icon/components";
-// Dock components for UI controls
-import RightDock from "../components/RightDock.astro";
-// Global floating panel components
-import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
-import BackgroundMusicPlayerFixed from "../components/BackgroundMusicPlayerFixed.svelte";
-=======
 import PageTransition from "../components/PageTransition.astro";
 // Heroicons React components  
 import { 
@@ -75,7 +47,6 @@ import {
 } from '@heroicons/react/24/outline';
 // Dock components for UI controls
 import RightDock from "../components/RightDock.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 // Simple navigation model; adjust as needed
 const menuItems = [
@@ -106,15 +77,9 @@ const pageKey = Astro.url.pathname;
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="generator" content="Astro v5.13.5" />
-<<<<<<< HEAD
-
-    <!-- SEO and Meta Tags -->
-    <SEOHead
-=======
     
     <!-- SEO and Meta Tags -->
     <SEOHead 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       title={siteTitle}
       description={description}
       image={image}
@@ -129,16 +94,8 @@ const pageKey = Astro.url.pathname;
 
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#00ffff" />
-<<<<<<< HEAD
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-=======
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <meta name="apple-mobile-web-app-title" content="MyBonzo" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
@@ -151,12 +108,7 @@ const pageKey = Astro.url.pathname;
     <!-- Performance: Critical CSS inline -->
     <style>
       /* Critical styles for immediate render */
-<<<<<<< HEAD
-      html,
-      body {
-=======
       html, body {
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         margin: 0;
         padding: 0;
         min-height: 100vh;
@@ -176,13 +128,7 @@ const pageKey = Astro.url.pathname;
         animation: spin 1s ease-in-out infinite;
       }
       @keyframes spin {
-<<<<<<< HEAD
-        to {
-          transform: rotate(360deg);
-        }
-=======
         to { transform: rotate(360deg); }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
     </style>
 
@@ -374,31 +320,19 @@ const pageKey = Astro.url.pathname;
         margin-top: 0 !important;
         margin-bottom: 0 !important;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       /* Global page spacing - all pages start 5px below banner */
       body main {
         padding-top: 5px !important;
         margin-top: 0 !important;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       /* Ensure subpages use consistent top spacing */
       .page-content {
         padding-top: 5px !important;
         margin-top: 0 !important;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       /* Override any other margin/padding that might interfere */
       main > section:first-child,
       main > div:first-child,
@@ -407,8 +341,6 @@ const pageKey = Astro.url.pathname;
         padding-top: 5px !important;
       }
     </style>
-<<<<<<< HEAD
-=======
     
     <!-- MyBonzo Agents Bundle - Automatyczne uruchamianie 3 sekundy po załadowaniu -->
     <script src="/agents-bundle.min.js" defer></script>
@@ -440,97 +372,11 @@ const pageKey = Astro.url.pathname;
         }
       }, 30000);
     </script>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </head>
 
   <body>
     <!-- Accessibility Tools -->
     <AccessibilityTools />
-<<<<<<< HEAD
-
-    <!-- Background Animation - Lazy loaded -->
-    <div
-      class="bg-animation bg-animation-container"
-      style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"
-    >
-      <div
-        class="loading-spinner"
-        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-      >
-      </div>
-    </div>
-    <div class="compact-header">
-      <Header
-        headerType="floating"
-        logoSrc="/favicon.svg"
-        logoAlt={siteTitle}
-        logoWidth="24px"
-        homeUrl="/"
-        menuItems={menuItems}
-        backgroundColor="#0d0d0dcc"
-        backdropBlur="blur(16px)"
-        zIndex={20}
-      />
-    </div>
-    <!-- Page content with transition wrapper -->
-    <PageTransition key={pageKey}>
-      <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
-        <slot />
-      </main>
-    </PageTransition>
-
-    <!-- Global AI Widgets - Available on all pages -->
-    <div class="fixed bottom-4 right-4 z-50 space-y-2">
-      <!-- Quick Access Widgets Panel -->
-      <div id="quick-widgets-panel" class="hidden">
-        <div
-          class="bg-black/80 backdrop-blur-sm border border-edge rounded-lg p-4 w-80 max-h-96 overflow-y-auto space-y-3"
-        >
-          <!-- BigQuery Widget -->
-          <div class="widget-container">
-            <BigQueryWidget client:load />
-          </div>
-
-          <!-- Kaggle Widget -->
-          <div class="widget-container">
-            <KaggleWidget client:load />
-          </div>
-
-          <!-- Tavily Search Widget -->
-          <div class="widget-container">
-            <TavilyWidget client:load />
-          </div>
-
-          <!-- Workers Status -->
-          <div class="widget-container">
-            <WorkersStatusDashboard client:load />
-          </div>
-        </div>
-      </div>
-
-      <!-- Toggle Button for Widgets -->
-      <button
-        id="toggle-widgets"
-        onclick="toggleQuickWidgets()"
-        class="bg-cyan-600 hover:bg-cyan-700 text-white p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110"
-        title="Pokaż/Ukryj Widgety AI"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-          ></path>
-        </svg>
-      </button>
-    </div>
-=======
     
     <!-- Background Animation - Lazy loaded -->
     <div class="bg-animation bg-animation-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
@@ -550,7 +396,6 @@ const pageKey = Astro.url.pathname;
     <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
       <slot />
     </main>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
     <!-- Floating MCP Buttons -->
     <div class="mcp-floating-buttons">
@@ -559,15 +404,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="duckdb"
         onclick="openMCPModal('duckdb')"
       >
-<<<<<<< HEAD
-        <svg class="mcp-icon w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
-          ></path>
-        </svg>
-=======
         <CircleStackIcon className="w-6 h-6 mcp-icon" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         DuckDB
       </button>
       <button
@@ -575,15 +412,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="paypal"
         onclick="openMCPModal('paypal')"
       >
-<<<<<<< HEAD
-        <svg class="mcp-icon w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-          ></path>
-        </svg>
-=======
         <CreditCardIcon className="w-6 h-6 mcp-icon" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         PayPal
       </button>
       <button
@@ -591,13 +420,7 @@ const pageKey = Astro.url.pathname;
         data-mcp="huggingface"
         onclick="openMCPModal('huggingface')"
       >
-<<<<<<< HEAD
-        <svg class="mcp-icon w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-=======
         <CpuChipIcon className="w-6 h-6 mcp-icon" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         HuggingFace
       </button>
       <button
@@ -605,61 +428,11 @@ const pageKey = Astro.url.pathname;
         data-mcp="memory"
         onclick="openMCPModal('memory')"
       >
-<<<<<<< HEAD
-        <Icon name="lucide:hard-drive" class="mcp-icon" />
-=======
         <ServerIcon className="w-6 h-6 mcp-icon" />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         Memory
       </button>
     </div>
 
-<<<<<<< HEAD
-    <!-- Global Right Floating Panel - Available on all pages -->
-    <div class="global-right-panel-fixed">
-      <div class="floating-widget-container">
-        <button
-          onclick="toggleGlobalMusicPlayer()"
-          class="global-right-btn"
-          id="globalMusicPlayerBtn"
-        >
-          <Icon name="lucide:music" /> MUSIC PLAYER
-        </button>
-        <div id="globalMusicPlayerWidget" class="global-floating-widget hidden">
-          <BackgroundMusicPlayerFixed client:load />
-        </div>
-      </div>
-
-      <div class="floating-widget-container">
-        <button
-          onclick="toggleGlobalPolaczekAssistant()"
-          class="global-right-btn"
-          id="globalPolaczekBtn"
-          title="AI Assistant do wyjaśniania funkcji na stronie"
-        >
-          <Icon name="lucide:bot" /> AI ASSISTANT
-        </button>
-        <div id="globalPolaczekWidget" class="global-floating-widget hidden">
-          <AiHelpAssistant client:load />
-        </div>
-      </div>
-
-      <button onclick="openGlobalMainChat()" class="global-right-btn">
-        <Icon name="lucide:message-circle" /> MAIN CHAT
-      </button>
-      <button onclick="openGlobalRefresh()" class="global-right-btn">
-        <Icon name="lucide:refresh-cw" /> REFRESH
-      </button>
-      <button onclick="openGlobalFolder()" class="global-right-btn">
-        <Icon name="lucide:folder" /> FOLDER
-      </button>
-      <button onclick="openGlobalClose()" class="global-right-btn">
-        <Icon name="lucide:x" /> CLOSE
-      </button>
-    </div>
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <!-- MCP Modal -->
     <div id="mcpModal" class="mcp-modal" onclick="closeMCPModal()">
       <div class="mcp-modal-content" onclick="event.stopPropagation()">
@@ -825,96 +598,6 @@ const pageKey = Astro.url.pathname;
         margin-top: 0.5rem;
       }
 
-<<<<<<< HEAD
-      /* Global Right Floating Panel Styles */
-      .global-right-panel-fixed {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .global-right-btn {
-        background: rgba(0, 0, 0, 0.5);
-        color: #ffffff;
-        padding: 8px 20px;
-        border-radius: 0px;
-        box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
-        font-size: 0.9rem;
-        font-weight: 700;
-        border: 1px solid rgba(0, 217, 255, 0.3);
-        transition: all 0.3s ease;
-        display: block;
-        text-align: center;
-        min-width: 235px;
-        cursor: pointer;
-        position: relative;
-        z-index: 10;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        backdrop-filter: blur(20px);
-        font-family: "Courier New", monospace;
-      }
-
-      .global-right-btn:hover {
-        background: rgba(0, 0, 0, 0.7);
-        color: #00d7ef;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
-        border-color: #00d7ef;
-        backdrop-filter: blur(25px);
-      }
-
-      .global-right-btn:active {
-        transform: translateY(0px);
-        box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
-      }
-
-      .floating-widget-container {
-        position: relative;
-        display: block;
-        width: 100%;
-      }
-
-      .global-floating-widget {
-        position: absolute;
-        bottom: 100%;
-        right: 0;
-        margin-bottom: 10px;
-        background: rgba(0, 0, 0, 0.7);
-        border: 1px solid rgba(0, 217, 255, 0.4);
-        border-radius: 0px;
-        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
-        backdrop-filter: blur(16px);
-        min-width: 350px;
-        max-width: 1000px;
-        max-height: 600px;
-        overflow-y: auto;
-        z-index: 99999;
-        animation: slideUp 0.3s ease-out;
-        transform-origin: bottom right;
-      }
-
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .hidden {
-        display: none !important;
-      }
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       /* Responsive design */
       @media (max-width: 768px) {
         .mcp-floating-buttons {
@@ -932,21 +615,6 @@ const pageKey = Astro.url.pathname;
           min-width: 300px;
           padding: 1.5rem;
         }
-<<<<<<< HEAD
-
-        .global-right-panel-fixed {
-          right: 8px;
-          bottom: 15px;
-          gap: 10px;
-        }
-
-        .global-right-btn {
-          min-width: 180px;
-          font-size: 0.9rem;
-          padding: 8px 16px;
-        }
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
     </style>
 
@@ -1070,31 +738,16 @@ fetch('/api/mcp/memory', {
       // Performance optimizations
       (async function initPerformanceOptimizations() {
         // Service Worker registration
-<<<<<<< HEAD
-        if ("serviceWorker" in navigator) {
-          try {
-            await navigator.serviceWorker.register("/sw.js");
-            console.log("✅ Service Worker registered");
-          } catch (error) {
-            console.warn("⚠️ Service Worker registration failed:", error);
-=======
         if ('serviceWorker' in navigator) {
           try {
             await navigator.serviceWorker.register('/sw.js');
             console.log('✅ Service Worker registered');
           } catch (error) {
             console.warn('⚠️ Service Worker registration failed:', error);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           }
         }
 
         // Preload critical resources
-<<<<<<< HEAD
-        const criticalResources = ["/api/auth/status", "/api/workers/status"];
-
-        criticalResources.forEach((url) => {
-          fetch(url, { method: "HEAD" }).catch(() => {});
-=======
         const criticalResources = [
           '/api/auth/status',
           '/api/workers/status'
@@ -1102,44 +755,10 @@ fetch('/api/mcp/memory', {
 
         criticalResources.forEach(url => {
           fetch(url, { method: 'HEAD' }).catch(() => {});
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         });
 
         // Lazy load heavy components after initial render
         const lazyComponentsConfig = {
-<<<<<<< HEAD
-          ".bg-animation": () => import("/src/components/BgAnimation.svelte"),
-          // '.admin-dashboard': () => import('/src/components/admin/AdminDashboard.tsx'),
-          ".ai-workers-manager": () =>
-            import("/src/components/AIWorkersManager.svelte"),
-        };
-
-        // Intersection observer for lazy loading
-        const lazyObserver = new IntersectionObserver(
-          (entries) => {
-            entries.forEach(async (entry) => {
-              if (entry.isIntersecting) {
-                const className = entry.target.className.split(" ")[0];
-                const loader = lazyComponentsConfig[`.${className}`];
-                if (loader) {
-                  try {
-                    await loader();
-                    lazyObserver.unobserve(entry.target);
-                  } catch (error) {
-                    console.warn("Failed to lazy load component:", error);
-                  }
-                }
-              }
-            });
-          },
-          { threshold: 0.1, rootMargin: "50px" }
-        );
-
-        // Observe elements for lazy loading
-        Object.keys(lazyComponentsConfig).forEach((selector) => {
-          const elements = document.querySelectorAll(selector);
-          elements.forEach((el) => lazyObserver.observe(el));
-=======
           '.bg-animation': () => import('/src/components/BgAnimation.svelte'),
           // '.admin-dashboard': () => import('/src/components/admin/AdminDashboard.tsx'),
           '.ai-workers-manager': () => import('/src/components/AIWorkersManager.svelte')
@@ -1167,7 +786,6 @@ fetch('/api/mcp/memory', {
         Object.keys(lazyComponentsConfig).forEach(selector => {
           const elements = document.querySelectorAll(selector);
           elements.forEach(el => lazyObserver.observe(el));
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         });
 
         // Performance monitoring
@@ -1181,31 +799,11 @@ fetch('/api/mcp/memory', {
             if (start) {
               const duration = performance.now() - start;
               if (duration > 100) {
-<<<<<<< HEAD
-                console.warn(
-                  `Slow operation: ${name} took ${duration.toFixed(2)}ms`
-                );
-=======
                 console.warn(`Slow operation: ${name} took ${duration.toFixed(2)}ms`);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               }
               this.metrics.delete(name);
               return duration;
             }
-<<<<<<< HEAD
-          },
-        };
-
-        // Monitor page load performance
-        window.addEventListener("load", () => {
-          setTimeout(() => {
-            const loadTime = performance.now();
-            console.log(`📊 Page load time: ${loadTime.toFixed(2)}ms`);
-
-            // Report to analytics if needed
-            if (loadTime > 3000) {
-              console.warn("⚠️ Page load time exceeded 3 seconds");
-=======
           }
         };
 
@@ -1218,231 +816,15 @@ fetch('/api/mcp/memory', {
             // Report to analytics if needed
             if (loadTime > 3000) {
               console.warn('⚠️ Page load time exceeded 3 seconds');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
           }, 0);
         });
 
         // Cleanup on page unload
-<<<<<<< HEAD
-        window.addEventListener("beforeunload", () => {
-          lazyObserver.disconnect();
-        });
-      })();
-
-      // Global Floating Panel Functions with localStorage State Management
-
-      // Toggle Quick Widgets Panel Function
-      window.toggleQuickWidgets = function () {
-        console.log("🚀 Toggling Quick Widgets Panel");
-        const panel = document.getElementById("quick-widgets-panel");
-        const btn = document.getElementById("toggle-widgets");
-
-        if (panel && btn) {
-          // Button scaling effect
-          btn.style.transform = "scale(1.1) translateY(-2px)";
-          setTimeout(() => {
-            btn.style.transform = "";
-          }, 200);
-
-          // Toggle panel visibility
-          const isHidden = panel.classList.contains("hidden");
-          if (isHidden) {
-            panel.classList.remove("hidden");
-            localStorage.setItem("quickWidgetsOpen", "true");
-            console.log("🚀 Quick Widgets Panel opened - state saved");
-          } else {
-            panel.classList.add("hidden");
-            localStorage.setItem("quickWidgetsOpen", "false");
-            console.log("🚀 Quick Widgets Panel closed - state saved");
-          }
-        }
-      };
-
-      window.toggleGlobalMusicPlayer = function () {
-        console.log("🎵 Toggling Global Music Player");
-        const btn = document.getElementById("globalMusicPlayerBtn");
-        const widget = document.getElementById("globalMusicPlayerWidget");
-
-        if (btn && widget) {
-          // Button scaling effect
-          btn.style.transform = "scale(1.1) translateY(-2px)";
-          setTimeout(() => {
-            btn.style.transform = "";
-          }, 200);
-
-          // Toggle widget visibility
-          const isHidden = widget.classList.contains("hidden");
-          if (isHidden) {
-            widget.classList.remove("hidden");
-            localStorage.setItem("globalMusicPlayerOpen", "true");
-            console.log("🎵 Global Music Player opened - state saved");
-          } else {
-            widget.classList.add("hidden");
-            localStorage.setItem("globalMusicPlayerOpen", "false");
-            console.log("🎵 Global Music Player closed - state saved");
-          }
-        }
-      };
-
-      window.toggleGlobalPolaczekAssistant = function () {
-        console.log("🤖 Toggling Global AI Assistant");
-        const btn = document.getElementById("globalPolaczekBtn");
-        const widget = document.getElementById("globalPolaczekWidget");
-
-        if (btn && widget) {
-          // Button scaling effect
-          btn.style.transform = "scale(1.1) translateY(-2px)";
-          setTimeout(() => {
-            btn.style.transform = "";
-          }, 200);
-
-          // Toggle widget visibility
-          const isHidden = widget.classList.contains("hidden");
-          if (isHidden) {
-            widget.classList.remove("hidden");
-            localStorage.setItem("globalPolaczekAssistantOpen", "true");
-            console.log("🤖 Global AI Assistant opened - state saved");
-          } else {
-            widget.classList.add("hidden");
-            localStorage.setItem("globalPolaczekAssistantOpen", "false");
-            console.log("🤖 Global AI Assistant closed - state saved");
-          }
-        }
-      };
-
-      window.openGlobalMainChat = function () {
-        console.log("💬 Opening Global Main Chat");
-        window.open("/chatbot", "_blank");
-      };
-
-      window.openGlobalRefresh = function () {
-        console.log("🔄 Global Refreshing page");
-        window.location.reload();
-      };
-
-      window.openGlobalFolder = function () {
-        console.log("📂 Global Opening folder");
-        alert(
-          "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
-        );
-      };
-
-      window.openGlobalClose = function () {
-        console.log("❌ Global Closing tab");
-        try {
-          window.close();
-        } catch (e) {
-          alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
-        }
-      };
-
-      // Function to restore global panel states from localStorage
-      window.restoreGlobalPanelStates = function () {
-        console.log(
-          "🔄 Restoring global floating panel states from localStorage"
-        );
-
-        const quickWidgetsOpen =
-          localStorage.getItem("quickWidgetsOpen") === "true";
-        const musicPlayerOpen =
-          localStorage.getItem("globalMusicPlayerOpen") === "true";
-        const polaczekAssistantOpen =
-          localStorage.getItem("globalPolaczekAssistantOpen") === "true";
-
-        console.log("🚀 Quick Widgets Panel should be open:", quickWidgetsOpen);
-        console.log("🎵 Global Music Player should be open:", musicPlayerOpen);
-        console.log(
-          "🤖 Global AI Assistant should be open:",
-          polaczekAssistantOpen
-        );
-
-        // Restore quick widgets state
-        const quickWidgetsPanel = document.getElementById(
-          "quick-widgets-panel"
-        );
-        if (quickWidgetsPanel) {
-          if (quickWidgetsOpen) {
-            quickWidgetsPanel.classList.remove("hidden");
-            console.log("🚀 Quick Widgets Panel restored to open state");
-          } else {
-            quickWidgetsPanel.classList.add("hidden");
-            console.log("🚀 Quick Widgets Panel restored to closed state");
-          }
-        }
-
-        // Restore music player state
-        const musicWidget = document.getElementById("globalMusicPlayerWidget");
-        if (musicWidget) {
-          if (musicPlayerOpen) {
-            musicWidget.classList.remove("hidden");
-            console.log("🎵 Global Music Player restored to open state");
-          } else {
-            musicWidget.classList.add("hidden");
-            console.log("🎵 Global Music Player restored to closed state");
-          }
-        }
-
-        // Restore AI assistant state
-        const polaczekWidget = document.getElementById("globalPolaczekWidget");
-        if (polaczekWidget) {
-          if (polaczekAssistantOpen) {
-            polaczekWidget.classList.remove("hidden");
-            console.log("🤖 Global AI Assistant restored to open state");
-          } else {
-            polaczekWidget.classList.add("hidden");
-            console.log("🤖 Global AI Assistant restored to closed state");
-          }
-        }
-      };
-
-      // Global modal functions for all pages
-      window.closeModal = function () {
-        const modal = document.getElementById("main-modal");
-        if (modal) {
-          modal.style.display = "none";
-        }
-      };
-
-      // Initialize global floating panels on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        console.log("🌐 Initializing global floating panels");
-
-        // Ensure panels are hidden by default
-        const musicWidget = document.getElementById("globalMusicPlayerWidget");
-        const polaczekWidget = document.getElementById("globalPolaczekWidget");
-
-        if (musicWidget && !musicWidget.classList.contains("hidden")) {
-          musicWidget.classList.add("hidden");
-        }
-
-        if (polaczekWidget && !polaczekWidget.classList.contains("hidden")) {
-          polaczekWidget.classList.add("hidden");
-        }
-
-        // Then restore from localStorage after short delay
-        setTimeout(() => {
-          if (typeof window.restoreGlobalPanelStates === "function") {
-            window.restoreGlobalPanelStates();
-          }
-        }, 100);
-
-        // Close modal with Escape key for all pages
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape") {
-            const modal = document.getElementById("main-modal");
-            if (modal && modal.style.display !== "none") {
-              window.closeModal();
-            }
-          }
-        });
-      });
-=======
         window.addEventListener('beforeunload', () => {
           lazyObserver.disconnect();
         });
       })();
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     </script>
   </body>
 </html>

@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../layouts/components/CyberpunkButton.astro";
 
 const pageTitle = "Dashboard MyBonzo AI";
-<<<<<<< HEAD
-const pageDescription = "Centrum kontroli wszystkich funkcji i narzÄ™dzi AI";
-const pageQuote = "NajlepszÄ… broniÄ… przeciwko zmianom jest wiedza, adaptacja i ciÄ…gĹ‚e uczenie siÄ™.";
-=======
 const pageDescription = "Centrum kontroli wszystkich funkcji i narzędzi AI";
 const pageQuote = "Najlepszą bronią przeciwko zmianom jest wiedza, adaptacja i ciągłe uczenie się.";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "Peter Drucker";
 ---
 
@@ -26,11 +17,7 @@ const pageAuthor = "Peter Drucker";
   showRandomQuote={false}
 >
     <!-- Quick Stats Overview -->
-<<<<<<< HEAD
-    <GlassPanel title="đź“Š PrzeglÄ…d aktywnoĹ›ci" variant="highlight" padding="lg">
-=======
     <GlassPanel title="📊 Przegląd aktywności" variant="highlight" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
             <div style="background: rgba(0,217,255,0.1); padding: 20px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                 <div style="color: #00d9ff; font-size: 2.5rem; font-weight: 700;" id="todayQueries">156</div>
@@ -52,11 +39,7 @@ const pageAuthor = "Peter Drucker";
 
         <div style="text-align: center;">
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź“ SzczegĂłĹ‚owe statystyki" 
-=======
                 text="📈 Szczegółowe statystyki" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 onclick="showDetailedStats()"
@@ -65,26 +48,15 @@ const pageAuthor = "Peter Drucker";
     </GlassPanel>
 
     <!-- Quick Access Tools -->
-<<<<<<< HEAD
-    <GlassPanel title="đźš€ Szybki dostÄ™p do narzÄ™dzi" variant="default" padding="lg">
-=======
     <GlassPanel title="🚀 Szybki dostęp do narzędzi" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
             
             <!-- AI Chat -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź’¬</div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">Chat AI</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    Rozmawiaj z zaawansowanymi modelami AI. Zadawaj pytania, proĹ› o pomoc, twĂłrz treĹ›ci.
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">💬</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">Chat AI</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
                     Rozmawiaj z zaawansowanymi modelami AI. Zadawaj pytania, proś o pomoc, twórz treści.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Rozpocznij chat" 
@@ -96,17 +68,10 @@ const pageAuthor = "Peter Drucker";
 
             <!-- Image Generation -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đźŽ¨</div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">Generator obrazĂłw</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    TwĂłrz unikalne obrazy za pomocÄ… AI. Od fotorealistycznych po artystyczne style.
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">🎨</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">Generator obrazów</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
                     Twórz unikalne obrazy za pomocą AI. Od fotorealistycznych po artystyczne style.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Generuj obrazy" 
@@ -118,15 +83,6 @@ const pageAuthor = "Peter Drucker";
 
             <!-- Agents Management -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź¤–</div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">ZarzÄ…dzanie agentami</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    TwĂłrz i konfiguruj spersonalizowanych agentĂłw AI do konkretnych zadaĹ„.
-                </p>
-                <CyberpunkButton 
-                    text="ZarzÄ…dzaj agentami" 
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">🤖</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">Zarządzanie agentami</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
@@ -134,7 +90,6 @@ const pageAuthor = "Peter Drucker";
                 </p>
                 <CyberpunkButton 
                     text="Zarządzaj agentami" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="md"
                     href="/agents"
@@ -143,15 +98,6 @@ const pageAuthor = "Peter Drucker";
 
             <!-- Prompt Enhancer -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">âś¨</div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">SupaGruen SD CheatSheet</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    Baza stylĂłw artystĂłw dla generowania obrazĂłw. Ponad 833 style do wyboru.
-                </p>
-                <CyberpunkButton 
-                    text="PrzeglÄ…daj style" 
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">✨</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">SupaGruen SD CheatSheet</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
@@ -159,7 +105,6 @@ const pageAuthor = "Peter Drucker";
                 </p>
                 <CyberpunkButton 
                     text="Przeglądaj style" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="primary" 
                     size="md"
                     href="/prompt-enhancer"
@@ -168,17 +113,10 @@ const pageAuthor = "Peter Drucker";
 
             <!-- Quiz AI -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź§ </div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">Quiz AI</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    Testuj swojÄ… wiedzÄ™ z interaktywnym quizem generowanym przez AI.
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">🧠</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">Quiz AI</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
                     Testuj swoją wiedzę z interaktywnym quizem generowanym przez AI.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Rozpocznij quiz" 
@@ -190,17 +128,10 @@ const pageAuthor = "Peter Drucker";
 
             <!-- System Status -->
             <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 24px; text-align: center; transition: all 0.3s ease;" class="tool-card">
-<<<<<<< HEAD
-                <div style="font-size: 3rem; margin-bottom: 15px;">đź“Š</div>
-                <h3 style="color: #00d9ff; margin-bottom: 12px;">Status systemu</h3>
-                <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
-                    Monitoruj status wszystkich workerĂłw AI i wydajnoĹ›Ä‡ systemu.
-=======
                 <div style="font-size: 3rem; margin-bottom: 15px;">📊</div>
                 <h3 style="color: #00d9ff; margin-bottom: 12px;">Status systemu</h3>
                 <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px; font-size: 0.9rem;">
                     Monitoruj status wszystkich workerów AI i wydajność systemu.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </p>
                 <CyberpunkButton 
                     text="Zobacz status" 
@@ -213,39 +144,23 @@ const pageAuthor = "Peter Drucker";
     </GlassPanel>
 
     <!-- Recent Activity -->
-<<<<<<< HEAD
-    <GlassPanel title="đź• Ostatnia aktywnoĹ›Ä‡" variant="default" padding="lg">
-=======
     <GlassPanel title="🕐 Ostatnia aktywność" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         <div style="max-height: 400px; overflow-y: auto;">
             <div id="activityFeed">
                 <!-- Activity items will be loaded here -->
                 <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #00d9ff; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-<<<<<<< HEAD
-                        <span style="color: #00d9ff; font-weight: 600;">đź’¬ Chat z AI</span>
-                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2 min temu</span>
-                    </div>
-                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
-                        Zapytanie o strategie marketingowe dla startupĂłw technologicznych
-=======
                         <span style="color: #00d9ff; font-weight: 600;">💬 Chat z AI</span>
                         <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2 min temu</span>
                     </div>
                     <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
                         Zapytanie o strategie marketingowe dla startupów technologicznych
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </p>
                 </div>
 
                 <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #22c55e; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-<<<<<<< HEAD
-                        <span style="color: #22c55e; font-weight: 600;">đźŽ¨ Obraz wygenerowany</span>
-=======
                         <span style="color: #22c55e; font-weight: 600;">🎨 Obraz wygenerowany</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">15 min temu</span>
                     </div>
                     <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
@@ -255,11 +170,7 @@ const pageAuthor = "Peter Drucker";
 
                 <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #f59e0b; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-<<<<<<< HEAD
-                        <span style="color: #f59e0b; font-weight: 600;">đź¤– Nowy agent</span>
-=======
                         <span style="color: #f59e0b; font-weight: 600;">🤖 Nowy agent</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">1h temu</span>
                     </div>
                     <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
@@ -269,19 +180,11 @@ const pageAuthor = "Peter Drucker";
 
                 <div style="background: rgba(0,0,0,0.3); border-left: 3px solid #8b5cf6; padding: 15px; margin-bottom: 10px; border-radius: 4px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-<<<<<<< HEAD
-                        <span style="color: #8b5cf6; font-weight: 600;">đź§  Quiz ukoĹ„czony</span>
-                        <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2h temu</span>
-                    </div>
-                    <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
-                        Quiz "Technologie AI" - wynik: 85% (17/20 pytaĹ„)
-=======
                         <span style="color: #8b5cf6; font-weight: 600;">🧠 Quiz ukończony</span>
                         <span style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">2h temu</span>
                     </div>
                     <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem;">
                         Quiz "Technologie AI" - wynik: 85% (17/20 pytań)
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </p>
                 </div>
             </div>
@@ -289,11 +192,7 @@ const pageAuthor = "Peter Drucker";
 
         <div style="text-align: center; margin-top: 20px;">
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź”„ OdĹ›wieĹĽ aktywnoĹ›Ä‡" 
-=======
                 text="🔄 Odśwież aktywność" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="sm"
                 onclick="refreshActivity()"
@@ -302,47 +201,28 @@ const pageAuthor = "Peter Drucker";
     </GlassPanel>
 
     <!-- Quick Actions Panel -->
-<<<<<<< HEAD
-    <GlassPanel title="âšˇ Szybkie akcje" variant="default" padding="lg">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-            <CyberpunkButton 
-                text="đź“ť Nowy projekt" 
-=======
     <GlassPanel title="⚡ Szybkie akcje" variant="default" padding="lg">
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
             <CyberpunkButton 
                 text="📝 Nowy projekt" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="primary" 
                 size="md"
                 onclick="startNewProject()"
             />
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź“Š Eksportuj dane" 
-=======
                 text="📊 Eksportuj dane" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 onclick="exportData()"
             />
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="âš™ď¸Ź Ustawienia" 
-=======
                 text="⚙️ Ustawienia" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 href="/admin/"
             />
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đź“± Aplikacja mobilna" 
-=======
                 text="📱 Aplikacja mobilna" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 variant="outline" 
                 size="md"
                 onclick="showMobileInfo()"
@@ -419,31 +299,18 @@ const pageAuthor = "Peter Drucker";
             ];
             
             const project = projects[Math.floor(Math.random() * projects.length)];
-<<<<<<< HEAD
-            if (confirm(`Czy chcesz rozpoczÄ…Ä‡ nowy projekt: "${project}"?`)) {
-                alert('đźš€ Projekt zostaĹ‚ utworzony! Przekierowanie do workspace...');
-=======
             if (confirm(`Czy chcesz rozpocząć nowy projekt: "${project}"?`)) {
                 alert('🚀 Projekt został utworzony! Przekierowanie do workspace...');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 // In real app, redirect to project workspace
             }
         }
 
         function exportData() {
-<<<<<<< HEAD
-            alert('đź“Š Funkcja eksportu danych bÄ™dzie dostÄ™pna wkrĂłtce!');
-        }
-
-        function showMobileInfo() {
-            alert('đź“± Aplikacja mobilna MyBonzo AI jest w fazie rozwoju. Zostaniesz powiadomiony o premierze!');
-=======
             alert('📊 Funkcja eksportu danych będzie dostępna wkrótce!');
         }
 
         function showMobileInfo() {
             alert('📱 Aplikacja mobilna MyBonzo AI jest w fazie rozwoju. Zostaniesz powiadomiony o premierze!');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         // Auto-update stats every 30 seconds
@@ -457,18 +324,10 @@ const pageAuthor = "Peter Drucker";
             const isFirstVisit = !localStorage.getItem('dashboardVisited');
             if (isFirstVisit) {
                 setTimeout(() => {
-<<<<<<< HEAD
-                    alert('đźŽ‰ Witaj w Dashboard MyBonzo AI! Eksploruj wszystkie dostÄ™pne narzÄ™dzia AI.');
-=======
                     alert('🎉 Witaj w Dashboard MyBonzo AI! Eksploruj wszystkie dostępne narzędzia AI.');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     localStorage.setItem('dashboardVisited', 'true');
                 }, 1000);
             }
         });
     </script>
-<<<<<<< HEAD
 </UniversalPageLayout>
-=======
-</UniversalPageLayout>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

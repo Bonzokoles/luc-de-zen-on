@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // Simple HTML/CSS chat history component without React
 ---
 
@@ -12,11 +8,7 @@
   </div>
   
   <div class="chat-stats mt-2 text-xs text-gray-400">
-<<<<<<< HEAD
-    <span id="historyCount">0</span> obrazĂłw w historii
-=======
     <span id="historyCount">0</span> obrazów w historii
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </div>
 </div>
 
@@ -155,15 +147,9 @@
       if (history.length === 0) {
         messagesContainer.innerHTML = `
           <div class="empty-state">
-<<<<<<< HEAD
-            <div class="empty-state-icon">đź’­</div>
-            <div>Brak historii generacji</div>
-            <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #64748b;">Wygeneruj pierwszy obraz aby zobaczyÄ‡ historiÄ™</div>
-=======
             <div class="empty-state-icon">💭</div>
             <div>Brak historii generacji</div>
             <div style="font-size: 0.75rem; margin-top: 0.5rem; color: #64748b;">Wygeneruj pierwszy obraz aby zobaczyć historię</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           </div>
         `;
         historyCount.textContent = '0';
@@ -190,11 +176,7 @@
 
         return `
           <div class="chat-message">
-<<<<<<< HEAD
-            <div class="message-avatar">đźŽ¨</div>
-=======
             <div class="message-avatar">🎨</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             <div class="message-content">
               <div class="message-prompt">${shortPrompt}</div>
               <img 
@@ -218,13 +200,8 @@
       console.error('Error loading chat history:', error);
       messagesContainer.innerHTML = `
         <div class="empty-state">
-<<<<<<< HEAD
-          <div class="empty-state-icon">âš ď¸Ź</div>
-          <div>BĹ‚Ä…d Ĺ‚adowania historii</div>
-=======
           <div class="empty-state-icon">⚠️</div>
           <div>Błąd ładowania historii</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
       `;
     }
@@ -252,8 +229,4 @@
       modal.classList.remove('hidden');
     }
   };
-<<<<<<< HEAD
 </script>
-=======
-</script>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

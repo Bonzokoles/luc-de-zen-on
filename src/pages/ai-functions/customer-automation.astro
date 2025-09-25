@@ -1,83 +1,3 @@
-<<<<<<< HEAD
-﻿---
-import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
-import LeadQualificationForm from "../../components/LeadQualificationForm.svelte";
----
-
-<MyBonzoLayout siteTitle="Automatyzacja ObsĹ‚ugi Klienta | MyBonzo AI">
-  <main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-    <div class="container mx-auto px-4 py-8">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent mb-4">
-          đź“ž Automatyzacja ObsĹ‚ugi Klienta
-        </h1>
-        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
-          AI do kwalifikacji leadĂłw i automatycznych odpowiedzi z integracjÄ… CRM
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Main Content -->
-        <div class="lg:col-span-2 space-y-6">
-          <!-- Lead Qualification Form -->
-          <LeadQualificationForm client:load />
-
-          <!-- Demo Chat Interface -->
-          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
-            <h3 class="text-xl font-semibold mb-4 text-pink-400">AI Chat Support</h3>
-            <div class="bg-slate-900 rounded-lg p-4 h-80 overflow-y-auto mb-4" id="chatContainer">
-              <div class="space-y-3">
-                <div class="flex justify-start">
-                  <div class="bg-blue-600 rounded-lg px-4 py-2 max-w-xs">
-                    <p class="text-sm">Witam! Jak mogÄ™ PaĹ„stwu pomĂłc?</p>
-                  </div>
-                </div>
-                <div class="flex justify-end">
-                  <div class="bg-slate-600 rounded-lg px-4 py-2 max-w-xs">
-                    <p class="text-sm">Interesuje mnie PaĹ„stwa oferta AI</p>
-                  </div>
-                </div>
-                <div class="flex justify-start">
-                  <div class="bg-blue-600 rounded-lg px-4 py-2 max-w-xs">
-                    <p class="text-sm">Ĺšwietnie! Nasza platforma AI oferuje kompleksowe rozwiÄ…zania automatyzacji. Czy mogÄ™ poznaÄ‡ specyfikÄ™ PaĹ„stwa potrzeb?</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex gap-2">
-              <input 
-                type="text" 
-                placeholder="Wpisz wiadomoĹ›Ä‡..."
-                class="flex-1 bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white placeholder-slate-400"
-                id="chatInput"
-              />
-              <button class="bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-lg font-semibold transition-colors">
-                WyĹ›lij
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <div class="space-y-6">
-          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
-            <h3 class="text-xl font-semibold mb-4 text-pink-400">Automatyzacja</h3>
-            <ul class="space-y-3 text-slate-300">
-              <li class="flex items-center gap-3">
-                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
-                Kwalifikacja leadĂłw
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
-                Auto-odpowiedzi
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
-                Integracja CRM
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="w-2 h-2 bg-pink-400 rounded-full"></span>
-=======
 ---
 import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
 import LeadQualificationForm from "../../components/LeadQualificationForm.svelte";
@@ -195,27 +115,17 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
               </li>
               <li class="flex items-center gap-2">
                 <span class="text-[#00ffff]">✓</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 Analytics
               </li>
             </ul>
           </div>
 
-<<<<<<< HEAD
-          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
-            <h3 class="text-xl font-semibold mb-4 text-pink-400">Statystyki</h3>
-            <div class="space-y-3">
-              <div class="flex justify-between">
-                <span class="text-slate-300">Konwersja leadĂłw:</span>
-                <span class="text-green-400 font-semibold">85%</span>
-=======
           <div class="p-6 bg-[#111111] border border-[#333333] glass-effect">
             <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Statystyki</h3>
             <div class="space-y-3 text-[#e0e0e0] font-['Kenyan_Coffee']">
               <div class="flex justify-between">
                 <span>Konwersja leadów:</span>
                 <span class="text-[#00ffff] font-bold">85%</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               </div>
               <div class="flex justify-between">
                 <span class="text-slate-300">Czas odpowiedzi:</span>
@@ -231,19 +141,11 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
           <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
             <h3 class="text-xl font-semibold mb-4 text-pink-400">Integracje</h3>
             <ul class="space-y-2 text-slate-300 text-sm">
-<<<<<<< HEAD
-              <li>đź”— Salesforce</li>
-              <li>đź”— HubSpot</li>
-              <li>đź”— Pipedrive</li>
-              <li>đź”— Zapier</li>
-              <li>đź”— ActivePieces</li>
-=======
               <li>🔗 Salesforce</li>
               <li>🔗 HubSpot</li>
               <li>🔗 Pipedrive</li>
               <li>🔗 Zapier</li>
               <li>🔗 ActivePieces</li>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </ul>
           </div>
         </div>
@@ -263,11 +165,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
         if (e.key === 'Enter' && chatInput.value.trim()) {
           addMessage(chatInput.value, 'user');
           setTimeout(() => {
-<<<<<<< HEAD
-            addMessage('DziÄ™kujemy za wiadomoĹ›Ä‡! Nasz AI analizuje PaĹ„stwa zapytanie...', 'ai');
-=======
             addMessage('Dziękujemy za wiadomość! Nasz AI analizuje Państwa zapytanie...', 'ai');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           }, 1000);
           chatInput.value = '';
         }
@@ -280,15 +178,9 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
       
       const bubble = document.createElement('div');
       bubble.className = `rounded-lg px-4 py-2 max-w-xs ${
-<<<<<<< HEAD
-        sender === 'user' ? 'bg-slate-600' : 'bg-blue-600'
-      }`;
-      bubble.innerHTML = `<p class="text-sm">${text}</p>`;
-=======
         sender === 'user' ? 'bg-[#333333] text-[#e0e0e0]' : 'bg-[#00ffff] text-[#0a0a0a]'
       }`;
       bubble.innerHTML = `<p class="text-sm font-semibold">${text}</p>`;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       
       messageDiv.appendChild(bubble);
       if (chatContainer) {
@@ -298,13 +190,3 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
     }
   });
 </script>
-<<<<<<< HEAD
-
-<style>
-  body {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-  }
-</style>
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

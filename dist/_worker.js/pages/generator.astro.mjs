@@ -1,18 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$Layout } from '../chunks/Layout_CL3qsB8O.mjs';
-import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_DoH26EBh.mjs';
-import { a as reactExports } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_CuqLrlqZ.mjs';
-import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_DoH26EBh.mjs';
-import { d as reactExports } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+import { $ as $$Layout } from '../chunks/Layout_DHHm2gNj.mjs';
+import { j as jsxRuntimeExports } from '../chunks/jsx-runtime_P7Q4nCJZ.mjs';
+import { d as reactExports } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 function StableDiffusionGenerator() {
   const [prompt, setPrompt] = reactExports.useState("");
@@ -54,11 +46,7 @@ function StableDiffusionGenerator() {
   }, []);
   const handleGenerate = async () => {
     if (!prompt.trim()) {
-<<<<<<< HEAD
-      alert("Wprowad┼║ prompt przed generowaniem!");
-=======
       alert("Wprowadź prompt przed generowaniem!");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       return;
     }
     setIsLoading(true);
@@ -102,11 +90,7 @@ function StableDiffusionGenerator() {
       }, ...prev.slice(0, 9)]);
     } catch (error) {
       console.error("Error generating image:", error);
-<<<<<<< HEAD
-      alert("B┼é─ůd podczas generowania obrazu");
-=======
       alert("Błąd podczas generowania obrazu");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     } finally {
       setIsLoading(false);
     }
@@ -135,11 +119,7 @@ function StableDiffusionGenerator() {
               className: "input-glossy w-full h-24 resize-none",
               value: prompt,
               onChange: (e) => setPrompt(e.target.value),
-<<<<<<< HEAD
-              placeholder: "Opisz obraz kt├│ry chcesz wygenerowa─ç..."
-=======
               placeholder: "Opisz obraz który chcesz wygenerować..."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
           )
         ] }),
@@ -161,11 +141,7 @@ function StableDiffusionGenerator() {
             {
               className: "scifi-btn text-sm py-2",
               onClick: () => setPrompt(""),
-<<<<<<< HEAD
-              children: "WYCZYSC"
-=======
               children: "WYCZYŚĆ"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
           ),
           /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -191,11 +167,7 @@ function StableDiffusionGenerator() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "neon-magenta sci-fi-type text-lg font-bold mb-3", children: "WILDCARDS" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-3", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-<<<<<<< HEAD
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm font-bold mb-2 neon-white", children: "ARTY┼ÜCI:" }),
-=======
             /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm font-bold mb-2 neon-white", children: "ARTYŚCI:" }),
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap gap-1", children: wildcards.artists.slice(0, 6).map((artist, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
               "button",
               {
@@ -225,11 +197,7 @@ function StableDiffusionGenerator() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel main-frame", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "neon-cyan sci-fi-type text-xl font-bold mb-4", children: "WYGENEROWANY OBRAZ" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "relative bg-black/30 border border-white/20 rounded-lg aspect-square flex items-center justify-center", children: isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "loading-pulse neon-cyan sci-fi-type text-center", children: [
-<<<<<<< HEAD
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-2", children: "❌" }),
-=======
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl mb-2", children: "●" }),
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "PROCESSING..." })
         ] }) : image ? /* @__PURE__ */ jsxRuntimeExports.jsx(
           "img",
@@ -239,11 +207,7 @@ function StableDiffusionGenerator() {
             className: "max-w-full max-h-full rounded-lg"
           }
         ) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center neon-white opacity-60", children: [
-<<<<<<< HEAD
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl mb-4", children: "✅" }),
-=======
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl mb-4", children: "◯" }),
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "sci-fi-type", children: "BRAK OBRAZU" })
         ] }) }),
         image && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-4 flex gap-2", children: [
@@ -261,11 +225,7 @@ function StableDiffusionGenerator() {
             {
               className: "scifi-btn flex-1 py-2",
               onClick: () => setImage(null),
-<<<<<<< HEAD
-              children: "USU┼â"
-=======
               children: "USUŃ"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             }
           )
         ] })
@@ -274,11 +234,7 @@ function StableDiffusionGenerator() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "neon-magenta sci-fi-type text-lg font-bold mb-3", children: "USTAWIENIA" }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-4", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-<<<<<<< HEAD
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "block text-xs font-bold mb-1 neon-white", children: "SZEROKOSC" }),
-=======
             /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "block text-xs font-bold mb-1 neon-white", children: "SZEROKOŚĆ" }),
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "select",
               {
@@ -294,11 +250,7 @@ function StableDiffusionGenerator() {
             )
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-<<<<<<< HEAD
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "block text-xs font-bold mb-1 neon-white", children: "WYSOKOSC" }),
-=======
             /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "block text-xs font-bold mb-1 neon-white", children: "WYSOKOŚĆ" }),
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             /* @__PURE__ */ jsxRuntimeExports.jsxs(
               "select",
               {
@@ -361,19 +313,11 @@ const $$Generator = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "AI Image Generator - Stable Diffusion" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="container mx-auto px-4 py-8"> <div class="text-center mb-8"> <h1 class="neon-cyan sci-fi-type text-4xl font-bold mb-4">
 STABLE DIFFUSION GENERATOR
 </h1> <p class="neon-white sci-fi-type text-lg opacity-80">
-<<<<<<< HEAD
-Zaawansowany generator obraz├│w AI z interfejsem cyberpunk
+Zaawansowany generator obrazów AI z interfejsem cyberpunk
 </p> </div> ${renderComponent($$result2, "StableDiffusionGenerator", StableDiffusionGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/StableDiffusionGenerator.jsx", "client:component-export": "default" })} </div> ` })}`;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/generator.astro", void 0);
 
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/generator.astro";
-=======
-Zaawansowany generator obrazów AI z interfejsem cyberpunk
-</p> </div> ${renderComponent($$result2, "StableDiffusionGenerator", StableDiffusionGenerator, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/StableDiffusionGenerator.jsx", "client:component-export": "default" })} </div> ` })}`;
-}, "Q:/mybonzo/mybonzo-github/src/pages/generator.astro", void 0);
-
-const $$file = "Q:/mybonzo/mybonzo-github/src/pages/generator.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const $$url = "/generator";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

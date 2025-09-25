@@ -1,29 +1,12 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BgZWjcZU.mjs';
-/* empty css                                                       */
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-
-const $$Astro = createAstro("https://mybonzo.com");
-const $$ZaawansowaneFunkcjeAiNew = createComponent(($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
-  Astro2.self = $$ZaawansowaneFunkcjeAiNew;
-  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Zaawansowane Funkcje AI | KAROL LISSON", "description": "System 9 zaawansowanych funkcji AI - automatyzacja biznesu, marketing, obs\u0139\u201Auga klienta, analityka i rekomendacje", "data-astro-cid-3ri53yby": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-3ri53yby": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-3ri53yby> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-3ri53yby> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-3ri53yby></div> <div class="cyber-grid absolute inset-0" data-astro-cid-3ri53yby></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-3ri53yby> <div class="max-w-6xl mx-auto px-4 py-12" data-astro-cid-3ri53yby> <div class="text-center mb-12" data-astro-cid-3ri53yby> <h1 class="text-5xl md:text-6xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']" data-astro-cid-3ri53yby>
-Zaawansowane Funkcje AI
-</h1> <p class="text-[#a0a0a0] text-xl font-['Kenyan_Coffee'] max-w-4xl mx-auto" data-astro-cid-3ri53yby>
-Kompleksowy system 9 funkcji AI do automatyzacji biznesu,
-            marketingu, obsĹ‚ugi klienta i analityki
-=======
 /* empty css                                  */
 import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DdWhmxse.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_cAs3q6CP.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_3AZ5KuQd.mjs';
 /* empty css                                                       */
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 
-const $$Astro = createAstro("https://www.mybonzo.com");
+const $$Astro = createAstro("https://mybonzo.com");
 const $$ZaawansowaneFunkcjeAiNew = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ZaawansowaneFunkcjeAiNew;
@@ -32,71 +15,11 @@ Zaawansowane Funkcje AI
 </h1> <p class="text-[#a0a0a0] text-xl font-['Kenyan_Coffee'] max-w-4xl mx-auto" data-astro-cid-3ri53yby>
 Kompleksowy system 9 funkcji AI do automatyzacji biznesu,
             marketingu, obsługi klienta i analityki
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 </p> <div class="mt-6 flex justify-center items-center gap-4" data-astro-cid-3ri53yby> <div class="px-4 py-2 bg-[#00ffff]/10 border border-[#00ffff]/30 text-[#00ffff] font-['Neuropol'] uppercase text-sm" data-astro-cid-3ri53yby>
 9 Funkcji Active
 </div> <div class="px-4 py-2 bg-green-500/10 border border-green-500/30 text-green-400 font-['Neuropol'] uppercase text-sm" data-astro-cid-3ri53yby>
 OpenAI Powered
 </div> </div> </div> <!-- Navigation Links --> <div class="mb-8" data-astro-cid-3ri53yby> <a href="/" class="inline-flex items-center px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-3ri53yby>
-<<<<<<< HEAD
-â† PowrĂłt do gĹ‚Ăłwnej
-</a> </div> </div> </section> <!-- AI Functions Grid --> <section class="relative z-20 py-16" data-astro-cid-3ri53yby> <div class="max-w-7xl mx-auto px-4" data-astro-cid-3ri53yby> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-astro-cid-3ri53yby> <!-- Function 1: Marketing Content --> <a href="/ai-functions/marketing-content" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đź“ť</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Generator TreĹ›ci
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Marketing & Content</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Automatyczne generowanie profesjonalnych treĹ›ci marketingowych
-                przy uĹĽyciu AI
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>GPT-4</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Social Media</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>E-mail</span> </div> </div> </a> <!-- Function 2: Recommendations --> <a href="/ai-functions/personalized-recommendations" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đźŽŻ</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Rekomendacje
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Personalization & ML</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-System rekomendacji produktĂłw i usĹ‚ug oparty na preferencjach
-                uĹĽytkownika
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>ML</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Analytics</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Real-time</span> </div> </div> </a> <!-- Function 3: Customer Automation --> <a href="/ai-functions/customer-automation" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đź¤–</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-ObsĹ‚uga Klienta
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Automation & Support</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Automatyzacja obsĹ‚ugi klienta z NLP i kwalifikacjÄ… leadĂłw
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>NLP</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>24/7</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>CRM</span> </div> </div> </a> <!-- Function 4: Activity Monitoring --> <a href="/ai-functions/activity-monitoring" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đź“Š</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Monitorowanie
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Analytics & Tracking</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Dashboard monitorowania aktywnoĹ›ci w czasie rzeczywistym
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Real-time</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Alerts</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Logs</span> </div> </div> </a> <!-- Function 5: Reminders & Calendar --> <a href="/ai-functions/reminders-calendar" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đź“…</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Harmonogramowanie
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Calendar & Reminders</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Inteligentny system przypominaĹ„ z AI scheduling
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Calendar</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Smart AI</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Sync</span> </div> </div> </a> <!-- Function 6: Dynamic FAQ --> <a href="/ai-functions/dynamic-faq" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>âť“</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Dynamiczne FAQ
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Knowledge Base & AI</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-AI automatycznie generuje FAQ z bazy wiedzy
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Auto-Gen</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Learning</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Voice</span> </div> </div> </a> <!-- Function 7: Education Recommendations --> <a href="/ai-functions/education-recommendations" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đźŽ“</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Edukacja
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Learning & Development</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Personalizowane Ĺ›cieĹĽki rozwoju dla pracownikĂłw
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Learning</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Skills</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Paths</span> </div> </div> </a> <!-- Function 8: AI Tickets --> <a href="/ai-functions/ai-tickets" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đźŽ«</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Tickety AI
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Support & Management</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Automatyczna klasyfikacja i priorytetyzacja ticketĂłw
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Auto-Route</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>SLA</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Priority</span> </div> </div> </a> <!-- Function 9: Interactive Quizzes --> <a href="/ai-functions/interactive-quizzes" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>đź§ </span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
-Quizy AI
-</h3> <p class="text-sm text-[#a0a0a0]" data-astro-cid-3ri53yby>Testing & Assessment</p> </div> </div> <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4" data-astro-cid-3ri53yby>
-Framework do tworzenia quizĂłw z AI ocenÄ…
-</p> <div class="flex flex-wrap gap-2" data-astro-cid-3ri53yby> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>AI Scoring</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Adaptive</span> <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>Feedback</span> </div> </div> </a> </div> </div> </section> <!-- Technology Stack --> <section class="relative z-20 py-16 border-t border-[#333333]" data-astro-cid-3ri53yby> <div class="max-w-6xl mx-auto px-4" data-astro-cid-3ri53yby> <h2 class="text-3xl font-bold text-[#00ffff] mb-8 text-center uppercase tracking-wider font-['Neuropol']" data-astro-cid-3ri53yby>
-Technologie i Integracje
-</h2> <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" data-astro-cid-3ri53yby> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>đź¤–</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-OpenAI GPT-4
-</div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>âšˇ</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-Cloudflare Workers
-</div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>đźš€</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-Astro Framework
-</div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>đź“Š</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-Real-time Analytics
-</div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>đź”—</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-API Integration
-</div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>đź›ˇď¸Ź</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
-Enterprise Security
-</div> </div> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro", void 0);
-
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro";
-=======
 ← Powrót do głównej
 </a> </div> </div> </section> <!-- AI Functions Grid --> <section class="relative z-20 py-16" data-astro-cid-3ri53yby> <div class="max-w-7xl mx-auto px-4" data-astro-cid-3ri53yby> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-astro-cid-3ri53yby> <!-- Function 1: Marketing Content --> <a href="/ai-functions/marketing-content" class="group" data-astro-cid-3ri53yby> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full" data-astro-cid-3ri53yby> <div class="flex items-center mb-4" data-astro-cid-3ri53yby> <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4" data-astro-cid-3ri53yby> <span class="text-2xl" data-astro-cid-3ri53yby>📝</span> </div> <div data-astro-cid-3ri53yby> <h3 class="text-xl font-bold text-[#00ffff] font-['Neuropol'] uppercase" data-astro-cid-3ri53yby>
 Generator Treści
@@ -151,10 +74,9 @@ API Integration
 </div> </div> <div class="p-4 bg-[#111111] border border-[#333333] glass-effect text-center" data-astro-cid-3ri53yby> <div class="text-2xl mb-2" data-astro-cid-3ri53yby>🛡️</div> <div class="text-[#00ffff] font-['Neuropol'] text-sm uppercase" data-astro-cid-3ri53yby>
 Enterprise Security
 </div> </div> </div> </div> </section> </main> ` })} `;
-}, "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai-new.astro", void 0);
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro", void 0);
 
-const $$file = "Q:/mybonzo/mybonzo-github/src/pages/zaawansowane-funkcje-ai-new.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai-new.astro";
 const $$url = "/zaawansowane-funkcje-ai-new";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

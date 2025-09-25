@@ -16,28 +16,16 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-<<<<<<< HEAD
-    "@astrojs/cloudflare": "^12.6.9",
-=======
     "@astrojs/cloudflare": "^12.6.7",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     "@astrojs/mdx": "^4.3.4",
     "@astrojs/react": "^4.3.1",
     "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "^3.5.1",
-<<<<<<< HEAD
-    "@astrojs/svelte": "^7.1.1",
-    "@babylonjs/core": "^8.26.2",
-    "@chatscope/chat-ui-kit-react": "^2.1.1",
-    "@chatscope/chat-ui-kit-styles": "^1.4.0",
-    "@google-cloud/speech": "^7.2.0",
-=======
     "@astrojs/svelte": "^7.1.0",
     "@astrojs/tailwind": "^6.0.2",
     "@babylonjs/core": "^8.26.2",
     "@chatscope/chat-ui-kit-react": "^2.1.1",
     "@chatscope/chat-ui-kit-styles": "^1.4.0",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     "@heroicons/react": "^2.2.0",
     "@iconify-json/feather": "^1.2.1",
     "@iconify-json/heroicons": "^1.2.2",
@@ -46,46 +34,18 @@
     "@iconify-json/streamline": "^1.2.5",
     "@iconify-json/tabler": "^1.2.22",
     "@phosphor-icons/react": "^2.1.10",
-<<<<<<< HEAD
-    "@sofidevo/astro-dynamic-header": "^1.0.19",
     "@tabler/icons-react": "^3.34.1",
-    "@tailwindcss/vite": "^4.1.12",
-    "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.9",
-    "@xenova/transformers": "^2.17.2",
-=======
-    "@tabler/icons-react": "^3.34.1",
-    "@types/react": "^19.1.12",
-    "@types/react-dom": "^19.1.9",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
     "astro": "^5.13.5",
     "clsx": "^2.1.1",
     "feather-icons": "^4.29.2",
     "lucide-react": "^0.539.0",
     "nanostores": "^0.11.4",
     "openai": "^5.16.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-markdown": "^10.1.0",
-<<<<<<< HEAD
-    "svelte": "^5.38.10",
-    "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5.9.2"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250906.0",
-    "@tailwindcss/typography": "^0.5.16",
-    "wrangler": "^4.21.0"
-  },
-  "scripts": {
-    "astro": "astro",
-    "build": "astro build",
-    "cf-typegen": "wrangler types",
-    "check": "astro build && tsc",
-    "deploy": "wrangler pages deploy ./dist",
-    "dev": "astro dev",
-=======
     "svelte": "^5.22.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^3.4.17",
@@ -112,7 +72,6 @@
     "deploy": "wrangler pages deploy ./dist",
     "dev": "npm run build:agents && astro dev",
     "dev:ai": "node dev-with-ai.mjs",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     "preview": "astro build && wrangler dev",
     "generate-types": "wrangler types",
     "deploy:workflows": "node scripts/deployWorkflows.js",
@@ -129,16 +88,12 @@
     "test:homepage": "node src/tests/homepage-audio.test.js",
     "test:all": "node scripts/run-tests-with-dev.js",
     "fetch:patterns": "node scripts/fetch-context7-patterns.js",
-<<<<<<< HEAD
-    "resetComponents": ""
-=======
     "resetComponents": "",
     "build:analyze": "npm run build && node scripts/optimize-build.js",
     "build:optimized": "ANALYZE=true npm run build",
     "analyze": "node scripts/optimize-build.js",
     "build:fast": "npm run build:agents && astro build --skip-type-check",
     "build:analyze:fast": "npm run build:fast && node scripts/optimize-build.js"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   },
   "type": "module"
 }

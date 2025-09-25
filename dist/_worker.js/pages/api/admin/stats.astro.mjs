@@ -1,36 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-
-async function GET({ request }) {
-  const auth = request.headers.get("authorization") || "";
-  const isDemoAuth = auth.includes("HAOS77");
-  const stats = {
-    // Oczekiwane przez AdminDashboard PanelStats
-    visitors: 12540,
-    queries: 3247,
-    uptime: formatUptime(3 * 24 * 60 * 60 * 1e3 + 6 * 60 * 60 * 1e3 + 12 * 60 * 1e3),
-    // "3:06:12"
-    responseTime: 142,
-    storage: 18.4,
-    // GB
-    bandwidth: 92.7,
-    // GB
-    // Oczekiwane przez sekcję quick-stats w admin.astro
-    totalAPIRequests: 3247,
-    errorAPIRequests: 6,
-    // Stary kształt (zgodność wsteczna)
-    totalVisitors: 12540,
-    activeUsers: 42,
-    openTickets: 11,
-    systemLoad: 63,
-    timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-    // Flaga informacyjna
-    demoAuth: isDemoAuth
-  };
-  return json(stats);
-=======
-export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 async function GET({ request }) {
   const auth = request.headers.get("authorization") || "";
@@ -218,7 +187,6 @@ async function getRealAPIMetrics() {
       errorRequests: 6
     };
   }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 function formatUptime(ms) {
   const seconds = Math.floor(ms / 1e3);

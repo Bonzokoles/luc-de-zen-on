@@ -141,11 +141,10 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
     }
   };
 
-  // Enhanced Google Cloud Text-to-Speech z auto-odpowiadaniem
+  // Enhanced Google Cloud Text-to-Speech
   const speakWithGoogleTTS = async (text: string) => {
     try {
       setIsSpeaking(true);
-      console.log('🔊 Agent rozpoczyna mówienie:', text.substring(0, 50) + '...');
       
       const response = await fetch('/api/google-cloud/text-to-speech', {
         method: 'POST',
@@ -163,31 +162,17 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
         
-        // Jeśli API zwraca informację o tym, że powinien użyć Web Speech API
-        if (data.shouldSpeak || data.fallbackToWebSpeech) {
-          console.log('🎯 Używam Web Speech API dla odpowiedzi agenta');
-          return speakWithWebAPI(text);
-        }
+        const audio = new Audio(audioUrl);
+        audio.onended = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+        };
         
-        // Próba dekodowania audio blob (jeśli dostępne)
-        try {
-          const audioBlob = await response.blob();
-          const audioUrl = URL.createObjectURL(audioBlob);
-          
-          const audio = new Audio(audioUrl);
-          audio.onended = () => {
-            setIsSpeaking(false);
-            URL.revokeObjectURL(audioUrl);
-          };
-          
-          await audio.play();
-          return audioUrl;
-        } catch {
-          // Fallback if blob parsing fails
-          return speakWithWebAPI(text);
-        }
+        await audio.play();
+        return audioUrl;
       } else {
         // Fallback to Web Speech API
         return speakWithWebAPI(text);
@@ -245,34 +230,24 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         
         addMessage('assistant', aiResponse, new Date());
         
-        // AUTOMATYCZNIE ODTWÓRZ ODPOWIEDŹ AGENTA GŁOSEM
-        console.log('🎤 Agent odpowiada:', aiResponse);
+        // Speak the response
+        const audioUrl = await speakWithGoogleTTS(aiResponse);
         
-        // Natychmiast rozpocznij syntezę mowy agenta
-        setTimeout(async () => {
-          const audioUrl = await speakWithGoogleTTS(aiResponse);
-          
-          // Update the message with audio URL if available
-          if (audioUrl) {
-            setConversationHistory(prev => 
-              prev.map(msg => 
-                msg.text === aiResponse && msg.type === 'assistant' 
-                  ? { ...msg, audioUrl, autoPlayed: true }
-                  : msg
-              )
-            );
-          }
-        }, 200); // Małe opóźnienie dla lepszego UX
+        // Update the message with audio URL if available
+        if (audioUrl) {
+          setConversationHistory(prev => 
+            prev.map(msg => 
+              msg.text === aiResponse && msg.type === 'assistant' 
+                ? { ...msg, audioUrl }
+                : msg
+            )
+          );
+        }
       }
     } catch (error) {
       console.error('AI Response Error:', error);
       const fallbackResponse = "Przepraszam, wystąpił problem z połączeniem. Spróbuj ponownie.";
       addMessage('assistant', fallbackResponse, new Date());
-      
-      // Również odtwórz fallback głosem
-      setTimeout(() => {
-        speakWithGoogleTTS(fallbackResponse);
-      }, 300);
       speakWithWebAPI(fallbackResponse);
     }
   };

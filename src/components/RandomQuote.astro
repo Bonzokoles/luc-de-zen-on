@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // Simple random quote component using a curated list with sources
 // Inspired by guidance from DO_QUOTES_1.md (komponenty/DO_QUOTES_1.md)
 
@@ -20,11 +16,7 @@ const quotes: Quote[] = [
   },
   {
     text: "I think, therefore I am.",
-<<<<<<< HEAD
-    author: "RenĂ© Descartes",
-=======
     author: "René Descartes",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     source: "https://en.wikipedia.org/wiki/Ren%C3%A9_Descartes",
   },
   {
@@ -43,11 +35,7 @@ const quotes: Quote[] = [
     source: "https://en.wikipedia.org/wiki/Friedrich_Nietzsche",
   },
   {
-<<<<<<< HEAD
-    text: "Granice mojego jÄ™zyka sÄ… granicami mojego Ĺ›wiata.",
-=======
     text: "Granice mojego języka są granicami mojego świata.",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     author: "Ludwig Wittgenstein",
     source: "https://en.wikipedia.org/wiki/Ludwig_Wittgenstein",
   },
@@ -57,11 +45,7 @@ const quotes: Quote[] = [
     source: "https://en.wikipedia.org/wiki/Isaac_Asimov",
   },
   {
-<<<<<<< HEAD
-    text: "CzĹ‚owiek jest tym, czym sÄ… jego decyzje.",
-=======
     text: "Człowiek jest tym, czym są jego decyzje.",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     author: "Frank Herbert (Dune)",
     source: "https://en.wikipedia.org/wiki/Dune_(novel)",
   },
@@ -74,19 +58,11 @@ const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
   {
     currentQuote.source ? (
       <a class="rq-quote" target="_blank" rel="noopener" href={currentQuote.source}>
-<<<<<<< HEAD
-        "{currentQuote.text}" <span class="rq-author">â€” {currentQuote.author}</span>
-      </a>
-    ) : (
-      <div class="rq-quote">
-        "{currentQuote.text}" <span class="rq-author">â€” {currentQuote.author}</span>
-=======
         "{currentQuote.text}" <span class="rq-author">— {currentQuote.author}</span>
       </a>
     ) : (
       <div class="rq-quote">
         "{currentQuote.text}" <span class="rq-author">— {currentQuote.author}</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </div>
     )
   }
@@ -114,7 +90,3 @@ const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
     font-size: 0.85em;
   }
 </style>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

@@ -1,20 +1,11 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import UniversalPageLayout from "../../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../../layouts/components/CyberpunkButton.astro";
 
 const pageTitle = "Panel Administracyjny MyBonzo";
-<<<<<<< HEAD
-const pageDescription = "Centrum kontroli i zarzÄ…dzania systemem MyBonzo AI";
-const pageQuote = "Z wielkÄ… mocÄ… idzie wielka odpowiedzialnoĹ›Ä‡.";
-=======
 const pageDescription = "Centrum kontroli i zarządzania systemem MyBonzo AI";
 const pageQuote = "Z wielką mocą idzie wielka odpowiedzialność.";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const pageAuthor = "Stan Lee";
 ---
 
@@ -27,35 +18,20 @@ const pageAuthor = "Stan Lee";
 >
     <!-- Login Section -->
     <div id="loginSection">
-<<<<<<< HEAD
-        <GlassPanel title="đź” Autoryzacja Administratora" variant="warning" padding="lg">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
-                    DostÄ™p tylko dla autoryzowanych administratorĂłw systemu MyBonzo
-=======
         <GlassPanel title="🔐 Autoryzacja Administratora" variant="warning" padding="lg">
             <div style="text-align: center; margin-bottom: 20px;">
                 <div style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">
                     Dostęp tylko dla autoryzowanych administratorów systemu MyBonzo
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </div>
             </div>
 
             <div style="max-width: 400px; margin: 0 auto;">
                 <div style="margin-bottom: 20px;">
-<<<<<<< HEAD
-                    <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">HasĹ‚o dostÄ™pu</label>
-                    <input 
-                        type="password" 
-                        id="adminPassword" 
-                        placeholder="WprowadĹş hasĹ‚o administratora..."
-=======
                     <label style="display: block; color: #00d9ff; font-weight: 600; margin-bottom: 8px;">Hasło dostępu</label>
                     <input 
                         type="password" 
                         id="adminPassword" 
                         placeholder="Wprowadź hasło administratora..."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         style="width: 100%; padding: 12px; background: rgba(0,0,0,0.6); border: 1px solid rgba(0,217,255,0.3); border-radius: 6px; color: white; font-size: 16px;"
                         onkeypress="handleEnterKey(event)"
                     />
@@ -63,11 +39,7 @@ const pageAuthor = "Stan Lee";
 
                 <div style="text-align: center;">
                     <CyberpunkButton 
-<<<<<<< HEAD
-                        text="đźš€ Zaloguj siÄ™" 
-=======
                         text="🚀 Zaloguj się" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="primary" 
                         size="lg"
                         onclick="checkPassword()"
@@ -75,11 +47,7 @@ const pageAuthor = "Stan Lee";
                 </div>
 
                 <div id="errorMessage" style="color: #ff4444; text-align: center; margin-top: 15px; display: none;">
-<<<<<<< HEAD
-                    NieprawidĹ‚owe hasĹ‚o! DostÄ™p zabroniony.
-=======
                     Nieprawidłowe hasło! Dostęp zabroniony.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </div>
             </div>
         </GlassPanel>
@@ -89,19 +57,11 @@ const pageAuthor = "Stan Lee";
     <div id="adminDashboard" style="display: none;">
         
         <!-- Admin Stats -->
-<<<<<<< HEAD
-        <GlassPanel title="đź“Š Status Systemu" variant="highlight" padding="lg">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
-                    <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">247</div>
-                    <div style="color: rgba(255,255,255,0.7);">Aktywni uĹĽytkownicy</div>
-=======
         <GlassPanel title="📊 Status Systemu" variant="highlight" padding="lg">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                     <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="activeUsers">247</div>
                     <div style="color: rgba(255,255,255,0.7);">Aktywni użytkownicy</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </div>
                 <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.3); border-radius: 8px; text-align: center;">
                     <div style="color: #00d9ff; font-size: 2rem; font-weight: 700;" id="totalRequests">12,384</div>
@@ -119,25 +79,12 @@ const pageAuthor = "Stan Lee";
         </GlassPanel>
 
         <!-- Admin Actions -->
-<<<<<<< HEAD
-        <GlassPanel title="âšˇ Szybkie Akcje" variant="default" padding="lg">
-=======
         <GlassPanel title="⚡ Szybkie Akcje" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                 
                 <!-- User Management -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź‘Ą ZarzÄ…dzanie uĹĽytkownikami
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        PrzeglÄ…daj, edytuj i zarzÄ…dzaj kontami uĹĽytkownikĂłw
-                    </p>
-                    <CyberpunkButton 
-                        text="ZarzÄ…dzaj uĹĽytkownikami" 
-=======
                         👥 Zarządzanie użytkownikami
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -145,7 +92,6 @@ const pageAuthor = "Stan Lee";
                     </p>
                     <CyberpunkButton 
                         text="Zarządzaj użytkownikami" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="outline" 
                         size="sm"
                         onclick="openUserManagement()"
@@ -155,17 +101,10 @@ const pageAuthor = "Stan Lee";
                 <!-- System Monitoring -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź“Š Monitoring systemu
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        Monitoruj wydajnoĹ›Ä‡ i logi systemowe
-=======
                         📊 Monitoring systemu
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
                         Monitoruj wydajność i logi systemowe
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </p>
                     <CyberpunkButton 
                         text="Zobacz monitoring" 
@@ -178,15 +117,6 @@ const pageAuthor = "Stan Lee";
                 <!-- AI Models Management -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź¤– Modele AI
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        Konfiguruj i zarzÄ…dzaj modelami sztucznej inteligencji
-                    </p>
-                    <CyberpunkButton 
-                        text="ZarzÄ…dzaj modelami" 
-=======
                         🤖 Modele AI
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -194,7 +124,6 @@ const pageAuthor = "Stan Lee";
                     </p>
                     <CyberpunkButton 
                         text="Zarządzaj modelami" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="outline" 
                         size="sm"
                         onclick="openAIModels()"
@@ -204,15 +133,6 @@ const pageAuthor = "Stan Lee";
                 <!-- Database Management -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź—„ď¸Ź Baza danych
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        ZarzÄ…dzaj bazÄ… danych i wykonuj kopie zapasowe
-                    </p>
-                    <CyberpunkButton 
-                        text="ZarzÄ…dzaj bazÄ…" 
-=======
                         🗄️ Baza danych
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -220,7 +140,6 @@ const pageAuthor = "Stan Lee";
                     </p>
                     <CyberpunkButton 
                         text="Zarządzaj bazą" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="outline" 
                         size="sm"
                         onclick="openDatabaseManagement()"
@@ -230,17 +149,10 @@ const pageAuthor = "Stan Lee";
                 <!-- Security Center -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź”’ Centrum bezpieczeĹ„stwa
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        Konfiguruj zabezpieczenia i kontrolÄ™ dostÄ™pu
-=======
                         🔒 Centrum bezpieczeństwa
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
                         Konfiguruj zabezpieczenia i kontrolę dostępu
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     </p>
                     <CyberpunkButton 
                         text="Zabezpieczenia" 
@@ -253,15 +165,6 @@ const pageAuthor = "Stan Lee";
                 <!-- API Management -->
                 <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;">
                     <h3 style="color: #00d9ff; margin-bottom: 15px; display: flex; align-items: center;">
-<<<<<<< HEAD
-                        đź”Ś API Management
-                    </h3>
-                    <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-                        ZarzÄ…dzaj kluczami API i limitami zapytaĹ„
-                    </p>
-                    <CyberpunkButton 
-                        text="ZarzÄ…dzaj API" 
-=======
                         🔌 API Management
                     </h3>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
@@ -269,7 +172,6 @@ const pageAuthor = "Stan Lee";
                     </p>
                     <CyberpunkButton 
                         text="Zarządzaj API" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                         variant="outline" 
                         size="sm"
                         onclick="openAPIManagement()"
@@ -279,11 +181,7 @@ const pageAuthor = "Stan Lee";
         </GlassPanel>
 
         <!-- Recent Activity -->
-<<<<<<< HEAD
-        <GlassPanel title="đź• Ostatnia aktywnoĹ›Ä‡" variant="default" padding="lg">
-=======
         <GlassPanel title="🕐 Ostatnia aktywność" variant="default" padding="lg">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             <div style="max-height: 300px; overflow-y: auto;">
                 <div id="activityLog" style="space-y: 10px;">
                     <!-- Activity items will be loaded here -->
@@ -291,11 +189,7 @@ const pageAuthor = "Stan Lee";
             </div>
             <div style="text-align: center; margin-top: 20px;">
                 <CyberpunkButton 
-<<<<<<< HEAD
-                    text="OdĹ›wieĹĽ logi" 
-=======
                     text="Odśwież logi" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                     variant="outline" 
                     size="sm"
                     onclick="refreshActivityLog()"
@@ -306,13 +200,8 @@ const pageAuthor = "Stan Lee";
         <!-- Logout -->
         <div style="text-align: center; margin-top: 30px;">
             <CyberpunkButton 
-<<<<<<< HEAD
-                text="đźšŞ Wyloguj siÄ™" 
-                variant="danger" 
-=======
                 text="🚪 Wyloguj się" 
                 variant="outline" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 size="md"
                 onclick="logout()"
             />
@@ -320,25 +209,6 @@ const pageAuthor = "Stan Lee";
     </div>
 
     <script>
-<<<<<<< HEAD
-        // Admin password - HAOS77
-        const ADMIN_PASSWORD = "HAOS77";
-
-        function checkPassword() {
-            const password = document.getElementById('adminPassword').value;
-            const errorMessage = document.getElementById('errorMessage');
-            
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginSection').style.display = 'none';
-                document.getElementById('adminDashboard').style.display = 'block';
-                loadDashboardData();
-            } else {
-                errorMessage.style.display = 'block';
-                setTimeout(() => {
-                    errorMessage.style.display = 'none';
-                }, 3000);
-            }
-=======
         async function checkPassword() {
             const password = document.getElementById('adminPassword').value;
             const errorMessage = document.getElementById('errorMessage');
@@ -381,7 +251,6 @@ const pageAuthor = "Stan Lee";
             setTimeout(() => {
                 errorMessage.style.display = 'none';
             }, 3000);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function handleEnterKey(event) {
@@ -391,18 +260,13 @@ const pageAuthor = "Stan Lee";
         }
 
         function logout() {
-<<<<<<< HEAD
-=======
             // Clear session
             localStorage.removeItem('adminSession');
             
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             document.getElementById('adminDashboard').style.display = 'none';
             document.getElementById('loginSection').style.display = 'block';
             document.getElementById('adminPassword').value = '';
         }
-<<<<<<< HEAD
-=======
         
         // Check if user is already logged in on page load
         window.addEventListener('load', function() {
@@ -414,7 +278,6 @@ const pageAuthor = "Stan Lee";
                 loadDashboardData();
             }
         });
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
         function loadDashboardData() {
             // Simulate real-time data updates
@@ -425,14 +288,6 @@ const pageAuthor = "Stan Lee";
             setInterval(updateStats, 30000);
         }
 
-<<<<<<< HEAD
-        function updateStats() {
-            // Simulate live data
-            document.getElementById('activeUsers').textContent = Math.floor(Math.random() * 100) + 200;
-            document.getElementById('totalRequests').textContent = (Math.floor(Math.random() * 5000) + 10000).toLocaleString();
-            document.getElementById('systemUptime').textContent = (99.5 + Math.random() * 0.5).toFixed(1) + '%';
-            document.getElementById('aiModels').textContent = Math.floor(Math.random() * 5) + 12;
-=======
         async function updateStats() {
             try {
                 // Pobieranie prawdziwych danych z API
@@ -465,26 +320,16 @@ const pageAuthor = "Stan Lee";
                 document.getElementById('systemUptime').textContent = 'N/A';
                 document.getElementById('aiModels').textContent = 'N/A';
             }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function loadActivityLog() {
             const activities = [
-<<<<<<< HEAD
-                { time: "14:23", action: "Nowy uĹĽytkownik zarejestrowany", type: "info" },
-                { time: "14:18", action: "Model AI aktualizowany", type: "success" },
-                { time: "14:15", action: "Backup bazy danych zakoĹ„czony", type: "success" },
-                { time: "14:12", action: "Alert bezpieczeĹ„stwa - podejrzana aktywnoĹ›Ä‡", type: "warning" },
-                { time: "14:08", action: "API call limit przekroczony dla IP: 192.168.1.100", type: "warning" },
-                { time: "14:05", action: "System restart zakoĹ„czony pomyĹ›lnie", type: "success" }
-=======
                 { time: "14:23", action: "Nowy użytkownik zarejestrowany", type: "info" },
                 { time: "14:18", action: "Model AI aktualizowany", type: "success" },
                 { time: "14:15", action: "Backup bazy danych zakończony", type: "success" },
                 { time: "14:12", action: "Alert bezpieczeństwa - podejrzana aktywność", type: "warning" },
                 { time: "14:08", action: "API call limit przekroczony dla IP: 192.168.1.100", type: "warning" },
                 { time: "14:05", action: "System restart zakończony pomyślnie", type: "success" }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             ];
 
             const logContainer = document.getElementById('activityLog');
@@ -502,11 +347,7 @@ const pageAuthor = "Stan Lee";
             switch(type) {
                 case 'success': return '#22c55e';
                 case 'warning': return '#f59e0b';
-<<<<<<< HEAD
-                case 'error': return '#ef4444';
-=======
                 case 'error': return '#f59e0b';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 default: return '#00d9ff';
             }
         }
@@ -517,11 +358,7 @@ const pageAuthor = "Stan Lee";
 
         // Quick action functions
         function openUserManagement() {
-<<<<<<< HEAD
-            alert('đźš§ ModuĹ‚ zarzÄ…dzania uĹĽytkownikami w przygotowaniu...');
-=======
             alert('🚧 Moduł zarządzania użytkownikami w przygotowaniu...');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         function openSystemMonitoring() {
@@ -533,17 +370,6 @@ const pageAuthor = "Stan Lee";
         }
 
         function openDatabaseManagement() {
-<<<<<<< HEAD
-            alert('đźš§ ModuĹ‚ zarzÄ…dzania bazÄ… danych w przygotowaniu...');
-        }
-
-        function openSecurityCenter() {
-            alert('đźš§ Centrum bezpieczeĹ„stwa w przygotowaniu...');
-        }
-
-        function openAPIManagement() {
-            alert('đźš§ ZarzÄ…dzanie API w przygotowaniu...');
-=======
             alert('🚧 Moduł zarządzania bazą danych w przygotowaniu...');
         }
 
@@ -553,7 +379,6 @@ const pageAuthor = "Stan Lee";
 
         function openAPIManagement() {
             alert('🚧 Zarządzanie API w przygotowaniu...');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         // Initialize on load
@@ -562,8 +387,4 @@ const pageAuthor = "Stan Lee";
             document.getElementById('adminPassword').focus();
         });
     </script>
-<<<<<<< HEAD
 </UniversalPageLayout>
-=======
-</UniversalPageLayout>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

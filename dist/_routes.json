@@ -5,13 +5,6 @@
   ],
   "exclude": [
     "/_astro/*",
-<<<<<<< HEAD
-    "/apple-touch-icon.png",
-    "/favicon.svg",
-    "/manifest.json",
-    "/site-thumbnail.png",
-    "/sw.js"
-=======
     "/.assetsignore",
     "/agents-bundle.js",
     "/agents-bundle.min.js",
@@ -57,6 +50,5 @@
     "/agents/bielik",
     "/agents/assistant",
     "/chat/*"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   ]
 }

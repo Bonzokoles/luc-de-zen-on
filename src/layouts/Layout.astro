@@ -1,34 +1,4 @@
 ---
-<<<<<<< HEAD
-import Head from "../components/Head.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-// Import polyfills for Cloudflare Workers compatibility
-import "../utils/polyfills.js";
-
-interface Props {
-  siteTitle: string;
-  siteDescription: string;
-  headerCosmeticText: string;
-}
-
-const { siteTitle, siteDescription, headerCosmeticText } = Astro.props;
----
-
-<!doctype html>
-<html lang="en" class="bg-primary">
-  <head>
-    <Head pageTitle={siteTitle} pageDescription={siteDescription} />
-  </head>
-  <body class="bg-cyber-dark text-cyber-text font-sans">
-    <main class="min-h-svh">
-      <Header cosmeticText={headerCosmeticText} />
-      <slot />
-      <Footer />
-    </main>
-    <!-- Frontend API Fix for Music and POLACZEK APIs -->
-    <script is:inline src="/frontend-api-fix.js"></script>
-=======
 export interface Props {
   title: string;
 }
@@ -362,6 +332,5 @@ const { title } = Astro.props;
   </head>
   <body>
     <slot />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </body>
 </html>

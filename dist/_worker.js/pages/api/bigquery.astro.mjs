@@ -1,22 +1,13 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { c as createOPTIONSHandler } from '../../chunks/corsUtils_BJuaHVI9.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 import { c as createOPTIONSHandler } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const GET = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
     const query = url.searchParams.get("query") || "SELECT 1 as test";
-<<<<<<< HEAD
-    const env = locals.runtime?.env;
-=======
     const runtime = locals?.runtime;
     const env = runtime?.env;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
     const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
     if (!projectId || !serviceAccountKey) {
@@ -37,23 +28,6 @@ const GET = async ({ request, locals }) => {
         }
       });
     }
-<<<<<<< HEAD
-    return new Response(JSON.stringify({
-      status: "error",
-      service: "BigQuery",
-      error: "Implementacja BigQuery wymaga Google Cloud SDK",
-      message: "Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library",
-      projectId,
-      query,
-      note: "Skonfiguruj Google Cloud BigQuery SDK dla pełnej funkcjonalności"
-    }), {
-      status: 501,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
-=======
     try {
       const serviceAccount = JSON.parse(serviceAccountKey);
       const header = {
@@ -110,7 +84,6 @@ const GET = async ({ request, locals }) => {
         }
       });
     }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   } catch (error) {
     return new Response(JSON.stringify({
       status: "error",
@@ -129,12 +102,8 @@ const POST = async ({ request, locals }) => {
   try {
     const body = await request.json();
     const { query, dataset } = body;
-<<<<<<< HEAD
-    const env = locals.runtime?.env;
-=======
     const runtime = locals?.runtime;
     const env = runtime?.env;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
     const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
     if (!projectId || !serviceAccountKey) {
@@ -154,25 +123,6 @@ const POST = async ({ request, locals }) => {
         }
       });
     }
-<<<<<<< HEAD
-    return new Response(JSON.stringify({
-      status: "error",
-      service: "BigQuery",
-      operation: "query_execution",
-      error: "Implementacja BigQuery wymaga Google Cloud SDK",
-      message: "Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library",
-      projectId,
-      query,
-      dataset: dataset || "analytics",
-      note: "Skonfiguruj Google Cloud BigQuery SDK i biblioteki dla pełnej funkcjonalności"
-    }), {
-      status: 501,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
-=======
     try {
       const serviceAccount = JSON.parse(serviceAccountKey);
       const sampleResults = generateSampleResults(query, dataset);
@@ -212,7 +162,6 @@ const POST = async ({ request, locals }) => {
         }
       });
     }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   } catch (error) {
     return new Response(JSON.stringify({
       status: "error",
@@ -228,8 +177,6 @@ const POST = async ({ request, locals }) => {
   }
 };
 const OPTIONS = createOPTIONSHandler(["GET", "POST", "OPTIONS"]);
-<<<<<<< HEAD
-=======
 function generateSampleResults(query, dataset) {
   const lowerQuery = query.toLowerCase();
   if (lowerQuery.includes("users") || lowerQuery.includes("user")) {
@@ -276,7 +223,6 @@ function generateSampleResults(query, dataset) {
     ]
   };
 }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,

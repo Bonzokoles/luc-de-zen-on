@@ -10,7 +10,7 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import { VoiceAIComponent } from "../components/voice-ai/VoiceAIComponent.tsx";
+import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
 import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
@@ -30,15 +30,7 @@ import {
   ChatBubbleLeftRightIcon,
   ArrowPathIcon,
   FolderIcon,
-  XMarkIcon,
-  ArchiveBoxIcon,
-  CalendarDaysIcon,
-  WrenchScrewdriverIcon,
-  FolderPlusIcon,
-  ListBulletIcon,
-  BookOpenIcon,
-  StarIcon,
-  RocketLaunchIcon
+  XMarkIcon
 } from '@heroicons/react/24/outline';
 ---
 
@@ -51,24 +43,24 @@ import {
 
   <main class="min-h-svh">
     <!-- Top Separator Section -->
-    <section class="border border-edge relative z-[1]">
+    <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -78,24 +70,24 @@ import {
     </section>
 
     <!-- Header Section -->
-    <section class="border border-edge relative z-[1]">
+    <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -150,24 +142,24 @@ import {
     </section>
 
     <!-- Header-Navigation Separator -->
-    <section class="border border-edge relative z-[1]">
+    <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -177,24 +169,24 @@ import {
     </section>
 
     <!-- Navigation Section -->
-    <section class="border border-edge relative z-[1]">
+    <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -268,24 +260,24 @@ import {
     </section>
 
     <!-- Separator Section 1 -->
-    <section class="border border-edge relative z-[1]">
+    <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -302,20 +294,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <!-- Outer vertical lines -->
         <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
         <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
         >
         </div>
       </div>
@@ -359,7 +351,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
         {
           /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
         }
-        <VoiceAIComponent client:load variant="hero" className="voice-ai-hero" />
+        <QuickVoiceAI client:load />
 
         {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
         {
@@ -457,7 +449,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
               />
             </div>
             
-            <!-- Front layer: reacts to AI Assistant Voice Response -->
+            <!-- Front layer: reacts to Avatar (mic) -->
             <div 
               style="
                 position:absolute; 
@@ -466,17 +458,15 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
                 width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
                 max-width: 1212px;
                 height: 120px;
-                opacity: 0.9;
+                opacity: 0.8;
                 pointer-events:none;
-                z-index: 10;
               "
             >
               <EdgeAudioVisualizer
                 client:only="react"
                 height={120}
-                source="ai-voice"
-                variant="ai-assistant"
-                color="#00d7ef"
+                source="mic"
+                variant="mic"
               />
             </div>
           </div>
@@ -1610,34 +1600,23 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     <button onclick="openRefresh()" class="right-btn"> <ArrowPathIcon className="w-6 h-6 inline mr-2" /> REFRESH </button>
     <button onclick="openFolder()" class="right-btn"> <FolderIcon className="w-6 h-6 inline mr-2" /> FOLDER </button>
     <button onclick="openClose()" class="right-btn"> <XMarkIcon className="w-6 h-6 inline mr-2" /> CLOSE </button>
-    
-    <!-- New Floating Buttons - Extended Set -->
-    <button onclick="openSchowek()" class="right-btn" title="Schowek - Zbieranie informacji z różnych stron"> <ArchiveBoxIcon className="w-6 h-6 inline mr-2" /> SCHOWEK </button>
-    <button onclick="openKalendarz()" class="right-btn" title="Kalendarz - Organizacja zadań i terminów"> <CalendarDaysIcon className="w-6 h-6 inline mr-2" /> KALENDARZ </button>
-    <button onclick="openDodatki()" class="right-btn" title="Dodatki - Narzędzia pomocnicze"> <WrenchScrewdriverIcon className="w-6 h-6 inline mr-2" /> DODATKI </button>
-    <button onclick="openFolder2()" class="right-btn" title="Folder 2 - Dodatkowy organizer plików"> <FolderPlusIcon className="w-6 h-6 inline mr-2" /> FOLDER 2 </button>
-    <button onclick="openKatalogStron()" class="right-btn" title="Katalog Stron - Nawigacja po wszystkich funkcjach"> <ListBulletIcon className="w-6 h-6 inline mr-2" /> KATALOG </button>
-    <button onclick="openInstrukcje()" class="right-btn" title="Instrukcje - Pomoc i przewodniki"> <BookOpenIcon className="w-6 h-6 inline mr-2" /> INSTRUKCJE </button>
-    <button onclick="openZapas1()" class="right-btn" title="Zapas 1 - Funkcja do przyszłego wykorzystania"> <StarIcon className="w-6 h-6 inline mr-2" /> ZAPAS 1 </button>
-    <button onclick="openZapas2()" class="right-btn" title="Zapas 2 - Funkcja do przyszłego wykorzystania"> <BoltIcon className="w-6 h-6 inline mr-2" /> ZAPAS 2 </button>
-    <button onclick="openZapas3()" class="right-btn" title="Zapas 3 - Funkcja do przyszłego wykorzystania"> <RocketLaunchIcon className="w-6 h-6 inline mr-2" /> ZAPAS 3 </button>
   </div>
 
   <!-- Separator Section 4 -->
-  <section class="border border-edge relative z-[1]">
+  <section class="border border-edge relative">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
-      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
+      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge">
       </div>
       <div
-        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
       >
       </div>
       <!-- Outer vertical lines -->
-      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
+      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge">
       </div>
       <div
-        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
       >
       </div>
     </div>
@@ -1647,20 +1626,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
   </section>
 
   <!-- Footer Section -->
-  <section class="border border-edge relative z-[1]">
+  <section class="border border-edge relative">
     <div class="absolute left-0 right-0 h-full">
       <!-- Inner vertical lines -->
-      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z-[1]">
+      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge">
       </div>
       <div
-        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge z-[1]"
+        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
       >
       </div>
       <!-- Outer vertical lines -->
-      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge z-[1]">
+      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge">
       </div>
       <div
-        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge z-[1]"
+        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
       >
       </div>
     </div>
@@ -2247,21 +2226,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     (window as any).openRefresh = openRefresh;
     (window as any).openFolder = openFolder;
     (window as any).openClose = openClose;
-    
-    // NEW FLOATING BUTTONS - Global Scope
-    (window as any).openSchowek = openSchowek;
-    (window as any).addToSchowek = addToSchowek;
-    (window as any).removeFromSchowek = removeFromSchowek;
-    (window as any).exportSchowek = exportSchowek;
-    (window as any).clearSchowek = clearSchowek;
-    (window as any).openKalendarz = openKalendarz;
-    (window as any).openDodatki = openDodatki;
-    (window as any).openFolder2 = openFolder2;
-    (window as any).openKatalogStron = openKatalogStron;
-    (window as any).openInstrukcje = openInstrukcje;
-    (window as any).openZapas1 = openZapas1;
-    (window as any).openZapas2 = openZapas2;
-    (window as any).openZapas3 = openZapas3;
     (window as any).checkAllStatus = checkAllStatus;
     (window as any).runAllAPITests = runAllAPITests;
     (window as any).openAPITestConsole = openAPITestConsole;
@@ -3622,159 +3586,6 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge z
     } catch (e) {
       alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
     }
-  }
-
-  // NEW FLOATING BUTTONS FUNCTIONS
-  function openSchowek() {
-    console.log("📦 Opening Schowek");
-    
-    // Pobierz zawartość schowka z localStorage
-    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
-    
-    // Utwórz modal do wyświetlania schowka
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); z-index: 10000; display: flex;
-      justify-content: center; align-items: center;
-    `;
-    
-    modal.innerHTML = `
-      <div style="background: #1a1a1a; border: 2px solid #00d7ef; border-radius: 10px; padding: 20px; max-width: 600px; width: 90%; max-height: 80%; overflow-y: auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-          <h2 style="color: #00d7ef; margin: 0;">📦 SCHOWEK MyBonzo</h2>
-          <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: #ff4444; border: none; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer;">✕</button>
-        </div>
-        
-        <div style="margin-bottom: 15px;">
-          <textarea id="newSchowekItem" placeholder="Dodaj nową informację..." style="width: 100%; height: 80px; background: #333; border: 1px solid #00d7ef; color: white; padding: 10px; border-radius: 4px; resize: vertical;"></textarea>
-          <button onclick="addToSchowek()" style="background: #00d7ef; border: none; color: #000; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-top: 8px; font-weight: bold;">➕ DODAJ</button>
-        </div>
-        
-        <div id="schowekList" style="color: white;">
-          ${schowekData.length === 0 ? '<p style="color: #888; text-align: center; padding: 20px;">Schowek pusty. Dodaj pierwszą informację!</p>' : 
-            schowekData.map((item, index) => `
-              <div style="background: #333; border-left: 4px solid #00d7ef; padding: 12px; margin-bottom: 8px; border-radius: 4px; position: relative;">
-                <div style="font-size: 12px; color: #888; margin-bottom: 5px;">${new Date(item.timestamp).toLocaleString()}</div>
-                <div style="margin-bottom: 8px;">${item.content}</div>
-                <button onclick="removeFromSchowek(${index})" style="position: absolute; top: 8px; right: 8px; background: #ff4444; border: none; color: white; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 12px;">🗑️</button>
-              </div>
-            `).join('')
-          }
-        </div>
-        
-        <div style="margin-top: 15px; text-align: center;">
-          <button onclick="exportSchowek()" style="background: #4CAF50; border: none; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 0 5px;">📤 EKSPORT</button>
-          <button onclick="clearSchowek()" style="background: #ff9800; border: none; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin: 0 5px;">🗑️ WYCZYŚĆ</button>
-        </div>
-      </div>
-    `;
-    
-    document.body.appendChild(modal);
-  }
-
-  // SCHOWEK HELPER FUNCTIONS
-  function addToSchowek() {
-    const textarea = document.getElementById('newSchowekItem');
-    const content = textarea.value.trim();
-    
-    if (!content) {
-      alert('Wpisz treść do dodania!');
-      return;
-    }
-    
-    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
-    schowekData.unshift({
-      content: content,
-      timestamp: new Date().toISOString(),
-      id: Date.now()
-    });
-    
-    localStorage.setItem('mybonzoSchowek', JSON.stringify(schowekData));
-    textarea.value = '';
-    
-    // Odśwież modal
-    document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
-    openSchowek();
-  }
-
-  function removeFromSchowek(index) {
-    let schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
-    schowekData.splice(index, 1);
-    localStorage.setItem('mybonzoSchowek', JSON.stringify(schowekData));
-    
-    // Odśwież modal
-    document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
-    openSchowek();
-  }
-
-  function exportSchowek() {
-    const schowekData = JSON.parse(localStorage.getItem('mybonzoSchowek') || '[]');
-    const exportText = schowekData.map(item => 
-      `[${new Date(item.timestamp).toLocaleString()}]\n${item.content}\n`
-    ).join('\n---\n\n');
-    
-    const blob = new Blob([exportText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `mybonzo-schowek-${new Date().toISOString().split('T')[0]}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function clearSchowek() {
-    if (confirm('Czy na pewno chcesz wyczyścić cały schowek?')) {
-      localStorage.removeItem('mybonzoSchowek');
-      document.querySelector('[style*="position: fixed"][style*="rgba(0,0,0,0.8)"]')?.remove();
-      openSchowek();
-    }
-  }
-
-  function openKalendarz() {
-    console.log("📅 Opening Kalendarz");  
-    // TODO: Implement Calendar functionality
-    alert("Kalendarz - Funkcja w budowie. Będzie służyć do organizacji zadań i terminów.");
-  }
-
-  function openDodatki() {
-    console.log("🔧 Opening Dodatki");
-    // TODO: Implement Tools functionality  
-    alert("Dodatki - Funkcja w budowie. Będzie zawierać narzędzia pomocnicze.");
-  }
-
-  function openFolder2() {
-    console.log("📁 Opening Folder 2");
-    // TODO: Implement additional folder functionality
-    alert("Folder 2 - Funkcja w budowie. Dodatkowy organizer plików.");
-  }
-
-  function openKatalogStron() {
-    console.log("📋 Opening Katalog Stron - Web Catalog Manager");
-    
-    // Otwórz Web Catalog Manager w nowym oknie/karcie
-    window.open('/katalog-stron', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
-  }
-
-  function openInstrukcje() {
-    console.log("📖 Opening Instrukcje");
-    // TODO: Implement help/instructions functionality  
-    alert("Instrukcje - Funkcja w budowie. Pomoc i przewodniki użytkownika.");
-  }
-
-  function openZapas1() {
-    console.log("⭐ Opening Zapas 1");
-    alert("Zapas 1 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
-  }
-
-  function openZapas2() {
-    console.log("⚡ Opening Zapas 2");  
-    alert("Zapas 2 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
-  }
-
-  function openZapas3() {
-    console.log("🚀 Opening Zapas 3");
-    alert("Zapas 3 - Funkcja zarezerwowana na przyszłe wykorzystanie.");
   }
 
   // EXPORT ALL VOICE FUNCTIONS TO GLOBAL SCOPE - COMPLETE FIX for onclick handlers

@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 function validateSystemConfig() {
   const errors = [];
@@ -10,10 +10,10 @@ function validateSystemConfig() {
     errors.push("❌ KRYTYCZNY: Brak PUBLIC_WORKER_BASE_URL");
   }
   {
-    info.push("✅ OPENAI_API_KEY skonfigurowany");
+    errors.push("❌ KRYTYCZNY: Brak OPENAI_API_KEY");
   }
   {
-    info.push("✅ CLOUDFLARE_API_TOKEN skonfigurowany");
+    warnings.push("⚠️ Brak CLOUDFLARE_API_TOKEN - ograniczone funkcje Workers");
   }
   {
     warnings.push("⚠️ Brak HUGGINGFACE_API_KEY - brak dostępu do modeli HF");
