@@ -1,9 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../../../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { $ as $$DecorativeLines } from '../../../chunks/DecorativeLines_BgZWjcZU.mjs';
+/* empty css                                        */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../../../chunks/MyBonzoLayout_BhCD-Bso.mjs';
+import { $ as $$DecorativeLines } from '../../../chunks/DecorativeLines_BV683skl.mjs';
 /* empty css                                               */
-export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$CreateBackup = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "POLACZEK Agent System 23 - Kreator Agenta", "data-astro-cid-ruqxmpje": true }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-ruqxmpje": true })}  ${maybeRenderHead()}<div class="workers-vertical-line-left" data-astro-cid-ruqxmpje></div> <div class="workers-vertical-line-right" data-astro-cid-ruqxmpje></div> <main class="min-h-svh" data-astro-cid-ruqxmpje> <!-- Top Separator Section --> <section class="border border-edge relative" data-astro-cid-ruqxmpje> <div class="max-w-6xl mx-auto" data-astro-cid-ruqxmpje> <div class="py-1" data-astro-cid-ruqxmpje></div> </div> </section> <!-- Header Section - Styl nr.1 --> <section class="border border-edge relative" data-astro-cid-ruqxmpje> <div class="max-w-6xl mx-auto" data-astro-cid-ruqxmpje> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-ruqxmpje> <!-- Left corner - Creator info --> <div class="mt-auto" style="max-width: 45vw;" data-astro-cid-ruqxmpje> <div class="text-edge text-sm italic px-2" style="

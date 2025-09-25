@@ -1,38 +1,48 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$Layout } from '../chunks/Layout_CL3qsB8O.mjs';
-import { d as attr_class, s as stringify, e as escape_html, b as attr, g as attr_style } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$Layout } from '../chunks/Layout_bupQxkWv.mjs';
+import { d as attr_class, s as stringify, c as escape_html, b as attr, g as attr_style } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 /* empty css                                            */
 
 function CyberpunkMusicPlayer($$renderer, $$props) {
-  $$renderer.component(($$renderer2) => {
-    let volume = 0.5;
-    let currentTime = 0;
-    let duration = 0;
-    let trackName = "No track selected";
-    let isLoading = false;
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60);
-      return `${mins}:${secs.toString().padStart(2, "0")}`;
-    }
-    $$renderer2.push(`<audio preload="auto" crossorigin="anonymous" class="svelte-13sx5v7"></audio> <div class="cyberpunk-music-player svelte-13sx5v7"><div class="player-panel svelte-13sx5v7"><div class="player-header svelte-13sx5v7"><div class="player-title svelte-13sx5v7"><span class="title-text svelte-13sx5v7">CYBER MUSIC SYSTEM</span> <div class="status-indicators svelte-13sx5v7"><span${attr_class(`indicator ${stringify("")}`, "svelte-13sx5v7")}>L1</span> <span${attr_class(`indicator ${stringify("")}`, "svelte-13sx5v7")}>L2</span> <span${attr_class(`indicator ${stringify("")}`, "svelte-13sx5v7")}>L3</span></div></div></div> <div class="visualizer-container svelte-13sx5v7"><canvas class="visualizer-canvas svelte-13sx5v7"></canvas> <div class="visualizer-overlay svelte-13sx5v7">`);
-    {
-      $$renderer2.push("<!--[-->");
-      $$renderer2.push(`<div class="visualizer-idle svelte-13sx5v7"><span class="svelte-13sx5v7">AUDIO MATRIX INACTIVE</span></div>`);
-    }
-    $$renderer2.push(`<!--]--></div></div> <div class="track-info-section svelte-13sx5v7"><div class="track-details svelte-13sx5v7"><div class="track-name svelte-13sx5v7">${escape_html(trackName)}</div> <div class="track-artist svelte-13sx5v7">${escape_html("Unknown Artist")}</div> <div class="track-time svelte-13sx5v7">${escape_html(formatTime(currentTime))} / ${escape_html(formatTime(duration))}</div></div></div> <div class="player-controls svelte-13sx5v7"><button class="control-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">⏮</span></button> <button class="control-btn play-btn svelte-13sx5v7"${attr("disabled", isLoading, true)}>`);
-    {
-      $$renderer2.push("<!--[!-->");
-      $$renderer2.push(`<span class="btn-icon svelte-13sx5v7">${escape_html("▶")}</span>`);
-    }
-    $$renderer2.push(`<!--]--></button> <button class="control-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">⏭</span></button> <button class="control-btn playlist-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">☰</span></button></div> <div class="progress-section svelte-13sx5v7"><div class="progress-bar svelte-13sx5v7" role="slider" tabindex="0" aria-label="Seek"><div class="progress-fill svelte-13sx5v7"${attr_style(`width: ${stringify(0)}%`)}></div> <div class="progress-glow svelte-13sx5v7"${attr_style(`left: ${stringify(0)}%`)}></div></div></div> <div class="volume-section svelte-13sx5v7"><div class="volume-control svelte-13sx5v7"><span class="volume-icon svelte-13sx5v7">🔊</span> <input type="range" min="0" max="100"${attr("value", volume * 100)} class="volume-slider svelte-13sx5v7"/> <span class="volume-value svelte-13sx5v7">${escape_html(Math.round(volume * 100))}%</span></div></div></div> `);
-    {
-      $$renderer2.push("<!--[!-->");
-    }
-    $$renderer2.push(`<!--]--></div>`);
-  });
+	$$renderer.component(($$renderer) => {
+		let volume = 0.5;
+		let currentTime = 0;
+		let duration = 0;
+		let trackName = "No track selected";
+		let isLoading = false;
+
+		function formatTime(seconds) {
+			const mins = Math.floor(seconds / 60);
+			const secs = Math.floor(seconds % 60);
+
+			return `${mins}:${secs.toString().padStart(2, "0")}`;
+		}
+
+		$$renderer.push(`<audio preload="auto" crossorigin="anonymous" class="svelte-13sx5v7"></audio> <div class="cyberpunk-music-player svelte-13sx5v7"><div class="player-panel svelte-13sx5v7"><div class="player-header svelte-13sx5v7"><div class="player-title svelte-13sx5v7"><span class="title-text svelte-13sx5v7">CYBER MUSIC SYSTEM</span> <div class="status-indicators svelte-13sx5v7"><span${attr_class(`indicator ${stringify('')}`, 'svelte-13sx5v7')}>L1</span> <span${attr_class(`indicator ${stringify('')}`, 'svelte-13sx5v7')}>L2</span> <span${attr_class(`indicator ${stringify('')}`, 'svelte-13sx5v7')}>L3</span></div></div></div> <div class="visualizer-container svelte-13sx5v7"><canvas class="visualizer-canvas svelte-13sx5v7"></canvas> <div class="visualizer-overlay svelte-13sx5v7">`);
+
+		{
+			$$renderer.push('<!--[-->');
+			$$renderer.push(`<div class="visualizer-idle svelte-13sx5v7"><span class="svelte-13sx5v7">AUDIO MATRIX INACTIVE</span></div>`);
+		}
+
+		$$renderer.push(`<!--]--></div></div> <div class="track-info-section svelte-13sx5v7"><div class="track-details svelte-13sx5v7"><div class="track-name svelte-13sx5v7">${escape_html(trackName)}</div> <div class="track-artist svelte-13sx5v7">${escape_html("Unknown Artist")}</div> <div class="track-time svelte-13sx5v7">${escape_html(formatTime(currentTime))} / ${escape_html(formatTime(duration))}</div></div></div> <div class="player-controls svelte-13sx5v7"><button class="control-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">⏮</span></button> <button class="control-btn play-btn svelte-13sx5v7"${attr('disabled', isLoading, true)}>`);
+
+		{
+			$$renderer.push('<!--[!-->');
+			$$renderer.push(`<span class="btn-icon svelte-13sx5v7">${escape_html("▶")}</span>`);
+		}
+
+		$$renderer.push(`<!--]--></button> <button class="control-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">⏭</span></button> <button class="control-btn playlist-btn svelte-13sx5v7"><span class="btn-icon svelte-13sx5v7">☰</span></button></div> <div class="progress-section svelte-13sx5v7"><div class="progress-bar svelte-13sx5v7" role="slider" tabindex="0" aria-label="Seek"><div class="progress-fill svelte-13sx5v7"${attr_style(`width: ${stringify(0)}%`)}></div> <div class="progress-glow svelte-13sx5v7"${attr_style(`left: ${stringify(0)}%`)}></div></div></div> <div class="volume-section svelte-13sx5v7"><div class="volume-control svelte-13sx5v7"><span class="volume-icon svelte-13sx5v7">🔊</span> <input type="range" min="0" max="100"${attr('value', volume * 100)} class="volume-slider svelte-13sx5v7"/> <span class="volume-value svelte-13sx5v7">${escape_html(Math.round(volume * 100))}%</span></div></div></div> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--></div>`);
+	});
 }
 
 const $$CyberMusicTest = createComponent(($$result, $$props, $$slots) => {
@@ -50,6 +60,7 @@ window.CYBER_MUSIC.setVolume(0.5) // Set volume (0-1)<br data-astro-cid-orp4dojk
 window.CYBER_MUSIC.getState()     // Get current state
 </code> </div> </div> </div> ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/cyber-music-test.astro?astro&type=script&index=0&lang.ts")} </main> ` })} `;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/cyber-music-test.astro", void 0);
+
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/cyber-music-test.astro";
 const $$url = "/cyber-music-test";
 

@@ -1,46 +1,76 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BTarUczC.mjs';
-import { R as RecommendationsWidget } from '../../chunks/RecommendationsWidget_DBsFRx3r.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhCD-Bso.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BV683skl.mjs';
+/* empty css                                    */
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
-const $$PersonalizedRecommendations = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Personalizowane Rekomendacje | AI Functions | KAROL LISSON" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, {})} ${maybeRenderHead()}<main class="min-h-svh relative z-10"> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]"> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div> <div class="cyber-grid absolute inset-0"></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20"> <div class="max-w-6xl mx-auto px-4 py-8"> <div class="flex items-center justify-between mb-8"> <div> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
-Personalizowane Rekomendacje
-</h1> <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
-System rekomendacyjny produktów i usług z analizą preferencji użytkowników
-</p> </div> <div class="text-right text-sm text-[#a0a0a0] font-mono"> <div class="mb-1">
-STATUS: <span class="text-[#00ffff]">ANALYZING</span> </div> <div>ML ACCURACY: <span class="text-[#00ffff]">97.2%</span></div> </div> </div> <!-- Navigation --> <div class="flex gap-4 mb-8"> <a href="/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+const $$Index = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Personalized Recommendations AI | KAROL LISSON", "data-astro-cid-vrhksoxd": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-vrhksoxd": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-vrhksoxd> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-vrhksoxd> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-vrhksoxd></div> <div class="cyber-grid absolute inset-0" data-astro-cid-vrhksoxd></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-vrhksoxd> <div class="max-w-6xl mx-auto px-4 py-8" data-astro-cid-vrhksoxd> <div class="flex items-center justify-between mb-8" data-astro-cid-vrhksoxd> <div data-astro-cid-vrhksoxd> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']" data-astro-cid-vrhksoxd>
+Recommendations AI
+</h1> <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']" data-astro-cid-vrhksoxd>
+Spersonalizowane rekomendacje oparte na AI - produkty, treści, usługi
+</p> </div> <div class="text-right text-sm text-[#a0a0a0] font-mono" data-astro-cid-vrhksoxd> <div class="mb-1" data-astro-cid-vrhksoxd>
+STATUS: <span class="text-[#00ffff]" data-astro-cid-vrhksoxd>LEARNING</span> </div> <div data-astro-cid-vrhksoxd>ACCURACY: <span class="text-[#ff6699] animate-pulse" data-astro-cid-vrhksoxd>94.7%</span></div> </div> </div> <!-- Navigation --> <div class="flex gap-4 mb-8" data-astro-cid-vrhksoxd> <a href="/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-vrhksoxd>
 ← Powrót do głównej
-</a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+</a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-vrhksoxd>
 Wszystkie funkcje AI
-</a> </div> </div> </section> <!-- Main Content --> <section class="relative z-20 py-12"> <div class="max-w-4xl mx-auto px-4"> <!-- Recommendations Widget --> ${renderComponent($$result2, "RecommendationsWidget", RecommendationsWidget, { "client:visible": true, "client:component-hydration": "visible", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/RecommendationsWidget.svelte", "client:component-export": "default" })} <!-- Features Description --> <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6"> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect"> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Jak to działa</h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']"> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Analiza preferencji użytkownika
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Machine Learning algorithms
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Personalizowane propozycje
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Continuous learning
-</li> </ul> </div> <div class="p-6 bg-[#111111] border border-[#333333] glass-effect"> <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Funkcje</h3> <ul class="space-y-2 text-[#e0e0e0] font-['Kenyan_Coffee']"> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-AI-powered recommendations
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Real-time analytics
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Targeted suggestions
-</li> <li class="flex items-center gap-2"> <span class="text-[#00ffff]">✓</span>
-Performance tracking
-</li> </ul> </div> </div> </div> </section> </main> ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations.astro", void 0);
+</a> <a href="./engine/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-vrhksoxd>
+ENGINE
+</a> <a href="./profiles/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-vrhksoxd>
+PROFILES
+</a> <a href="./analytics/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-vrhksoxd>
+ANALYTICS
+</a> </div> </div> </section> <!-- Feature Overview --> <section class="relative z-20 py-12" data-astro-cid-vrhksoxd> <div class="max-w-6xl mx-auto px-4" data-astro-cid-vrhksoxd> <div class="grid md:grid-cols-3 gap-6 mb-12" data-astro-cid-vrhksoxd> <!-- AI Engine Card --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group" data-astro-cid-vrhksoxd> <div class="flex items-center justify-between mb-4" data-astro-cid-vrhksoxd> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide" data-astro-cid-vrhksoxd>AI Engine</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-vrhksoxd>🤖</div> </div> <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']" data-astro-cid-vrhksoxd>
+Zaawansowany silnik rekomendacji z machine learning
+</p> <div class="text-sm text-[#00ffff] mb-4" data-astro-cid-vrhksoxd>
+• Deep learning models<br data-astro-cid-vrhksoxd>
+• Behavioral analysis<br data-astro-cid-vrhksoxd>
+• Real-time adaptation
+</div> <a href="./engine/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide" data-astro-cid-vrhksoxd>
+KONFIGURUJ
+</a> </div> <!-- User Profiles Card --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group" data-astro-cid-vrhksoxd> <div class="flex items-center justify-between mb-4" data-astro-cid-vrhksoxd> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide" data-astro-cid-vrhksoxd>Profiles</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-vrhksoxd>👤</div> </div> <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']" data-astro-cid-vrhksoxd>
+Profile użytkowników i preferencje
+</p> <div class="text-sm text-[#00ffff] mb-4" data-astro-cid-vrhksoxd>
+• Behavioral tracking<br data-astro-cid-vrhksoxd>
+• Preference learning<br data-astro-cid-vrhksoxd>
+• Segment analysis
+</div> <a href="./profiles/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide" data-astro-cid-vrhksoxd>
+ZARZĄDZAJ
+</a> </div> <!-- Analytics Card --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group" data-astro-cid-vrhksoxd> <div class="flex items-center justify-between mb-4" data-astro-cid-vrhksoxd> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide" data-astro-cid-vrhksoxd>Analytics</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-vrhksoxd>📊</div> </div> <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']" data-astro-cid-vrhksoxd>
+Analizy skuteczności rekomendacji
+</p> <div class="text-sm text-[#00ffff] mb-4" data-astro-cid-vrhksoxd>
+• Click-through rates<br data-astro-cid-vrhksoxd>
+• Conversion tracking<br data-astro-cid-vrhksoxd>
+• A/B testing
+</div> <a href="./analytics/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide" data-astro-cid-vrhksoxd>
+ANALIZUJ
+</a> </div> </div> </div> </section> <!-- Live Recommendations Demo --> <section class="relative z-20 py-8 border-t border-[#333333]" data-astro-cid-vrhksoxd> <div class="max-w-6xl mx-auto px-4" data-astro-cid-vrhksoxd> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6" data-astro-cid-vrhksoxd>
+🎯 Live Recommendations Engine
+</h3> <div class="grid lg:grid-cols-4 gap-6" data-astro-cid-vrhksoxd> <!-- User Profile --> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm" data-astro-cid-vrhksoxd> <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3" data-astro-cid-vrhksoxd>👤 Active User</h4> <div class="space-y-2 text-xs" data-astro-cid-vrhksoxd> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>User ID:</span> <span class="text-[#00ffff]" data-astro-cid-vrhksoxd>USR_7829</span> </div> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Segment:</span> <span class="text-[#ff6699]" data-astro-cid-vrhksoxd>Tech Enthusiast</span> </div> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Confidence:</span> <span class="text-[#00ff00]" data-astro-cid-vrhksoxd>92%</span> </div> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Last Activity:</span> <span class="text-[#00ffff]" data-astro-cid-vrhksoxd>2min ago</span> </div> </div> <div class="mt-4 pt-3 border-t border-[#333333]" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-xs font-bold mb-2" data-astro-cid-vrhksoxd>Recent Interests:</div> <div class="flex flex-wrap gap-1" data-astro-cid-vrhksoxd> <span class="bg-[#333333] text-[#00ffff] px-2 py-1 text-xs rounded" data-astro-cid-vrhksoxd>AI Tools</span> <span class="bg-[#333333] text-[#00ffff] px-2 py-1 text-xs rounded" data-astro-cid-vrhksoxd>Cloud</span> <span class="bg-[#333333] text-[#00ffff] px-2 py-1 text-xs rounded" data-astro-cid-vrhksoxd>DevOps</span> </div> </div> </div> <!-- Recommended Products --> <div class="lg:col-span-2 bg-[#111111] border border-[#333333] p-4 rounded-sm" data-astro-cid-vrhksoxd> <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4" data-astro-cid-vrhksoxd>🎯 AI Recommendations</h4> <div class="space-y-3" data-astro-cid-vrhksoxd> <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-vrhksoxd> <div class="flex justify-between items-start mb-2" data-astro-cid-vrhksoxd> <div class="text-[#e0e0e0] text-sm font-bold" data-astro-cid-vrhksoxd>Azure DevOps Premium</div> <div class="text-[#00ff00] text-xs" data-astro-cid-vrhksoxd>96% match</div> </div> <div class="text-[#a0a0a0] text-xs mb-2" data-astro-cid-vrhksoxd>
+Advanced CI/CD pipeline management for enterprise teams
+</div> <div class="flex justify-between items-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-xs" data-astro-cid-vrhksoxd>$120/month</div> <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300" data-astro-cid-vrhksoxd>
+VIEW
+</button> </div> </div> <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-vrhksoxd> <div class="flex justify-between items-start mb-2" data-astro-cid-vrhksoxd> <div class="text-[#e0e0e0] text-sm font-bold" data-astro-cid-vrhksoxd>OpenAI API Credits</div> <div class="text-[#00ff00] text-xs" data-astro-cid-vrhksoxd>94% match</div> </div> <div class="text-[#a0a0a0] text-xs mb-2" data-astro-cid-vrhksoxd>
+GPT-4 API access for advanced AI integrations
+</div> <div class="flex justify-between items-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-xs" data-astro-cid-vrhksoxd>$100 credits</div> <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300" data-astro-cid-vrhksoxd>
+VIEW
+</button> </div> </div> <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-vrhksoxd> <div class="flex justify-between items-start mb-2" data-astro-cid-vrhksoxd> <div class="text-[#e0e0e0] text-sm font-bold" data-astro-cid-vrhksoxd>Kubernetes Mastery Course</div> <div class="text-[#ffaa00] text-xs" data-astro-cid-vrhksoxd>89% match</div> </div> <div class="text-[#a0a0a0] text-xs mb-2" data-astro-cid-vrhksoxd>
+Complete container orchestration training program
+</div> <div class="flex justify-between items-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-xs" data-astro-cid-vrhksoxd>$199 one-time</div> <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300" data-astro-cid-vrhksoxd>
+VIEW
+</button> </div> </div> </div> </div> <!-- Algorithm Insights --> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm" data-astro-cid-vrhksoxd> <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3" data-astro-cid-vrhksoxd>🧠 AI Insights</h4> <div class="space-y-3 text-xs" data-astro-cid-vrhksoxd> <div class="bg-[#0a0a0a] border border-[#333333] p-2 rounded-sm" data-astro-cid-vrhksoxd> <div class="text-[#00ffff] mb-1" data-astro-cid-vrhksoxd>Collaborative Filtering</div> <div class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Users with similar patterns also liked these products</div> </div> <div class="bg-[#0a0a0a] border border-[#333333] p-2 rounded-sm" data-astro-cid-vrhksoxd> <div class="text-[#00ffff] mb-1" data-astro-cid-vrhksoxd>Content-Based</div> <div class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Matches your tech stack preferences</div> </div> <div class="bg-[#0a0a0a] border border-[#333333] p-2 rounded-sm" data-astro-cid-vrhksoxd> <div class="text-[#00ffff] mb-1" data-astro-cid-vrhksoxd>Behavioral</div> <div class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Based on recent browsing patterns</div> </div> </div> <div class="mt-4 pt-3 border-t border-[#333333]" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-xs font-bold mb-2" data-astro-cid-vrhksoxd>Model Performance:</div> <div class="space-y-1" data-astro-cid-vrhksoxd> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Precision:</span> <span class="text-[#00ff00]" data-astro-cid-vrhksoxd>94.7%</span> </div> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>Recall:</span> <span class="text-[#00ff00]" data-astro-cid-vrhksoxd>89.3%</span> </div> <div class="flex justify-between" data-astro-cid-vrhksoxd> <span class="text-[#a0a0a0]" data-astro-cid-vrhksoxd>F1-Score:</span> <span class="text-[#00ff00]" data-astro-cid-vrhksoxd>91.9%</span> </div> </div> </div> </div> </div> </div> </section> <!-- Performance Stats --> <section class="relative z-20 py-8 border-t border-[#333333]" data-astro-cid-vrhksoxd> <div class="max-w-6xl mx-auto px-4" data-astro-cid-vrhksoxd> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6" data-astro-cid-vrhksoxd>
+System Performance Metrics
+</h3> <div class="grid md:grid-cols-4 gap-4" data-astro-cid-vrhksoxd> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm text-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-2xl font-bold mb-2" data-astro-cid-vrhksoxd>2.4M</div> <div class="text-[#a0a0a0] text-sm" data-astro-cid-vrhksoxd>Daily Recommendations</div> <div class="text-[#00ffff] text-xs mt-1" data-astro-cid-vrhksoxd>↑ 15% from last week</div> </div> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm text-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-2xl font-bold mb-2" data-astro-cid-vrhksoxd>94.7%</div> <div class="text-[#a0a0a0] text-sm" data-astro-cid-vrhksoxd>Accuracy Rate</div> <div class="text-[#00ff00] text-xs mt-1" data-astro-cid-vrhksoxd>↑ 2.3% improvement</div> </div> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm text-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-2xl font-bold mb-2" data-astro-cid-vrhksoxd>38.2%</div> <div class="text-[#a0a0a0] text-sm" data-astro-cid-vrhksoxd>Click-through Rate</div> <div class="text-[#00ffff] text-xs mt-1" data-astro-cid-vrhksoxd>↑ 8.1% increase</div> </div> <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm text-center" data-astro-cid-vrhksoxd> <div class="text-[#ff6699] text-2xl font-bold mb-2" data-astro-cid-vrhksoxd>12.8%</div> <div class="text-[#a0a0a0] text-sm" data-astro-cid-vrhksoxd>Conversion Rate</div> <div class="text-[#00ff00] text-xs mt-1" data-astro-cid-vrhksoxd>↑ 4.7% growth</div> </div> </div> </div> </section> </main>  ` })}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations/index.astro", void 0);
 
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations.astro";
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/personalized-recommendations/index.astro";
 const $$url = "/ai-functions/personalized-recommendations";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
-  default: $$PersonalizedRecommendations,
+  default: $$Index,
   file: $$file,
   url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));

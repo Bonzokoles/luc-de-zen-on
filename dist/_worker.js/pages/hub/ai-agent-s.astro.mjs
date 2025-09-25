@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, b as renderScript } from '../../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhCD-Bso.mjs';
 /* empty css                                         */
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$AiAgentS = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "BIELIK AI AGENT - Advanced AI System", "description": "Zaawansowany system AI do kompleksowego rozumowania i analizy", "themeColor": "220", "data-astro-cid-ab2dfuya": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="agent-interface" data-astro-cid-ab2dfuya> <div class="container" data-astro-cid-ab2dfuya> <div class="header" data-astro-cid-ab2dfuya> <h1 class="agent-title" data-astro-cid-ab2dfuya>🧠 AI_AGENT_S</h1> <p class="agent-subtitle" data-astro-cid-ab2dfuya>Advanced AI System for Complex Reasoning</p> </div> <div class="interface-panel" data-astro-cid-ab2dfuya> <div class="input-section" data-astro-cid-ab2dfuya> <label for="agentPrompt" class="input-label" data-astro-cid-ab2dfuya>Complex Problem or Question:</label> <textarea id="agentPrompt" class="prompt-area" placeholder="Enter your complex problem or question for advanced AI analysis...

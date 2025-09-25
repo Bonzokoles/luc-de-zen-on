@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_h2XQBD_s.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_Dyj06ELx.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Generator = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Generator Obraz\xF3w" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-4xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">Generator Obrazów</h1> <p class="text-cyber-text-dim mt-4">

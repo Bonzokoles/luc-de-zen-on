@@ -1,6 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_BJuaHVI9.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const GET = async () => {
   return createSuccessResponse({
@@ -21,31 +21,46 @@ const POST = async ({ request, locals }) => {
     }
     const runtime = locals?.runtime;
     const env = runtime?.env;
-    const systemPrompt = language === "en" ? "You are Gemini Pro simulation running on Cloudflare AI. Provide helpful, accurate, and detailed responses." : "Jesteś Gemini Pro działający na Cloudflare AI. Udzielaj pomocnych, dokładnych i szczegółowych odpowiedzi po polsku.";
-    const fullPrompt = `${systemPrompt}
+    if (!env?.GOOGLE_AI_STUDIO_TOKEN || !env?.CLOUDFLARE_ACCOUNT_ID || !env?.CLOUDFLARE_AI_GATEWAY_ID) {
+      return createErrorResponse("Google AI Studio configuration missing", 500);
+    }
+    const systemPrompt = language === "en" ? "You are Gemini Pro, Google's advanced AI model. Provide helpful, accurate, and detailed responses." : "Jesteś Gemini Pro, zaawansowanym modelem AI Google. Udzielaj pomocnych, dokładnych i szczegółowych odpowiedzi po polsku.";
+    const aiGatewayUrl = `https://gateway.ai.cloudflare.com/v1/${env.CLOUDFLARE_ACCOUNT_ID}/${env.CLOUDFLARE_AI_GATEWAY_ID}/google-ai-studio/v1/models/gemini-1.5-flash:generateContent`;
+    const requestBody = {
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { text: `${systemPrompt}
 
-User: ${message}`;
-    try {
-      const aiResponse = await env?.AI?.run("@cf/meta/llama-3.1-8b-instruct", {
-        messages: [
-          {
-            role: "system",
-            content: systemPrompt
-          },
-          {
-            role: "user",
-            content: message
-          }
-        ],
+${message}` }
+          ]
+        }
+      ],
+      generationConfig: {
         temperature,
-        max_tokens: 2048
+        maxOutputTokens: 2048
+      }
+    };
+    try {
+      const response = await fetch(aiGatewayUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": env.GOOGLE_AI_STUDIO_TOKEN
+        },
+        body: JSON.stringify(requestBody)
       });
+      if (!response.ok) {
+        throw new Error(`Google AI Studio API error: ${response.status}`);
+      }
+      const data = await response.json();
+      const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "Brak odpowiedzi od Gemini Pro.";
       return createSuccessResponse({
-        response: aiResponse?.response || "Gemini Pro (Cloudflare AI) - Witaj! Jestem gotowy do pomocy.",
-        model: "gemini-pro-cf-simulation",
-        message: "Success via Cloudflare AI",
-        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
-        fallback: true
+        response: aiResponse,
+        model: "gemini-1.5-flash",
+        message: "Success",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString()
       });
     } catch (aiError) {
       console.error("AI Error:", aiError);

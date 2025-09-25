@@ -1,1 +1,0 @@
-import{t as y}from"./attributes.BJtm3mOD.js";import{v as r}from"./template.BqTI6ysn.js";function v(t,e,f,i){var l=t.__style;if(r||l!==e){var s=y(e);(!r||s!==t.getAttribute("style"))&&(s==null?t.removeAttribute("style"):t.style.cssText=s),t.__style=e}return i}export{v as s};

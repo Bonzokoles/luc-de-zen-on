@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

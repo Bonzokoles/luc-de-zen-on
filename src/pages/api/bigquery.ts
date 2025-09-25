@@ -4,13 +4,35 @@ import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
+    const action = url.searchParams.get('action') || 'query';
     const query = url.searchParams.get('query') || 'SELECT 1 as test';
     
     // Check environment variables from Cloudflare
     const runtime = (locals as any)?.runtime;
     const env = runtime?.env;
-    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID || env?.GOOGLE_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY || env?.GOOGLE_APPLICATION_CREDENTIALS;
+
+    // Handle test action
+    if (action === 'test') {
+      return new Response(JSON.stringify({
+        status: 'success',
+        service: 'BigQuery API',
+        message: 'BigQuery API endpoint aktywny',
+        timestamp: new Date().toISOString(),
+        credentials: {
+          'GOOGLE_PROJECT_ID': !!projectId,
+          'GOOGLE_APPLICATION_CREDENTIALS': !!serviceAccountKey
+        },
+        availableActions: ['test', 'query', 'datasets', 'tables']
+      }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
 
     // Check if BigQuery credentials are configured
     if (!projectId || !serviceAccountKey) {
@@ -119,8 +141,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // Check environment variables from Cloudflare
     const runtime = (locals as any)?.runtime;
     const env = runtime?.env;
-    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID || env?.GOOGLE_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY || env?.GOOGLE_APPLICATION_CREDENTIALS;
 
     // Check if BigQuery credentials are configured
     if (!projectId || !serviceAccountKey) {
@@ -128,8 +150,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
         status: 'error',
         service: 'BigQuery',
         error: 'BigQuery nie jest skonfigurowane',
-        message: 'Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY',
-        required_config: ['GOOGLE_CLOUD_PROJECT_ID', 'GOOGLE_SERVICE_ACCOUNT_KEY'],
+        message: 'Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID/GOOGLE_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY/GOOGLE_APPLICATION_CREDENTIALS',
+        required_config: ['GOOGLE_CLOUD_PROJECT_ID lub GOOGLE_PROJECT_ID', 'GOOGLE_SERVICE_ACCOUNT_KEY lub GOOGLE_APPLICATION_CREDENTIALS'],
         query: query,
         dataset: dataset
       }), {

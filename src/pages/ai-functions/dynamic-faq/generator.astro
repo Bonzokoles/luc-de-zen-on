@@ -1,0 +1,273 @@
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
+---
+
+<MyBonzoLayout siteTitle="Generator FAQ AI - Dynamic FAQ | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Generator FAQ AI
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Automatyczne generowanie pytań i odpowiedzi w oparciu o kontekst
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              AI MODEL: <span class="text-[#00ffff]">GPT-4o</span>
+            </div>
+            <div>GENERATED: <span class="text-[#ff6699] animate-pulse">47 today</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="../"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            ← Dynamic FAQ
+          </a>
+          <a
+            href="../knowledge-base/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Baza Wiedzy
+          </a>
+          <a
+            href="../management/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Zarządzanie
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Generator Interface -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid lg:grid-cols-3 gap-8">
+          <!-- Input Panel -->
+          <div class="lg:col-span-2">
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+                🤖 Generator FAQ
+              </h3>
+              
+              <FAQGeneratorWidget client:load />
+            </div>
+          </div>
+
+          <!-- Generation Settings -->
+          <div class="space-y-6">
+            <!-- Model Settings -->
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">⚙️ Ustawienia Modelu</h4>
+              
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-[#00ffff] text-xs uppercase mb-2">Model AI</label>
+                  <select class="w-full bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-sm focus:border-[#00ffff] focus:outline-none">
+                    <option>GPT-4o (Recommended)</option>
+                    <option>GPT-3.5 Turbo</option>
+                    <option>Claude-3 Sonnet</option>
+                    <option>Gemini Pro</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label class="block text-[#00ffff] text-xs uppercase mb-2">Creativeness</label>
+                  <input 
+                    type="range" 
+                    min="0" 
+                    max="100" 
+                    value="70" 
+                    class="w-full h-2 bg-[#333333] rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div class="flex justify-between text-xs text-[#a0a0a0] mt-1">
+                    <span>Conservative</span>
+                    <span>Creative</span>
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-[#00ffff] text-xs uppercase mb-2">Questions Count</label>
+                  <select class="w-full bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-sm focus:border-[#00ffff] focus:outline-none">
+                    <option>5 questions</option>
+                    <option selected>10 questions</option>
+                    <option>20 questions</option>
+                    <option>50 questions</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Categories -->
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">🏷️ Szybkie Kategorie</h4>
+              
+              <div class="grid grid-cols-2 gap-2">
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Techniczne
+                </button>
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Biznesowe
+                </button>
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Cennik
+                </button>
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Support
+                </button>
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Integracje
+                </button>
+                <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
+                  Bezpieczeństwo
+                </button>
+              </div>
+            </div>
+
+            <!-- Generation Stats -->
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">📊 Statystyki</h4>
+              
+              <div class="space-y-3">
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#a0a0a0]">Dzisiaj:</span>
+                  <span class="text-[#00ffff]">47 FAQ</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#a0a0a0]">Ten tydzień:</span>
+                  <span class="text-[#00ffff]">347 FAQ</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#a0a0a0]">Accuracy:</span>
+                  <span class="text-[#00ff00]">98.3%</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#a0a0a0]">Avg time:</span>
+                  <span class="text-[#00ffff]">2.1s</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Generations -->
+    <section class="relative z-20 py-8 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+          Ostatnio Wygenerowane FAQ
+        </h3>
+        
+        <div class="space-y-4">
+          <!-- FAQ Item 1 -->
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1">
+                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                  Q: Jak długo trwa implementacja systemu AI?
+                </h4>
+                <p class="text-[#e0e0e0] text-sm leading-relaxed">
+                  A: Czas implementacji zależy od złożoności projektu. Podstawowe rozwiązania AI można wdrożyć w 2-4 tygodnie, podczas gdy zaawansowane systemy mogą wymagać 3-6 miesięcy. Proces obejmuje analizę potrzeb, przygotowanie danych, szkolenie modelu i testy.
+                </p>
+              </div>
+              <div class="flex gap-2 ml-4">
+                <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  EDIT
+                </button>
+                <button class="bg-[#ff6699] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  PUBLISH
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center text-xs text-[#a0a0a0]">
+              <span>Category: Implementacja | Generated: 5 min ago</span>
+              <span>Score: 94/100</span>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1">
+                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                  Q: Jakie są koszty utrzymania systemów AI?
+                </h4>
+                <p class="text-[#e0e0e0] text-sm leading-relaxed">
+                  A: Koszty utrzymania systemów AI składają się z infrastruktury chmurowej (500-5000 zł/miesiąc), licencji API (według użycia), monitoringu i aktualizacji modeli. Przeciętnie stanowią 20-30% kosztów początkowej implementacji.
+                </p>
+              </div>
+              <div class="flex gap-2 ml-4">
+                <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  EDIT
+                </button>
+                <button class="bg-[#ff6699] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  PUBLISH
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center text-xs text-[#a0a0a0]">
+              <span>Category: Cennik | Generated: 12 min ago</span>
+              <span>Score: 91/100</span>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
+            <div class="flex justify-between items-start mb-3">
+              <div class="flex-1">
+                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                  Q: Czy AI może integrować się z istniejącymi systemami CRM?
+                </h4>
+                <p class="text-[#e0e0e0] text-sm leading-relaxed">
+                  A: Tak, nasze rozwiązania AI oferują integracje z najpopularniejszymi systemami CRM jak HubSpot, Salesforce, Pipedrive. Integracja odbywa się przez API i webhooks, umożliwiając automatyczną synchronizację danych leadów i interakcji.
+                </p>
+              </div>
+              <div class="flex gap-2 ml-4">
+                <button class="bg-[#00ffff] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  EDIT
+                </button>
+                <button class="bg-[#ff6699] text-[#0a0a0a] px-3 py-1 text-xs font-bold hover:brightness-125 transition-all duration-300">
+                  PUBLISH
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-between items-center text-xs text-[#a0a0a0]">
+              <span>Category: Integracje | Generated: 18 min ago</span>
+              <span>Score: 96/100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</MyBonzoLayout>

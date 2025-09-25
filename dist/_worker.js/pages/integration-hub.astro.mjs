@@ -1,7 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { e as createAstro, c as createComponent, g as addAttribute, d as renderHead, b as renderScript, a as renderTemplate } from '../chunks/astro/server_BDhFni3J.mjs';
+/* empty css                                  */
+import { e as createAstro, c as createComponent, g as addAttribute, d as renderHead, b as renderScript, a as renderTemplate } from '../chunks/astro/server_DFvGEJvU.mjs';
 /* empty css                                           */
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Astro = createAstro("https://mybonzo.com");
 const $$IntegrationHub = createComponent(($$result, $$props, $$slots) => {

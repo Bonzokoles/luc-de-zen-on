@@ -1,15 +1,35 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { c as createOPTIONSHandler } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const GET = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
+    const action = url.searchParams.get("action") || "query";
     const query = url.searchParams.get("query") || "SELECT 1 as test";
     const runtime = locals?.runtime;
     const env = runtime?.env;
-    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID || env?.GOOGLE_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY || env?.GOOGLE_APPLICATION_CREDENTIALS;
+    if (action === "test") {
+      return new Response(JSON.stringify({
+        status: "success",
+        service: "BigQuery API",
+        message: "BigQuery API endpoint aktywny",
+        timestamp: (/* @__PURE__ */ new Date()).toISOString(),
+        credentials: {
+          "GOOGLE_PROJECT_ID": !!projectId,
+          "GOOGLE_APPLICATION_CREDENTIALS": !!serviceAccountKey
+        },
+        availableActions: ["test", "query", "datasets", "tables"]
+      }), {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      });
+    }
     if (!projectId || !serviceAccountKey) {
       return new Response(JSON.stringify({
         status: "error",
@@ -104,15 +124,15 @@ const POST = async ({ request, locals }) => {
     const { query, dataset } = body;
     const runtime = locals?.runtime;
     const env = runtime?.env;
-    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
-    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
+    const projectId = env?.GOOGLE_CLOUD_PROJECT_ID || env?.GOOGLE_PROJECT_ID;
+    const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY || env?.GOOGLE_APPLICATION_CREDENTIALS;
     if (!projectId || !serviceAccountKey) {
       return new Response(JSON.stringify({
         status: "error",
         service: "BigQuery",
         error: "BigQuery nie jest skonfigurowane",
-        message: "Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY",
-        required_config: ["GOOGLE_CLOUD_PROJECT_ID", "GOOGLE_SERVICE_ACCOUNT_KEY"],
+        message: "Brak wymaganych zmiennych środowiskowych: GOOGLE_CLOUD_PROJECT_ID/GOOGLE_PROJECT_ID i GOOGLE_SERVICE_ACCOUNT_KEY/GOOGLE_APPLICATION_CREDENTIALS",
+        required_config: ["GOOGLE_CLOUD_PROJECT_ID lub GOOGLE_PROJECT_ID", "GOOGLE_SERVICE_ACCOUNT_KEY lub GOOGLE_APPLICATION_CREDENTIALS"],
         query,
         dataset
       }), {

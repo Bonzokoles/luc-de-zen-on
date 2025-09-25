@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 class GoogleDriveIntegration {
   config;
@@ -292,7 +292,7 @@ const POST = async ({ request }) => {
     let driveContext = "";
     if (useGoogleDrive) {
       try {
-        driveContext = await getGoogleDriveData(Object.assign(__vite_import_meta_env__, { OS: process.env.OS }), driveDataTypes || []);
+        driveContext = await getGoogleDriveData(Object.assign(__vite_import_meta_env__, {}), driveDataTypes || []);
       } catch (error) {
         console.warn("Google Drive integration failed:", error);
         driveContext = "Google Drive: Nie skonfigurowano lub błąd połączenia";

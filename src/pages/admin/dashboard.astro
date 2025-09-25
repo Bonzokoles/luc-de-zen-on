@@ -225,6 +225,43 @@ const pageAuthor = "MyBonzo Team";
         </div>
     </GlassPanel>
 
+    <!-- API Testing Panel -->
+    <GlassPanel title="🔧 Testowanie API" variant="highlight" padding="lg">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <!-- Kaggle API -->
+            <div style="background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.4); border-radius: 12px; padding: 15px;">
+                <h4 style="color: #ffa500; margin-bottom: 10px; font-size: 1.1rem;">📊 Kaggle API</h4>
+                <div id="kaggle-status" style="margin-bottom: 10px;">
+                    <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="kaggle-indicator">⏳ Ładowanie...</span></span>
+                </div>
+                <CyberpunkButton text="Test Kaggle" variant="outline" size="sm" onclick="testKaggleAPI()" />
+            </div>
+
+            <!-- BigQuery API -->
+            <div style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.4); border-radius: 12px; padding: 15px;">
+                <h4 style="color: #22c55e; margin-bottom: 10px; font-size: 1.1rem;">🗄️ BigQuery API</h4>
+                <div id="bigquery-status" style="margin-bottom: 10px;">
+                    <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="bigquery-indicator">⏳ Ładowanie...</span></span>
+                </div>
+                <CyberpunkButton text="Test BigQuery" variant="outline" size="sm" onclick="testBigQueryAPI()" />
+            </div>
+
+            <!-- Voice AI API -->
+            <div style="background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.4); border-radius: 12px; padding: 15px;">
+                <h4 style="color: #a855f7; margin-bottom: 10px; font-size: 1.1rem;">🎤 Voice AI</h4>
+                <div id="voice-status" style="margin-bottom: 10px;">
+                    <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="voice-indicator">⏳ Ładowanie...</span></span>
+                </div>
+                <CyberpunkButton text="Test Voice AI" variant="outline" size="sm" onclick="testVoiceAPI()" />
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <CyberpunkButton text="🚀 Test All APIs" variant="success" size="lg" onclick="testAllAPIs()" />
+            <CyberpunkButton text="📊 Open Full Test Panel" variant="primary" size="lg" onclick="window.open('/api-test-panel', '_blank')" />
+        </div>
+    </GlassPanel>
+
     <script>
         // Real-time data refresh functions
         async function refreshAllStats() {
@@ -519,7 +556,86 @@ const pageAuthor = "MyBonzo Team";
             console.log('✅ Admin dashboard initialized');
         });
 
-        // Make functions globally available
+        // API Testing Functions
+        async function testKaggleAPI() {
+            document.getElementById('kaggle-indicator').innerHTML = '⏳ Testowanie...';
+            try {
+                const response = await fetch('/api/kaggle?action=test');
+                const result = await response.json();
+                if (result.status === 'success') {
+                    document.getElementById('kaggle-indicator').innerHTML = '✅ Online';
+                    document.getElementById('kaggle-indicator').style.color = '#22c55e';
+                } else {
+                    throw new Error(result.error || 'API Error');
+                }
+            } catch (error) {
+                document.getElementById('kaggle-indicator').innerHTML = '❌ Offline';
+                document.getElementById('kaggle-indicator').style.color = '#ef4444';
+                console.error('Kaggle API test failed:', error);
+            }
+        }
+
+        async function testBigQueryAPI() {
+            document.getElementById('bigquery-indicator').innerHTML = '⏳ Testowanie...';
+            try {
+                const response = await fetch('/api/bigquery?action=test');
+                const result = await response.json();
+                if (result.status === 'success') {
+                    document.getElementById('bigquery-indicator').innerHTML = '✅ Online';
+                    document.getElementById('bigquery-indicator').style.color = '#22c55e';
+                } else {
+                    throw new Error(result.error || 'API Error');
+                }
+            } catch (error) {
+                document.getElementById('bigquery-indicator').innerHTML = '❌ Offline';
+                document.getElementById('bigquery-indicator').style.color = '#ef4444';
+                console.error('BigQuery API test failed:', error);
+            }
+        }
+
+        async function testVoiceAPI() {
+            document.getElementById('voice-indicator').innerHTML = '⏳ Testowanie...';
+            try {
+                const response = await fetch('/api/voice?action=test');
+                const result = await response.json();
+                if (result.status === 'success') {
+                    document.getElementById('voice-indicator').innerHTML = '✅ Online';
+                    document.getElementById('voice-indicator').style.color = '#22c55e';
+                } else {
+                    throw new Error(result.error || 'API Error');
+                }
+            } catch (error) {
+                document.getElementById('voice-indicator').innerHTML = '❌ Offline';
+                document.getElementById('voice-indicator').style.color = '#ef4444';
+                console.error('Voice API test failed:', error);
+            }
+        }
+
+        async function testAllAPIs() {
+            await Promise.all([
+                testKaggleAPI(),
+                testBigQueryAPI(),
+                testVoiceAPI()
+            ]);
+            
+            // Check if all APIs are online
+            const indicators = ['kaggle-indicator', 'bigquery-indicator', 'voice-indicator'];
+            const allOnline = indicators.every(id => 
+                document.getElementById(id).innerHTML.includes('✅')
+            );
+            
+            if (allOnline) {
+                alert('🎉 Wszystkie API działają poprawnie!');
+            } else {
+                alert('⚠️ Niektóre API mogą wymagać uwagi. Sprawdź szczegóły.');
+            }
+        }
+
+        // Initialize API status on load
+        document.addEventListener('DOMContentLoaded', function() {
+            testAllAPIs();
+        });
+
         window.refreshAllStats = refreshAllStats;
         window.loadWorkers = loadWorkers;
         window.createWorker = createWorker;
@@ -527,5 +643,11 @@ const pageAuthor = "MyBonzo Team";
         window.deleteWorkerAction = deleteWorkerAction;
         window.deploySite = deploySite;
         window.purgeCache = purgeCache;
+        
+        // API Testing functions
+        window.testKaggleAPI = testKaggleAPI;
+        window.testBigQueryAPI = testBigQueryAPI;
+        window.testVoiceAPI = testVoiceAPI;
+        window.testAllAPIs = testAllAPIs;
     </script>
 </UniversalPageLayout>

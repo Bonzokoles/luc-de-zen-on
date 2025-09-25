@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)file:///C:/Users/stola/OneDrive/Documents/PROP_ER_one-v2.html -->
+<html lang="pl" data-theme="blue"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUUC_ZEN_inc. - Web Catalog Manager</title>
+    <style>
+        :root {
+            --primary-color: #e0e8e0;
+            --secondary-color: #3ab795;
+            --accent-color: #c86b27;
+            --light-bg: #1e352f;
+            --dark-text: #f8f9fc;
+            --light-text: #333;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        /* Theme: Dark Green (Default) */
+        [data-theme="green"] {
+            --primary-color: #e0e8e0;
+            --secondary-color: #3ab795;
+            --accent-color: #c86b27;
+            --light-bg: #1e352f;
+        }
+        
+        /* Theme: Dark Blue */
+        [data-theme="blue"] {
+            --primary-color: #e0e6f0;
+            --secondary-color: #4a9eff;
+            --accent-color: #ff6b47;
+            --light-bg: #1a2332;
+        }
+        
+        /* Theme: Dark Purple */
+        [data-theme="purple"] {
+            --primary-color: #e8e0f0;
+            --secondary-color: #9d5cff;
+            --accent-color: #ff7b47;
+            --light-bg: #251a32;
+        }
+        
+        /* Theme: Dark Red */
+        [data-theme="red"] {
+            --primary-color: #f0e0e6;
+            --secondary-color: #ff5c7a;
+            --accent-color: #47b7ff;
+            --light-bg: #321a23;
+        }
+        
+        /* Theme: Dark Gray */
+        [data-theme="gray"] {
+            --primary-color: #e6e6e6;
+            --secondary-color: #7a9eff;
+            --accent-color: #ffb347;
+            --light-bg: #1f1f23;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .main-container {
+            display: flex;
+            height: 100vh;
+            background-color: var(--light-bg);
+        }
+        
+        [data-theme="green"] .main-container { background-color: #1e352f; }
+        [data-theme="blue"] .main-container { background-color: #1a2332; }
+        [data-theme="purple"] .main-container { background-color: #251a32; }
+        [data-theme="red"] .main-container { background-color: #321a23; }
+        [data-theme="gray"] .main-container { background-color: #1f1f23; }
+        
+        .left-panel {
+            width: 60%;
+            padding: 20px;
+            background-color: #0f201a;
+            overflow-y: auto;
+            border-right: 2px solid #2a4d40;
+        }
+        
+        [data-theme="green"] .left-panel { background-color: #0f201a; }
+        [data-theme="blue"] .left-panel { background-color: #131820; }
+        [data-theme="purple"] .left-panel { background-color: #1a1320; }
+        [data-theme="red"] .left-panel { background-color: #201318; }
+        [data-theme="gray"] .left-panel { background-color: #161618; }
+        
+        .right-panel {
+            width: 40%;
+            background-color: #182f27;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        [data-theme="green"] .right-panel { background-color: #182f27; }
+        [data-theme="blue"] .right-panel { background-color: #1a2230; }
+        [data-theme="purple"] .right-panel { background-color: #221a30; }
+        [data-theme="red"] .right-panel { background-color: #2a1820; }
+        [data-theme="gray"] .right-panel { background-color: #1a1a1e; }
+        
+        .theme-selector {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .theme-btn {
+            width: 25px;
+            height: 25px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+            border-color: #fff;
+        }
+        
+        .theme-btn.active {
+            border-color: #fff;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+        
+        .theme-btn[data-theme="green"] { background: linear-gradient(45deg, #1e352f, #3ab795); }
+        .theme-btn[data-theme="blue"] { background: linear-gradient(45deg, #1a2332, #4a9eff); }
+        .theme-btn[data-theme="purple"] { background: linear-gradient(45deg, #251a32, #9d5cff); }
+        .theme-btn[data-theme="red"] { background: linear-gradient(45deg, #321a23, #ff5c7a); }
+        .theme-btn[data-theme="gray"] { background: linear-gradient(45deg, #1f1f23, #7a9eff); }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #2a4d40;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            color: #a0a9a0;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #2a4d40;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--primary-color);
+            background-color: #2a4d40;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+        
+        input[type="text"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #2a4d40;
+            font-size: 0.9rem;
+            background-color: #1a342e;
+            color: var(--dark-text);
+            font-family: inherit;
+            transition: border 0.3s ease;
+        }
+        
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            margin: 4px;
+        }
+        
+        .btn:hover {
+            background-color: #2d8e74;
+        }
+        
+        .btn-danger {
+            background-color: var(--accent-color);
+        }
+        
+        .btn-danger:hover {
+            background-color: #a35620;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #27ae60;
+        }
+        
+        .catalog-header {
+            padding: 20px;
+            border-bottom: 1px solid #2a4d40;
+            background-color: inherit;
+        }
+        
+        .catalog-title {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+        
+        .catalog-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #a0a9a0;
+        }
+        
+        .subcategory-nav {
+            padding: 15px 20px;
+            border-bottom: 1px solid #2a4d40;
+            background-color: rgba(42, 77, 64, 0.3);
+        }
+        
+        .subcategory-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .subcategory-btn {
+            padding: 6px 12px;
+            background-color: #2a4d40;
+            color: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .subcategory-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .subcategory-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .catalog-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .page-card {
+            background-color: rgba(42, 77, 64, 0.2);
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #2a4d40;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .page-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .page-screenshot {
+            width: 50px;
+            height: 38px;
+            background-color: #2a4d40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #7f8c8d;
+            flex-shrink: 0;
+            border: 1px solid #3a5d50;
+        }
+        
+        .page-screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .page-info {
+            flex: 1;
+        }
+        
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+        
+        .page-url {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .page-url:hover {
+            text-decoration: underline;
+        }
+        
+        .page-description {
+            color: #a0a9a0;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+        
+        .page-tags {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .tag {
+            background-color: #2a4d40;
+            color: var(--primary-color);
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            border-radius: 2px;
+        }
+        
+        .page-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+        
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            padding: 4px;
+            transition: color 0.3s ease;
+        }
+        
+        .icon-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        .icon-btn.delete:hover {
+            color: var(--accent-color);
+        }
+        
+        .alert {
+            padding: 12px;
+            margin-bottom: 15px;
+            color: white;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .alert-success {
+            background-color: var(--success-color);
+        }
+        
+        .alert-danger {
+            background-color: var(--accent-color);
+        }
+        
+        .loading {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            margin-left: 8px;
+        }
+        
+        .no-pages {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px 20px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                width: 100%;
+                height: 60vh;
+            }
+            
+            .right-panel {
+                width: 100%;
+                height: 40vh;
+            }
+            
+            .theme-selector {
+                bottom: 10px;
+                right: 10px;
+                gap: 6px;
+            }
+            
+            .theme-btn {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left Panel - Generator -->
+        <div class="left-panel">
+            <header>
+                <h1>LUUC_ZEN_inc.</h1>
+                <p class="subtitle">Advanced Web Catalog Manager</p>
+            </header>
+            
+            <div class="tabs">
+                <button class="tab active" data-tab="add-page">Dodaj Stronę</button>
+                <button class="tab" data-tab="manage-subcategories">Podkatalogi</button>
+                <button class="tab" data-tab="export-import">Export/Import</button>
+            </div>
+            
+            <div id="alert" class="alert alert-success" style="display: none;">Motyw: Niebieski</div>
+            
+            <!-- Add Page Tab -->
+            <div id="add-page" class="tab-content active">
+                <form id="page-form">
+                    <div class="form-group">
+                        <label for="page-title">Tytuł Strony *</label>
+                        <input type="text" id="page-title" required="">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-url">URL Strony *</label>
+                        <input type="url" id="page-url" required="" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-subcategory">Podkatalog *</label>
+                        <select id="page-subcategory" required=""><option value="">Wybierz podkatalog</option><option value="subcategory_1">Portfolio &amp; Design</option><option value="subcategory_2">E-commerce</option><option value="subcategory_3">Blogi &amp; Media</option><option value="subcategory_4">Narzędzia &amp; Apps</option><option value="subcategory_5">Edukacja</option></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-description">Opis Strony *</label>
+                        <textarea id="page-description" rows="3" required="" placeholder="Opisz zawartość, funkcje lub cel strony..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="page-tags">Tagi (oddzielone przecinkami)</label>
+                        <input type="text" id="page-tags" placeholder="design, portfolio, e-commerce, blog">
+                    </div>
+                    
+                    <button type="submit" class="btn">Dodaj Stronę + Screenshot</button>
+                    <span id="loading-indicator" class="loading" style="display: none;">Pobieranie zdjęcia...</span>
+                    <button type="button" id="reset-form" class="btn btn-danger">Wyczyść</button>
+                </form>
+            </div>
+            
+            <!-- Manage Subcategories Tab -->
+            <div id="manage-subcategories" class="tab-content">
+                <div class="form-group">
+                    <h3>Zarządzanie Podkatalogami (Max 10)</h3>
+                    <p>Twórz tematyczne podkatalogi dla lepszej organizacji stron</p>
+                </div>
+                
+                <div class="form-group" id="add-subcategory-form">
+                    <label for="new-subcategory">Nowy Podkatalog</label>
+                    <input type="text" id="new-subcategory" placeholder="Nazwa podkatalogu">
+                    <button type="button" id="add-subcategory" class="btn">Dodaj Podkatalog</button>
+                </div>
+                
+                <div id="subcategories-list">
+                    <!-- Subcategories will be listed here -->
+                </div>
+            </div>
+            
+            <!-- Export/Import Tab -->
+            <div id="export-import" class="tab-content">
+                <div class="form-group">
+                    <h3>Export Danych</h3>
+                    <button id="export-json" class="btn">JSON</button>
+                    <button id="export-html" class="btn">HTML</button>
+                    <button id="export-csv" class="btn">CSV</button>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Import Danych</h3>
+                    <input type="file" id="import-file" accept=".json,.csv">
+                    <button id="import-data" class="btn btn-success">Importuj</button>
+                </div>
+                
+                <div class="form-group">
+                    <h3>Zarządzanie</h3>
+                    <button id="clear-all" class="btn btn-danger">Wyczyść Wszystko</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel - Catalog -->
+        <div class="right-panel">
+            <div class="catalog-header">
+                <div class="catalog-title">Katalog Stron</div>
+                <div class="catalog-stats">
+                    <span>Stron: <span id="total-pages">0</span></span>
+                    <span>Podkatalogów: <span id="total-subcategories">5</span></span>
+                    <span>Ze zdjęciami: <span id="with-screenshots">0</span></span>
+                </div>
+            </div>
+            
+            <div class="subcategory-nav">
+                <div class="subcategory-list" id="subcategory-nav">
+                        <button class="subcategory-btn " onclick="webCatalogManager.selectSubcategory(&#39;subcategory_1&#39;)">
+                            Portfolio &amp; Design (0)
+                        </button>
+                    
+                        <button class="subcategory-btn " onclick="webCatalogManager.selectSubcategory(&#39;subcategory_2&#39;)">
+                            E-commerce (0)
+                        </button>
+                    
+                        <button class="subcategory-btn " onclick="webCatalogManager.selectSubcategory(&#39;subcategory_3&#39;)">
+                            Blogi &amp; Media (0)
+                        </button>
+                    
+                        <button class="subcategory-btn " onclick="webCatalogManager.selectSubcategory(&#39;subcategory_4&#39;)">
+                            Narzędzia &amp; Apps (0)
+                        </button>
+                    
+                        <button class="subcategory-btn " onclick="webCatalogManager.selectSubcategory(&#39;subcategory_5&#39;)">
+                            Edukacja (0)
+                        </button>
+                    </div>
+            </div>
+            
+            <div class="catalog-content" id="catalog-content"><div class="no-pages">Wybierz podkatalog aby zobaczyć strony</div></div>
+        </div>
+        
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <div class="theme-btn" data-theme="green" title="Ciemna zieleń"></div>
+            <div class="theme-btn active" data-theme="blue" title="Ciemny niebieski"></div>
+            <div class="theme-btn" data-theme="purple" title="Ciemny fioletowy"></div>
+            <div class="theme-btn" data-theme="red" title="Ciemny czerwony"></div>
+            <div class="theme-btn" data-theme="gray" title="Ciemny szary"></div>
+        </div>
+    </div>
+
+    <script>
+        // LUUC_ZEN_inc. Web Catalog Manager
+        class WebCatalogManager {
+            constructor() {
+                // Data structures with predefined subcategory storage classes
+                this.pages = JSON.parse(localStorage.getItem('luuc_zen_pages') || '[]');
+                this.subcategories = JSON.parse(localStorage.getItem('luuc_zen_subcategories') || '[]');
+                this.currentTheme = localStorage.getItem('luuc_zen_theme') || 'green';
+                this.selectedSubcategory = localStorage.getItem('luuc_zen_selected_subcategory') || null;
+                
+                // Apply saved theme
+                document.documentElement.setAttribute('data-theme', this.currentTheme);
+                
+                // Predefined storage classes for subcategories (max 10)
+                this.subcategoryStorageClasses = {
+                    'subcategory_1': { name: '', pages: [] },
+                    'subcategory_2': { name: '', pages: [] },
+                    'subcategory_3': { name: '', pages: [] },
+                    'subcategory_4': { name: '', pages: [] },
+                    'subcategory_5': { name: '', pages: [] },
+                    'subcategory_6': { name: '', pages: [] },
+                    'subcategory_7': { name: '', pages: [] },
+                    'subcategory_8': { name: '', pages: [] },
+                    'subcategory_9': { name: '', pages: [] },
+                    'subcategory_10': { name: '', pages: [] }
+                };
+                
+                this.initializeDefaultSubcategories();
+                this.initializeEventListeners();
+                this.updateStats();
+                this.renderSubcategoryNav();
+                this.renderSelectedSubcategory();
+                this.updateSubcategorySelect();
+                this.initializeThemeSelector();
+            }
+            
+            initializeDefaultSubcategories() {
+                if (this.subcategories.length === 0) {
+                    this.subcategories = [
+                        { id: 'subcategory_1', name: 'Portfolio & Design', active: true },
+                        { id: 'subcategory_2', name: 'E-commerce', active: true },
+                        { id: 'subcategory_3', name: 'Blogi & Media', active: true },
+                        { id: 'subcategory_4', name: 'Narzędzia & Apps', active: true },
+                        { id: 'subcategory_5', name: 'Edukacja', active: true }
+                    ];
+                    this.saveSubcategories();
+                }
+            }
+            
+            initializeEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                });
+                
+                // Form submission
+                document.getElementById('page-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.addPage();
+                });
+                
+                // Reset form
+                document.getElementById('reset-form').addEventListener('click', () => {
+                    document.getElementById('page-form').reset();
+                });
+                
+                // Subcategory management
+                document.getElementById('add-subcategory').addEventListener('click', () => {
+                    this.addSubcategory();
+                });
+                
+                // Export buttons
+                document.getElementById('export-json').addEventListener('click', () => this.exportData('json'));
+                document.getElementById('export-html').addEventListener('click', () => this.exportData('html'));
+                document.getElementById('export-csv').addEventListener('click', () => this.exportData('csv'));
+                
+                // Import
+                document.getElementById('import-data').addEventListener('click', () => this.importData());
+                
+                // Clear all
+                document.getElementById('clear-all').addEventListener('click', () => {
+                    if (confirm('Czy na pewno chcesz usunąć wszystkie dane?')) {
+                        this.clearAllData();
+                    }
+                });
+                
+                // Theme selector
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.addEventListener('click', () => this.changeTheme(btn.dataset.theme));
+                });
+            }
+            
+            initializeThemeSelector() {
+                // Update active theme button
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.theme === this.currentTheme) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+            
+            changeTheme(themeName) {
+                this.currentTheme = themeName;
+                document.documentElement.setAttribute('data-theme', themeName);
+                localStorage.setItem('luuc_zen_theme', themeName);
+                
+                // Update active button
+                this.initializeThemeSelector();
+                
+                this.showAlert(`Motyw: ${this.getThemeDisplayName(themeName)}`, 'success');
+            }
+            
+            getThemeDisplayName(theme) {
+                const names = {
+                    'green': 'Zieleń',
+                    'blue': 'Niebieski', 
+                    'purple': 'Fioletowy',
+                    'red': 'Czerwony',
+                    'gray': 'Szary'
+                };
+                return names[theme] || theme;
+            }
+            
+            switchTab(tabName) {
+                // Update tab buttons
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+                
+                // Update tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName).classList.add('active');
+                
+                if (tabName === 'manage-subcategories') {
+                    this.renderSubcategoriesList();
+                }
+            }
+            
+            selectSubcategory(subcategoryId) {
+                this.selectedSubcategory = subcategoryId;
+                localStorage.setItem('luuc_zen_selected_subcategory', subcategoryId);
+                
+                // Update navigation
+                this.renderSubcategoryNav();
+                this.renderSelectedSubcategory();
+            }
+            
+            renderSubcategoryNav() {
+                const nav = document.getElementById('subcategory-nav');
+                const activeSubcategories = this.subcategories.filter(sub => sub.active);
+                
+                nav.innerHTML = activeSubcategories.map(subcategory => {
+                    const isActive = this.selectedSubcategory === subcategory.id;
+                    const pageCount = this.pages.filter(p => p.subcategory === subcategory.id).length;
+                    
+                    return `
+                        <button class="subcategory-btn ${isActive ? 'active' : ''}" 
+                                onclick="webCatalogManager.selectSubcategory('${subcategory.id}')">
+                            ${subcategory.name} (${pageCount})
+                        </button>
+                    `;
+                }).join('');
+            }
+            
+            renderSelectedSubcategory() {
+                const content = document.getElementById('catalog-content');
+                
+                if (!this.selectedSubcategory) {
+                    content.innerHTML = '<div class="no-pages">Wybierz podkatalog aby zobaczyć strony</div>';
+                    return;
+                }
+                
+                const pages = this.pages.filter(p => p.subcategory === this.selectedSubcategory);
+                
+                if (pages.length === 0) {
+                    content.innerHTML = '<div class="no-pages">Brak stron w tym podkatalogu</div>';
+                    return;
+                }
+                
+                content.innerHTML = pages.map(page => this.createPageCard(page)).join('');
+            }
+            
+            createPageCard(page) {
+                return `
+                    <div class="page-card">
+                        <div class="page-actions">
+                            <button class="icon-btn delete" onclick="webCatalogManager.deletePage(${page.id})" title="Usuń stronę">🗑️</button>
+                        </div>
+                        <div class="page-header">
+                            <div class="page-screenshot">
+                                ${page.screenshot ? 
+                                    `<img src="${page.screenshot}" alt="${page.title} screenshot" onerror="this.parentElement.innerHTML='📷'">` : 
+                                    '📷'
+                                }
+                            </div>
+                            <div class="page-info">
+                                <div class="page-title">${page.title}</div>
+                                <a href="${page.url}" target="_blank" class="page-url">${new URL(page.url).hostname}</a>
+                            </div>
+                        </div>
+                        <div class="page-description">${page.description}</div>
+                        <div class="page-tags">
+                            ${page.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            async addPage() {
+                const title = document.getElementById('page-title').value;
+                const url = document.getElementById('page-url').value;
+                const subcategory = document.getElementById('page-subcategory').value;
+                const description = document.getElementById('page-description').value;
+                const tags = document.getElementById('page-tags').value.split(',').map(tag => tag.trim()).filter(tag => tag);
+                
+                if (!title || !url || !subcategory || !description) {
+                    this.showAlert('Wypełnij wszystkie wymagane pola', 'danger');
+                    return;
+                }
+                
+                const loadingIndicator = document.getElementById('loading-indicator');
+                loadingIndicator.style.display = 'inline';
+                
+                try {
+                    const screenshotUrl = await this.getFullScreenshot(url);
+                    
+                    const page = {
+                        id: Date.now(),
+                        title,
+                        url,
+                        subcategory,
+                        description,
+                        tags,
+                        screenshot: screenshotUrl,
+                        addedAt: new Date().toISOString()
+                    };
+                    
+                    this.pages.push(page);
+                    this.savePageToSubcategoryStorage(page);
+                    this.savePages();
+                    this.showAlert(`Strona "${title}" została dodana!`, 'success');
+                    document.getElementById('page-form').reset();
+                    this.updateStats();
+                    this.renderSubcategoryNav();
+                    this.renderSelectedSubcategory();
+                    
+                } catch (error) {
+                    console.error('Error adding page:', error);
+                    this.showAlert('Wystąpił błąd podczas dodawania strony', 'danger');
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                }
+            }
+            
+            async getFullScreenshot(url) {
+                try {
+                    const demoUrl = `https://image.thum.io/get/width/400/crop/800/${encodeURIComponent(url)}`;
+                    return demoUrl;
+                } catch (error) {
+                    console.error('Screenshot error:', error);
+                    return null;
+                }
+            }
+            
+            savePageToSubcategoryStorage(page) {
+                if (this.subcategoryStorageClasses[page.subcategory]) {
+                    if (!this.subcategoryStorageClasses[page.subcategory].pages) {
+                        this.subcategoryStorageClasses[page.subcategory].pages = [];
+                    }
+                    this.subcategoryStorageClasses[page.subcategory].pages.push(page);
+                    localStorage.setItem('luuc_zen_storage_classes', JSON.stringify(this.subcategoryStorageClasses));
+                }
+            }
+            
+            addSubcategory() {
+                const activeSubcategories = this.subcategories.filter(sub => sub.active);
+                if (activeSubcategories.length >= 10) {
+                    this.showAlert('Osiągnięto limit 10 podkatalogów', 'danger');
+                    return;
+                }
+                
+                const name = document.getElementById('new-subcategory').value.trim();
+                if (!name) {
+                    this.showAlert('Podaj nazwę podkatalogu', 'danger');
+                    return;
+                }
+                
+                const nextSlot = this.subcategories.find(sub => !sub.active);
+                if (nextSlot) {
+                    nextSlot.name = name;
+                    nextSlot.active = true;
+                    this.subcategoryStorageClasses[nextSlot.id].name = name;
+                } else {
+                    const nextId = `subcategory_${this.subcategories.length + 1}`;
+                    if (this.subcategories.length < 10) {
+                        this.subcategories.push({
+                            id: nextId,
+                            name: name,
+                            active: true
+                        });
+                        this.subcategoryStorageClasses[nextId] = { name: name, pages: [] };
+                    }
+                }
+                
+                this.saveSubcategories();
+                this.updateSubcategorySelect();
+                this.renderSubcategoryNav();
+                this.renderSubcategoriesList();
+                this.showAlert(`Podkatalog "${name}" został dodany`, 'success');
+                document.getElementById('new-subcategory').value = '';
+            }
+            
+            deleteSubcategory(id) {
+                if (confirm('Czy na pewno chcesz usunąć ten podkatalog?')) {
+                    const subcategory = this.subcategories.find(sub => sub.id === id);
+                    if (subcategory) {
+                        subcategory.active = false;
+                        subcategory.name = '';
+                        this.subcategoryStorageClasses[id] = { name: '', pages: [] };
+                    }
+                    
+                    this.pages = this.pages.filter(page => page.subcategory !== id);
+                    
+                    if (this.selectedSubcategory === id) {
+                        this.selectedSubcategory = null;
+                        localStorage.removeItem('luuc_zen_selected_subcategory');
+                    }
+                    
+                    this.savePages();
+                    this.saveSubcategories();
+                    this.updateStats();
+                    this.renderSubcategoryNav();
+                    this.renderSelectedSubcategory();
+                    this.updateSubcategorySelect();
+                    this.renderSubcategoriesList();
+                    this.showAlert('Podkatalog został usunięty', 'success');
+                }
+            }
+            
+            deletePage(id) {
+                if (confirm('Czy na pewno chcesz usunąć tę stronę?')) {
+                    const page = this.pages.find(p => p.id === id);
+                    this.pages = this.pages.filter(page => page.id !== id);
+                    
+                    if (page && this.subcategoryStorageClasses[page.subcategory]) {
+                        this.subcategoryStorageClasses[page.subcategory].pages = 
+                            this.subcategoryStorageClasses[page.subcategory].pages.filter(p => p.id !== id);
+                        localStorage.setItem('luuc_zen_storage_classes', JSON.stringify(this.subcategoryStorageClasses));
+                    }
+                    
+                    this.savePages();
+                    this.updateStats();
+                    this.renderSubcategoryNav();
+                    this.renderSelectedSubcategory();
+                    this.showAlert('Strona została usunięta', 'success');
+                }
+            }
+            
+            updateSubcategorySelect() {
+                const select = document.getElementById('page-subcategory');
+                const activeSubcategories = this.subcategories.filter(sub => sub.active);
+                
+                select.innerHTML = '<option value="">Wybierz podkatalog</option>';
+                activeSubcategories.forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory.id;
+                    option.textContent = subcategory.name;
+                    select.appendChild(option);
+                });
+            }
+            
+            renderSubcategoriesList() {
+                const container = document.getElementById('subcategories-list');
+                const activeSubcategories = this.subcategories.filter(sub => sub.active);
+                
+                container.innerHTML = activeSubcategories.map(subcategory => `
+                    <div class="page-card">
+                        <div class="page-info">
+                            <div class="page-title">${subcategory.name}</div>
+                            <div class="page-description">ID: ${subcategory.id} | Stron: ${this.pages.filter(p => p.subcategory === subcategory.id).length}</div>
+                        </div>
+                        <div class="page-actions">
+                            <button class="icon-btn delete" onclick="webCatalogManager.deleteSubcategory('${subcategory.id}')" title="Usuń podkatalog">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            updateStats() {
+                document.getElementById('total-pages').textContent = this.pages.length;
+                document.getElementById('total-subcategories').textContent = this.subcategories.filter(sub => sub.active).length;
+                document.getElementById('with-screenshots').textContent = this.pages.filter(p => p.screenshot).length;
+            }
+            
+            exportData(format) {
+                const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+                
+                if (format === 'json') {
+                    const data = JSON.stringify({
+                        pages: this.pages,
+                        subcategories: this.subcategories,
+                        storageClasses: this.subcategoryStorageClasses,
+                        exportedAt: new Date().toISOString(),
+                        version: '2.0'
+                    }, null, 2);
+                    this.downloadFile(data, `luuc_zen_catalog_${timestamp}.json`, 'application/json');
+                } else if (format === 'csv') {
+                    const csv = this.convertToCSV(this.pages);
+                    this.downloadFile(csv, `luuc_zen_catalog_${timestamp}.csv`, 'text/csv');
+                } else if (format === 'html') {
+                    const html = this.generateHTMLExport();
+                    this.downloadFile(html, `luuc_zen_catalog_${timestamp}.html`, 'text/html');
+                }
+                
+                this.showAlert(`Eksport ${format.toUpperCase()} ukończony`, 'success');
+            }
+            
+            convertToCSV(pages) {
+                const headers = ['Tytuł', 'URL', 'Podkatalog', 'Opis', 'Tagi', 'Screenshot', 'Data dodania'];
+                const rows = pages.map(page => {
+                    const subcategory = this.subcategories.find(sub => sub.id === page.subcategory);
+                    return [
+                        page.title,
+                        page.url,
+                        subcategory ? subcategory.name : page.subcategory,
+                        page.description,
+                        page.tags.join('; '),
+                        page.screenshot || '',
+                        page.addedAt
+                    ];
+                });
+                
+                return [headers, ...rows].map(row => 
+                    row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
+                ).join('\n');
+            }
+            
+            generateHTMLExport() {
+                return `<!DOCTYPE html><html><head><title>LUUC_ZEN_inc. Export</title></head><body><h1>Katalog Stron</h1></body></html>`;
+            }
+            
+            downloadFile(content, filename, mimeType) {
+                const blob = new Blob([content], { type: mimeType });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            importData() {
+                const fileInput = document.getElementById('import-file');
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    this.showAlert('Wybierz plik do importu', 'danger');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        if (file.name.endsWith('.json')) {
+                            const data = JSON.parse(e.target.result);
+                            if (data.pages && data.subcategories) {
+                                this.pages = data.pages;
+                                this.subcategories = data.subcategories;
+                                if (data.storageClasses) {
+                                    this.subcategoryStorageClasses = data.storageClasses;
+                                }
+                                this.savePages();
+                                this.saveSubcategories();
+                                this.updateStats();
+                                this.renderSubcategoryNav();
+                                this.renderSelectedSubcategory();
+                                this.updateSubcategorySelect();
+                                this.showAlert('Import ukończony', 'success');
+                            } else {
+                                this.showAlert('Nieprawidłowy format JSON', 'danger');
+                            }
+                        } else {
+                            this.showAlert('Obsługiwane formaty: JSON', 'danger');
+                        }
+                    } catch (error) {
+                        console.error('Import error:', error);
+                        this.showAlert('Błąd importu', 'danger');
+                    }
+                };
+                reader.readAsText(file);
+            }
+            
+            savePages() {
+                localStorage.setItem('luuc_zen_pages', JSON.stringify(this.pages));
+            }
+            
+            saveSubcategories() {
+                localStorage.setItem('luuc_zen_subcategories', JSON.stringify(this.subcategories));
+            }
+            
+            showAlert(message, type) {
+                const alert = document.getElementById('alert');
+                alert.textContent = message;
+                alert.className = `alert alert-${type}`;
+                alert.style.display = 'block';
+                
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 3000);
+            }
+            
+            clearAllData() {
+                localStorage.removeItem('luuc_zen_pages');
+                localStorage.removeItem('luuc_zen_subcategories');
+                localStorage.removeItem('luuc_zen_storage_classes');
+                localStorage.removeItem('luuc_zen_selected_subcategory');
+                
+                this.pages = [];
+                this.subcategories = [];
+                this.selectedSubcategory = null;
+                this.subcategoryStorageClasses = {
+                    'subcategory_1': { name: '', pages: [] },
+                    'subcategory_2': { name: '', pages: [] },
+                    'subcategory_3': { name: '', pages: [] },
+                    'subcategory_4': { name: '', pages: [] },
+                    'subcategory_5': { name: '', pages: [] },
+                    'subcategory_6': { name: '', pages: [] },
+                    'subcategory_7': { name: '', pages: [] },
+                    'subcategory_8': { name: '', pages: [] },
+                    'subcategory_9': { name: '', pages: [] },
+                    'subcategory_10': { name: '', pages: [] }
+                };
+                
+                this.initializeDefaultSubcategories();
+                this.updateStats();
+                this.renderSubcategoryNav();
+                this.renderSelectedSubcategory();
+                this.updateSubcategorySelect();
+                this.showAlert('Dane zostały wyczyszczone', 'success');
+            }
+        }
+        
+        // Initialize the web catalog manager
+        const webCatalogManager = new WebCatalogManager();
+    </script>
+
+</body></html>

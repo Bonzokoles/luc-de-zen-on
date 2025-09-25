@@ -4,12 +4,36 @@ import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
+    const action = url.searchParams.get('action') || 'search';
     const search = url.searchParams.get('search') || 'machine learning';
     
     // Check for Kaggle API credentials from Cloudflare
-    const env = locals.runtime?.env;
+    const env = (locals as any).runtime?.env;
     const kaggleUsername = env?.KAGGLE_USERNAME;
     const kaggleKey = env?.KAGGLE_KEY;
+    
+    // Handle test action
+    if (action === 'test') {
+      return new Response(JSON.stringify({
+        status: 'success',
+        service: 'Kaggle API',
+        message: 'Kaggle API endpoint aktywny',
+        timestamp: new Date().toISOString(),
+        credentials: {
+          'KAGGLE_USERNAME': !!kaggleUsername,
+          'KAGGLE_KEY': !!kaggleKey
+        },
+        availableActions: ['test', 'search', 'datasets', 'competitions']
+      }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      });
+    }
     
     if (!kaggleUsername || !kaggleKey) {
       return new Response(JSON.stringify({
@@ -67,7 +91,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { action, dataset_ref } = body;
     
     // Check for Kaggle API credentials from Cloudflare
-    const env = locals.runtime?.env;
+    const env = (locals as any).runtime?.env;
     const kaggleUsername = env?.KAGGLE_USERNAME;
     const kaggleKey = env?.KAGGLE_KEY;
     

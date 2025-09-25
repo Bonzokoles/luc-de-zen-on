@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, e as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/astro/server_CDFI50iS.mjs';
+import { c as createComponent, d as renderHead, b as renderScript, a as renderTemplate } from '../../chunks/astro/server_DFvGEJvU.mjs';
 /* empty css                                             */
-export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$PolaczekSysT = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="en" data-astro-cid-q3dt75l2> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>POLACZEK_SYS_T - System Monitor</title>${renderHead()}</head> <body data-astro-cid-q3dt75l2> <main class="system-interface" data-astro-cid-q3dt75l2> <div class="container" data-astro-cid-q3dt75l2> <div class="header" data-astro-cid-q3dt75l2> <h1 class="system-title" data-astro-cid-q3dt75l2>⚙️ POLACZEK_SYS_T</h1> <p class="system-subtitle" data-astro-cid-q3dt75l2>
