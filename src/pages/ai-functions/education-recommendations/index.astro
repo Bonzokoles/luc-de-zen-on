@@ -1,0 +1,256 @@
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Rekomendacje Edukacyjne AI | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Rekomendacje Edukacyjne AI
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Personalizowane ścieżki rozwoju i rekomendacje kursów dopasowane do celów
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">LEARNING</span>
+            </div>
+            <div>USERS: <span class="text-[#ff6699] animate-pulse">2,847 active</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            ← Powrót do głównej
+          </a>
+          <a
+            href="/zaawansowane-funkcje-ai"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Wszystkie funkcje AI
+          </a>
+          <a
+            href="./personalizer/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            PERSONALIZER
+          </a>
+          <a
+            href="./courses/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            KURSY
+          </a>
+          <a
+            href="./progress/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            PROGRESS
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Overview -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <!-- AI Personalizer Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">AI Personalizer</h3>
+              <div class="text-2xl text-[#ff6699]">🧠</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Inteligentne dopasowanie ścieżki rozwoju
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • Skills assessment<br>
+              • Learning preferences<br>
+              • Goal-oriented paths
+            </div>
+            <a href="./personalizer/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              URUCHOM
+            </a>
+          </div>
+
+          <!-- Course Library Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Biblioteka Kursów</h3>
+              <div class="text-2xl text-[#ff6699]">📚</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Zbiór kursów z różnych dziedzin
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • 500+ kursów online<br>
+              • Filtry zaawansowane<br>
+              • User reviews & ratings
+            </div>
+            <a href="./courses/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              PRZEGLĄDAJ
+            </a>
+          </div>
+
+          <!-- Progress Tracker Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Tracker Postępów</h3>
+              <div class="text-2xl text-[#ff6699]">📊</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Monitorowanie rozwoju i osiągnięć
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • Skill progress tracking<br>
+              • Certificates earned<br>
+              • Time analytics
+            </div>
+            <a href="./progress/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              OTWÓRZ PANEL
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Recommendations Engine -->
+    <section class="relative z-20 py-8 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+          🎯 Twoje Rekomendacje AI
+        </h3>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Personalized Recommendations -->
+          <div class="bg-[#111111] border border-[#333333] p-6 rounded-sm">
+            <h4 class="text-[#ff6699] font-['Neuropol'] text-lg uppercase mb-4">Dopasowane dla Ciebie</h4>
+            <div class="space-y-4">
+              <div class="border-l-4 border-[#00ffff] pl-4">
+                <h5 class="text-[#00ffff] text-sm font-bold mb-1">Advanced JavaScript Patterns</h5>
+                <p class="text-[#a0a0a0] text-xs mb-2">Na podstawie Twojego poziomu JS i celów development</p>
+                <div class="flex gap-2">
+                  <span class="bg-[#00ffff] text-[#0a0a0a] px-2 py-1 text-xs font-bold">Match: 94%</span>
+                  <span class="bg-[#333333] text-[#e0e0e0] px-2 py-1 text-xs">16h</span>
+                </div>
+              </div>
+              
+              <div class="border-l-4 border-[#ff6699] pl-4">
+                <h5 class="text-[#00ffff] text-sm font-bold mb-1">Machine Learning Fundamentals</h5>
+                <p class="text-[#a0a0a0] text-xs mb-2">Idealny następny krok w Twojej ścieżce AI</p>
+                <div class="flex gap-2">
+                  <span class="bg-[#ff6699] text-[#0a0a0a] px-2 py-1 text-xs font-bold">Match: 89%</span>
+                  <span class="bg-[#333333] text-[#e0e0e0] px-2 py-1 text-xs">24h</span>
+                </div>
+              </div>
+              
+              <div class="border-l-4 border-[#ffaa00] pl-4">
+                <h5 class="text-[#00ffff] text-sm font-bold mb-1">DevOps with Docker & Kubernetes</h5>
+                <p class="text-[#a0a0a0] text-xs mb-2">Uzupełni Twoje umiejętności backend development</p>
+                <div class="flex gap-2">
+                  <span class="bg-[#ffaa00] text-[#0a0a0a] px-2 py-1 text-xs font-bold">Match: 82%</span>
+                  <span class="bg-[#333333] text-[#e0e0e0] px-2 py-1 text-xs">18h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trending & Popular -->
+          <div class="bg-[#111111] border border-[#333333] p-6 rounded-sm">
+            <h4 class="text-[#ff6699] font-['Neuropol'] text-lg uppercase mb-4">Trending w Twojej Branży</h4>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-[#e0e0e0] text-sm font-bold">AI Prompt Engineering</div>
+                  <div class="text-[#a0a0a0] text-xs">4.8★ • 2,847 uczestników</div>
+                </div>
+                <div class="text-[#00ffff] text-xs">🔥 HOT</div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-[#e0e0e0] text-sm font-bold">Cybersecurity Essentials</div>
+                  <div class="text-[#a0a0a0] text-xs">4.6★ • 1,432 uczestników</div>
+                </div>
+                <div class="text-[#ff6699] text-xs">⚡ RISING</div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-[#e0e0e0] text-sm font-bold">Cloud Architecture AWS</div>
+                  <div class="text-[#a0a0a0] text-xs">4.7★ • 3,124 uczestników</div>
+                </div>
+                <div class="text-[#ffaa00] text-xs">📈 POPULAR</div>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div>
+                  <div class="text-[#e0e0e0] text-sm font-bold">Data Science with Python</div>
+                  <div class="text-[#a0a0a0] text-xs">4.5★ • 5,678 uczestników</div>
+                </div>
+                <div class="text-[#888888] text-xs">📊 STEADY</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Learning Stats -->
+    <section class="relative z-20 py-8 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+          Statystyki Nauki
+        </h3>
+        
+        <div class="grid md:grid-cols-4 gap-4">
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="text-[#00ffff] text-2xl font-bold">2,847</div>
+            <div class="text-[#a0a0a0] text-sm">Aktywnych uczniów</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="text-[#00ffff] text-2xl font-bold">564</div>
+            <div class="text-[#a0a0a0] text-sm">Dostępnych kursów</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="text-[#00ffff] text-2xl font-bold">94.3%</div>
+            <div class="text-[#a0a0a0] text-sm">Accuracy AI</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="text-[#00ffff] text-2xl font-bold">47</div>
+            <div class="text-[#a0a0a0] text-sm">Kategorii nauki</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</MyBonzoLayout>

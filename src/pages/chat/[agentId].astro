@@ -49,7 +49,7 @@ try {
                     <span
                     class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
                     >
-                    {agent ? agent.name.toUpperCase().replace(/\s/g, '_') : 'ERROR'}
+                    {agent && agent.name ? agent.name.toUpperCase().replace(/\s/g, '_') : 'ERROR'}
                     </span>
                 </span>
                 </div>

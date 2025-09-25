@@ -1,8 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
+/* empty css                                  */
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhCD-Bso.mjs';
 /* empty css                                                    */
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$KaggleDatasetsEnhanced = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "Kaggle Datasets Enhanced | AI Workers", "data-astro-cid-kp35lodn": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-kp35lodn> <!-- Header Section --> <section class="border border-edge" data-astro-cid-kp35lodn> <div class="max-w-6xl mx-auto border-x border-edge" data-astro-cid-kp35lodn> <div class="flex justify-between max-h-72 min-h-64" data-astro-cid-kp35lodn> <div class="mt-auto" data-astro-cid-kp35lodn> <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-kp35lodn>

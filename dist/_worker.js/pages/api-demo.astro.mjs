@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { d as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
-import { c as attr } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhCD-Bso.mjs';
+import { b as attr } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 /* empty css                                    */
 
 function APIDemo($$renderer, $$props) {

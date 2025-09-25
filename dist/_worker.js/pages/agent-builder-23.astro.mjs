@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$Layout } from '../chunks/Layout_DHHm2gNj.mjs';
-import { $ as $$Section } from '../chunks/Section_CvOZnhJG.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$Layout } from '../chunks/Layout_bupQxkWv.mjs';
+import { $ as $$Section } from '../chunks/Section_Dr1Qq6ry.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$AgentBuilder23 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "siteTitle": "Agent Builder 23", "siteDescription": "Uproszczona wersja narz\u0119dzia agent-builder-23", "headerCosmeticText": "AGENT BUILDER" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "Section", $$Section, { "class": "min-h-72 pl-4 bg-radial-[at_50%_10%] from-accent/10 to-transparent" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<div class="max-w-md m-auto text-center"> <h1 class="text-3xl font-bold mb-4">Agent Builder 23</h1> <p class="text-xl mb-6">

@@ -1,91 +1,68 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { b as attr, e as escape_html } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-/* empty css                                                  */
+/* empty css                                     */
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BhCD-Bso.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BV683skl.mjs';
+/* empty css                                    */
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
-function ActivityDashboard($$renderer, $$props) {
-	$$renderer.component(($$renderer) => {
+const $$Index = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Activity Monitoring AI | KAROL LISSON", "data-astro-cid-zcpdlv52": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-zcpdlv52": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-zcpdlv52> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-zcpdlv52> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-zcpdlv52></div> <div class="cyber-grid absolute inset-0" data-astro-cid-zcpdlv52></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-zcpdlv52> <div class="max-w-6xl mx-auto px-4 py-8" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between mb-8" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']" data-astro-cid-zcpdlv52>
+Activity Monitoring AI
+</h1> <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']" data-astro-cid-zcpdlv52>
+Inteligentne monitorowanie aktywności użytkowników i systemu w czasie rzeczywistym
+</p> </div> <div class="text-right text-sm text-[#a0a0a0] font-mono" data-astro-cid-zcpdlv52> <div class="mb-1" data-astro-cid-zcpdlv52>
+STATUS: <span class="text-[#00ff00]" data-astro-cid-zcpdlv52>MONITORING</span> </div> <div data-astro-cid-zcpdlv52>EVENTS: <span class="text-[#ff6699] animate-pulse" data-astro-cid-zcpdlv52>2,847/min</span></div> </div> </div> <!-- Navigation --> <div class="flex gap-4 mb-8" data-astro-cid-zcpdlv52> <a href="/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-zcpdlv52>
+← Powrót do głównej
+</a> <a href="/zaawansowane-funkcje-ai" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-zcpdlv52>
+Wszystkie funkcje AI
+</a> <a href="./realtime/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-zcpdlv52>
+REAL-TIME
+</a> <a href="./analytics/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-zcpdlv52>
+ANALYTICS
+</a> <a href="./alerts/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm" data-astro-cid-zcpdlv52>
+ALERTY
+</a> </div> </div> </section> <!-- Monitoring Dashboard --> <section class="relative z-20 py-12" data-astro-cid-zcpdlv52> <div class="max-w-6xl mx-auto px-4" data-astro-cid-zcpdlv52> <div class="grid lg:grid-cols-3 gap-6 mb-8" data-astro-cid-zcpdlv52> <!-- Real-time Feed --> <div class="lg:col-span-2 bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm" data-astro-cid-zcpdlv52> <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6" data-astro-cid-zcpdlv52>
+📡 Live Activity Feed
+</h3> <div class="space-y-3 max-h-96 overflow-y-auto" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between border-l-4 border-[#00ff00] pl-3 py-2" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <div class="text-[#e0e0e0] text-sm" data-astro-cid-zcpdlv52>User login: admin@techcorp.pl</div> <div class="text-[#a0a0a0] text-xs" data-astro-cid-zcpdlv52>Location: Warszawa, PL | IP: 89.64.*.***</div> </div> <div class="text-[#00ff00] text-xs" data-astro-cid-zcpdlv52>SUCCESS</div> </div> <div class="flex items-center justify-between border-l-4 border-[#ffaa00] pl-3 py-2" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <div class="text-[#e0e0e0] text-sm" data-astro-cid-zcpdlv52>API rate limit warning: /api/chat</div> <div class="text-[#a0a0a0] text-xs" data-astro-cid-zcpdlv52>Client: app.mybonzo.com | 847 req/min</div> </div> <div class="text-[#ffaa00] text-xs" data-astro-cid-zcpdlv52>WARNING</div> </div> <div class="flex items-center justify-between border-l-4 border-[#ff3333] pl-3 py-2" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <div class="text-[#e0e0e0] text-sm" data-astro-cid-zcpdlv52>Failed authentication attempt</div> <div class="text-[#a0a0a0] text-xs" data-astro-cid-zcpdlv52>Target: admin panel | IP: 185.*.*.*** (RU)</div> </div> <div class="text-[#ff3333] text-xs" data-astro-cid-zcpdlv52>THREAT</div> </div> <div class="flex items-center justify-between border-l-4 border-[#00ffff] pl-3 py-2" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <div class="text-[#e0e0e0] text-sm" data-astro-cid-zcpdlv52>New user registration</div> <div class="text-[#a0a0a0] text-xs" data-astro-cid-zcpdlv52>Email: j.kowalski@gmail.com | Source: organic</div> </div> <div class="text-[#00ffff] text-xs" data-astro-cid-zcpdlv52>INFO</div> </div> <div class="flex items-center justify-between border-l-4 border-[#ff6699] pl-3 py-2" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <div class="text-[#e0e0e0] text-sm" data-astro-cid-zcpdlv52>High CPU usage detected</div> <div class="text-[#a0a0a0] text-xs" data-astro-cid-zcpdlv52>Server: worker-3 | Usage: 89% | Duration: 5min</div> </div> <div class="text-[#ff6699] text-xs" data-astro-cid-zcpdlv52>ALERT</div> </div> </div> </div> <!-- Quick Stats --> <div class="space-y-6" data-astro-cid-zcpdlv52> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm" data-astro-cid-zcpdlv52> <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4" data-astro-cid-zcpdlv52>⚡ Statystyki Real-time</h4> <div class="space-y-3" data-astro-cid-zcpdlv52> <div class="flex justify-between" data-astro-cid-zcpdlv52> <span class="text-[#a0a0a0] text-sm" data-astro-cid-zcpdlv52>Active Users:</span> <span class="text-[#00ffff] font-bold" data-astro-cid-zcpdlv52>2,847</span> </div> <div class="flex justify-between" data-astro-cid-zcpdlv52> <span class="text-[#a0a0a0] text-sm" data-astro-cid-zcpdlv52>Events/min:</span> <span class="text-[#00ffff] font-bold" data-astro-cid-zcpdlv52>15,423</span> </div> <div class="flex justify-between" data-astro-cid-zcpdlv52> <span class="text-[#a0a0a0] text-sm" data-astro-cid-zcpdlv52>Threats blocked:</span> <span class="text-[#ff3333] font-bold" data-astro-cid-zcpdlv52>247</span> </div> <div class="flex justify-between" data-astro-cid-zcpdlv52> <span class="text-[#a0a0a0] text-sm" data-astro-cid-zcpdlv52>System load:</span> <span class="text-[#00ff00] font-bold" data-astro-cid-zcpdlv52>Normal</span> </div> </div> </div> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm" data-astro-cid-zcpdlv52> <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4" data-astro-cid-zcpdlv52>🎯 Anomaly Detection</h4> <div class="space-y-2" data-astro-cid-zcpdlv52> <div class="text-[#ff3333] text-xs" data-astro-cid-zcpdlv52>
+🚨 Unusual traffic pattern detected
+</div> <div class="text-[#ffaa00] text-xs" data-astro-cid-zcpdlv52>
+⚠️ Memory usage spike on server-2
+</div> <div class="text-[#00ffff] text-xs" data-astro-cid-zcpdlv52>
+ℹ️ New user registration surge +340%
+</div> </div> </div> </div> </div> <!-- Feature Cards --> <div class="grid md:grid-cols-3 gap-6" data-astro-cid-zcpdlv52> <!-- Real-time Monitoring --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between mb-4" data-astro-cid-zcpdlv52> <h3 class="text-[#00ffff] font-['Neuropol'] text-lg uppercase tracking-wide" data-astro-cid-zcpdlv52>Real-time</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-zcpdlv52>📡</div> </div> <p class="text-[#a0a0a0] mb-4 text-sm" data-astro-cid-zcpdlv52>
+Monitoring w czasie rzeczywistym wszystkich aktywności
+</p> <div class="text-xs text-[#00ffff] mb-4" data-astro-cid-zcpdlv52>
+• User activity tracking<br data-astro-cid-zcpdlv52>
+• System performance<br data-astro-cid-zcpdlv52>
+• Security events
+</div> <a href="./realtime/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase" data-astro-cid-zcpdlv52>
+OTWÓRZ
+</a> </div> <!-- Analytics --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between mb-4" data-astro-cid-zcpdlv52> <h3 class="text-[#00ffff] font-['Neuropol'] text-lg uppercase tracking-wide" data-astro-cid-zcpdlv52>Analytics</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-zcpdlv52>📊</div> </div> <p class="text-[#a0a0a0] mb-4 text-sm" data-astro-cid-zcpdlv52>
+Zaawansowane analizy i raporty aktywności
+</p> <div class="text-xs text-[#00ffff] mb-4" data-astro-cid-zcpdlv52>
+• Usage patterns<br data-astro-cid-zcpdlv52>
+• Performance metrics<br data-astro-cid-zcpdlv52>
+• Trend analysis
+</div> <a href="./analytics/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase" data-astro-cid-zcpdlv52>
+ANALIZA
+</a> </div> <!-- Alert System --> <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between mb-4" data-astro-cid-zcpdlv52> <h3 class="text-[#00ffff] font-['Neuropol'] text-lg uppercase tracking-wide" data-astro-cid-zcpdlv52>Alerty</h3> <div class="text-2xl text-[#ff6699]" data-astro-cid-zcpdlv52>🚨</div> </div> <p class="text-[#a0a0a0] mb-4 text-sm" data-astro-cid-zcpdlv52>
+Inteligentny system powiadomień i alertów
+</p> <div class="text-xs text-[#00ffff] mb-4" data-astro-cid-zcpdlv52>
+• Smart notifications<br data-astro-cid-zcpdlv52>
+• Anomaly detection<br data-astro-cid-zcpdlv52>
+• Escalation rules
+</div> <a href="./alerts/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase" data-astro-cid-zcpdlv52>
+KONFIGURUJ
+</a> </div> </div> </div> </section> </main>  ` })}`;
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/activity-monitoring/index.astro", void 0);
 
-		let stats = {
-			total: 0,
-			errors: 0,
-			warnings: 0,
-			lastHour: 0};
-
-		let loading = true;
-		let selectedType = "all";
-
-		$$renderer.push(`<div class="bg-black/80 backdrop-blur-sm border border-cyan-500/30 rounded-xl p-6 text-cyan-300 max-h-[800px] overflow-hidden"><div class="flex items-center justify-between mb-6"><div class="flex items-center space-x-3"><div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div> <h2 class="text-2xl font-bold text-cyan-400">MONITOR AKTYWNOŚCI</h2></div> <div class="flex items-center space-x-4">`);
-
-		$$renderer.select(
-			{
-				value: selectedType,
-				class: 'bg-gray-900 border border-cyan-500/50 rounded px-3 py-1 text-cyan-300 focus:border-cyan-400 focus:outline-none'
-			},
-			($$renderer) => {
-				$$renderer.option({ value: 'all' }, ($$renderer) => {
-					$$renderer.push(`Wszystkie`);
-				});
-
-				$$renderer.option({ value: 'info' }, ($$renderer) => {
-					$$renderer.push(`Info`);
-				});
-
-				$$renderer.option({ value: 'warning' }, ($$renderer) => {
-					$$renderer.push(`Ostrzeżenia`);
-				});
-
-				$$renderer.option({ value: 'error' }, ($$renderer) => {
-					$$renderer.push(`Błędy`);
-				});
-			}
-		);
-
-		$$renderer.push(` <button class="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/50 rounded text-sm font-semibold transition-colors"${attr('disabled', loading, true)}>${escape_html("Odświeżanie..." )}</button></div></div> <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6"><div class="bg-gray-900/50 border border-cyan-500/20 rounded-lg p-4 text-center"><div class="text-2xl font-bold text-cyan-400">${escape_html(stats.total)}</div> <div class="text-sm text-gray-400">Łącznie</div></div> <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4 text-center"><div class="text-2xl font-bold text-red-400">${escape_html(stats.errors)}</div> <div class="text-sm text-gray-400">Błędy</div></div> <div class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-4 text-center"><div class="text-2xl font-bold text-yellow-400">${escape_html(stats.warnings)}</div> <div class="text-sm text-gray-400">Ostrzeżenia</div></div> <div class="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-4 text-center"><div class="text-2xl font-bold text-cyan-400">${escape_html(stats.lastHour)}</div> <div class="text-sm text-gray-400">Ostatnia godzina</div></div></div> `);
-
-		{
-			$$renderer.push('<!--[!-->');
-		}
-
-		$$renderer.push(`<!--]--> `);
-
-		{
-			$$renderer.push('<!--[!-->');
-		}
-
-		$$renderer.push(`<!--]--> <div class="space-y-3 max-h-96 overflow-y-auto custom-scrollbar svelte-q35g7j">`);
-
-		{
-			$$renderer.push('<!--[-->');
-			$$renderer.push(`<div class="text-center py-8"><div class="animate-spin w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full mx-auto mb-4"></div> <p class="text-gray-400">Ładowanie logów...</p></div>`);
-		}
-
-		$$renderer.push(`<!--]--></div></div>`);
-	});
-}
-
-const $$ActivityMonitoring = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Monitorowanie i Raportowanie | MyBonzo AI", "data-astro-cid-y26jeksb": true }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white" data-astro-cid-y26jeksb> <div class="container mx-auto px-4 py-8" data-astro-cid-y26jeksb> <div class="text-center mb-8" data-astro-cid-y26jeksb> <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-400 to-yellow-400 bg-clip-text text-transparent mb-4" data-astro-cid-y26jeksb>
-đź“Š Monitorowanie i Raportowanie
-</h1> <p class="text-xl text-slate-300 max-w-3xl mx-auto" data-astro-cid-y26jeksb>
-Dashboard z automatycznym generowaniem raportĂłw i alertami o anomaliach
-</p> </div> <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8" data-astro-cid-y26jeksb> <!-- Key Metrics --> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <div class="flex items-center gap-3 mb-3" data-astro-cid-y26jeksb> <span class="text-2xl" data-astro-cid-y26jeksb>đź”„</span> <h3 class="text-lg font-semibold text-orange-400" data-astro-cid-y26jeksb>AktywnoĹ›Ä‡</h3> </div> <div class="text-3xl font-bold text-white mb-2" data-astro-cid-y26jeksb>1,234</div> <div class="text-sm text-green-400" data-astro-cid-y26jeksb>+12% z zeszĹ‚ego tygodnia</div> </div> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <div class="flex items-center gap-3 mb-3" data-astro-cid-y26jeksb> <span class="text-2xl" data-astro-cid-y26jeksb>đź‘Ą</span> <h3 class="text-lg font-semibold text-orange-400" data-astro-cid-y26jeksb>UĹĽytkownicy</h3> </div> <div class="text-3xl font-bold text-white mb-2" data-astro-cid-y26jeksb>567</div> <div class="text-sm text-blue-400" data-astro-cid-y26jeksb>89 nowych dzisiaj</div> </div> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <div class="flex items-center gap-3 mb-3" data-astro-cid-y26jeksb> <span class="text-2xl" data-astro-cid-y26jeksb>âšˇ</span> <h3 class="text-lg font-semibold text-orange-400" data-astro-cid-y26jeksb>API Calls</h3> </div> <div class="text-3xl font-bold text-white mb-2" data-astro-cid-y26jeksb>15.2K</div> <div class="text-sm text-yellow-400" data-astro-cid-y26jeksb>234 w ostatniej godzinie</div> </div> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <div class="flex items-center gap-3 mb-3" data-astro-cid-y26jeksb> <span class="text-2xl" data-astro-cid-y26jeksb>đźš¨</span> <h3 class="text-lg font-semibold text-orange-400" data-astro-cid-y26jeksb>Alerty</h3> </div> <div class="text-3xl font-bold text-white mb-2" data-astro-cid-y26jeksb>3</div> <div class="text-sm text-red-400" data-astro-cid-y26jeksb>1 wymaga uwagi</div> </div> </div> <div class="grid grid-cols-1 lg:grid-cols-3 gap-8" data-astro-cid-y26jeksb> <!-- Main Dashboard --> <div class="lg:col-span-2" data-astro-cid-y26jeksb> ${renderComponent($$result2, "ActivityDashboard", ActivityDashboard, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/ActivityDashboard.svelte", "client:component-export": "default", "data-astro-cid-y26jeksb": true })} <!-- Real-time Activity Feed --> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6 mt-6" data-astro-cid-y26jeksb> <h3 class="text-xl font-semibold mb-4 text-orange-400" data-astro-cid-y26jeksb>Live Activity Feed</h3> <div class="space-y-3 max-h-64 overflow-y-auto" data-astro-cid-y26jeksb> <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg" data-astro-cid-y26jeksb> <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse" data-astro-cid-y26jeksb></span> <div class="flex-1" data-astro-cid-y26jeksb> <div class="text-sm font-medium" data-astro-cid-y26jeksb>Nowy uĹĽytkownik zarejestrowany</div> <div class="text-xs text-slate-400" data-astro-cid-y26jeksb>2 minuty temu</div> </div> </div> <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg" data-astro-cid-y26jeksb> <span class="w-3 h-3 bg-blue-400 rounded-full" data-astro-cid-y26jeksb></span> <div class="flex-1" data-astro-cid-y26jeksb> <div class="text-sm font-medium" data-astro-cid-y26jeksb>API Call: Generate Image</div> <div class="text-xs text-slate-400" data-astro-cid-y26jeksb>5 minut temu</div> </div> </div> <div class="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg" data-astro-cid-y26jeksb> <span class="w-3 h-3 bg-yellow-400 rounded-full" data-astro-cid-y26jeksb></span> <div class="flex-1" data-astro-cid-y26jeksb> <div class="text-sm font-medium" data-astro-cid-y26jeksb>Wysokie zuĹĽycie CPU</div> <div class="text-xs text-slate-400" data-astro-cid-y26jeksb>8 minut temu</div> </div> </div> </div> </div> </div> <!-- Sidebar Controls --> <div class="space-y-6" data-astro-cid-y26jeksb> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <h3 class="text-xl font-semibold mb-4 text-orange-400" data-astro-cid-y26jeksb>Kontrola</h3> <div class="space-y-3" data-astro-cid-y26jeksb> <button class="w-full bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg font-semibold transition-colors" data-astro-cid-y26jeksb>
-đź“‹ Generuj Raport
-</button> <button class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors" data-astro-cid-y26jeksb>
-đź“Š Eksportuj Dane
-</button> <button class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors" data-astro-cid-y26jeksb>
-đź”” Ustawienia AlertĂłw
-</button> </div> </div> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <h3 class="text-xl font-semibold mb-4 text-orange-400" data-astro-cid-y26jeksb>System Status</h3> <div class="space-y-3" data-astro-cid-y26jeksb> <div class="flex justify-between items-center" data-astro-cid-y26jeksb> <span class="text-slate-300" data-astro-cid-y26jeksb>API Gateway</span> <span class="px-2 py-1 bg-green-600 rounded text-xs" data-astro-cid-y26jeksb>ONLINE</span> </div> <div class="flex justify-between items-center" data-astro-cid-y26jeksb> <span class="text-slate-300" data-astro-cid-y26jeksb>AI Workers</span> <span class="px-2 py-1 bg-green-600 rounded text-xs" data-astro-cid-y26jeksb>RUNNING</span> </div> <div class="flex justify-between items-center" data-astro-cid-y26jeksb> <span class="text-slate-300" data-astro-cid-y26jeksb>Database</span> <span class="px-2 py-1 bg-yellow-600 rounded text-xs" data-astro-cid-y26jeksb>SLOW</span> </div> <div class="flex justify-between items-center" data-astro-cid-y26jeksb> <span class="text-slate-300" data-astro-cid-y26jeksb>Cache</span> <span class="px-2 py-1 bg-green-600 rounded text-xs" data-astro-cid-y26jeksb>OPTIMAL</span> </div> </div> </div> <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6" data-astro-cid-y26jeksb> <h3 class="text-xl font-semibold mb-4 text-orange-400" data-astro-cid-y26jeksb>Automatyczne Raporty</h3> <ul class="space-y-2 text-slate-300 text-sm" data-astro-cid-y26jeksb> <li data-astro-cid-y26jeksb>đź“§ Email co 24h</li> <li data-astro-cid-y26jeksb>đź“± SMS przy alertach</li> <li data-astro-cid-y26jeksb>đź“Š Weekly Dashboard</li> <li data-astro-cid-y26jeksb>đź“ Monthly Analytics</li> </ul> </div> </div> </div> </div> </main> ` })} `;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/activity-monitoring.astro", void 0);
-
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/activity-monitoring.astro";
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/ai-functions/activity-monitoring/index.astro";
 const $$url = "/ai-functions/activity-monitoring";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
-  default: $$ActivityMonitoring,
+  default: $$Index,
   file: $$file,
   url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));

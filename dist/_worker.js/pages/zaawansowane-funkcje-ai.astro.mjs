@@ -1,10 +1,117 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { d as createAstro, c as createComponent, g as addAttribute, e as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_CDFI50iS.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_Yn5Mz22W.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_DBsFRx3r.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_JlAZN0ai.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { e as createAstro, c as createComponent, g as addAttribute, d as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_srB5_3fi.mjs';
+import { c as escape_html, b as attr, e as ensure_array_like, d as attr_class, s as stringify } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+/* empty css                                                   */
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_CEUPVAIV.mjs';
+
+function RecommendationsWidget($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
+		let preferences = "";
+		let history = "";
+		let recommendations = [];
+		let loading = false;
+
+		function getPriorityColor(priority) {
+			if (priority >= 4) return "border-green-400 bg-green-900/10";
+			if (priority >= 3) return "border-yellow-400 bg-yellow-900/10";
+
+			return "border-gray-500 bg-gray-900/10";
+		}
+
+		function getPriorityText(priority) {
+			if (priority >= 4) return "Wysoki priorytet";
+			if (priority >= 3) return "Średni priorytet";
+
+			return "Niski priorytet";
+		}
+
+		$$renderer.push(`<div class="worker-card bg-black border border-cyan-500/30 p-6 rounded-lg shadow-2xl svelte-1nof2ng"><div class="mb-6"><h2 class="text-2xl font-bold text-cyan-300 mb-2 uppercase tracking-wider">Personalizowane rekomendacje</h2> <p class="text-gray-400">System rekomendacji produktów i usług oparty na preferencjach użytkownika</p></div> <div class="space-y-4"><div><label for="preferences" class="block text-cyan-300 font-medium mb-2 uppercase text-sm tracking-wide">Preferencje użytkownika</label> <textarea id="preferences" placeholder="Wpisz preferencje użytkownika (np. technologie, marketing, e-commerce)..." rows="3" class="w-full p-3 bg-gray-900/80 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 font-mono">`);
+
+		const $$body = escape_html(preferences);
+
+		if ($$body) {
+			$$renderer.push(`${$$body}`);
+		}
+
+		$$renderer.push(`</textarea></div> <div><label for="history" class="block text-cyan-300 font-medium mb-2 uppercase text-sm tracking-wide">Historia użytkownika (opcjonalnie)</label> <input id="history"${attr('value', history)} placeholder="Historia zakupów, odwiedzonych stron (oddziel przecinkami)..." class="w-full p-3 bg-gray-900/80 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 font-mono"/></div> <div class="flex gap-4"><button${attr('disabled', !preferences.trim(), true)} class="px-6 py-3 bg-gradient-to-r from-cyan-600 to-cyan-700 text-white rounded-lg font-semibold hover:from-cyan-500 hover:to-cyan-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg border border-cyan-500/50 uppercase tracking-wide">${escape_html("Generuj rekomendacje")}</button> `);
+
+		if (recommendations.length > 0) {
+			$$renderer.push('<!--[-->');
+			$$renderer.push(`<button${attr('disabled', loading, true)} class="px-6 py-3 bg-gray-700/50 border border-gray-600/50 text-white rounded-lg font-semibold hover:bg-gray-600/50 hover:border-gray-500/50 transition-all duration-300 disabled:opacity-50 uppercase tracking-wide">Odśwież</button>`);
+		} else {
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--></div> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		{
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		if (recommendations.length > 0 && !loading) {
+			$$renderer.push('<!--[-->');
+			$$renderer.push(`<div class="mt-6"><h3 class="text-lg font-semibold text-cyan-300 mb-4 uppercase tracking-wider">Rekomendacje dla Ciebie (${escape_html(recommendations.length)})</h3> <div class="grid gap-4"><!--[-->`);
+
+			const each_array = ensure_array_like(recommendations);
+
+			for (let idx = 0, $$length = each_array.length; idx < $$length; idx++) {
+				let rec = each_array[idx];
+
+				$$renderer.push(`<div${attr_class(`p-4 rounded-lg border ${stringify(getPriorityColor(rec.priority || 3))} transition-all duration-300 hover:shadow-xl hover:border-opacity-80 bg-gray-900/20`, 'svelte-1nof2ng')}><div class="flex justify-between items-start mb-3"><h4 class="text-white font-bold text-lg uppercase tracking-wide">${escape_html(rec.title)}</h4> `);
+
+				if (rec.priority) {
+					$$renderer.push('<!--[-->');
+					$$renderer.push(`<span class="px-2 py-1 bg-gray-800/50 border border-gray-600/30 text-xs rounded text-gray-300 uppercase tracking-wide">${escape_html(getPriorityText(rec.priority))}</span>`);
+				} else {
+					$$renderer.push('<!--[!-->');
+				}
+
+				$$renderer.push(`<!--]--></div> <p class="text-gray-300 mb-3 leading-relaxed font-mono text-sm">${escape_html(rec.description)}</p> `);
+
+				if (rec.reason) {
+					$$renderer.push('<!--[-->');
+					$$renderer.push(`<div class="mb-3"><span class="text-cyan-400 text-sm font-semibold uppercase tracking-wide">Dlaczego dla Ciebie:</span> <p class="text-gray-400 text-sm italic font-mono">${escape_html(rec.reason)}</p></div>`);
+				} else {
+					$$renderer.push('<!--[!-->');
+				}
+
+				$$renderer.push(`<!--]--> `);
+
+				if (rec.category) {
+					$$renderer.push('<!--[-->');
+					$$renderer.push(`<div class="flex justify-between items-center"><span class="px-3 py-1 bg-cyan-900/20 border border-cyan-500/30 text-cyan-300 text-xs rounded uppercase tracking-wide font-semibold">${escape_html(rec.category)}</span> <button class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-cyan-700 text-white text-sm rounded hover:from-cyan-500 hover:to-cyan-600 transition-all duration-300 uppercase tracking-wide font-semibold border border-cyan-500/50">Dowiedz się więcej</button></div>`);
+				} else {
+					$$renderer.push('<!--[!-->');
+				}
+
+				$$renderer.push(`<!--]--></div>`);
+			}
+
+			$$renderer.push(`<!--]--></div></div>`);
+		} else {
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--> `);
+
+		if (recommendations.length === 0 && preferences) ; else {
+			$$renderer.push('<!--[!-->');
+		}
+
+		$$renderer.push(`<!--]--></div></div>`);
+	});
+}
 
 const $$Astro = createAstro("https://mybonzo.com");
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {
@@ -59,10 +166,10 @@ const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/zaawansowane-funkcje-ai.astro
 const $$url = "/zaawansowane-funkcje-ai";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-    __proto__: null,
-    default: $$ZaawansowaneFunkcjeAi,
-    file: $$file,
-    url: $$url
+  __proto__: null,
+  default: $$ZaawansowaneFunkcjeAi,
+  file: $$file,
+  url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;

@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                        */
-import { c as createComponent, a as renderTemplate } from '../../../chunks/astro/server_CDFI50iS.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
+import { c as createComponent, a as renderTemplate } from '../../../chunks/astro/server_DFvGEJvU.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const prerender = false;
 async function GET(context) {

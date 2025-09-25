@@ -1,7 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createComponent, b as renderScript, d as renderHead, a as renderTemplate } from '../../chunks/astro/server_BDhFni3J.mjs';
+/* empty css                                     */
+import { c as createComponent, b as renderScript, d as renderHead, a as renderTemplate } from '../../chunks/astro/server_DFvGEJvU.mjs';
 /* empty css                                                    */
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$PolishMegaProAdmin = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl" data-astro-cid-7fpblfjq> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>🚀 MyBonzo MEGA PRO ADMIN - POLISH SYSTEM</title>${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=0&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=1&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=2&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=3&lang.ts")}<link rel="stylesheet" href="/styles/global.css">${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=4&lang.ts")}${renderHead()}</head> <body class="bg-black text-white min-h-screen" data-astro-cid-7fpblfjq> <div id="app" class="main-container" data-astro-cid-7fpblfjq> <!-- MEGA PRO HEADER with Polish Fonts --> <header class="mb-8" data-astro-cid-7fpblfjq> <div class="dark-panel p-6" data-astro-cid-7fpblfjq> <div class="flex justify-between items-center" data-astro-cid-7fpblfjq> <div data-astro-cid-7fpblfjq> <h1 class="main-title" data-astro-cid-7fpblfjq>
@@ -34,6 +35,7 @@ EKSPORTUJ
 SCROLL: ON
 </button> </div> </div> <div id="consoleOutput" class="bg-black p-4 h-96 overflow-y-auto font-mono text-sm border border-gray-600" data-astro-cid-7fpblfjq> <div class="text-green-400" data-astro-cid-7fpblfjq>[INIT] 🚀 MyBonzo MEGA PRO Admin Polski zainicjalizowany</div> <div class="text-cyan-400" data-astro-cid-7fpblfjq>[FONTS] 📝 Polskie fonty załadowane: Neuropol X, Fledgling SB, Kenyan Coffee</div> <div class="text-blue-400" data-astro-cid-7fpblfjq>[WORKERS] 👥 8 polskich pracowników online</div> <div class="text-purple-400" data-astro-cid-7fpblfjq>[MUSIC] 🎵 System muzyki cyber operacyjny</div> <div class="text-yellow-400" data-astro-cid-7fpblfjq>[API] 🌐 Polskie endpointy dostępne</div> <div class="text-green-400" data-astro-cid-7fpblfjq>[READY] ✅ MEGA PRO Admin gotowy do użycia</div> </div> </div> </div> <!-- JavaScript for Polish MEGA PRO functionality --> ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=5&lang.ts")} </body> </html>`;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro", void 0);
+
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro";
 const $$url = "/admin/polish-mega-pro-admin";
 

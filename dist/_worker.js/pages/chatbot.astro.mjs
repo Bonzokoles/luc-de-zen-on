@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BhCD-Bso.mjs';
 /* empty css                                   */
-export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Chatbot = createComponent(async ($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "title": "AI Chatbot | AI Workers", "data-astro-cid-cpe23hkd": true }, { "default": async ($$result2) => renderTemplate` ${maybeRenderHead()}<main class="min-h-svh" data-astro-cid-cpe23hkd> <!-- Chat Settings Panel               <select
