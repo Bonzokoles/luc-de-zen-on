@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 // import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
 ---
@@ -52,11 +48,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
           <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
             <a class="ml-auto hover:brightness-125 duration-200" href="/">
-<<<<<<< HEAD
-              â† PowrĂłt do strony gĹ‚Ăłwnej
-=======
               ← Powrót do strony głównej
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <svg
                 style="--rotation: -45deg"
                 class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
@@ -84,11 +76,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       <div class="section-container max-w-4xl mx-auto">
         <h2 class="section-title">AI CHATBOT</h2>
         <p class="section-description">
-<<<<<<< HEAD
-          Inteligentny asystent AI do rozmĂłw, odpowiadania na pytania i pomocy w
-=======
           Inteligentny asystent AI do rozmów, odpowiadania na pytania i pomocy w
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           zadaniach
         </p>
 
@@ -114,11 +102,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 onclick="clearChat()"
                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
               >
-<<<<<<< HEAD
-                WyczyĹ›Ä‡
-=======
                 Wyczyść
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               </button>
               <button
                 onclick="exportChat()"
@@ -146,15 +130,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   <span class="text-gray-400 text-xs ml-auto">Teraz</span>
                 </div>
                 <div class="message-text text-primary-foreground">
-<<<<<<< HEAD
-                  CzeĹ›Ä‡! Jestem AI Assistant. MogÄ™ pomĂłc Ci w rĂłĹĽnych zadaniach
-                  - odpowiadaÄ‡ na pytania, pisaÄ‡ kod, tĹ‚umaczyÄ‡, analizowaÄ‡
-                  tekst i wiele wiÄ™cej. O czym chcesz porozmawiaÄ‡?
-=======
                   Cześć! Jestem AI Assistant. Mogę pomóc Ci w różnych zadaniach
                   - odpowiadać na pytania, pisać kod, tłumaczyć, analizować
                   tekst i wiele więcej. O czym chcesz porozmawiać?
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 </div>
               </div>
             </div>
@@ -166,11 +144,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               <textarea
                 id="messageInput"
                 rows="2"
-<<<<<<< HEAD
-                placeholder="Napisz swojÄ… wiadomoĹ›Ä‡..."
-=======
                 placeholder="Napisz swoją wiadomość..."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
                 style="background: rgba(0, 0, 0, 0.5);"
                 onkeypress="handleKeyPress(event)"></textarea>
@@ -179,11 +153,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 onclick="sendMessage()"
                 class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50"
               >
-<<<<<<< HEAD
-                WyĹ›lij
-=======
                 Wyślij
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               </button>
             </div>
             <div id="typingIndicator" class="hidden mt-2 text-gray-400 text-sm">
@@ -196,11 +166,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               <span
                 class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                 style="animation-delay: 0.2s"></span>
-<<<<<<< HEAD
-              <span class="ml-2">AI pisze odpowiedĹş...</span>
-=======
               <span class="ml-2">AI pisze odpowiedź...</span>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
           </div>
         </div>
@@ -213,47 +179,6 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <button
               class="quick-action-btn"
-<<<<<<< HEAD
-              onclick="askQuestion('Jak napisaÄ‡ funkcjÄ™ w JavaScript?')"
-            >
-              đź’» Programowanie
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('PrzetĹ‚umacz ten tekst na angielski')"
-            >
-              đźŚ TĹ‚umaczenie
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('Napisz kreatywnÄ… historiÄ™ o kosmosie')"
-            >
-              âśŤď¸Ź Pisanie
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('WyjaĹ›nij mi podstawy uczenia maszynowego')"
-            >
-              đź§  Nauka
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('PomĂłĹĽ mi z matematykÄ…')"
-            >
-              đź”˘ Matematyka
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('StwĂłrz plan diety')"
-            >
-              đźĄ— Zdrowie
-            </button>
-            <button
-              class="quick-action-btn"
-              onclick="askQuestion('DoradĹş mi ksiÄ…ĹĽkÄ™ do czytania')"
-            >
-              đź“š KsiÄ…ĹĽki
-=======
               onclick="askQuestion('Jak napisać funkcję w JavaScript?')"
             >
               💻 Programowanie
@@ -293,17 +218,12 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               onclick="askQuestion('Doradź mi książkę do czytania')"
             >
               📚 Książki
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </button>
             <button
               class="quick-action-btn"
               onclick="askQuestion('Co nowego w technologii?')"
             >
-<<<<<<< HEAD
-              đź”¬ Technologia
-=======
               🔬 Technologia
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </button>
           </div>
         </div>
@@ -350,11 +270,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <div>
               <label
                 class="block text-sm font-medium mb-2 text-primary-foreground"
-<<<<<<< HEAD
-                >JÄ™zyk:</label
-=======
                 >Język:</label
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               >
               <select
                 id="language"
@@ -503,15 +419,6 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   }
 
   async function sendMessage() {
-<<<<<<< HEAD
-    console.log("đźš€ sendMessage() wywoĹ‚ana");
-    const messageInput = document.getElementById("messageInput");
-    const message = messageInput.value.trim();
-    console.log("đź“ť WiadomoĹ›Ä‡ do wysĹ‚ania:", message);
-
-    if (!message) {
-      console.log("âťŚ Pusta wiadomoĹ›Ä‡ - przerywanie");
-=======
     console.log("🚀 sendMessage() wywołana");
     const messageInput = document.getElementById("messageInput");
     const message = messageInput.value.trim();
@@ -519,7 +426,6 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
     if (!message) {
       console.log("❌ Pusta wiadomość - przerywanie");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       return;
     }
 
@@ -527,25 +433,15 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     const typingIndicator = document.getElementById("typingIndicator");
 
     // Add user message
-<<<<<<< HEAD
-    console.log("âž• Dodawanie wiadomoĹ›ci uĹĽytkownika do czatu");
-=======
     console.log("➕ Dodawanie wiadomości użytkownika do czatu");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     addMessage(message, "user");
     messageInput.value = "";
 
     // Disable input
     sendButton.disabled = true;
-<<<<<<< HEAD
-    sendButton.textContent = "WysyĹ‚anie...";
-    typingIndicator.classList.remove("hidden");
-    console.log("đź”’ Przycisk zablokowany, rozpoczynanie wysyĹ‚ania");
-=======
     sendButton.textContent = "Wysyłanie...";
     typingIndicator.classList.remove("hidden");
     console.log("🔒 Przycisk zablokowany, rozpoczynanie wysyłania");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
     try {
       const aiModel = document.getElementById("aiModel").value;
@@ -554,11 +450,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       );
       const language = document.getElementById("language").value;
 
-<<<<<<< HEAD
-      console.log("âš™ď¸Ź Parametry:", { aiModel, temperature, language });
-=======
       console.log("⚙️ Parametry:", { aiModel, temperature, language });
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
       const requestData = {
         prompt: message,
@@ -566,11 +458,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         temperature: temperature,
         language: language,
       };
-<<<<<<< HEAD
-      console.log("đź“¤ WysyĹ‚anie ĹĽÄ…dania do /api/chat:", requestData);
-=======
       console.log("📤 Wysyłanie żądania do /api/chat:", requestData);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -579,11 +467,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       });
 
       console.log(
-<<<<<<< HEAD
-        "đź“Ą OdpowiedĹş otrzymana:",
-=======
         "📥 Odpowiedź otrzymana:",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         response.status,
         response.statusText
       );
@@ -593,85 +477,50 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       }
 
       const data = await response.json();
-<<<<<<< HEAD
-      console.log("đź“Š Dane z API:", data);
-=======
       console.log("📊 Dane z API:", data);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
       if (data.answer || data.response) {
         // Add AI response
         const aiResponse = data.answer || data.response;
-<<<<<<< HEAD
-        console.log("âś… Dodawanie odpowiedzi AI:", aiResponse);
-=======
         console.log("✅ Dodawanie odpowiedzi AI:", aiResponse);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         addMessage(aiResponse, "assistant");
 
         // Save to history
         saveChatToHistory(message, aiResponse);
       } else {
-<<<<<<< HEAD
-        throw new Error(data.error || "BĹ‚Ä…d odpowiedzi AI");
-      }
-    } catch (error) {
-      console.error("âťŚ Chat error:", error);
-      addMessage(
-        "Przepraszam, wystÄ…piĹ‚ bĹ‚Ä…d podczas przetwarzania Twojej wiadomoĹ›ci. SprĂłbuj ponownie. BĹ‚Ä…d: " +
-=======
         throw new Error(data.error || "Błąd odpowiedzi AI");
       }
     } catch (error) {
       console.error("❌ Chat error:", error);
       addMessage(
         "Przepraszam, wystąpił błąd podczas przetwarzania Twojej wiadomości. Spróbuj ponownie. Błąd: " +
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           error.message,
         "assistant",
         true
       );
     } finally {
       // Re-enable input
-<<<<<<< HEAD
-      console.log("đź”“ Odblokowanie przycisku");
-      sendButton.disabled = false;
-      sendButton.textContent = "WyĹ›lij";
-=======
       console.log("🔓 Odblokowanie przycisku");
       sendButton.disabled = false;
       sendButton.textContent = "Wyślij";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       typingIndicator.classList.add("hidden");
     }
   }
 
   // Test API connectivity function
   async function testAPI() {
-<<<<<<< HEAD
-    console.log("đź§Ş Testowanie API...");
-=======
     console.log("🧪 Testowanie API...");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     try {
       const response = await fetch("/api/chat", {
         method: "GET",
       });
       console.log(
-<<<<<<< HEAD
-        "đź“ˇ GET test response:",
-=======
         "📡 GET test response:",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         response.status,
         response.statusText
       );
       const data = await response.json();
-<<<<<<< HEAD
-      console.log("đź“Š GET test data:", data);
-=======
       console.log("📊 GET test data:", data);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
       // Test POST
       const postResponse = await fetch("/api/chat", {
@@ -680,24 +529,14 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         body: JSON.stringify({ prompt: "test message" }),
       });
       console.log(
-<<<<<<< HEAD
-        "đź“ˇ POST test response:",
-=======
         "📡 POST test response:",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         postResponse.status,
         postResponse.statusText
       );
       const postData = await postResponse.json();
-<<<<<<< HEAD
-      console.log("đź“Š POST test data:", postData);
-    } catch (error) {
-      console.error("âťŚ API test error:", error);
-=======
       console.log("📊 POST test data:", postData);
     } catch (error) {
       console.error("❌ API test error:", error);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   }
 
@@ -744,11 +583,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   }
 
   function clearChat() {
-<<<<<<< HEAD
-    if (confirm("Czy na pewno chcesz wyczyĹ›ciÄ‡ czat?")) {
-=======
     if (confirm("Czy na pewno chcesz wyczyścić czat?")) {
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       const chatMessages = document.getElementById("chatMessages");
       chatMessages.innerHTML = `
         <div class="message assistant-message">
@@ -759,11 +594,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               <span class="text-gray-400 text-xs ml-auto">Teraz</span>
             </div>
             <div class="message-text text-primary-foreground">
-<<<<<<< HEAD
-              Czat zostaĹ‚ wyczyszczony. W czym mogÄ™ Ci pomĂłc?
-=======
               Czat został wyczyszczony. W czym mogę Ci pomóc?
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </div>
           </div>
         </div>
@@ -781,11 +612,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       const header = message.querySelector(".message-header");
       const text = message.querySelector(".message-text");
       const user = header.textContent.includes("Ty")
-<<<<<<< HEAD
-        ? "UĹĽytkownik"
-=======
         ? "Użytkownik"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         : "AI Assistant";
       chatText += `${user}: ${text.textContent}\n\n`;
     });
@@ -848,15 +675,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         <div class="flex justify-between items-start">
           <div class="flex-1">
             <p class="text-primary-foreground text-sm font-medium truncate">${firstMessage}</p>
-<<<<<<< HEAD
-            <p class="text-gray-400 text-xs">${date} â€˘ ${chat.messages.length} wiadomoĹ›ci</p>
-          </div>
-          <button onclick="deleteChat(${chat.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">âś•</button>
-=======
             <p class="text-gray-400 text-xs">${date} • ${chat.messages.length} wiadomości</p>
           </div>
           <button onclick="deleteChat(${chat.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         </div>
       `;
 
@@ -886,11 +707,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
   function deleteChat(chatId) {
     event.stopPropagation();
-<<<<<<< HEAD
-    if (confirm("Czy na pewno chcesz usunÄ…Ä‡ tÄ™ rozmowÄ™?")) {
-=======
     if (confirm("Czy na pewno chcesz usunąć tę rozmowę?")) {
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       chatHistory = chatHistory.filter((chat) => chat.id !== chatId);
       localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
       updateHistoryDisplay();
@@ -903,11 +720,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
   // Initialize
   document.addEventListener("DOMContentLoaded", () => {
-<<<<<<< HEAD
-    console.log("đźš€ Chatbot DOM zaĹ‚adowany");
-=======
     console.log("🚀 Chatbot DOM załadowany");
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     updateHistoryDisplay();
 
     // Test API connectivity
@@ -916,11 +729,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     // Load quick prompt if available
     const quickPrompt = localStorage.getItem("quickChatPrompt");
     if (quickPrompt) {
-<<<<<<< HEAD
-      console.log("đź’ľ ZaĹ‚adowano szybki prompt:", quickPrompt);
-=======
       console.log("💾 Załadowano szybki prompt:", quickPrompt);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       document.getElementById("messageInput").value = quickPrompt;
       localStorage.removeItem("quickChatPrompt");
     }
@@ -928,13 +737,6 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     // Make functions globally available for debugging
     window.testAPI = testAPI;
     window.sendMessage = sendMessage;
-<<<<<<< HEAD
-    console.log("âś… Funkcje chatbot dostÄ™pne globalnie");
-  });
-</script>
-
-=======
     console.log("✅ Funkcje chatbot dostępne globalnie");
   });
 </script>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

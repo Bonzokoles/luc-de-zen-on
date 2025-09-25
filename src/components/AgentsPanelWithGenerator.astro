@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import AgentEditor from './AgentEditor.astro';
 import ImageGenerator from './ImageGenerator.astro';
 ---
@@ -13,37 +9,22 @@ import ImageGenerator from './ImageGenerator.astro';
     <script type="module">
       async function loadAgents() {
         const el = document.getElementById('agents-list');
-<<<<<<< HEAD
-        el.innerHTML = 'Ĺadowanie...';
-=======
         el.innerHTML = 'Ładowanie...';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         try {
           const res = await fetch('/api/agents');
           const data = await res.json();
           el.innerHTML = data.map(a => `<div class="p-3 bg-cyber-surface border border-cyber-border rounded"><strong class="text-cyber-blue">${a.id}</strong><div class="text-cyber-text-dim">${a.name||''}</div></div>`).join('');
-<<<<<<< HEAD
-        } catch (e) { el.innerHTML = 'BĹ‚Ä…d Ĺ‚adowania'; }
-=======
         } catch (e) { el.innerHTML = 'Błąd ładowania'; }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
       loadAgents();
     </script>
   </div>
 
   <div>
-<<<<<<< HEAD
-    <h4 class="text-cyber-blue">UtwĂłrz / Edytuj agenta</h4>
-    <AgentEditor />
-    <div class="mt-6">
-      <h4 class="text-cyber-blue">Generator obrazĂłw</h4>
-=======
     <h4 class="text-cyber-blue">Utwórz / Edytuj agenta</h4>
     <AgentEditor />
     <div class="mt-6">
       <h4 class="text-cyber-blue">Generator obrazów</h4>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       <ImageGenerator />
     </div>
   </div>
@@ -170,11 +151,7 @@ async function generateImage() {
 
 <div class="panel" style="--primary-color: {primaryColor}">
   {Astro.client && loadAgents()}
-<<<<<<< HEAD
-  <h2>Panel AgentĂłw</h2>
-=======
   <h2>Panel Agentów</h2>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   <div class="agents-list">
     {
       agents.map((agent) => (
@@ -227,19 +204,11 @@ async function generateImage() {
     <h2>Generator grafiki AI</h2>
     <input
       type="text"
-<<<<<<< HEAD
-      placeholder="Opisz grafikÄ™ do wygenerowania"
-      value={prompt}
-      oninput={(e) => (prompt = e.target.value)}
-    />
-    <button onclick={generateImage}>Generuj grafikÄ™</button>
-=======
       placeholder="Opisz grafikę do wygenerowania"
       value={prompt}
       oninput={(e) => (prompt = e.target.value)}
     />
     <button onclick={generateImage}>Generuj grafikę</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     {
       imageUrl && (
         <img
@@ -251,7 +220,3 @@ async function generateImage() {
     }
   </div>
 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

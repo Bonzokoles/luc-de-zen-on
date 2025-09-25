@@ -1,13 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { e as createAstro, c as createComponent, a as renderTemplate } from '../../../chunks/astro/server_BDhFni3J.mjs';
-import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_BJuaHVI9.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-
-const $$Astro = createAstro("https://mybonzo.com");
-=======
 import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const ADMIN_SYSTEM_PROMPTS = {
   general: `Jesteś zaawansowanym asystentem AI dla administratorów systemu MyBonzo. 
@@ -126,22 +119,11 @@ BEST PRACTICES:
 
 Fokusuj się na niezawodności, skalowalności i minimal downtime.`
 };
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const OPTIONS = createOPTIONSHandler(["POST"]);
 const POST = async ({ request, locals }) => {
   try {
     const { message, model, mode, history } = await request.json();
     if (!message || !model) {
-<<<<<<< HEAD
-      return createErrorResponse("Brak wymaganych parametr\u0102\u0142w: message, model", 400);
-    }
-    const adminMode = mode || "general";
-    const systemPrompt = ADMIN_SYSTEM_PROMPTS[adminMode] || ADMIN_SYSTEM_PROMPTS.general;
-    const ai = locals.runtime.env.AI;
-    if (!ai) {
-      return createErrorResponse("AI binding nie jest dost\xC4\u2122pne", 500);
-    }
-=======
       return createErrorResponse("Brak wymaganych parametrów: message, model", 400);
     }
     const adminMode = mode || "general";
@@ -178,7 +160,6 @@ const POST = async ({ request, locals }) => {
       return createErrorResponse("AI binding nie jest dostępne", 500);
     }
     const modelId = model?.startsWith("@cf/") ? model : model === "qwen-pl" ? "@cf/qwen/qwen2.5-7b-instruct" : model === "llama-8b" ? "@cf/meta/llama-3.1-8b-instruct" : model === "gemma" ? "@cf/google/gemma-3-12b-it" : "@cf/google/gemma-3-12b-it";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const messages = [
       {
         role: "system",
@@ -209,25 +190,6 @@ const POST = async ({ request, locals }) => {
     });
   } catch (error) {
     console.error("Admin Chat API Error:", error);
-<<<<<<< HEAD
-    if (error.message?.includes("model")) {
-      return createErrorResponse(`B\u0139\u201A\xC4\u2026d modelu AI: ${error.message}`, 422);
-    }
-    if (error.message?.includes("rate limit")) {
-      return createErrorResponse("Przekroczono limit zapyta\u0139\u201E. Spr\u0102\u0142buj ponownie za chwil\xC4\u2122.", 429);
-    }
-    return createErrorResponse(`B\u0139\u201A\xC4\u2026d wewn\xC4\u2122trzny: ${error.message}`, 500);
-  }
-};
-const $$Chat = createComponent(async ($$result, $$props, $$slots) => {
-  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
-  Astro2.self = $$Chat;
-  return renderTemplate``;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/api/admin/chat.astro", void 0);
-
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/api/admin/chat.astro";
-const $$url = "/api/admin/chat";
-=======
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     if (errorMessage?.includes("model")) {
       return createErrorResponse(`Błąd modelu AI: ${errorMessage}`, 422);
@@ -238,19 +200,11 @@ const $$url = "/api/admin/chat";
     return createErrorResponse(`Błąd wewnętrzny: ${errorMessage}`, 500);
   }
 };
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
     __proto__: null,
     OPTIONS,
-<<<<<<< HEAD
-    POST,
-    default: $$Chat,
-    file: $$file,
-    url: $$url
-=======
     POST
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;

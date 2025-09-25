@@ -1,21 +1,11 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 // This component is client-side only because it uses state.
 ---
 
 <div class="image-generator" client:load>
-<<<<<<< HEAD
-  <h3>Generator ObrazĂłw</h3>
-  <input type="text" id="image-prompt" placeholder="Opis grafiki" />
-  <button id="generate-image-btn">Generuj grafikÄ™</button>
-=======
   <h3>Generator Obrazów</h3>
   <input type="text" id="image-prompt" placeholder="Opis grafiki" />
   <button id="generate-image-btn">Generuj grafikę</button>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   <div id="image-output" style="margin-top: 1rem;">
     <!-- Generated image will be displayed here -->
   </div>
@@ -47,18 +37,6 @@
       if (data.success && data.imageUrl) {
         const img = document.createElement('img');
         
-<<<<<<< HEAD
-        // SprawdĹş czy imageUrl to string (URL) czy object (raw data)
-        if (typeof data.imageUrl === 'string') {
-          // JeĹ›li to URL string, uĹĽyj go bezpoĹ›rednio
-          img.src = data.imageUrl;
-        } else if (data.imageUrl.data) {
-          // JeĹ›li to raw data, stwĂłrz blob URL
-          const blob = new Blob([new Uint8Array(data.imageUrl.data)], { type: 'image/png' });
-          img.src = URL.createObjectURL(blob);
-        } else {
-          throw new Error('NieprawidĹ‚owy format odpowiedzi');
-=======
         // Sprawdź czy imageUrl to string (URL) czy object (raw data)
         if (typeof data.imageUrl === 'string') {
           // Jeśli to URL string, użyj go bezpośrednio
@@ -69,7 +47,6 @@
           img.src = URL.createObjectURL(blob);
         } else {
           throw new Error('Nieprawidłowy format odpowiedzi');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
         
         img.alt = `Wygenerowany obraz: ${prompt}`;
@@ -90,26 +67,15 @@
         }
         
       } else {
-<<<<<<< HEAD
-        imageOutput.innerHTML = `BĹ‚Ä…d: ${data.error || 'WystÄ…piĹ‚ nieznany bĹ‚Ä…d'}`;
-=======
         imageOutput.innerHTML = `Błąd: ${data.error || 'Wystąpił nieznany błąd'}`;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
       
     } catch (error) {
       console.error('Image generation error:', error);
-<<<<<<< HEAD
-      imageOutput.innerHTML = 'WystÄ…piĹ‚ bĹ‚Ä…d podczas generowania obrazu. SprĂłbuj ponownie.';
-    } finally {
-      generateBtn.disabled = false;
-      generateBtn.textContent = 'Generuj grafikÄ™';
-=======
       imageOutput.innerHTML = 'Wystąpił błąd podczas generowania obrazu. Spróbuj ponownie.';
     } finally {
       generateBtn.disabled = false;
       generateBtn.textContent = 'Generuj grafikę';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   }
 
@@ -164,8 +130,4 @@
     cursor: not-allowed;
     transform: none;
   }
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

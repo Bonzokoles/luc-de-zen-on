@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿---
-=======
 ---
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 import AgentCard from './AgentCard.astro';
 import AgentEditor from './AgentEditor.astro';
 
@@ -19,11 +15,7 @@ try {
 ---
 
 <section>
-<<<<<<< HEAD
-  <h2>Panel AgentĂłw</h2>
-=======
   <h2>Panel Agentów</h2>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   
   <h3>Dodaj nowego agenta</h3>
   <AgentEditor agent={{ id: crypto.randomUUID() }} onSave={() => {
@@ -34,15 +26,9 @@ try {
 
   <hr />
 
-<<<<<<< HEAD
-  <h3>Lista AgentĂłw</h3>
-  {agents.length === 0 ? (
-    <p>Brak agentĂłw do wyĹ›wietlenia.</p>
-=======
   <h3>Lista Agentów</h3>
   {agents.length === 0 ? (
     <p>Brak agentów do wyświetlenia.</p>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   ) : (
     agents.map(agent => <AgentCard agent={agent} />)
   )}
@@ -50,8 +36,4 @@ try {
 
 <script>
   // This script is for client-side interactions if needed in the future.
-<<<<<<< HEAD
 </script>
-=======
-</script>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

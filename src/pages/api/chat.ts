@@ -65,10 +65,6 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
     );
 
     const systemPrompt = body.system ?? (language === 'en'
-<<<<<<< HEAD
-      ? 'You are a helpful AI assistant. Answer concisely and clearly.'
-      : 'Jesteś pomocnym asystentem AI. Odpowiadaj po polsku, w sposób zwięzły, konkretny i zrozumiały. Używaj naturalnego, współczesnego języka polskiego.');
-=======
       ? `You are MyBonzo AI Assistant - a helpful AI for Polish AI platform. 
 
 🎯 WHAT IS MYBONZO:
@@ -128,7 +124,6 @@ MyBonzo = PLATFORMA AI z narzędziami:
 - Admin Panel i Voice AI
 
 ⚡ ZAWSZE odpowiadaj TYLKO o rzeczywistych funkcjach MyBonzo jako platformy AI!`);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
     // Użyj Cloudflare Workers AI z wybranym modelem
     const response = await env.AI.run(modelId, {

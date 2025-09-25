@@ -1,138 +1,25 @@
 ---
-<<<<<<< HEAD
-// 🚀 MyBonzo Universal Page Layout - Complete AI Platform Integration
-// Łączy wszystkie komponenty AI, API endpoints i funkcje biznesowe
-// Critical polyfill for React SSR on Cloudflare Workers
-import "../polyfills/react-scheduler.js";
-
-import SEOHead from "../components/SEO/SEOHead.astro";
-import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
-
-// 🤖 AI & Chat Components
-import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
-import MainChatWidget from "../components/MainChatWidget.svelte";
-import Chatbot from "../components/Chatbot.svelte";
-
-// 🎨 Creative & Media Components  
-import BackgroundMusicPlayerFixed from "../components/BackgroundMusicPlayerFixed.svelte";
-import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
-
-// 📊 Analytics & Data Components
-import BigQueryWidget from "../components/BigQueryWidget.svelte";
-import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import ActivityDashboard from "../components/ActivityDashboard.svelte";
-
-// 🤖 Agents & Automation
-import AgentManager from "../components/AgentManager.svelte";
-import AgentsPanel from "../components/AgentsPanel.svelte";
-
-// 💼 Business Functions
-import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
-import LeadQualificationForm from "../components/LeadQualificationForm.svelte";
-import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
-import RecommendationsWidget from "../components/RecommendationsWidget.svelte";
-
-// 🔍 Search & Discovery
-import TavilyWidget from "../components/TavilyWidget.svelte";
-import KaggleWidget from "../components/KaggleWidget.svelte";
-
-// 🎯 Interactive Elements
-import InteractiveQuizWidget from "../components/InteractiveQuizWidget.svelte";
-import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
-
-// Icon component for UI elements
-const Icon = ({ name }: { name: string }) => `<span class="icon-${name.replace('lucide:', '')}" aria-hidden="true"></span>`;
-
-interface Props {
-  siteTitle?: string;
-  pageTitle?: string;
-  title?: string;
-  description?: string;
-=======
 // Universal Page Layout for MyBonzo Admin Panel
 import SEOHead from "../components/SEO/SEOHead.astro";
 import AccessibilityTools from "../components/SEO/AccessibilityTools.astro";
 
 interface Props {
   pageTitle: string;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   pageDescription?: string;
   pageQuote?: string;
   pageAuthor?: string;
   showRandomQuote?: boolean;
   themeColor?: string;
-<<<<<<< HEAD
-  image?: string;
-  article?: boolean;
-  publishedTime?: string;
-  modifiedTime?: string;
-  author?: string;
-  tags?: string[];
-  canonicalURL?: string;
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   noindex?: boolean;
 }
 
 const {
-<<<<<<< HEAD
-  siteTitle,
-  pageTitle,
-  title,
-  description = "MyBonzo Admin Panel - Zarządzanie systemem AI",
-  pageDescription,
-=======
   pageTitle,
   pageDescription = "MyBonzo Admin Panel - Zarządzanie systemem AI",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   pageQuote = "Zarządzanie to sztuka, kontrola to nauka.",
   pageAuthor = "MyBonzo Team",
   showRandomQuote = false,
   themeColor = "190",
-<<<<<<< HEAD
-  image,
-  article,
-  publishedTime,
-  modifiedTime,
-  author,
-  tags,
-  canonicalURL,
-  noindex = false,
-} = Astro.props;
-
-// Normalize title - use siteTitle or title or pageTitle
-const finalTitle = siteTitle || title || pageTitle || "MyBonzo Platform";
-const finalDescription = pageDescription || description;
----
-
-<!doctype html>
-<html lang="pl" dir="ltr" style=`--themeColor: ${themeColor};`>
-  <head>
-    <!-- SEO and Meta Tags -->
-    <SEOHead
-      title={finalTitle}
-      description={finalDescription}
-      image={image}
-      article={article}
-      publishedTime={publishedTime}
-      modifiedTime={modifiedTime}
-      author={author}
-      tags={tags}
-      canonicalURL={canonicalURL}
-      noindex={noindex}
-    />
-
-    <!-- Import głównych stylów MyBonzo -->
-    <link rel="stylesheet" href="/src/styles/global.css" />
-
-    <style>
-      /* Import polskich fontów z głównej strony MyBonzo */
-      @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
-
-      @font-face {
-        font-family: "Neuropol";
-        src: url("/fonts/Neuropol.otf") format("opentype");
-=======
   noindex = false,
 } = Astro.props;
 ---
@@ -157,46 +44,27 @@ const finalDescription = pageDescription || description;
       @font-face {
         font-family: 'Neuropol';
         src: url('/fonts/Neuropol.otf') format('opentype');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
-<<<<<<< HEAD
-
-      @font-face {
-        font-family: "Kenyan Coffee";
-        src: url("/fonts/Kenyan-Coffee-Rg-It.otf") format("opentype");
-=======
       
       @font-face {
         font-family: 'Kenyan Coffee';
         src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 400;
         font-style: italic;
         font-display: swap;
       }
-<<<<<<< HEAD
-
-      @font-face {
-        font-family: "Kenyan Coffee";
-        src: url("/fonts/Kenyan-Coffee-Bd.otf") format("opentype");
-=======
       
       @font-face {
         font-family: 'Kenyan Coffee';
         src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 700;
         font-style: normal;
         font-display: swap;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       :root {
         /* MyBonzo cyberpunk color palette - zmniejszona intensywność neon */
         --primary-color: #00cccc;
@@ -223,11 +91,7 @@ const finalDescription = pageDescription || description;
       }
 
       body {
-<<<<<<< HEAD
-        font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
-=======
         font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         background: #000000;
         color: var(--text-primary);
         min-height: 100vh;
@@ -237,34 +101,17 @@ const finalDescription = pageDescription || description;
 
       /* Główne tło MyBonzo z subtelnym grid pattern */
       body::before {
-<<<<<<< HEAD
-        content: "";
-=======
         content: '';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-<<<<<<< HEAD
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.02) 1px,
-            transparent 1px
-          ),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(15deg, rgba(0, 204, 204, 0.01) 1px, transparent 1px);
-        background-size:
-          120px 120px,
-          80px 80px,
-          220px 220px;
-=======
         background-image:
           linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
           linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
           linear-gradient(15deg, rgba(0, 204, 204, 0.01) 1px, transparent 1px);
         background-size: 120px 120px, 80px 80px, 220px 220px;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         pointer-events: none;
         z-index: -1;
         opacity: 0.6;
@@ -294,11 +141,7 @@ const finalDescription = pageDescription || description;
       }
 
       .page-title {
-<<<<<<< HEAD
-        font-family: "Neuropol", "Rajdhani", system-ui, sans-serif;
-=======
         font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-size: 2.5rem;
         font-weight: 700;
         color: var(--primary-color);
@@ -309,11 +152,7 @@ const finalDescription = pageDescription || description;
       }
 
       .page-description {
-<<<<<<< HEAD
-        font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
-=======
         font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-size: 1.1rem;
         color: var(--text-secondary);
         margin-bottom: 20px;
@@ -321,11 +160,7 @@ const finalDescription = pageDescription || description;
       }
 
       .page-quote {
-<<<<<<< HEAD
-        font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
-=======
         font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-style: italic;
         color: var(--secondary-color);
         font-size: 1rem;
@@ -334,17 +169,8 @@ const finalDescription = pageDescription || description;
       }
 
       /* Małe napisy zachowują polskie fonty */
-<<<<<<< HEAD
-      small,
-      .text-sm,
-      .text-xs,
-      .footnote,
-      .caption {
-        font-family: "Kenyan Coffee", "Rajdhani", system-ui, sans-serif;
-=======
       small, .text-sm, .text-xs, .footnote, .caption {
         font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 400;
       }
 
@@ -377,24 +203,12 @@ const finalDescription = pageDescription || description;
         align-items: center;
         gap: 8px;
         padding: 12px 24px;
-<<<<<<< HEAD
-        font-family: "Rajdhani", system-ui, sans-serif;
-=======
         font-family: 'Rajdhani', system-ui, sans-serif;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         font-weight: 600;
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-<<<<<<< HEAD
-        background: linear-gradient(
-          135deg,
-          rgba(0, 255, 255, 0.1),
-          rgba(139, 92, 246, 0.1)
-        );
-=======
         background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(139, 92, 246, 0.1));
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         border: 1px solid var(--cyber-border);
         border-radius: 4px;
         color: var(--cyber-text);
@@ -406,41 +220,20 @@ const finalDescription = pageDescription || description;
       }
 
       .nav-button::before {
-<<<<<<< HEAD
-        content: "";
-=======
         content: '';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: absolute;
         top: 50%;
         left: 50%;
         width: 0;
         height: 0;
-<<<<<<< HEAD
-        background: linear-gradient(
-          45deg,
-          transparent,
-          var(--cyber-blue),
-          transparent
-        );
-=======
         background: linear-gradient(45deg, transparent, var(--cyber-blue), transparent);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         transition: all 0.5s ease;
         transform: translate(-50%, -50%);
         z-index: -1;
       }
 
       .nav-button:hover {
-<<<<<<< HEAD
-        background: linear-gradient(
-          135deg,
-          rgba(0, 204, 204, 0.15),
-          rgba(139, 92, 246, 0.15)
-        );
-=======
         background: linear-gradient(135deg, rgba(0, 204, 204, 0.15), rgba(139, 92, 246, 0.15));
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 204, 204, 0.2);
         border-color: var(--cyber-blue);
@@ -472,41 +265,19 @@ const finalDescription = pageDescription || description;
 
       /* Header scanning animation */
       .page-header::before {
-<<<<<<< HEAD
-        content: "";
-=======
         content: '';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 2px;
-<<<<<<< HEAD
-        background: linear-gradient(
-          90deg,
-          transparent,
-          var(--cyber-blue),
-          transparent
-        );
-=======
         background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         animation: scan 3s linear infinite;
       }
 
       @keyframes scan {
-<<<<<<< HEAD
-        0% {
-          left: -100%;
-        }
-        100% {
-          left: 100%;
-        }
-=======
         0% { left: -100%; }
         100% { left: 100%; }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       }
 
       /* Ripple effect */
@@ -518,11 +289,7 @@ const finalDescription = pageDescription || description;
         animation: ripple 0.6s linear;
         pointer-events: none;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       @keyframes ripple {
         to {
           transform: scale(4);
@@ -535,17 +302,6 @@ const finalDescription = pageDescription || description;
         .main-container {
           padding: 15px;
         }
-<<<<<<< HEAD
-
-        .page-title {
-          font-size: 2rem;
-        }
-
-        .page-description {
-          font-size: 1rem;
-        }
-
-=======
         
         .page-title {
           font-size: 2rem;
@@ -555,7 +311,6 @@ const finalDescription = pageDescription || description;
           font-size: 1rem;
         }
         
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         .navigation-footer {
           bottom: 10px;
           right: 10px;
@@ -566,40 +321,6 @@ const finalDescription = pageDescription || description;
 
     <!-- MyBonzo Interactive JavaScript -->
     <script>
-<<<<<<< HEAD
-      document.addEventListener("DOMContentLoaded", function () {
-        // Cyberpunk button hover effects
-        const buttons = document.querySelectorAll(".nav-button");
-        buttons.forEach((button) => {
-          button.addEventListener("mouseenter", function () {
-            this.style.textShadow = "0 0 5px rgba(0, 204, 204, 0.4)";
-          });
-
-          button.addEventListener("mouseleave", function () {
-            this.style.textShadow = "none";
-          });
-
-          button.addEventListener("click", function (e) {
-            // Ripple effect
-            const ripple = document.createElement("span");
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.height, rect.width);
-            ripple.style.width = ripple.style.height = size + "px";
-            ripple.style.left = e.clientX - rect.left - size / 2 + "px";
-            ripple.style.top = e.clientY - rect.top - size / 2 + "px";
-            ripple.classList.add("ripple");
-            this.appendChild(ripple);
-
-            setTimeout(() => ripple.remove(), 600);
-          });
-        });
-
-        // Glitch effect for page title
-        const title = document.querySelector(".page-title");
-        if (title) {
-          let glitchInterval;
-          title.addEventListener("mouseenter", function () {
-=======
       document.addEventListener('DOMContentLoaded', function() {
         // Cyberpunk button hover effects
         const buttons = document.querySelectorAll('.nav-button');
@@ -632,16 +353,11 @@ const finalDescription = pageDescription || description;
         if (title) {
           let glitchInterval;
           title.addEventListener('mouseenter', function() {
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             let counter = 0;
             glitchInterval = setInterval(() => {
               if (counter > 10) {
                 clearInterval(glitchInterval);
-<<<<<<< HEAD
-                this.style.transform = "none";
-=======
                 this.style.transform = 'none';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 return;
               }
               this.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
@@ -649,21 +365,6 @@ const finalDescription = pageDescription || description;
             }, 50);
           });
         }
-<<<<<<< HEAD
-
-        // Console welcome message
-        console.log(
-          "%c🤖 MyBonzo Admin Panel v2.0 - Cyberpunk Edition",
-          "color: #00ffff; font-size: 16px; font-weight: bold;"
-        );
-        console.log(
-          "%cSystem status: ONLINE ✓",
-          "color: #00ff00; font-size: 12px;"
-        );
-      });
-    </script>
-
-=======
         
         // Console welcome message
         console.log('%c🤖 MyBonzo Admin Panel v2.0 - Cyberpunk Edition', 'color: #00ffff; font-size: 16px; font-weight: bold;');
@@ -671,7 +372,6 @@ const finalDescription = pageDescription || description;
       });
     </script>
     
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <style>
       .ripple {
         position: absolute;
@@ -681,11 +381,7 @@ const finalDescription = pageDescription || description;
         animation: ripple 0.6s linear;
         pointer-events: none;
       }
-<<<<<<< HEAD
-
-=======
       
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       @keyframes ripple {
         to {
           transform: scale(4);
@@ -697,33 +393,18 @@ const finalDescription = pageDescription || description;
 
   <body>
     <AccessibilityTools />
-<<<<<<< HEAD
-
-=======
     
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     <div class="main-container">
       <!-- Page Header -->
       <header class="page-header">
         <h1 class="page-title">{pageTitle}</h1>
         {pageDescription && <p class="page-description">{pageDescription}</p>}
-<<<<<<< HEAD
-        {
-          showRandomQuote && pageQuote && (
-            <div>
-              <p class="page-quote">"{pageQuote}"</p>
-              {pageAuthor && <p class="page-author">— {pageAuthor}</p>}
-            </div>
-          )
-        }
-=======
         {showRandomQuote && pageQuote && (
           <div>
             <p class="page-quote">"{pageQuote}"</p>
             {pageAuthor && <p class="page-author">— {pageAuthor}</p>}
           </div>
         )}
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       </header>
 
       <!-- Main Content -->
@@ -732,67 +413,8 @@ const finalDescription = pageDescription || description;
       </main>
     </div>
 
-<<<<<<< HEAD
-    <!-- Global Right Floating Panel - Available on all pages using UniversalPageLayout -->
-    <div class="universal-right-panel-fixed">
-      <div class="floating-widget-container">
-        <button
-          onclick="toggleUniversalMusicPlayer()"
-          class="universal-right-btn"
-          id="universalMusicPlayerBtn"
-        >
-          <Icon name="lucide:music" /> MUSIC PLAYER
-        </button>
-        <div
-          id="universalMusicPlayerWidget"
-          class="universal-floating-widget hidden"
-        >
-          <BackgroundMusicPlayerFixed client:load />
-        </div>
-      </div>
-
-      <div class="floating-widget-container">
-        <button
-          onclick="toggleUniversalPolaczekAssistant()"
-          class="universal-right-btn"
-          id="universalPolaczekBtn"
-          title="AI Assistant do wyjaśniania funkcji na stronie"
-        >
-          <Icon name="lucide:bot" /> AI ASSISTANT
-        </button>
-        <div
-          id="universalPolaczekWidget"
-          class="universal-floating-widget hidden"
-        >
-          <AiHelpAssistant client:load />
-        </div>
-      </div>
-
-      <button onclick="openUniversalMainChat()" class="universal-right-btn">
-        <Icon name="lucide:message-circle" /> MAIN CHAT
-      </button>
-      <button onclick="openUniversalRefresh()" class="universal-right-btn">
-        <Icon name="lucide:refresh-cw" /> REFRESH
-      </button>
-      <button onclick="openUniversalFolder()" class="universal-right-btn">
-        <Icon name="lucide:folder" /> FOLDER
-      </button>
-      <button onclick="openUniversalClose()" class="universal-right-btn">
-        <Icon name="lucide:x" /> CLOSE
-      </button>
-    </div>
-
-    <!-- Modal container for floating buttons -->
-    <div id="main-modal" style="display: none;"></div>
-
-    <!-- Footer Navigation -->
-    <footer
-      style="text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid var(--border-color);"
-    >
-=======
     <!-- Footer Navigation -->
     <footer style="text-align: center; padding: 30px 0; margin-top: 50px; border-top: 1px solid var(--border-color);">
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       <div style="margin-bottom: 15px;">
         <a href="/admin" style="margin: 0 15px;">🏠 Admin Home</a>
         <a href="/" style="margin: 0 15px;">🌐 Main Site</a>
@@ -802,283 +424,5 @@ const finalDescription = pageDescription || description;
         MyBonzo Admin Panel © 2025
       </p>
     </footer>
-<<<<<<< HEAD
-
-    <!-- Universal Floating Panels CSS and JavaScript -->
-    <style>
-      /* Universal Right Floating Panel Styles */
-      .universal-right-panel-fixed {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 100;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .universal-right-btn {
-        background: rgba(0, 0, 0, 0.5);
-        color: #ffffff;
-        padding: 8px 20px;
-        border-radius: 0px;
-        box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
-        font-size: 0.9rem;
-        font-weight: 700;
-        border: 1px solid rgba(0, 217, 255, 0.3);
-        transition: all 0.3s ease;
-        display: block;
-        text-align: center;
-        min-width: 235px;
-        cursor: pointer;
-        position: relative;
-        z-index: 10;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        backdrop-filter: blur(20px);
-        font-family: "Courier New", monospace;
-      }
-
-      .universal-right-btn:hover {
-        background: rgba(0, 0, 0, 0.7);
-        color: #00d7ef;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
-        border-color: #00d7ef;
-        backdrop-filter: blur(25px);
-      }
-
-      .universal-right-btn:active {
-        transform: translateY(0px);
-        box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
-      }
-
-      .universal-floating-widget {
-        position: absolute;
-        bottom: 100%;
-        right: 0;
-        margin-bottom: 10px;
-        background: rgba(0, 0, 0, 0.7);
-        border: 1px solid rgba(0, 217, 255, 0.4);
-        border-radius: 0px;
-        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
-        backdrop-filter: blur(16px);
-        min-width: 350px;
-        max-width: 1000px;
-        max-height: 600px;
-        overflow-y: auto;
-        z-index: 99999;
-        animation: slideUp 0.3s ease-out;
-        transform-origin: bottom right;
-      }
-
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .hidden {
-        display: none !important;
-      }
-
-      /* Responsive design for universal panels */
-      @media (max-width: 768px) {
-        .universal-right-panel-fixed {
-          right: 8px;
-          bottom: 15px;
-          gap: 10px;
-        }
-
-        .universal-right-btn {
-          min-width: 180px;
-          font-size: 0.9rem;
-          padding: 8px 16px;
-        }
-      }
-    </style>
-
-    <script>
-      // Universal Floating Panel Functions with localStorage State Management
-      window.toggleUniversalMusicPlayer = function () {
-        console.log("🎵 Toggling Universal Music Player");
-        const btn = document.getElementById("universalMusicPlayerBtn");
-        const widget = document.getElementById("universalMusicPlayerWidget");
-
-        if (btn && widget) {
-          // Button scaling effect
-          btn.style.transform = "scale(1.1) translateY(-2px)";
-          setTimeout(() => {
-            btn.style.transform = "";
-          }, 200);
-
-          // Toggle widget visibility
-          const isHidden = widget.classList.contains("hidden");
-          if (isHidden) {
-            widget.classList.remove("hidden");
-            localStorage.setItem("universalMusicPlayerOpen", "true");
-            console.log("🎵 Universal Music Player opened - state saved");
-          } else {
-            widget.classList.add("hidden");
-            localStorage.setItem("universalMusicPlayerOpen", "false");
-            console.log("🎵 Universal Music Player closed - state saved");
-          }
-        }
-      };
-
-      window.toggleUniversalPolaczekAssistant = function () {
-        console.log("🤖 Toggling Universal AI Assistant");
-        const btn = document.getElementById("universalPolaczekBtn");
-        const widget = document.getElementById("universalPolaczekWidget");
-
-        if (btn && widget) {
-          // Button scaling effect
-          btn.style.transform = "scale(1.1) translateY(-2px)";
-          setTimeout(() => {
-            btn.style.transform = "";
-          }, 200);
-
-          // Toggle widget visibility
-          const isHidden = widget.classList.contains("hidden");
-          if (isHidden) {
-            widget.classList.remove("hidden");
-            localStorage.setItem("universalPolaczekAssistantOpen", "true");
-            console.log("🤖 Universal AI Assistant opened - state saved");
-          } else {
-            widget.classList.add("hidden");
-            localStorage.setItem("universalPolaczekAssistantOpen", "false");
-            console.log("🤖 Universal AI Assistant closed - state saved");
-          }
-        }
-      };
-
-      window.openUniversalMainChat = function () {
-        console.log("💬 Opening Universal Main Chat");
-        window.open("/chatbot", "_blank");
-      };
-
-      window.openUniversalRefresh = function () {
-        console.log("🔄 Universal Refreshing page");
-        window.location.reload();
-      };
-
-      window.openUniversalFolder = function () {
-        console.log("📂 Universal Opening folder");
-        alert(
-          "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
-        );
-      };
-
-      window.openUniversalClose = function () {
-        console.log("❌ Universal Closing tab");
-        try {
-          window.close();
-        } catch (e) {
-          alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
-        }
-      };
-
-      // Universal modal functions
-      window.closeModal = function () {
-        const modal = document.getElementById("main-modal");
-        if (modal) {
-          modal.style.display = "none";
-        }
-      };
-
-      // Function to restore universal panel states from localStorage
-      window.restoreUniversalPanelStates = function () {
-        console.log(
-          "🔄 Restoring universal floating panel states from localStorage"
-        );
-
-        const musicPlayerOpen =
-          localStorage.getItem("universalMusicPlayerOpen") === "true";
-        const polaczekAssistantOpen =
-          localStorage.getItem("universalPolaczekAssistantOpen") === "true";
-
-        console.log(
-          "🎵 Universal Music Player should be open:",
-          musicPlayerOpen
-        );
-        console.log(
-          "🤖 Universal AI Assistant should be open:",
-          polaczekAssistantOpen
-        );
-
-        // Restore music player state
-        const musicWidget = document.getElementById(
-          "universalMusicPlayerWidget"
-        );
-        if (musicWidget) {
-          if (musicPlayerOpen) {
-            musicWidget.classList.remove("hidden");
-            console.log("🎵 Universal Music Player restored to open state");
-          } else {
-            musicWidget.classList.add("hidden");
-            console.log("🎵 Universal Music Player restored to closed state");
-          }
-        }
-
-        // Restore AI assistant state
-        const polaczekWidget = document.getElementById(
-          "universalPolaczekWidget"
-        );
-        if (polaczekWidget) {
-          if (polaczekAssistantOpen) {
-            polaczekWidget.classList.remove("hidden");
-            console.log("🤖 Universal AI Assistant restored to open state");
-          } else {
-            polaczekWidget.classList.add("hidden");
-            console.log("🤖 Universal AI Assistant restored to closed state");
-          }
-        }
-      };
-
-      // Initialize universal floating panels on page load
-      document.addEventListener("DOMContentLoaded", function () {
-        console.log("🌐 Initializing universal floating panels");
-
-        // Ensure panels are hidden by default
-        const musicWidget = document.getElementById(
-          "universalMusicPlayerWidget"
-        );
-        const polaczekWidget = document.getElementById(
-          "universalPolaczekWidget"
-        );
-
-        if (musicWidget && !musicWidget.classList.contains("hidden")) {
-          musicWidget.classList.add("hidden");
-        }
-
-        if (polaczekWidget && !polaczekWidget.classList.contains("hidden")) {
-          polaczekWidget.classList.add("hidden");
-        }
-
-        // Then restore from localStorage after short delay
-        setTimeout(() => {
-          if (typeof window.restoreUniversalPanelStates === "function") {
-            window.restoreUniversalPanelStates();
-          }
-        }, 100);
-
-        // Close modal with Escape key for all pages
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape") {
-            const modal = document.getElementById("main-modal");
-            if (modal && modal.style.display !== "none") {
-              window.closeModal();
-            }
-          }
-        });
-      });
-    </script>
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   </body>
 </html>

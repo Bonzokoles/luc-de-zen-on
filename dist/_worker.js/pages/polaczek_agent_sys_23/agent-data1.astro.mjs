@@ -1,16 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BgZWjcZU.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DdWhmxse.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_cAs3q6CP.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_3AZ5KuQd.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const $$AgentData1 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Agent Data Management | POLACZEK AGENTS SYS_23" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, {})}  ${maybeRenderHead()}<div class="workers-vertical-line-left"></div> <div class="workers-vertical-line-right"></div> <main class="min-h-svh"> <!-- Top Separator Section --> <section class="border border-edge relative"> <div class="max-w-6xl mx-auto"> <div class="py-1"></div> </div> </section> <!-- Header Section --> <section class="border border-edge relative"> <div class="max-w-6xl mx-auto"> <div class="flex justify-between max-h-72 min-h-64"> <!-- Left corner --> <div class="mt-auto" style="max-width: 45vw;"> <div class="text-edge text-sm italic px-2" style="
@@ -25,11 +18,7 @@ const $$AgentData1 = createComponent(($$result, $$props, $$slots) => {
                 hyphens: auto;
               ">
 Agent Data Management - Dodawaj<br>
-<<<<<<< HEAD
-wĹ‚asne treĹ›ci i dane do agentĂłw AI.<br>
-=======
 własne treści i dane do agentów AI.<br>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 Dokumenty, teksty, JSON, CSV i inne<br>
 formaty danych dla personalizacji.
 </div> </div> <span class="mt-auto"> <div style="
@@ -38,23 +27,6 @@ formaty danych dla personalizacji.
                 margin: 15px;
                 margin-right: 20px;
               "> <a class="hover:brightness-125" href="/POLACZEK_AGENT_SYS_23"> <h1 class="text-4xl sm:text-5xl">AGENT DATA MANAGER</h1> <h2 class="text-2xl sm:text-3xl">Custom Content & Knowledge Base</h2> </a> </div> </span> </div> <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col"> <a class="ml-auto hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23">
-<<<<<<< HEAD
-â† PowrĂłt do POLACZEK SYS
-<svg class="ml-2 inline-block" style="--rotation: -45deg" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path> </svg> </a> <a class="hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23/api-keys">
-API Keys Management â†’
-<svg class="ml-2 inline-block" style="--rotation: -45deg" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path> </svg> </a> <a class="hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23/polaczek-agents-system">
-Agents System â†’
-<svg class="ml-2 inline-block" style="--rotation: -45deg" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path> </svg> </a> </div> </div> </section> <!-- Content Section --> <section class="border border-edge relative"> <div class="max-w-6xl mx-auto p-8"> <div class="text-center"> <h3 class="text-2xl mb-4">đź”§ Agent Data Manager</h3> <p class="text-lg text-edge/80 mb-8">
-System zarzÄ…dzania danymi dla agentĂłw AI - w trakcie rozbudowy.
-</p> <div class="bg-edge/10 p-6 rounded-lg"> <p class="text-edge/60">
-FunkcjonalnoĹ›Ä‡ zarzÄ…dzania danymi agentĂłw zostanie wkrĂłtce udostÄ™pniona.
-<br>
-BÄ™dziesz mĂłgĹ‚ dodawaÄ‡ dokumenty, teksty i inne dane do swoich agentĂłw AI.
-</p> </div> </div> </div> </section> </main> ` })}`;
-}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro", void 0);
-
-const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro";
-=======
 ← Powrót do POLACZEK SYS
 <svg class="ml-2 inline-block" style="--rotation: -45deg" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path> </svg> </a> <a class="hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23/api-keys">
 API Keys Management →
@@ -67,10 +39,9 @@ Funkcjonalność zarządzania danymi agentów zostanie wkrótce udostępniona.
 <br>
 Będziesz mógł dodawać dokumenty, teksty i inne dane do swoich agentów AI.
 </p> </div> </div> </div> </section> </main> ` })}`;
-}, "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro", void 0);
+}, "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro", void 0);
 
-const $$file = "Q:/mybonzo/mybonzo-github/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro";
 const $$url = "/POLACZEK_AGENT_SYS_23/agent-data1";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

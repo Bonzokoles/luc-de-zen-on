@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿import React, { useState, useRef, useEffect } from 'react';
-=======
 import React, { useState, useRef, useEffect } from 'react';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 export default function StableDiffusionGenerator() {
   const [prompt, setPrompt] = useState('');
@@ -49,11 +45,7 @@ export default function StableDiffusionGenerator() {
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
-<<<<<<< HEAD
-      alert('Wprowad┼║ prompt przed generowaniem!');
-=======
       alert('Wprowadź prompt przed generowaniem!');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
       return;
     }
 
@@ -116,11 +108,7 @@ export default function StableDiffusionGenerator() {
       
     } catch (error) {
       console.error('Error generating image:', error);
-<<<<<<< HEAD
-      alert('B┼é─ůd podczas generowania obrazu');
-=======
       alert('Błąd podczas generowania obrazu');
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     } finally {
       setIsLoading(false);
     }
@@ -157,11 +145,7 @@ export default function StableDiffusionGenerator() {
               className="input-glossy w-full h-24 resize-none"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-<<<<<<< HEAD
-              placeholder="Opisz obraz kt├│ry chcesz wygenerowa─ç..."
-=======
               placeholder="Opisz obraz który chcesz wygenerować..."
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             />
           </div>
 
@@ -182,11 +166,7 @@ export default function StableDiffusionGenerator() {
               className="scifi-btn text-sm py-2"
               onClick={() => setPrompt('')}
             >
-<<<<<<< HEAD
-              WYCZYSC
-=======
               WYCZYŚĆ
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             </button>
             <button
               className="scifi-btn text-sm py-2"
@@ -213,11 +193,7 @@ export default function StableDiffusionGenerator() {
           
           <div className="space-y-3">
             <div>
-<<<<<<< HEAD
-              <h4 className="text-sm font-bold mb-2 neon-white">ARTY┼ÜCI:</h4>
-=======
               <h4 className="text-sm font-bold mb-2 neon-white">ARTYŚCI:</h4>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <div className="flex flex-wrap gap-1">
                 {wildcards.artists.slice(0, 6).map((artist, i) => (
                   <button
@@ -259,11 +235,7 @@ export default function StableDiffusionGenerator() {
           <div className="relative bg-black/30 border border-white/20 rounded-lg aspect-square flex items-center justify-center">
             {isLoading ? (
               <div className="loading-pulse neon-cyan sci-fi-type text-center">
-<<<<<<< HEAD
-                <div className="text-4xl mb-2">❌</div>
-=======
                 <div className="text-4xl mb-2">●</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div>PROCESSING...</div>
               </div>
             ) : image ? (
@@ -274,11 +246,7 @@ export default function StableDiffusionGenerator() {
               />
             ) : (
               <div className="text-center neon-white opacity-60">
-<<<<<<< HEAD
-                <div className="text-6xl mb-4">✅</div>
-=======
                 <div className="text-6xl mb-4">◯</div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 <div className="sci-fi-type">BRAK OBRAZU</div>
               </div>
             )}
@@ -297,11 +265,7 @@ export default function StableDiffusionGenerator() {
                 className="scifi-btn flex-1 py-2"
                 onClick={() => setImage(null)}
               >
-<<<<<<< HEAD
-                USU┼â
-=======
                 USUŃ
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               </button>
             </div>
           )}
@@ -315,11 +279,7 @@ export default function StableDiffusionGenerator() {
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-<<<<<<< HEAD
-              <label className="block text-xs font-bold mb-1 neon-white">SZEROKOSC</label>
-=======
               <label className="block text-xs font-bold mb-1 neon-white">SZEROKOŚĆ</label>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <select
                 className="input-glossy w-full text-sm"
                 value={settings.width}
@@ -332,11 +292,7 @@ export default function StableDiffusionGenerator() {
             </div>
             
             <div>
-<<<<<<< HEAD
-              <label className="block text-xs font-bold mb-1 neon-white">WYSOKOSC</label>
-=======
               <label className="block text-xs font-bold mb-1 neon-white">WYSOKOŚĆ</label>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
               <select
                 className="input-glossy w-full text-sm"
                 value={settings.height}
@@ -386,7 +342,3 @@ export default function StableDiffusionGenerator() {
     </div>
   );
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

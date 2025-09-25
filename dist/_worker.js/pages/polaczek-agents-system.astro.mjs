@@ -1,16 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_BDhFni3J.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_B8kqLEdJ.mjs';
-import { n as noop, b as attr, j as store_get, e as escape_html, u as unsubscribe_stores } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_CDFI50iS.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DdWhmxse.mjs';
-import { n as noop, c as attr, i as store_get, b as escape_html, u as unsubscribe_stores } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BTarUczC.mjs';
+import { n as noop, c as attr, j as store_get, b as escape_html, u as unsubscribe_stores } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_iO87Dm24.mjs';
 /* empty css                                                  */
 
 /** @import { Equals } from '#client' */
@@ -197,15 +190,9 @@ const $$PolaczekAgentsSystem = createComponent(($$result, $$props, $$slots) => {
                 hyphens: auto;
               " data-astro-cid-s5hu4jl2>
 POLACZEK Agent System 2.3 - Zaawansowany<br data-astro-cid-s5hu4jl2>
-<<<<<<< HEAD
-kreator agentĂłw AI z peĹ‚nym SDK.<br data-astro-cid-s5hu4jl2>
-Buduj, testuj i wdraĹĽaj inteligentnych<br data-astro-cid-s5hu4jl2>
-asystentĂłw dla Twojego biznesu.
-=======
 kreator agentów AI z pełnym SDK.<br data-astro-cid-s5hu4jl2>
 Buduj, testuj i wdrażaj inteligentnych<br data-astro-cid-s5hu4jl2>
 asystentów dla Twojego biznesu.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 </div> </div> <span class="mt-auto" data-astro-cid-s5hu4jl2> <div style="
               transform: scale(1.56);
               transform-origin: center right;
@@ -216,19 +203,11 @@ asystentów dla Twojego biznesu.
               word-wrap: break-word;
               hyphens: auto;
             " data-astro-cid-s5hu4jl2> <span class="text-primary-foreground text-sm italic" data-astro-cid-s5hu4jl2>
-<<<<<<< HEAD
-"PrzyszĹ‚oĹ›Ä‡ to AI, ktĂłre rozumie czĹ‚owieka"
-</span> </div> <span style="" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-s5hu4jl2>
-SEP 2025
-</span> </span> </div> </div> </section> <!-- Header-Navigation Separator --> <section class="border border-edge relative" data-astro-cid-s5hu4jl2> <div class="absolute left-0 right-0 h-full" data-astro-cid-s5hu4jl2> <!-- Inner vertical lines --> <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <!-- Outer vertical lines --> <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> </div> <div class="max-w-6xl mx-auto" data-astro-cid-s5hu4jl2> <div class="py-1" data-astro-cid-s5hu4jl2></div> </div> </section> <!-- Navigation Section --> <section class="border border-edge relative" data-astro-cid-s5hu4jl2> <div class="absolute left-0 right-0 h-full" data-astro-cid-s5hu4jl2> <!-- Inner vertical lines --> <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <!-- Outer vertical lines --> <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> </div> <div class="max-w-6xl mx-auto" data-astro-cid-s5hu4jl2> <div class="flex flex-row p-2" data-astro-cid-s5hu4jl2> <a class="hover:brightness-125" href="/" data-astro-cid-s5hu4jl2> <h1 class="text-4xl sm:text-5xl" data-astro-cid-s5hu4jl2>POLACZEK AGENTS</h1> <h2 class="text-2xl sm:text-3xl" data-astro-cid-s5hu4jl2>AI Agent Builder System</h2> </a> <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col" data-astro-cid-s5hu4jl2> <a class="ml-auto hover:brightness-125 duration-200" href="/" data-astro-cid-s5hu4jl2>
-â† PowrĂłt do strony gĹ‚Ăłwnej
-=======
 "Przyszłość to AI, które rozumie człowieka"
 </span> </div> <span style="" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]" data-astro-cid-s5hu4jl2>
 SEP 2025
 </span> </span> </div> </div> </section> <!-- Header-Navigation Separator --> <section class="border border-edge relative" data-astro-cid-s5hu4jl2> <div class="absolute left-0 right-0 h-full" data-astro-cid-s5hu4jl2> <!-- Inner vertical lines --> <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <!-- Outer vertical lines --> <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> </div> <div class="max-w-6xl mx-auto" data-astro-cid-s5hu4jl2> <div class="py-1" data-astro-cid-s5hu4jl2></div> </div> </section> <!-- Navigation Section --> <section class="border border-edge relative" data-astro-cid-s5hu4jl2> <div class="absolute left-0 right-0 h-full" data-astro-cid-s5hu4jl2> <!-- Inner vertical lines --> <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <!-- Outer vertical lines --> <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> <div class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge" data-astro-cid-s5hu4jl2></div> </div> <div class="max-w-6xl mx-auto" data-astro-cid-s5hu4jl2> <div class="flex flex-row p-2" data-astro-cid-s5hu4jl2> <a class="hover:brightness-125" href="/" data-astro-cid-s5hu4jl2> <h1 class="text-4xl sm:text-5xl" data-astro-cid-s5hu4jl2>POLACZEK AGENTS</h1> <h2 class="text-2xl sm:text-3xl" data-astro-cid-s5hu4jl2>AI Agent Builder System</h2> </a> <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col" data-astro-cid-s5hu4jl2> <a class="ml-auto hover:brightness-125 duration-200" href="/" data-astro-cid-s5hu4jl2>
 ← Powrót do strony głównej
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 <svg style="--rotation: -45deg" class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-s5hu4jl2> <path d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-s5hu4jl2></path> </svg> </a> <div class="flex flex-row-reverse flex-wrap gap-4" data-astro-cid-s5hu4jl2> <a class="hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23/api-keys" data-astro-cid-s5hu4jl2>
 API Keys
 <svg style="--rotation: -45deg" class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-s5hu4jl2> <path d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-s5hu4jl2></path> </svg> </a> <a class="hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23/agent-data-simple" data-astro-cid-s5hu4jl2>
@@ -253,40 +232,14 @@ STATUS
             line-height: 1.6;
             padding: 0 15px;
           " data-astro-cid-s5hu4jl2>
-<<<<<<< HEAD
-Zaawansowany system budowania i zarzÄ…dzania agentami AI z wizualnym
-            interfejsem drag-and-drop. PeĹ‚ne SDK z funkcjami wyszukiwania, analizy,
-            generowania treĹ›ci i personalizacji.
-=======
 Zaawansowany system budowania i zarządzania agentami AI z wizualnym
             interfejsem drag-and-drop. Pełne SDK z funkcjami wyszukiwania, analizy,
             generowania treści i personalizacji.
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 </p> </div> <!-- Agent Builder Interface --> <div class="agent-container border border-edge rounded-lg overflow-hidden mt-8" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-s5hu4jl2> <!-- Agent Builder Header --> <div class="agent-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-s5hu4jl2> <div class="flex items-center gap-3" data-astro-cid-s5hu4jl2> <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse" data-astro-cid-s5hu4jl2></div> <span class="text-primary-foreground font-semibold" data-astro-cid-s5hu4jl2>Agent Builder Online</span> </div> <div class="flex gap-2" data-astro-cid-s5hu4jl2> <button onclick="resetBuilder()" class="px-3 py-1 bg-red-500/20 border border-red-500/40 rounded text-red-400 hover:bg-red-500/30 transition-all text-sm" data-astro-cid-s5hu4jl2>
 Reset
 </button> <button onclick="saveAgent()" class="px-3 py-1 bg-green-500/20 border border-green-500/40 rounded text-green-400 hover:bg-green-500/30 transition-all text-sm" data-astro-cid-s5hu4jl2>
 Save Agent
-<<<<<<< HEAD
-</button> </div> </div> <div class="agent-content p-8" data-astro-cid-s5hu4jl2> <!-- Agent Builder z wbudowanÄ… autoryzacjÄ… --> ${renderComponent($$result2, "AgentBuilderWrapper", AgentBuilderWrapper, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AgentBuilderWrapper.svelte", "client:component-export": "default", "data-astro-cid-s5hu4jl2": true })} </div> </div> <!-- Quick Actions Section --> <div class="quick-actions mt-12" data-astro-cid-s5hu4jl2> <h3 class="text-xl font-semibold mb-6 text-primary-foreground text-center" data-astro-cid-s5hu4jl2>
-AKCJE SYSTEMOWE
-</h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-astro-cid-s5hu4jl2> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>đź¤– ZarzÄ…dzaj Agentami</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
-Zobacz listÄ™ wszystkich agentĂłw systemowych i stworzonych przez
-                uĹĽytkownikĂłw
-</p> <div class="worker-features" data-astro-cid-s5hu4jl2> <span class="feature-tag" data-astro-cid-s5hu4jl2>Active Agents</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Management</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Monitoring</span> </div> <div class="worker-actions" data-astro-cid-s5hu4jl2> <button class="action-btn primary" onclick="window.open('/agents', '_blank')" data-astro-cid-s5hu4jl2>
-OtwĂłrz Panel
-</button> <button class="action-btn secondary" onclick="listActiveAgents()" data-astro-cid-s5hu4jl2>
-Lista Aktywnych
-</button> </div> </div> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>đź“– Dokumentacja</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
-Przewodnik tworzenia efektywnych promptĂłw i konfiguracji agentĂłw
-                AI
-</p> <div class="worker-features" data-astro-cid-s5hu4jl2> <span class="feature-tag" data-astro-cid-s5hu4jl2>Tutorials</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Examples</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Best Practices</span> </div> <div class="worker-actions" data-astro-cid-s5hu4jl2> <button class="action-btn primary" onclick="window.open('/docs/agent-building-guide', '_blank')" data-astro-cid-s5hu4jl2>
-OtwĂłrz Docs
-</button> <button class="action-btn secondary" onclick="showQuickGuide()" data-astro-cid-s5hu4jl2>
-Quick Guide
-</button> </div> </div> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>đź’Ž Premium Features</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
-Odblokuj zaawansowane funkcje systemu z subskrypcjÄ… Pro lub
-=======
-</button> </div> </div> <div class="agent-content p-8" data-astro-cid-s5hu4jl2> <!-- Agent Builder z wbudowaną autoryzacją --> ${renderComponent($$result2, "AgentBuilderWrapper", AgentBuilderWrapper, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/mybonzo-github/src/components/AgentBuilderWrapper.svelte", "client:component-export": "default", "data-astro-cid-s5hu4jl2": true })} </div> </div> <!-- Quick Actions Section --> <div class="quick-actions mt-12" data-astro-cid-s5hu4jl2> <h3 class="text-xl font-semibold mb-6 text-primary-foreground text-center" data-astro-cid-s5hu4jl2>
+</button> </div> </div> <div class="agent-content p-8" data-astro-cid-s5hu4jl2> <!-- Agent Builder z wbudowaną autoryzacją --> ${renderComponent($$result2, "AgentBuilderWrapper", AgentBuilderWrapper, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/AgentBuilderWrapper.svelte", "client:component-export": "default", "data-astro-cid-s5hu4jl2": true })} </div> </div> <!-- Quick Actions Section --> <div class="quick-actions mt-12" data-astro-cid-s5hu4jl2> <h3 class="text-xl font-semibold mb-6 text-primary-foreground text-center" data-astro-cid-s5hu4jl2>
 AKCJE SYSTEMOWE
 </h3> <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-astro-cid-s5hu4jl2> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>🤖 Zarządzaj Agentami</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
 Zobacz listę wszystkich agentów systemowych i stworzonych przez
@@ -304,23 +257,15 @@ Otwórz Docs
 Quick Guide
 </button> </div> </div> <div class="worker-card" style="background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(0, 217, 255, 0.4);" data-astro-cid-s5hu4jl2> <h3 class="worker-title" data-astro-cid-s5hu4jl2>💎 Premium Features</h3> <p class="worker-description" data-astro-cid-s5hu4jl2>
 Odblokuj zaawansowane funkcje systemu z subskrypcją Pro lub
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
                 Enterprise
 </p> <div class="worker-features" data-astro-cid-s5hu4jl2> <span class="feature-tag" data-astro-cid-s5hu4jl2>Pro Tools</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Enterprise</span> <span class="feature-tag" data-astro-cid-s5hu4jl2>Advanced AI</span> </div> <div class="worker-actions" data-astro-cid-s5hu4jl2> <button class="action-btn primary" onclick="window.open('/zenon-mcp-server', '_blank')" data-astro-cid-s5hu4jl2>
 Zobacz Plany
 </button> <button class="action-btn secondary" onclick="checkSubscription()" data-astro-cid-s5hu4jl2>
 Status
-<<<<<<< HEAD
 </button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro?astro&type=script&index=0&lang.ts")}`;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro", void 0);
 
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/polaczek-agents-system.astro";
-=======
-</button> </div> </div> </div> </div> </div> </section> </main> ` })}  ${renderScript($$result, "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro?astro&type=script&index=0&lang.ts")}`;
-}, "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro", void 0);
-
-const $$file = "Q:/mybonzo/mybonzo-github/src/pages/polaczek-agents-system.astro";
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 const $$url = "/polaczek-agents-system";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({

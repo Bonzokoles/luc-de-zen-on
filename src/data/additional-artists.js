@@ -465,14 +465,7 @@ export const additionalArtists = [
   image: "/artists/kiefer.jpg",
   color: "#2F2F2F"
 }
-<<<<<<< HEAD
-];
-
-// I dodaję jeszcze więcej artystów z różnych kultur...
-// (To jest tylko próbka - można dodać kolejne setki artystów)
-=======
 
 // I dodaję jeszcze więcej artystów z różnych kultur...
 // (To jest tylko próbka - można dodać kolejne setki artystów)
 ];
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

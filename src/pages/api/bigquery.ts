@@ -7,12 +7,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const query = url.searchParams.get('query') || 'SELECT 1 as test';
     
     // Check environment variables from Cloudflare
-<<<<<<< HEAD
-    const env = locals.runtime?.env;
-=======
     const runtime = (locals as any)?.runtime;
     const env = runtime?.env;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
     const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
 
@@ -36,24 +32,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
       });
     }
 
-<<<<<<< HEAD
-    // Return error indicating real implementation needed
-    return new Response(JSON.stringify({
-      status: 'error',
-      service: 'BigQuery',
-      error: 'Implementacja BigQuery wymaga Google Cloud SDK',
-      message: 'Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library',
-      projectId: projectId,
-      query: query,
-      note: 'Skonfiguruj Google Cloud BigQuery SDK dla pełnej funkcjonalności'
-    }), {
-      status: 501,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-=======
     // Execute BigQuery using REST API
     try {
       // Parse service account key
@@ -118,7 +96,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
         }
       });
     }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   } catch (error: any) {
     return new Response(JSON.stringify({
       status: 'error',
@@ -140,12 +117,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { query, dataset } = body;
     
     // Check environment variables from Cloudflare
-<<<<<<< HEAD
-    const env = locals.runtime?.env;
-=======
     const runtime = (locals as any)?.runtime;
     const env = runtime?.env;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const projectId = env?.GOOGLE_CLOUD_PROJECT_ID;
     const serviceAccountKey = env?.GOOGLE_SERVICE_ACCOUNT_KEY;
 
@@ -168,26 +141,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-<<<<<<< HEAD
-    // Return error indicating real implementation needed
-    return new Response(JSON.stringify({
-      status: 'error',
-      service: 'BigQuery',
-      operation: 'query_execution',
-      error: 'Implementacja BigQuery wymaga Google Cloud SDK',
-      message: 'Prawdziwe zapytania BigQuery wymagają implementacji Google Cloud BigQuery client library',
-      projectId: projectId,
-      query: query,
-      dataset: dataset || 'analytics',
-      note: 'Skonfiguruj Google Cloud BigQuery SDK i biblioteki dla pełnej funkcjonalności'
-    }), {
-      status: 501,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-=======
     // Execute BigQuery query using REST API
     try {
       // Parse service account key
@@ -233,7 +186,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }
       });
     }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   } catch (error: any) {
     return new Response(JSON.stringify({
       status: 'error',
@@ -250,8 +202,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
 };
 
 export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
-<<<<<<< HEAD
-=======
 
 // Helper function to generate sample results based on query
 function generateSampleResults(query: string, dataset?: string) {
@@ -305,4 +255,3 @@ function generateSampleResults(query: string, dataset?: string) {
     ]
   };
 }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7

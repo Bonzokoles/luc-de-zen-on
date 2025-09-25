@@ -1,8 +1,4 @@
 {
-<<<<<<< HEAD
-  "extends": "astro/tsconfigs/strict",
-  "compilerOptions": {
-=======
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "target": "ES2022",
@@ -18,22 +14,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@/components/*": ["./src/components/*"],
-<<<<<<< HEAD
-      "@/lib/*": ["./src/lib/*"],
-      "@/utils/*": ["./src/utils/*"]
-    },
-    "jsx": "react-jsx",
-    "allowJs": true,
-    "types": ["astro/client", "vite/client"]
-  },
-  "include": ["src/**/*", "*.astro", "*.tsx", "*.ts"],
-  "exclude": ["node_modules", "dist"]
-=======
       "@/utils/*": ["./src/utils/*"]
     }
   },
@@ -47,5 +31,4 @@
     "dist",
     "public"
   ]
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }

@@ -1,11 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-import { O as OpenAI } from '../../chunks/client_BUm4zV_0.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
 import { O as OpenAI } from '../../chunks/client_VWYXpznl.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 const POST = async ({ request }) => {
   try {
@@ -17,11 +12,7 @@ const POST = async ({ request }) => {
       });
     }
     const openai = new OpenAI({
-<<<<<<< HEAD
       apiKey: undefined                              
-=======
-      apiKey: "your-openai-api-key-here"
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     });
     const leadData = {
       name,

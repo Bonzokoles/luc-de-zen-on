@@ -9,11 +9,7 @@
   let playlist = [];
   let currentTrack = 0;
   let isPlaying = false;
-<<<<<<< HEAD
-  let isMinimized = false;
-=======
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   let volume = 0.5;
   let currentTime = 0;
   let duration = 0;
@@ -52,13 +48,6 @@
         },
         getAnalyser: () => analyserNode || window.MUSIC_ANALYSER || null,
         openFolderPicker: () => {
-<<<<<<< HEAD
-          try {
-            const el = document.getElementById("music-folder");
-            if (el && typeof el.click === "function") el.click();
-          } catch (e) {
-            console.warn("Folder picker not available:", e);
-=======
           console.log("🎵 Opening music library folder picker...");
           try {
             const el = document.getElementById("music-folder");
@@ -72,7 +61,6 @@
           } catch (e) {
             console.warn("Folder picker not available:", e);
             alert("Błąd: Selektor folderów niedostępny - " + e.message);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
           }
         },
       };
@@ -246,21 +234,6 @@
   }
 
   function handleFolderSelect(event) {
-<<<<<<< HEAD
-    const files = Array.from(event.target.files).filter((file) =>
-      file.type.startsWith("audio/"),
-    );
-
-    playlist = files.map((file) => ({
-      name: file.name.replace(/\.[^/.]+$/, ""),
-      file: file,
-      url: URL.createObjectURL(file),
-    }));
-
-    currentTrack = 0;
-    updateTrackInfo();
-    showPlaylist = true;
-=======
     try {
       console.log("📁 Processing selected files...");
 
@@ -334,19 +307,11 @@
       console.error("❌ Error in handleFolderSelect:", error);
       alert(`❌ Błąd ładowania plików: ${error.message}`);
     }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
 
   function togglePlaylist() {
     showPlaylist = !showPlaylist;
   }
-<<<<<<< HEAD
-
-  function toggleMinimize() {
-    isMinimized = !isMinimized;
-  }
-=======
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 </script>
 
 <!-- Background Music Player -->
@@ -365,117 +330,6 @@
   <div class="music-control-panel">
     <div class="panel-header">
       <span>🎵 MUSIC • POLACZEK</span>
-<<<<<<< HEAD
-      <button class="minimize-btn" on:click={toggleMinimize}>
-        {isMinimized ? "+" : "−"}
-      </button>
-    </div>
-
-    {#if !isMinimized}
-      <div class="panel-content">
-        <!-- Now Playing Info -->
-        <div class="now-playing">
-          <div class="track-info">
-            <div class="track-name">{trackName}</div>
-            <div class="track-time">
-              {formatTime(currentTime)} / {formatTime(duration)}
-            </div>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="player-controls">
-          <button class="control-btn" on:click={previousTrack}>⏮</button>
-          <button class="control-btn play-pause" on:click={togglePlay}>
-            {isPlaying ? "⏸" : "▶"}
-          </button>
-          <button class="control-btn" on:click={nextTrack}>⏭</button>
-          <button class="control-btn" on:click={togglePlaylist}>📋</button>
-        </div>
-
-        <!-- Volume Control -->
-        <div class="volume-control">
-          <span>🔊</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={volume * 100}
-            on:input={handleVolumeChange}
-            class="volume-slider"
-          />
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="progress-container">
-          <div
-            class="progress-bar"
-            role="slider"
-            tabindex="0"
-            aria-label="Seek"
-            aria-valuemin={0}
-            aria-valuemax={duration || 0}
-            aria-valuenow={currentTime || 0}
-            on:click={handleSeek}
-            on:keydown={handleSeekKey}
-          >
-            <div
-              class="progress-fill"
-              style="width: {duration ? (currentTime / duration) * 100 : 0}%"
-            ></div>
-          </div>
-        </div>
-      </div>
-    {/if}
-  </div>
-
-  <!-- Playlist Panel -->
-  {#if showPlaylist}
-    <div class="playlist-panel">
-      <div class="playlist-header">
-        <span>🎵 PLAYLIST</span>
-        <button class="close-btn" on:click={() => (showPlaylist = false)}
-          >×</button
-        >
-      </div>
-      <div class="playlist-content">
-        {#if playlist.length === 0}
-          <div class="playlist-empty">No tracks loaded</div>
-        {:else}
-          {#each playlist as track, index}
-            <button
-              class="playlist-item"
-              class:active={index === currentTrack}
-              on:click={() => selectTrack(index)}
-            >
-              {track.name}
-            </button>
-          {/each}
-        {/if}
-      </div>
-      <div class="playlist-actions">
-        <input
-          type="file"
-          webkitdirectory
-          multiple
-          accept="audio/*"
-          on:change={handleFolderSelect}
-          style="display: none;"
-          id="music-folder"
-        />
-        <button
-          class="action-btn"
-          on:click={() => document.getElementById("music-folder").click()}
-        >
-          📁 Load Folder
-        </button>
-        <button class="action-btn" on:click={loadDemoTracks}
-          >🎵 Demo Tracks</button
-        >
-      </div>
-    </div>
-  {/if}
-=======
     </div>
     <div class="panel-content">
       <!-- Now Playing Info -->
@@ -583,7 +437,6 @@
       {/if}
     </div>
   </div>
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 </div>
 
 <style>
@@ -596,15 +449,6 @@
   }
 
   .music-control-panel {
-<<<<<<< HEAD
-    background: rgba(0, 0, 0, 0.6);
-    border: 2px solid #8b0000;
-    border-radius: 0;
-    backdrop-filter: blur(10px);
-    min-width: 280px;
-    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
-    transition: all 0.3s ease;
-=======
     background: linear-gradient(
       135deg,
       rgba(15, 56, 70, 0.98),
@@ -622,7 +466,6 @@
     transition: all 0.3s ease;
     position: relative;
     z-index: 1000;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   }
 
   .panel-header {
@@ -630,38 +473,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
-<<<<<<< HEAD
-    background: #111;
-    border-bottom: 2px solid #8b0000;
-    border-radius: 0;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    user-select: none;
-  }
-
-  .minimize-btn,
-  .close-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3px;
-    transition: background-color 0.2s;
-  }
-
-  .minimize-btn:hover,
-  .close-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-
-=======
     background: linear-gradient(90deg, #0f3846, #1be1ff);
     border-bottom: 2px solid #1be1ff;
     border-radius: 0;
@@ -672,7 +483,6 @@
     user-select: none;
   }
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   .panel-content {
     padding: 12px;
     transition: all 0.3s ease;
@@ -886,8 +696,6 @@
     border-color: #555;
   }
 
-<<<<<<< HEAD
-=======
   /* Control button active state */
   .control-btn.active {
     background: linear-gradient(
@@ -1059,7 +867,6 @@
     transform: translateY(-1px);
   }
 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .background-music-player {

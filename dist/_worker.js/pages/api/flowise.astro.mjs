@@ -1,9 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-<<<<<<< HEAD
-export { r as renderers } from '../../chunks/_@astro-renderers_ChtfEq-M.mjs';
-=======
-export { r as renderers } from '../../chunks/_@astro-renderers_DzCkhAcZ.mjs';
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
+export { r as renderers } from '../../chunks/_@astro-renderers_iO87Dm24.mjs';
 
 async function post({ request }) {
   try {
@@ -15,7 +11,6 @@ async function post({ request }) {
       );
     }
     const FLOWISE_API_URL = undefined                                || "https://api.flowise.com/api/v1";
-<<<<<<< HEAD
     const FLOWISE_API_TOKEN = undefined                                 ;
     if (!FLOWISE_API_TOKEN) {
       return new Response(
@@ -26,10 +21,6 @@ async function post({ request }) {
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     }
-=======
-    const FLOWISE_API_TOKEN = "your_flowise_api_token_here";
-    if (!FLOWISE_API_TOKEN) ;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     const flowiseEndpoint = `${FLOWISE_API_URL}/chatflows/${workflowId || "default"}/prediction`;
     const response = await fetch(flowiseEndpoint, {
       method: "POST",
@@ -120,11 +111,7 @@ async function get() {
     },
     configuration: {
       FLOWISE_API_URL: "not configured",
-<<<<<<< HEAD
       FLOWISE_API_TOKEN: "not configured"
-=======
-      FLOWISE_API_TOKEN: "configured" 
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     }
   }), {
     status: 200,

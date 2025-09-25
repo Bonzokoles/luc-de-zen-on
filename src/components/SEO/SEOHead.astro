@@ -29,13 +29,8 @@ const {
   post
 } = Astro.props;
 
-<<<<<<< HEAD
-const canonicalUrl = canonicalURL || new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
-=======
 const canonicalUrl = canonicalURL || (Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url.pathname);
 const ogImage = image && Astro.site ? new URL(image, Astro.site) : image;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
 // Extract data from post if provided
 const postTitle = post?.data?.title;
@@ -65,16 +60,6 @@ const finalTags = postTags || tags;
 <meta name="description" content={finalDescription} />
 <meta name="author" content={author} />
 <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
-<<<<<<< HEAD
-<link rel="canonical" href={canonicalUrl} />
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content={article ? "article" : "website"} />
-<meta property="og:url" content={canonicalUrl} />
-<meta property="og:title" content={finalTitle} />
-<meta property="og:description" content={finalDescription} />
-<meta property="og:image" content={ogImage} />
-=======
 <link rel="canonical" href={canonicalUrl?.toString() || canonicalUrl} />
 
 <!-- Open Graph / Facebook -->
@@ -83,7 +68,6 @@ const finalTags = postTags || tags;
 <meta property="og:title" content={finalTitle} />
 <meta property="og:description" content={finalDescription} />
 <meta property="og:image" content={ogImage?.toString() || ogImage} />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 <meta property="og:image:alt" content={finalTitle} />
 <meta property="og:site_name" content="MyBonzo" />
 <meta property="og:locale" content="pl_PL" />
@@ -103,17 +87,10 @@ const finalTags = postTags || tags;
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<<<<<<< HEAD
-<meta property="twitter:url" content={canonicalUrl} />
-<meta property="twitter:title" content={finalTitle} />
-<meta property="twitter:description" content={finalDescription} />
-<meta property="twitter:image" content={ogImage} />
-=======
 <meta property="twitter:url" content={canonicalUrl?.toString() || canonicalUrl} />
 <meta property="twitter:title" content={finalTitle} />
 <meta property="twitter:description" content={finalDescription} />
 <meta property="twitter:image" content={ogImage?.toString() || ogImage} />
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 <meta property="twitter:image:alt" content={finalTitle} />
 
 <!-- Additional SEO -->

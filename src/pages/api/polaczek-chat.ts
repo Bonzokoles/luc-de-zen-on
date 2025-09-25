@@ -3,12 +3,8 @@ import { PolaczekKnowledgeBase } from '../../utils/polaczekKnowledge.js';
 import { findRelevantDocs } from '../../utils/documentationIndex.js';
 
 type ChatBody = {
-<<<<<<< HEAD
-    prompt: string;
-=======
     prompt?: string;
     message?: string;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
     model?: string;
     temperature?: number;
     language?: 'pl' | 'auto' | 'en';
@@ -200,24 +196,6 @@ async function getEnhancedContext(prompt: string) {
 function buildSystemPrompt(language: 'pl' | 'auto' | 'en' | undefined, context: string) {
     const lang = language === 'en' ? 'en' : 'pl';
 
-<<<<<<< HEAD
-    const sysPl = `Jesteś POLACZEK — polskim AI asystentem dla strony MyBonzo.
-Twoja rola: Pomagać użytkownikom korzystać z funkcji MyBonzo Portfolio.
-
-🎯 BAZA WIEDZY MYBONZO:
-${context}
-
-📋 INSTRUKCJE:
-• Odpowiadaj TYLKO po polsku
-• Bądź konkretny i praktyczny
-• Używaj informacji z bazy wiedzy MyBonzo
-• Podawaj linki i API endpoints
-• Używaj emoji do lepszej prezentacji
-• Jeśli nie wiesz - powiedz "Nie mam tej informacji"
-• Promuj możliwości MyBonzo AI
-
-🚀 STYL: Przyjazny ekspert, krótkie odpowiedzi, konkretne fakty.`;
-=======
     const sysPl = `Jesteś POLACZEK — polskim AI asystentem dla platformy MyBonzo AI.
 
 🎯 CZYM JEST MYBONZO:
@@ -266,7 +244,6 @@ ${context}
 • Jeśli nie wiesz - powiedz "Nie mam tej informacji"
 
 🚀 STYL: Ekspert AI, przyjazny, konkretny, praktyczny.`;
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
     const sysEn = `You are POLACZEK — Polish AI assistant for MyBonzo website.
 Your role: Help users utilize MyBonzo Portfolio features.
@@ -291,13 +268,6 @@ ${context}
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
         const body = (await request.json()) as ChatBody;
-<<<<<<< HEAD
-        const { prompt, model = 'qwen', temperature = 0.6, language = 'pl', context } = body;
-        const env: any = locals.runtime?.env;
-
-        if (!prompt || typeof prompt !== 'string') {
-            return createErrorResponse('Pole "prompt" jest wymagane', 400);
-=======
         const { prompt, message, model = 'qwen', temperature = 0.6, language = 'pl', context } = body;
         const env: any = locals.runtime?.env;
 
@@ -305,7 +275,6 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
         const userInput = prompt || message;
         if (!userInput || typeof userInput !== 'string') {
             return createErrorResponse('Pole "prompt" lub "message" jest wymagane', 400);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         }
 
         if (!env?.AI) {
@@ -313,11 +282,7 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
         }
 
         // Get enhanced contextual knowledge about MyBonzo based on user query (with documentation)
-<<<<<<< HEAD
-        const contextualKnowledge = await getEnhancedContext(prompt);
-=======
         const contextualKnowledge = await getEnhancedContext(userInput);
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 
         // Choose appropriate model - prefer Polish-friendly models
         let modelId: string;
@@ -349,14 +314,6 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
 
         const messages = [
             { role: 'system', content: systemPrompt },
-<<<<<<< HEAD
-            { role: 'user', content: prompt },
-        ];
-
-        const aiResp: any = await env.AI.run(modelId as any, {
-            messages,
-            temperature,
-=======
             { role: 'user', content: userInput },
         ];
 
@@ -370,18 +327,13 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
                 skipCache: false,
                 cacheTtl: 3360,
             },
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
         });
 
         const answer: string = aiResp?.response || aiResp?.result || 'Brak odpowiedzi od modelu.';
 
         return createSuccessResponse({
-<<<<<<< HEAD
-            answer,
-=======
             response: answer,  // Changed from 'answer' to 'response' for compatibility
             answer,           // Keep both for backward compatibility
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
             modelUsed: modelId,
             persona: 'POLACZEK',
             language: language,

@@ -1,57 +1,4 @@
 // API endpoint dla zarządzania użytkownikami MyBonzo Admin
-<<<<<<< HEAD
-export async function GET() {
-  const users = [
-    { 
-      id: 1, 
-      name: 'Jan Kowalski', 
-      email: 'jan.kowalski@example.com', 
-      active: true,
-      role: 'admin',
-      lastLogin: new Date(Date.now() - 3600000).toISOString()
-    },
-    { 
-      id: 2, 
-      name: 'Anna Nowak', 
-      email: 'anna.nowak@example.com', 
-      active: false,
-      role: 'user',
-      lastLogin: new Date(Date.now() - 86400000).toISOString()
-    },
-    { 
-      id: 3, 
-      name: 'Piotr Wiśniewski', 
-      email: 'piotr.wisniewski@example.com', 
-      active: true,
-      role: 'moderator',
-      lastLogin: new Date(Date.now() - 7200000).toISOString()
-    },
-    {
-      id: 4,
-      name: 'Maria Kowalczyk',
-      email: 'maria.kowalczyk@example.com',
-      active: true,
-      role: 'user',
-      lastLogin: new Date(Date.now() - 1800000).toISOString()
-    },
-    {
-      id: 5,
-      name: 'Tomasz Nowicki',
-      email: 'tomasz.nowicki@example.com',
-      active: false,
-      role: 'user',
-      lastLogin: new Date(Date.now() - 259200000).toISOString()
-    }
-  ];
-
-  return new Response(JSON.stringify(users), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
-  });
-=======
 export async function GET({ request }: { request: Request }) {
   // Sprawdzenie autoryzacji
   const auth = request.headers.get('authorization') || '';
@@ -116,7 +63,6 @@ export async function GET({ request }: { request: Request }) {
   } catch (error) {
     return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
   }
->>>>>>> c1c4ac5534f2943dcdcdd273d347cf64339cc1a7
 }
 
 export async function POST({ request }: { request: Request }) {
