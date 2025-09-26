@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_Bb-O1rgQ.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BS6eKWK9.mjs';
 /* empty css                                         */
 export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
@@ -15,15 +15,15 @@ SEARCH
 <svg style="--rotation: -45deg" class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-astro-cid-viyex4t6> <path d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-viyex4t6></path> </svg> </a> </div> </div> </div> </section> <!-- Tavily Search Section --> <section class="ai-workers-section flex items-center justify-center py-16" style="background: rgba(0, 0, 0, 0.5);" id="tavily" data-astro-cid-viyex4t6> <div class="section-container max-w-6xl mx-auto" data-astro-cid-viyex4t6> <h2 class="section-title" data-astro-cid-viyex4t6>TAVILY SEARCH</h2> <p class="section-description" data-astro-cid-viyex4t6>
 Zaawansowane wyszukiwanie internetowe z AI, wyciąganie treści i
           analiza wyników
-</p> <!-- Search Interface --> <div class="search-container border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-viyex4t6> <!-- Search Header --> <div class="search-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-viyex4t6> <div class="flex items-center gap-3" data-astro-cid-viyex4t6> <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse" data-astro-cid-viyex4t6></div> <span class="text-primary-foreground font-semibold" data-astro-cid-viyex4t6>Tavily AI Search Engine</span> </div> <div class="flex gap-2" data-astro-cid-viyex4t6> <button onclick="saveSearch()" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
+</p> <!-- Search Interface --> <div class="search-container border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-viyex4t6> <!-- Search Header --> <div class="search-header border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.5);" data-astro-cid-viyex4t6> <div class="flex items-center gap-3" data-astro-cid-viyex4t6> <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse" data-astro-cid-viyex4t6></div> <span class="text-primary-foreground font-semibold" data-astro-cid-viyex4t6>Tavily AI Search Engine</span> </div> <div class="flex gap-2" data-astro-cid-viyex4t6> <button data-action="save-search" class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
 Zapisz
-</button> <button onclick="exportResults()" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
+</button> <button data-action="export-results" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
 Export
-</button> <button onclick="clearResults()" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
+</button> <button data-action="clear-results" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
 Wyczyść
 </button> </div> </div> <!-- Main Search Form --> <div class="search-form p-6" data-astro-cid-viyex4t6> <div class="main-search mb-6" data-astro-cid-viyex4t6> <label for="searchQuery" class="block text-lg font-semibold mb-3 text-primary-foreground" data-astro-cid-viyex4t6>
 Wyszukaj w internecie:
-</label> <div class="search-input-group flex gap-3" data-astro-cid-viyex4t6> <input id="searchQuery" type="text" placeholder="Wprowadź zapytanie... np. 'najnowsze wiadomości o AI', 'jak działają LLM'" class="flex-1 p-4 bg-black/40 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none text-lg" data-astro-cid-viyex4t6> <button id="searchBtn" onclick="performSearch()" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50" data-astro-cid-viyex4t6>
+</label> <div class="search-input-group flex gap-3" data-astro-cid-viyex4t6> <input id="searchQuery" type="text" placeholder="Wprowadź zapytanie... np. 'najnowsze wiadomości o AI', 'jak działają LLM'" class="flex-1 p-4 bg-black/40 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none text-lg" data-astro-cid-viyex4t6> <button id="searchBtn" data-action="perform-search" class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50" data-astro-cid-viyex4t6>
 🔍 Szukaj
 </button> </div> </div> <!-- Advanced Options --> <div class="advanced-options border-t border-edge pt-6" data-astro-cid-viyex4t6> <h4 class="text-lg font-semibold mb-4 text-primary-foreground" data-astro-cid-viyex4t6>
 Opcje zaawansowane:
@@ -33,27 +33,27 @@ Inicjalizacja wyszukiwania...
 🤖 Podsumowanie AI
 </h3> </div> <div id="aiSummary" class="summary-content p-6 text-primary-foreground" data-astro-cid-viyex4t6> <!-- AI summary will be populated here --> </div> </div> </div> <!-- Results Section --> <div id="resultsSection" class="results-section hidden mt-8" data-astro-cid-viyex4t6> <div class="bg-black/20 border border-edge rounded-lg" data-astro-cid-viyex4t6> <!-- Results Header --> <div class="results-header bg-black/40 border-b border-edge p-4 flex items-center justify-between" data-astro-cid-viyex4t6> <div data-astro-cid-viyex4t6> <h3 class="text-xl font-semibold text-primary-foreground" data-astro-cid-viyex4t6>
 Wyniki wyszukiwania
-</h3> <p id="resultsInfo" class="text-gray-400 text-sm" data-astro-cid-viyex4t6></p> </div> <div class="flex gap-2" data-astro-cid-viyex4t6> <button onclick="generateReport()" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
+</h3> <p id="resultsInfo" class="text-gray-400 text-sm" data-astro-cid-viyex4t6></p> </div> <div class="flex gap-2" data-astro-cid-viyex4t6> <button data-action="generate-report" class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
 Raport
-</button> <button onclick="analyzeResults()" class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
+</button> <button data-action="analyze-results" class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm" data-astro-cid-viyex4t6>
 Analiza
 </button> </div> </div> <!-- Results List --> <div id="resultsList" class="results-list p-4" data-astro-cid-viyex4t6> <!-- Results will be populated here --> </div> </div> </div> <!-- Quick Searches --> <div class="quick-searches mt-8" data-astro-cid-viyex4t6> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-viyex4t6>
 Popularne wyszukiwania:
-</h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-3" data-astro-cid-viyex4t6> <button class="quick-search-btn" onclick="quickSearch('najnowsze wiadomości AI')" data-astro-cid-viyex4t6>
+</h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-3" data-astro-cid-viyex4t6> <button class="quick-search-btn" data-action="quick-search" data-query="najnowsze wiadomości AI" data-astro-cid-viyex4t6>
 🤖 Wiadomości AI
-</button> <button class="quick-search-btn" onclick="quickSearch('jak działa ChatGPT')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="jak działa ChatGPT" data-astro-cid-viyex4t6>
 💭 Jak działa AI
-</button> <button class="quick-search-btn" onclick="quickSearch('machine learning tutorial 2024')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="machine learning tutorial 2024" data-astro-cid-viyex4t6>
 📚 ML Tutorial
-</button> <button class="quick-search-btn" onclick="quickSearch('najnowsze technologie programowanie')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="najnowsze technologie programowanie" data-astro-cid-viyex4t6>
 💻 Tech News
-</button> <button class="quick-search-btn" onclick="quickSearch('cryptocurrency bitcoin ethereum')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="cryptocurrency bitcoin ethereum" data-astro-cid-viyex4t6>
 💰 Krypto
-</button> <button class="quick-search-btn" onclick="quickSearch('klimat zmiany środowisko')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="klimat zmiany środowisko" data-astro-cid-viyex4t6>
 🌍 Klimat
-</button> <button class="quick-search-btn" onclick="quickSearch('przestrzeń kosmiczna NASA')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="przestrzeń kosmiczna NASA" data-astro-cid-viyex4t6>
 🚀 Kosmos
-</button> <button class="quick-search-btn" onclick="quickSearch('zdrowie medycyna badania')" data-astro-cid-viyex4t6>
+</button> <button class="quick-search-btn" data-action="quick-search" data-query="zdrowie medycyna badania" data-astro-cid-viyex4t6>
 🏥 Medycyna
 </button> </div> </div> <!-- Search Analytics --> <div class="search-analytics mt-8 bg-black/20 border border-edge rounded-lg p-6" data-astro-cid-viyex4t6> <h3 class="text-xl font-semibold mb-4 text-primary-foreground" data-astro-cid-viyex4t6>
 Analityka wyszukiwań:

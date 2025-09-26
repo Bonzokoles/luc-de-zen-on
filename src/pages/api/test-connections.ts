@@ -1,5 +1,18 @@
 import type { APIRoute } from 'astro';
 
+export const GET: APIRoute = async ({ request, locals }) => {
+  // Return simple status for GET requests
+  return new Response(JSON.stringify({
+    message: 'Test connections endpoint active',
+    method: 'Use POST for full connection testing',
+    endpoints: ['DeepSeek', 'Kaggle', 'Tavily'],
+    timestamp: new Date().toISOString()
+  }), {
+    status: 200,
+    headers: { 'Content-Type': 'application/json' }
+  });
+};
+
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const results = {

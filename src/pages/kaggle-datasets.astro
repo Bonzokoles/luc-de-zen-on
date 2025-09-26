@@ -89,13 +89,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
             <div class="flex gap-2">
               <button
-                onclick="saveSearch()"
+                data-action="save-search"
                 class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
               >
                 Zapisz
               </button>
               <button
-                onclick="clearResults()"
+                data-action="clear-results"
                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
               >
                 Wyczyść
@@ -220,7 +220,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <div class="search-action mt-4">
               <button
                 id="searchBtn"
-                onclick="performSearch()"
+                data-action="perform-search"
                 class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
               >
                 🔍 Wyszukaj na Kaggle
@@ -270,13 +270,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               </div>
               <div class="flex gap-2">
                 <button
-                  onclick="exportResults()"
+                  data-action="export-results"
                   class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
                 >
                   Export CSV
                 </button>
                 <button
-                  onclick="viewFavorites()"
+                  data-action="view-favorites"
                   class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
                 >
                   Ulubione
@@ -297,7 +297,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               <div class="flex items-center justify-between">
                 <button
                   id="prevPage"
-                  onclick="changePage(-1)"
+                  data-action="prev-page"
                   class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded disabled:opacity-50"
                 >
                   ← Poprzednia
@@ -305,7 +305,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 <span id="pageInfo" class="text-primary-foreground"></span>
                 <button
                   id="nextPage"
-                  onclick="changePage(1)"
+                  data-action="next-page"
                   class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded disabled:opacity-50"
                 >
                   Następna →
@@ -323,49 +323,57 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <button
               class="quick-search-btn"
-              onclick="quickSearch('machine learning')"
+              data-action="quick-search"
+              data-query="machine learning"
             >
               🤖 Machine Learning
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('image classification')"
+              data-action="quick-search"
+              data-query="image classification"
             >
               🖼️ Klasyfikacja obrazów
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('nlp natural language')"
+              data-action="quick-search"
+              data-query="nlp natural language"
             >
               💬 NLP
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('covid coronavirus')"
+              data-action="quick-search"
+              data-query="covid coronavirus"
             >
               🦠 COVID-19
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('stock market finance')"
+              data-action="quick-search"
+              data-query="stock market finance"
             >
               📈 Finanse
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('climate weather')"
+              data-action="quick-search"
+              data-query="climate weather"
             >
               🌡️ Klimat
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('house prices real estate')"
+              data-action="quick-search"
+              data-query="house prices real estate"
             >
               🏠 Nieruchomości
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('sports football soccer')"
+              data-action="quick-search"
+              data-query="sports football soccer"
             >
               ⚽ Sport
             </button>
@@ -989,6 +997,46 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   // Initialize
   document.addEventListener("DOMContentLoaded", () => {
     updateSearchHistoryDisplay();
+
+    // Add event listeners for all data-action buttons
+    document.querySelectorAll('[data-action]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const action = this.getAttribute('data-action');
+        const query = this.getAttribute('data-query');
+        
+        switch(action) {
+          case 'save-search':
+            saveSearch();
+            break;
+          case 'clear-results':
+            clearResults();
+            break;
+          case 'perform-search':
+            performSearch();
+            break;
+          case 'export-results':
+            exportResults();
+            break;
+          case 'view-favorites':
+            viewFavorites();
+            break;
+          case 'prev-page':
+            changePage(-1);
+            break;
+          case 'next-page':
+            changePage(1);
+            break;
+          case 'quick-search':
+            if (query) {
+              quickSearch(query);
+            }
+            break;
+          default:
+            console.log('Unknown action:', action);
+        }
+      });
+    });
 
     // Load quick search if available
     const quickSearch = localStorage.getItem("quickKaggleSearch");

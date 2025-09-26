@@ -88,19 +88,19 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
             <div class="flex gap-2">
               <button
-                onclick="saveQuery()"
+                data-action="save-query"
                 class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
               >
                 Zapisz
               </button>
               <button
-                onclick="loadQuery()"
+                data-action="load-query"
                 class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
               >
                 Wczytaj
               </button>
               <button
-                onclick="clearQuery()"
+                data-action="clear-query"
                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
               >
                 Wyczyść
@@ -203,7 +203,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="execute-section p-4 border-t border-edge">
             <button
               id="executeBtn"
-              onclick="executeQuery()"
+              data-action="execute-query"
               class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
             >
               🚀 Wykonaj Zapytanie
@@ -256,19 +256,19 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               </div>
               <div class="flex gap-2">
                 <button
-                  onclick="exportResults('csv')"
+                  data-action="export-csv"
                   class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
                 >
                   Export CSV
                 </button>
                 <button
-                  onclick="exportResults('json')"
+                  data-action="export-json"
                   class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
                 >
                   Export JSON
                 </button>
                 <button
-                  onclick="createChart()"
+                  data-action="create-chart"
                   class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
                 >
                   Wykres
@@ -294,7 +294,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery(exampleQueries.basic)"
+              data-action="set-query-basic"
             >
               <div class="font-semibold text-cyan-400">
                 📊 Podstawowe zapytanie
@@ -305,21 +305,21 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery(exampleQueries.aggregate)"
+              data-action="set-query-aggregate"
             >
               <div class="font-semibold text-cyan-400">📈 Agregacja danych</div>
               <div class="text-sm text-gray-300">COUNT, SUM, AVG, GROUP BY</div>
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery(exampleQueries.join)"
+              data-action="set-query-join"
             >
               <div class="font-semibold text-cyan-400">🔗 JOIN tabeli</div>
               <div class="text-sm text-gray-300">LEFT JOIN, INNER JOIN</div>
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery(exampleQueries.analytics)"
+              data-action="set-query-analytics"
             >
               <div class="font-semibold text-cyan-400">🧮 Analityka</div>
               <div class="text-sm text-gray-300">
@@ -882,6 +882,52 @@ ORDER BY date;`,
     sqlQuery.addEventListener("input", updateLineCounter);
     sqlQuery.addEventListener("click", updateLineCounter);
     sqlQuery.addEventListener("keyup", updateLineCounter);
+
+    // Add event listeners for all data-action buttons
+    document.querySelectorAll('[data-action]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const action = this.getAttribute('data-action');
+        
+        switch(action) {
+          case 'save-query':
+            saveQuery();
+            break;
+          case 'load-query':
+            loadQuery();
+            break;
+          case 'clear-query':
+            clearQuery();
+            break;
+          case 'execute-query':
+            executeQuery();
+            break;
+          case 'export-csv':
+            exportResults('csv');
+            break;
+          case 'export-json':
+            exportResults('json');
+            break;
+          case 'create-chart':
+            createChart();
+            break;
+          case 'set-query-basic':
+            setQuery(exampleQueries.basic);
+            break;
+          case 'set-query-aggregate':
+            setQuery(exampleQueries.aggregate);
+            break;
+          case 'set-query-join':
+            setQuery(exampleQueries.join);
+            break;
+          case 'set-query-analytics':
+            setQuery(exampleQueries.analytics);
+            break;
+          default:
+            console.log('Unknown action:', action);
+        }
+      });
+    });
 
     // Load quick query if available
     const quickQuery = localStorage.getItem("quickSQLQuery");

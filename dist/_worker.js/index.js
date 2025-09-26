@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { r as renderers } from './chunks/_@astro-renderers_Ba3qNCWV.mjs';
 import { c as createExports, s as serverEntrypointModule } from './chunks/_@astrojs-ssr-adapter_C5xVcQlf.mjs';
-import { manifest } from './manifest_DuodPekT.mjs';
+import { manifest } from './manifest_D_km_zAl.mjs';
 
 const serverIslandMap = new Map();;
 
@@ -206,55 +206,56 @@ const _page197 = () => import('./pages/image-generator.astro.mjs');
 const _page198 = () => import('./pages/index_backup_20250830043459.astro.mjs');
 const _page199 = () => import('./pages/index_clean_backup.astro.mjs');
 const _page200 = () => import('./pages/index-complex-backup.astro.mjs');
-const _page201 = () => import('./pages/index-simple.astro.mjs');
-const _page202 = () => import('./pages/integration-hub.astro.mjs');
-const _page203 = () => import('./pages/kaggle-datasets.astro.mjs');
-const _page204 = () => import('./pages/kaggle-datasets-enhanced.astro.mjs');
-const _page205 = () => import('./pages/katalog-stron.astro.mjs');
-const _page206 = () => import('./pages/klf-sheed-shop.astro.mjs');
-const _page207 = () => import('./pages/login.astro.mjs');
-const _page208 = () => import('./pages/mybonzo.astro.mjs');
-const _page209 = () => import('./pages/payment-simulator.astro.mjs');
-const _page210 = () => import('./pages/polaczek_agent_sys_23/agent-data-simple.astro.mjs');
-const _page211 = () => import('./pages/polaczek_agent_sys_23/agent-data1.astro.mjs');
-const _page212 = () => import('./pages/polaczek_agent_sys_23/agents/create.astro.mjs');
-const _page213 = () => import('./pages/polaczek_agent_sys_23/agents/create-backup.astro.mjs');
-const _page214 = () => import('./pages/polaczek_agent_sys_23/api/agents/control.astro.mjs');
-const _page215 = () => import('./pages/polaczek_agent_sys_23/api/agents/create.astro.mjs');
-const _page216 = () => import('./pages/polaczek_agent_sys_23/api/agents/list.astro.mjs');
-const _page217 = () => import('./pages/polaczek_agent_sys_23/api/agents/list-backup.astro.mjs');
-const _page218 = () => import('./pages/polaczek_agent_sys_23/api/chat.astro.mjs');
-const _page219 = () => import('./pages/polaczek_agent_sys_23/api-keys.astro.mjs');
-const _page220 = () => import('./pages/polaczek_agent_sys_23/dashboard.astro.mjs');
-const _page221 = () => import('./pages/polaczek_agent_sys_23/dashboard-backup.astro.mjs');
-const _page222 = () => import('./pages/polaczek_agent_sys_23/readme.astro.mjs');
-const _page223 = () => import('./pages/polaczek_agent_sys_23.astro.mjs');
-const _page224 = () => import('./pages/polaczek-agents-system.astro.mjs');
-const _page225 = () => import('./pages/posts/_---slug_.astro.mjs');
-const _page226 = () => import('./pages/prompt-enhancer.astro.mjs');
-const _page227 = () => import('./pages/quiz.astro.mjs');
-const _page228 = () => import('./pages/quiz-new.astro.mjs');
-const _page229 = () => import('./pages/real-agent-creator.astro.mjs');
-const _page230 = () => import('./pages/robots.txt.astro.mjs');
-const _page231 = () => import('./pages/rss.xml.astro.mjs');
-const _page232 = () => import('./pages/simple-image-generator.astro.mjs');
-const _page233 = () => import('./pages/stable-diffusion.astro.mjs');
-const _page234 = () => import('./pages/stable-image-generator.astro.mjs');
-const _page235 = () => import('./pages/status-workers.astro.mjs');
-const _page236 = () => import('./pages/streamline-icons-demo.astro.mjs');
-const _page237 = () => import('./pages/system-dashboard.astro.mjs');
-const _page238 = () => import('./pages/tavily-search.astro.mjs');
-const _page239 = () => import('./pages/test-agent.astro.mjs');
-const _page240 = () => import('./pages/voice-avatar-new.astro.mjs');
-const _page241 = () => import('./pages/web-catalog.astro.mjs');
-const _page242 = () => import('./pages/wildcards.astro.mjs');
-const _page243 = () => import('./pages/workers-status.astro.mjs');
-const _page244 = () => import('./pages/workers-status-test.astro.mjs');
-const _page245 = () => import('./pages/www.astro.mjs');
-const _page246 = () => import('./pages/zaawansowane-funkcje-ai.astro.mjs');
-const _page247 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
-const _page248 = () => import('./pages/zenon-mcp-server.astro.mjs');
-const _page249 = () => import('./pages/index.astro.mjs');
+const _page201 = () => import('./pages/index-refactored.astro.mjs');
+const _page202 = () => import('./pages/index-simple.astro.mjs');
+const _page203 = () => import('./pages/integration-hub.astro.mjs');
+const _page204 = () => import('./pages/kaggle-datasets.astro.mjs');
+const _page205 = () => import('./pages/kaggle-datasets-enhanced.astro.mjs');
+const _page206 = () => import('./pages/katalog-stron.astro.mjs');
+const _page207 = () => import('./pages/klf-sheed-shop.astro.mjs');
+const _page208 = () => import('./pages/login.astro.mjs');
+const _page209 = () => import('./pages/mybonzo.astro.mjs');
+const _page210 = () => import('./pages/payment-simulator.astro.mjs');
+const _page211 = () => import('./pages/polaczek_agent_sys_23/agent-data-simple.astro.mjs');
+const _page212 = () => import('./pages/polaczek_agent_sys_23/agent-data1.astro.mjs');
+const _page213 = () => import('./pages/polaczek_agent_sys_23/agents/create.astro.mjs');
+const _page214 = () => import('./pages/polaczek_agent_sys_23/agents/create-backup.astro.mjs');
+const _page215 = () => import('./pages/polaczek_agent_sys_23/api/agents/control.astro.mjs');
+const _page216 = () => import('./pages/polaczek_agent_sys_23/api/agents/create.astro.mjs');
+const _page217 = () => import('./pages/polaczek_agent_sys_23/api/agents/list.astro.mjs');
+const _page218 = () => import('./pages/polaczek_agent_sys_23/api/agents/list-backup.astro.mjs');
+const _page219 = () => import('./pages/polaczek_agent_sys_23/api/chat.astro.mjs');
+const _page220 = () => import('./pages/polaczek_agent_sys_23/api-keys.astro.mjs');
+const _page221 = () => import('./pages/polaczek_agent_sys_23/dashboard.astro.mjs');
+const _page222 = () => import('./pages/polaczek_agent_sys_23/dashboard-backup.astro.mjs');
+const _page223 = () => import('./pages/polaczek_agent_sys_23/readme.astro.mjs');
+const _page224 = () => import('./pages/polaczek_agent_sys_23.astro.mjs');
+const _page225 = () => import('./pages/polaczek-agents-system.astro.mjs');
+const _page226 = () => import('./pages/posts/_---slug_.astro.mjs');
+const _page227 = () => import('./pages/prompt-enhancer.astro.mjs');
+const _page228 = () => import('./pages/quiz.astro.mjs');
+const _page229 = () => import('./pages/quiz-new.astro.mjs');
+const _page230 = () => import('./pages/real-agent-creator.astro.mjs');
+const _page231 = () => import('./pages/robots.txt.astro.mjs');
+const _page232 = () => import('./pages/rss.xml.astro.mjs');
+const _page233 = () => import('./pages/simple-image-generator.astro.mjs');
+const _page234 = () => import('./pages/stable-diffusion.astro.mjs');
+const _page235 = () => import('./pages/stable-image-generator.astro.mjs');
+const _page236 = () => import('./pages/status-workers.astro.mjs');
+const _page237 = () => import('./pages/streamline-icons-demo.astro.mjs');
+const _page238 = () => import('./pages/system-dashboard.astro.mjs');
+const _page239 = () => import('./pages/tavily-search.astro.mjs');
+const _page240 = () => import('./pages/test-agent.astro.mjs');
+const _page241 = () => import('./pages/voice-avatar-new.astro.mjs');
+const _page242 = () => import('./pages/web-catalog.astro.mjs');
+const _page243 = () => import('./pages/wildcards.astro.mjs');
+const _page244 = () => import('./pages/workers-status.astro.mjs');
+const _page245 = () => import('./pages/workers-status-test.astro.mjs');
+const _page246 = () => import('./pages/www.astro.mjs');
+const _page247 = () => import('./pages/zaawansowane-funkcje-ai.astro.mjs');
+const _page248 = () => import('./pages/zaawansowane-funkcje-ai-new.astro.mjs');
+const _page249 = () => import('./pages/zenon-mcp-server.astro.mjs');
+const _page250 = () => import('./pages/index.astro.mjs');
 const pageMap = new Map([
     ["node_modules/.pnpm/@astrojs+cloudflare@12.6.8__d03e06fb2d3baa4b7ecf41bd007475ad/node_modules/@astrojs/cloudflare/dist/entrypoints/image-endpoint.js", _page0],
     ["src/pages/admin/ai-chat.astro", _page1],
@@ -457,55 +458,56 @@ const pageMap = new Map([
     ["src/pages/index_backup_20250830043459.astro", _page198],
     ["src/pages/index_clean_backup.astro", _page199],
     ["src/pages/index-complex-backup.astro", _page200],
-    ["src/pages/index-simple.astro", _page201],
-    ["src/pages/integration-hub.astro", _page202],
-    ["src/pages/kaggle-datasets.astro", _page203],
-    ["src/pages/kaggle-datasets-enhanced.astro", _page204],
-    ["src/pages/katalog-stron.astro", _page205],
-    ["src/pages/klf-sheed-shop.astro", _page206],
-    ["src/pages/login.astro", _page207],
-    ["src/pages/mybonzo.astro", _page208],
-    ["src/pages/payment-simulator.astro", _page209],
-    ["src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro", _page210],
-    ["src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro", _page211],
-    ["src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro", _page212],
-    ["src/pages/POLACZEK_AGENT_SYS_23/agents/create-backup.astro", _page213],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/control.ts", _page214],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/create.ts", _page215],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/list.ts", _page216],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/list-backup.ts", _page217],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api/chat.ts", _page218],
-    ["src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro", _page219],
-    ["src/pages/POLACZEK_AGENT_SYS_23/dashboard.astro", _page220],
-    ["src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro", _page221],
-    ["src/pages/POLACZEK_AGENT_SYS_23/README.md", _page222],
-    ["src/pages/POLACZEK_AGENT_SYS_23/index.astro", _page223],
-    ["src/pages/polaczek-agents-system.astro", _page224],
-    ["src/pages/posts/[...slug].astro", _page225],
-    ["src/pages/prompt-enhancer.astro", _page226],
-    ["src/pages/quiz.astro", _page227],
-    ["src/pages/quiz-new.astro", _page228],
-    ["src/pages/real-agent-creator.astro", _page229],
-    ["src/pages/robots.txt.ts", _page230],
-    ["src/pages/rss.xml.js", _page231],
-    ["src/pages/simple-image-generator.astro", _page232],
-    ["src/pages/stable-diffusion.astro", _page233],
-    ["src/pages/stable-image-generator.astro", _page234],
-    ["src/pages/status-workers.astro", _page235],
-    ["src/pages/streamline-icons-demo.astro", _page236],
-    ["src/pages/system-dashboard.astro", _page237],
-    ["src/pages/tavily-search.astro", _page238],
-    ["src/pages/test-agent.astro", _page239],
-    ["src/pages/voice-avatar-new.astro", _page240],
-    ["src/pages/web-catalog/index.astro", _page241],
-    ["src/pages/wildcards.astro", _page242],
-    ["src/pages/workers-status.astro", _page243],
-    ["src/pages/workers-status-test.astro", _page244],
-    ["src/pages/www.astro", _page245],
-    ["src/pages/zaawansowane-funkcje-ai.astro", _page246],
-    ["src/pages/zaawansowane-funkcje-ai-new.astro", _page247],
-    ["src/pages/zenon-mcp-server.astro", _page248],
-    ["src/pages/index.astro", _page249]
+    ["src/pages/index-refactored.astro", _page201],
+    ["src/pages/index-simple.astro", _page202],
+    ["src/pages/integration-hub.astro", _page203],
+    ["src/pages/kaggle-datasets.astro", _page204],
+    ["src/pages/kaggle-datasets-enhanced.astro", _page205],
+    ["src/pages/katalog-stron.astro", _page206],
+    ["src/pages/klf-sheed-shop.astro", _page207],
+    ["src/pages/login.astro", _page208],
+    ["src/pages/mybonzo.astro", _page209],
+    ["src/pages/payment-simulator.astro", _page210],
+    ["src/pages/POLACZEK_AGENT_SYS_23/agent-data-simple.astro", _page211],
+    ["src/pages/POLACZEK_AGENT_SYS_23/agent-data1.astro", _page212],
+    ["src/pages/POLACZEK_AGENT_SYS_23/agents/create.astro", _page213],
+    ["src/pages/POLACZEK_AGENT_SYS_23/agents/create-backup.astro", _page214],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/control.ts", _page215],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/create.ts", _page216],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/list.ts", _page217],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api/agents/list-backup.ts", _page218],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api/chat.ts", _page219],
+    ["src/pages/POLACZEK_AGENT_SYS_23/api-keys.astro", _page220],
+    ["src/pages/POLACZEK_AGENT_SYS_23/dashboard.astro", _page221],
+    ["src/pages/POLACZEK_AGENT_SYS_23/dashboard-backup.astro", _page222],
+    ["src/pages/POLACZEK_AGENT_SYS_23/README.md", _page223],
+    ["src/pages/POLACZEK_AGENT_SYS_23/index.astro", _page224],
+    ["src/pages/polaczek-agents-system.astro", _page225],
+    ["src/pages/posts/[...slug].astro", _page226],
+    ["src/pages/prompt-enhancer.astro", _page227],
+    ["src/pages/quiz.astro", _page228],
+    ["src/pages/quiz-new.astro", _page229],
+    ["src/pages/real-agent-creator.astro", _page230],
+    ["src/pages/robots.txt.ts", _page231],
+    ["src/pages/rss.xml.js", _page232],
+    ["src/pages/simple-image-generator.astro", _page233],
+    ["src/pages/stable-diffusion.astro", _page234],
+    ["src/pages/stable-image-generator.astro", _page235],
+    ["src/pages/status-workers.astro", _page236],
+    ["src/pages/streamline-icons-demo.astro", _page237],
+    ["src/pages/system-dashboard.astro", _page238],
+    ["src/pages/tavily-search.astro", _page239],
+    ["src/pages/test-agent.astro", _page240],
+    ["src/pages/voice-avatar-new.astro", _page241],
+    ["src/pages/web-catalog/index.astro", _page242],
+    ["src/pages/wildcards.astro", _page243],
+    ["src/pages/workers-status.astro", _page244],
+    ["src/pages/workers-status-test.astro", _page245],
+    ["src/pages/www.astro", _page246],
+    ["src/pages/zaawansowane-funkcje-ai.astro", _page247],
+    ["src/pages/zaawansowane-funkcje-ai-new.astro", _page248],
+    ["src/pages/zenon-mcp-server.astro", _page249],
+    ["src/pages/index.astro", _page250]
 ]);
 
 const _manifest = Object.assign(manifest, {

@@ -292,7 +292,7 @@ const POST = async ({ request }) => {
     let driveContext = "";
     if (useGoogleDrive) {
       try {
-        driveContext = await getGoogleDriveData(Object.assign(__vite_import_meta_env__, {}), driveDataTypes || []);
+        driveContext = await getGoogleDriveData(Object.assign(__vite_import_meta_env__, { OS: process.env.OS }), driveDataTypes || []);
       } catch (error) {
         console.warn("Google Drive integration failed:", error);
         driveContext = "Google Drive: Nie skonfigurowano lub błąd połączenia";

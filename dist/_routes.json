@@ -53,6 +53,7 @@
     "/agents/polaczek",
     "/agents/bielik",
     "/agents/assistant",
-    "/chat/*"
+    "/chat/*",
+    "/posts/*"
   ]
 }

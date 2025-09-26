@@ -16,6 +16,8 @@ import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimp
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
 import DecorativeLines from "../components/DecorativeLines.astro";
 import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
+// Modular Agents System
+import AgentsLoader from "../components/agents/AgentsLoader.astro";
 // Heroicons React components
 import { 
   MusicalNoteIcon,
@@ -1028,7 +1030,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function2"
-              onclick="openFunction('rekomendacje')"
+              data-function-name="rekomendacje"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>🎯</div>
@@ -1044,7 +1046,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function3"
-              onclick="openFunction('obsługa-klienta')"
+              data-function-name="obsługa-klienta"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>📞</div>
@@ -1060,7 +1062,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function4"
-              onclick="openFunction('monitorowanie')"
+              data-function-name="monitorowanie"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>📊</div>
@@ -1077,7 +1079,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function6"
-              onclick="openFunction('przypomnienia')"
+              data-function-name="przypomnienia"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>🔔</div>
@@ -1093,7 +1095,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function7"
-              onclick="openFunction('faq-generator')"
+              data-function-name="faq-generator"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>❓</div>
@@ -1109,7 +1111,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function8"
-              onclick="openFunction('edukacja')"
+              data-function-name="edukacja"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>📚</div>
@@ -1126,7 +1128,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="function9"
-              onclick="openFunction('tickety')"
+              data-function-name="tickety"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>🎫</div>
@@ -1141,7 +1143,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="quiz"
-              onclick="openFunction('quizy')"
+              data-function-name="quizy"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>🧠</div>
@@ -1157,7 +1159,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
             <div
               class="feature-tile"
               data-function="marketing"
-              onclick="openFunction('marketing')"
+              data-function-name="marketing"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>✍️</div>
@@ -1418,6 +1420,10 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
           </div>
         </div>
       </div>
+
+      <!-- MODULAR AGENTS SYSTEM - Loaded from separate components -->
+      <!-- This replaces ~360 lines of widget HTML with a single import -->
+      <AgentsLoader />
     </div>
 
     <!-- Google Bard Agent -->
@@ -1592,8 +1598,164 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
       </div>
     </div>
 
+    <!-- Voice Command Agent Widget -->
+    <div class="floating-widget-container">
+      <div id="voiceAgentWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🎙️ VOICE COMMAND AGENT</span>
+            <button onclick="toggleVoiceAgent()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Agent Status -->
+            <div style="margin-bottom: 15px; padding: 10px; background: rgba(255, 107, 53, 0.1); border-radius: 4px;">
+              <span style="color: #ff6b35; font-weight: bold;">🎤 VOICE STATUS</span>
+              <div id="voiceAgentStatus" style="margin-top: 5px; font-size: 12px; color: #ccc;">Inicjalizacja...</div>
+            </div>
+
+            <!-- Voice Commands List -->
+            <div style="margin-bottom: 15px; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 4px;">
+              <h4 style="margin-top: 0; color: #ff6b35;">Dostępne Komendy:</h4>
+              <div style="font-size: 12px; line-height: 1.4;">
+                • "Status" - sprawdź status systemów<br>
+                • "Czas" - podaj aktualny czas<br>
+                • "Pogoda" - sprawdź pogodę<br>
+                • "Otwórz Gemini" - aktywuj Gemini Pro<br>
+                • "Muzyka start/stop" - kontrola muzyki<br>
+                • "Głośniej/Ciszej" - regulacja głośności<br>
+                • "Pomoc" - pokaż wszystkie komendy
+              </div>
+            </div>
+
+            <!-- Voice Controls -->
+            <div style="text-align: center; margin: 15px 0;">
+              <button onclick="startVoiceListening()" style="background: linear-gradient(45deg, #00ff88, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">🎤 Słuchaj</button>
+              <button onclick="stopVoiceListening()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">🔇 Stop</button>
+            </div>
+
+            <!-- Text Input for Voice Agent -->
+            <textarea id="voiceAgentInput" placeholder="Wpisz komendę dla Voice Agent..." style="width: 100%; height: 60px; padding: 10px; border: 1px solid #ff6b35; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 10px;">
+              <button onclick="sendToVoiceAgent()" style="background: linear-gradient(45deg, #ff6b35, #e64a19); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearVoiceAgent()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #ff6b35; padding: 10px 20px; border-radius: 4px; color: #ff6b35; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="voiceAgentResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Music Control Agent Widget -->
+    <div class="floating-widget-container">
+      <div id="musicAgentWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🎵 MUSIC CONTROL AGENT</span>
+            <button onclick="toggleMusicAgent()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Music Player Status -->
+            <div style="margin-bottom: 15px; padding: 10px; background: rgba(29, 185, 84, 0.1); border-radius: 4px;">
+              <span style="color: #1db954; font-weight: bold;">🎵 MUSIC STATUS</span>
+              <div id="musicAgentStatus" style="margin-top: 5px; font-size: 12px; color: #ccc;">Inicjalizacja...</div>
+            </div>
+
+            <!-- Music Controls -->
+            <div style="text-align: center; margin: 15px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+              <button onclick="musicAgentPlay()" style="background: linear-gradient(45deg, #1db954, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">▶ Play</button>
+              <button onclick="musicAgentPause()" style="background: linear-gradient(45deg, #ff9500, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">⏸ Pause</button>
+              <button onclick="musicAgentStop()" style="background: linear-gradient(45deg, #ff4444, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">⏹ Stop</button>
+            </div>
+
+            <div style="text-align: center; margin: 10px 0; display: flex; justify-content: center; gap: 10px;">
+              <button onclick="musicAgentPrevious()" style="background: linear-gradient(45deg, #4caf50, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">⏮ Prev</button>
+              <button onclick="musicAgentNext()" style="background: linear-gradient(45deg, #2196f3, #0f3846); border: none; padding: 8px 15px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer;">⏭ Next</button>
+            </div>
+
+            <!-- Volume Control -->
+            <div style="margin: 15px 0; padding: 10px; background: rgba(0, 0, 0, 0.3); border-radius: 4px;">
+              <label style="color: #1db954; font-weight: bold;">🔊 Głośność:</label>
+              <input type="range" id="volumeSlider" min="0" max="100" value="70" oninput="setMusicVolume(this.value)" style="width: 100%; margin-top: 5px;">
+              <div style="text-align: center; margin-top: 5px; font-size: 12px; color: #ccc;">
+                <span id="volumeValue">70</span>%
+              </div>
+            </div>
+
+            <!-- Playlist Controls -->
+            <div style="margin: 15px 0;">
+              <h4 style="margin: 0 0 10px 0; color: #1db954;">📻 Playlista:</h4>
+              <select id="playlistSelect" style="width: 100%; padding: 8px; background: rgba(0, 0, 0, 0.7); border: 1px solid #1db954; border-radius: 4px; color: white; margin-bottom: 10px;">
+                <option value="">Wybierz playlistę...</option>
+              </select>
+              <div style="display: flex; gap: 10px;">
+                <button onclick="toggleShuffle()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1db954; padding: 8px 12px; border-radius: 4px; color: #1db954; cursor: pointer; flex: 1;">🔀 Shuffle</button>
+                <button onclick="toggleRepeat()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1db954; padding: 8px 12px; border-radius: 4px; color: #1db954; cursor: pointer; flex: 1;">🔁 Repeat</button>
+              </div>
+            </div>
+
+            <!-- Text Input for Music Commands -->
+            <textarea id="musicAgentInput" placeholder="Wpisz komendę muzyczną (np. 'play', 'volume 50', 'next')..." style="width: 100%; height: 60px; padding: 10px; border: 1px solid #1db954; border-radius: 4px; background: rgba(0, 0, 0, 0.7); color: white; resize: vertical;"></textarea>
+            <div style="margin-top: 10px;">
+              <button onclick="sendToMusicAgent()" style="background: linear-gradient(45deg, #1db954, #0f3846); border: none; padding: 10px 20px; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; margin-right: 10px;">Wyślij</button>
+              <button onclick="clearMusicAgent()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid #1db954; padding: 10px 20px; border-radius: 4px; color: #1db954; cursor: pointer;">Wyczyść</button>
+            </div>
+            <div id="musicAgentResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button onclick="openBusinessAssistant()" class="right-btn" title="Business Assistant - Wsparcie biznesowe">
       <BriefcaseIcon className="w-6 h-6 inline mr-2" /> BUSINESS
+    </button>
+
+    <!-- AI Agents Section -->
+    <button onclick="toggleVoiceAgent()" class="right-btn" id="voiceAgentBtn" title="Voice Command Agent - Polecenia głosowe">
+      🎙️ VOICE AGENT
+    </button>
+
+    <button onclick="toggleMusicAgent()" class="right-btn" id="musicAgentBtn" title="Music Control Agent - Kontrola muzyki">
+      🎵 MUSIC AGENT
+    </button>
+
+    <button onclick="toggleSystemAgent()" class="right-btn" id="systemAgentBtn" title="System Monitor Agent - Monitoring systemu">
+      🖥️ SYSTEM AGENT
+    </button>
+
+    <button onclick="toggleCrawlerAgent()" class="right-btn" id="crawlerAgentBtn" title="Web Crawler Agent - Scraping stron">
+      🕷️ CRAWLER AGENT
+    </button>
+
+    <button onclick="toggleFileAgent()" class="right-btn" id="fileAgentBtn" title="File Manager Agent - Zarządzanie plikami">
+      📁 FILE AGENT
+    </button>
+
+    <button onclick="toggleDatabaseAgent()" class="right-btn" id="databaseAgentBtn" title="Database Query Agent - Zapytania SQL">
+      💾 DATABASE AGENT
+    </button>
+
+    <button onclick="toggleEmailAgent()" class="right-btn" id="emailAgentBtn" title="Email Handler Agent - System email">
+      📧 EMAIL AGENT
+    </button>
+
+    <button onclick="toggleSecurityAgent()" class="right-btn" id="securityAgentBtn" title="Security Guard Agent - Ochrona systemu">
+      🛡️ SECURITY AGENT
+    </button>
+
+    <button onclick="toggleWebmasterAgent()" class="right-btn" id="webmasterAgentBtn" title="Webmaster Agent - Narzędzia webmaster">
+      🌐 WEBMASTER AGENT
+    </button>
+
+    <button onclick="toggleAnalyticsAgent()" class="right-btn" id="analyticsAgentBtn" title="Analytics Prophet Agent - AI Analytics">
+      📊 ANALYTICS AGENT
+    </button>
+
+    <button onclick="toggleContentAgent()" class="right-btn" id="contentAgentBtn" title="Content Guardian Agent - Guardian treści">
+      📝 CONTENT AGENT
+    </button>
+
+    <button onclick="toggleMarketingAgent()" class="right-btn" id="marketingAgentBtn" title="Marketing Maestro Agent - Marketing AI">
+      🎯 MARKETING AGENT
     </button>
 
     <button onclick="openMainChat()" class="right-btn"> <ChatBubbleLeftRightIcon className="w-6 h-6 inline mr-2" /> MAIN CHAT </button>
@@ -1725,6 +1887,11 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
 <!-- JavaScript Functions -->
 <script>
+  // Google ADK Manager - dynamically imported
+  let adkManager: any = null;
+  let initializeADK: any = null;
+  let sendMessageToADK: any = null;
+  
   // Initialize window properties
   (window as any).apiTests = (window as any).apiTests || {};
   (window as any).openImageGenerator =
@@ -1733,6 +1900,27 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
   (window as any).openBigQuery = (window as any).openBigQuery || function () {};
   (window as any).openKaggle = (window as any).openKaggle || function () {};
   (window as any).openTavily = (window as any).openTavily || function () {};
+  
+  // Google ADK Agent initialization flag
+  let adkInitialized = false;
+
+  // Initialize Google ADK Manager
+  async function initGoogleADK() {
+    try {
+      if (!adkManager) {
+        const adkModule = await import('../agents/google-adk/manager');
+        adkManager = adkModule.adkManager;
+        initializeADK = adkModule.initializeADK;
+        sendMessageToADK = adkModule.sendMessageToADK;
+        
+        await initializeADK();
+        adkInitialized = true;
+        console.log('✅ Google ADK Manager loaded and initialized');
+      }
+    } catch (error) {
+      console.error('❌ Failed to load Google ADK Manager:', error);
+    }
+  }
   (window as any).testButtonFunction =
     (window as any).testButtonFunction || function () {};
   (window as any).checkDashboardLogin =
@@ -2085,9 +2273,7 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     console.log(`🎯 Znaleziono ${featureTiles.length} kafelków funkcji`);
 
     featureTiles.forEach((tile, index) => {
-      const functionName = tile
-        .getAttribute("onclick")
-        ?.match(/openFunction\('(.+?)'\)/)?.[1];
+      const functionName = tile.getAttribute("data-function-name");
       console.log(`🔗 Tile ${index}: ${functionName}`);
 
       tile.addEventListener("click", function (e) {
@@ -2098,6 +2284,8 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
           openFunction(functionName);
         }
       });
+      
+      console.log(`✅ Event listener dodany do tile: ${functionName}`);
     });
 
     // Test czy wszystkie funkcje są dostępne
@@ -2503,14 +2691,20 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     window.location.reload(true);
   }
 
-  // Google Agent Functions - Same toggle system as Music Player
-  function toggleGeminiPro(manualClick = true) {
+  // Google Agent Functions - Enhanced with ADK integration
+  async function toggleGeminiPro(manualClick = true) {
     if (!manualClick) {
       console.log("🚫 Auto-activation blocked for Gemini Pro");
       return;
     }
     
     console.log("✨ Toggling Gemini Pro (manual click)");
+    
+    // Initialize ADK if not done yet
+    if (!adkInitialized) {
+      await initGoogleADK();
+    }
+    
     const btn = document.getElementById("geminiProBtn");
     const widget = document.getElementById("geminiProWidget");
 
@@ -2523,10 +2717,22 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
 
       // Toggle widget visibility
       widget.classList.toggle("hidden");
+      
+      // Activate Gemini Pro Agent via ADK
+      if (!widget.classList.contains("hidden") && adkManager) {
+        adkManager.setActiveAgent('gemini_pro_001');
+        console.log("✨ Gemini Pro Agent activated via ADK");
+        
+        // Send welcome message via voice
+        if (adkManager.speak) {
+          const welcomeMessage = "Gemini Pro Agent aktywowany. Gotowy do pracy!";
+          await adkManager.speak(welcomeMessage);
+        }
+      }
     }
   }
 
-  function toggleGeminiVision(manualClick = true) {
+  async function toggleGeminiVision(manualClick = true) {
     if (!manualClick) {
       console.log("� Auto-activation blocked for Gemini Vision");
       return;
@@ -3762,13 +3968,581 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
     }
   }
 
+  // Toggle functions for new AI agents with Google ADK integration
+  async function toggleVoiceAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Voice Agent");
+      return;
+    }
+    
+    console.log("🎙️ Toggling Voice Agent (manual click)");
+    
+    // Initialize ADK if not done yet
+    if (!adkInitialized) {
+      await initGoogleADK();
+    }
+    
+    const btn = document.getElementById("voiceAgentBtn");
+    const widget = document.getElementById("voiceAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      
+      widget.classList.toggle("hidden");
+      
+      // Activate Voice Command Agent
+      if (!widget.classList.contains("hidden") && adkManager) {
+        adkManager.setActiveAgent('voice_command_001');
+        await adkManager.startVoiceListening();
+        console.log("🎤 Voice Command Agent activated and listening");
+        
+        const statusDiv = document.getElementById('voiceAgentStatus');
+        if (statusDiv) {
+          statusDiv.textContent = 'Agent aktywny - nasłuchiwanie włączone 🎤';
+        }
+      } else if (adkManager) {
+        await adkManager.stopVoiceListening();
+        console.log("🔇 Voice listening stopped");
+      }
+    }
+  }
+
+  async function toggleMusicAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Music Agent");
+      return;
+    }
+    
+    console.log("🎵 Toggling Music Agent (manual click)");
+    
+    // Initialize ADK if not done yet
+    if (!adkInitialized) {
+      await initGoogleADK();
+    }
+    
+    const btn = document.getElementById("musicAgentBtn");
+    const widget = document.getElementById("musicAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      
+      widget.classList.toggle("hidden");
+      
+      // Activate Music Control Agent
+      if (!widget.classList.contains("hidden") && adkManager) {
+        adkManager.setActiveAgent('music_control_001');
+        const status = await adkManager.getMusicStatus();
+        console.log("🎵 Music Control Agent activated:", status);
+        
+        // Update widget with current status
+        const statusDiv = document.getElementById("musicAgentStatus");
+        if (statusDiv) {
+          statusDiv.textContent = status;
+        }
+      }
+    }
+  }
+
+  function toggleSystemAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for System Agent");
+      return;
+    }
+    
+    console.log("⚙️ Toggling System Agent (manual click)");
+    const btn = document.getElementById("systemAgentBtn");
+    const widget = document.getElementById("systemAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleCrawlerAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Crawler Agent");
+      return;
+    }
+    
+    console.log("🕷️ Toggling Crawler Agent (manual click)");
+    const btn = document.getElementById("crawlerAgentBtn");
+    const widget = document.getElementById("crawlerAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleFileAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for File Agent");
+      return;
+    }
+    
+    console.log("📁 Toggling File Agent (manual click)");
+    const btn = document.getElementById("fileAgentBtn");
+    const widget = document.getElementById("fileAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleDatabaseAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Database Agent");
+      return;
+    }
+    
+    console.log("🗄️ Toggling Database Agent (manual click)");
+    const btn = document.getElementById("databaseAgentBtn");
+    const widget = document.getElementById("databaseAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleEmailAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Email Agent");
+      return;
+    }
+    
+    console.log("📧 Toggling Email Agent (manual click)");
+    const btn = document.getElementById("emailAgentBtn");
+    const widget = document.getElementById("emailAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleSecurityAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Security Agent");
+      return;
+    }
+    
+    console.log("🔒 Toggling Security Agent (manual click)");
+    const btn = document.getElementById("securityAgentBtn");
+    const widget = document.getElementById("securityAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleWebmasterAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Webmaster Agent");
+      return;
+    }
+    
+    console.log("🌐 Toggling Webmaster Agent (manual click)");
+    const btn = document.getElementById("webmasterAgentBtn");
+    const widget = document.getElementById("webmasterAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleAnalyticsAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Analytics Agent");
+      return;
+    }
+    
+    console.log("📊 Toggling Analytics Agent (manual click)");
+    const btn = document.getElementById("analyticsAgentBtn");
+    const widget = document.getElementById("analyticsAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleContentAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Content Agent");
+      return;
+    }
+    
+    console.log("📝 Toggling Content Agent (manual click)");
+    const btn = document.getElementById("contentAgentBtn");
+    const widget = document.getElementById("contentAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleMarketingAgent(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Marketing Agent");
+      return;
+    }
+    
+    console.log("📈 Toggling Marketing Agent (manual click)");
+    const btn = document.getElementById("marketingAgentBtn");
+    const widget = document.getElementById("marketingAgentWidget");
+
+    if (btn && widget) {
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  // Business Assistant Function
+  function openBusinessAssistant() {
+    console.log("💼 Opening Business Assistant");
+    if (typeof window.GOOGLE_VOICE !== 'undefined' && window.GOOGLE_VOICE.openBusinessAssistant) {
+      window.GOOGLE_VOICE.openBusinessAssistant();
+    } else {
+      // Fallback - open business functions directly
+      alert("Business Assistant jest ładowany... Spróbuj ponownie za chwilę.");
+      console.warn("Google Voice not loaded yet, trying to load business assistant");
+      
+      // Try to load GoogleVoiceAgent if not loaded
+      if (typeof window.loadGoogleVoiceAgent === 'function') {
+        window.loadGoogleVoiceAgent().then(() => {
+          if (window.GOOGLE_VOICE && window.GOOGLE_VOICE.openBusinessAssistant) {
+            window.GOOGLE_VOICE.openBusinessAssistant();
+          }
+        });
+      }
+    }
+  }
+
+  // Google ADK Agent Widget Functions
+  async function startVoiceListening() {
+    try {
+      if (!adkInitialized) {
+        await initGoogleADK();
+      }
+      if (adkManager) {
+        const success = await adkManager.startVoiceListening();
+        const statusDiv = document.getElementById('voiceAgentStatus');
+        if (statusDiv) {
+          statusDiv.textContent = success ? 'Nasłuchiwanie aktywne 🎤' : 'Błąd uruchomienia';
+        }
+      }
+    } catch (error) {
+      console.error('❌ Voice listening error:', error);
+    }
+  }
+
+  async function stopVoiceListening() {
+    try {
+      if (adkManager) {
+        await adkManager.stopVoiceListening();
+        const statusDiv = document.getElementById('voiceAgentStatus');
+        if (statusDiv) {
+          statusDiv.textContent = 'Nasłuchiwanie wyłączone 🔇';
+        }
+      }
+    } catch (error) {
+      console.error('❌ Stop voice error:', error);
+    }
+  }
+
+  async function sendToVoiceAgent() {
+    try {
+      const input = document.getElementById('voiceAgentInput') as HTMLTextAreaElement;
+      const responseDiv = document.getElementById('voiceAgentResponse');
+      
+      if (!input || !responseDiv) return;
+      
+      const message = input.value.trim();
+      if (!message) return;
+
+      if (!adkInitialized) {
+        await initGoogleADK();
+      }
+
+      responseDiv.style.display = 'block';
+      responseDiv.textContent = 'Przetwarzanie...';
+      
+      if (sendMessageToADK) {
+        const response = await sendMessageToADK(message, 'voice_command_001');
+        
+        responseDiv.textContent = response.status === 'success' 
+          ? response.response || 'Brak odpowiedzi'
+          : `Błąd: ${response.error_message}`;
+      }
+        
+    } catch (error) {
+      console.error('❌ Voice agent error:', error);
+    }
+  }
+
+  function clearVoiceAgent() {
+    const input = document.getElementById('voiceAgentInput') as HTMLTextAreaElement;
+    const responseDiv = document.getElementById('voiceAgentResponse');
+    
+    if (input) input.value = '';
+    if (responseDiv) {
+      responseDiv.style.display = 'none';
+      responseDiv.textContent = '';
+    }
+  }
+
+  async function musicAgentPlay() {
+    try {
+      if (!adkInitialized) {
+        await initGoogleADK();
+      }
+      if (adkManager) {
+        const result = await adkManager.playMusic();
+        console.log('🎵 Play result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Music play error:', error);
+    }
+  }
+
+  async function musicAgentPause() {
+    try {
+      if (adkManager) {
+        const result = await adkManager.pauseMusic();
+        console.log('⏸ Pause result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Music pause error:', error);
+    }
+  }
+
+  async function musicAgentStop() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'stop' in musicAgent) {
+        const result = await musicAgent.stop();
+        console.log('⏹ Stop result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Music stop error:', error);
+    }
+  }
+
+  async function musicAgentNext() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'nextTrack' in musicAgent) {
+        const result = await musicAgent.nextTrack();
+        console.log('⏭ Next result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Music next error:', error);
+    }
+  }
+
+  async function musicAgentPrevious() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'previousTrack' in musicAgent) {
+        const result = await musicAgent.previousTrack();
+        console.log('⏮ Previous result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Music previous error:', error);
+    }
+  }
+
+  async function setMusicVolume(volume: number) {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'setVolume' in musicAgent) {
+        const result = await musicAgent.setVolume(volume / 100);
+        console.log('🔊 Volume result:', result);
+        
+        const volumeValue = document.getElementById('volumeValue');
+        if (volumeValue) {
+          volumeValue.textContent = volume.toString();
+        }
+      }
+    } catch (error) {
+      console.error('❌ Volume error:', error);
+    }
+  }
+
+  async function toggleShuffle() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'toggleShuffle' in musicAgent) {
+        const result = await musicAgent.toggleShuffle();
+        console.log('🔀 Shuffle result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Shuffle error:', error);
+    }
+  }
+
+  async function toggleRepeat() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const musicAgent = await adkManager.getAgent('music_control_001');
+      if (musicAgent && 'toggleRepeat' in musicAgent) {
+        const result = await musicAgent.toggleRepeat();
+        console.log('🔁 Repeat result:', result);
+        updateMusicStatus();
+      }
+    } catch (error) {
+      console.error('❌ Repeat error:', error);
+    }
+  }
+
+  async function sendToMusicAgent() {
+    try {
+      const input = document.getElementById('musicAgentInput') as HTMLTextAreaElement;
+      const responseDiv = document.getElementById('musicAgentResponse');
+      
+      if (!input || !responseDiv) return;
+      
+      const message = input.value.trim();
+      if (!message) return;
+
+      if (!adkInitialized) {
+        await initGoogleADK();
+      }
+
+      responseDiv.style.display = 'block';
+      responseDiv.textContent = 'Przetwarzanie...';
+      
+      if (sendMessageToADK) {
+        const response = await sendMessageToADK(message, 'music_control_001');
+        
+        responseDiv.textContent = response.status === 'success' 
+          ? response.response || 'Brak odpowiedzi'
+          : `Błąd: ${response.error_message}`;
+          
+        updateMusicStatus();
+      }
+        
+    } catch (error) {
+      console.error('❌ Music agent error:', error);
+    }
+  }
+
+  function clearMusicAgent() {
+    const input = document.getElementById('musicAgentInput') as HTMLTextAreaElement;
+    const responseDiv = document.getElementById('musicAgentResponse');
+    
+    if (input) input.value = '';
+    if (responseDiv) {
+      responseDiv.style.display = 'none';
+      responseDiv.textContent = '';
+    }
+  }
+
+  async function updateMusicStatus() {
+    try {
+      if (!adkInitialized || !adkManager) return;
+      const status = await adkManager.getMusicStatus();
+      const statusDiv = document.getElementById('musicAgentStatus');
+      if (statusDiv) {
+        statusDiv.textContent = status;
+      }
+    } catch (error) {
+      console.error('❌ Music status update error:', error);
+    }
+  }
+
   // Export new popup functions to global scope
   window.openBigQueryPopup = openBigQueryPopup;
   window.openKagglePopup = openKagglePopup;
   window.openVoiceAIPopup = openVoiceAIPopup;
   window.quickSynthesize = quickSynthesize;
+  window.openBusinessAssistant = openBusinessAssistant;
 
-  console.log("✅ All Voice AI, BigQuery, Kaggle popup functions exported to global scope");
+  // Export Google ADK functions to global scope
+  window.startVoiceListening = startVoiceListening;
+  window.stopVoiceListening = stopVoiceListening;
+  window.sendToVoiceAgent = sendToVoiceAgent;
+  window.clearVoiceAgent = clearVoiceAgent;
+  window.musicAgentPlay = musicAgentPlay;
+  window.musicAgentPause = musicAgentPause;
+  window.musicAgentStop = musicAgentStop;
+  window.musicAgentNext = musicAgentNext;
+  window.musicAgentPrevious = musicAgentPrevious;
+  window.setMusicVolume = setMusicVolume;
+  window.toggleShuffle = toggleShuffle;
+  window.toggleRepeat = toggleRepeat;
+  window.sendToMusicAgent = sendToMusicAgent;
+  window.clearMusicAgent = clearMusicAgent;
+  window.updateMusicStatus = updateMusicStatus;
+
+  // Export new agent toggle functions to global scope
+  window.toggleVoiceAgent = toggleVoiceAgent;
+  window.toggleMusicAgent = toggleMusicAgent;
+  window.toggleSystemAgent = toggleSystemAgent;
+  window.toggleCrawlerAgent = toggleCrawlerAgent;
+  window.toggleFileAgent = toggleFileAgent;
+  window.toggleDatabaseAgent = toggleDatabaseAgent;
+  window.toggleEmailAgent = toggleEmailAgent;
+  window.toggleSecurityAgent = toggleSecurityAgent;
+  window.toggleWebmasterAgent = toggleWebmasterAgent;
+  window.toggleAnalyticsAgent = toggleAnalyticsAgent;
+  window.toggleContentAgent = toggleContentAgent;
+  window.toggleMarketingAgent = toggleMarketingAgent;
+
+  console.log("✅ All Voice AI, BigQuery, Kaggle popup functions and Agent toggles exported to global scope");
 </script>
 
 <!-- BigQuery API Integration Script -->
