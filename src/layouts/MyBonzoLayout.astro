@@ -345,6 +345,22 @@ const pageKey = Astro.url.pathname;
     
     <!-- MyBonzo Agents Bundle - Automatyczne uruchamianie 3 sekundy po załadowaniu -->
     <script src="/agents-bundle.min.js" defer></script>
+    
+    <!-- FloatingButtonsManager - Floating Buttons System -->
+    <script type="module">
+      import { floatingButtons } from '/src/utils/FloatingButtonsManager.ts';
+      
+      // Initialize floating buttons after page load
+      window.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 Initializing Floating Buttons...');
+        
+        // Render all floating buttons
+        floatingButtons.renderAll();
+        
+        console.log('✅ Floating Buttons initialized successfully');
+      });
+    </script>
+    
     <script>
       // Dodatkowe listener na ready event agentów
       window.addEventListener('mybonzo:agents:ready', (event) => {

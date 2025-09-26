@@ -170,6 +170,133 @@ export class FloatingButtonsManager {
         priority: 'HIGH',
         description: 'Google PaLM API integration',
         requiresADK: true
+      },
+      // Module Agents
+      {
+        id: 'analytics-agent',
+        name: 'Analytics Prophet',
+        icon: '📊',
+        color: '#8b5a2b',
+        position: { x: 20, y: 660 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-10-analytics-prophet',
+        category: 'utility',
+        priority: 'HIGH',
+        description: 'Zaawansowany system analityki predykcyjnej z ML forecasting',
+        requiresADK: false
+      },
+      {
+        id: 'webmaster-agent',
+        name: 'Webmaster',
+        icon: '🌐',
+        color: '#16537e',
+        position: { x: 20, y: 720 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-09-webmaster',
+        category: 'utility',
+        priority: 'HIGH',
+        description: 'Zaawansowany system SEO i monitoringu stron internetowych',
+        requiresADK: false
+      },
+      {
+        id: 'security-agent',
+        name: 'Security Guard',
+        icon: '🔐',
+        color: '#dc2626',
+        position: { x: 20, y: 780 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-08-security-guard',
+        category: 'core',
+        priority: 'HIGH',
+        description: 'System monitorowania i ochrony bezpieczeństwa',
+        requiresADK: false
+      },
+      {
+        id: 'content-agent',
+        name: 'Content Creator',
+        icon: '✍️',
+        color: '#7c3aed',
+        position: { x: 80, y: 120 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-07-content-creator',
+        category: 'media',
+        priority: 'HIGH',
+        description: 'System tworzenia i zarządzania treścią',
+        requiresADK: false
+      },
+      {
+        id: 'crawler-agent',
+        name: 'Web Crawler',
+        icon: '🕷️',
+        color: '#059669',
+        position: { x: 80, y: 180 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-06-web-crawler',
+        category: 'utility',
+        priority: 'HIGH',
+        description: 'System pobierania i analizy danych z internetu',
+        requiresADK: false
+      },
+      {
+        id: 'email-agent',
+        name: 'Email Manager',
+        icon: '📧',
+        color: '#0891b2',
+        position: { x: 80, y: 240 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-05-email-manager',
+        category: 'utility',
+        priority: 'HIGH',
+        description: 'System zarządzania i automatyzacji email',
+        requiresADK: false
+      },
+      {
+        id: 'file-agent',
+        name: 'File Manager',
+        icon: '📁',
+        color: '#ca8a04',
+        position: { x: 80, y: 300 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-04-file-manager',
+        category: 'core',
+        priority: 'HIGH',
+        description: 'System zarządzania plikami i dokumentami',
+        requiresADK: false
+      },
+      {
+        id: 'database-agent',
+        name: 'Database Manager',
+        icon: '🗄️',
+        color: '#db2777',
+        position: { x: 80, y: 360 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-03-database-manager',
+        category: 'core',
+        priority: 'HIGH',
+        description: 'System zarządzania bazami danych',
+        requiresADK: false
+      },
+      {
+        id: 'system-agent',
+        name: 'System Monitor',
+        icon: '⚙️',
+        color: '#374151',
+        position: { x: 80, y: 420 },
+        isVisible: true,
+        isActive: false,
+        agentId: 'agent-01-system-monitor',
+        category: 'core',
+        priority: 'HIGH',
+        description: 'System monitorowania wydajności systemu',
+        requiresADK: false
       }
     ];
 
@@ -186,6 +313,14 @@ export class FloatingButtonsManager {
   registerButton(config: FloatingButtonConfig): void {
     this.buttons.set(config.id, config);
     this.renderButton(config);
+  }
+
+  renderAll(): void {
+    console.log('🎨 Rendering all floating buttons...');
+    this.buttons.forEach(button => {
+      this.renderButton(button);
+    });
+    console.log(`✅ Rendered ${this.buttons.size} floating buttons`);
   }
 
   async toggleButton(buttonId: string): Promise<void> {
@@ -210,7 +345,18 @@ export class FloatingButtonsManager {
 
   private async activateButton(button: FloatingButtonConfig): Promise<void> {
     try {
-      // Open corresponding widget
+      // Check if this is a Google ADK agent that should open a page
+      const googleAgents = ['gemini-pro', 'gemini-vision', 'code-bison', 'text-bison', 'google-bard', 'palm-api', 'vertex-ai', 'ai-studio', 'voice-command', 'music-control'];
+      
+      if (googleAgents.includes(button.id)) {
+        // Open agent page in new tab
+        window.open(`/agents/${button.id}`, '_blank');
+        button.isActive = false; // Reset button state
+        this.updateButtonVisual(button);
+        return;
+      }
+
+      // Default widget behavior for other buttons
       const widgetId = `${button.id}-widget`;
       let widget = this.widgets.get(widgetId);
 
@@ -447,6 +593,159 @@ export class FloatingButtonsManager {
           </div>
         `;
 
+      case 'analytics-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">📊 Analytics Prophet</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('analytics')" style="background: #8b5a2b; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">Open Dashboard</button>
+              <button onclick="window.analytics?.forecast()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Forecast</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              📈 Machine Learning forecasting<br>
+              📊 ROI Analysis<br>  
+              🎯 Cohort Analysis<br>
+              📋 Performance Reports
+            </div>
+          </div>
+        `;
+
+      case 'webmaster-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">🌐 Webmaster</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('webmaster')" style="background: #16537e; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">SEO Dashboard</button>
+              <button onclick="window.webmaster?.audit()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Audit</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              🔍 Audyt techniczny SEO<br>
+              📝 Analiza słów kluczowych<br>
+              📊 Monitoring wydajności<br>
+              🏆 Analiza konkurencji
+            </div>
+          </div>
+        `;
+
+      case 'security-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">🔐 Security Guard</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('security')" style="background: #dc2626; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">Security Center</button>
+              <button onclick="window.security?.scan()" style="background: #f59e0b; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Scan</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              🛡️ Wykrywanie zagrożeń<br>
+              📊 Monitoring bezpieczeństwa<br>
+              🚨 Reakcja na incydenty<br>
+              📋 Raporty bezpieczeństwa
+            </div>
+          </div>
+        `;
+
+      case 'content-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">✍️ Content Creator</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('content')" style="background: #7c3aed; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">Content Hub</button>
+              <button onclick="window.content?.generate()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Generate</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              📝 Tworzenie treści<br>
+              🎨 Szablony i wzory<br>
+              📊 Zarządzanie publikacjami<br>
+              📈 Analiza efektywności
+            </div>
+          </div>
+        `;
+
+      case 'crawler-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">🕷️ Web Crawler</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('crawler')" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">Crawler Panel</button>
+              <button onclick="window.crawler?.crawl()" style="background: #0891b2; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Start Crawl</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              🌐 Pobieranie danych z sieci<br>
+              📊 Analiza struktury stron<br>
+              🔍 Indeksowanie treści<br>
+              📋 Raportowanie wyników
+            </div>
+          </div>
+        `;
+
+      case 'email-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">📧 Email Manager</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('email')" style="background: #0891b2; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">Email Center</button>
+              <button onclick="window.email?.send()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Send</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              📬 Zarządzanie skrzynkami<br>
+              🤖 Automatyzacja email<br>
+              📊 Kampanie marketingowe<br>
+              📈 Analiza efektywności
+            </div>
+          </div>
+        `;
+
+      case 'file-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">📁 File Manager</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('file')" style="background: #ca8a04; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">File Browser</button>
+              <button onclick="window.files?.organize()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Organize</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              📂 Zarządzanie plikami<br>
+              🔍 Wyszukiwanie dokumentów<br>
+              🗂️ Organizacja folderów<br>
+              📊 Analiza użycia dysku
+            </div>
+          </div>
+        `;
+
+      case 'database-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">🗄️ Database Manager</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('database')" style="background: #db2777; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">DB Console</button>
+              <button onclick="window.database?.query()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Query</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              💾 Zarządzanie bazami danych<br>
+              🔍 Optymalizacja zapytań<br>
+              📊 Monitoring wydajności<br>
+              🔧 Backup i restore
+            </div>
+          </div>
+        `;
+
+      case 'system-agent':
+        return `
+          <div>
+            <h3 style="margin: 0 0 16px 0; color: #374151;">⚙️ System Monitor</h3>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+              <button onclick="window.openAgent?.('system')" style="background: #374151; color: white; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; font-size: 14px;">System Panel</button>
+              <button onclick="window.system?.check()" style="background: #059669; color: white; border: none; border-radius: 6px; padding: 8px 12px; cursor: pointer; font-size: 14px;">Health Check</button>
+            </div>
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; font-size: 14px; color: #374151;">
+              📊 Monitoring wydajności<br>
+              💾 Użycie zasobów<br>
+              🔧 Diagnostyka systemu<br>
+              📈 Raportowanie statusu
+            </div>
+          </div>
+        `;
+
       default:
         return `
           <div style="text-align: center;">
@@ -669,4 +968,28 @@ export const floatingButtons = FloatingButtonsManager.getInstance();
 // Make available globally for HTML onclick handlers
 if (typeof window !== 'undefined') {
   (window as any).floatingButtons = floatingButtons;
+  
+  // Global function to open agent modules
+  (window as any).openAgent = (agentType: string) => {
+    const agentRoutes: Record<string, string> = {
+      'analytics': '/agents/agent-10-analytics-prophet',
+      'webmaster': '/agents/agent-09-webmaster', 
+      'security': '/agents/agent-08-security-guard',
+      'content': '/agents/agent-07-content-creator',
+      'crawler': '/agents/agent-06-web-crawler',
+      'email': '/agents/agent-05-email-manager',
+      'file': '/agents/agent-04-file-manager',
+      'database': '/agents/agent-03-database-manager',
+      'system': '/agents/agent-01-system-monitor',
+      'voice': '/agents/voice_command_001',
+      'music': '/agents/music_control_001'
+    };
+    
+    const route = agentRoutes[agentType];
+    if (route) {
+      window.open(route, '_blank');
+    } else {
+      console.warn(`Agent route not found for: ${agentType}`);
+    }
+  };
 }
