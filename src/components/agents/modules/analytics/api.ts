@@ -461,7 +461,9 @@ async function calculateROI(data?: any) {
         total_revenue: campaigns?.reduce((sum: number, c: any) => sum + (Math.random() * 40000 + 5000), 0) || 200000,
         overall_roi: 300,
         overall_roas: 4.0,
-        profitable_campaigns: campaigns?.filter((c: any) => Math.random() > 0.3).length || 7,
+        profitable_campaigns: campaigns
+          ? campaigns.filter((c: any) => Math.random() > 0.3).length
+          : 7,
         optimization_potential: 25 // procent
       }
     };
