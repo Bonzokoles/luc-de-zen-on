@@ -9,7 +9,7 @@ interface AdPlatform {
   dailyBudgetRange: { min: number; max: number; currency: string };
   targetingOptions: string[];
   adFormats: string[];
-  polishFeatures: any;
+  polishFeatures: Record<string, unknown>;
 }
 
 interface CampaignTemplate {
@@ -19,24 +19,24 @@ interface CampaignTemplate {
   platforms: string[];
   objectives: string[];
   budgetAllocation: Record<string, number>;
-  targeting: any;
-  creativeStrategy: any;
+  targeting: Record<string, unknown>;
+  creativeStrategy: Record<string, unknown>;
 }
 
 interface PolishMarketConfig {
-  holidays: any;
-  seasonality: any;
-  regions: any;
-  paymentMethods: any;
-  consumerBehavior: any;
-  language: any;
+  holidays: Record<string, unknown>;
+  seasonality: Record<string, unknown>;
+  regions: Record<string, unknown>;
+  paymentMethods: Record<string, unknown>;
+  consumerBehavior: Record<string, unknown>;
+  language: Record<string, unknown>;
 }
 
 interface MarketingKPIs {
-  acquisition: any;
-  retention: any;
-  engagement: any;
-  business: any;
+  acquisition: Record<string, unknown>;
+  retention: Record<string, unknown>;
+  engagement: Record<string, unknown>;
+  business: Record<string, unknown>;
 }
 
 interface AttributionModel {
@@ -225,12 +225,12 @@ export const campaignTemplates: Record<string, CampaignTemplate> = {
     id: 'ecommerce-master',
     name: 'E-commerce Master Campaign',
     type: 'conversion',
-    platforms: ['google-ads', 'facebook-ads', 'allegro-ads'],
+    platforms: ['googleAds', 'facebookAds', 'allegroAds'],
     objectives: ['sales', 'catalog-promotion', 'retargeting'],
     budgetAllocation: {
-      'google-ads': 0.5,
-      'facebook-ads': 0.3,
-      'allegro-ads': 0.2
+      'googleAds': 0.5,
+      'facebookAds': 0.3,
+      'allegroAds': 0.2
     },
     targeting: {
       demographics: ['25-55', 'income-medium-high'],
@@ -248,12 +248,12 @@ export const campaignTemplates: Record<string, CampaignTemplate> = {
     id: 'lead-gen-b2b',
     name: 'B2B Lead Generation',
     type: 'leads',
-    platforms: ['linkedin-ads', 'google-ads', 'facebook-ads'],
+    platforms: ['linkedinAds', 'googleAds', 'facebookAds'],
     objectives: ['lead-generation', 'brand-awareness', 'consideration'],
     budgetAllocation: {
-      'linkedin-ads': 0.6,
-      'google-ads': 0.3,
-      'facebook-ads': 0.1
+      'linkedinAds': 0.6,
+      'googleAds': 0.3,
+      'facebookAds': 0.1
     },
     targeting: {
       job: ['director', 'manager', 'ceo', 'founder', 'owner'],
@@ -271,12 +271,12 @@ export const campaignTemplates: Record<string, CampaignTemplate> = {
     id: 'brand-awareness-campaign',
     name: 'Brand Awareness & Reach',
     type: 'awareness',
-    platforms: ['facebook-ads', 'tiktok-ads', 'google-ads'],
+    platforms: ['facebookAds', 'tiktokAds', 'googleAds'],
     objectives: ['reach', 'impressions', 'brand-recall', 'engagement'],
     budgetAllocation: {
-      'facebook-ads': 0.4,
-      'tiktok-ads': 0.3,
-      'google-ads': 0.3
+      'facebookAds': 0.4,
+      'tiktokAds': 0.3,
+      'googleAds': 0.3
     },
     targeting: {
       demographics: ['18-65', 'all-income'],
@@ -294,11 +294,11 @@ export const campaignTemplates: Record<string, CampaignTemplate> = {
     id: 'local-business-promotion',
     name: 'Local Business Promotion',
     type: 'local',
-    platforms: ['google-ads', 'facebook-ads'],
+    platforms: ['googleAds', 'facebookAds'],
     objectives: ['store-visits', 'phone-calls', 'local-awareness'],
     budgetAllocation: {
-      'google-ads': 0.7,
-      'facebook-ads': 0.3
+      'googleAds': 0.7,
+      'facebookAds': 0.3
     },
     targeting: {
       location: ['city-radius-10km', 'neighborhood', 'local-zip'],

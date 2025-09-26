@@ -664,7 +664,10 @@
           <h3 class="text-lg font-semibold text-red-400">Raport zgodności</h3>
           <div class="flex space-x-2">
             <select
-              on:change={(e) => loadComplianceReport(e.target.value)}
+              on:change={(event) =>
+                loadComplianceReport(
+                  (event.currentTarget as HTMLSelectElement).value
+                )}
               class="bg-gray-700 border border-gray-600 rounded px-3 py-1 text-white text-sm focus:border-red-500 focus:outline-none"
             >
               <option value="gdpr">GDPR</option>

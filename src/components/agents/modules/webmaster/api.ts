@@ -18,50 +18,52 @@ let cacheInitialized = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { action, data } = await request.json();
+    const body = await request.json();
+    const { action, data } = typeof body === 'object' && body !== null ? body : {};
+    const payload = data && typeof data === 'object' ? data : {};
 
     switch (action) {
       case "test":
         return testAgent();
       
       case "run-seo-audit":
-        return runSEOAudit(data);
+        return runSEOAudit(payload);
       
       case "get-seo-score":
-        return getSEOScore(data);
+        return getSEOScore(payload);
       
       case "analyze-keywords":
-        return analyzeKeywords(data);
+        return analyzeKeywords(payload);
       
       case "get-keyword-rankings":
         return getKeywordRankings();
       
       case "check-performance":
-        return checkPerformance(data);
+        return checkPerformance(payload);
       
       case "get-core-web-vitals":
-        return getCoreWebVitals(data);
+        return getCoreWebVitals(payload);
       
       case "analyze-competitors":
-        return analyzeCompetitors(data);
+        return analyzeCompetitors(payload);
       
       case "get-backlinks":
-        return getBacklinks(data);
+        return getBacklinks(payload);
       
       case "analyze-content":
-        return analyzeContent(data);
+        return analyzeContent(payload);
       
       case "get-crawl-errors":
         return getCrawlErrors();
       
       case "generate-sitemap":
-        return generateSitemap(data);
+        return generateSitemap(payload);
       
       case "optimize-robots":
-        return optimizeRobots(data);
+        return optimizeRobots(payload);
       
       case "generate-seo-report":
-        return generateSEOReport(data);
+        return generateSEOReport(payload);
       
       case "get-monitoring-data":
         return getMonitoringData();

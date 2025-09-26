@@ -62,14 +62,15 @@ export class GeminiProAgent extends BaseGoogleADKAgent {
     try {
       this.config.status = 'busy';
       
-      // Add user message to conversation context
-      this.conversationContext.messages.push({
-        role: 'user',
+      // Prepare user message without mutating conversation state yet
+      const userMessageEntry = {
+        role: 'user' as const,
         parts: [{ text: message }]
-      });
+      };
+      const pendingMessages = [...this.conversationContext.messages, userMessageEntry];
 
       const requestBody = {
-        contents: this.conversationContext.messages,
+        contents: pendingMessages,
         generationConfig: {
           temperature: this.temperature,
           maxOutputTokens: this.maxTokens,
@@ -95,6 +96,8 @@ export class GeminiProAgent extends BaseGoogleADKAgent {
       const assistantMessage = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Przepraszam, nie mogę przetworzyć tej wiadomości.';
 
       // Add assistant response to conversation context
+      // Only commit to conversation state after successful response
+      this.conversationContext.messages = pendingMessages;
       this.conversationContext.messages.push({
         role: 'model',
         parts: [{ text: assistantMessage }]

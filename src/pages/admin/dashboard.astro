@@ -623,12 +623,16 @@ const pageAuthor = "MyBonzo Team";
                 const statusData = await statusResponse.json();
                 
                 // Update indicators based on status
-                if (statusData.internal_apis.chat) {
+                const chatStatus = statusData?.internal_apis?.chat;
+
+                if (chatStatus === true) {
                     document.getElementById('kaggle-indicator').innerHTML = '✅ Online';
                     document.getElementById('kaggle-indicator').style.color = '#22c55e';
-                } else {
+                } else if (chatStatus === false) {
                     document.getElementById('kaggle-indicator').innerHTML = '❌ Offline';
                     document.getElementById('kaggle-indicator').style.color = '#ef4444';
+                } else {
+                    console.warn('status-check: missing internal_apis.chat flag; skipping pre-population.');
                 }
                 
                 // Test pozostałe API

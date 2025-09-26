@@ -91,7 +91,7 @@ export const AGENT_CONFIG = {
 
         // Search commands
         search: [
-            { trigger: ['znajdź', 'szukaj', 'graj'], action: 'search_and_play' },
+            { trigger: ['znajdź', 'szukaj'], action: 'search_and_play' },
             { trigger: ['playlista', 'lista odtwarzania'], action: 'show_playlist' },
             { trigger: ['losowo', 'shuffle'], action: 'shuffle' }
         ]

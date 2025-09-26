@@ -30,7 +30,7 @@ export interface CreativeTask {
 
 export class GoogleBardAgent extends BaseGoogleADKAgent {
   private bardEndpoint: string;
-  private conversationHistory: Map<string, any[]>;
+  private conversationHistory: Map<string, Record<string, unknown>[]>;
   private activeConversations: Set<string>;
   private maxConversationLength: number;
 
@@ -580,7 +580,7 @@ export class GoogleBardAgent extends BaseGoogleADKAgent {
     return newId;
   }
 
-  private buildConversationContext(history: any[]): string {
+  private buildConversationContext(history: Record<string, unknown>[]): string {
     return history
       .slice(-10) // Last 10 messages
       .map(msg => `${msg.role}: ${msg.content}`)
@@ -612,7 +612,7 @@ export class GoogleBardAgent extends BaseGoogleADKAgent {
     
     // Split by common separators
     return text
-      .split(/\s+(vs|versus|z|and|i)\s+/i)
+      .split(/\s+(?:vs|versus|z|and|i)\s+/i)
       .map(option => option.trim())
       .filter(option => option.length > 0);
   }

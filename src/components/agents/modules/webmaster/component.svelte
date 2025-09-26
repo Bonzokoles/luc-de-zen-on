@@ -805,10 +805,11 @@
                 </div>
                 <div class="text-sm text-gray-400">LCP</div>
                 <div
-                  class="text-xs text-{performanceMetrics.coreWebVitals.lcp
-                    .rating === 'good'
-                    ? 'green'
-                    : 'yellow'}-400"
+                  class="text-xs"
+                  class:text-green-400={performanceMetrics.coreWebVitals.lcp
+                    .rating === "good"}
+                  class:text-yellow-400={performanceMetrics.coreWebVitals.lcp
+                    .rating !== "good"}
                 >
                   {performanceMetrics.coreWebVitals.lcp.rating}
                 </div>
@@ -819,10 +820,11 @@
                 </div>
                 <div class="text-sm text-gray-400">FID</div>
                 <div
-                  class="text-xs text-{performanceMetrics.coreWebVitals.fid
-                    .rating === 'good'
-                    ? 'green'
-                    : 'yellow'}-400"
+                  class="text-xs"
+                  class:text-green-400={performanceMetrics.coreWebVitals.fid
+                    .rating === "good"}
+                  class:text-yellow-400={performanceMetrics.coreWebVitals.fid
+                    .rating !== "good"}
                 >
                   {performanceMetrics.coreWebVitals.fid.rating}
                 </div>
@@ -833,10 +835,11 @@
                 </div>
                 <div class="text-sm text-gray-400">CLS</div>
                 <div
-                  class="text-xs text-{performanceMetrics.coreWebVitals.cls
-                    .rating === 'good'
-                    ? 'green'
-                    : 'yellow'}-400"
+                  class="text-xs"
+                  class:text-green-400={performanceMetrics.coreWebVitals.cls
+                    .rating === "good"}
+                  class:text-yellow-400={performanceMetrics.coreWebVitals.cls
+                    .rating !== "good"}
                 >
                   {performanceMetrics.coreWebVitals.cls.rating}
                 </div>
@@ -875,11 +878,10 @@
                 {#each performanceMetrics.opportunities as opportunity}
                   <div class="flex items-start space-x-3">
                     <span
-                      class="text-{opportunity.impact === 'high'
-                        ? 'red'
-                        : opportunity.impact === 'medium'
-                          ? 'yellow'
-                          : 'green'}-400 text-sm mt-0.5"
+                      class="text-sm mt-0.5"
+                      class:text-red-400={opportunity.impact === "high"}
+                      class:text-yellow-400={opportunity.impact === "medium"}
+                      class:text-green-400={opportunity.impact === "low"}
                     >
                       {opportunity.impact === "high"
                         ? "🔴"
@@ -1018,9 +1020,9 @@
                     class="flex items-start space-x-3 p-3 bg-gray-900/50 rounded"
                   >
                     <span
-                      class="text-{opportunity.priority === 'high'
-                        ? 'red'
-                        : 'yellow'}-400 text-lg"
+                      class="text-lg"
+                      class:text-red-400={opportunity.priority === "high"}
+                      class:text-yellow-400={opportunity.priority !== "high"}
                     >
                       {opportunity.priority === "high" ? "🔥" : "💡"}
                     </span>
@@ -1032,9 +1034,9 @@
                         {opportunity.description}
                       </div>
                       <div
-                        class="text-xs text-{opportunity.priority === 'high'
-                          ? 'red'
-                          : 'yellow'}-400 mt-1"
+                        class="text-xs mt-1"
+                        class:text-red-400={opportunity.priority === "high"}
+                        class:text-yellow-400={opportunity.priority !== "high"}
                       >
                         Priorytet: {opportunity.priority}
                       </div>
@@ -1112,11 +1114,11 @@
                 {#each Object.entries(backlinksData.linkTypes) as [type, percentage]}
                   <div class="text-center">
                     <div
-                      class="text-lg font-bold text-{type === 'dofollow'
-                        ? 'green'
-                        : type === 'nofollow'
-                          ? 'yellow'
-                          : 'gray'}-400"
+                      class="text-lg font-bold"
+                      class:text-green-400={type === "dofollow"}
+                      class:text-yellow-400={type === "nofollow"}
+                      class:text-gray-400={type !== "dofollow" &&
+                        type !== "nofollow"}
                     >
                       {percentage}%
                     </div>
@@ -1255,9 +1257,9 @@
                           <div class="text-white font-medium">
                             {data.value}
                             <span
-                              class="text-{data.change.startsWith('+')
-                                ? 'green'
-                                : 'red'}-400">{data.change}</span
+                              class:text-green-400={data.change.startsWith("+")}
+                              class:text-red-400={!data.change.startsWith("+")}
+                              >{data.change}</span
                             >
                           </div>
                         </div>

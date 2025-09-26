@@ -157,7 +157,7 @@
   async function loadAgentStatus() {
     const result = await makeApiCall("status");
     if (result) {
-      agentStatus = result.status;
+      agentStatus = result?.status || null;
     }
   }
 
@@ -166,14 +166,14 @@
       period: "last_30_days",
     });
     if (result) {
-      dashboardData = result.dashboard;
+      dashboardData = result?.dashboard || null;
     }
   }
 
   async function loadRealTimeMetrics() {
     const result = await makeApiCall("get-real-time-metrics");
     if (result) {
-      realTimeMetrics = result.real_time_data;
+      realTimeMetrics = result?.real_time_data || null;
     }
   }
 
@@ -186,7 +186,7 @@
     });
 
     if (result) {
-      forecastResult = result.forecast;
+      forecastResult = result?.forecast || null;
     }
   }
 
@@ -199,7 +199,7 @@
     });
 
     if (result) {
-      anomalyResult = result.anomaly_analysis;
+      anomalyResult = result?.anomaly_analysis || null;
     }
   }
 
@@ -210,7 +210,7 @@
     });
 
     if (result) {
-      attributionResult = result.attribution;
+      attributionResult = result?.attribution || null;
     }
   }
 
@@ -354,13 +354,13 @@
   function getTrendIcon(trend: string): string {
     switch (trend) {
       case "up":
-        return "�";
+        return "▲";
       case "down":
-        return "📉";
+        return "▼";
       case "stable":
-        return "➡️";
+        return "●";
       default:
-        return "🔄";
+        return "◯";
     }
   }
 </script>
@@ -381,8 +381,8 @@
           <div class="flex items-center space-x-2 mt-1">
             <div class="w-2 h-2 bg-green-400 rounded-full"></div>
             <span class="text-xs text-green-400">
-              {Object.keys(agentStatus.ml_models.forecasting).filter(
-                (m) => agentStatus.ml_models.forecasting[m]
+              {Object.keys(agentStatus?.ml_models?.forecasting ?? {}).filter(
+                (m) => agentStatus?.ml_models?.forecasting?.[m]
               ).length} ML models active
             </span>
           </div>
@@ -1552,7 +1552,7 @@
   }
 
   .metric-card:hover {
-    @apply transform scale-102;
+    @apply transform scale-105;
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
   }
 

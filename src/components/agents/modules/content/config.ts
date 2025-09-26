@@ -214,7 +214,9 @@ export const AGENT_CONFIG = {
       name: 'Mowa Nienawiści',
       description: 'Treści zawierające mowę nienawiści na tle rasowym, religijnym lub narodowościowym',
       keywords: ['nienawiść', 'rasizm', 'ksenofobia', 'antysemityzm'],
-      patterns: [/\b(żydzi|murzyni|ukraincy).*(źli|gorsi|winni)\b/gi],
+      patterns: [
+        /(?:^|[^\p{L}\p{N}_])(żydzi|murzyni|ukraincy).*(źli|gorsi|winni)(?=$|[^\p{L}\p{N}_])/giu,
+      ],
       severity: 'critical' as const,
       autoAction: 'block' as const
     },
@@ -223,7 +225,9 @@ export const AGENT_CONFIG = {
       name: 'Spam i Reklamy',
       description: 'Niechciane treści reklamowe i spam',
       keywords: ['kup teraz', 'promocja', 'darmowe', 'zarobek', 'bitcoin'],
-      patterns: [/\b(kliknij|sprawdź|zobacz).*(link|tutaj|www)\b/gi],
+      patterns: [
+        /(?:^|[^\p{L}\p{N}_])(kliknij|sprawdź|zobacz).*(link|tutaj|www)(?=$|[^\p{L}\p{N}_])/giu,
+      ],
       severity: 'medium' as const,
       autoAction: 'flag' as const
     },
@@ -232,7 +236,9 @@ export const AGENT_CONFIG = {
       name: 'Przemoc i Zagrożenia',
       description: 'Treści zawierające groźby lub przemoc',
       keywords: ['zabić', 'zniszczyć', 'zemsta', 'terror', 'bomba'],
-      patterns: [/\b(zabiję|zniszczę|zemścię się)\b/gi],
+      patterns: [
+        /(?:^|[^\p{L}\p{N}_])(zabiję|zniszczę|zemścię się)(?=$|[^\p{L}\p{N}_])/giu,
+      ],
       severity: 'critical' as const,
       autoAction: 'block' as const
     },
@@ -241,7 +247,9 @@ export const AGENT_CONFIG = {
       name: 'Dezinformacja',
       description: 'Fałszywe informacje i teorie spiskowe',
       keywords: ['fałszywa pandemia', 'chip w szczepionkach', 'płaska ziemia'],
-      patterns: [/\b(rząd kłamie|ukrywają prawdę|spisek)\b/gi],
+      patterns: [
+        /(?:^|[^\p{L}\p{N}_])(rząd kłamie|ukrywają prawdę|spisek)(?=$|[^\p{L}\p{N}_])/giu,
+      ],
       severity: 'high' as const,
       autoAction: 'flag' as const
     },
@@ -250,7 +258,9 @@ export const AGENT_CONFIG = {
       name: 'Dane Osobowe',
       description: 'Nieautoryzowane udostępnianie danych osobowych',
       keywords: ['pesel', 'numer telefonu', 'adres zamieszkania'],
-      patterns: [/\b(\d{11}|\+48\s?\d{9})\b/gi],
+      patterns: [
+        /(?:^|[^\p{L}\p{N}_])(\d{11}|\+48\s?\d{9})(?=$|[^\p{L}\p{N}_])/giu,
+      ],
       severity: 'high' as const,
       autoAction: 'block' as const
     }

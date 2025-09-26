@@ -80,6 +80,15 @@ async function generateBigQueryReport(env: any, reportType: string) {
           { endpoint: '/api/bigquery', requests: 456, errors: 2 }
         ]
       };
+    case 'error_analytics':
+      return {
+        title: 'Analiza Błędów',
+        data: [
+          { endpoint: '/api/chat', last24hErrors: 12, topError: 'TimeoutError' },
+          { endpoint: '/api/kaggle', last24hErrors: 5, topError: 'AuthError' },
+          { endpoint: '/api/bigquery', last24hErrors: 2, topError: 'QuotaExceeded' }
+        ]
+      };
     default:
       return { title: 'Unknown Report', data: [] };
   }

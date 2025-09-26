@@ -5,7 +5,7 @@ import { $ as $$MyBonzoLayout, a as ForwardRef$2 } from '../chunks/MyBonzoLayout
 import { $ as $$RandomQuote, B as BackgroundMusicPlayerSimple, A as AiHelpAssistant } from '../chunks/BackgroundMusicPlayerSimple_DG8m6w-P.mjs';
 import { Q as QuickVoiceAI, F as ForwardRef$1, a as ForwardRef$3, b as ForwardRef$4, c as ForwardRef$6, d as ForwardRef$8, e as ForwardRef$9, f as ForwardRef$a, g as ForwardRef$b } from '../chunks/QuickVoiceAI_DcIev-4i.mjs';
 import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BV683skl.mjs';
-import { $ as $$AgentsLoader, a as $$WorkerCommunicationPopup } from '../chunks/AgentsLoader_s_GBYJNo.mjs';
+import { $ as $$AgentsLoader, a as $$WorkerCommunicationPopup } from '../chunks/AgentsLoader_D-a8wePy.mjs';
 /* empty css                                 */
 import { F as ForwardRef$5, a as ForwardRef$c } from '../chunks/XMarkIcon_BFO_ANto.mjs';
 import { F as ForwardRef$7 } from '../chunks/BoltIcon_wEgU-EdG.mjs';

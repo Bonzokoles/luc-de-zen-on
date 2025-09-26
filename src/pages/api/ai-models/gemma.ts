@@ -243,12 +243,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
         const cfModel = modelMap[model] || '@cf/google/gemma-7b-it-instruct';
         
+        const systemMessage = conversation.messages.find(msg => msg.role === 'system');
+        const recentMessages = conversation.messages
+          .filter(msg => msg.role !== 'system')
+          .slice(-10);
+        const contextMessages = systemMessage
+          ? [systemMessage, ...recentMessages]
+          : recentMessages;
+
         const response = await env.AI.run(cfModel, {
-          messages: conversation.messages.slice(-10), // Last 10 messages for context
+          messages: contextMessages, // Keep system prompt and last 10 exchanges
           temperature,
           max_tokens
         });
-
         aiResponse = response.response || 'Brak odpowiedzi z modelu Gemma';
       } catch (error) {
         aiResponse = `Błąd modelu Gemma: ${error instanceof Error ? error.message : 'Nieznany błąd'}`;
@@ -265,17 +272,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
 
     const executionTime = Date.now() - startTime;
-
-    // Keep conversations manageable
-    if (conversationHistory.length > 50) {
-      conversationHistory.pop();
-    }
-
-    // Limit messages per conversation
     if (conversation.messages.length > 100) {
-      conversation.messages = conversation.messages.slice(-50);
+      const systemMessage = conversation.messages.find(msg => msg.role === 'system');
+      const nonSystemMessages = conversation.messages.filter(msg => msg.role !== 'system');
+      const retainCount = systemMessage ? 49 : 50;
+      const recentMessages = nonSystemMessages.slice(-retainCount);
+      conversation.messages = systemMessage
+        ? [systemMessage, ...recentMessages]
+        : recentMessages;
     }
-    
+
     return new Response(JSON.stringify({
       success: true,
       service: 'Gemma AI Chat',

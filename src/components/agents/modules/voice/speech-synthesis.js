@@ -99,8 +99,8 @@ export class SpeechSynthesisManager {
       this.onError?.(event.error);
       this.isPlaying = false;
       this.currentUtterance = null;
-    };
-    
+      this.processQueue();
+    };    
     utterance.onpause = () => {
       this.onPause?.(text);
     };
@@ -204,21 +204,53 @@ export class SpeechSynthesisManager {
   }
   
   addToQueue(text, options = {}) {
+    if (!this.synthesis) {
+      throw new Error('Speech synthesis not available');
+    }
+
     const utterance = new SpeechSynthesisUtterance(text);
-    
+
     utterance.voice = options.voice || this.currentVoice;
     utterance.rate = options.rate || this.settings.rate;
     utterance.pitch = options.pitch || this.settings.pitch;
     utterance.volume = options.volume || this.settings.volume;
     utterance.lang = options.language || this.settings.language;
-    
+
+    utterance.onstart = () => {
+      this.isPlaying = true;
+      this.currentUtterance = utterance;
+      this.onStart?.(text);
+    };
+
+    utterance.onend = () => {
+      this.isPlaying = false;
+      this.currentUtterance = null;
+      this.onEnd?.(text);
+      this.processQueue();
+    };
+
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
+      this.onError?.(event.error);
+      this.isPlaying = false;
+      this.currentUtterance = null;
+      this.processQueue();
+    };
+
+    utterance.onpause = () => {
+      this.onPause?.(text);
+    };
+
+    utterance.onresume = () => {
+      this.onResume?.(text);
+    };
+
     this.queue.push(utterance);
-    
+
     if (!this.isPlaying) {
       this.processQueue();
     }
-  }
-  
+  }  
   processQueue() {
     if (this.queue.length > 0 && !this.isPlaying) {
       const utterance = this.queue.shift();

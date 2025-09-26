@@ -55,7 +55,7 @@ class GeminiProAgent:
         self.performance_metrics = {
             "requests_processed": 0,
             "avg_response_time": 0.0,
-            "success_rate": 1.0
+            "success_rate": 0.0
         }
         
     def text_analysis(self, text: str) -> dict:
@@ -206,7 +206,19 @@ class GeminiProAgent:
             # Aktualizacja metryki
             end_time = datetime.now()
             response_time = (end_time - start_time).total_seconds()
-            self.performance_metrics["requests_processed"] += 1
+            
+            prev_total = self.performance_metrics["requests_processed"]
+            prev_avg = self.performance_metrics["avg_response_time"]
+            prev_success_rate = self.performance_metrics["success_rate"]
+
+            new_total = prev_total + 1
+            self.performance_metrics["requests_processed"] = new_total
+            self.performance_metrics["avg_response_time"] = (
+                prev_avg + (response_time - prev_avg) / new_total
+            )
+            self.performance_metrics["success_rate"] = (
+                prev_success_rate + (1.0 - prev_success_rate) / new_total
+            )
             
             # Dodanie odpowiedzi do historii
             self.conversation_history.append({
@@ -228,6 +240,29 @@ class GeminiProAgent:
             }
             
         except Exception as e:
+            failure_time = datetime.now()
+            response_time = (failure_time - start_time).total_seconds()
+
+            prev_total = self.performance_metrics["requests_processed"]
+            prev_avg = self.performance_metrics["avg_response_time"]
+            prev_success_rate = self.performance_metrics["success_rate"]
+
+            new_total = prev_total + 1
+            self.performance_metrics["requests_processed"] = new_total
+            self.performance_metrics["avg_response_time"] = (
+                prev_avg + (response_time - prev_avg) / new_total
+            )
+            self.performance_metrics["success_rate"] = (
+                prev_success_rate + (0.0 - prev_success_rate) / new_total
+            )
+
+            self.conversation_history.append({
+                "timestamp": failure_time.isoformat(),
+                "type": "error",
+                "content": str(e),
+                "response_time": response_time
+            })
+
             self.logger.error(f"❌ Błąd przetwarzania: {str(e)}")
             return {"status": "error", "error_message": str(e)}
     
@@ -259,7 +294,7 @@ class GeminiProAgent:
         self.performance_metrics = {
             "requests_processed": 0,
             "avg_response_time": 0.0,
-            "success_rate": 1.0
+            "success_rate": 0.0
         }
         self.status = "ready"
         self.logger.info("🔄 Agent zresetowany")

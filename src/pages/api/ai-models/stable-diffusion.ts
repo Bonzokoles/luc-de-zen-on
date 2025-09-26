@@ -199,7 +199,21 @@ export const GET: APIRoute = async ({ request }) => {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const data = await request.json();
+    let data;
+    try {
+      data = await request.json();
+    } catch (parseError) {
+      return new Response(JSON.stringify({
+        success: false,
+        service: 'Stable Diffusion - Generate',
+        error: 'Invalid JSON payload',
+        message: 'Request body must be valid JSON'
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     const { 
       prompt, 
       negative_prompt = 'blurry, low quality, distorted, watermark',

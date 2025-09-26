@@ -39,8 +39,7 @@
 
   async function callAPI(action: string, data: any = {}) {
     try {
-      state.loading = true;
-      state.error = "";
+      state = { ...state, loading: true, error: "" };
 
       const response = await fetch("/api/agents/file-manager", {
         method: "POST",
@@ -51,26 +50,28 @@
       const result = await response.json();
 
       if (result.success) {
-        state.success = result.message;
-        setTimeout(() => (state.success = ""), 3000);
+        state = { ...state, success: result.message };
+        setTimeout(() => {
+          state = { ...state, success: "" };
+        }, 3000);
         return result.data;
       } else {
-        state.error = result.message || "Błąd operacji";
+        state = { ...state, error: result.message || "Błąd operacji" };
         return null;
       }
     } catch (error) {
-      state.error = "Błąd połączenia z serwerem";
+      state = { ...state, error: "Błąd połączenia z serwerem" };
       console.error("File Manager API Error:", error);
       return null;
     } finally {
-      state.loading = false;
+      state = { ...state, loading: false };
     }
   }
 
   async function loadFiles() {
     const data = await callAPI("list", { path: state.currentPath });
     if (data) {
-      state.files = data.sort((a: FileItem, b: FileItem) => {
+      const sortedFiles = data.sort((a: FileItem, b: FileItem) => {
         if (a.type !== b.type) {
           return a.type === "directory" ? -1 : 1;
         }
@@ -79,11 +80,12 @@
         const result = aValue.toString().localeCompare(bValue.toString());
         return state.sortOrder === "asc" ? result : -result;
       });
+      state = { ...state, files: sortedFiles };
     }
   }
 
   async function navigateToPath(newPath: string) {
-    state.currentPath = newPath;
+    state = { ...state, currentPath: newPath };
     await loadFiles();
   }
 
@@ -106,7 +108,7 @@
 
   async function uploadFile() {
     if (!uploadFilename || !uploadContent) {
-      state.error = "Podaj nazwę pliku i zawartość";
+      state = { ...state, error: "Podaj nazwę pliku i zawartość" };
       return;
     }
 
@@ -126,7 +128,7 @@
 
   async function createFolder() {
     if (!newFolderName) {
-      state.error = "Podaj nazwę folderu";
+      state = { ...state, error: "Podaj nazwę folderu" };
       return;
     }
 
@@ -153,7 +155,7 @@
     });
 
     if (data) {
-      state.files = data;
+      state = { ...state, files: data };
     }
   }
 

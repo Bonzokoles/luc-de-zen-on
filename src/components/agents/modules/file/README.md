@@ -181,7 +181,7 @@ POST /api/agents/file-manager
 
 - Agent działa tylko w środowisku z dostępem do file system
 - Nie obsługuje plików binarnych (obrazy, wideo)
-- Operacje są synchroniczne i mogą blokować dla dużych plików
+- Operacje są asynchroniczne, jednak przy bardzo dużych plikach czas wykonania może być odczuwalny
 - Wymaga uprawnień do odczytu/zapisu w dozwolonych folderach
 
 ## 🔮 Roadmap

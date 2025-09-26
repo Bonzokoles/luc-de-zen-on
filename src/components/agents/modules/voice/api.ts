@@ -89,6 +89,12 @@ async function testVoiceAgent() {
 }
 
 async function processVoiceCommand(data: any) {
+    if (!data || typeof data !== 'object') {
+        return createResponse({
+            error: 'Invalid payload: expected data object with transcript'
+        }, 400);
+    }
+
     const { transcript, confidence } = data;
 
     if (!transcript) {
@@ -311,7 +317,7 @@ async function getAgentStatus() {
         version: AGENT_CONFIG.version,
         language: AGENT_CONFIG.voice.language,
         commands_loaded: Object.keys(AGENT_CONFIG.commands).length,
-        uptime: process.uptime ? Math.floor(process.uptime()) : 0
+        uptime: process.uptime ? process.uptime() : 0
     });
 }
 

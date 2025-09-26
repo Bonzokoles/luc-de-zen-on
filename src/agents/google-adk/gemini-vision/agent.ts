@@ -53,6 +53,7 @@ export class GeminiVisionAgent extends BaseGoogleADKAgent {
       // Check if message contains image data or URL
       const imageData = this.extractImageFromMessage(message);
       if (!imageData) {
+        this.config.status = 'ready';
         return {
           status: 'error',
           error_message: 'Nie znaleziono obrazu do analizy. Prześlij obraz lub podaj URL.',

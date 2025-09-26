@@ -34,11 +34,13 @@ export const GET: APIRoute = async ({ request }) => {
       })
     );
 
-    results.endpoints = endpointTests.reduce((acc, result) => {
-      if (result.status === 'fulfilled') {
-        const key = result.value.endpoint.replace('/api/', '').replace('-', '_');
-        acc[key] = result.value.ok;
-      }
+    results.endpoints = testEndpoints.reduce((acc, endpoint, index) => {
+      const key = endpoint.replace('/api/', '').replace(/-/g, '_');
+      const settled = endpointTests[index];
+      acc[key] =
+        settled.status === 'fulfilled'
+          ? settled.value.ok
+          : false;
       return acc;
     }, {} as Record<string, boolean>);
 

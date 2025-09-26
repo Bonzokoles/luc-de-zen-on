@@ -89,7 +89,7 @@ const AGENT_CONFIG = {
 5. **Działania naprawcze** - Podejmij działania zabezpieczające
 
 ## Poziomy bezpieczeństwa
-- **KRITYCZNY** - Natychmiastowa reakcja wymagana
+- **KRYTYCZNY** - Natychmiastowa reakcja wymagana
 - **WYSOKI** - Poważne zagrożenie wymagające uwagi
 - **ŚREDNI** - Potencjalne zagrożenie do monitorowania
 - **NISKI** - Informacyjne ostrzeżenie

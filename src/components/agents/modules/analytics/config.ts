@@ -96,12 +96,22 @@ export const AGENT_CONFIG = {
       enabled: true,
       property_id: '',
       metrics: [
-        'sessions', 'users', 'pageviews', 'bounceRate', 
-        'sessionDuration', 'conversions', 'revenue'
+        'sessions',
+        'totalUsers',
+        'screenPageViews',
+        'bounceRate',
+        'averageSessionDuration',
+        'conversions',
+        'totalRevenue'
       ],
       dimensions: [
-        'date', 'source', 'medium', 'campaign', 'country', 
-        'deviceCategory', 'channelGrouping'
+        'date',
+        'sessionSource',
+        'sessionMedium',
+        'sessionCampaignName',
+        'country',
+        'deviceCategory',
+        'sessionDefaultChannelGrouping'
       ],
       quotas: {
         daily: 25000,

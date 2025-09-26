@@ -479,10 +479,14 @@ export class EmailAgentFunctions {
   }
   
   addClickTracking(html, emailId) {
-    // Replace links with tracking links
+    // Replace links with tracked redirect URLs
     return html.replace(
-      /<a\s+([^>]*href\s*=\s*["']([^"']+)["'][^>]*)>/gi,
-      `<a $1 onclick="trackClick('${emailId}', '$2')">`
+      /<a\s+([^>]*href\s*=\s*["'])([^"']+)(["'][^>]*)>/gi,
+      (match, prefix, url, suffix) => {
+        const decodedUrl = url.replace(/&amp;/gi, '&');
+        const trackingUrl = `https://track.mybonzo.com/click/${emailId}?redirect=${encodeURIComponent(decodedUrl)}`;
+        return `<a ${prefix}${trackingUrl}${suffix} data-original-url="${url}" data-tracking-email-id="${emailId}">`;
+      }
     );
   }
   

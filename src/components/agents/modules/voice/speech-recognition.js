@@ -36,6 +36,11 @@ export class SpeechRecognitionManager {
   }
   
   initialize() {
+    if (typeof window === 'undefined') {
+      console.warn('Speech Recognition API not available outside the browser');
+      return false;
+    }
+
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       console.warn('Speech Recognition API not supported');
       return false;
@@ -188,14 +193,17 @@ export class SpeechRecognitionManager {
   getCurrentLanguage() {
     return {
       code: this.language,
-      name: this.supportedLanguages[this.language] || 'Unknown'
+      name: this.supportedLanguages[this.language] ?? this.language
     };
   }
-  
+
   isSupported() {
+    if (typeof window === 'undefined') {
+      return false;
+    }
     return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
   }
-  
+
   getStatus() {
     return {
       isListening: this.isListening,

@@ -10,7 +10,7 @@
 src/agents/agent-09-webmaster/
 ├── README.md           ✅ (200+ linii - kompletna dokumentacja SEO)
 ├── config.ts           ✅ (150+ linii - konfiguracja z 5 kategoriami audytu)
-├── api.ts             ✅ (600+ linii - 15 endpoint'ów SEO)
+├── api.ts             ✅ (600+ linii - 13 endpoint'ów SEO)
 ├── component.svelte    ✅ (800+ linii - interface z 8 zakładkami)
 ├── index.astro        ✅ (400+ linii - strona agenta z integracją)
 └── assets/            ✅ (katalog zasobów)

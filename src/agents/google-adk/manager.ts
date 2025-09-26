@@ -155,14 +155,14 @@ export class GoogleADKManager {
 
   setActiveAgent(agentId: string): boolean {
     if (this.agents.has(agentId)) {
+     const previousAgent = this.activeAgentId;
       this.activeAgentId = agentId;
       console.log(`🎯 Aktywny agent: ${agentId}`);
       
       this.dispatchEvent('activeAgentChanged', {
         newActiveAgent: agentId,
-        previousAgent: this.activeAgentId
-      });
-      
+       previousAgent
+      });      
       return true;
     }
     return false;

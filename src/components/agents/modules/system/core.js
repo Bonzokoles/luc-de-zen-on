@@ -153,7 +153,13 @@ class SystemAgentFunctions {
   }
 
   executeSystemCommand() {
-    const command = document.getElementById('systemAgentInput').value.trim();
+    const inputEl = document.getElementById('systemAgentInput');
+    if (!inputEl) {
+      this.showSystemError("Pole komendy systemowej nie jest dostępne");
+      return;
+    }
+
+    const command = inputEl.value.trim();
     
     if (!command) {
       this.showSystemError("Wpisz komendę systemową");
@@ -161,7 +167,8 @@ class SystemAgentFunctions {
     }
 
     console.log("🖥️ Executing system command:", command);
-    this.displaySystemResult(`⌨️ Wykonywanie: "${command}"`);
+    const commandPreview = this.escapeHtml(command);
+    this.displaySystemResult(`⌨️ Wykonywanie: "${commandPreview}"`);
 
     // Symulacja wykonywania komend
     setTimeout(() => {
@@ -195,7 +202,10 @@ class SystemAgentFunctions {
   clearSystemAgent() {
     console.log("🧹 Clearing system agent...");
     
-    document.getElementById('systemAgentInput').value = '';
+    const agentInput = document.getElementById('systemAgentInput');
+    if (agentInput) {
+      agentInput.value = '';
+    }
     
     const response = document.getElementById('systemAgentResponse');
     if (response) {
@@ -274,10 +284,11 @@ class SystemAgentFunctions {
     }
     
     if (lowerCommand.includes('info') || lowerCommand.includes('system')) {
-      return `🖥️ System Info:<br>Platform: ${this.systemInfo.platform}<br>Language: ${this.systemInfo.language}<br>Online: ${this.systemInfo.onLine ? 'Yes' : 'No'}`;
+      return `🖥️ System Info:<br>Platform: ${this.escapeHtml(this.systemInfo.platform || 'Unknown')}<br>Language: ${this.escapeHtml(this.systemInfo.language || 'Unknown')}<br>Online: ${this.systemInfo.onLine ? 'Yes' : 'No'}`;
     }
     
-    return `⌨️ Command executed: "${command}"<br>✅ Status: Completed<br>⏰ Time: ${new Date().toLocaleTimeString('pl-PL')}`;
+    const safeCommand = this.escapeHtml(command);
+    return `⌨️ Command executed: "${safeCommand}"<br>✅ Status: Completed<br>⏰ Time: ${new Date().toLocaleTimeString('pl-PL')}`;
   }
 
   calculateAverageResponseTime() {
@@ -326,6 +337,12 @@ class SystemAgentFunctions {
   showSystemError(message) {
     console.error("❌ System Agent Error:", message);
     this.displaySystemResult(`❌ Błąd: ${message}`);
+  }
+
+  escapeHtml(value) {
+    const div = document.createElement('div');
+    div.textContent = value == null ? '' : String(value);
+    return div.innerHTML;
   }
 }
 

@@ -25,7 +25,7 @@ interface AnomalyData {
 interface AttributionData {
   model?: string;
   lookback?: number;
-  channels?: any[];
+  channels?: Record<string, unknown>[];
 }
 
 interface HistoricalDataPoint {
@@ -175,8 +175,8 @@ async function getAnalyticsStatus() {
 }
 
 // Generowanie prognoz
-async function generateForecast(data: ForecastData) {
-  const { metric, model = 'prophet', horizon = 30, confidence = 0.95 } = data;
+async function generateForecast(data?: Partial<ForecastData>) {
+  const { metric, model = 'prophet', horizon = 30, confidence = 0.95 } = data ?? {};
   
   if (!metric) {
     return errorResponse("Metryka jest wymagana do generowania prognozy");
@@ -250,8 +250,8 @@ async function generateForecast(data: ForecastData) {
 }
 
 // Wykrywanie anomalii
-async function detectAnomalies(data: AnomalyData) {
-  const { metric, algorithm = 'isolation_forest', sensitivity = 'medium', window = 30 } = data;
+async function detectAnomalies(data?: Partial<AnomalyData>) {
+  const { metric, algorithm = 'isolation_forest', sensitivity = 'medium', window = 30 } = data ?? {};
   
   if (!metric) {
     return errorResponse("Metryka jest wymagana do wykrywania anomalii");
@@ -341,8 +341,8 @@ async function detectAnomalies(data: AnomalyData) {
 }
 
 // Analiza atrybucji
-async function analyzeAttribution(data: AttributionData) {
-  const { model = 'time_decay', lookback = 30, channels } = data;
+async function analyzeAttribution(data?: Partial<AttributionData>) {
+  const { model = 'time_decay', lookback = 30, channels } = data ?? {};
   
   try {
     // Generowanie danych ścieżki konwersji
@@ -412,8 +412,8 @@ async function analyzeAttribution(data: AttributionData) {
 }
 
 // Kalkulacja ROI
-async function calculateROI(data: any) {
-  const { campaigns, period = 30, include_ltv = true } = data;
+async function calculateROI(data?: any) {
+  const { campaigns, period = 30, include_ltv = true } = data ?? {};
   
   try {
     const roiAnalysis = {
@@ -482,8 +482,8 @@ async function calculateROI(data: any) {
 }
 
 // Dashboard KPI
-async function getKPIDashboard(data: any) {
-  const { period = 'last_30_days' } = data;
+async function getKPIDashboard(data?: any) {
+  const { period = 'last_30_days' } = data ?? {};
   
   try {
     const dashboard = {
@@ -611,8 +611,8 @@ async function getKPIDashboard(data: any) {
 }
 
 // Analiza kohortowa
-async function runCohortAnalysis(data: any) {
-  const { period = 'monthly', metric = 'retention', cohorts = 12 } = data;
+async function runCohortAnalysis(data?: any) {
+  const { period = 'monthly', metric = 'retention', cohorts = 12 } = data ?? {};
   
   try {
     const cohortData = generateCohortData(cohorts, period, metric);
@@ -654,8 +654,8 @@ async function runCohortAnalysis(data: any) {
 }
 
 // Segmentacja użytkowników
-async function segmentUsers(data: any) {
-  const { algorithm = 'kmeans', segments = 5, features } = data;
+async function segmentUsers(data?: any) {
+  const { algorithm = 'kmeans', segments = 5, features } = data ?? {};
   
   try {
     const userSegments = generateUserSegments(segments, algorithm, features);
@@ -699,8 +699,8 @@ async function segmentUsers(data: any) {
 }
 
 // Predykcja churn
-async function predictChurn(data: any) {
-  const { model = 'random_forest', threshold = 0.7, features } = data;
+async function predictChurn(data?: any) {
+  const { model = 'random_forest', threshold = 0.7, features } = data ?? {};
   
   try {
     const churnPrediction = {
@@ -750,8 +750,8 @@ async function predictChurn(data: any) {
 }
 
 // Optymalizacja budżetu
-async function optimizeBudget(data: any) {
-  const { total_budget, channels, optimization_goal = 'roas' } = data;
+async function optimizeBudget(data?: any) {
+  const { total_budget, channels, optimization_goal = 'roas' } = data ?? {};
   
   try {
     const optimization = {
@@ -810,8 +810,8 @@ async function optimizeBudget(data: any) {
 }
 
 // Analiza customer journey
-async function analyzeCustomerJourney(data: any) {
-  const { touchpoints, conversion_window = 30 } = data;
+async function analyzeCustomerJourney(data?: any) {
+  const { touchpoints, conversion_window = 30 } = data ?? {};
   
   try {
     const journeyAnalysis = {
@@ -866,8 +866,8 @@ async function analyzeCustomerJourney(data: any) {
 }
 
 // Generowanie insights
-async function generateInsights(data: any) {
-  const { data_sources, time_range = '30d' } = data;
+async function generateInsights(data?: any) {
+  const { data_sources, time_range = '30d' } = data ?? {};
   
   try {
     const insights = {
@@ -941,8 +941,8 @@ async function generateInsights(data: any) {
 }
 
 // Tworzenie custom reportu
-async function createCustomReport(data: any) {
-  const { report_type, metrics, dimensions, filters, schedule } = data;
+async function createCustomReport(data?: any) {
+  const { report_type, metrics, dimensions, filters, schedule } = data ?? {};
   
   try {
     const report = {
@@ -1033,8 +1033,8 @@ async function getRealTimeMetrics() {
 }
 
 // Konfiguracja alertów
-async function setupAlerts(data: any) {
-  const { alert_rules } = data;
+async function setupAlerts(data?: any) {
+  const { alert_rules } = data ?? {};
   
   const alertConfig = {
     configured_at: new Date().toISOString(),
@@ -1066,8 +1066,8 @@ async function setupAlerts(data: any) {
 }
 
 // Eksport danych
-async function exportData(data: any) {
-  const { format = 'csv', data_type, date_range } = data;
+async function exportData(data?: any) {
+  const { format = 'csv', data_type, date_range } = data ?? {};
   
   const exportJob = {
     export_id: `export_${Date.now()}`,
@@ -1143,9 +1143,9 @@ function generateConversionPaths(lookback: number) {
   }));
 }
 
-function calculateAttribution(model: string, paths: any[], channels?: any[]) {
+function calculateAttribution(model: string, paths: Record<string, unknown>[], channels?: Record<string, unknown>[]) {
   return {
-    total_value: paths.reduce((sum, p) => sum + p.value, 0),
+    total_value: paths.reduce((sum, p) => sum + (p.value as number || 0), 0),
     channels: [
       { name: 'Organic Search', conversions: 45, value: 12000, percentage: 35, first_touch_rate: 0.4, last_touch_rate: 0.3, assisted_rate: 0.6, roi: 4.2 },
       { name: 'Paid Search', conversions: 32, value: 9500, percentage: 28, first_touch_rate: 0.2, last_touch_rate: 0.4, assisted_rate: 0.5, roi: 3.8 },
@@ -1162,7 +1162,7 @@ function calculateAttribution(model: string, paths: any[], channels?: any[]) {
   };
 }
 
-function compareAttributionModels(paths: any[]) {
+function compareAttributionModels(paths: Record<string, unknown>[]) {
   return {
     first_touch: { organic: 40, paid: 35, social: 25 },
     last_touch: { organic: 30, paid: 45, social: 25 },
@@ -1171,8 +1171,8 @@ function compareAttributionModels(paths: any[]) {
   };
 }
 
-function calculateAveragePathLength(paths: any[]): number {
-  return paths.reduce((sum, p) => sum + p.touchpoints, 0) / paths.length;
+function calculateAveragePathLength(paths: Record<string, unknown>[]): number {
+  return paths.reduce((sum, p) => sum + (p.touchpoints as number || 0), 0) / paths.length;
 }
 
 function calculatePerformanceGrade(roas: number): string {
@@ -1191,13 +1191,13 @@ function generateCohortData(cohorts: number, period: string, metric: string) {
   }));
 }
 
-function calculateCohortTrend(data: any[]): string {
-  const recent = data.slice(-3).reduce((sum, c) => sum + c.retention_rate, 0) / 3;
-  const older = data.slice(0, 3).reduce((sum, c) => sum + c.retention_rate, 0) / 3;
+function calculateCohortTrend(data: Record<string, unknown>[]): string {
+  const recent = data.slice(-3).reduce((sum, c) => sum + (c.retention_rate as number || 0), 0) / 3;
+  const older = data.slice(0, 3).reduce((sum, c) => sum + (c.retention_rate as number || 0), 0) / 3;
   return recent > older ? 'improving' : 'declining';
 }
 
-function generateCohortRecommendations(data: any[]): string[] {
+function generateCohortRecommendations(data: Record<string, unknown>[]): string[] {
   return [
     'Fokus na onboarding nowych użytkowników',
     'Popraw retention w pierwszych 30 dniach',

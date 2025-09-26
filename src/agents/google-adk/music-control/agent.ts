@@ -414,11 +414,12 @@ export class MusicControlAgent extends BaseGoogleADKAgent {
       this.currentAudio.remove();
     }
 
-    this.currentAudio = new Audio();
+    if (!track.file_path) {
+      throw new Error(`Track "${track.title}" nie ma przypisanej ścieżki audio (file_path).`);
+    }
+
+    this.currentAudio = new Audio(track.file_path);
     this.currentAudio.volume = this.audioState.volume;
-    
-    // Dla demonstracji - w rzeczywistej aplikacji ładowałbyś rzeczywiste pliki audio
-    // this.currentAudio.src = track.file_path;
     
     this.currentAudio.onloadedmetadata = () => {
       if (this.currentAudio) {

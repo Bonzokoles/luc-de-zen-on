@@ -28,7 +28,15 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
 
   constructor(config: AgentConfig) {
     super(config);
-    this.apiEndpoint = '/api/code-bison';
+    // Derive an absolute Code Bison API endpoint
+    const endpoint = config.apiEndpoint ?? process.env.CODE_BISON_API_ENDPOINT;
+    if (!endpoint) {
+      throw new Error(
+        'CodeBisonAgent requires an absolute apiEndpoint to contact the Code Bison service.'
+      );
+    }
+    this.apiEndpoint = endpoint.replace(/\/$/, '');
+
     this.supportedLanguages = [
       'javascript', 'typescript', 'python', 'java', 'cpp', 'csharp',
       'go', 'rust', 'php', 'ruby', 'swift', 'kotlin', 'scala',
@@ -379,7 +387,7 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
 
   private extractCodeFromMessage(message: string): { code: string; language: string } | null {
     // Look for code blocks
-    const codeBlockRegex = /```(\w+)?\n([\s\S]*?)\n```/;
+    const codeBlockRegex = /```([^\n`]*)?\n?([\s\S]*?)```/;
     const match = message.match(codeBlockRegex);
     
     if (match) {
@@ -537,3 +545,5 @@ export function createCodeBisonAgent(config?: Partial<AgentConfig>): CodeBisonAg
 
   return new CodeBisonAgent({ ...defaultConfig, ...config });
 }
+
+export default CodeBisonAgent;
