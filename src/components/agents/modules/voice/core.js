@@ -5,13 +5,19 @@ class VoiceAgentFunctions {
   constructor() {
     this.isRecording = false;
     this.recognition = null;
-    this.synthesis = window.speechSynthesis;
+    this.synthesis = null;
     this.currentVoice = null;
     this.init();
   }
 
   init() {
+    if (typeof window === 'undefined') {
+      console.warn("🎙️ Voice Agent Functions initialized outside of a browser; skipping setup.");
+      return;
+    }
+
     console.log("🎙️ Initializing Voice Agent Functions...");
+    this.synthesis = window.speechSynthesis || null;
     this.setupSpeechRecognition();
     this.setupSpeechSynthesis();
   }
@@ -233,15 +239,17 @@ class VoiceAgentFunctions {
 // Inicjalizacja i export
 const voiceAgent = new VoiceAgentFunctions();
 
-// Export funkcji do globalnego scope
-window.startVoiceRecording = () => voiceAgent.startVoiceRecording();
-window.stopVoiceRecording = () => voiceAgent.stopVoiceRecording();
-window.processVoiceCommand = () => voiceAgent.processVoiceCommand();
-window.synthesizeVoice = () => voiceAgent.synthesizeVoice();
-window.playVoiceResponse = () => voiceAgent.playVoiceResponse();
-window.clearVoiceAgent = () => voiceAgent.clearVoiceAgent();
-window.toggleVoiceMode = () => voiceAgent.toggleVoiceMode();
+if (typeof window !== 'undefined') {
+  // Export funkcji do globalnego scope
+  window.startVoiceRecording = () => voiceAgent.startVoiceRecording();
+  window.stopVoiceRecording = () => voiceAgent.stopVoiceRecording();
+  window.processVoiceCommand = () => voiceAgent.processVoiceCommand();
+  window.synthesizeVoice = () => voiceAgent.synthesizeVoice();
+  window.playVoiceResponse = () => voiceAgent.playVoiceResponse();
+  window.clearVoiceAgent = () => voiceAgent.clearVoiceAgent();
+  window.toggleVoiceMode = () => voiceAgent.toggleVoiceMode();
 
-console.log("✅ Voice Agent Functions loaded and exported globally");
+  console.log("✅ Voice Agent Functions loaded and exported globally");
+}
 
 export default voiceAgent;

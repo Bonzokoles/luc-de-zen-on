@@ -103,7 +103,7 @@ function generateChatId(): string {
   return 'snell_' + Date.now().toString(36) + Math.random().toString(36).substr(2);
 }
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const url = new URL(request.url);
     const instructions = url.searchParams.get('instructions');
@@ -111,7 +111,10 @@ export const GET: APIRoute = async ({ request }) => {
     const models = url.searchParams.get('models');
     const conversationId = url.searchParams.get('conversation_id');
     
-    const env = (globalThis as any).cloudflareEnv || {};
+    const env =
+      (locals as any)?.runtime?.env ??
+      (globalThis as any).cloudflareEnv ??
+      {};
 
     // Handle models list request
     if (models) {

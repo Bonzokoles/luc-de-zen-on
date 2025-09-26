@@ -89,7 +89,9 @@ export class VoiceCommandAgent extends BaseGoogleADKAgent {
             const confidence = result[0].confidence;
             
             console.log(`🎯 Rozpoznano: "${transcript}" (pewność: ${(confidence * 100).toFixed(1)}%)`);
-            this.processVoiceCommand(transcript, confidence);
+            void this.processVoiceCommand(transcript, confidence).catch((error) => {
+              console.error('❌ Błąd obsługi komendy głosowej:', error);
+            });
           }
         };
         
@@ -449,12 +451,10 @@ export class VoiceCommandAgent extends BaseGoogleADKAgent {
       const utterance = new SpeechSynthesisUtterance(text);
       
       // Ustawienia domyślne
-      utterance.lang = options?.language || this.currentLanguage;
-      utterance.rate = options?.rate || 1.0;
-      utterance.volume = options?.volume || 1.0;
-      utterance.pitch = options?.pitch || 1.0;
-
-      // Znajdź głos w wybranym języku
+      utterance.lang   = options?.language || this.currentLanguage;
+      utterance.rate   = options?.rate   ?? 1.0;
+      utterance.volume = options?.volume ?? 1.0;
+      utterance.pitch  = options?.pitch  ?? 1.0;      // Znajdź głos w wybranym języku
       const voices = this.synthesis.getVoices();
       const preferredVoice = voices.find(voice => 
         voice.lang.startsWith(utterance.lang.substring(0, 2))

@@ -101,4 +101,179 @@
     console.log("🚀 Loading modular agents widgets...");
     // Każdy agent będzie miał swój własny moduł
   };
+
+  // Voice Agent Functions
+  window.toggleVoiceAgent = function() {
+    const widget = document.getElementById('voiceAgentWidget');
+    if (widget) {
+      widget.classList.toggle('hidden');
+    }
+  };
+
+  window.toggleVoiceMode = function() {
+    const btn = document.getElementById('voiceStatusBtn');
+    if (btn) {
+      btn.textContent = btn.textContent === 'Gotowy' ? 'Aktywny' : 'Gotowy';
+    }
+  };
+
+  window.startVoiceRecording = function() {
+    console.log('🎤 Starting voice recording...');
+    // TODO: Implement voice recording logic
+  };
+
+  window.stopVoiceRecording = function() {
+    console.log('⏹ Stopping voice recording...');
+    // TODO: Implement stop recording logic
+  };
+
+  window.playVoiceResponse = function() {
+    console.log('🔊 Playing voice response...');
+    // TODO: Implement voice playback logic
+  };
+
+  window.processVoiceCommand = function() {
+    const input = document.getElementById('voiceAgentInput');
+    const response = document.getElementById('voiceAgentResponse');
+    if (input && response) {
+      console.log('Processing voice command:', input.value);
+      response.style.display = 'block';
+      response.textContent = `Przetwarzanie komendy: "${input.value}"`;
+    }
+  };
+
+  window.synthesizeVoice = function() {
+    const input = document.getElementById('voiceAgentInput');
+    console.log('🎙️ Synthesizing voice for:', input?.value);
+    // TODO: Implement voice synthesis logic
+  };
+
+  window.clearVoiceAgent = function() {
+    const input = document.getElementById('voiceAgentInput');
+    const response = document.getElementById('voiceAgentResponse');
+    if (input) input.value = '';
+    if (response) {
+      response.innerHTML = '';
+      response.style.display = 'none';
+    }
+  };
+
+  // Music Agent Functions
+  window.toggleMusicAgent = function() {
+    const widget = document.getElementById('musicAgentWidget');
+    if (widget) {
+      widget.classList.toggle('hidden');
+    }
+  };
+
+  window.toggleMusicMode = function() {
+    const btn = document.getElementById('musicStatusBtn');
+    if (btn) {
+      btn.textContent = btn.textContent === 'Gotowy' ? 'Odtwarzanie' : 'Gotowy';
+    }
+  };
+
+  window.playMusic = function() {
+    console.log('🎵 Playing music...');
+    // TODO: Implement music playback logic
+  };
+
+  window.pauseMusic = function() {
+    console.log('⏸ Pausing music...');
+    // TODO: Implement music pause logic
+  };
+
+  window.nextTrack = function() {
+    console.log('⏭ Next track...');
+    // TODO: Implement next track logic
+  };
+
+  window.searchMusic = function() {
+    const input = document.getElementById('musicAgentInput');
+    const response = document.getElementById('musicAgentResponse');
+    if (input && response) {
+      console.log('Searching music:', input.value);
+      response.style.display = 'block';
+      response.textContent = `Szukanie: "${input.value}"`;
+    }
+  };
+
+  window.generatePlaylist = function() {
+    const input = document.getElementById('musicAgentInput');
+    console.log('🎶 Generating playlist for:', input?.value);
+    // TODO: Implement playlist generation logic
+  };
+
+  window.clearMusicAgent = function() {
+    const input = document.getElementById('musicAgentInput');
+    const response = document.getElementById('musicAgentResponse');
+    if (input) input.value = '';
+    if (response) {
+      response.innerHTML = '';
+      response.style.display = 'none';
+    }
+  };
+
+  // System Agent Functions
+  window.toggleSystemAgent = function() {
+    const widget = document.getElementById('systemAgentWidget');
+    if (widget) {
+      widget.classList.toggle('hidden');
+    }
+  };
+
+  window.toggleSystemMode = function() {
+    const btn = document.getElementById('systemStatusBtn');
+    if (btn) {
+      btn.textContent = btn.textContent === 'Aktywny' ? 'Nieaktywny' : 'Aktywny';
+    }
+  };
+
+  window.checkSystemHealth = function() {
+    console.log('🔍 Checking system health...');
+    const response = document.getElementById('systemAgentResponse');
+    if (response) {
+      response.style.display = 'block';
+      response.innerHTML = 'System Health: OK ✅<br>CPU: 45%<br>RAM: 67%<br>Disk: 23%';
+    }
+  };
+
+  window.optimizeSystem = function() {
+    console.log('⚡ Optimizing system...');
+    // TODO: Implement system optimization logic
+  };
+
+  window.cleanupSystem = function() {
+    console.log('🧹 Cleaning up system...');
+    // TODO: Implement system cleanup logic
+  };
+
+  window.executeSystemCommand = function() {
+    const input = document.getElementById('systemAgentInput');
+    const response = document.getElementById('systemAgentResponse');
+    if (input && response) {
+      console.log('Executing system command:', input.value);
+      response.style.display = 'block';
+      response.textContent = `Wykonywanie: "${input.value}"`;
+    }
+  };
+
+  window.analyzeSystemLogs = function() {
+    console.log('📊 Analyzing system logs...');
+    const response = document.getElementById('systemAgentResponse');
+    if (response) {
+      response.style.display = 'block';
+      response.innerHTML = 'Analiza logów w toku...';
+    }
+  };
+
+  window.clearSystemAgent = function() {
+    const input = document.getElementById('systemAgentInput');
+    const response = document.getElementById('systemAgentResponse');
+    if (input) input.value = '';
+    if (response) {
+      response.innerHTML = '';
+      response.style.display = 'none';
+    }
+  };
 </script>

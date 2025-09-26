@@ -10,18 +10,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
     
     const env = (locals as any)?.runtime?.env;
     
-    // Check if BigQuery is configured
-    if (!env?.GOOGLE_CLOUD_PROJECT_ID || !env?.GOOGLE_CLOUD_PRIVATE_KEY) {
-      return new Response(JSON.stringify({
-        success: false,
-        service: 'BigQuery Analytics',
-        error: 'BigQuery nie jest skonfigurowane',
-        message: 'Brak danych uwierzytelniających Google Cloud'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
+    // Check if BigQuery is configured (but only block actual query execution)
+    const missingBigQueryCreds =
+      !env?.GOOGLE_CLOUD_PROJECT_ID || !env?.GOOGLE_CLOUD_PRIVATE_KEY;
 
     if (!query && !instructions && !aiHelp) {
       return new Response(JSON.stringify({
@@ -88,6 +79,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
         timestamp: new Date().toISOString()
       }), {
         status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    if (missingBigQueryCreds) {
+      return new Response(JSON.stringify({
+        success: false,
+        service: 'BigQuery Analytics',
+        error: 'BigQuery nie jest skonfigurowane',
+        message: 'Brak danych uwierzytelniających Google Cloud'
+      }), {
+        status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
     }

@@ -204,6 +204,10 @@ export abstract class BaseGoogleADKAgent {
   abstract processMessage(message: string): Promise<AgentResponse>;
   abstract initialize(): Promise<void>;
 
+  getConfig(): AgentConfig {
+    return this.config;
+  }
+
   async getStatus(): Promise<AgentConfig & { performance: PerformanceMetrics }> {
     return {
       ...this.config,
@@ -273,7 +277,7 @@ export class GoogleADKAgentManager {
   }
 
   registerAgent(agent: BaseGoogleADKAgent): void {
-    const config = agent['config'] as AgentConfig;
+    const config = agent.getConfig();
     this.agents.set(config.agent_id, agent);
   }
 

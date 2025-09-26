@@ -2,6 +2,7 @@
 title: 'Agent 11: Content Guardian - AI-Powered Content Moderation & Generation'
 description: 'Zaawansowany system moderacji treści i generowania kontentów z wykorzystaniem sztucznej inteligencji, zoptymalizowany pod polski rynek'
 layout: '../../../layouts/BaseLayout.astro'
+import ContentGuardianDashboard from './component.svelte';
 ---
 
 <div class="agent-page content-guardian-page">
@@ -41,7 +42,7 @@ layout: '../../../layouts/BaseLayout.astro'
   <!-- Main Dashboard Component -->
   <section class="dashboard-section">
     <div class="container mx-auto px-6">
-      <div id="content-guardian-dashboard"></div>
+        <ContentGuardianDashboard client:load />
     </div>
   </section>
 
@@ -546,15 +547,7 @@ layout: '../../../layouts/BaseLayout.astro'
   </section>
 </div>
 
-<!-- Mount Svelte Component -->
-<script>
-  import ContentGuardianDashboard from './component.svelte';
-  
-  // Mount the Svelte component
-  new ContentGuardianDashboard({
-    target: document.getElementById('content-guardian-dashboard')
-  });
-</script>
+<!-- (No manual mounting script needed; Astro handles hydration via client directive) -->
 
 <style>
   .agent-page {

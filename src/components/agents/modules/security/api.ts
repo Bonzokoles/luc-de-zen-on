@@ -30,13 +30,14 @@ function initializeDefaultPolicies() {
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { action, data } = await request.json();
+    const payload = data && typeof data === 'object' ? data : {};
 
     switch (action) {
       case "test":
         return testAgent();
       
       case "start-scan":
-        return startSecurityScan(data);
+        return startSecurityScan(payload);
       
       case "get-scan-results":
         return getScanResults();
@@ -45,37 +46,37 @@ export const POST: APIRoute = async ({ request }) => {
         return getSecurityAlerts();
       
       case "resolve-alert":
-        return resolveAlert(data);
+        return resolveAlert(payload);
       
       case "get-incidents":
         return getSecurityIncidents();
       
       case "create-incident":
-        return createIncident(data);
+        return createIncident(payload);
       
       case "get-monitoring-status":
         return getMonitoringStatus();
       
       case "update-monitoring":
-        return updateMonitoring(data);
+        return updateMonitoring(payload);
       
       case "get-policies":
         return getSecurityPolicies();
       
       case "update-policy":
-        return updateSecurityPolicy(data);
+        return updateSecurityPolicy(payload);
       
       case "get-compliance-report":
-        return getComplianceReport(data);
+        return getComplianceReport(payload);
       
       case "quarantine-threat":
-        return quarantineThreat(data);
+        return quarantineThreat(payload);
       
       case "get-quarantine":
         return getQuarantineItems();
       
       case "generate-report":
-        return generateSecurityReport(data);
+        return generateSecurityReport(payload);
       
       default:
         return errorResponse("Nieprawidłowa akcja");
@@ -327,9 +328,8 @@ async function updateMonitoring(data: any) {
   monitoringStatus.set(areaId, {
     ...area,
     status: enabled ? 'active' : 'disabled',
-    settings: { ...area.settings, ...settings },
-    lastUpdated: Date.now()
-  });
+    settings: { ...(area?.settings ?? {}), ...(settings ?? {}) },
+    lastUpdated: Date.now()  });
   
   return new Response(JSON.stringify({
     success: true,
@@ -368,7 +368,7 @@ async function updateSecurityPolicy(data: any) {
     ...policy,
     enabled: enabled !== undefined ? enabled : policy.enabled,
     threshold: threshold !== undefined ? threshold : policy.threshold,
-    settings: { ...policy.settings, ...settings },
+    settings: { ...(policy?.settings ?? {}), ...(settings ?? {}) },
     updatedAt: Date.now()
   };
   

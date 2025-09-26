@@ -58,7 +58,10 @@ export class PaLMAPIAgent extends BaseGoogleADKAgent {
 
   constructor(config: AgentConfig) {
     super(config);
-    this.palmEndpoint = '/api/palm';
+    this.palmEndpoint = (config as any).palmEndpoint ?? process.env.PALM_API_ENDPOINT ?? '';
+    if (!this.palmEndpoint) {
+      throw new Error('PaLM endpoint URL must be provided');
+    }
     this.apiKey = process.env.PALM_API_KEY || '';
     this.availableModels = [
       'text-bison-001',
@@ -484,7 +487,9 @@ export class PaLMAPIAgent extends BaseGoogleADKAgent {
     
     for (let attempt = 0; attempt < this.maxRetries; attempt++) {
       try {
-        const response = await fetch(`${this.palmEndpoint}/${endpoint}`, {
+        const base = this.palmEndpoint.replace(/\/$/, '');
+        const targetUrl = `${base}/${endpoint}`;
+        const response = await fetch(targetUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

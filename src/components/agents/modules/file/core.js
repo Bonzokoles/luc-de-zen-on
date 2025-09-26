@@ -161,7 +161,7 @@ export class FileManagerAgent {
     const uploadTasks = [];
     
     for (const fileInfo of files) {
-      if (this.uploadProgress.size < this.settings.maxConcurrentUploads) {
+      if (this.getActiveUploadCount() < this.settings.maxConcurrentUploads) {
         const task = this.uploadFile(fileInfo, destination);
         uploadTasks.push(task);
       } else {
@@ -642,15 +642,21 @@ export class FileManagerAgent {
   getCompressionTasks() {
     return this.compressionTasks;
   }
+
+  getActiveUploadCount() {
+    return Array.from(this.uploadProgress.values())
+      .filter(upload => upload.status === 'uploading').length;
+  }
   
   processUploadQueue() {
     const queuedUploads = this.fileQueue.filter(item => item.operation === 'upload');
-    const availableSlots = this.settings.maxConcurrentUploads - this.uploadProgress.size;
+    let availableSlots = this.settings.maxConcurrentUploads - this.getActiveUploadCount();
     
-    for (let i = 0; i < Math.min(availableSlots, queuedUploads.length); i++) {
-      const item = queuedUploads[i];
+    for (const item of queuedUploads) {
+      if (availableSlots <= 0) break;
       this.uploadFile(item, item.destination);
       this.fileQueue = this.fileQueue.filter(queueItem => queueItem.id !== item.id);
+      availableSlots--;
     }
   }
 }

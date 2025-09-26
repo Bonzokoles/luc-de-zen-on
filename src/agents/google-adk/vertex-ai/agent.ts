@@ -26,7 +26,7 @@ export interface ModelDeployment {
 }
 
 export interface PredictionResult {
-  predictions: any[];
+  predictions: Record<string, unknown>[];
   metadata: {
     model: string;
     version: string;
@@ -44,7 +44,15 @@ export class VertexAIAgent extends BaseGoogleADKAgent {
 
   constructor(config: AgentConfig) {
     super(config);
-    this.vertexEndpoint = '/api/vertex-ai';
+    const endpointBase = process.env.VERTEX_AI_API_BASE?.trim();
+    if (endpointBase) {
+      if (!/^https?:\/\//.test(endpointBase)) {
+        throw new Error('VERTEX_AI_API_BASE (absolute URL) must be configured for Vertex AI requests');
+      }
+      this.vertexEndpoint = endpointBase.replace(/\/$/, '');
+    } else {
+      this.vertexEndpoint = '/api/vertex-ai';
+    }
     this.projectId = process.env.GOOGLE_CLOUD_PROJECT || 'my-bonzo-zen-com';
     this.region = process.env.VERTEX_AI_REGION || 'us-central1';
     this.availableModels = [
@@ -64,31 +72,6 @@ export class VertexAIAgent extends BaseGoogleADKAgent {
       'llama2-70b-chat'
     ];
     this.deployedModels = [];
-  }
-
-  async initialize(): Promise<void> {
-    try {
-      console.log('🚀 Initializing Vertex AI Agent...');
-      this.config.status = 'ready';
-      
-      // Initialize deployed models list
-      await this.refreshDeployedModels();
-      
-      // Test connection to Vertex AI
-      const testResponse = await this.testConnection();
-      if (testResponse.status !== 'success') {
-        throw new Error('Failed to connect to Vertex AI');
-      }
-
-      console.log('✅ Vertex AI Agent initialized successfully');
-      console.log(`📊 Available models: ${this.availableModels.length}`);
-      console.log(`🚀 Deployed models: ${this.deployedModels.length}`);
-      
-    } catch (error) {
-      console.error('Vertex AI initialization failed:', error);
-      this.config.status = 'error';
-      throw error;
-    }
   }
 
   async processMessage(message: string): Promise<AgentResponse> {
@@ -584,14 +567,19 @@ export class VertexAIAgent extends BaseGoogleADKAgent {
     return urlMatch ? urlMatch[1] : null;
   }
 
-  private extractBatchDataFromMessage(message: string): any[] {
-    // This would parse batch input data from message
-    // For now, return example data
-    return [
-      { prompt: 'What is AI?' },
-      { prompt: 'Explain machine learning' },
-      { prompt: 'How does neural network work?' }
-    ];
+  private extractBatchDataFromMessage(message: string): Record<string, unknown>[] {
+    const jsonSnippet = message.match(/```json([\s\S]+?)```/i);
+    if (jsonSnippet) {
+      try {
+        const payload = JSON.parse(jsonSnippet[1].trim());
+        if (Array.isArray(payload)) {
+          return payload;
+        }
+      } catch {
+        throw new Error('Batch prediction payload could not be parsed as JSON.');
+      }
+    }
+    throw new Error('Batch prediction payload not provided. Please include a JSON array of instances.');
   }
 
   private formatPredictionResult(result: PredictionResult): string {

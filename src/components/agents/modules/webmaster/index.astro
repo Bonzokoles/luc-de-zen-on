@@ -312,9 +312,13 @@ const performanceThresholds = {
 </Layout>
 
 <!-- Svelte Component Integration -->
-<script>
+<script type="module">
   // Import i inicjalizacja komponentu Svelte
   import WebmasterComponent from './component.svelte';
+  
+  // Serialize server-side config for client use
+  const seoToolsStatus = {JSON.stringify(seoToolsStatus)};
+  const performanceThresholds = {JSON.stringify(performanceThresholds)};
   
   // Montowanie komponentu po załadowaniu DOM
   document.addEventListener('DOMContentLoaded', function() {

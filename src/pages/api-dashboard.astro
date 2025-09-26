@@ -278,8 +278,11 @@ import {
                   <option value="/api/kaggle/datasets">Kaggle Datasets</option>
                   <option value="/api/tavily/search">Tavily Search</option>
                   <option value="/api/image-generator/generate">Image Generator</option>
-                </select>
-              </div>
+                  <option value="/api/ai-models/gemma">Gemma AI</option>
+                  <option value="/api/ai-models/stable-diffusion">Stable Diffusion</option>
+                  <option value="/api/ai-models/snell">Snell AI</option>
+                  <option value="/api/ai-models/openrouter">OpenRouter</option>
+                </select>              </div>
 
               <div>
                 <label class="block text-sm font-medium mb-2">Method</label>
@@ -546,12 +549,16 @@ import {
   }
 
   // Auto-update method based on endpoint
+  const defaultMethods = {
+    '/api/image-generator/generate': 'POST',
+    '/api/ai-models/gemma': 'POST',
+    '/api/ai-models/stable-diffusion': 'POST',
+    '/api/ai-models/snell': 'POST',
+    '/api/ai-models/openrouter': 'POST'
+  };
+
   document.getElementById('endpoint-select')?.addEventListener('change', function() {
     const methodSelect = document.getElementById('method-select');
-    if (this.value.includes('image-generator')) {
-      methodSelect.value = 'POST';
-    } else {
-      methodSelect.value = 'GET';
-    }
+    methodSelect.value = defaultMethods[this.value] ?? 'GET';
   });
 </script>

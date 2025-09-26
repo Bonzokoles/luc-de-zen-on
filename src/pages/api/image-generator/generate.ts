@@ -179,7 +179,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const data = await request.json();
     const { prompt, style = 'realistic', size = '1024x1024', steps = 20, count = 1, enhance_prompt = false } = data;
     
-    const env = (locals as any)?.runtime?.env;
+    const env = (locals as any)?.runtime?.env ?? {};
     
     if (!prompt) {
       return new Response(JSON.stringify({
@@ -197,10 +197,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     
     // Enhance prompt with AI if requested
     let finalPrompt = prompt;
-    if (enhance_prompt && env.AI) {
+    if (enhance_prompt && env?.AI) {
       finalPrompt = await enhancePromptWithAI(env, prompt, style);
     }
-
     // Generate image(s)
     const generationResults = [];
     for (let i = 0; i < Math.min(count, 4); i++) {
@@ -263,6 +262,38 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 };
 
+function toBase64DataUrl(payload: unknown): string {
+  if (payload instanceof ArrayBuffer) {
+    const bytes = new Uint8Array(payload);
+    const BufferCtor = (globalThis as any).Buffer;
+    if (typeof BufferCtor === 'function') {
+      return `data:image/png;base64,${BufferCtor.from(bytes).toString('base64')}`;
+    }
+    if (typeof btoa === 'function') {
+      const chunkSize = 0x8000;
+      let binary = '';
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+      }
+      return `data:image/png;base64,${btoa(binary)}`;
+    }
+    throw new Error('Unable to encode image payload to base64');
+  }
+  if (typeof payload === 'string') {
+    return payload.startsWith('data:') ? payload : `data:image/png;base64,${payload}`;
+  }
+  if (
+    payload &&
+    typeof payload === 'object' &&
+    'image' in payload &&
+    typeof (payload as any).image === 'string'
+  ) {
+    const image = (payload as any).image;
+    return image.startsWith('data:') ? image : `data:image/png;base64,${image}`;
+  }
+  throw new Error('Unsupported AI image response format');
+}
+
 async function generateImage(env: any, options: any) {
   const { prompt, style, size, steps } = options;
   
@@ -270,18 +301,22 @@ async function generateImage(env: any, options: any) {
   if (env?.AI) {
     try {
       // Use Cloudflare AI Stable Diffusion
-      const response = await env.AI.run('@cf/stabilityai/stable-diffusion-xl-base-1.0', {
-        prompt: prompt,
-        num_steps: steps || 20,
-        guidance: 7.5,
-        strength: 1.0
-      });
+      const response = await env.AI.run(
+        '@cf/stabilityai/stable-diffusion-xl-base-1.0',
+        {
+          prompt: prompt,
+          num_steps: steps || 20,
+          guidance: 7.5,
+          strength: 1.0,
+        }
+      );
       
       // If response is successful, return real image
       if (response) {
         const seed = Math.floor(Math.random() * 1000000);
+        const imageUrl = toBase64DataUrl(response);
         return {
-          imageUrl: response, // This would be base64 or blob URL from Cloudflare AI
+          imageUrl,
           metadata: {
             prompt: prompt,
             style: style,
@@ -291,16 +326,22 @@ async function generateImage(env: any, options: any) {
             model: 'Stable Diffusion XL (Cloudflare AI)',
             processingTime: '3.2s',
             guidance: 7.5,
-            strength: 1.0
+            strength: 1.0,
           },
           variations: [
-            `https://stable-diffusion.mybonzo.com/variant1/${size}?seed=${seed+1}`,
-            `https://stable-diffusion.mybonzo.com/variant2/${size}?seed=${seed+2}`,
-            `https://stable-diffusion.mybonzo.com/variant3/${size}?seed=${seed+3}`
+            `https://stable-diffusion.mybonzo.com/variant1/${size}?seed=${
+              seed + 1
+            }`,
+            `https://stable-diffusion.mybonzo.com/variant2/${size}?seed=${
+              seed + 2
+            }`,
+            `https://stable-diffusion.mybonzo.com/variant3/${size}?seed=${
+              seed + 3
+            }`,
           ],
           downloadUrl: `https://api.mybonzo.com/download/cf-sd-${seed}.png`,
           source: 'cloudflare-ai',
-          real_generation: true
+          real_generation: true,
         };
       }
     } catch (error) {

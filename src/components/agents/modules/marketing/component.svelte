@@ -79,6 +79,44 @@
     }
   }
 
+  async function createFacebookCampaign() {
+    const result = await callApi("create-campaign", {
+      name: "Kampania Facebook",
+      platform: "facebook-ads",
+      budget: 4000,
+      product: "Nasz Nowy Gadżet",
+    });
+    if (result && result.success) {
+      campaigns.update((c) => [
+        ...c,
+        {
+          id: result.campaignId,
+          name: "Kampania Facebook",
+          status: "Aktywna",
+        },
+      ]);
+    }
+  }
+
+  async function createAllegroCampaign() {
+    const result = await callApi("create-campaign", {
+      name: "Kampania Allegro",
+      platform: "allegro",
+      budget: 3000,
+      product: "Nasz Nowy Gadżet",
+    });
+    if (result && result.success) {
+      campaigns.update((c) => [
+        ...c,
+        {
+          id: result.campaignId,
+          name: "Kampania Allegro",
+          status: "Aktywna",
+        },
+      ]);
+    }
+  }
+
   async function fetchPerformance() {
     const result = await callApi("get-campaign-performance", {
       campaignId: "camp_12345",
@@ -115,9 +153,7 @@
   });
 </script>
 
-<div
-  class="marketing-maestro-container"
->
+<div class="marketing-maestro-container">
   <!-- Header -->
   <div class="agent-header">
     <div class="header-content">
@@ -170,17 +206,29 @@
           <div class="panel-indicator"></div>
         </div>
         <div class="action-grid">
-          <button class="cyber-button primary" on:click={createCampaign} disabled={$isLoading}>
+          <button
+            class="cyber-button primary"
+            on:click={createCampaign}
+            disabled={$isLoading}
+          >
             <span class="btn-icon">⚡</span>
             <span class="btn-text">GOOGLE ADS</span>
             <div class="btn-glow"></div>
           </button>
-          <button class="cyber-button secondary" on:click={createFacebookCampaign} disabled={$isLoading}>
+          <button
+            class="cyber-button secondary"
+            on:click={createFacebookCampaign}
+            disabled={$isLoading}
+          >
             <span class="btn-icon">🎯</span>
             <span class="btn-text">FACEBOOK</span>
             <div class="btn-glow"></div>
           </button>
-          <button class="cyber-button secondary" on:click={createAllegroCampaign} disabled={$isLoading}>
+          <button
+            class="cyber-button secondary"
+            on:click={createAllegroCampaign}
+            disabled={$isLoading}
+          >
             <span class="btn-icon">🛒</span>
             <span class="btn-text">ALLEGRO</span>
             <div class="btn-glow"></div>

@@ -6,16 +6,12 @@ description: "Zaawansowany system ochrony i monitorowania bezpieczeństwa"
 import Layout from '../../../layouts/Layout.astro';
 import SecurityGuardComponent from './component.svelte';
 
-<Layout title="Security Guard - System Bezpieczeństwa">
+<Layout 
+  title="Security Guard - System Bezpieczeństwa | LUC-DE-ZEN-ON"
+  lang="pl"
+>
   <SecurityGuardComponent client:load />
 </Layout>
-
-
-<script>
-  console.log('🛡️ Security Guard Agent loaded');
-  document.documentElement.lang = 'pl';
-  document.title = 'Security Guard - System Bezpieczeństwa | LUC-DE-ZEN-ON';
-</script>
 
 <style>
   :global(body) {

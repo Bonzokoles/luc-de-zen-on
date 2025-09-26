@@ -138,27 +138,52 @@ export class SecurityAgentFunctions {
     const openPorts = [];
     const closedPorts = [];
     
-    for (const port of commonPorts) {
-      await this.delay(50); // Simulate scan time
-      
-      // Simulate port scanning (randomly determine if open)
-      const isOpen = Math.random() > 0.7; // 30% chance port is open
-      
-      if (isOpen) {
-        openPorts.push({
-          port,
-          service: this.getServiceForPort(port),
-          banner: this.generateBanner(port),
-          riskLevel: this.assessPortRisk(port)
-        });
-      } else {
-        closedPorts.push(port);
-      }
-      
-      this.onScanProgress?.(scanId, `Scanning port ${port}...`);
+// In src/components/agents/modules/security/core.js
+
+class SecurityCore {
+  constructor() {
+    // ... existing code ...
+    this.activeScanCount = 0;
+    this.maxConcurrentScans = 3;
+    // ... rest of constructor
+  }
+
+  async performSecurityScan(target, scanTypes = ['vulnerability', 'port']) {
+    if (this.activeScanCount >= this.maxConcurrentScans) {
+      throw new Error(
+        'Maximum concurrent scans reached. Please wait for current scans to complete.'
+      );
     }
-    
-    return {
+    this.activeScanCount++;
+    try {
+      // --- existing scan logic (including your port-loop) ---
+      for (const port of commonPorts) {
+        await this.delay(50); // Simulate scan time
+
+        // Simulate port scanning (randomly determine if open)
+        const isOpen = Math.random() > 0.7; // 30% chance port is open
+
+        if (isOpen) {
+          openPorts.push({
+            port,
+            service: this.getServiceForPort(port),
+            banner: this.generateBanner(port),
+            riskLevel: this.assessPortRisk(port)
+          });
+        } else {
+          closedPorts.push(port);
+        }
+
+        this.onScanProgress?.(scanId, `Scanning port ${port}...`);
+      }
+      // ... rest of existing scan logic ...
+    } finally {
+      this.activeScanCount--;
+    }
+  }
+
+  // ... other methods ...
+}    return {
       totalPorts: commonPorts.length,
       openPorts,
       closedPorts,
@@ -238,10 +263,9 @@ export class SecurityAgentFunctions {
       certificate: {
         issuer: 'Let\'s Encrypt Authority X3',
         subject: target,
-        validFrom: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-        validTo: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-        fingerprint: this.generateFingerprint()
-      },
+        validFrom: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString(), // 6 months ago
+        validTo: new Date(Date.now() + 185 * 24 * 60 * 60 * 1000).toISOString(),    // ~6 months from now
+        fingerprint: this.generateFingerprint()      },
       protocols: ['TLSv1.2', 'TLSv1.3'],
       ciphers: ['ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-RSA-AES128-GCM-SHA256'],
       vulnerabilities: []
@@ -281,10 +305,10 @@ export class SecurityAgentFunctions {
     
     // Simulate web vulnerability checks
     const webVulns = [
-      { name: 'SQL Injection', severity: 'high', url: `/search?q='OR 1=1--` },
-      { name: 'XSS', severity: 'high', url: `/comment?text=<script>alert('xss')</script>` },
-      { name: 'CSRF', severity: 'medium', url: '/admin/delete' },
-      { name: 'Directory Traversal', severity: 'high', url: '/file?path=../../../etc/passwd' }
+      { name: 'SQL Injection', severity: 'high', url: '/search?q=[SIMULATED_SQL_PAYLOAD]' },
+      { name: 'XSS', severity: 'high', url: '/comment?text=[SIMULATED_XSS_PAYLOAD]' },
+      { name: 'CSRF', severity: 'medium', url: '/admin/[SIMULATED_CSRF_ENDPOINT]' },
+      { name: 'Directory Traversal', severity: 'high', url: '/file?path=[SIMULATED_TRAVERSAL_PATH]' }
     ];
     
     for (const vuln of webVulns) {
@@ -496,8 +520,8 @@ export class SecurityAgentFunctions {
       this.intrusionAttempts.push(intrusion);
       this.onIntrusionDetected?.(intrusion);
       
-      // Auto-block if high severity
-      if (intrusion.severity === 'high') {
+      // Auto-block if high severity with validation
+      if (intrusion.severity === 'high' && this.shouldAutoBlock(intrusion.source)) {
         this.blockIP(intrusion.source, `Auto-blocked due to intrusion: ${intrusion.type}`);
       }
       
@@ -540,12 +564,27 @@ export class SecurityAgentFunctions {
   
   startSecurityMonitoring() {
     // Simulate periodic security monitoring
-    setInterval(() => {
+    this.monitoringInterval = setInterval(() => {
       this.performAutomaticChecks();
     }, 300000); // Every 5 minutes
   }
-  
-  performAutomaticChecks() {
+
+  stopSecurityMonitoring() {
+    if (this.monitoringInterval) {
+      clearInterval(this.monitoringInterval);
+      this.monitoringInterval = null;
+    }
+  }
+
+  destroy() {
+    this.stopSecurityMonitoring();
+    // Clear other resources
+    this.vulnerabilityDatabase.clear();
+    this.securityScans = [];
+    this.threats = [];
+    this.firewallRules = [];
+    this.intrusionAttempts = [];
+  }  performAutomaticChecks() {
     // Simulate automatic security checks
     if (Math.random() > 0.95) { // 5% chance of detecting something
       const mockLogEntry = {
@@ -607,8 +646,14 @@ export class SecurityAgentFunctions {
       80: 'Apache/2.4.41 (Ubuntu)',
       443: 'nginx/1.18.0'
     };
-    
-    return banners[port] || 'Service Banner';
+    return banners[port] || `Service on port ${port}`;
+  }
+
+  calculateRiskScore(vulnerabilities) {
+    const scores = { low: 1, medium: 3, high: 7, critical: 10 };
+    return vulnerabilities.reduce((total, vuln) =>
+      total + (scores[vuln.severity] || 0), 0
+    );
   }
   
   generateFingerprint() {
@@ -688,6 +733,17 @@ export class SecurityAgentFunctions {
   
   getFirewallRules() {
     return this.firewallRules.filter(r => r.active);
+  }
+
+  shouldAutoBlock(ip) {
+    const whitelist = ['127.0.0.1', '::1', '192.168.1.1']; // Add critical IPs
+    const recentBlocks = this.firewallRules.filter(r => 
+      r.source === ip && 
+      r.action === 'block' && 
+      new Date(r.createdAt) > new Date(Date.now() - 3600000) // Last hour
+    );
+    
+    return !whitelist.includes(ip) && recentBlocks.length < 3; // Prevent repeated blocks
   }
 }
 

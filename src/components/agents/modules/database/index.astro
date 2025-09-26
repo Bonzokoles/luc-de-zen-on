@@ -6,7 +6,10 @@ description: "Zaawansowane zapytania SQL/NoSQL z wizualizacją wyników"
 import Layout from '../../../layouts/Layout.astro';
 import DatabaseQueryAgent from './component.svelte';
 
-<Layout title="Database Query - Agent Baz Danych">
+<Layout 
+  title="Database Query - Agent Baz Danych | LUC-DE-ZEN-ON"
+  lang="pl"
+>
   <main class="container mx-auto px-4 py-8">
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold text-cyan-400 mb-4">
@@ -60,12 +63,6 @@ import DatabaseQueryAgent from './component.svelte';
     </div>
   </main>
 </Layout>
-
-<script>
-  console.log('🗄️ Database Query Agent loaded');
-  document.documentElement.lang = 'pl';
-  document.title = 'Database Query - Agent Baz Danych | LUC-DE-ZEN-ON';
-</script>
 
 <style>
   :global(body) {

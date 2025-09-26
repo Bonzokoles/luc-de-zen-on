@@ -45,8 +45,8 @@
 
     async loadCoreSystem() {
       try {
-        // Załaduj główny kontroler
-        const controllerModule = await import('./components/agents/AgentsController.js');
+        // Załaduj główny kontroler z absolute path
+        const controllerModule = await import('/src/components/agents/AgentsController.js');
         
         if (controllerModule.default) {
           console.log("✅ AgentsController loaded");

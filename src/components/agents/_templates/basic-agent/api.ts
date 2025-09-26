@@ -85,12 +85,22 @@ async function executeAgent(data: any) {
 }
 
 async function getAgentStatus() {
+    const uptime =
+        typeof process !== 'undefined' && typeof process.uptime === 'function'
+            ? process.uptime()
+            : null;
+
+    const memory =
+        typeof process !== 'undefined' && typeof process.memoryUsage === 'function'
+            ? process.memoryUsage()
+            : null;
+
     return createResponse({
         agent: AGENT_CONFIG.name,
         status: AGENT_CONFIG.status,
         version: AGENT_CONFIG.version,
-        uptime: process.uptime ? Math.floor(process.uptime()) : 0,
-        memory: process.memoryUsage ? process.memoryUsage() : null,
+        uptime,
+        memory,
         timestamp: new Date().toISOString()
     });
 }
