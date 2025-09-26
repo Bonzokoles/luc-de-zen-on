@@ -1,0 +1,34 @@
+---
+import EnhancedLayout from "../../../layouts/EnhancedLayout.astro";
+import MarketingMaestro from "./component.svelte";
+import { marketingConfig } from "./config";
+
+const agentName = marketingConfig.agent.name;
+const agentDescription = marketingConfig.agent.description;
+---
+
+<EnhancedLayout 
+  siteTitle={`${agentName} - LUC de ZEN ON`} 
+  description={agentDescription}
+  theme="cyberpunk"
+  showMCPPanel={true}
+>
+  <div class="agent-container">
+    <MarketingMaestro client:load />
+  </div>
+</EnhancedLayout>
+
+<style is:global>
+  .agent-container {
+    min-height: 100vh;
+    padding: 2rem;
+    background: 
+      radial-gradient(ellipse at top, rgba(17, 24, 39, 0.95), transparent),
+      radial-gradient(ellipse at bottom, rgba(10, 50, 60, 0.9), transparent),
+      linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 40, 80, 0.3));
+  }
+
+  .agent-container .marketing-maestro-container {
+    margin-top: 0;
+  }
+</style>
