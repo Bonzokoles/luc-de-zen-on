@@ -1,0 +1,316 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import RandomQuote from "../components/RandomQuote.astro";
+import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
+import PolaczekWidget from "../components/PolaczekWidget.svelte";
+import MainChatWidget from "../components/MainChatWidget.svelte";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
+import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
+import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
+import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
+import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
+import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
+import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
+import DecorativeLines from "../components/DecorativeLines.astro";
+import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
+import AgentsLoader from "../components/agents/AgentsLoader.astro";
+
+// Heroicons React components
+import { 
+  MusicalNoteIcon,
+  CpuChipIcon,
+  SparklesIcon,
+  EyeIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  BoltIcon,
+  PaintBrushIcon,
+  BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowPathIcon,
+  FolderIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
+---
+
+<MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
+  <DecorativeLines />
+
+  <!-- Global vertical lines for workers sections -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <main class="min-h-svh">
+    <!-- Top Separator Section -->
+    <section class="border border-edge relative">
+      <div class="absolute left-0 right-0 h-full">
+        <!-- Inner vertical lines -->
+        <div class="absolute left-1/3 top-0 h-full w-px bg-edge"></div>
+        <div class="absolute left-2/3 top-0 h-full w-px bg-edge"></div>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-3 h-full">
+        <!-- Column 1: Quick Voice AI -->
+        <div class="border-r border-edge p-4 lg:p-6 flex flex-col justify-center">
+          <h2 class="text-xl lg:text-2xl font-bold text-foreground mb-4 text-center">
+            🎤 Quick Voice AI
+          </h2>
+          <div class="flex justify-center">
+            <QuickVoiceAI client:load />
+          </div>
+        </div>
+
+        <!-- Column 2: Random Quote -->
+        <div class="border-r border-edge p-4 lg:p-6 flex flex-col justify-center">
+          <div class="text-center">
+            <RandomQuote />
+          </div>
+        </div>
+
+        <!-- Column 3: Audio Visualizer -->
+        <div class="p-4 lg:p-6 flex flex-col justify-center">
+          <h2 class="text-xl lg:text-2xl font-bold text-foreground mb-4 text-center">
+            🎵 Audio Visualizer
+          </h2>
+          <div class="flex justify-center">
+            <EdgeAudioVisualizer client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 p-6">
+      <!-- Image Generator -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <SparklesIcon className="h-6 w-6" />
+          Generator Obrazów AI
+        </h2>
+        <ImageGeneratorWidget client:load />
+      </div>
+
+      <!-- Main Chat Widget -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <ChatBubbleLeftRightIcon className="h-6 w-6" />
+          Chat AI
+        </h2>
+        <MainChatWidget client:load />
+      </div>
+
+      <!-- Polaczek Widget -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <CpuChipIcon className="h-6 w-6" />
+          Polaczek AI
+        </h2>
+        <PolaczekWidget client:load />
+      </div>
+
+      <!-- AI Help Assistant -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <BriefcaseIcon className="h-6 w-6" />
+          Asystent Pomocy
+        </h2>
+        <AiHelpAssistant client:load />
+      </div>
+
+      <!-- FAQ Generator -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <DocumentTextIcon className="h-6 w-6" />
+          Generator FAQ
+        </h2>
+        <FAQGeneratorWidget client:load />
+      </div>
+
+      <!-- Education Recommendations -->
+      <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
+          <FolderIcon className="h-6 w-6" />
+          Rekomendacje Edukacyjne
+        </h2>
+        <EducationRecommendationsWidget client:load />
+      </div>
+    </section>
+
+    <!-- Additional Services Section -->
+    <section class="bg-muted/30 border-t border-border py-8">
+      <div class="container mx-auto px-6">
+        <h2 class="text-2xl lg:text-3xl font-bold text-center text-foreground mb-8">
+          Dodatkowe Usługi
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Ticket Submission -->
+          <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <BoltIcon className="h-5 w-5" />
+              Zgłoszenia Ticketów
+            </h3>
+            <TicketSubmissionWidget client:load />
+          </div>
+
+          <!-- Workers Status -->
+          <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <ArrowPathIcon className="h-5 w-5" />
+              Status Workers
+            </h3>
+            <WorkersStatusDashboard client:load />
+          </div>
+
+          <!-- Music Player -->
+          <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+            <h3 class="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+              <MusicalNoteIcon className="h-5 w-5" />
+              Odtwarzacz Muzyki
+            </h3>
+            <BackgroundMusicPlayerSimple client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Google Voice Agent Section -->
+    <section class="border-t border-border py-8">
+      <div class="container mx-auto px-6">
+        <div class="bg-card border border-border rounded-lg p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+            <EyeIcon className="h-6 w-6" />
+            Google Voice Agent
+          </h2>
+          <GoogleVoiceAgent client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- Agents System -->
+    <AgentsLoader />
+    
+    <!-- Worker Communication Popup -->
+    <WorkerCommunicationPopup />
+  </main>
+</MyBonzoLayout>
+
+<!-- Google ADK Integration Script -->
+<script>
+  import '../scripts/googleADKIntegration';
+</script>
+
+<!-- Floating Buttons Styles -->
+<style>
+  .floating-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .floating-button:hover {
+    transform: scale(1.1) translateZ(0);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  }
+
+  .floating-button:active {
+    transform: scale(0.95);
+  }
+
+  .floating-widget {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  .floating-widget .widget-header {
+    backdrop-filter: blur(10px);
+  }
+
+  .floating-widget .widget-content {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Animation for button appearance */
+  .floating-button {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Stagger animation delay for multiple buttons */
+  .floating-button:nth-child(1) { animation-delay: 0.1s; }
+  .floating-button:nth-child(2) { animation-delay: 0.2s; }
+  .floating-button:nth-child(3) { animation-delay: 0.3s; }
+  .floating-button:nth-child(4) { animation-delay: 0.4s; }
+  .floating-button:nth-child(5) { animation-delay: 0.5s; }
+  .floating-button:nth-child(6) { animation-delay: 0.6s; }
+  .floating-button:nth-child(7) { animation-delay: 0.7s; }
+  .floating-button:nth-child(8) { animation-delay: 0.8s; }
+  .floating-button:nth-child(9) { animation-delay: 0.9s; }
+
+  /* Responsive positioning for mobile */
+  @media (max-width: 768px) {
+    .floating-button {
+      width: 45px;
+      height: 45px;
+      font-size: 16px;
+    }
+    
+    .floating-widget {
+      width: 90vw !important;
+      left: 5vw !important;
+      max-height: 70vh;
+    }
+  }
+
+  /* Hide floating buttons when printing */
+  @media print {
+    .floating-button,
+    .floating-widget {
+      display: none !important;
+    }
+  }
+
+  /* Additional utility styles */
+  .workers-vertical-line-left,
+  .workers-vertical-line-right {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100vh;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      hsl(var(--border)) 20%,
+      hsl(var(--border)) 80%,
+      transparent
+    );
+    z-index: 1;
+  }
+
+  .workers-vertical-line-left {
+    left: 2rem;
+  }
+
+  .workers-vertical-line-right {
+    right: 2rem;
+  }
+
+  /* Dark mode adjustments */
+  @media (prefers-color-scheme: dark) {
+    .floating-widget .widget-content {
+      background: rgba(30, 30, 30, 0.95);
+      color: #ffffff;
+    }
+  }
+</style>

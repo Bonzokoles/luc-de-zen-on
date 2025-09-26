@@ -43,7 +43,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           'Analiza wyników i generowanie raportów',
           'Sugestie najlepszych praktyk BigQuery'
         ],
-        available_datasets: await getAvailableDatasets(env),
+        available_datasets: await getAvailableDatasets(),
         common_queries: await getCommonQueries()
       }), {
         status: 200,
@@ -78,8 +78,22 @@ export const GET: APIRoute = async ({ request, locals }) => {
       });
     }
 
+    // Check if query is provided for analytics execution
+    if (!query) {
+      return new Response(JSON.stringify({
+        success: false,
+        service: 'BigQuery Analytics',
+        error: 'Query parameter is required',
+        message: 'Provide ?query=YOUR_SQL_QUERY parameter',
+        timestamp: new Date().toISOString()
+      }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     // Execute BigQuery analytics query
-    const analyticsResult = await executeBigQueryAnalytics(env, query, dataset || 'default');
+    const analyticsResult = await executeBigQueryAnalytics(env, query, dataset ?? 'default');
     
     return new Response(JSON.stringify({
       success: true,
@@ -125,7 +139,7 @@ async function executeBigQueryAnalytics(env: any, query: string, dataset: string
   };
 }
 
-async function getAvailableDatasets(env: any) {
+async function getAvailableDatasets() {
   // Mock datasets - will connect to real BigQuery when API key is provided
   return [
     {
@@ -187,7 +201,7 @@ Dostępne datasety:
 - marketing (tabele: campaigns, ads, conversions, attribution)
 
 Zawsze używaj formatu: \`project.dataset.table\` w zapytaniach.
-Odpowiedz w formacie JSON z polami: sql_query, explanation, tips.`
+Odpowiedz tylko zapytaniem SQL bez dodatkowych komentarzy.`
           },
           {
             role: 'user',
@@ -197,7 +211,7 @@ Odpowiedz w formacie JSON z polami: sql_query, explanation, tips.`
       });
 
       return {
-        sql_query: aiResponse.response || 'AI nie mogło wygenerować zapytania',
+        sql_query: aiResponse.response || 'SELECT 1 -- AI nie mogło wygenerować zapytania',
         explanation: 'Zapytanie wygenerowane przez AI na podstawie opisu',
         tips: [
           'Sprawdź czy nazwy tabel są prawidłowe',
@@ -263,7 +277,23 @@ async function getDetailedInstructions(env: any) {
     },
     examples: {
       title: 'Przykłady zapytań',
-      queries: await getCommonQueries()
+      queries: {
+        daily_stats: {
+          name: 'Statystyki dzienne',
+          query: 'SELECT DATE(created_at) as date, COUNT(*) as visits FROM `{project}.{dataset}.analytics` GROUP BY date ORDER BY date DESC LIMIT 30',
+          description: 'Dzienne statystyki odwiedzin'
+        },
+        top_pages: {
+          name: 'Najpopularniejsze strony',
+          query: 'SELECT page_path, COUNT(*) as views FROM `{project}.{dataset}.pageviews` GROUP BY page_path ORDER BY views DESC LIMIT 20',
+          description: 'Top 20 najczęściej odwiedzanych stron'
+        },
+        user_engagement: {
+          name: 'Zaangażowanie użytkowników',
+          query: 'SELECT user_type, AVG(session_duration) as avg_duration, COUNT(DISTINCT user_id) as users FROM `{project}.{dataset}.sessions` GROUP BY user_type',
+          description: 'Analiza zaangażowania różnych typów użytkowników'
+        }
+      }
     },
     best_practices: [
       'Zawsze używaj LIMIT dla eksploracyjnych zapytań',
@@ -303,11 +333,11 @@ async function generateInsights(env: any, results: any) {
         messages: [
           {
             role: 'system',
-            content: 'Jesteś analitykiem danych. Analizujesz wyniki zapytań BigQuery i generujesz praktyczne insights. Odpowiedz w formacie JSON z polami: summary, trends, recommendations.'
+            content: 'Jesteś analitykiem danych. Analizujesz wyniki zapytań BigQuery i generujesz krótkie, praktyczne podsumowanie. Odpowiedz tylko tekstem podsumowania bez dodatkowych formatów.'
           },
           {
             role: 'user',
-            content: `Przeanalizuj te dane z BigQuery i wygeneruj insights: ${dataPreview}`
+            content: `Przeanalizuj te dane z BigQuery i wygeneruj krótkie podsumowanie: ${dataPreview}`
           }
         ]
       });

@@ -1,61 +1,6 @@
 /**
  * Enhanced Tavily Search API
- * Production-ready AI-powered w  // Implement real Tavily API call
-  try {
-    const response = await fetch('https://api.tavily.com/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Api-Key': tavilyApiKey
-      },
-      body: JSON.stringify({
-        query: query,
-        search_depth: 'basic',
-        include_answer: true,
-        include_images: false,
-        include_raw_content: false,
-        max_results: 5
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Tavily API error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    return new Response(JSON.stringify({
-      status: 'success',
-      query: query,
-      answer: data.answer || 'Brak odpowiedzi',
-      results: data.results || [],
-      usage: {
-        tokensUsed: data.usage?.tokens || 0,
-        requestsRemaining: data.usage?.requests_remaining || 0
-      },
-      timestamp: new Date().toISOString()
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-  } catch (error: any) {
-    return new Response(JSON.stringify({
-      status: 'error',
-      error: 'Błąd podczas wyszukiwania',
-      message: error.message,
-      query: query,
-      timestamp: new Date().toISOString()
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-  }real Tavily integration
+ * Production-ready AI-powered web search integration
  */
 
 import type { APIRoute } from 'astro';
@@ -99,8 +44,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const url = new URL(request.url);
   const query = url.searchParams.get('query') || url.searchParams.get('q') || 'AI technology';
   
-  // Check for Tavily API key from Cloudflare
-  const env = locals.runtime?.env;
+  // Check for Tavily API key from environment
+  const env = (locals as any)?.runtime?.env;
   const tavilyApiKey = env?.TAVILY_API_KEY;
   
   if (!tavilyApiKey) {
@@ -121,21 +66,50 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  // Would implement real Tavily API call here
-  return new Response(JSON.stringify({
-    status: 'error',
-    error: 'Implementacja Tavily API wymaga bibliotek klienta',
-    message: 'Prawdziwe wyszukiwanie wymaga implementacji Tavily API client library',
-    query: query,
-    note: 'Zaimplementuj prawdziwe połączenie z Tavily API dla pełnej funkcjonalności',
-    timestamp: new Date().toISOString()
-  }), {
-    status: 501,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    }
-  });
+  try {
+    // Dynamic import of Tavily library
+    const { tavily } = await import('@tavily/core');
+    
+    // Initialize Tavily client
+    const tvly = tavily({ apiKey: tavilyApiKey });
+    
+    // Perform search
+    const searchResults = await tvly.search(query, {
+      maxResults: 5,
+      includeAnswer: true,
+      includeImages: false
+    });
+
+    return new Response(JSON.stringify({
+      status: 'success',
+      query: query,
+      results: searchResults.results || [],
+      answer: searchResults.answer || null,
+      total_results: searchResults.results?.length || 0,
+      timestamp: new Date().toISOString()
+    }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  } catch (error) {
+    console.error('Tavily API Error:', error);
+    return new Response(JSON.stringify({
+      status: 'error',
+      error: 'Błąd podczas wyszukiwania Tavily',
+      message: error instanceof Error ? error.message : 'Nieznany błąd',
+      query: query,
+      timestamp: new Date().toISOString()
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
 };
 
 export const POST: APIRoute = async ({ request, locals }) => {
@@ -163,8 +137,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    // Check for Tavily API key from Cloudflare
-    const env = locals.runtime?.env;
+    // Check for Tavily API key from environment
+    const env = (locals as any)?.runtime?.env;
     const tavilyApiKey = env?.TAVILY_API_KEY;
     
     if (!tavilyApiKey) {
@@ -186,23 +160,55 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    // Would implement real Tavily API call here
-    return new Response(JSON.stringify({
-      status: 'error',
-      error: 'Implementacja Tavily API wymaga bibliotek klienta',
-      message: 'Prawdziwe wyszukiwanie wymaga implementacji Tavily API client library',
-      query: query,
-      searchType: searchType,
-      maxResults: maxResults,
-      note: 'Zaimplementuj prawdziwe połączenie z Tavily API dla pełnej funkcjonalności',
-      timestamp: new Date().toISOString()
-    }), {
-      status: 501,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
+    try {
+      // Dynamic import of Tavily library
+      const { tavily } = await import('@tavily/core');
+      
+      // Initialize Tavily client
+      const tvly = tavily({ apiKey: tavilyApiKey });
+      
+      // Prepare search options
+      const searchOptions: any = {};
+      if (maxResults) searchOptions.maxResults = Math.min(maxResults, 20);
+      if (includeImages) searchOptions.includeImages = includeImages;
+      if (includeAnswer) searchOptions.includeAnswer = includeAnswer;
+      if (includeDomains && includeDomains.length > 0) searchOptions.includeDomains = includeDomains;
+      
+      // Perform search
+      const searchResults = await tvly.search(query, searchOptions);
+
+      return new Response(JSON.stringify({
+        status: 'success',
+        query: query,
+        searchType: searchType,
+        results: searchResults.results || [],
+        answer: searchResults.answer || null,
+        total_results: searchResults.results?.length || 0,
+        timestamp: new Date().toISOString()
+      }), {
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    } catch (error) {
+      console.error('Tavily API Error:', error);
+      return new Response(JSON.stringify({
+        status: 'error',
+        error: 'Błąd podczas wyszukiwania Tavily',
+        message: error instanceof Error ? error.message : 'Nieznany błąd',
+        query: query,
+        searchType: searchType,
+        timestamp: new Date().toISOString()
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
 
   } catch (error) {
     return new Response(JSON.stringify({

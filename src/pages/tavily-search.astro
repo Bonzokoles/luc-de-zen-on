@@ -90,19 +90,19 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
             <div class="flex gap-2">
               <button
-                onclick="saveSearch()"
+                data-action="save-search"
                 class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
               >
                 Zapisz
               </button>
               <button
-                onclick="exportResults()"
+                data-action="export-results"
                 class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
               >
                 Export
               </button>
               <button
-                onclick="clearResults()"
+                data-action="clear-results"
                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
               >
                 Wyczyść
@@ -128,7 +128,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 />
                 <button
                   id="searchBtn"
-                  onclick="performSearch()"
+                  data-action="perform-search"
                   class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 disabled:opacity-50"
                 >
                   🔍 Szukaj
@@ -301,13 +301,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               </div>
               <div class="flex gap-2">
                 <button
-                  onclick="generateReport()"
+                  data-action="generate-report"
                   class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
                 >
                   Raport
                 </button>
                 <button
-                  onclick="analyzeResults()"
+                  data-action="analyze-results"
                   class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm"
                 >
                   Analiza
@@ -330,49 +330,57 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
             <button
               class="quick-search-btn"
-              onclick="quickSearch('najnowsze wiadomości AI')"
+              data-action="quick-search"
+              data-query="najnowsze wiadomości AI"
             >
               🤖 Wiadomości AI
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('jak działa ChatGPT')"
+              data-action="quick-search"
+              data-query="jak działa ChatGPT"
             >
               💭 Jak działa AI
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('machine learning tutorial 2024')"
+              data-action="quick-search"
+              data-query="machine learning tutorial 2024"
             >
               📚 ML Tutorial
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('najnowsze technologie programowanie')"
+              data-action="quick-search"
+              data-query="najnowsze technologie programowanie"
             >
               💻 Tech News
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('cryptocurrency bitcoin ethereum')"
+              data-action="quick-search"
+              data-query="cryptocurrency bitcoin ethereum"
             >
               💰 Krypto
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('klimat zmiany środowisko')"
+              data-action="quick-search"
+              data-query="klimat zmiany środowisko"
             >
               🌍 Klimat
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('przestrzeń kosmiczna NASA')"
+              data-action="quick-search"
+              data-query="przestrzeń kosmiczna NASA"
             >
               🚀 Kosmos
             </button>
             <button
               class="quick-search-btn"
-              onclick="quickSearch('zdrowie medycyna badania')"
+              data-action="quick-search"
+              data-query="zdrowie medycyna badania"
             >
               🏥 Medycyna
             </button>
@@ -618,22 +626,26 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       const includeDomains = document.getElementById("includeDomains").value;
       const excludeDomains = document.getElementById("excludeDomains").value;
 
-      const response = await fetch("/api/tavi", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query,
-          searchDepth,
-          maxResults,
-          language,
-          contentType,
-          includeDomains: includeDomains
-            ? includeDomains.split(",").map((d) => d.trim())
-            : [],
-          excludeDomains: excludeDomains
-            ? excludeDomains.split(",").map((d) => d.trim())
-            : [],
-        }),
+      // Build query params for GET request
+      const params = new URLSearchParams({
+        q: query,
+        search_depth: searchDepth,
+        max_results: maxResults.toString(),
+        include_images: 'false',
+        ai_insights: 'true'
+      });
+      
+      // Add optional params
+      if (includeDomains) {
+        params.set('include_domains', includeDomains);
+      }
+      if (excludeDomains) {
+        params.set('exclude_domains', excludeDomains);
+      }
+
+      const response = await fetch(`/api/tavily/search?${params.toString()}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
       });
 
       const data = await response.json();
@@ -642,21 +654,25 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
       if (data.success) {
         const searchTime = (Date.now() - searchStartTime) / 1000;
-        currentResults = data.results;
+        // Extract results from API response structure
+        const results = data.results?.results || [];
+        currentResults = results;
 
-        // Display AI summary if available
-        if (data.summary) {
-          displayAISummary(data.summary);
+        // Display AI summary if available (from results.answer)
+        if (data.results?.answer) {
+          displayAISummary(data.results.answer);
+        } else if (data.ai_insights) {
+          displayAISummary(data.ai_insights);
         }
 
         // Display search results
-        displayResults(data.results, searchTime);
+        displayResults(results, searchTime);
 
         // Update statistics
-        updateSearchStats(query, data.results.length, searchTime, data.results);
+        updateSearchStats(query, results.length, searchTime, results);
 
         // Add to search history
-        addToSearchHistory(query, data.results.length, searchTime);
+        addToSearchHistory(query, results.length, searchTime);
       } else {
         throw new Error(data.error || "Błąd wyszukiwania");
       }
@@ -984,7 +1000,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <p class="text-primary-foreground text-sm font-medium">${item.query}</p>
             <p class="text-gray-400 text-xs">${date} ${time} • ${item.resultCount} wyników • ${item.searchTime}s</p>
           </div>
-          <button onclick="deleteFromSearchHistory(${item.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+          <button data-action="delete-from-history" data-id="${item.id}" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
         </div>
       `;
 
@@ -1026,6 +1042,43 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     document.getElementById("searchQuery").addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         performSearch();
+      }
+    });
+
+    // Event delegation system for all data-action buttons
+    document.addEventListener("click", (e) => {
+      const action = e.target.getAttribute("data-action");
+      if (!action) return;
+
+      switch (action) {
+        case "save-search":
+          saveSearch();
+          break;
+        case "export-results":
+          exportResults();
+          break;
+        case "clear-results":
+          clearResults();
+          break;
+        case "perform-search":
+          performSearch();
+          break;
+        case "generate-report":
+          generateReport();
+          break;
+        case "analyze-results":
+          analyzeResults();
+          break;
+        case "quick-search":
+          const query = e.target.getAttribute("data-query");
+          if (query) quickSearch(query);
+          break;
+        case "delete-from-history":
+          const id = e.target.getAttribute("data-id");
+          if (id) deleteFromSearchHistory(parseInt(id));
+          break;
+        default:
+          console.warn("Unknown action:", action);
       }
     });
   });

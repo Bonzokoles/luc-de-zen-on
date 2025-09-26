@@ -1,6 +1,17 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
+const GET = async ({ request, locals }) => {
+  return new Response(JSON.stringify({
+    message: "Test connections endpoint active",
+    method: "Use POST for full connection testing",
+    endpoints: ["DeepSeek", "Kaggle", "Tavily"],
+    timestamp: (/* @__PURE__ */ new Date()).toISOString()
+  }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" }
+  });
+};
 const POST = async ({ request, locals }) => {
   try {
     const results = {
@@ -125,6 +136,7 @@ const POST = async ({ request, locals }) => {
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
+  GET,
   POST
 }, Symbol.toStringTag, { value: 'Module' }));
 

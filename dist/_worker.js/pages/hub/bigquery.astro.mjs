@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_BAVphPaq.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_DBUhkttC.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Bigquery = createComponent(($$result, $$props, $$slots) => {
