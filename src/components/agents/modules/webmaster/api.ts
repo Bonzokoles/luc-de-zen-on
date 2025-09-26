@@ -196,14 +196,14 @@ async function analyzeKeywords(data: any) {
   }
   
   const analysisId = generateId();
-  const keywordList = keywords ? keywords.split(',').map(k => k.trim()) : generateSampleKeywords(url);
+  const keywordList = keywords ? keywords.split(',').map((k: string) => k.trim()) : generateSampleKeywords(url);
   
   // Symulacja analizy słów kluczowych
   const analysis = {
     id: analysisId,
     url,
     language,
-    keywords: keywordList.map(keyword => ({
+    keywords: keywordList.map((keyword: string) => ({
       keyword,
       volume: Math.floor(Math.random() * 10000) + 100,
       difficulty: Math.floor(Math.random() * 100) + 1,
@@ -220,7 +220,7 @@ async function analyzeKeywords(data: any) {
   };
   
   // Oblicz metryki
-  analysis.totalVolume = analysis.keywords.reduce((sum, kw) => sum + kw.volume, 0);
+  analysis.totalVolume = analysis.keywords.reduce((sum: number, kw: any) => sum + kw.volume, 0);
   analysis.averageDifficulty = Math.round(analysis.keywords.reduce((sum, kw) => sum + kw.difficulty, 0) / analysis.keywords.length);
   analysis.opportunityScore = Math.round(analysis.keywords.reduce((sum, kw) => sum + kw.opportunity, 0) / analysis.keywords.length);
   

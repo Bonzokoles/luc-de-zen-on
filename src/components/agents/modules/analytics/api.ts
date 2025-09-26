@@ -154,7 +154,7 @@ async function getAnalyticsStatus() {
     
     data_sources: Object.keys(AGENT_CONFIG.dataSources).map(key => ({
       name: key,
-      status: AGENT_CONFIG.dataSources[key].enabled ? "connected" : "disabled",
+      status: AGENT_CONFIG.dataSources[key as keyof typeof AGENT_CONFIG.dataSources].enabled ? "connected" : "disabled",
       last_sync: new Date().toISOString()
     })),
     
@@ -336,7 +336,7 @@ async function detectAnomalies(data?: Partial<AnomalyData>) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd wykrywania anomalii: ${error.message}`);
+    return errorResponse(`Błąd wykrywania anomalii: ${(error as Error).message}`);
   }
 }
 
@@ -407,7 +407,7 @@ async function analyzeAttribution(data?: Partial<AttributionData>) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd analizy atrybucji: ${error.message}`);
+    return errorResponse(`Błąd analizy atrybucji: ${(error as Error).message}`);
   }
 }
 
@@ -421,7 +421,7 @@ async function calculateROI(data?: any) {
       include_ltv,
       analyzed_at: new Date().toISOString(),
       
-      campaigns: campaigns?.map(campaign => {
+      campaigns: campaigns?.map((campaign: any) => {
         const cost = Math.random() * 10000 + 1000;
         const revenue = cost * (Math.random() * 4 + 1);
         const conversions = Math.floor(Math.random() * 100 + 10);
@@ -457,11 +457,11 @@ async function calculateROI(data?: any) {
       }) || [],
       
       overall_summary: {
-        total_spend: campaigns?.reduce((sum, c) => sum + (Math.random() * 10000 + 1000), 0) || 50000,
-        total_revenue: campaigns?.reduce((sum, c) => sum + (Math.random() * 40000 + 5000), 0) || 200000,
+        total_spend: campaigns?.reduce((sum: number, c: any) => sum + (Math.random() * 10000 + 1000), 0) || 50000,
+        total_revenue: campaigns?.reduce((sum: number, c: any) => sum + (Math.random() * 40000 + 5000), 0) || 200000,
         overall_roi: 300,
         overall_roas: 4.0,
-        profitable_campaigns: campaigns?.filter(c => Math.random() > 0.3).length || 7,
+        profitable_campaigns: campaigns?.filter((c: any) => Math.random() > 0.3).length || 7,
         optimization_potential: 25 // procent
       }
     };
@@ -477,7 +477,7 @@ async function calculateROI(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd kalkulacji ROI: ${error.message}`);
+    return errorResponse(`Błąd kalkulacji ROI: ${(error as Error).message}`);
   }
 }
 
@@ -606,7 +606,7 @@ async function getKPIDashboard(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd generowania dashboardu: ${error.message}`);
+    return errorResponse(`Błąd generowania dashboardu: ${(error as Error).message}`);
   }
 }
 
@@ -649,7 +649,7 @@ async function runCohortAnalysis(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd analizy kohortowej: ${error.message}`);
+    return errorResponse(`Błąd analizy kohortowej: ${(error as Error).message}`);
   }
 }
 
@@ -694,7 +694,7 @@ async function segmentUsers(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd segmentacji użytkowników: ${error.message}`);
+    return errorResponse(`Błąd segmentacji użytkowników: ${(error as Error).message}`);
   }
 }
 
@@ -745,7 +745,7 @@ async function predictChurn(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd predykcji churn: ${error.message}`);
+    return errorResponse(`Błąd predykcji churn: ${(error as Error).message}`);
   }
 }
 
@@ -759,17 +759,17 @@ async function optimizeBudget(data?: any) {
       optimization_goal,
       analyzed_at: new Date().toISOString(),
       
-      current_allocation: channels?.map(channel => ({
+      current_allocation: channels?.map((channel: any) => ({
         channel: channel.name,
         current_spend: channel.budget,
         current_roas: channel.roas || Math.random() * 3 + 2,
         current_conversions: channel.conversions || Math.floor(channel.budget / 50)
       })) || [],
       
-      optimized_allocation: channels?.map(channel => {
+      optimized_allocation: channels?.map((channel: any) => {
         const performance_multiplier = (channel.roas || Math.random() * 3 + 2) / 4;
         const optimized_budget = total_budget * performance_multiplier / 
-          channels.reduce((sum, c) => sum + ((c.roas || Math.random() * 3 + 2) / 4), 0);
+          channels.reduce((sum: number, c: any) => sum + ((c.roas || Math.random() * 3 + 2) / 4), 0);
         
         return {
           channel: channel.name,
@@ -805,7 +805,7 @@ async function optimizeBudget(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd optymalizacji budżetu: ${error.message}`);
+    return errorResponse(`Błąd optymalizacji budżetu: ${(error as Error).message}`);
   }
 }
 
@@ -826,7 +826,7 @@ async function analyzeCustomerJourney(data?: any) {
         { path: 'Email → Product Page → Purchase', frequency: 124, conversion_rate: 0.089 }
       ],
       
-      touchpoint_analysis: touchpoints?.map(tp => ({
+      touchpoint_analysis: touchpoints?.map((tp: any) => ({
         touchpoint: tp,
         interactions: Math.floor(Math.random() * 1000 + 200),
         conversion_influence: (Math.random() * 0.15 + 0.02).toFixed(3),
@@ -861,7 +861,7 @@ async function analyzeCustomerJourney(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd analizy customer journey: ${error.message}`);
+    return errorResponse(`Błąd analizy customer journey: ${(error as Error).message}`);
   }
 }
 
@@ -936,7 +936,7 @@ async function generateInsights(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd generowania insights: ${error.message}`);
+    return errorResponse(`Błąd generowania insights: ${(error as Error).message}`);
   }
 }
 
@@ -981,7 +981,7 @@ async function createCustomReport(data?: any) {
     });
 
   } catch (error) {
-    return errorResponse(`Błąd tworzenia raportu: ${error.message}`);
+    return errorResponse(`Błąd tworzenia raportu: ${(error as Error).message}`);
   }
 }
 
@@ -1038,7 +1038,7 @@ async function setupAlerts(data?: any) {
   
   const alertConfig = {
     configured_at: new Date().toISOString(),
-    rules: alert_rules?.map(rule => ({
+    rules: alert_rules?.map((rule: any) => ({
       rule_id: `rule_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
       metric: rule.metric,
       condition: rule.condition,
