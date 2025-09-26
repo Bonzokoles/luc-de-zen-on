@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_D3GDhxZ8.mjs';
+import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_BjxuwZ81.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Security = createComponent(($$result, $$props, $$slots) => {

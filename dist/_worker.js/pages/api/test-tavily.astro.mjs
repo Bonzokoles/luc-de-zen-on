@@ -13,16 +13,8 @@ const POST = async ({ request }) => {
         headers: { "Content-Type": "application/json" }
       });
     }
-    const tavilyApiKey = undefined                               || process.env.TAVILY_API_KEY;
-    if (!tavilyApiKey) {
-      return new Response(JSON.stringify({
-        success: false,
-        error: "Tavily API key not configured"
-      }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
+    const tavilyApiKey = "TAVILY_API_KEY_SECRET";
+    if (!tavilyApiKey) ;
     const response = await fetch("https://api.tavily.com/search", {
       method: "POST",
       headers: {

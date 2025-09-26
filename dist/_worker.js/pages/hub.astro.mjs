@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { e as createAstro, c as createComponent, m as maybeRenderHead, g as addAttribute, an as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_Dyj06ELx.mjs';
+import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_BAVphPaq.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
 const $$Astro = createAstro("https://mybonzo.com");

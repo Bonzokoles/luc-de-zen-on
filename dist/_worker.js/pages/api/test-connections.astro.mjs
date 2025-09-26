@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
 
-const POST = async ({ request }) => {
+const POST = async ({ request, locals }) => {
   try {
     const results = {
       deepseek: false,
@@ -15,10 +15,11 @@ const POST = async ({ request }) => {
       tavilyResponse: "",
       tavilyError: ""
     };
-    const deepseekApiKey = undefined                                 || process.env.DEEPSEEK_API_KEY;
-    const kaggleUsername = undefined                                || process.env.KAGGLE_USERNAME;
-    const kaggleKey = undefined                           || process.env.KAGGLE_KEY;
-    const tavilyApiKey = undefined                               || process.env.TAVILY_API_KEY;
+    const env = locals?.runtime?.env || {};
+    const deepseekApiKey = env.DEEPSEEK_API_KEY;
+    const kaggleUsername = env.KAGGLE_USERNAME;
+    const kaggleKey = env.KAGGLE_KEY;
+    const tavilyApiKey = env.TAVILY_API_KEY;
     if (deepseekApiKey) {
       try {
         const deepseekResponse = await fetch("https://api.deepseek.com/v1/chat/completions", {
