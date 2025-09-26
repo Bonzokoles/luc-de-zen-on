@@ -612,11 +612,40 @@ const pageAuthor = "MyBonzo Team";
         }
 
         async function testAllAPIs() {
-            await Promise.all([
-                testKaggleAPI(),
-                testBigQueryAPI(),
-                testVoiceAPI()
-            ]);
+            // Dodaj test nowego endpoint
+            document.getElementById('kaggle-indicator').innerHTML = '⏳ Testowanie...';
+            document.getElementById('bigquery-indicator').innerHTML = '⏳ Testowanie...';
+            document.getElementById('voice-indicator').innerHTML = '⏳ Testowanie...';
+            
+            try {
+                // Test nowy status-check endpoint
+                const statusResponse = await fetch('/api/status-check');
+                const statusData = await statusResponse.json();
+                
+                // Update indicators based on status
+                if (statusData.internal_apis.chat) {
+                    document.getElementById('kaggle-indicator').innerHTML = '✅ Online';
+                    document.getElementById('kaggle-indicator').style.color = '#22c55e';
+                } else {
+                    document.getElementById('kaggle-indicator').innerHTML = '❌ Offline';
+                    document.getElementById('kaggle-indicator').style.color = '#ef4444';
+                }
+                
+                // Test pozostałe API
+                await Promise.all([
+                    testKaggleAPI(),
+                    testBigQueryAPI(),
+                    testVoiceAPI()
+                ]);
+            } catch (error) {
+                console.error('Status check failed:', error);
+                // Fallback do starych testów
+                await Promise.all([
+                    testKaggleAPI(),
+                    testBigQueryAPI(),
+                    testVoiceAPI()
+                ]);
+            }
             
             // Check if all APIs are online
             const indicators = ['kaggle-indicator', 'bigquery-indicator', 'voice-indicator'];

@@ -1,0 +1,557 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../components/DecorativeLines.astro";
+import { 
+  CpuChipIcon,
+  ChartBarIcon,
+  MagnifyingGlassIcon,
+  PhotoIcon,
+  ServerIcon,
+  CircleStackIcon,
+  BoltIcon,
+  EyeIcon
+} from '@heroicons/react/24/outline';
+---
+
+<MyBonzoLayout siteTitle="API Dashboard | MyBonzo AI Platform">
+  <DecorativeLines />
+
+  <main class="min-h-screen bg-cyber-dark text-cyber-text">
+    <!-- Header -->
+    <section class="border-b border-cyber-border py-8">
+      <div class="container mx-auto px-4">
+        <h1 class="text-4xl font-bold text-cyber-blue mb-4">API DASHBOARD</h1>
+        <p class="text-cyber-text-dim">Zaawansowane API endpoints z AI assistance</p>
+      </div>
+    </section>
+
+    <!-- API Services Grid -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- BigQuery Analytics -->
+          <div class="cyber-panel group hover:border-cyber-blue transition-colors">
+            <div class="flex items-center mb-4">
+              <ChartBarIcon className="w-8 h-8 text-cyber-blue mr-3" />
+              <h3 class="text-xl font-bold">BigQuery Analytics</h3>
+            </div>
+            <p class="text-cyber-text-dim mb-4">
+              Zaawansowane zapytania SQL z AI insights i optymalizacją
+            </p>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span>Status:</span>
+                <span class="text-green-400">✓ Online</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span>Endpoints:</span>
+                <span class="text-cyber-blue">5</span>
+              </div>
+            </div>
+            <button 
+              onclick="testAPI('bigquery')"
+              class="cyber-button-primary w-full mt-4"
+            >
+              Test API
+            </button>
+          </div>
+
+          <!-- Kaggle Datasets -->
+          <div class="cyber-panel group hover:border-cyber-blue transition-colors">
+            <div class="flex items-center mb-4">
+              <CircleStackIcon className="w-8 h-8 text-cyber-blue mr-3" />
+              <h3 class="text-xl font-bold">Kaggle Datasets</h3>
+            </div>
+            <p class="text-cyber-text-dim mb-4">
+              Wyszukiwanie i analiza datasetów z AI rekomendacjami
+            </p>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span>Status:</span>
+                <span class="text-green-400">✓ Online</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span>Categories:</span>
+                <span class="text-cyber-blue">10+</span>
+              </div>
+            </div>
+            <button 
+              onclick="testAPI('kaggle')"
+              class="cyber-button-primary w-full mt-4"
+            >
+              Test API
+            </button>
+          </div>
+
+          <!-- Tavily Search -->
+          <div class="cyber-panel group hover:border-cyber-blue transition-colors">
+            <div class="flex items-center mb-4">
+              <MagnifyingGlassIcon className="w-8 h-8 text-cyber-blue mr-3" />
+              <h3 class="text-xl font-bold">Tavily Search</h3>
+            </div>
+            <p class="text-cyber-text-dim mb-4">
+              Inteligentne wyszukiwanie internetowe z AI insights
+            </p>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span>Status:</span>
+                <span class="text-green-400">✓ Online</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span>Search Depth:</span>
+                <span class="text-cyber-blue">Advanced</span>
+              </div>
+            </div>
+            <button 
+              onclick="testAPI('tavily')"
+              class="cyber-button-primary w-full mt-4"
+            >
+              Test API
+            </button>
+          </div>
+
+          <!-- Image Generator -->
+          <div class="cyber-panel group hover:border-cyber-blue transition-colors">
+            <div class="flex items-center mb-4">
+              <PhotoIcon className="w-8 h-8 text-cyber-blue mr-3" />
+              <h3 class="text-xl font-bold">Image Generator</h3>
+            </div>
+            <p class="text-cyber-text-dim mb-4">
+              Generowanie obrazów AI z optymalizacją promptów
+            </p>
+            <div class="space-y-2">
+              <div class="flex justify-between text-sm">
+                <span>Status:</span>
+                <span class="text-green-400">✓ Online</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span>Styles:</span>
+                <span class="text-cyber-blue">5+</span>
+              </div>
+            </div>
+            <button 
+              onclick="testAPI('image-generator')"
+              class="cyber-button-primary w-full mt-4"
+            >
+              Test API
+            </button>
+          </div>
+
+        </div>
+
+        <!-- New AI Models Section -->
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold text-cyber-blue mb-6">DARMOWE MODELE AI</h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Gemma -->
+            <div class="cyber-panel group hover:border-cyber-purple transition-colors">
+              <div class="flex items-center mb-4">
+                <BoltIcon className="w-8 h-8 text-cyber-purple mr-3" />
+                <h3 class="text-xl font-bold">Gemma AI</h3>
+              </div>
+              <p class="text-cyber-text-dim mb-4">
+                Google Gemma - darmowy model do rozmów i analizy
+              </p>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span>Status:</span>
+                  <span class="text-green-400">✓ Free</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Models:</span>
+                  <span class="text-cyber-purple">7B & 2B</span>
+                </div>
+              </div>
+              <button 
+                onclick="testAPI('gemma')"
+                class="cyber-button-secondary w-full mt-4"
+              >
+                Test Gemma
+              </button>
+            </div>
+
+            <!-- Stable Diffusion -->
+            <div class="cyber-panel group hover:border-cyber-green transition-colors">
+              <div class="flex items-center mb-4">
+                <PhotoIcon className="w-8 h-8 text-cyber-green mr-3" />
+                <h3 class="text-xl font-bold">Stable Diffusion</h3>
+              </div>
+              <p class="text-cyber-text-dim mb-4">
+                Darmowe modele SD do generowania obrazów
+              </p>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span>Status:</span>
+                  <span class="text-green-400">✓ Free</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Models:</span>
+                  <span class="text-cyber-green">XL, 2.1, 1.5</span>
+                </div>
+              </div>
+              <button 
+                onclick="testAPI('stable-diffusion')"
+                class="cyber-button-secondary w-full mt-4"
+              >
+                Test SD
+              </button>
+            </div>
+
+            <!-- Snell -->
+            <div class="cyber-panel group hover:border-cyber-orange transition-colors">
+              <div class="flex items-center mb-4">
+                <CpuChipIcon className="w-8 h-8 text-cyber-orange mr-3" />
+                <h3 class="text-xl font-bold">Snell AI</h3>
+              </div>
+              <p class="text-cyber-text-dim mb-4">
+                Szybki darmowy asystent AI
+              </p>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span>Status:</span>
+                  <span class="text-green-400">✓ Free</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Speed:</span>
+                  <span class="text-cyber-orange">Fast</span>
+                </div>
+              </div>
+              <button 
+                onclick="testAPI('snell')"
+                class="cyber-button-secondary w-full mt-4"
+              >
+                Test Snell
+              </button>
+            </div>
+
+            <!-- OpenRouter -->
+            <div class="cyber-panel group hover:border-cyber-pink transition-colors">
+              <div class="flex items-center mb-4">
+                <ServerIcon className="w-8 h-8 text-cyber-pink mr-3" />
+                <h3 class="text-xl font-bold">OpenRouter</h3>
+              </div>
+              <p class="text-cyber-text-dim mb-4">
+                Dostęp do wielu modeli AI (GPT-4, Claude, Llama)
+              </p>
+              <div class="space-y-2">
+                <div class="flex justify-between text-sm">
+                  <span>Status:</span>
+                  <span class="text-yellow-400">⚡ Premium</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                  <span>Models:</span>
+                  <span class="text-cyber-pink">50+</span>
+                </div>
+              </div>
+              <button 
+                onclick="testAPI('openrouter')"
+                class="cyber-button-secondary w-full mt-4"
+              >
+                Test OR
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- API Testing Interface -->
+    <section class="py-12 border-t border-cyber-border">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-cyber-blue mb-6">API TESTING INTERFACE</h2>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- Request Panel -->
+          <div class="cyber-panel">
+            <h3 class="text-lg font-bold mb-4">Request Configuration</h3>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium mb-2">API Endpoint</label>
+                <select id="endpoint-select" class="cyber-input w-full">
+                  <option value="">Select API...</option>
+                  <option value="/api/bigquery/analytics">BigQuery Analytics</option>
+                  <option value="/api/kaggle/datasets">Kaggle Datasets</option>
+                  <option value="/api/tavily/search">Tavily Search</option>
+                  <option value="/api/image-generator/generate">Image Generator</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Method</label>
+                <select id="method-select" class="cyber-input w-full">
+                  <option value="GET">GET</option>
+                  <option value="POST">POST</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-2">Parameters/Body</label>
+                <textarea 
+                  id="request-body" 
+                  class="cyber-input w-full h-32 font-mono text-sm"
+                  placeholder='{"action": "help", "ai_help": "How to use this API?"}'
+                ></textarea>
+              </div>
+
+              <button 
+                onclick="executeAPITest()"
+                class="cyber-button-primary w-full"
+              >
+                <BoltIcon className="w-5 h-5 mr-2 inline" />
+                Execute Request
+              </button>
+            </div>
+          </div>
+
+          <!-- Response Panel -->
+          <div class="cyber-panel">
+            <h3 class="text-lg font-bold mb-4">Response</h3>
+            <div id="response-container" class="space-y-4">
+              <div class="text-cyber-text-dim">
+                No response yet. Select an endpoint and execute a request.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- API Documentation Links -->
+    <section class="py-12 border-t border-cyber-border">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-cyber-blue mb-6">DOCUMENTATION</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="cyber-panel">
+            <h3 class="text-lg font-bold mb-3">Quick Start Examples</h3>
+            <div class="space-y-3 text-sm font-mono">
+              <div>
+                <span class="text-cyber-blue">BigQuery:</span> 
+                <code class="block mt-1 p-2 bg-black rounded">GET /api/bigquery/analytics?instructions=true</code>
+              </div>
+              <div>
+                <span class="text-cyber-blue">Kaggle:</span>
+                <code class="block mt-1 p-2 bg-black rounded">GET /api/kaggle/datasets?action=search&q=NLP</code>
+              </div>
+              <div>
+                <span class="text-cyber-blue">Tavily:</span>
+                <code class="block mt-1 p-2 bg-black rounded">GET /api/tavily/search?q=AI trends&ai_insights=true</code>
+              </div>
+              <div>
+                <span class="text-cyber-blue">Images:</span>
+                <code class="block mt-1 p-2 bg-black rounded">POST /api/image-generator/generate</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="cyber-panel">
+            <h3 class="text-lg font-bold mb-3">AI Features</h3>
+            <ul class="space-y-2 text-sm">
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-cyber-blue rounded-full mr-3"></span>
+                AI-powered query optimization
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-cyber-blue rounded-full mr-3"></span>
+                Natural language assistance
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-cyber-blue rounded-full mr-3"></span>
+                Automated insights generation
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-cyber-blue rounded-full mr-3"></span>
+                Context-aware recommendations
+              </li>
+              <li class="flex items-center">
+                <span class="w-2 h-2 bg-cyber-blue rounded-full mr-3"></span>
+                Performance analytics
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Cyber Grid Background -->
+  <div class="fixed inset-0 -z-10 opacity-10">
+    <div class="cyber-grid"></div>
+  </div>
+
+</MyBonzoLayout>
+
+<style>
+  .cyber-panel {
+    @apply bg-cyber-surface border border-cyber-border rounded-lg p-6;
+    background: linear-gradient(135deg, rgba(17, 17, 17, 0.9) 0%, rgba(0, 0, 0, 0.9) 100%);
+  }
+
+  .cyber-button-secondary {
+    @apply bg-cyber-purple text-white font-bold py-2 px-4 rounded transition-all duration-200 border border-cyber-purple;
+  }
+
+  .cyber-button-secondary:hover {
+    @apply bg-cyber-purple-light shadow-lg transform scale-105;
+    box-shadow: 0 0 20px rgba(128, 0, 255, 0.5);
+  }
+
+  .cyber-button-primary {
+    @apply bg-cyber-blue text-black font-bold py-2 px-4 rounded transition-all duration-200;
+  }
+
+  .cyber-button-primary:hover {
+    @apply bg-white shadow-lg transform scale-105;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+
+  .cyber-input {
+    @apply bg-black border border-cyber-border rounded px-3 py-2 text-cyber-text;
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .cyber-input:focus {
+    @apply outline-none border-cyber-blue;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .response-success {
+    @apply border-l-4 border-green-400 bg-green-900 bg-opacity-20 p-4 rounded;
+  }
+
+  .response-error {
+    @apply border-l-4 border-red-400 bg-red-900 bg-opacity-20 p-4 rounded;
+  }
+</style>
+
+<script>
+  // API Testing Functions
+  function testAPI(apiName) {
+    const endpointSelect = document.getElementById('endpoint-select');
+    const methodSelect = document.getElementById('method-select');
+    const requestBody = document.getElementById('request-body');
+
+    switch (apiName) {
+      case 'bigquery':
+        endpointSelect.value = '/api/bigquery/analytics';
+        methodSelect.value = 'GET';
+        requestBody.value = '{"instructions": true}';
+        break;
+      case 'kaggle':
+        endpointSelect.value = '/api/kaggle/datasets';
+        methodSelect.value = 'GET';
+        requestBody.value = '{"action": "list", "category": "computer-vision"}';
+        break;
+      case 'tavily':
+        endpointSelect.value = '/api/tavily/search';
+        methodSelect.value = 'GET';
+        requestBody.value = '{"q": "artificial intelligence", "ai_insights": true}';
+        break;
+      case 'image-generator':
+        endpointSelect.value = '/api/image-generator/generate';
+        methodSelect.value = 'POST';
+        requestBody.value = '{"prompt": "cyberpunk city at night", "style": "artistic"}';
+        break;
+      case 'gemma':
+        endpointSelect.value = '/api/ai-models/gemma';
+        methodSelect.value = 'POST';
+        requestBody.value = '{"message": "Cześć! Jak się masz?", "model": "gemma-7b-it"}';
+        break;
+      case 'stable-diffusion':
+        endpointSelect.value = '/api/ai-models/stable-diffusion';
+        methodSelect.value = 'POST';
+        requestBody.value = '{"prompt": "beautiful landscape with mountains", "model": "stable-diffusion-xl", "steps": 25}';
+        break;
+      case 'snell':
+        endpointSelect.value = '/api/ai-models/snell';
+        methodSelect.value = 'POST';
+        requestBody.value = '{"message": "Co to jest AI?", "model": "snell-chat"}';
+        break;
+      case 'openrouter':
+        endpointSelect.value = '/api/ai-models/openrouter';
+        methodSelect.value = 'POST';
+        requestBody.value = '{"message": "Explain quantum computing", "model": "meta-llama/llama-3.1-8b-instruct"}';
+        break;
+    }
+  }
+
+  async function executeAPITest() {
+    let endpoint = document.getElementById('endpoint-select').value;
+    const method = document.getElementById('method-select').value;
+    const bodyText = document.getElementById('request-body').value;
+    const responseContainer = document.getElementById('response-container');
+
+    if (!endpoint) {
+      responseContainer.innerHTML = '<div class="response-error">Please select an endpoint</div>';
+      return;
+    }
+
+    responseContainer.innerHTML = '<div class="text-cyber-blue">Executing request...</div>';
+
+    try {
+      let requestOptions = {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+
+      if (method === 'GET' && bodyText) {
+        // Convert body to query parameters for GET requests
+        const params = JSON.parse(bodyText);
+        const searchParams = new URLSearchParams(params).toString();
+        endpoint += '?' + searchParams;
+      } else if (method === 'POST' && bodyText) {
+        requestOptions.body = bodyText;
+      }
+
+      const response = await fetch(endpoint, requestOptions);
+      const data = await response.json();
+
+      const responseClass = response.ok ? 'response-success' : 'response-error';
+      const responseHTML = `
+        <div class="${responseClass}">
+          <div class="flex justify-between items-center mb-2">
+            <strong>Status: ${response.status} ${response.statusText}</strong>
+            <span class="text-xs">${new Date().toLocaleTimeString()}</span>
+          </div>
+          <pre class="text-xs overflow-auto max-h-96">${JSON.stringify(data, null, 2)}</pre>
+        </div>
+      `;
+
+      responseContainer.innerHTML = responseHTML;
+
+    } catch (error) {
+      responseContainer.innerHTML = `
+        <div class="response-error">
+          <strong>Error:</strong> ${error.message}
+        </div>
+      `;
+    }
+  }
+
+  // Auto-update method based on endpoint
+  document.getElementById('endpoint-select')?.addEventListener('change', function() {
+    const methodSelect = document.getElementById('method-select');
+    if (this.value.includes('image-generator')) {
+      methodSelect.value = 'POST';
+    } else {
+      methodSelect.value = 'GET';
+    }
+  });
+</script>

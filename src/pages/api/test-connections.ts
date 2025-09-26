@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const results = {
       deepseek: false,
@@ -15,11 +15,12 @@ export const POST: APIRoute = async ({ request }) => {
       tavilyError: ''
     };
 
-    // Get API keys from environment
-    const deepseekApiKey = import.meta.env.DEEPSEEK_API_KEY || process.env.DEEPSEEK_API_KEY;
-    const kaggleUsername = import.meta.env.KAGGLE_USERNAME || process.env.KAGGLE_USERNAME;
-    const kaggleKey = import.meta.env.KAGGLE_KEY || process.env.KAGGLE_KEY;
-    const tavilyApiKey = import.meta.env.TAVILY_API_KEY || process.env.TAVILY_API_KEY;
+    // Get API keys from runtime environment (Cloudflare Pages secrets)  
+    const env = (locals as any)?.runtime?.env || {};
+    const deepseekApiKey = env.DEEPSEEK_API_KEY;
+    const kaggleUsername = env.KAGGLE_USERNAME;
+    const kaggleKey = env.KAGGLE_KEY;
+    const tavilyApiKey = env.TAVILY_API_KEY;
 
     // Test DeepSeek
     if (deepseekApiKey) {

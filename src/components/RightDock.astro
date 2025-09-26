@@ -45,6 +45,11 @@ const onAdmin = Astro.url.pathname.startsWith('/admin');
       <a href="/admin/" class="dock-btn" title="Panel administracyjny">ADMIN</a>
     </div>
 
+    <!-- API Dashboard link -->
+    <div class="dock-group">
+      <a href="/api-dashboard" class="dock-btn" title="API Dashboard - Test endpoints">API</a>
+    </div>
+
     <!-- Extra actions: refresh, close, open folder -->
     <div class="dock-group">
       <button class="dock-btn" type="button" title="Odśwież stronę" onclick="window.REFRESH_ALL && window.REFRESH_ALL()">REFRESH</button>
