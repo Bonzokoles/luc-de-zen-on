@@ -1,0 +1,447 @@
+---
+// 🌐 Agent 09 Webmaster - SEO i monitoring stron
+import Layout from '../../layouts/Layout.astro';
+import { AGENT_CONFIG } from './config';
+
+const title = "Agent 09 - Webmaster";
+const description = "Zaawansowany system SEO i monitoringu stron internetowych";
+
+// Dane początkowe agenta
+const initialData = {
+  status: 'ready',
+  capabilities: [
+    'Audyty SEO (techniczny, onpage, performance)',
+    'Analiza słów kluczowych i pozycjonowania',
+    'Monitoring wydajności Core Web Vitals',
+    'Analiza konkurencji i benchmarking',
+    'Profil linków i analiza backlinkowa',
+    'Optymalizacja treści i struktura SEO',
+    'Generowanie raportów SEO',
+    'Monitoring błędów crawlingu'
+  ],
+  integrations: Object.keys(AGENT_CONFIG.integrations).map(key => ({
+    name: key,
+    enabled: AGENT_CONFIG.integrations[key].enabled,
+    description: AGENT_CONFIG.integrations[key].description || `Integracja z ${key}`
+  })),
+  seoCategories: Object.keys(AGENT_CONFIG.auditCategories).map(key => ({
+    name: key,
+    rules: AGENT_CONFIG.auditCategories[key].rules.length,
+    priority: AGENT_CONFIG.auditCategories[key].priority
+  }))
+};
+
+// Sprawdzenie dostępności narzędzi SEO
+const seoToolsStatus = {
+  'Google Search Console': true,
+  'Google Analytics 4': true,
+  'PageSpeed Insights': true,
+  'Lighthouse': true,
+  'Screaming Frog': false // Wymaga lokalnej instalacji
+};
+
+// Statystyki wydajności
+const performanceThresholds = {
+  lcp: { good: 2.5, poor: 4.0, unit: 's' },
+  fid: { good: 100, poor: 300, unit: 'ms' },
+  cls: { good: 0.1, poor: 0.25, unit: '' },
+  ttfb: { good: 800, poor: 1800, unit: 'ms' }
+};
+---
+
+<Layout title={title} description={description} theme="cyberpunk">
+  <main class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900/10 to-green-900/10 py-8">
+    <div class="container mx-auto px-4 max-w-7xl">
+      
+      <!-- Header Section -->
+      <header class="mb-8">
+        <div class="bg-gradient-to-r from-blue-900/50 via-gray-800/80 to-green-900/50 border border-blue-500/30 rounded-xl p-6 backdrop-blur-sm">
+          <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+              <div class="text-4xl">🌐</div>
+              <div>
+                <h1 class="text-2xl font-bold text-white mb-1">Agent 09 - Webmaster</h1>
+                <p class="text-blue-300">Zaawansowany system SEO i monitoringu stron internetowych</p>
+                <div class="flex items-center space-x-4 mt-2 text-sm text-gray-300">
+                  <span class="flex items-center space-x-1">
+                    <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                    <span>Agent aktywny</span>
+                  </span>
+                  <span>•</span>
+                  <span>{initialData.capabilities.length} funkcji SEO</span>
+                  <span>•</span>
+                  <span>{initialData.integrations.filter(i => i.enabled).length} integracji</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+              <div class="bg-gray-800/50 rounded-lg px-3 py-2">
+                <div class="text-lg font-bold text-blue-400">{initialData.seoCategories.length}</div>
+                <div class="text-xs text-gray-400">Kategorie audytu</div>
+              </div>
+              <div class="bg-gray-800/50 rounded-lg px-3 py-2">
+                <div class="text-lg font-bold text-green-400">{Object.values(seoToolsStatus).filter(Boolean).length}</div>
+                <div class="text-xs text-gray-400">Dostępne narzędzia</div>
+              </div>
+              <div class="bg-gray-800/50 rounded-lg px-3 py-2">
+                <div class="text-lg font-bold text-yellow-400">{Object.keys(performanceThresholds).length}</div>
+                <div class="text-xs text-gray-400">Metryki wydajności</div>
+              </div>
+              <div class="bg-gray-800/50 rounded-lg px-3 py-2">
+                <div class="text-lg font-bold text-purple-400">PL</div>
+                <div class="text-xs text-gray-400">Rynek lokalny</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Agent Features Overview -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Możliwości SEO</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- SEO Audit -->
+          <div class="bg-gradient-to-br from-blue-900/30 to-blue-800/20 border border-blue-500/30 rounded-lg p-4 hover:border-blue-400/50 transition-colors">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="text-2xl">🔍</div>
+              <div>
+                <h3 class="font-medium text-white">Audyt SEO</h3>
+                <p class="text-xs text-blue-300">Kompleksowa analiza</p>
+              </div>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• Audyt techniczny i onpage</li>
+              <li>• Analiza struktury HTML</li>
+              <li>• Sprawdzenie meta tagów</li>
+              <li>• Walidacja schema markup</li>
+            </ul>
+          </div>
+
+          <!-- Keywords Analysis -->
+          <div class="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-500/30 rounded-lg p-4 hover:border-purple-400/50 transition-colors">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="text-2xl">🎯</div>
+              <div>
+                <h3 class="font-medium text-white">Słowa kluczowe</h3>
+                <p class="text-xs text-purple-300">Analiza i tracking</p>
+              </div>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• Badanie volume i difficulty</li>
+              <li>• Monitoring pozycji</li>
+              <li>• Analiza trendu fraz</li>
+              <li>• Sugestie long-tail</li>
+            </ul>
+          </div>
+
+          <!-- Performance Monitoring -->
+          <div class="bg-gradient-to-br from-green-900/30 to-green-800/20 border border-green-500/30 rounded-lg p-4 hover:border-green-400/50 transition-colors">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="text-2xl">⚡</div>
+              <div>
+                <h3 class="font-medium text-white">Wydajność</h3>
+                <p class="text-xs text-green-300">Core Web Vitals</p>
+              </div>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• LCP, FID, CLS monitoring</li>
+              <li>• Lighthouse scoring</li>
+              <li>• PageSpeed insights</li>
+              <li>• Mobile-first testing</li>
+            </ul>
+          </div>
+
+          <!-- Competitor Analysis -->
+          <div class="bg-gradient-to-br from-red-900/30 to-red-800/20 border border-red-500/30 rounded-lg p-4 hover:border-red-400/50 transition-colors">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="text-2xl">⚔️</div>
+              <div>
+                <h3 class="font-medium text-white">Konkurencja</h3>
+                <p class="text-xs text-red-300">Benchmarking</p>
+              </div>
+            </div>
+            <ul class="text-sm text-gray-300 space-y-1">
+              <li>• Gap analysis</li>
+              <li>• Backlink comparison</li>
+              <li>• Keyword overlap</li>
+              <li>• Traffic estimation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEO Categories -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Kategorie audytu SEO</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {initialData.seoCategories.map(category => (
+            <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium text-white capitalize">{category.name.replace('_', ' ')}</h3>
+                <span class={`px-2 py-1 rounded text-xs font-medium ${
+                  category.priority === 'high' ? 'bg-red-900/50 text-red-400' :
+                  category.priority === 'medium' ? 'bg-yellow-900/50 text-yellow-400' :
+                  'bg-green-900/50 text-green-400'
+                }`}>
+                  {category.priority}
+                </span>
+              </div>
+              <div class="text-sm text-gray-400">
+                {category.rules} reguł sprawdzanych
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Integration Status -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Status integracji</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {initialData.integrations.map(integration => (
+            <div class="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium text-white">{integration.name}</h3>
+                <span class={`w-3 h-3 rounded-full ${
+                  integration.enabled ? 'bg-green-400' : 'bg-red-400'
+                }`}></span>
+              </div>
+              <div class="text-sm text-gray-400">
+                {integration.description}
+              </div>
+              <div class={`text-xs mt-2 ${
+                integration.enabled ? 'text-green-400' : 'text-red-400'
+              }`}>
+                {integration.enabled ? 'Aktywna' : 'Nieaktywna'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Performance Thresholds -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Progi wydajności (Google Standards)</h2>
+        <div class="bg-gray-800/50 border border-gray-700 rounded-lg overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-900/50">
+                <tr>
+                  <th class="text-left py-3 px-4 text-gray-400">Metryka</th>
+                  <th class="text-right py-3 px-4 text-gray-400">Dobry wynik</th>
+                  <th class="text-right py-3 px-4 text-gray-400">Wymaga poprawy</th>
+                  <th class="text-right py-3 px-4 text-gray-400">Słaby wynik</th>
+                  <th class="text-center py-3 px-4 text-gray-400">Jednostka</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(performanceThresholds).map(([metric, thresholds]) => (
+                  <tr class="border-t border-gray-700">
+                    <td class="py-3 px-4 text-white font-medium uppercase">{metric}</td>
+                    <td class="py-3 px-4 text-right text-green-400">≤ {thresholds.good}</td>
+                    <td class="py-3 px-4 text-right text-yellow-400">{thresholds.good} - {thresholds.poor}</td>
+                    <td class="py-3 px-4 text-right text-red-400">> {thresholds.poor}</td>
+                    <td class="py-3 px-4 text-center text-gray-400">{thresholds.unit || '—'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEO Tools Status -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-white mb-4">Dostępność narzędzi SEO</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Object.entries(seoToolsStatus).map(([tool, available]) => (
+            <div class={`border rounded-lg p-4 ${
+              available 
+                ? 'bg-green-900/20 border-green-500/30' 
+                : 'bg-red-900/20 border-red-500/30'
+            }`}>
+              <div class="flex items-center justify-between">
+                <h3 class="font-medium text-white">{tool}</h3>
+                <span class={`text-sm px-2 py-1 rounded ${
+                  available 
+                    ? 'bg-green-900/50 text-green-400' 
+                    : 'bg-red-900/50 text-red-400'
+                }`}>
+                  {available ? '✓ Dostępne' : '✗ Niedostępne'}
+                </span>
+              </div>
+              {!available && tool === 'Screaming Frog' && (
+                <div class="text-xs text-red-300 mt-2">
+                  Wymaga lokalnej instalacji oprogramowania
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Main Agent Component -->
+      <section>
+        <div id="webmaster-agent-container" class="agent-container">
+          <!-- Svelte component will be mounted here -->
+        </div>
+      </section>
+
+      <!-- Footer Info -->
+      <footer class="mt-8 text-center">
+        <div class="bg-gray-800/30 border border-gray-700 rounded-lg p-4">
+          <p class="text-sm text-gray-400 mb-2">
+            Agent 09 Webmaster - Część modułowego systemu LUC-DE-ZEN-ON
+          </p>
+          <div class="flex justify-center items-center space-x-4 text-xs text-gray-500">
+            <span>SEO Compliance</span>
+            <span>•</span>
+            <span>Google Standards</span>
+            <span>•</span>
+            <span>Polski rynek</span>
+            <span>•</span>
+            <span>Real-time monitoring</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+</Layout>
+
+<!-- Svelte Component Integration -->
+<script>
+  // Import i inicjalizacja komponentu Svelte
+  import WebmasterComponent from './component.svelte';
+  
+  // Montowanie komponentu po załadowaniu DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('webmaster-agent-container');
+    
+    if (container) {
+      new WebmasterComponent({
+        target: container,
+        props: {
+          // Przekazanie danych konfiguracyjnych do komponentu
+          initialConfig: {
+            agentId: 'agent-09-webmaster',
+            apiEndpoint: '/api/agents/agent-09',
+            capabilities: [
+              'seo-audit', 'keyword-analysis', 'performance-monitoring',
+              'competitor-analysis', 'backlink-analysis', 'content-optimization',
+              'report-generation', 'crawl-error-monitoring'
+            ],
+            defaultSettings: {
+              auditDepth: 'comprehensive',
+              language: 'pl',
+              includeImages: true,
+              checkMobile: true,
+              monitoringInterval: 24
+            }
+          }
+        }
+      });
+      
+      // Logging dla celów debug
+      console.log('🌐 Webmaster Agent initialized successfully');
+      console.log('Available SEO tools:', Object.keys(seoToolsStatus).filter(tool => seoToolsStatus[tool]));
+      console.log('Performance thresholds:', performanceThresholds);
+    } else {
+      console.error('Webmaster agent container not found!');
+    }
+  });
+
+  // Global error handling dla komponentu
+  window.addEventListener('error', function(event) {
+    if (event.error && event.error.message?.includes('webmaster')) {
+      console.error('Webmaster Agent Error:', event.error);
+      
+      // Fallback UI w przypadku błędu
+      const container = document.getElementById('webmaster-agent-container');
+      if (container && !container.innerHTML.trim()) {
+        container.innerHTML = `
+          <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-6 text-center">
+            <div class="text-3xl mb-2">⚠️</div>
+            <h3 class="text-white font-medium mb-2">Błąd inicjalizacji Webmaster Agent</h3>
+            <p class="text-red-300 text-sm mb-4">Komponenty SEO nie mogły zostać załadowane</p>
+            <button 
+              onclick="location.reload()" 
+              class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white text-sm"
+            >
+              Spróbuj ponownie
+            </button>
+          </div>
+        `;
+      }
+    }
+  });
+
+  // SEO monitoring initialization
+  if ('serviceWorker' in navigator) {
+    // Background SEO monitoring setup
+    console.log('SEO monitoring service available');
+  }
+</script>
+
+<!-- Custom Styles for Agent -->
+<style>
+  /* Agent-specific styling */
+  .agent-container {
+    min-height: 600px;
+    position: relative;
+  }
+  
+  /* Loading animation */
+  .agent-container:empty::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 100px auto;
+    border: 3px solid rgba(59, 130, 246, 0.3);
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .grid {
+      gap: 1rem;
+    }
+  }
+  
+  /* Dark theme optimizations */
+  @media (prefers-color-scheme: dark) {
+    .bg-gray-800\/30 {
+      background-color: rgba(31, 41, 55, 0.4);
+    }
+  }
+
+  /* Performance table styling */
+  table {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  }
+  
+  /* SEO status indicators */
+  .status-indicator {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+</style>
