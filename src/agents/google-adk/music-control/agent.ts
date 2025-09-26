@@ -3,7 +3,8 @@
  * TypeScript port of music_control_agent.py with web audio compatibility
  */
 
-import { BaseGoogleADKAgent, AgentConfig, AgentResponse, Track, Playlist, AudioState } from '../types';
+import { BaseGoogleADKAgent } from '../types';
+import type { AgentConfig, AgentResponse, Track, Playlist, AudioState } from '../types';
 
 export interface MusicControlTypes {
   track: Track;

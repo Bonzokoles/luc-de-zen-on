@@ -3,7 +3,8 @@
  * TypeScript port of voice_command_agent.py with web compatibility
  */
 
-import { BaseGoogleADKAgent, AgentConfig, AgentResponse, VoiceCommand, SpeechRecognitionResult, TTSOptions } from '../types';
+import { BaseGoogleADKAgent } from '../types';
+import type { AgentConfig, AgentResponse, VoiceCommand, SpeechRecognitionResult, TTSOptions } from '../types';
 
 export interface VoiceCommandTypes {
   command: string;
@@ -13,7 +14,7 @@ export interface VoiceCommandTypes {
 }
 
 export class VoiceCommandAgent extends BaseGoogleADKAgent {
-  private recognition: SpeechRecognition | null = null;
+  private recognition: any | null = null;
   private synthesis: SpeechSynthesis;
   private isListening: boolean = false;
   private commands: Map<string, VoiceCommand> = new Map();
@@ -82,7 +83,7 @@ export class VoiceCommandAgent extends BaseGoogleADKAgent {
           console.log('🔇 Zakończono nasłuchiwanie');
         };
         
-        this.recognition.onresult = (event: SpeechRecognitionEvent) => {
+        this.recognition.onresult = (event: any) => {
           const result = event.results[event.results.length - 1];
           if (result.isFinal) {
             const transcript = result[0].transcript.trim();
@@ -95,7 +96,7 @@ export class VoiceCommandAgent extends BaseGoogleADKAgent {
           }
         };
         
-        this.recognition.onerror = (event) => {
+        this.recognition.onerror = (event: any) => {
           console.error('❌ Błąd rozpoznawania mowy:', event.error);
           this.isListening = false;
         };
