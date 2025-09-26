@@ -582,7 +582,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       const fileType = document.getElementById("fileType").value;
       const sortBy = document.getElementById("sortBy").value;
 
-      const response = await fetch("/api/polaczek/kaggle", {
+      const response = await fetch("/api/kaggle/datasets", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
