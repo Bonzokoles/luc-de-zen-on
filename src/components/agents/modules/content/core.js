@@ -234,7 +234,7 @@ export class ContentAgentFunctions {
       platforms,
       hashtags: this.generateHashtags(topic, 5),
       bestTimes: this.getSuggestedPostingTimes(),
-      engagement: this.predictEngagement(platforms)
+      engagement: this.predictEngagement(content)
     };
   }
   
@@ -270,7 +270,7 @@ export class ContentAgentFunctions {
     return {
       headline: this.generateProductHeadline(topic),
       bulletPoints: this.generateProductBullets(topic, keywords),
-      description: this.generateProductDescription(topic, tone),
+      description: this.generateProductNarrative(topic, tone),
       specifications: this.generateProductSpecs(topic),
       benefits: this.generateProductBenefits(topic),
       cta: this.generateProductCTA(),
@@ -625,6 +625,74 @@ export class ContentAgentFunctions {
     
     return recommendations;
   }
+
+  // Product Description Helper Methods
+  generateProductHeadline(topic) {
+    return `Odkryj moc ${topic} - Twoje narzędzie sukcesu`;
+  }
+
+  generateProductBullets(topic, keywords = []) {
+    const bullets = [
+      `Zaawansowane funkcje ${topic}`,
+      `Intuicyjny interface użytkownika`,
+      `Profesjonalne wsparcie 24/7`
+    ];
+    
+    keywords.forEach(keyword => {
+      bullets.push(`Optymalizacja pod kątem: ${keyword}`);
+    });
+    
+    return bullets;
+  }
+
+  generateProductNarrative(topic, tone = 'professional') {
+    const narratives = {
+      professional: `${topic} to rozwiązanie stworzone dla profesjonalistów, którzy wymagają najwyższej jakości i niezawodności. Nasze rozwiązanie łączy w sobie innowacyjne technologie z intuicyjnym designem.`,
+      casual: `${topic} - to dokładnie to, czego szukałeś! Proste, skuteczne i przyjazne dla użytkownika rozwiązanie, które sprawi, że Twoja praca stanie się przyjemnością.`,
+      technical: `${topic} wykorzystuje najnowsze algorytmy i architekturę mikrousług, zapewniając wysoką wydajność, skalowalność i bezpieczeństwo na poziomie enterprise.`
+    };
+    
+    return narratives[tone] || narratives.professional;
+  }
+
+  generateProductSpecs(topic) {
+    return {
+      compatibility: 'Windows, macOS, Linux',
+      requirements: '4GB RAM, 100MB przestrzeni dyskowej',
+      languages: 'Polszczyzna, Angielski, Niemiecki',
+      support: '24/7 wsparcie techniczne',
+      updates: 'Automatyczne aktualizacje'
+    };
+  }
+
+  generateProductBenefits(topic) {
+    return [
+      'Zwiększ produktywność o 300%',
+      'Zaoszczędź czas dzięki automatyzacji',
+      'Profesjonalne rezultaty bez wysiłku',
+      'Pełna kontrola nad procesem',
+      'Integracja z istniejącymi narzędziami'
+    ];
+  }
+
+  generateProductCTA() {
+    return {
+      primary: 'Rozpocznij bezpłatny okres próbny',
+      secondary: 'Dowiedz się więcej',
+      urgency: 'Ograniczona oferta - tylko dziś!'
+    };
+  }
+
+  generateProductSchema(topic) {
+    return {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      'name': topic,
+      'description': `Profesjonalne rozwiązanie ${topic}`,
+      'brand': 'MyBonzo',
+      'category': 'Software'
+    };
+  }
   
   // Template management
   addTemplate(templateData) {
@@ -742,6 +810,243 @@ export class ContentAgentFunctions {
   
   getPublishingPlatforms() {
     return this.publishingPlatforms;
+  }
+
+  // ========== MISSING HELPER METHODS ==========
+  
+  // Blog Post Helpers
+  generateIntroduction(topic, tone) {
+    const intros = {
+      professional: `W dzisiejszych czasach ${topic} odgrywa kluczową rolę w nowoczesnym biznesie. Przyjrzyjmy się bliżej temu tematowi.`,
+      casual: `Hej! Zastanawiałeś się kiedyś nad ${topic}? Jeśli tak, to jest artykuł dla Ciebie!`,
+      technical: `${topic} stanowi fundamentalny element współczesnych rozwiązań technologicznych. Analiza tego zagadnienia wymaga dogłębnego podejścia.`
+    };
+    return intros[tone] || intros.professional;
+  }
+
+  generateMainContent(topic, keywords = [], length = 'medium') {
+    const lengths = { short: 2, medium: 4, long: 6 };
+    const paragraphCount = lengths[length] || 4;
+    
+    const content = [];
+    for (let i = 0; i < paragraphCount; i++) {
+      content.push(`To jest ${i + 1} paragraf o ${topic}. ${keywords.length > 0 ? `Kluczowe aspekty to: ${keywords.slice(0, 3).join(', ')}.` : ''} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`);
+    }
+    return content;
+  }
+
+  generateConclusion(topic, tone) {
+    const conclusions = {
+      professional: `Podsumowując, ${topic} jest niezbędnym elementem współczesnego podejścia do biznesu i technologii.`,
+      casual: `I to by było na tyle! Mam nadzieję, że ${topic} jest teraz dla Ciebie bardziej zrozumiałe.`,
+      technical: `Implementacja ${topic} wymaga przemyślanego podejścia i uwzględnienia wszystkich aspektów technicznych.`
+    };
+    return conclusions[tone] || conclusions.professional;
+  }
+
+  generateCallToAction(tone) {
+    const ctas = {
+      professional: 'Skontaktuj się z nami, aby dowiedzieć się więcej',
+      casual: 'Daj znać co myślisz w komentarzach!',
+      technical: 'Rozpocznij implementację już dziś'
+    };
+    return ctas[tone] || ctas.professional;
+  }
+
+  // Article Helpers
+  generateHeadline(topic, type = 'blog') {
+    const templates = {
+      blog: `Wszystko co musisz wiedzieć o ${topic}`,
+      article: `Kompletny przewodnik po ${topic}`,
+      news: `Najnowsze informacje: ${topic}`
+    };
+    return templates[type] || templates.blog;
+  }
+
+  generateSubheadline(topic) {
+    return `Praktyczny przewodnik i najważniejsze informacje o ${topic}`;
+  }
+
+  generateLeadParagraph(topic, tone) {
+    return `${topic} to temat, który wzbudza coraz większe zainteresowanie. W tym artykule przedstawiamy kompleksowe podejście do zagadnienia.`;
+  }
+
+  generateBodyParagraphs(topic, keywords = [], length = 'medium') {
+    return this.generateMainContent(topic, keywords, length);
+  }
+
+  generateArticleConclusion(topic) {
+    return `W przyszłości ${topic} będzie odgrywać jeszcze większą rolę. Warto już teraz przygotować się na nadchodzące zmiany.`;
+  }
+
+  // Social Media Helpers
+  generateFacebookPost(topic, tone, targetAudience) {
+    return `🚀 ${topic} - to temat, który nas dziś fascynuje! Co o tym myślicie? #${topic.replace(/\s+/g, '')} #biznes`;
+  }
+
+  generateTwitterPost(topic, tone) {
+    return `💡 ${topic} zmienia sposób, w jaki myślimy o nowoczesnych rozwiązaniach. Thread 👇 #${topic.replace(/\s+/g, '')}`;
+  }
+
+  generateLinkedInPost(topic, tone, targetAudience) {
+    return `W dzisiejszym dynamicznym środowisku biznesowym ${topic} odgrywa kluczową rolę. Oto kluczowe aspekty, które każdy profesjonalista powinien znać: [1/3]`;
+  }
+
+  generateInstagramPost(topic, tone) {
+    return `✨ ${topic} ✨\n\nNajważniejsze trendy i praktyczne wskazówki 📱\n\n#${topic.replace(/\s+/g, '')} #inspiration #business`;
+  }
+
+  // Newsletter Helpers
+  generateEmailSubject(topic, tone) {
+    const subjects = {
+      professional: `Newsletter: ${topic} - Najnowsze trendy`,
+      casual: `🔥 Co nowego w ${topic}?`,
+      technical: `Tech Update: ${topic} Analysis`
+    };
+    return subjects[tone] || subjects.professional;
+  }
+
+  generatePreheader(topic) {
+    return `Najważniejsze informacje o ${topic} w tym wydaniu`;
+  }
+
+  generateNewsletterHeader() {
+    return {
+      logo: 'MyBonzo Newsletter',
+      date: new Date().toLocaleDateString('pl-PL'),
+      issue: `Wydanie #${Math.floor(Math.random() * 100) + 1}`
+    };
+  }
+
+  generateMainStory(topic, tone) {
+    return `Główna historia tego wydania dotyczy ${topic}. Przedstawiamy najnowsze informacje i analizy ekspertów.`;
+  }
+
+  generateIndustryNews(topic) {
+    return [
+      `Branżowe nowości związane z ${topic}`,
+      'Najważniejsze wydarzenia z ostatniego tygodnia',
+      'Prognozy ekspertów na najbliższy okres'
+    ];
+  }
+
+  generateTipsSection(topic) {
+    return [
+      `Praktyczna wskazówka #1 dotycząca ${topic}`,
+      `Profesjonalna rada #2 w zakresie ${topic}`,
+      `Ekspercki tip #3 związany z ${topic}`
+    ];
+  }
+
+  generateNewsletterFooter() {
+    return {
+      company: 'MyBonzo',
+      address: 'ul. Przykładowa 1, Warszawa',
+      unsubscribe: 'Wypisz się z newslettera',
+      social: ['Facebook', 'Twitter', 'LinkedIn']
+    };
+  }
+
+  generateNewsletterCTA(targetAudience) {
+    return {
+      text: 'Dowiedz się więcej',
+      url: '#',
+      style: 'button-primary'
+    };
+  }
+
+  // Landing Page Helpers
+  generateHeroHeadline(topic) {
+    return `Rewolucyjna ${topic} - Twoja przewaga konkurencyjna`;
+  }
+
+  generateHeroSubheadline(topic, targetAudience) {
+    return `Dla ${targetAudience || 'profesjonalistów'} szukających najlepszych rozwiązań w zakresie ${topic}`;
+  }
+
+  generateHeroCTA() {
+    return {
+      primary: 'Rozpocznij za darmo',
+      secondary: 'Zobacz demo'
+    };
+  }
+
+  generateFeaturesSection(topic) {
+    return [
+      { title: `Zaawansowana ${topic}`, description: 'Najnowsze technologie w Twoich rękach' },
+      { title: 'Intuicyjny interfejs', description: 'Prostota użytkowania na najwyższym poziomie' },
+      { title: 'Wsparcie eksperckie', description: '24/7 pomoc od naszych specjalistów' }
+    ];
+  }
+
+  generateBenefitsSection(topic, targetAudience) {
+    return [
+      `Zwiększ efektywność pracy z ${topic}`,
+      'Zaoszczędź czas i zasoby',
+      'Uzyskaj przewagę nad konkurencją'
+    ];
+  }
+
+  generateTestimonialsSection() {
+    return [
+      { author: 'Jan Kowalski', company: 'Tech Corp', text: 'Fantastyczne rozwiązanie!' },
+      { author: 'Anna Nowak', company: 'Digital Plus', text: 'Polecam wszystkim profesjonalistom' }
+    ];
+  }
+
+  generateFAQSection(topic) {
+    return [
+      { question: `Co to jest ${topic}?`, answer: `${topic} to nowoczesne rozwiązanie...` },
+      { question: 'Jak długo trwa implementacja?', answer: 'Zazwyczaj 1-2 tygodnie' },
+      { question: 'Czy jest wsparcie techniczne?', answer: 'Tak, 24/7' }
+    ];
+  }
+
+  generateLandingPageFooter() {
+    return {
+      links: ['O nas', 'Kontakt', 'Regulamin'],
+      social: ['Facebook', 'LinkedIn', 'Twitter'],
+      copyright: '© 2025 MyBonzo. Wszystkie prawa zastrzeżone.'
+    };
+  }
+
+  // Generic Content Helpers
+  generateGenericTitle(topic) {
+    return `${topic} - Kompletny przewodnik`;
+  }
+
+  generateGenericBody(topic, tone, length) {
+    return this.generateMainContent(topic, [], length);
+  }
+
+  generateSummary(topic) {
+    return `Krótkie podsumowanie najważniejszych aspektów ${topic}`;
+  }
+
+  // SEO Helpers  
+  generateMetaDescription(content) {
+    const text = typeof content.body === 'string' ? content.body : JSON.stringify(content.body);
+    return text.substring(0, 155) + '...';
+  }
+
+  generateHeadings(content) {
+    return [
+      'Wprowadzenie',
+      'Główna część',
+      'Podsumowanie'
+    ];
+  }
+
+  // Utility Helpers
+  generateHashtags(topic, count = 5) {
+    const baseHashtags = [
+      topic.replace(/\s+/g, ''),
+      'biznes',
+      'technologia',
+      'innowacje',
+      'marketing'
+    ];
+    return baseHashtags.slice(0, count);
   }
 }
 
