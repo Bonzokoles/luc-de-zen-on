@@ -95,8 +95,12 @@ class AgentsController {
     console.log(`🔄 Initializing ${agentId} Agent...`);
     
     try {
-      // Dynamiczne ładowanie modułu agenta
-      const agentModule = await import(`./agents/${agentId}-agent.js`);
+      // Dynamiczne ładowanie modułu agenta - currently using modules structure
+      // const agentModule = await import(`./agents/${agentId}-agent.js`);
+      // TODO: Implement proper agent module loading when structure is ready
+      
+      // Placeholder for now
+      const agentModule = { default: { init: null } };
       
       if (agentModule.default && typeof agentModule.default.init === 'function') {
         await agentModule.default.init();
@@ -116,12 +120,13 @@ class AgentsController {
   async loadAgentScripts() {
     console.log("📦 Loading agent scripts...");
     
-    // Load core agent functions
+    // Load core agent functions - disabled for now
     try {
-      await import('./agents/voice-functions.js');
-      await import('./agents/music-functions.js');
-      await import('./agents/system-functions.js');
-      console.log("✅ Core agent functions loaded");
+      // TODO: Implement agent functions when available
+      // await import('./agents/voice-functions.js');
+      // await import('./agents/music-functions.js');
+      // await import('./agents/system-functions.js');
+      console.log("✅ Core agent functions loaded (placeholder)");
     } catch (error) {
       console.warn("⚠️ Some agent functions could not be loaded:", error);
     }
