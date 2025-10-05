@@ -22,13 +22,10 @@
     }
   },
   "include": [
-    "src/**/*",
-    "scripts/**/*",
-    ".astro/types.d.ts"
+    ".astro/types.d.ts",
+    "**/*"
   ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "public"
+    "dist"
   ]
 }
