@@ -9,13 +9,13 @@ export const GET: APIRoute = async ({ request, locals }) => {
   try {
     // Get environment configuration
     const env = import.meta.env.DEV ? process.env : (locals as any)?.runtime?.env || {};
-    const projectId = env.GOOGLE_CLOUD_PROJECT_ID || env.GCP_PROJECT_ID;
+    const projectId = env.GOOGLE_CLOUD_PROJECT_ID || env.GOOGLE_PROJECT_ID || env.GCP_PROJECT_ID;
     
     if (!projectId) {
       return new Response(JSON.stringify({
         success: false,
         error: 'Google Cloud project not configured',
-        message: 'GOOGLE_CLOUD_PROJECT_ID environment variable is required'
+        message: 'GOOGLE_CLOUD_PROJECT_ID or GOOGLE_PROJECT_ID environment variable is required'
       }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
