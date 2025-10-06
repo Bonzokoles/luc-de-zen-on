@@ -1,0 +1,20 @@
+feat: Implement and integrate Polaczek AI agent architecture
+
+This commit introduces the full Polaczek AI agent architecture, including:
+- Implemented `agent-09-dyrektor` Svelte component based on `PolaczekDyrektorUI.svelte`.
+- Integrated `agent-09-dyrektor` into `index.astro` with a new floating widget and toggle functionality.
+- Migrated various agent logic (`polaczek`, `bielik`) and adapter files from `THE_whitie` to `src/lib/agents`.
+- Configured `Bielik` agent (`bielikModelAdapter.ts`) to use the DeepSeek model via OpenRouter API.
+- Implemented a lightweight BigQuery API solution (`/api/bigquery-light.ts`) using Google Cloud REST API, replacing the heavy `@google-cloud/bigquery` library.
+- Updated `bigquery-analytics.astro` to use the new lightweight BigQuery API.
+
+Fixes:
+- Corrected JavaScript syntax errors in `index.astro` (stray \n characters).
+- Resolved `tsconfig.json` error by removing invalid `ignoreDeprecations` option.
+- Fixed TypeScript type errors (`TS18046: 'data' is of type 'unknown'`) in `bielikModelAdapter.ts` and `cloudflareWorkerAdapter.ts`.
+- Fixed TypeScript type errors in `bigquery-light.ts` (`Locals.runtime` and `unknown` types).
+- Corrected `TS2307: Cannot find module` errors by updating `corsUtils` import paths to use `@/utils/corsUtils` alias in multiple API files.
+- Fixed syntax error (`TS1128`) in `test-gemini-pro-functions.js`.
+
+Refactor:
+- Archived the `dodatki nieusuwac` directory to `z_archiwum_nieuzywane` to clean up the project and remove hundreds of pre-existing TypeScript errors from the build scope.
