@@ -15,7 +15,12 @@ export const GET: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({
         success: false,
         error: 'Google Cloud project not configured',
-        message: 'GOOGLE_CLOUD_PROJECT_ID or GOOGLE_PROJECT_ID environment variable is required'
+        message: 'GOOGLE_CLOUD_PROJECT_ID or GOOGLE_PROJECT_ID environment variable is required',
+        debug: { 
+          GOOGLE_CLOUD_PROJECT_ID: !!env.GOOGLE_CLOUD_PROJECT_ID, 
+          GOOGLE_PROJECT_ID: !!env.GOOGLE_PROJECT_ID,
+          GCP_PROJECT_ID: !!env.GCP_PROJECT_ID
+        }
       }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
