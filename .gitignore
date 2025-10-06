@@ -9,6 +9,11 @@ node_modules
 # Build outputs
 dist/
 
+# Development secrets (nie commituj!)
+.dev.vars
+GEM_instrukcje/
+*.json
+
 # Environment files (CRITICAL SECURITY)
 .env
 .env.local
