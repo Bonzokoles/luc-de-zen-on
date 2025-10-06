@@ -1,0 +1,300 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Voice Agent | MYBONZO">
+  <main class="min-h-svh relative z-10">
+    <!-- Background -->
+    <div class="fixed inset-0 bg-[#0a0f14]">
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-900/20 via-[#0a0f14] to-[#0a0f14]"></div>
+    </div>
+
+    <!-- Header -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#ff6b35] mb-2 uppercase tracking-wider font-['Rajdhani']">
+              Voice Agent
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              Rozpoznawanie mowy i przetwarzanie komend głosowych
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ff88]" id="voiceStatus">OFFLINE</span>
+            </div>
+            <div>
+              JĘZYK: <span class="text-[#ff6b35]">PL-PL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voice Control Panel -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        
+        <!-- Main Voice Interface -->
+        <div class="bg-[#0f3846]/60 border border-[#ff6b35]/20 rounded-lg overflow-hidden mb-8">
+          
+          <!-- Voice Header -->
+          <div class="bg-[#0f3846]/80 border-b border-[#ff6b35]/20 p-6 text-center">
+            <div class="w-32 h-32 mx-auto mb-4 bg-[#ff6b35]/20 border-2 border-[#ff6b35]/50 rounded-full flex items-center justify-center relative">
+              <span class="text-[#ff6b35] text-6xl" id="micIcon">🎤</span>
+              <div class="absolute inset-0 rounded-full border-2 border-[#ff6b35] opacity-0 animate-pulse" id="pulseRing"></div>
+            </div>
+            <h3 class="text-2xl font-bold text-[#e1f5fe] mb-2">Asystent Głosowy</h3>
+            <p class="text-[#b0bec5]" id="statusText">Kliknij aby rozpocząć nasłuchiwanie</p>
+          </div>
+
+          <!-- Voice Controls -->
+          <div class="p-6">
+            <div class="flex justify-center gap-4 mb-6">
+              <button 
+                id="startListening"
+                class="px-8 py-4 bg-[#ff6b35] text-white rounded-lg font-semibold hover:bg-[#e55a2e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                🎤 Rozpocznij nasłuchiwanie
+              </button>
+              <button 
+                id="stopListening"
+                class="px-8 py-4 bg-[#ff4444] text-white rounded-lg font-semibold hover:bg-[#cc3333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled
+              >
+                ⏹️ Zatrzymaj
+              </button>
+            </div>
+
+            <!-- Voice Input Display -->
+            <div class="bg-[#0a0f14]/80 border border-[#ff6b35]/30 rounded-lg p-4 mb-6">
+              <h4 class="text-[#ff6b35] font-semibold mb-2">Rozpoznana mowa:</h4>
+              <div id="speechOutput" class="text-[#e1f5fe] min-h-[60px] font-mono text-sm">
+                <span class="text-[#b0bec5]">Tutaj pojawi się rozpoznana mowa...</span>
+              </div>
+            </div>
+
+            <!-- Commands History -->
+            <div class="bg-[#0a0f14]/80 border border-[#ff6b35]/30 rounded-lg p-4">
+              <h4 class="text-[#ff6b35] font-semibold mb-2">Historia komend:</h4>
+              <div id="commandHistory" class="max-h-40 overflow-y-auto">
+                <div class="text-[#b0bec5] text-sm">Brak wykonanych komend</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-[#0f3846]/40 border border-[#ff6b35]/20 rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-[#ff6b35] font-semibold mb-1">Komendy</h3>
+                <p class="text-2xl font-bold text-[#e1f5fe]" id="commandCount">0</p>
+              </div>
+              <div class="text-[#ff6b35]/60 text-2xl">🎯</div>
+            </div>
+          </div>
+
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/20 rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-[#1be1ff] font-semibold mb-1">Dokładność</h3>
+                <p class="text-2xl font-bold text-[#e1f5fe]" id="accuracy">95%</p>
+              </div>
+              <div class="text-[#1be1ff]/60 text-2xl">📊</div>
+            </div>
+          </div>
+
+          <div class="bg-[#0f3846]/40 border border-[#00ff88]/20 rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-[#00ff88] font-semibold mb-1">Czas odpowiedzi</h3>
+                <p class="text-2xl font-bold text-[#e1f5fe]" id="responseTime">~100ms</p>
+              </div>
+              <div class="text-[#00ff88]/60 text-2xl">⚡</div>
+            </div>
+          </div>
+
+          <div class="bg-[#0f3846]/40 border border-[#ffd700]/20 rounded-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-[#ffd700] font-semibold mb-1">Status</h3>
+                <p class="text-lg font-bold text-[#e1f5fe]" id="connectionStatus">Gotowy</p>
+              </div>
+              <div class="text-[#ffd700]/60 text-2xl">🔗</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Available Commands -->
+        <div class="bg-[#0f3846]/40 border border-[#ff6b35]/20 rounded-lg p-6">
+          <h3 class="text-[#ff6b35] font-semibold mb-4">Dostępne komendy:</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-2">
+              <h4 class="text-[#1be1ff] font-medium">Systemowe:</h4>
+              <ul class="text-[#b0bec5] text-sm space-y-1">
+                <li>• "mybonzo" - słowo aktywacyjne</li>
+                <li>• "otwórz menu" - główne menu</li>
+                <li>• "zamknij aplikację"</li>
+                <li>• "pokaż pomoc"</li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <h4 class="text-[#00ff88] font-medium">Nawigacyjne:</h4>
+              <ul class="text-[#b0bec5] text-sm space-y-1">
+                <li>• "idź do agentów"</li>
+                <li>• "pokaż ustawienia"</li>
+                <li>• "zmień język"</li>
+                <li>• "stop" / "koniec"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Voice Recognition Setup
+    let recognition = null;
+    let isListening = false;
+    let commandCount = 0;
+
+    const startButton = document.getElementById('startListening');
+    const stopButton = document.getElementById('stopListening');
+    const statusText = document.getElementById('statusText');
+    const speechOutput = document.getElementById('speechOutput');
+    const voiceStatus = document.getElementById('voiceStatus');
+    const micIcon = document.getElementById('micIcon');
+    const pulseRing = document.getElementById('pulseRing');
+    const commandHistory = document.getElementById('commandHistory');
+    const commandCountDisplay = document.getElementById('commandCount');
+
+    // Check for Web Speech API support
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'pl-PL';
+      
+      voiceStatus.textContent = 'GOTOWY';
+      voiceStatus.className = 'text-[#00ff88]';
+    } else {
+      statusText.textContent = 'Przeglądarka nie obsługuje rozpoznawania mowy';
+      startButton.disabled = true;
+      voiceStatus.textContent = 'BŁĄD';
+      voiceStatus.className = 'text-[#ff4444]';
+    }
+
+    // Voice Recognition Events
+    if (recognition) {
+      recognition.onstart = () => {
+        isListening = true;
+        statusText.textContent = 'Nasłuchuję... Powiedz coś';
+        voiceStatus.textContent = 'NASŁUCHUJE';
+        voiceStatus.className = 'text-[#ff6b35]';
+        micIcon.textContent = '🔴';
+        pulseRing.style.opacity = '1';
+        startButton.disabled = true;
+        stopButton.disabled = false;
+      };
+
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        let interimTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        speechOutput.innerHTML = finalTranscript + '<span class="text-[#ff6b35]/60">' + interimTranscript + '</span>';
+
+        if (finalTranscript) {
+          processCommand(finalTranscript.trim());
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        statusText.textContent = 'Błąd rozpoznawania: ' + event.error;
+        resetVoiceState();
+      };
+
+      recognition.onend = () => {
+        if (isListening) {
+          statusText.textContent = 'Rozpoznawanie zakończone';
+        }
+        resetVoiceState();
+      };
+    }
+
+    // Start listening
+    startButton?.addEventListener('click', () => {
+      if (recognition && !isListening) {
+        recognition.start();
+      }
+    });
+
+    // Stop listening
+    stopButton?.addEventListener('click', () => {
+      if (recognition && isListening) {
+        recognition.stop();
+        isListening = false;
+      }
+    });
+
+    function resetVoiceState() {
+      isListening = false;
+      voiceStatus.textContent = 'GOTOWY';
+      voiceStatus.className = 'text-[#00ff88]';
+      micIcon.textContent = '🎤';
+      pulseRing.style.opacity = '0';
+      startButton.disabled = false;
+      stopButton.disabled = true;
+      statusText.textContent = 'Kliknij aby rozpocząć nasłuchiwanie';
+    }
+
+    function processCommand(transcript) {
+      commandCount++;
+      if (commandCountDisplay) commandCountDisplay.textContent = commandCount.toString();
+
+      // Add to history
+      const historyItem = document.createElement('div');
+      historyItem.className = 'text-[#e1f5fe] text-sm mb-2 p-2 bg-[#ff6b35]/10 rounded border border-[#ff6b35]/20';
+      historyItem.innerHTML = `
+        <span class="text-[#ff6b35] font-mono">${new Date().toLocaleTimeString()}</span>
+        <br>
+        "${transcript}"
+      `;
+      
+      if (commandHistory.firstChild?.textContent === 'Brak wykonanych komend') {
+        commandHistory.innerHTML = '';
+      }
+      commandHistory.insertBefore(historyItem, commandHistory.firstChild);
+
+      // Process specific commands
+      const lowerTranscript = transcript.toLowerCase();
+      
+      if (lowerTranscript.includes('mybonzo')) {
+        statusText.textContent = '✅ Wykryto słowo aktywacyjne!';
+      } else if (lowerTranscript.includes('menu')) {
+        statusText.textContent = '📱 Otwieranie menu...';
+      } else if (lowerTranscript.includes('stop') || lowerTranscript.includes('koniec')) {
+        statusText.textContent = '⏹️ Zatrzymywanie...';
+        recognition?.stop();
+      } else {
+        statusText.textContent = '💬 Komenda rozpoznana';
+      }
+    }
+  </script>
+</Layout>

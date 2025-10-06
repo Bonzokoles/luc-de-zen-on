@@ -1,0 +1,789 @@
+---
+import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+---
+
+<MyBonzoLayout title="MCP Servers Management | AI Workers">
+  <main class="min-h-svh bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              MCP_SERVERS
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              MANAGEMENT
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-4">
+          <div class="flex gap-4">
+            <a href="/" class="text-edge hover:text-primary transition-colors">
+              ← GŁÓWNA
+            </a>
+            <a href="/hub/functions" class="text-edge hover:text-primary transition-colors">
+              HUB FUNKCJI
+            </a>
+          </div>
+          <div class="text-sm text-edge">
+            ☁️ Model Context Protocol Servers
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MCP Dashboard -->
+    <section class="max-w-7xl mx-auto p-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">
+          ☁️ MCP Servers Management
+        </h1>
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+          Zarządzanie i monitorowanie serwerów Model Context Protocol. 
+          Orkiestracja mikroserwisów AI w środowisku chmurowym.
+        </p>
+      </div>
+
+      <!-- System Overview -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <div class="metric-card">
+          <div class="metric-icon">🚀</div>
+          <div class="metric-value" id="runningServers">2</div>
+          <div class="metric-label">Aktywne serwery</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">💾</div>
+          <div class="metric-value" id="totalMemory">245MB</div>
+          <div class="metric-label">Całkowita pamięć</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-value" id="totalCPU">20%</div>
+          <div class="metric-label">Wykorzystanie CPU</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-icon">📊</div>
+          <div class="metric-value" id="requestsCount">1.2k</div>
+          <div class="metric-label">Żądania/godz</div>
+        </div>
+      </div>
+
+      <!-- Server Management Interface -->
+      <div class="mcp-interface">
+        <div class="interface-header">
+          <h2>Zarządzanie serwerami MCP</h2>
+          <div class="header-actions">
+            <button id="refreshBtn" class="action-btn">🔄 Odśwież</button>
+            <button id="createServerBtn" class="action-btn primary">➕ Nowy serwer</button>
+          </div>
+        </div>
+
+        <!-- Servers List -->
+        <div class="servers-container" id="serversContainer">
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Ładowanie serwerów MCP...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Server Creation Form -->
+      <div class="create-server-form" id="createServerForm" style="display: none;">
+        <div class="form-header">
+          <h3>Utwórz nowy serwer MCP</h3>
+          <button id="closeFormBtn" class="close-btn">✕</button>
+        </div>
+        
+        <div class="form-content">
+          <div class="form-group">
+            <label for="serverName">Nazwa serwera:</label>
+            <input type="text" id="serverName" placeholder="np. ai-assistant-mcp">
+          </div>
+          
+          <div class="form-group">
+            <label for="serverPort">Port:</label>
+            <input type="number" id="serverPort" min="3000" max="9999" value="3004">
+          </div>
+          
+          <div class="form-group">
+            <label for="maxConnections">Maksymalne połączenia:</label>
+            <input type="number" id="maxConnections" min="10" max="1000" value="100">
+          </div>
+          
+          <div class="form-group">
+            <label for="autoStart">Automatyczne uruchamianie:</label>
+            <input type="checkbox" id="autoStart">
+          </div>
+          
+          <div class="form-actions">
+            <button id="createBtn" class="primary-btn">Utwórz serwer</button>
+            <button id="cancelBtn" class="secondary-btn">Anuluj</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monitoring Charts -->
+      <div class="monitoring-section">
+        <h3>Monitoring w czasie rzeczywistym</h3>
+        <div class="charts-grid">
+          <div class="chart-container">
+            <h4>Wykorzystanie CPU</h4>
+            <div class="chart-placeholder" id="cpuChart">
+              <div class="chart-bar" style="height: 60%"></div>
+              <div class="chart-bar" style="height: 45%"></div>
+              <div class="chart-bar" style="height: 80%"></div>
+              <div class="chart-bar" style="height: 30%"></div>
+              <div class="chart-bar" style="height: 55%"></div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <h4>Pamięć RAM</h4>
+            <div class="chart-placeholder" id="memoryChart">
+              <div class="chart-bar" style="height: 70%"></div>
+              <div class="chart-bar" style="height: 65%"></div>
+              <div class="chart-bar" style="height: 75%"></div>
+              <div class="chart-bar" style="height: 60%"></div>
+              <div class="chart-bar" style="height: 80%"></div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <h4>Żądania/min</h4>
+            <div class="chart-placeholder" id="requestsChart">
+              <div class="chart-bar" style="height: 40%"></div>
+              <div class="chart-bar" style="height: 85%"></div>
+              <div class="chart-bar" style="height: 95%"></div>
+              <div class="chart-bar" style="height: 60%"></div>
+              <div class="chart-bar" style="height: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .metric-card {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+      border-color: #00d9ff;
+      background: rgba(0, 217, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .metric-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .metric-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #00d9ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .metric-label {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mcp-interface {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .interface-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .interface-header h2 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .action-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .action-btn.primary {
+      background: linear-gradient(45deg, #00d9ff, #0099cc);
+      border-color: #00d9ff;
+    }
+
+    .action-btn.primary:hover {
+      background: linear-gradient(45deg, #00b8e6, #0088bb);
+    }
+
+    .servers-container {
+      min-height: 400px;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 3rem;
+      color: #b0b0b0;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-top: 3px solid #00d9ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .server-card {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .server-card:hover {
+      border-color: #00d9ff;
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .server-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .server-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .server-status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .server-status.running {
+      background: rgba(0, 255, 136, 0.2);
+      color: #00ff88;
+      border: 1px solid #00ff88;
+    }
+
+    .server-status.stopped {
+      background: rgba(255, 68, 68, 0.2);
+      color: #ff4444;
+      border: 1px solid #ff4444;
+    }
+
+    .server-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .server-metric {
+      text-align: center;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+    }
+
+    .server-metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #00d9ff;
+    }
+
+    .server-metric-label {
+      font-size: 0.8rem;
+      color: #b0b0b0;
+      text-transform: uppercase;
+    }
+
+    .server-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .server-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .server-btn.start {
+      background: #00ff88;
+      color: #000;
+    }
+
+    .server-btn.stop {
+      background: #ff4444;
+      color: white;
+    }
+
+    .server-btn.logs {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .create-server-form {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 500px;
+      z-index: 1000;
+    }
+
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .form-header h3 {
+      color: white;
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #ff4444;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      color: white;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 0.75rem;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .form-group input[type="checkbox"] {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    .primary-btn {
+      background: linear-gradient(45deg, #00d9ff, #0099cc);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn:hover {
+      background: linear-gradient(45deg, #00b8e6, #0088bb);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .monitoring-section {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .monitoring-section h3 {
+      color: white;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .chart-container {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .chart-container h4 {
+      color: white;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .chart-placeholder {
+      display: flex;
+      align-items: end;
+      justify-content: space-around;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      padding: 0.5rem;
+    }
+
+    .chart-bar {
+      width: 20px;
+      background: linear-gradient(to top, #00d9ff, #0099cc);
+      border-radius: 2px;
+      transition: height 0.3s ease;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 999;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const refreshBtn = document.getElementById('refreshBtn');
+      const createServerBtn = document.getElementById('createServerBtn');
+      const createServerForm = document.getElementById('createServerForm');
+      const closeFormBtn = document.getElementById('closeFormBtn');
+      const createBtn = document.getElementById('createBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const serversContainer = document.getElementById('serversContainer');
+
+      // Load servers on page load
+      loadServers();
+
+      // Event listeners
+      refreshBtn.addEventListener('click', loadServers);
+      createServerBtn.addEventListener('click', showCreateForm);
+      closeFormBtn.addEventListener('click', hideCreateForm);
+      cancelBtn.addEventListener('click', hideCreateForm);
+      createBtn.addEventListener('click', createServer);
+
+      async function loadServers() {
+        serversContainer.innerHTML = `
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Ładowanie serwerów MCP...</p>
+          </div>
+        `;
+
+        try {
+          const response = await fetch('/api/mcp-servers?action=list_servers');
+          const data = await response.json();
+
+          if (data.status === 'success') {
+            displayServers(data.data);
+            updateMetrics(data.data);
+          } else {
+            serversContainer.innerHTML = `<div class="error-state">❌ Błąd: ${data.error}</div>`;
+          }
+        } catch (error) {
+          serversContainer.innerHTML = `<div class="error-state">❌ Błąd komunikacji: ${error.message}</div>`;
+        }
+      }
+
+      function displayServers(serversData) {
+        if (!serversData.active_servers.length) {
+          serversContainer.innerHTML = '<div class="empty-state">Brak aktywnych serwerów MCP</div>';
+          return;
+        }
+
+        const serversHTML = serversData.active_servers.map(server => `
+          <div class="server-card">
+            <div class="server-header">
+              <div class="server-name">${server.name}</div>
+              <div class="server-status ${server.status}">${server.status}</div>
+            </div>
+            <div class="server-metrics">
+              <div class="server-metric">
+                <div class="server-metric-value">:${server.port}</div>
+                <div class="server-metric-label">Port</div>
+              </div>
+              <div class="server-metric">
+                <div class="server-metric-value">${server.uptime}</div>
+                <div class="server-metric-label">Uptime</div>
+              </div>
+              <div class="server-metric">
+                <div class="server-metric-value">${server.memory_usage}</div>
+                <div class="server-metric-label">Pamięć</div>
+              </div>
+              <div class="server-metric">
+                <div class="server-metric-value">${server.cpu_usage}</div>
+                <div class="server-metric-label">CPU</div>
+              </div>
+            </div>
+            <div class="server-actions">
+              ${server.status === 'running' 
+                ? `<button class="server-btn stop" onclick="stopServer('${server.name}')">⏹ Stop</button>`
+                : `<button class="server-btn start" onclick="startServer('${server.name}')">▶ Start</button>`
+              }
+              <button class="server-btn logs" onclick="showLogs('${server.name}')">📋 Logi</button>
+            </div>
+          </div>
+        `).join('');
+
+        serversContainer.innerHTML = serversHTML;
+      }
+
+      function updateMetrics(serversData) {
+        document.getElementById('runningServers').textContent = serversData.running_servers;
+        document.getElementById('totalMemory').textContent = serversData.total_memory;
+        document.getElementById('totalCPU').textContent = serversData.total_cpu;
+      }
+
+      function showCreateForm() {
+        createServerForm.style.display = 'block';
+        // Add modal overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'modal-overlay';
+        overlay.addEventListener('click', hideCreateForm);
+        document.body.appendChild(overlay);
+      }
+
+      function hideCreateForm() {
+        createServerForm.style.display = 'none';
+        const overlay = document.querySelector('.modal-overlay');
+        if (overlay) {
+          overlay.remove();
+        }
+      }
+
+      async function createServer() {
+        const serverName = document.getElementById('serverName').value.trim();
+        const serverPort = document.getElementById('serverPort').value;
+        const maxConnections = document.getElementById('maxConnections').value;
+        const autoStart = document.getElementById('autoStart').checked;
+
+        if (!serverName) {
+          alert('Wprowadź nazwę serwera');
+          return;
+        }
+
+        try {
+          const response = await fetch('/api/mcp-servers', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              action: 'create_server',
+              server_name: serverName,
+              config: {
+                port: parseInt(serverPort),
+                max_connections: parseInt(maxConnections),
+                auto_start: autoStart
+              }
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.status === 'success') {
+            alert(`Serwer ${serverName} został utworzony!`);
+            hideCreateForm();
+            loadServers();
+          } else {
+            alert(`Błąd: ${data.error}`);
+          }
+        } catch (error) {
+          alert(`Błąd komunikacji: ${error.message}`);
+        }
+      }
+
+      // Global functions for server actions
+      window.startServer = async function(serverName) {
+        try {
+          const response = await fetch('/api/mcp-servers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'start_server',
+              server_name: serverName
+            })
+          });
+          
+          const data = await response.json();
+          if (data.status === 'success') {
+            alert(`Serwer ${serverName} jest uruchamiany...`);
+            setTimeout(loadServers, 2000);
+          }
+        } catch (error) {
+          alert(`Błąd: ${error.message}`);
+        }
+      };
+
+      window.stopServer = async function(serverName) {
+        try {
+          const response = await fetch('/api/mcp-servers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'stop_server',
+              server_name: serverName
+            })
+          });
+          
+          const data = await response.json();
+          if (data.status === 'success') {
+            alert(`Serwer ${serverName} został zatrzymany`);
+            loadServers();
+          }
+        } catch (error) {
+          alert(`Błąd: ${error.message}`);
+        }
+      };
+
+      window.showLogs = async function(serverName) {
+        try {
+          const response = await fetch('/api/mcp-servers', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'server_logs',
+              server_name: serverName
+            })
+          });
+          
+          const data = await response.json();
+          if (data.status === 'success') {
+            const logs = data.data.logs.join('\n');
+            alert(`Logi serwera ${serverName}:\n\n${logs}`);
+          }
+        } catch (error) {
+          alert(`Błąd: ${error.message}`);
+        }
+      };
+
+      // Update charts periodically
+      setInterval(() => {
+        updateCharts();
+      }, 5000);
+
+      function updateCharts() {
+        const chartBars = document.querySelectorAll('.chart-bar');
+        chartBars.forEach(bar => {
+          const newHeight = Math.random() * 80 + 20;
+          bar.style.height = newHeight + '%';
+        });
+      }
+    });
+  </script>
+</MyBonzoLayout>

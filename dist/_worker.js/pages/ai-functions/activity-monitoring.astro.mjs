@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BS6eKWK9.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_BV683skl.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_C1oOU0Od.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DeSMV8-3.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CYP07A9F.mjs';
 /* empty css                                    */
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Activity Monitoring AI | KAROL LISSON", "data-astro-cid-zcpdlv52": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-zcpdlv52": true })} ${maybeRenderHead()}<main class="min-h-svh relative z-10" data-astro-cid-zcpdlv52> <!-- Background Grid Pattern --> <div class="fixed inset-0 bg-[#0a0a0a]" data-astro-cid-zcpdlv52> <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black" data-astro-cid-zcpdlv52></div> <div class="cyber-grid absolute inset-0" data-astro-cid-zcpdlv52></div> </div> <!-- Header Section --> <section class="relative z-20 border-b border-[#333333] pt-20" data-astro-cid-zcpdlv52> <div class="max-w-6xl mx-auto px-4 py-8" data-astro-cid-zcpdlv52> <div class="flex items-center justify-between mb-8" data-astro-cid-zcpdlv52> <div data-astro-cid-zcpdlv52> <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']" data-astro-cid-zcpdlv52>

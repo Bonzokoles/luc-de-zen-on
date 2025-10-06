@@ -1,0 +1,98 @@
+---
+import BigQueryWidget from '../components/BigQueryWidget.svelte';
+---
+<html lang="pl">
+<head>
+  <title>BigQuery Agent</title>
+  <meta name="description" content="Agent do wykonywania zapytań SQL na zbiorze danych o miastach świata." />
+  <style>
+    body { font-family: system-ui, sans-serif; background-color: #f0f4f8; color: #222; }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+    .widget-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        padding: 2rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    p {
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      color: #444;
+    }
+    .examples {
+        margin-top: 2.5rem;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .examples h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #111;
+    }
+    .examples ul {
+        list-style: none;
+        padding: 0;
+    }
+    .examples li {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        font-family: monospace;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    .examples li:hover {
+        background: #f0f2f5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BigQuery Agent - SQL Query Executor</h1>
+    <p>
+      Ten komponent jest połączony z Twoim projektem Google Cloud i pozwala na wykonywanie zapytań SQL bezpośrednio na **Google BigQuery**. Poniższe przykłady odpytują publicznie dostępne zbiory danych, takie jak dane z GitHub.
+    </p>
+    <div class="widget-container">
+        <BigQueryWidget client:load />
+    </div>
+
+    <div class="examples">
+        <h2>Przykładowe zapytania SQL</h2>
+        <p>Kliknij na zapytanie, aby skopiować je do schowka.</p>
+        <ul>
+            <li onclick="copyQuery(this)">SELECT language.name, COUNT(*) as count FROM `bigquery-public-data.github_repos.languages`, UNNEST(language) as language GROUP BY language.name ORDER BY count DESC LIMIT 10;</li>
+            <li onclick="copyQuery(this)">SELECT repo_name, watch_count FROM `bigquery-public-data.github_repos.repositories` ORDER BY watch_count DESC LIMIT 10;</li>
+            <li onclick="copyQuery(this)">SELECT committer.name, COUNT(*) as commit_count FROM `bigquery-public-data.github_repos.commits` WHERE committer.name IS NOT NULL GROUP BY committer.name ORDER BY commit_count DESC LIMIT 10;</li>
+            <li onclick="copyQuery(this)">SELECT author.email, COUNT(*) as commit_count FROM `bigquery-public-data.github_repos.commits` WHERE author.email IS NOT NULL GROUP BY author.email ORDER BY commit_count DESC LIMIT 5;</li>
+        </ul>
+    </div>
+  </div>
+  <script>
+    function copyQuery(element) {
+        const query = element.innerText;
+        navigator.clipboard.writeText(query).then(() => {
+            const originalText = element.innerText;
+            element.innerText = 'Skopiowano!';
+            setTimeout(() => {
+                element.innerText = originalText;
+            }, 1500);
+        }).catch(err => {
+            console.error('Failed to copy query: ', err);
+        });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Reminders & Calendar AI | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Smart Calendar AI
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Inteligentne przypomnienia i zarządzanie kalendarzem z AI automation
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">SYNCED</span>
+            </div>
+            <div>EVENTS: <span class="text-[#ff6699] animate-pulse">247 today</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            ← Powrót do głównej
+          </a>
+          <a
+            href="/zaawansowane-funkcje-ai"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Wszystkie funkcje AI
+          </a>
+          <a
+            href="./scheduler/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            SCHEDULER
+          </a>
+          <a
+            href="./reminders/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            REMINDERS
+          </a>
+          <a
+            href="./sync/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            SYNC
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Overview -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <!-- AI Scheduler Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">AI Scheduler</h3>
+              <div class="text-2xl text-[#ff6699]">🗓️</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Inteligentne planowanie z optymalizacją czasu
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • Smart time blocking<br>
+              • Conflict resolution<br>
+              • Priority optimization
+            </div>
+            <a href="./scheduler/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              PLANUJ
+            </a>
+          </div>
+
+          <!-- Smart Reminders Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Reminders</h3>
+              <div class="text-2xl text-[#ff6699]">⏰</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Adaptywne przypomnienia z kontekstem
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • Context-aware alerts<br>
+              • Location-based triggers<br>
+              • Adaptive timing
+            </div>
+            <a href="./reminders/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              KONFIGURUJ
+            </a>
+          </div>
+
+          <!-- Calendar Sync Card -->
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Multi-Sync</h3>
+              <div class="text-2xl text-[#ff6699]">🔄</div>
+            </div>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
+              Synchronizacja z wszystkimi kalendarzami
+            </p>
+            <div class="text-sm text-[#00ffff] mb-4">
+              • Google Calendar<br>
+              • Outlook integration<br>
+              • Apple Calendar sync
+            </div>
+            <a href="./sync/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              SYNCHRONIZUJ
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Calendar Dashboard -->
+    <section class="relative z-20 py-8 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+          📅 Today's Smart Dashboard
+        </h3>
+        
+        <div class="grid lg:grid-cols-4 gap-6">
+          <!-- Current Schedule -->
+          <div class="lg:col-span-2 bg-[#111111] border border-[#333333] p-6 rounded-sm">
+            <div class="flex justify-between items-center mb-4">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-lg uppercase">Today's Schedule</h4>
+              <div class="text-[#00ffff] text-sm">15:42 CET</div>
+            </div>
+            
+            <div class="space-y-4">
+              <!-- Current Event -->
+              <div class="bg-[#0a0a0a] border-l-4 border-l-[#00ff00] p-4 rounded-sm">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="text-[#00ff00] text-sm font-bold">🔴 LIVE: Team Meeting</div>
+                  <div class="text-[#00ffff] text-xs">15:30 - 16:00</div>
+                </div>
+                <div class="text-[#a0a0a0] text-xs mb-2">
+                  Weekly sprint planning with development team
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="text-[#ff6699] text-xs">Room: Virtual - Zoom</div>
+                  <div class="text-[#00ff00] text-xs">18 min remaining</div>
+                </div>
+              </div>
+
+              <!-- Next Events -->
+              <div class="bg-[#0a0a0a] border-l-4 border-l-[#ffaa00] p-4 rounded-sm">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="text-[#ffaa00] text-sm font-bold">Client Presentation</div>
+                  <div class="text-[#00ffff] text-xs">16:30 - 17:30</div>
+                </div>
+                <div class="text-[#a0a0a0] text-xs mb-2">
+                  AI automation demo for enterprise client
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="text-[#ff6699] text-xs">Prep time: 15 min</div>
+                  <div class="text-[#ffaa00] text-xs">in 48 min</div>
+                </div>
+              </div>
+
+              <div class="bg-[#0a0a0a] border-l-4 border-l-[#333333] p-4 rounded-sm">
+                <div class="flex justify-between items-start mb-2">
+                  <div class="text-[#e0e0e0] text-sm font-bold">Code Review Session</div>
+                  <div class="text-[#00ffff] text-xs">18:00 - 19:00</div>
+                </div>
+                <div class="text-[#a0a0a0] text-xs mb-2">
+                  Review pull requests and architectural decisions
+                </div>
+                <div class="flex justify-between items-center">
+                  <div class="text-[#ff6699] text-xs">Location: Office</div>
+                  <div class="text-[#a0a0a0] text-xs">in 2h 18m</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Insights & Reminders -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Smart Reminders -->
+            <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">🧠 AI Reminders</h4>
+              
+              <div class="space-y-3">
+                <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm">
+                  <div class="flex items-start justify-between mb-2">
+                    <div class="text-[#00ffff] text-sm">📋 Prep client demo</div>
+                    <div class="text-[#ffaa00] text-xs">HIGH</div>
+                  </div>
+                  <div class="text-[#a0a0a0] text-xs">
+                    Suggested: 15 min before meeting (16:15)
+                  </div>
+                </div>
+
+                <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm">
+                  <div class="flex items-start justify-between mb-2">
+                    <div class="text-[#00ffff] text-sm">☕ Take break</div>
+                    <div class="text-[#00ff00] text-xs">LOW</div>
+                  </div>
+                  <div class="text-[#a0a0a0] text-xs">
+                    You've been working for 3h. Break suggested.
+                  </div>
+                </div>
+
+                <div class="bg-[#0a0a0a] border border-[#333333] p-3 rounded-sm">
+                  <div class="flex items-start justify-between mb-2">
+                    <div class="text-[#00ffff] text-sm">🚗 Leave for office</div>
+                    <div class="text-[#ffaa00] text-xs">MED</div>
+                  </div>
+                  <div class="text-[#a0a0a0] text-xs">
+                    Traffic: +12 min delay. Leave at 17:30.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Schedule Optimization -->
+            <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">⚡ Optimization</h4>
+              
+              <div class="space-y-2 text-xs">
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Focus time today:</span>
+                  <span class="text-[#00ff00]">4h 15min</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Meeting load:</span>
+                  <span class="text-[#ffaa00]">78% (high)</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Productivity score:</span>
+                  <span class="text-[#00ffff]">8.7/10</span>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-3 border-t border-[#333333]">
+                <div class="text-[#00ffff] text-xs mb-2">💡 AI Suggestions:</div>
+                <div class="text-[#a0a0a0] text-xs">
+                  • Block 2h tomorrow for deep work<br>
+                  • Reschedule non-critical meetings<br>
+                  • Enable Do Not Disturb 14:00-16:00
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendar Integration Status -->
+    <section class="relative z-20 py-8 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+          🔄 Calendar Sync Status
+        </h3>
+        
+        <div class="grid md:grid-cols-4 gap-4">
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-[#e0e0e0] font-bold text-sm">Google Calendar</div>
+              <div class="w-3 h-3 bg-[#00ff00] rounded-full animate-pulse"></div>
+            </div>
+            <div class="text-[#a0a0a0] text-xs mb-1">Last sync: 2 min ago</div>
+            <div class="text-[#00ffff] text-xs">127 events synced</div>
+          </div>
+          
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-[#e0e0e0] font-bold text-sm">Outlook 365</div>
+              <div class="w-3 h-3 bg-[#00ff00] rounded-full animate-pulse"></div>
+            </div>
+            <div class="text-[#a0a0a0] text-xs mb-1">Last sync: 5 min ago</div>
+            <div class="text-[#00ffff] text-xs">89 events synced</div>
+          </div>
+          
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-[#e0e0e0] font-bold text-sm">Apple Calendar</div>
+              <div class="w-3 h-3 bg-[#ffaa00] rounded-full animate-pulse"></div>
+            </div>
+            <div class="text-[#a0a0a0] text-xs mb-1">Last sync: 15 min ago</div>
+            <div class="text-[#ffaa00] text-xs">Sync in progress...</div>
+          </div>
+          
+          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-[#e0e0e0] font-bold text-sm">Todoist</div>
+              <div class="w-3 h-3 bg-[#00ff00] rounded-full animate-pulse"></div>
+            </div>
+            <div class="text-[#a0a0a0] text-xs mb-1">Last sync: 1 min ago</div>
+            <div class="text-[#00ffff] text-xs">43 tasks synced</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</MyBonzoLayout>

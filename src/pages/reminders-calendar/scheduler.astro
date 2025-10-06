@@ -1,0 +1,14 @@
+---
+import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
+import CalendarManager from '../../components/dashboard/CalendarManager.svelte';
+---
+<MyBonzoLayout siteTitle="Scheduler | Smart Calendar AI">
+  <main class="min-h-svh relative z-10 pt-20" style="background-color: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <a href="/reminders-calendar" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-200">← Powrót</a>
+      <h1 class="text-3xl font-bold text-cyan-300 my-4">AI Scheduler</h1>
+      <p class="text-gray-400 mb-8">Zarządzaj wydarzeniami w swoim kalendarzu. Nowe wydarzenia dodane tutaj zostaną zsynchronizowane z Twoim Kalendarzem Google.</p>
+      <CalendarManager client:load userId="default-user" />
+    </div>
+  </main>
+</MyBonzoLayout>

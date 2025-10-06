@@ -1,0 +1,190 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import FAQGeneratorWidget from "../../components/FAQGeneratorWidget.svelte";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Generator FAQ Dynamiczny | AI Functions | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"
+      >
+      </div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1
+              class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']"
+            >
+              Generator FAQ Dynamiczny
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy wiedzy
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">GENERATING</span>
+            </div>
+            <div>FAQ COUNT: <span class="text-[#00ffff] animate-pulse">1,247</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a
+            href="/"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            ← Powrót do głównej
+          </a>
+          <a
+            href="/zaawansowane-funkcje-ai"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+          >
+            Wszystkie funkcje AI
+          </a>
+        </div>
+      </div>
+    </section>
+
+      <div class="max-w-4xl mx-auto px-4">
+        <!-- FAQ Generator -->
+                <!-- FAQ Generator Widget -->
+        <FAQGeneratorWidget client:visible />
+        
+        <!-- Generated FAQ Display -->
+        <div class="mt-12 p-6 bg-[#111111] border border-[#333333] glass-effect">
+          <h3 class="text-xl font-bold text-[#00ffff] mb-4 uppercase tracking-wider font-['Neuropol']">Wygenerowane FAQ</h3>
+          <div class="space-y-4">
+            <div class="border-l-4 border-[#00ffff] pl-4">
+              <h4 class="font-bold text-[#e0e0e0] mb-2 font-['Kenyan_Coffee']">Q: Jak działa system AI MyBonzo?</h4>
+              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
+                A: System MyBonzo wykorzystuje zaawansowane modele AI do automatyzacji procesów biznesowych. 
+                Integruje multiple providery jak OpenAI, Anthropic, Google AI, oferując kompleksowe rozwiązania.
+              </p>
+            </div>
+            
+            <div class="border-l-4 border-[#00ffff] pl-4">
+              <h4 class="font-bold text-[#e0e0e0] mb-2 font-['Kenyan_Coffee']">Q: Jakie są koszty korzystania z platformy?</h4>
+              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
+                A: Oferujemy elastyczne pakiety cenowe dostosowane do potrzeb. Podstawowy plan startuje od 99zł/miesiąc 
+                z możliwością skalowania w zależności od użycia.
+              </p>
+            </div>
+
+            <div class="border-l-4 border-[#00ffff] pl-4">
+              <h4 class="font-bold text-[#e0e0e0] mb-2 font-['Kenyan_Coffee']">Q: Czy oferujecie wsparcie techniczne?</h4>
+              <p class="text-[#a0a0a0] text-sm font-['Kenyan_Coffee']">
+                A: Tak, zapewniamy pełne wsparcie techniczne 24/7 poprzez chat, email i telefon. 
+                  Dodatkowo oferujemy onboarding i szkolenia dla zespołów.
+                </p>
+              </div>
+
+              <div class="border-l-4 border-purple-400 pl-4">
+                <h4 class="font-semibold text-white mb-2">Q: Jak bezpieczne są dane w systemie?</h4>
+                <p class="text-slate-300 text-sm">
+                  A: Bezpieczeństwo to nasz priorytet. Wykorzystujemy szyfrowanie end-to-end, 
+                  certyfikaty SSL, oraz compliance z RODO i SOC 2.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 flex gap-3">
+              <button class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                🔄 Regeneruj FAQ
+              </button>
+              <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                📋 Eksportuj
+              </button>
+              <button class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold transition-colors">
+                🌐 Publikuj na stronie
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-purple-400">AI Configuration</h3>
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Model AI</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="gpt-4">GPT-4</option>
+                  <option value="claude">Claude 3.5</option>
+                  <option value="gemini">Gemini Pro</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Ton odpowiedzi</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="professional">Profesjonalny</option>
+                  <option value="friendly">Przyjazny</option>
+                  <option value="technical">Techniczny</option>
+                  <option value="casual">Swobodny</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-slate-300 mb-2">Długość odpowiedzi</label>
+                <select class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-white">
+                  <option value="short">Krótkie</option>
+                  <option value="medium">Średnie</option>
+                  <option value="detailed">Szczegółowe</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-purple-400">Statystyki</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-slate-300">FAQ wygenerowane:</span>
+                <span class="text-green-400 font-semibold">156</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-300">Pytania dzisiaj:</span>
+                <span class="text-blue-400 font-semibold">23</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-300">Trafność AI:</span>
+                <span class="text-yellow-400 font-semibold">94%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-lg p-6">
+            <h3 class="text-xl font-semibold mb-4 text-purple-400">Funkcje</h3>
+            <ul class="space-y-2 text-slate-300 text-sm">
+              <li>🤖 Auto-generowanie FAQ</li>
+              <li>🔍 Analiza często zadawanych pytań</li>
+              <li>📝 Multiple output formats</li>
+              <li>🌐 Direct website integration</li>
+              <li>📊 Usage analytics</li>
+              <li>🔄 Auto-updates</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  }
+</style>

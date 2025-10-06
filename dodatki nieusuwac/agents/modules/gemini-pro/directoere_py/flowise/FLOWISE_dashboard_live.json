@@ -1,0 +1,86 @@
+{
+  "id": "polaczek-flowise-workflow",
+  "name": "POLACZEK: Gemini > Bielik > Llama > Dashboard (Flowise)",
+  "description": "Flowise: Orkiestracja workflow AI z agentami Gemini, Bielik, Llama i dashboardem live.",
+  "nodes": [
+    {
+      "id": "node-input",
+      "type": "Input",
+      "data": {
+        "label": "Wejście użytkownika",
+        "inputType": "text"
+      },
+      "position": { "x": 50, "y": 100 }
+    },
+    {
+      "id": "node-gemini",
+      "type": "CustomREST",
+      "data": {
+        "label": "Gemini Pro (Google AI)",
+        "endpoint": "http://localhost:9000/api/gemini",
+        "method": "POST",
+        "payloadMapping": { "prompt": "{{input}}" },
+        "headers": { "Content-Type": "application/json" }
+      },
+      "position": { "x": 250, "y": 70 }
+    },
+    {
+      "id": "node-bielik",
+      "type": "CustomREST",
+      "data": {
+        "label": "Bielik LLM (PL)",
+        "endpoint": "http://localhost:11434/api/generate",
+        "method": "POST",
+        "payloadMapping": { "model": "bielik", "prompt": "{{node-gemini.output.response}}" },
+        "headers": { "Content-Type": "application/json" }
+      },
+      "position": { "x": 450, "y": 130 }
+    },
+    {
+      "id": "node-llama",
+      "type": "CustomREST",
+      "data": {
+        "label": "Llama3 (Meta/Ollama)",
+        "endpoint": "http://localhost:11434/api/generate",
+        "method": "POST",
+        "payloadMapping": { "model": "llama3", "prompt": "{{node-bielik.output.response}}" },
+        "headers": { "Content-Type": "application/json" }
+      },
+      "position": { "x": 650, "y": 190 }
+    },
+    {
+      "id": "node-dashboard",
+      "type": "CustomREST",
+      "data": {
+        "label": "Dashboard Live",
+        "endpoint": "http://localhost:5005/agent/POLACZEK_D1",
+        "method": "POST",
+        "payloadMapping": { "update": true, "ai_results": "{{node-llama.output.response}}" },
+        "headers": { "Content-Type": "application/json" }
+      },
+      "position": { "x": 850, "y": 120 }
+    },
+    {
+      "id": "node-output",
+      "type": "Output",
+      "data": {
+        "label": "Final Output",
+        "outputType": "text",
+        "outputMapping": { "dashboard": "{{node-dashboard.output.result}}" }
+      },
+      "position": { "x": 1050, "y": 100 }
+    }
+  ],
+  "edges": [
+    { "id": "e-input-gemini", "source": "node-input", "target": "node-gemini" },
+    { "id": "e-gemini-bielik", "source": "node-gemini", "target": "node-bielik" },
+    { "id": "e-bielik-llama", "source": "node-bielik", "target": "node-llama" },
+    { "id": "e-llama-dashboard", "source": "node-llama", "target": "node-dashboard" },
+    { "id": "e-dashboard-output", "source": "node-dashboard", "target": "node-output" }
+  ],
+  "settings": {
+    "trigger": "node-input",
+    "responseNode": "node-output",
+    "description": "Flowise: Input → Gemini → Bielik → Llama → Dashboard → Output. Każdy node to AI model/agent, dashboard node aktualizuje status live."
+  }
+}

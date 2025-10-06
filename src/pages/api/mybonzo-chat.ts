@@ -8,6 +8,13 @@ import { createOPTIONSHandler, createSuccessResponse, createErrorResponse } from
 // CORS support
 export const OPTIONS = createOPTIONSHandler(['POST', 'GET']);
 
+export async function GET({ request }) {
+  return createSuccessResponse({
+    message: 'MyBonzo Chat is active and ready for POST requests.',
+    status: 'ok'
+  });
+}
+
 export async function POST({ request, locals }) {
   try {
     const { prompt, context, language = 'pl' } = await request.json();

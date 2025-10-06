@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const POST = async ({ request }) => {
   try {
@@ -14,8 +14,8 @@ const POST = async ({ request }) => {
       });
     }
     const deepseekApiKey = undefined                                 || process.env.DEEPSEEK_API_KEY;
-    const kaggleUsername = "KAGGLE_USERNAME_SECRET";
-    const kaggleKey = "KAGGLE_KEY_SECRET";
+    const kaggleUsername = undefined                                || process.env.KAGGLE_USERNAME;
+    const kaggleKey = undefined                           || process.env.KAGGLE_KEY;
     if (!deepseekApiKey) {
       return new Response(JSON.stringify({
         success: false,
@@ -25,7 +25,15 @@ const POST = async ({ request }) => {
         headers: { "Content-Type": "application/json" }
       });
     }
-    if (!kaggleUsername || !kaggleKey) ;
+    if (!kaggleUsername || !kaggleKey) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: "Kaggle credentials not configured"
+      }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const auth = btoa(`${kaggleUsername}:${kaggleKey}`);
     const kaggleResponse = await fetch(`https://www.kaggle.com/api/v1/datasets/list?search=${encodeURIComponent(dataset)}&page=1&pageSize=5`, {
       headers: {

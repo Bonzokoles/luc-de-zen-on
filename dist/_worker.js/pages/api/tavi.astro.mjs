@@ -1,172 +1,87 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createOPTIONSHandler } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
-const GET = async ({ request, locals }) => {
-  const url = new URL(request.url);
-  const query = url.searchParams.get("query") || url.searchParams.get("q") || "AI technology";
-  const env = locals?.runtime?.env;
-  const tavilyApiKey = env?.TAVILY_API_KEY;
-  if (!tavilyApiKey) {
-    return new Response(JSON.stringify({
-      status: "error",
-      error: "Tavily API nie jest skonfigurowane",
-      message: "Brak wymaganej zmiennej środowiskowej: TAVILY_API_KEY",
-      required_config: ["TAVILY_API_KEY"],
-      query,
-      note: "Uzyskaj klucz API z https://tavily.com/",
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    }), {
-      status: 503,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
+function getEnv(locals) {
+  return locals?.runtime?.env || {};
+}
+function parseAiResponse(responseText) {
+  const answerMatch = responseText.match(/ANSWER:(.*?)SOURCES:/s);
+  const answer = answerMatch ? answerMatch[1].trim() : "Model nie wygenerował odpowiedzi.";
+  const sourcesMatch = responseText.match(/SOURCES:(.*)/s);
+  const sourcesText = sourcesMatch ? sourcesMatch[1].trim() : "";
+  const results = [];
+  const sourceLines = sourcesText.split("\n");
+  const lineRegex = /\d+\.\s*\[([^\]]+)\]\(([^\]]+)\)\s*-\s*(.*)/;
+  for (const line of sourceLines) {
+    const match = line.match(lineRegex);
+    if (match) {
+      results.push({
+        title: match[1].trim(),
+        url: match[2].trim(),
+        content: match[3].trim(),
+        score: 0.9
+        // Default score
+      });
+    }
   }
-  try {
-    const { tavily } = await import('../../chunks/index_BTF9JYvf.mjs');
-    const tvly = tavily({ apiKey: tavilyApiKey });
-    const searchResults = await tvly.search(query, {
-      maxResults: 5,
-      includeAnswer: true,
-      includeImages: false
-    });
-    return new Response(JSON.stringify({
-      status: "success",
-      query,
-      results: searchResults.results || [],
-      answer: searchResults.answer || null,
-      total_results: searchResults.results?.length || 0,
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
-  } catch (error) {
-    console.error("Tavily API Error:", error);
-    return new Response(JSON.stringify({
-      status: "error",
-      error: "Błąd podczas wyszukiwania Tavily",
-      message: error instanceof Error ? error.message : "Nieznany błąd",
-      query,
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
-  }
-};
+  return { answer, results };
+}
 const POST = async ({ request, locals }) => {
+  const env = getEnv(locals);
+  const aiBinding = env.AI;
+  if (!aiBinding) {
+    return new Response(JSON.stringify({
+      status: "error",
+      error: "AI binding is not configured in your environment."
+    }), { status: 500 });
+  }
   try {
     const body = await request.json();
-    const {
+    const query = body.query;
+    if (!query) {
+      return new Response(JSON.stringify({ status: "error", error: "Query is required" }), { status: 400 });
+    }
+    const systemPrompt = `You are an AI research assistant. Your task is to search the web for the user's query and provide a concise answer, followed by a list of the most relevant sources. Format your response EXACTLY as follows, in Polish:
+
+ANSWER: [Your summary and answer here]
+
+SOURCES:
+1. [Title of the first source](URL of the first source) - [Snippet or brief description of the first source]
+2. [Title of the second source](URL of the second source) - [Snippet or brief description of the second source]
+3. [Title of the third source](URL of the third source) - [Snippet or brief description of the third source]`;
+    const aiResponse = await aiBinding.run("@cf/google/gemma-2-9b-it", {
+      // Using a Google model available on Cloudflare
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: query }
+      ]
+    });
+    const parsedData = parseAiResponse(aiResponse.response || "");
+    const responsePayload = {
+      status: "success",
       query,
-      searchType = "search",
-      maxResults = 10,
-      includeImages = false,
-      includeAnswer = true,
-      includeDomains = [],
-      excludeDomains = [],
-      language = "en"
-    } = body;
-    if (!query || query.trim().length === 0) {
-      return new Response(JSON.stringify({
-        status: "error",
-        error: "Query parameter is required",
-        timestamp: (/* @__PURE__ */ new Date()).toISOString()
-      }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    const env = locals?.runtime?.env;
-    const tavilyApiKey = env?.TAVILY_API_KEY;
-    if (!tavilyApiKey) {
-      return new Response(JSON.stringify({
-        status: "error",
-        error: "Tavily API nie jest skonfigurowane",
-        message: "Brak wymaganej zmiennej środowiskowej: TAVILY_API_KEY",
-        required_config: ["TAVILY_API_KEY"],
-        query,
-        searchType,
-        note: "Uzyskaj klucz API z https://tavily.com/",
-        timestamp: (/* @__PURE__ */ new Date()).toISOString()
-      }), {
-        status: 503,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
-    try {
-      const { tavily } = await import('../../chunks/index_BTF9JYvf.mjs');
-      const tvly = tavily({ apiKey: tavilyApiKey });
-      const searchOptions = {};
-      if (maxResults) searchOptions.maxResults = Math.min(maxResults, 20);
-      if (includeImages) searchOptions.includeImages = includeImages;
-      if (includeAnswer) searchOptions.includeAnswer = includeAnswer;
-      if (includeDomains && includeDomains.length > 0) searchOptions.includeDomains = includeDomains;
-      const searchResults = await tvly.search(query, searchOptions);
-      return new Response(JSON.stringify({
-        status: "success",
-        query,
-        searchType,
-        results: searchResults.results || [],
-        answer: searchResults.answer || null,
-        total_results: searchResults.results?.length || 0,
-        timestamp: (/* @__PURE__ */ new Date()).toISOString()
-      }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    } catch (error) {
-      console.error("Tavily API Error:", error);
-      return new Response(JSON.stringify({
-        status: "error",
-        error: "Błąd podczas wyszukiwania Tavily",
-        message: error instanceof Error ? error.message : "Nieznany błąd",
-        query,
-        searchType,
-        timestamp: (/* @__PURE__ */ new Date()).toISOString()
-      }), {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
-    }
+      answer: parsedData.answer,
+      results: parsedData.results,
+      usage: {
+        // Placeholder usage info
+        tokensUsed: aiResponse.response?.length || 0,
+        requestsRemaining: 99
+      }
+    };
+    return new Response(JSON.stringify(responsePayload), {
+      headers: { "Content-Type": "application/json" }
+    });
   } catch (error) {
+    console.error("Tavily API (via Gemini) Error:", error);
     return new Response(JSON.stringify({
       status: "error",
-      error: "Internal server error",
-      timestamp: (/* @__PURE__ */ new Date()).toISOString()
-    }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
+      error: error instanceof Error ? error.message : "Failed to perform search via AI."
+    }), { status: 500 });
   }
 };
-const OPTIONS = createOPTIONSHandler(["GET", "POST", "OPTIONS"]);
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
-  GET,
-  OPTIONS,
   POST
 }, Symbol.toStringTag, { value: 'Module' }));
 

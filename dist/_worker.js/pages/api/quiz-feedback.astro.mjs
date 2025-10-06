@@ -1,99 +1,43 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { O as OpenAI } from '../../chunks/client_VWYXpznl.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
-const POST = async ({ request }) => {
+function getEnv(locals) {
+  return locals?.runtime?.env || {};
+}
+const POST = async ({ request, locals }) => {
   try {
-    const { userAnswers, quizTopic, difficulty } = await request.json();
-    if (!userAnswers || !Array.isArray(userAnswers)) {
-      return new Response(JSON.stringify({ error: "User answers are required" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+    const env = getEnv(locals);
+    const aiBinding = env.AI;
+    if (!aiBinding) {
+      throw new Error("AI binding is not configured in your environment.");
     }
-    const totalQuestions = userAnswers.length;
-    const correctAnswers = userAnswers.filter((answer) => answer.isCorrect).length;
-    const score = Math.round(correctAnswers / totalQuestions * 100);
-    const openai = new OpenAI({
-      apiKey: undefined                              
-    });
-    const systemMessage = {
-      role: "system",
-      content: "Jesteś doświadczonym nauczycielem tworzącym spersonalizowany feedback dla uczniów. Analizujesz wyniki quizu i dajesz konstruktywne, motywujące wskazówki do dalszej nauki."
-    };
-    const answersAnalysis = userAnswers.map(
-      (answer) => `Pytanie: ${answer.question}
-Wybrana odpowiedź: ${answer.selectedAnswer}
-Poprawna odpowiedź: ${answer.correctAnswer}
-Czy poprawna: ${answer.isCorrect ? "TAK" : "NIE"}`
-    ).join("\n\n");
-    const userMessage = {
-      role: "user",
-      content: `Przeanalizuj wyniki quizu ucznia:
-
-Temat quizu: ${quizTopic || "Nieokreślony"}
-Poziom trudności: ${difficulty || "Nieokreślony"}
-Wynik: ${correctAnswers}/${totalQuestions} (${score}%)
-
-Analiza odpowiedzi:
-${answersAnalysis}
-
-Napisz spersonalizowany feedback zawierający:
-1. Gratulacje za mocne strony
-2. Obszary do poprawy
-3. Konkretne wskazówki do dalszej nauki
-4. Motywujące zachęcenie
-
-Odpowiedź w formacie JSON:
-{
-  "feedback": "Tekst feedbacku",
-  "strengths": ["Mocna strona 1", "Mocna strona 2"],
-  "improvements": ["Obszar do poprawy 1", "Obszar do poprawy 2"],
-  "recommendations": ["Rekomendacja 1", "Rekomendacja 2"]
-}`
-    };
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [systemMessage, userMessage],
-      max_tokens: 1e3,
-      temperature: 0.7
-    });
-    const responseText = response.choices[0].message.content;
-    try {
-      const feedbackData = JSON.parse(responseText || "{}");
-      return new Response(JSON.stringify({
-        success: true,
-        score,
-        correctAnswers,
-        totalQuestions,
-        percentage: score,
-        ...feedbackData
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
-    } catch (parseError) {
-      return new Response(JSON.stringify({
-        success: true,
-        score,
-        correctAnswers,
-        totalQuestions,
-        percentage: score,
-        feedback: `Gratulacje! Ukończyłeś quiz z wynikiem ${score}%. ${score >= 80 ? "Excellent work!" : score >= 60 ? "Good job, keep learning!" : "Keep practicing to improve your score!"}`
-      }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      });
+    const { question, selectedAnswer, correctAnswer, isCorrect, topic, difficulty } = await request.json();
+    if (question === void 0 || selectedAnswer === void 0 || correctAnswer === void 0 || isCorrect === void 0) {
+      return new Response(JSON.stringify({ error: "Required fields are missing from the request body." }), { status: 400 });
     }
+    const systemPrompt = "You are an experienced and encouraging teacher providing personalized feedback to a student after they've answered a quiz question. Your response must be in Polish.";
+    const userPrompt = `A student answered a quiz question. Here is the data:
+    - Topic: ${topic || "General Knowledge"}
+    - Difficulty: ${difficulty || "Not specified"}
+    - Question: "${question}"
+    - Their Answer: "${selectedAnswer}"
+    - Correct Answer: "${correctAnswer}"
+    - Was their answer correct? ${isCorrect ? "Yes" : "No"}`;
+    const aiResponse = await aiBinding.run("@cf/google/gemma-2-9b-it", {
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt }
+      ],
+      max_tokens: 400
+    });
+    const feedback = aiResponse.response || (isCorrect ? "Dobra robota! To poprawna odpowiedź." : "Niestety, to nie jest poprawna odpowiedź. Spróbuj jeszcze raz!");
+    return new Response(JSON.stringify({
+      success: true,
+      feedback
+    }), { status: 200 });
   } catch (error) {
     console.error("Error generating quiz feedback:", error);
-    return new Response(JSON.stringify({
-      error: "Internal server error",
-      message: error instanceof Error ? error.message : "Unknown error"
-    }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
-    });
+    return new Response(JSON.stringify({ error: "Internal server error", message: error.message }), { status: 500 });
   }
 };
 

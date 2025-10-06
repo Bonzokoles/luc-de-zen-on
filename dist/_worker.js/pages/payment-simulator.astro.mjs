@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, d as renderHead, b as renderScript, a as renderTemplate } from '../chunks/astro/server_DFvGEJvU.mjs';
+import { c as createComponent, d as renderHead, b as renderScript, a as renderTemplate } from '../chunks/astro/server_C1oOU0Od.mjs';
 /* empty css                                             */
-export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const $$PaymentSimulator = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl" data-astro-cid-auwpx3mw> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Payment Simulator - AI Workers Platform</title>${renderHead()}</head> <body data-astro-cid-auwpx3mw> <div class="payment-container" data-astro-cid-auwpx3mw> <div class="payment-header" data-astro-cid-auwpx3mw> <h1 class="payment-title" data-astro-cid-auwpx3mw>💳 Payment Simulator</h1> <p class="payment-subtitle" data-astro-cid-auwpx3mw>Development Mode - Symulacja płatności</p> </div> <div id="paymentForm" data-astro-cid-auwpx3mw> <div class="payment-details" id="paymentDetails" data-astro-cid-auwpx3mw> <!-- Payment details will be inserted here --> </div> <div class="payment-actions" data-astro-cid-auwpx3mw> <button class="btn btn-success" onclick="processPayment(true)" data-astro-cid-auwpx3mw>

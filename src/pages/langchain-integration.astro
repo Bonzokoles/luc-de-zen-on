@@ -1,0 +1,506 @@
+---
+import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+---
+
+<MyBonzoLayout title="LangChain Integration | AI Workers">
+  <main class="min-h-svh bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              LANGCHAIN
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              INTEGRATION
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-4">
+          <div class="flex gap-4">
+            <a href="/" class="text-edge hover:text-primary transition-colors">
+              ← GŁÓWNA
+            </a>
+            <a href="/hub/functions" class="text-edge hover:text-primary transition-colors">
+              HUB FUNKCJI
+            </a>
+          </div>
+          <div class="text-sm text-edge">
+            🔗 LangChain Framework Integration
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LangChain Interface -->
+    <section class="max-w-6xl mx-auto p-8">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white mb-4">
+          🔗 LangChain AI Framework
+        </h1>
+        <p class="text-lg text-gray-300 max-w-3xl mx-auto">
+          Zaawansowany framework do tworzenia aplikacji opartych na dużych modelach językowych. 
+          Łączy w łańcuchy różne komponenty AI dla złożonych zadań.
+        </p>
+      </div>
+
+      <!-- Chain Types Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div class="chain-type-card" data-chain="conversation">
+          <div class="chain-icon">💬</div>
+          <h3 class="chain-title">Conversation Chain</h3>
+          <p class="chain-description">Prowadzenie naturalnych rozmów z kontekstem</p>
+        </div>
+        
+        <div class="chain-type-card" data-chain="summarization">
+          <div class="chain-icon">📄</div>
+          <h3 class="chain-title">Summarization Chain</h3>
+          <p class="chain-description">Inteligentne podsumowywanie długich tekstów</p>
+        </div>
+        
+        <div class="chain-type-card" data-chain="qa">
+          <div class="chain-icon">❓</div>
+          <h3 class="chain-title">Q&A Chain</h3>
+          <p class="chain-description">System pytań i odpowiedzi</p>
+        </div>
+        
+        <div class="chain-type-card" data-chain="code_analysis">
+          <div class="chain-icon">💻</div>
+          <h3 class="chain-title">Code Analysis Chain</h3>
+          <p class="chain-description">Analiza i review kodu</p>
+        </div>
+        
+        <div class="chain-type-card" data-chain="document_qa">
+          <div class="chain-icon">📚</div>
+          <h3 class="chain-title">Document Q&A Chain</h3>
+          <p class="chain-description">Pytania na podstawie dokumentów</p>
+        </div>
+        
+        <div class="chain-type-card" data-chain="custom">
+          <div class="chain-icon">⚙️</div>
+          <h3 class="chain-title">Custom Chain</h3>
+          <p class="chain-description">Własne łańcuchy przetwarzania</p>
+        </div>
+      </div>
+
+      <!-- Main Interface -->
+      <div class="langchain-interface">
+        <div class="interface-header">
+          <h2>LangChain Processor</h2>
+          <div class="chain-selector">
+            <label for="chainType">Typ łańcucha:</label>
+            <select id="chainType">
+              <option value="conversation">Conversation</option>
+              <option value="summarization">Summarization</option>
+              <option value="qa">Q&A</option>
+              <option value="code_analysis">Code Analysis</option>
+              <option value="document_qa">Document Q&A</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-section">
+          <textarea 
+            id="langchainInput" 
+            placeholder="Wprowadź tekst do przetworzenia przez LangChain..."
+            rows="8"
+          ></textarea>
+          
+          <div class="options-panel">
+            <div class="option-group">
+              <label for="temperature">Temperatura (0.0-1.0):</label>
+              <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7">
+              <span id="tempValue">0.7</span>
+            </div>
+            
+            <div class="option-group">
+              <label for="maxTokens">Max tokeny:</label>
+              <input type="number" id="maxTokens" min="100" max="4000" value="2048">
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button id="processBtn" class="primary-btn">
+              🔗 Przetwórz przez LangChain
+            </button>
+            <button id="clearBtn" class="secondary-btn">
+              🗑️ Wyczyść
+            </button>
+          </div>
+        </div>
+
+        <div class="output-section" id="outputSection" style="display: none;">
+          <div class="output-header">
+            <h3>Wynik przetwarzania LangChain</h3>
+            <div class="processing-info" id="processingInfo"></div>
+          </div>
+          <div class="output-content" id="outputContent"></div>
+        </div>
+      </div>
+
+      <!-- Integration Status -->
+      <div class="integration-status">
+        <h3>Status integracji LangChain</h3>
+        <div class="status-grid">
+          <div class="status-item">
+            <div class="status-indicator active"></div>
+            <span>DeepSeek AI Model</span>
+          </div>
+          <div class="status-item">
+            <div class="status-indicator active"></div>
+            <span>Chain Processing</span>
+          </div>
+          <div class="status-item">
+            <div class="status-indicator active"></div>
+            <span>Context Memory</span>
+          </div>
+          <div class="status-item">
+            <div class="status-indicator warning"></div>
+            <span>Vector Database</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .chain-type-card {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chain-type-card:hover {
+      border-color: #00d9ff;
+      background: rgba(0, 217, 255, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .chain-type-card.active {
+      border-color: #00d9ff;
+      background: rgba(0, 217, 255, 0.2);
+    }
+
+    .chain-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .chain-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .chain-description {
+      color: #b0b0b0;
+      font-size: 0.9rem;
+    }
+
+    .langchain-interface {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .interface-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .interface-header h2 {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .chain-selector select {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    .input-section textarea {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      color: white;
+      font-size: 1rem;
+      resize: vertical;
+      margin-bottom: 1rem;
+    }
+
+    .options-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .option-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+    }
+
+    .option-group input[type="range"] {
+      flex: 1;
+    }
+
+    .option-group input[type="number"] {
+      width: 80px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 0.25rem;
+      border-radius: 4px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .primary-btn {
+      background: linear-gradient(45deg, #00d9ff, #0099cc);
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .primary-btn:hover {
+      background: linear-gradient(45deg, #00b8e6, #0088bb);
+      transform: translateY(-2px);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .output-section {
+      margin-top: 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .output-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .output-header h3 {
+      color: white;
+      font-size: 1.25rem;
+    }
+
+    .processing-info {
+      color: #00d9ff;
+      font-size: 0.9rem;
+    }
+
+    .output-content {
+      color: white;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .integration-status {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .integration-status h3 {
+      color: white;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .status-indicator.active {
+      background: #00ff88;
+      box-shadow: 0 0 6px #00ff88;
+    }
+
+    .status-indicator.warning {
+      background: #ffaa00;
+      box-shadow: 0 0 6px #ffaa00;
+    }
+
+    .status-item span {
+      color: white;
+      font-size: 0.9rem;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const chainCards = document.querySelectorAll('.chain-type-card');
+      const chainTypeSelect = document.getElementById('chainType');
+      const processBtn = document.getElementById('processBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const langchainInput = document.getElementById('langchainInput');
+      const outputSection = document.getElementById('outputSection');
+      const outputContent = document.getElementById('outputContent');
+      const processingInfo = document.getElementById('processingInfo');
+      const temperatureSlider = document.getElementById('temperature');
+      const tempValue = document.getElementById('tempValue');
+      const maxTokensInput = document.getElementById('maxTokens');
+
+      // Temperature slider update
+      temperatureSlider.addEventListener('input', function() {
+        tempValue.textContent = this.value;
+      });
+
+      // Chain type selection
+      chainCards.forEach(card => {
+        card.addEventListener('click', function() {
+          chainCards.forEach(c => c.classList.remove('active'));
+          this.classList.add('active');
+          const chainType = this.dataset.chain;
+          if (chainType !== 'custom') {
+            chainTypeSelect.value = chainType;
+          }
+        });
+      });
+
+      // Process button
+      processBtn.addEventListener('click', async function() {
+        const message = langchainInput.value.trim();
+        if (!message) {
+          alert('Wprowadź tekst do przetworzenia');
+          return;
+        }
+
+        processBtn.disabled = true;
+        processBtn.innerHTML = '🔄 Przetwarzanie...';
+        outputSection.style.display = 'block';
+        outputContent.innerHTML = 'Przetwarzanie przez LangChain...';
+        processingInfo.innerHTML = `Łańcuch: ${chainTypeSelect.value}`;
+
+        try {
+          const response = await fetch('/api/gemini-langchain', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: message,
+              chain_type: chainTypeSelect.value,
+              options: {
+                temperature: parseFloat(temperatureSlider.value),
+                max_tokens: parseInt(maxTokensInput.value)
+              }
+            })
+          });
+
+          const data = await response.json();
+          
+          if (data.status === 'success') {
+            outputContent.innerHTML = data.data.response;
+            processingInfo.innerHTML = `✅ Zakończono | Model: ${data.data.model} | Czas: ${Date.now() - data.data.processing_time}ms`;
+          } else {
+            outputContent.innerHTML = `❌ Błąd: ${data.error}`;
+            processingInfo.innerHTML = '❌ Błąd przetwarzania';
+          }
+        } catch (error) {
+          outputContent.innerHTML = `❌ Błąd komunikacji: ${error.message}`;
+          processingInfo.innerHTML = '❌ Błąd sieci';
+        } finally {
+          processBtn.disabled = false;
+          processBtn.innerHTML = '🔗 Przetwórz przez LangChain';
+        }
+      });
+
+      // Clear button
+      clearBtn.addEventListener('click', function() {
+        langchainInput.value = '';
+        outputSection.style.display = 'none';
+        chainCards.forEach(c => c.classList.remove('active'));
+      });
+
+      // Enter key support
+      langchainInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.ctrlKey) {
+          processBtn.click();
+        }
+      });
+    });
+  </script>
+</MyBonzoLayout>

@@ -1,110 +1,200 @@
 import type { APIRoute } from 'astro';
-import OpenAI from 'openai';
+import { google } from 'googleapis';
 
-export const POST: APIRoute = async ({ request }) => {
+// --- Helper Functions ---
+function getEnv(locals: App.Locals): Record<string, any> {
+  return import.meta.env.DEV ? process.env : locals?.runtime?.env || {};
+}
+
+function getAuth(env: Record<string, any>) {
+  const keyJson = env.GCP_SERVICE_ACCOUNT_KEY;
+  if (!keyJson) throw new Error('GCP_SERVICE_ACCOUNT_KEY must be configured in secrets.');
+  let credentials;
   try {
-    const { name, email, message, phone, company, budget } = await request.json();
-    
+    credentials = JSON.parse(keyJson);
+  } catch (e) {
+    throw new Error('GCP_SERVICE_ACCOUNT_KEY is not a valid JSON string.');
+  }
+  return new google.auth.GoogleAuth({
+    credentials,
+    scopes: [
+      'https://www.googleapis.com/auth/gmail.send',
+      'https://www.googleapis.com/auth/spreadsheets',
+    ],
+  });
+}
+
+async function sendEmail(auth: any, to: string, subject: string, message: string) {
+  const gmail = google.gmail({ version: 'v1', auth });
+  const rawMessage = [
+    `From: me`,
+    `To: ${to}`,
+    `Subject: =?utf-8?B?${Buffer.from(subject).toString('base64')}?=
+`,
+    'Content-Type: text/html; charset=utf-8',
+    'MIME-Version: 1.0',
+    '',
+    message,
+  ].join('\n');
+
+  await gmail.users.messages.send({
+    userId: 'me',
+    requestBody: {
+      raw: Buffer.from(rawMessage).toString('base64url'),
+    },
+  });
+  console.log('Auto-response email sent successfully to', to);
+}
+
+async function saveToSheet(auth: any, sheetId: string, data: any[]) {
+  const sheets = google.sheets({ version: 'v4', auth });
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: sheetId,
+    range: 'A1', // Appends after the last row of the first sheet
+    valueInputOption: 'USER_ENTERED',
+    requestBody: {
+      values: [data],
+    },
+  });
+  console.log('Lead data successfully saved to Google Sheet.');
+}
+
+// --- Main API Route ---
+// Example lead analysis for demonstration when GCP is not configured
+const EXAMPLE_LEAD_ANALYSIS = {
+  high_priority: {
+    leadScore: "WYSOKI",
+    priority: 1,
+    category: "wdrożenie AI",
+    reply: "Dziękujemy za zainteresowanie naszymi rozwiązaniami AI! Nasz specjalista ds. wdrożeń skontaktuje się z Państwem w ciągu 4 godzin roboczych, aby omówić szczegóły projektu.",
+    internalNotes: "Potencjalny klient enterprise - priorytet kontaktu",
+    suggestedAction: "Natychmiastowy kontakt - przekazać do senior consultanta"
+  },
+  medium_priority: {
+    leadScore: "ŚREDNI", 
+    priority: 3,
+    category: "konsultacja AI",
+    reply: "Dziękujemy za kontakt! Otrzymaliśmy Państwa zapytanie dotyczące rozwiązań AI. Nasz konsultant skontaktuje się z Państwem w ciągu 24 godzin.",
+    internalNotes: "Wymaga kwalifikacji budżetu i timeline'u",
+    suggestedAction: "Kontakt w ciągu 24h - wstępna konsultacja"
+  },
+  low_priority: {
+    leadScore: "NISKI",
+    priority: 4, 
+    category: "informacje ogólne",
+    reply: "Dziękujemy za zainteresowanie! Wysłaliśmy na Państwa adres e-mail materiały informacyjne o naszych usługach AI.",
+    internalNotes: "Lead informacyjny - dodać do newsletter",
+    suggestedAction: "Wysłać materiały marketingowe, follow-up za tydzień"
+  }
+};
+
+export const POST: APIRoute = async ({ request, locals }) => {
+  try {
+    const body = await request.json();
+    const { name, email, company, phone, budget, message } = body;
+
     if (!name || !email || !message) {
-      return new Response(JSON.stringify({ error: 'Name, email, and message are required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(JSON.stringify({ error: 'Name, email, and message are required' }), { status: 400 });
     }
 
-    // Initialize OpenAI with API key from environment
-    const openai = new OpenAI({
-      apiKey: import.meta.env.OPENAI_API_KEY,
-    });
+    const env = getEnv(locals);
 
-    const leadData = {
-      name,
-      email,
-      message,
-      phone: phone || 'nie podano',
-      company: company || 'nie podano',
-      budget: budget || 'nie określono'
-    };
+    // Check if GCP credentials are configured
+    const gcpKey = env.GCP_SERVICE_ACCOUNT_KEY;
+    const googleSheetId = env.GOOGLE_SHEET_ID;
 
-    const systemMessage = {
-      role: "system" as const,
-      content: "Jesteś asystentem AI do kwalifikacji leadów. Oceń wartość leadu (WYSOKI, ŚREDNI, NISKI), określ priorytet (1-5) i napisz profesjonalną, ale serdeczną odpowiedź powitalną (maksymalnie 150 słów). Zwróć odpowiedź w formacie JSON."
-    };
-
-    const userMessage = {
-      role: "user" as const,
-      content: `Oceń lead na podstawie danych: ${JSON.stringify(leadData)}. 
+    if (!gcpKey) {
+      // Return example analysis when GCP is not configured
+      console.log('GCP credentials not configured, returning example lead analysis');
       
-      Zwróć odpowiedź w formacie JSON:
-      {
-        "leadScore": "WYSOKI/ŚREDNI/NISKI",
-        "priority": 1-5,
-        "category": "kategoria leadu",
-        "reply": "Odpowiedź powitalna dla klienta",
-        "internalNotes": "Notatki wewnętrzne dla zespołu sprzedaży",
-        "suggestedAction": "Sugerowane następne kroki"
+      const messageLower = message.toLowerCase();
+      let exampleKey = 'medium_priority';
+      
+      if (messageLower.includes('wdrożenie') || messageLower.includes('projekt') || messageLower.includes('enterprise')) {
+        exampleKey = 'high_priority';
+      } else if (messageLower.includes('info') || messageLower.includes('material') || messageLower.includes('poznać')) {
+        exampleKey = 'low_priority';
       }
       
-      Napisz odpowiedź w profesjonalnym, ale serdecznym tonie, zachęcającym do dalszej rozmowy.`
-    };
-
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [systemMessage, userMessage],
-      max_tokens: 600,
-      temperature: 0.6,
-    });
-
-    const generatedText = response.choices[0].message.content;
-    
-    // Try to parse the JSON response
-    let leadAnalysis;
-    try {
-      leadAnalysis = JSON.parse(generatedText || '{}');
-    } catch (parseError) {
-      // If JSON parsing fails, create a fallback response
-      leadAnalysis = {
-        leadScore: "ŚREDNI",
-        priority: 3,
-        category: "ogólne zapytanie",
-        reply: generatedText || "Dziękujemy za kontakt! Skontaktujemy się z Państwem wkrótce.",
-        internalNotes: "Lead wymaga ręcznej weryfikacji",
-        suggestedAction: "Kontakt telefoniczny w ciągu 24h"
-      };
+      const leadAnalysis = EXAMPLE_LEAD_ANALYSIS[exampleKey as keyof typeof EXAMPLE_LEAD_ANALYSIS];
+      
+      return new Response(JSON.stringify({ 
+        success: true,
+        ...leadAnalysis,
+        timestamp: new Date().toISOString(),
+        note: 'Przykładowa analiza - skonfiguruj GCP_SERVICE_ACCOUNT_KEY i GOOGLE_SHEET_ID dla pełnej automatyzacji'
+      }), { status: 200 });
     }
 
-    // Store lead data (in real application, this would go to database/CRM)
-    const leadRecord = {
-      ...leadData,
-      ...leadAnalysis,
-      timestamp: new Date().toISOString(),
-      status: 'NEW'
-    };
+    // Real AI analysis when GCP is configured
+    const prompt = `Przeanalizuj następujące zapytanie od potencjalnego klienta i dokonaj kwalifikacji leada:
 
-    // Here you could integrate with ActivePieces or CRM system
-    console.log('New lead processed:', leadRecord);
+    Dane klienta:
+    - Imię: ${name}
+    - Email: ${email}
+    - Firma: ${company || 'Nie podano'}
+    - Telefon: ${phone || 'Nie podano'}  
+    - Budżet: ${budget || 'Nie podano'}
+    - Wiadomość: ${message}
+
+    Zwróć odpowiedź w formacie JSON z następującymi polami:
+    - leadScore: "WYSOKI" | "ŚREDNI" | "NISKI"
+    - priority: numer od 1 (najwyższy) do 5 (najniższy)
+    - category: kategoria zapytania (np. "konsultacja", "wdrożenie AI", "support")
+    - reply: spersonalizowana odpowiedź dla klienta (2-3 zdania w języku polskim)
+    - internalNotes: notatki wewnętrzne dla zespołu sprzedaży
+    - suggestedAction: sugerowane działanie (np. "Kontakt w ciągu 24h", "Przeslij oferte")`;
+
+    const aiResponse = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [{ role: 'user', content: prompt }]
+    });
+
+    let leadAnalysis;
+    try {
+      const jsonMatch = aiResponse.response.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON object found in AI response.');
+      leadAnalysis = JSON.parse(jsonMatch[0]);
+    } catch (parseError) {
+      leadAnalysis = EXAMPLE_LEAD_ANALYSIS.medium_priority;
+    }
+
+    // --- Real GCP Integrations ---
+    const auth = getAuth(env);
+    const operations = [];
+
+    // 1. Send Email
+    if (leadAnalysis.reply) {
+        operations.push(sendEmail(auth, email, `Re: Twoje zapytanie - ${leadAnalysis.category}`, leadAnalysis.reply));
+    }
+
+    // 2. Save to CRM (Google Sheet)
+    if (googleSheetId) {
+        const sheetRow = [
+            new Date().toISOString(),
+            name, email, phone, company, budget,
+            leadAnalysis.leadScore, leadAnalysis.priority, leadAnalysis.category,
+            message, leadAnalysis.suggestedAction
+        ];
+        operations.push(saveToSheet(auth, googleSheetId, sheetRow));
+    }
+
+    // Run integrations in parallel, but don't block the user response
+    Promise.allSettled(operations).then(results => {
+        results.forEach(result => {
+            if (result.status === 'rejected') {
+                console.error('Customer Automation integration failed:', result.reason);
+            }
+        });
+    });
 
     return new Response(JSON.stringify({ 
       success: true,
-      reply: leadAnalysis.reply,
-      leadScore: leadAnalysis.leadScore,
-      priority: leadAnalysis.priority,
-      category: leadAnalysis.category,
-      suggestedAction: leadAnalysis.suggestedAction,
+      ...leadAnalysis,
       timestamp: new Date().toISOString()
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    }), { status: 200 });
 
   } catch (error) {
     console.error('Error qualifying lead:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Failed to process lead qualification',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return new Response(JSON.stringify({ error: 'Failed to process lead qualification', details: error.message }), { status: 500 });
   }
 };

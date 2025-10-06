@@ -1,0 +1,75 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import FAQGeneratorWidget from "../../components/FAQGeneratorWidget.svelte";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Generator FAQ Dynamiczny | AI Functions | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Generator FAQ Dynamiczny
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy wiedzy
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ffff]">ACTIVE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content: FAQ Generator -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        <FAQGeneratorWidget client:load />
+      </div>
+    </section>
+
+    <!-- Feature Overview -->
+    <section class="relative z-20 py-12 border-t border-[#333333]">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">AI Generator</h3>
+            <p class="text-[#a0a0a0] mt-2 font-['Kenyan_Coffee']">Automatyczne generowanie pytań i odpowiedzi.</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Baza Wiedzy</h3>
+            <p class="text-[#a0a0a0] mt-2 font-['Kenyan_Coffee']">Centralny system zarządzania wiedzą.</p>
+          </div>
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Zarządzanie FAQ</h3>
+            <p class="text-[#a0a0a0] mt-2 font-['Kenyan_Coffee']">Edycja, kategoryzacja i publikacja.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</MyBonzoLayout>

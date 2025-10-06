@@ -1,73 +1,56 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { g as getApiKey } from '../../chunks/loadEnv_m7uO93o2.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
-const POST = async ({ request }) => {
+function getEnv(locals) {
+  return locals?.runtime?.env || {};
+}
+const POST = async ({ request, locals }) => {
   try {
+    const env = getEnv(locals);
+    const aiBinding = env.AI;
+    if (!aiBinding) {
+      throw new Error("AI binding is not configured in your environment.");
+    }
     const { userProfile } = await request.json();
     if (!userProfile) {
-      return new Response(JSON.stringify({ error: "User profile is required" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" }
-      });
+      return new Response(JSON.stringify({ error: "User profile is required" }), { status: 400 });
     }
-    const openaiKey = getApiKey("OPENAI_API_KEY");
     const prompt = `Na podstawie profilu użytkownika, wygeneruj spersonalizowane rekomendacje kursów i materiałów edukacyjnych.
 
-Profil użytkownika: ${JSON.stringify(userProfile, null, 2)}
+    Profil użytkownika: ${JSON.stringify(userProfile, null, 2)}
 
-Uwzględnij:
-- Obecny poziom umiejętności
-- Zainteresowania i cele zawodowe
-- Dostępny czas na naukę
-- Preferowany styl uczenia się
-- Budżet (jeśli podany)
+    Uwzględnij:
+    - Obecny poziom umiejętności
+    - Zainteresowania i cele zawodowe
+    - Dostępny czas na naukę
+    - Preferowany styl uczenia się
+    - Budżet (jeśli podany)
 
-Format odpowiedzi:
-🎯 REKOMENDOWANE KURSY:
-1. [Nazwa kursu] - [Dostawca] - [Czas trwania] - [Poziom]
-   💡 Dlaczego: [uzasadnienie]
-   🔗 Link: [link lub "sprawdź na platformie X"]
+    Format odpowiedzi (użyj Markdown):
+    🎯 **REKOMENDOWANE KURSY:**
+    1. **[Nazwa kursu]** - [Dostawca] - [Czas trwania] - [Poziom]
+       *💡 Dlaczego:* [szczegółowe uzasadnienie, dlaczego ten kurs pasuje do profilu]
+       *🔗 Link:* [link lub "sprawdź na platformie X"]
 
-📚 MATERIAŁY UZUPEŁNIAJĄCE:
-- [księga/artykuł/podcast]
+    📚 **MATERIAŁY UZUPEŁNIAJĄCE:**
+    - **[Książka/Artykuł/Podcast]:** [Tytuł] - [Krótki opis, dlaczego warto]
 
-⏰ PLAN NAUKI:
-- [sugestie harmonogramu]
+    ⏰ **SUGEROWANY PLAN NAUKI:**
+    - **[Tydzień 1-2]:** [Konkretne zadania lub moduły do przerobienia]
+    - **[Tydzień 3-4]:** [Następne kroki]
 
-💰 OPCJE BUDŻETOWE:
-- [darmowe alternatywy]`;
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${openaiKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          {
-            role: "system",
-            content: "Jesteś ekspertem edukacyjnym, który pomaga w doborze kursów i materiałów edukacyjnych. Generuj praktyczne, spersonalizowane rekomendacje."
-          },
-          {
-            role: "user",
-            content: prompt
-          }
-        ],
-        max_tokens: 1200,
-        temperature: 0.7
-      })
+    💰 **OPCJE BUDŻETOWE:**
+    - **[Darmowa Alternatywa]:** [Nazwa darmowego kursu/materiału i gdzie go znaleźć]`;
+    const systemPrompt = "Jesteś ekspertem edukacyjnym i mentorem AI. Twoim zadaniem jest tworzenie praktycznych, wysoce spersonalizowanych i motywujących planów rozwoju. Generuj konkretne, użyteczne rekomendacje w języku polskim.";
+    const aiResponse = await aiBinding.run("@cf/google/gemma-2-9b-it", {
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: prompt }
+      ],
+      max_tokens: 2048,
+      temperature: 0.7
     });
-    if (!response.ok) {
-      const error = await response.text();
-      return new Response(JSON.stringify({ error: `OpenAI API error: ${error}` }), {
-        status: response.status,
-        headers: { "Content-Type": "application/json" }
-      });
-    }
-    const data = await response.json();
-    const recommendations = data.choices[0].message.content;
+    const recommendations = aiResponse.response || "AI model did not return a response.";
     return new Response(JSON.stringify({
       recommendations,
       userProfile,

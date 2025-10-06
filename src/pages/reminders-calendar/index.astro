@@ -1,0 +1,80 @@
+---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Smart Calendar AI | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Smart Calendar AI
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Inteligentne przypomnienia i zarządzanie kalendarzem z AI automation
+            </p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a href="/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            ← Powrót
+          </a>
+          <a href="/reminders-calendar/scheduler" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            SCHEDULER
+          </a>
+          <a href="/reminders-calendar/reminders" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            REMINDERS
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Overview -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">AI Scheduler</h3>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">Inteligentne planowanie z optymalizacją czasu.</p>
+            <a href="/reminders-calendar/scheduler" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              PLANUJ
+            </a>
+          </div>
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Reminders</h3>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">Adaptywne przypomnienia z kontekstem.</p>
+            <a href="/reminders-calendar/reminders" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
+              KONFIGURUJ
+            </a>
+          </div>
+          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
+            <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Multi-Sync</h3>
+            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">Synchronizacja z Google Calendar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</MyBonzoLayout>

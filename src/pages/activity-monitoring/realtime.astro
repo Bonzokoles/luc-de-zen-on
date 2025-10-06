@@ -1,0 +1,16 @@
+---
+import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
+import ActivityDashboard from '../../components/ActivityDashboard.svelte';
+---
+<MyBonzoLayout siteTitle="Real-time Monitor | Activity Monitoring AI">
+  <main class="min-h-svh relative z-10 pt-20" style="background-color: #0a0a0a;">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <a href="/activity-monitoring" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-200">← Powrót</a>
+      <h1 class="text-3xl font-bold text-cyan-300 my-4">Live Activity Feed</h1>
+      <p class="text-gray-400 mb-8">Ten dashboard wyświetla logi z Twojego projektu Google Cloud w czasie rzeczywistym.</p>
+      <div class="border border-cyan-500/30 rounded-xl overflow-hidden">
+        <ActivityDashboard client:load />
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>

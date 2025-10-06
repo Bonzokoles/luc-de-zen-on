@@ -8,6 +8,9 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://mybonzo.com',
   output: 'server',
+  experimental: {
+    preserveScriptOrder: true
+  },
   adapter: cloudflare({
     platformProxy: {
       enabled: true
@@ -36,6 +39,11 @@ export default defineConfig({
   
   // Optymalizacja Vite
   vite: {
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    },
     build: {
       rollupOptions: {
         external: [
