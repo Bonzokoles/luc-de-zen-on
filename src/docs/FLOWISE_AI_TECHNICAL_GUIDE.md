@@ -45,7 +45,7 @@ export async function get()
 ```
 
 **Environment Configuration:**
-```env
+```plaintext
 FLOWISE_API_URL=https://api.flowise.com/api/v1  # Default fallback
 FLOWISE_API_TOKEN=your_production_token_here    # Required for production
 ```

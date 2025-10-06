@@ -1,0 +1,378 @@
+---
+title: "Darmowy Generator AI - Obrazy i Filmy"
+description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, HuggingFace i OpenAI Sora"
+---
+
+<div class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white">
+  <!-- Header -->
+  <div class="container mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">
+        🎨 Darmowy Generator AI
+      </h1>
+      <p class="text-xl text-gray-300">
+        Generuj nieograniczone obrazy i filmy AI za darmo
+      </p>
+    </div>
+
+    <!-- Provider Selection -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div class="provider-card bg-gradient-to-br from-purple-800 to-pink-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
+           onclick="selectProvider('together', 'image')">
+        <div class="text-center">
+          <div class="text-3xl mb-3">⚡</div>
+          <h3 class="text-xl font-bold mb-2">Together AI</h3>
+          <p class="text-sm text-gray-300">FLUX.1 Schnell - Najszybszy</p>
+          <div class="mt-3 px-3 py-1 bg-green-600 rounded-full text-xs">DARMOWE</div>
+        </div>
+      </div>
+
+      <div class="provider-card bg-gradient-to-br from-blue-800 to-cyan-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
+           onclick="selectProvider('stability', 'image')">
+        <div class="text-center">
+          <div class="text-3xl mb-3">🎯</div>
+          <h3 class="text-xl font-bold mb-2">Stability AI</h3>
+          <p class="text-sm text-gray-300">SDXL - Najwyższa jakość</p>
+          <div class="mt-3 px-3 py-1 bg-green-600 rounded-full text-xs">DARMOWE</div>
+        </div>
+      </div>
+
+      <div class="provider-card bg-gradient-to-br from-green-800 to-emerald-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
+           onclick="selectProvider('huggingface', 'image')">
+        <div class="text-center">
+          <div class="text-3xl mb-3">🤗</div>
+          <h3 class="text-xl font-bold mb-2">HuggingFace</h3>
+          <p class="text-sm text-gray-300">Playground v2 - Estetyczne</p>
+          <div class="mt-3 px-3 py-1 bg-green-600 rounded-full text-xs">DARMOWE</div>
+        </div>
+      </div>
+
+      <div class="provider-card bg-gradient-to-br from-red-800 to-orange-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
+           onclick="selectProvider('openai', 'video')">
+        <div class="text-center">
+          <div class="text-3xl mb-3">🎬</div>
+          <h3 class="text-xl font-bold mb-2">OpenAI Sora</h3>
+          <p class="text-sm text-gray-300">Generowanie filmów AI</p>
+          <div class="mt-3 px-3 py-1 bg-green-600 rounded-full text-xs">DARMOWE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generation Interface -->
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8 mb-8">
+        <div id="current-provider" class="text-center mb-6">
+          <p class="text-lg text-gray-300">Wybierz dostawcę AI powyżej</p>
+        </div>
+
+        <!-- Prompt Input -->
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium mb-3">Opis tego co chcesz wygenerować:</label>
+            <textarea id="prompt-input" 
+                      placeholder="np. Piękny zachód słońca nad oceanem, fotorealistyczny styl..."
+                      class="w-full p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white placeholder-gray-400 resize-none"
+                      rows="4"></textarea>
+          </div>
+
+          <!-- Style Selection -->
+          <div>
+            <label class="block text-sm font-medium mb-3">Styl obrazu:</label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <button onclick="selectStyle('realistic')" class="style-btn bg-blue-600/50 p-3 rounded-lg transition-all hover:bg-blue-600">
+                Fotorealistyczny
+              </button>
+              <button onclick="selectStyle('artistic')" class="style-btn bg-purple-600/50 p-3 rounded-lg transition-all hover:bg-purple-600">
+                Artystyczny
+              </button>
+              <button onclick="selectStyle('cartoon')" class="style-btn bg-green-600/50 p-3 rounded-lg transition-all hover:bg-green-600">
+                Kreskówka
+              </button>
+              <button onclick="selectStyle('cinematic')" class="style-btn bg-red-600/50 p-3 rounded-lg transition-all hover:bg-red-600">
+                Filmowy
+              </button>
+            </div>
+          </div>
+
+          <!-- Generate Button -->
+          <div class="text-center">
+            <button id="generate-btn" onclick="generateContent()" 
+                    class="bg-gradient-to-r from-pink-500 to-violet-500 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+              🎨 Generuj za darmo
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="hidden text-center py-8">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-pink-400 mx-auto mb-4"></div>
+        <p class="text-xl">Generuję twój content AI...</p>
+        <p class="text-sm text-gray-400 mt-2">To może potrwać do 30 sekund</p>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-8">
+          <h3 class="text-2xl font-bold mb-6 text-center">✨ Wygenerowany Content</h3>
+          <div id="result-content" class="text-center">
+            <!-- Dynamic content will be inserted here -->
+          </div>
+          
+          <!-- Generation Info -->
+          <div id="generation-info" class="mt-6 p-4 bg-black/30 rounded-lg text-sm">
+            <!-- Generation details will be inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery -->
+      <div id="gallery" class="mt-12">
+        <h3 class="text-2xl font-bold mb-6 text-center">🖼️ Twoja Galeria</h3>
+        <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Generated content will be added here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedProvider = null;
+let selectedType = 'image';
+let selectedStyle = 'realistic';
+let generationHistory = [];
+
+function selectProvider(provider, type) {
+  selectedProvider = provider;
+  selectedType = type;
+  
+  // Update UI
+  document.querySelectorAll('.provider-card').forEach(card => {
+    card.classList.remove('ring-4', 'ring-pink-400');
+  });
+  
+  event.target.closest('.provider-card').classList.add('ring-4', 'ring-pink-400');
+  
+  const providerNames = {
+    'together': 'Together AI (FLUX.1 Schnell)',
+    'stability': 'Stability AI (SDXL)',
+    'huggingface': 'HuggingFace (Playground v2)',
+    'openai': 'OpenAI Sora (Video)'
+  };
+  
+  document.getElementById('current-provider').innerHTML = `
+    <div class="text-lg">
+      <span class="text-pink-400">Wybrano:</span> ${providerNames[provider]}
+    </div>
+    <div class="text-sm text-gray-400 mt-1">
+      Typ: ${type === 'video' ? 'Film' : 'Obraz'} | Status: Darmowe ✅
+    </div>
+  `;
+  
+  // Enable generate button
+  document.getElementById('generate-btn').disabled = false;
+}
+
+function selectStyle(style) {
+  selectedStyle = style;
+  
+  document.querySelectorAll('.style-btn').forEach(btn => {
+    btn.classList.remove('ring-2', 'ring-white');
+  });
+  
+  event.target.classList.add('ring-2', 'ring-white');
+}
+
+async function generateContent() {
+  const prompt = document.getElementById('prompt-input').value.trim();
+  
+  if (!prompt) {
+    alert('Wprowadź opis tego co chcesz wygenerować!');
+    return;
+  }
+  
+  if (!selectedProvider) {
+    alert('Wybierz dostawcę AI!');
+    return;
+  }
+  
+  // Show loading
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('results').classList.add('hidden');
+  document.getElementById('generate-btn').disabled = true;
+  
+  try {
+    const response = await fetch('/api/free-ai-models/image-video', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        provider: selectedProvider,
+        type: selectedType,
+        style: selectedStyle
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      displayResult(data);
+      addToGallery(data);
+    } else {
+      throw new Error(data.error || 'Błąd generowania');
+    }
+    
+  } catch (error) {
+    console.error('Generation error:', error);
+    alert(`Błąd generowania: ${error.message}`);
+  } finally {
+    // Hide loading
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('generate-btn').disabled = false;
+  }
+}
+
+function displayResult(data) {
+  const resultContent = document.getElementById('result-content');
+  
+  if (data.type === 'video') {
+    resultContent.innerHTML = `
+      <video controls class="max-w-full mx-auto rounded-lg shadow-lg">
+        <source src="${data.result.video_url}" type="video/mp4">
+        Twoja przeglądarka nie obsługuje video.
+      </video>
+    `;
+  } else {
+    resultContent.innerHTML = `
+      <img src="${data.result.image_url}" 
+           alt="Generated image" 
+           class="max-w-full mx-auto rounded-lg shadow-lg"
+           onclick="openFullscreen(this)">
+    `;
+  }
+  
+  // Show generation info
+  document.getElementById('generation-info').innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+      <div><strong>Provider:</strong> ${data.provider}</div>
+      <div><strong>Model:</strong> ${data.result.model}</div>
+      <div><strong>Czas:</strong> ${new Date(data.timestamp).toLocaleString('pl-PL')}</div>
+    </div>
+    <div class="mt-2"><strong>Prompt:</strong> ${data.prompt}</div>
+  `;
+  
+  document.getElementById('results').classList.remove('hidden');
+}
+
+function addToGallery(data) {
+  generationHistory.unshift(data);
+  
+  const galleryGrid = document.getElementById('gallery-grid');
+  
+  const galleryItem = document.createElement('div');
+  galleryItem.className = 'bg-white/10 backdrop-blur-md rounded-lg overflow-hidden';
+  
+  if (data.type === 'video') {
+    galleryItem.innerHTML = `
+      <video class="w-full h-48 object-cover" controls>
+        <source src="${data.result.video_url}" type="video/mp4">
+      </video>
+      <div class="p-4">
+        <p class="text-sm text-gray-300 truncate">${data.prompt}</p>
+        <p class="text-xs text-pink-400 mt-1">${data.provider} • Video</p>
+      </div>
+    `;
+  } else {
+    galleryItem.innerHTML = `
+      <img src="${data.result.image_url}" 
+           alt="Generated" 
+           class="w-full h-48 object-cover cursor-pointer"
+           onclick="openFullscreen(this)">
+      <div class="p-4">
+        <p class="text-sm text-gray-300 truncate">${data.prompt}</p>
+        <p class="text-xs text-pink-400 mt-1">${data.provider} • Obraz</p>
+      </div>
+    `;
+  }
+  
+  galleryGrid.insertBefore(galleryItem, galleryGrid.firstChild);
+  
+  // Keep only last 12 items in gallery
+  while (galleryGrid.children.length > 12) {
+    galleryGrid.removeChild(galleryGrid.lastChild);
+  }
+}
+
+function openFullscreen(img) {
+  const modal = document.createElement('div');
+  modal.className = 'fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4';
+  modal.onclick = () => modal.remove();
+  
+  modal.innerHTML = `
+    <img src="${img.src}" alt="Fullscreen" class="max-w-full max-h-full object-contain">
+    <button class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300" onclick="this.parentElement.remove()">×</button>
+  `;
+  
+  document.body.appendChild(modal);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  // Select first style by default
+  document.querySelector('.style-btn').classList.add('ring-2', 'ring-white');
+  
+  // Load API info
+  fetch('/api/free-ai-models/image-video')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Free AI Models API loaded:', data);
+    })
+    .catch(error => {
+      console.error('Failed to load API info:', error);
+    });
+});
+</script>
+
+<style>
+.provider-card {
+  transition: all 0.3s ease;
+}
+
+.provider-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.style-btn {
+  transition: all 0.2s ease;
+}
+
+video, img {
+  max-width: 100%;
+  height: auto;
+}
+
+#gallery-grid > div {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive video */
+video {
+  width: 100%;
+  max-height: 70vh;
+}
+</style>

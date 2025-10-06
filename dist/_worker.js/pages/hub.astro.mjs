@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, e as createAstro, m as maybeRenderHead, g as addAttribute, ao as renderSlot, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_HpSis98d.mjs';
-import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_DxdwxM_T.mjs';
+import { $ as $$BackroomInterface } from '../chunks/BackroomInterface_4leLu3ax.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$Astro = createAstro();

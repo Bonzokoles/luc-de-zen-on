@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_HpSis98d.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BwiF4hL0.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DvEt2LDO.mjs';
 import { a as attr, b as ensure_array_like, e as escape_html, c as attr_class, s as stringify } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 /* empty css                                              */

@@ -1,6 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { ap as objectType, at as stringType, as as arrayType, az as unionType, ar as numberType, aq as dateType, aA as recordType, aB as functionType, aC as promiseType, aD as anyType, aE as booleanType, aF as preprocessType, aG as yellow } from '../chunks/astro/server_HpSis98d.mjs';
-import { g as getCollection } from '../chunks/_astro_content_CUZZHQZR.mjs';
+import { g as getCollection } from '../chunks/_astro_content_Cr9Lik77.mjs';
 import { S as SiteDescription, s as siteTitle } from '../chunks/site_BkxpWSbL.mjs';
 export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 

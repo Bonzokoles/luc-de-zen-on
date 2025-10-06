@@ -43,7 +43,7 @@ src/agents/google-adk/
 5. Framework preset: `Astro`
 
 ### 📝 Zmienne środowiskowe potrzebne w Cloudflare:
-```env
+```plaintext
 # Google API Keys
 GOOGLE_ADK_API_KEY=your_google_adk_key
 GEMINI_API_KEY=your_gemini_api_key

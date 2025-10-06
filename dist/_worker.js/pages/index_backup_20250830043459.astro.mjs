@@ -8,7 +8,7 @@ export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 import { $ as $$CosmeticText } from '../chunks/CosmeticText_BXb6abJm.mjs';
 /* empty css                                                       */
 import { S as SiteDescription, s as siteTitle } from '../chunks/site_BkxpWSbL.mjs';
-import { g as getCollection } from '../chunks/_astro_content_CUZZHQZR.mjs';
+import { g as getCollection } from '../chunks/_astro_content_Cr9Lik77.mjs';
 
 function Tags($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {

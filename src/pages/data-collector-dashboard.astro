@@ -1,4 +1,4 @@
-﻿---
+---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 ---
 
@@ -39,7 +39,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
           <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
             <a class="ml-auto hover:brightness-125 duration-200" href="/">
-              â† PowrĂłt do strony gĹ‚Ăłwnej
+              ← Powrót do strony głównej
             </a>
           </div>
         </div>
@@ -55,35 +55,35 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       <div class="section-container max-w-7xl mx-auto">
         <h2 class="section-title">DASHBOARD ZBIERANIA DANYCH</h2>
         <p class="section-description">
-          Automatyczne zbieranie i organizacja danych tematycznych na Google Drive (1.8TB dostÄ™pne)
+          Automatyczne zbieranie i organizacja danych tematycznych na Google Drive (1.8TB dostępne)
         </p>
 
         <!-- Storage Overview -->
         <div class="storage-overview mt-8">
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="storage-card">
-              <div class="storage-icon">đź’ľ</div>
-              <div class="storage-title">CaĹ‚kowita przestrzeĹ„</div>
+              <div class="storage-icon">💾</div>
+              <div class="storage-title">Całkowita przestrzeń</div>
               <div class="storage-value">2TB</div>
               <div class="storage-desc">Google Drive</div>
             </div>
             <div class="storage-card">
-              <div class="storage-icon">đź‘¤</div>
+              <div class="storage-icon">👤</div>
               <div class="storage-title">Zarezerwowane dla Ciebie</div>
               <div class="storage-value">200GB</div>
               <div class="storage-desc">Twoje pliki</div>
             </div>
             <div class="storage-card">
-              <div class="storage-icon">đź¤–</div>
-              <div class="storage-title">DostÄ™pne dla AI</div>
+              <div class="storage-icon">🤖</div>
+              <div class="storage-title">Dostępne dla AI</div>
               <div class="storage-value">1.8TB</div>
               <div class="storage-desc">Zbieranie danych</div>
             </div>
             <div class="storage-card">
-              <div class="storage-icon">đź“Š</div>
+              <div class="storage-icon">📊</div>
               <div class="storage-title">Obecnie zebrane</div>
               <div class="storage-value" id="collectedSize">1.2TB</div>
-              <div class="storage-desc">2,847 plikĂłw</div>
+              <div class="storage-desc">2,847 plików</div>
             </div>
           </div>
         </div>
@@ -131,7 +131,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   <!-- Sources Selection -->
                   <div>
                     <label class="block text-sm font-medium mb-3 text-primary-foreground">
-                      ĹąrĂłdĹ‚a danych:
+                      Źródła danych:
                     </label>
                     <div class="sources-grid">
                       <label class="flex items-center space-x-2">
@@ -156,7 +156,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   <div class="grid grid-cols-2 gap-4">
                     <div>
                       <label class="block text-sm font-medium mb-2 text-primary-foreground">
-                        GĹ‚Ä™bokoĹ›Ä‡:
+                        Głębokość:
                       </label>
                       <select id="collectionDepth" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
                         <option value="basic">Podstawowa (szybka)</option>
@@ -166,7 +166,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                     </div>
                     <div>
                       <label class="block text-sm font-medium mb-2 text-primary-foreground">
-                        PlikĂłw na temat:
+                        Plików na temat:
                       </label>
                       <input
                         type="number"
@@ -185,7 +185,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                     onclick="startDataCollection()"
                     class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded font-semibold transition-colors"
                   >
-                    đźš€ Rozpocznij zbieranie danych
+                    🚀 Rozpocznij zbieranie danych
                   </button>
                 </div>
               </div>
@@ -213,13 +213,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 <div class="panel-header">
                   <div class="flex items-center gap-3">
                     <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span class="text-primary-foreground font-semibold">PostÄ™p zbierania</span>
+                    <span class="text-primary-foreground font-semibold">Postęp zbierania</span>
                   </div>
                 </div>
                 <div class="panel-content">
                   <div class="progress-info mb-4">
                     <div class="flex justify-between items-center mb-2">
-                      <span class="text-sm text-gray-300">PostÄ™p:</span>
+                      <span class="text-sm text-gray-300">Postęp:</span>
                       <span class="text-blue-400 font-mono" id="progressPercent">0%</span>
                     </div>
                     <div class="w-full bg-gray-700 rounded-full h-3">
@@ -237,7 +237,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                       <div class="stat-value" id="collectedDataSize">0 MB</div>
                     </div>
                     <div class="stat-item">
-                      <div class="stat-label">Czas pozostaĹ‚y:</div>
+                      <div class="stat-label">Czas pozostały:</div>
                       <div class="stat-value" id="timeRemaining">--:--</div>
                     </div>
                     <div class="stat-item">
@@ -254,11 +254,11 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         <!-- Topics Overview -->
         <div class="topics-overview mt-8">
           <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
-            đź“š PrzeglÄ…d tematĂłw (32 kategorii):
+            📚 Przegląd tematów (32 kategorii):
           </h3>
           <div class="topics-categories">
             <div class="category-section">
-              <h4 class="category-title">đź¤– Technologia & AI (8 tematĂłw)</h4>
+              <h4 class="category-title">🤖 Technologia & AI (8 tematów)</h4>
               <div class="category-topics">
                 <span class="topic-tag">Artificial Intelligence</span>
                 <span class="topic-tag">Machine Learning</span>
@@ -272,7 +272,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
 
             <div class="category-section">
-              <h4 class="category-title">đź’Ľ Business & Marketing (8 tematĂłw)</h4>
+              <h4 class="category-title">💼 Business & Marketing (8 tematów)</h4>
               <div class="category-topics">
                 <span class="topic-tag">Digital Marketing</span>
                 <span class="topic-tag">E-commerce</span>
@@ -286,7 +286,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
 
             <div class="category-section">
-              <h4 class="category-title">đźŽ“ RozwĂłj osobisty (8 tematĂłw)</h4>
+              <h4 class="category-title">🎓 Rozwój osobisty (8 tematów)</h4>
               <div class="category-topics">
                 <span class="topic-tag">Programming Tutorials</span>
                 <span class="topic-tag">Career Development</span>
@@ -300,7 +300,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
 
             <div class="category-section">
-              <h4 class="category-title">đźŹ­ BranĹĽowe (8 tematĂłw)</h4>
+              <h4 class="category-title">🏭 Branżowe (8 tematów)</h4>
               <div class="category-topics">
                 <span class="topic-tag">Fintech</span>
                 <span class="topic-tag">Healthcare Tech</span>
@@ -318,7 +318,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         <!-- Collection Statistics -->
         <div class="collection-stats mt-8">
           <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
-            đź“ Statystyki zbierania:
+            📈 Statystyki zbierania:
           </h3>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="stat-card">
@@ -352,28 +352,28 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 onclick="toggleSchedule()"
                 class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
               >
-                âš™ď¸Ź Konfiguruj
+                ⚙️ Konfiguruj
               </button>
             </div>
             <div class="panel-content">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="schedule-item">
                   <div class="schedule-title">Codziennie</div>
-                  <div class="schedule-desc">10 tematĂłw, 50 plikĂłw kaĹĽdy</div>
+                  <div class="schedule-desc">10 tematów, 50 plików każdy</div>
                   <div class="schedule-status active">AKTYWNY</div>
-                  <div class="schedule-next">NastÄ™pne: 03:00</div>
+                  <div class="schedule-next">Następne: 03:00</div>
                 </div>
                 <div class="schedule-item">
-                  <div class="schedule-title">Co tydzieĹ„</div>
-                  <div class="schedule-desc">Wszystkie tematy, gĹ‚Ä™boka analiza</div>
+                  <div class="schedule-title">Co tydzień</div>
+                  <div class="schedule-desc">Wszystkie tematy, głęboka analiza</div>
                   <div class="schedule-status">NIEAKTYWNY</div>
-                  <div class="schedule-next">NastÄ™pne: Niedziela</div>
+                  <div class="schedule-next">Następne: Niedziela</div>
                 </div>
                 <div class="schedule-item">
-                  <div class="schedule-title">Co miesiÄ…c</div>
+                  <div class="schedule-title">Co miesiąc</div>
                   <div class="schedule-desc">Kompletna aktualizacja bazy</div>
                   <div class="schedule-status">NIEAKTYWNY</div>
-                  <div class="schedule-next">NastÄ™pne: 1 lutego</div>
+                  <div class="schedule-next">Następne: 1 lutego</div>
                 </div>
               </div>
             </div>
@@ -392,7 +392,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 onclick="refreshRecentCollections()"
                 class="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded text-sm"
               >
-                đź”„ OdĹ›wieĹĽ
+                🔄 Odśwież
               </button>
             </div>
             <div class="panel-content">
@@ -409,13 +409,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <div class="panel-header">
               <div class="flex items-center gap-3">
                 <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
-                <span class="text-primary-foreground font-semibold">PrzyszĹ‚e integracje</span>
+                <span class="text-primary-foreground font-semibold">Przyszłe integracje</span>
               </div>
             </div>
             <div class="panel-content">
               <div class="integration-preview">
                 <div class="integration-item">
-                  <div class="integration-icon">đźŚŠ</div>
+                  <div class="integration-icon">🌊</div>
                   <div class="integration-info">
                     <div class="integration-name">DigitalOcean Spaces</div>
                     <div class="integration-desc">Dodatkowe 5TB storage dla danych</div>
@@ -423,7 +423,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   </div>
                 </div>
                 <div class="integration-item">
-                  <div class="integration-icon">âď¸Ź</div>
+                  <div class="integration-icon">☁️</div>
                   <div class="integration-info">
                     <div class="integration-name">AWS S3 Integration</div>
                     <div class="integration-desc">Backup i archiwizacja</div>
@@ -431,7 +431,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   </div>
                 </div>
                 <div class="integration-item">
-                  <div class="integration-icon">đź“ˇ</div>
+                  <div class="integration-icon">📡</div>
                   <div class="integration-info">
                     <div class="integration-name">Real-time Data Streams</div>
                     <div class="integration-desc">Live data feeds</div>

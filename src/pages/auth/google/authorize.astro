@@ -1,4 +1,4 @@
-﻿---
+---
 import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 ---
 
@@ -39,7 +39,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
           <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
             <a class="ml-auto hover:brightness-125 duration-200" href="/">
-              â† PowrĂłt do strony gĹ‚Ăłwnej
+              ← Powrót do strony głównej
             </a>
           </div>
         </div>
@@ -52,9 +52,9 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
       style="background: rgba(0, 0, 0, 0.5);"
     >
       <div class="section-container max-w-4xl mx-auto">
-        <h2 class="section-title">POĹÄ„CZ GOOGLE DRIVE</h2>
+        <h2 class="section-title">POŁĄCZ GOOGLE DRIVE</h2>
         <p class="section-description">
-          Autoryzuj dostÄ™p do swojego Google Drive (2TB) dla lepszych rekomendacji AI
+          Autoryzuj dostęp do swojego Google Drive (2TB) dla lepszych rekomendacji AI
         </p>
 
         <!-- Authorization Steps -->
@@ -64,7 +64,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
           <div class="step-card" id="step1">
             <div class="step-header">
               <div class="step-number">1</div>
-              <h3 class="step-title">SprawdĹş status poĹ‚Ä…czenia</h3>
+              <h3 class="step-title">Sprawdź status połączenia</h3>
             </div>
             <div class="step-content">
               <div id="connectionStatus" class="status-display">
@@ -73,7 +73,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
                   <span class="status-value" id="driveConnectionStatus">Sprawdzanie...</span>
                 </div>
                 <div class="status-item">
-                  <span class="status-label">DostÄ™p do danych:</span>
+                  <span class="status-label">Dostęp do danych:</span>
                   <span class="status-value" id="driveDataAccess">Nieznany</span>
                 </div>
                 <div class="status-item">
@@ -86,7 +86,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
                 onclick="checkDriveStatus()"
                 class="action-btn secondary mt-4"
               >
-                đź”„ SprawdĹş status
+                🔄 Sprawdź status
               </button>
             </div>
           </div>
@@ -95,23 +95,23 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
           <div class="step-card" id="step2">
             <div class="step-header">
               <div class="step-number">2</div>
-              <h3 class="step-title">Autoryzuj dostÄ™p</h3>
+              <h3 class="step-title">Autoryzuj dostęp</h3>
             </div>
             <div class="step-content">
               <p class="text-gray-300 mb-4">
-                Kliknij poniĹĽej, aby autoryzowaÄ‡ dostÄ™p do swojego Google Drive. 
-                System bÄ™dzie miaĹ‚ dostÄ™p tylko do odczytu Twoich plikĂłw.
+                Kliknij poniżej, aby autoryzować dostęp do swojego Google Drive. 
+                System będzie miał dostęp tylko do odczytu Twoich plików.
               </p>
               
               <div class="permissions-info mb-4 p-4 bg-black/30 rounded border border-edge">
                 <h4 class="text-sm font-semibold mb-2 text-primary-foreground">
-                  Uprawnienia, o ktĂłre poprosimy:
+                  Uprawnienia, o które poprosimy:
                 </h4>
                 <ul class="text-sm text-gray-300 space-y-1">
-                  <li>â€˘ Odczyt metadanych plikĂłw (nazwy, rozmiary, daty)</li>
-                  <li>â€˘ Odczyt zawartoĹ›ci dokumentĂłw tekstowych</li>
-                  <li>â€˘ Wyszukiwanie w Twoich plikach</li>
-                  <li>â€˘ <strong>NIE</strong> bÄ™dziemy modyfikowaÄ‡ ani usuwaÄ‡ plikĂłw</li>
+                  <li>• Odczyt metadanych plików (nazwy, rozmiary, daty)</li>
+                  <li>• Odczyt zawartości dokumentów tekstowych</li>
+                  <li>• Wyszukiwanie w Twoich plikach</li>
+                  <li>• <strong>NIE</strong> będziemy modyfikować ani usuwać plików</li>
                 </ul>
               </div>
 
@@ -120,7 +120,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
                 onclick="startAuthorization()"
                 class="action-btn primary"
               >
-                đź” Autoryzuj Google Drive
+                🔐 Autoryzuj Google Drive
               </button>
             </div>
           </div>
@@ -129,28 +129,28 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
           <div class="step-card" id="step3">
             <div class="step-header">
               <div class="step-number">3</div>
-              <h3 class="step-title">Weryfikuj poĹ‚Ä…czenie</h3>
+              <h3 class="step-title">Weryfikuj połączenie</h3>
             </div>
             <div class="step-content">
               <p class="text-gray-300 mb-4">
-                Po autoryzacji sprawdzimy dostÄ™p do Twoich danych i przygotujemy system AI.
+                Po autoryzacji sprawdzimy dostęp do Twoich danych i przygotujemy system AI.
               </p>
               
               <div id="verificationResults" class="verification-results hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div class="result-card">
                     <div class="result-title">Dane osobiste</div>
-                    <div class="result-value" id="personalFiles">0 plikĂłw</div>
+                    <div class="result-value" id="personalFiles">0 plików</div>
                     <div class="result-size" id="personalSize">0 GB</div>
                   </div>
                   <div class="result-card">
                     <div class="result-title">Dane biznesowe</div>
-                    <div class="result-value" id="businessFiles">0 plikĂłw</div>
+                    <div class="result-value" id="businessFiles">0 plików</div>
                     <div class="result-size" id="businessSize">0 GB</div>
                   </div>
                   <div class="result-card">
                     <div class="result-title">Dane techniczne</div>
-                    <div class="result-value" id="technicalFiles">0 plikĂłw</div>
+                    <div class="result-value" id="technicalFiles">0 plików</div>
                     <div class="result-size" id="technicalSize">0 GB</div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
                 class="action-btn secondary"
                 disabled
               >
-                âś… Weryfikuj poĹ‚Ä…czenie
+                ✅ Weryfikuj połączenie
               </button>
             </div>
           </div>
@@ -175,33 +175,33 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
             </div>
             <div class="step-content">
               <div id="completionMessage" class="completion-message hidden">
-                <div class="success-icon">âś…</div>
-                <h4 class="success-title">Google Drive poĹ‚Ä…czony!</h4>
+                <div class="success-icon">✅</div>
+                <h4 class="success-title">Google Drive połączony!</h4>
                 <p class="success-desc">
-                  TwĂłj Google Drive jest teraz zintegrowany z systemem AI MyBonzo. 
-                  MoĹĽesz korzystaÄ‡ z zaawansowanych rekomendacji opartych na Twoich danych.
+                  Twój Google Drive jest teraz zintegrowany z systemem AI MyBonzo. 
+                  Możesz korzystać z zaawansowanych rekomendacji opartych na Twoich danych.
                 </p>
                 
                 <div class="next-steps mt-4">
-                  <h5 class="text-sm font-semibold mb-2 text-primary-foreground">NastÄ™pne kroki:</h5>
+                  <h5 class="text-sm font-semibold mb-2 text-primary-foreground">Następne kroki:</h5>
                   <div class="flex flex-col sm:flex-row gap-3">
                     <button
                       onclick="window.open('/ai-functions/personalized-recommendations', '_blank')"
                       class="action-btn primary"
                     >
-                      đźŽŻ Generuj rekomendacje
+                      🎯 Generuj rekomendacje
                     </button>
                     <button
                       onclick="testDriveIntegration()"
                       class="action-btn secondary"
                     >
-                      đź§Ş Testuj integracjÄ™
+                      🧪 Testuj integrację
                     </button>
                     <button
                       onclick="window.open('/docs/google-drive-setup', '_blank')"
                       class="action-btn secondary"
                     >
-                      đź“– Dokumentacja
+                      📖 Dokumentacja
                     </button>
                   </div>
                 </div>
@@ -213,15 +213,15 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
         <!-- Security Notice -->
         <div class="security-notice mt-8 p-6 bg-black/30 rounded border border-edge">
           <h3 class="text-lg font-semibold mb-3 text-primary-foreground">
-            đź”’ BezpieczeĹ„stwo i prywatnoĹ›Ä‡:
+            🔒 Bezpieczeństwo i prywatność:
           </h3>
           <ul class="text-sm text-gray-300 space-y-2">
-            <li>â€˘ Twoje dane pozostajÄ… w Twoim Google Drive</li>
-            <li>â€˘ System ma dostÄ™p tylko do odczytu</li>
-            <li>â€˘ Nie przechowujemy Twoich plikĂłw na naszych serwerach</li>
-            <li>â€˘ MoĹĽesz odwoĹ‚aÄ‡ dostÄ™p w kaĹĽdej chwili w ustawieniach Google</li>
-            <li>â€˘ Wszystkie poĹ‚Ä…czenia sÄ… szyfrowane (HTTPS)</li>
-            <li>â€˘ Tokeny dostÄ™pu sÄ… bezpiecznie przechowywane w Cloudflare</li>
+            <li>• Twoje dane pozostają w Twoim Google Drive</li>
+            <li>• System ma dostęp tylko do odczytu</li>
+            <li>• Nie przechowujemy Twoich plików na naszych serwerach</li>
+            <li>• Możesz odwołać dostęp w każdej chwili w ustawieniach Google</li>
+            <li>• Wszystkie połączenia są szyfrowane (HTTPS)</li>
+            <li>• Tokeny dostępu są bezpiecznie przechowywane w Cloudflare</li>
           </ul>
         </div>
       </div>
@@ -495,7 +495,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
     const dataAccess = document.getElementById('driveDataAccess');
     const lastSync = document.getElementById('lastSync');
 
-    if (statusBtn) statusBtn.textContent = 'đź”„ Sprawdzanie...';
+    if (statusBtn) statusBtn.textContent = '🔄 Sprawdzanie...';
     if (connectionStatus) connectionStatus.textContent = 'Sprawdzanie...';
 
     try {
@@ -504,7 +504,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
       if (data.status === 'success' && data.drive.connected) {
         if (connectionStatus) {
-          connectionStatus.textContent = 'POĹÄ„CZONY';
+          connectionStatus.textContent = 'POŁĄCZONY';
           connectionStatus.className = 'status-value connected';
         }
         if (dataAccess) {
@@ -525,21 +525,21 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
       } else {
         if (connectionStatus) {
-          connectionStatus.textContent = 'ROZĹÄ„CZONY';
+          connectionStatus.textContent = 'ROZŁĄCZONY';
           connectionStatus.className = 'status-value disconnected';
         }
-        if (dataAccess) dataAccess.textContent = 'Brak dostÄ™pu';
+        if (dataAccess) dataAccess.textContent = 'Brak dostępu';
         if (lastSync) lastSync.textContent = 'Nigdy';
       }
 
     } catch (error) {
       console.error('Error checking drive status:', error);
       if (connectionStatus) {
-        connectionStatus.textContent = 'BĹÄ„D';
+        connectionStatus.textContent = 'BŁĄD';
         connectionStatus.className = 'status-value disconnected';
       }
     } finally {
-      if (statusBtn) statusBtn.textContent = 'đź”„ SprawdĹş status';
+      if (statusBtn) statusBtn.textContent = '🔄 Sprawdź status';
     }
   }
 
@@ -549,7 +549,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
     authInProgress = true;
     const authorizeBtn = document.getElementById('authorizeBtn');
     if (authorizeBtn) {
-      authorizeBtn.textContent = 'đź”„ Przekierowywanie...';
+      authorizeBtn.textContent = '🔄 Przekierowywanie...';
       authorizeBtn.disabled = true;
     }
 
@@ -567,10 +567,10 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
     } catch (error) {
       console.error('Authorization error:', error);
-      alert('BĹ‚Ä…d podczas autoryzacji: ' + error.message);
+      alert('Błąd podczas autoryzacji: ' + error.message);
       
       if (authorizeBtn) {
-        authorizeBtn.textContent = 'đź” Autoryzuj Google Drive';
+        authorizeBtn.textContent = '🔐 Autoryzuj Google Drive';
         authorizeBtn.disabled = false;
       }
       authInProgress = false;
@@ -612,7 +612,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
     } catch (error) {
       console.error('Callback handling error:', error);
-      alert('BĹ‚Ä…d podczas przetwarzania autoryzacji: ' + error.message);
+      alert('Błąd podczas przetwarzania autoryzacji: ' + error.message);
     }
   }
 
@@ -621,7 +621,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
     const verificationResults = document.getElementById('verificationResults');
 
     if (verifyBtn) {
-      verifyBtn.textContent = 'đź”„ Weryfikowanie...';
+      verifyBtn.textContent = '🔄 Weryfikowanie...';
       verifyBtn.disabled = true;
     }
 
@@ -649,9 +649,9 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
           const businessFiles = document.getElementById('businessFiles');
           const technicalFiles = document.getElementById('technicalFiles');
           
-          if (personalFiles) personalFiles.textContent = `${data.results.personal.files} plikĂłw`;
-          if (businessFiles) businessFiles.textContent = `${data.results.business.files} plikĂłw`;
-          if (technicalFiles) technicalFiles.textContent = `${data.results.technical.files} plikĂłw`;
+          if (personalFiles) personalFiles.textContent = `${data.results.personal.files} plików`;
+          if (businessFiles) businessFiles.textContent = `${data.results.business.files} plików`;
+          if (technicalFiles) technicalFiles.textContent = `${data.results.technical.files} plików`;
         }
 
         // Mark step 3 as completed
@@ -672,10 +672,10 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
     } catch (error) {
       console.error('Verification error:', error);
-      alert('BĹ‚Ä…d podczas weryfikacji: ' + error.message);
+      alert('Błąd podczas weryfikacji: ' + error.message);
     } finally {
       if (verifyBtn) {
-        verifyBtn.textContent = 'âś… Weryfikuj poĹ‚Ä…czenie';
+        verifyBtn.textContent = '✅ Weryfikuj połączenie';
         verifyBtn.disabled = false;
       }
     }
@@ -689,7 +689,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userProfile: 'Test uĹĽytkownika - programista AI zainteresowany cloud computing',
+          userProfile: 'Test użytkownika - programista AI zainteresowany cloud computing',
           recommendationType: 'technology',
           selectedModels: ['gpt-4'],
           useGoogleDrive: true,
@@ -700,7 +700,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
       const data = await response.json();
       
       if (data.status === 'success') {
-        alert('Test integracji zakoĹ„czony sukcesem! SprawdĹş konsolÄ™ dla szczegĂłĹ‚Ăłw.');
+        alert('Test integracji zakończony sukcesem! Sprawdź konsolę dla szczegółów.');
         console.log('Drive integration test results:', data);
       } else {
         throw new Error(data.error || 'Test failed');
@@ -708,7 +708,7 @@ import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 
     } catch (error) {
       console.error('Integration test error:', error);
-      alert('BĹ‚Ä…d podczas testu integracji: ' + error.message);
+      alert('Błąd podczas testu integracji: ' + error.message);
     }
   }
 

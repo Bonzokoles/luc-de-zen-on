@@ -205,7 +205,7 @@ GET  /api/status   # Worker status
 
 ### Environment Configuration
 **File**: `.env` (Required API Keys)
-```env
+```plaintext
 # Core AI Models (Working)
 OPENAI_API_KEY=sk-...                    # ✅ CONFIGURED
 ANTHROPIC_API_KEY=sk-ant-...             # ✅ CONFIGURED
@@ -517,7 +517,7 @@ Infrastructure Health:
 ### 🔧 USER ACTION REQUIRED
 **To complete setup**:
 1. **Add API keys to `.env`**:
-   ```env
+   ```plaintext
    FLOWISE_API_TOKEN=your_flowise_token
    ACTIVEPIECES_API_KEY=your_activepieces_key
    ```

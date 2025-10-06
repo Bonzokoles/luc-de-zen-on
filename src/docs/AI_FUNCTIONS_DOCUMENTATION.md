@@ -334,7 +334,7 @@ curl -X POST http://localhost:4321/api/faq \
 
 ## Wymagane zmienne środowiskowe:
 
-```env
+```plaintext
 OPENAI_API_KEY=sk-...
 ```
 
