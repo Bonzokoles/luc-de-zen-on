@@ -48,6 +48,7 @@ API_RATE_LIMIT = "1000"
 # TOGETHER_API_KEY = "tgp_..." # dla Flux Schnell obrazy
 # STABILITY_API_KEY = "sk-..." # dla SDXL Turbo obrazy
 # HUGGINGFACE_API_KEY = "hf_..." # dla Playground v2 obrazy
+# TAVILY_API_KEY = "tvly-..." # dla AI-powered web search
 
 # Optimized KV Storage with TTL
 [[kv_namespaces]]
@@ -134,6 +135,7 @@ PERFORMANCE_MONITORING = "true"
 # TOGETHER_API_KEY = "..." # dla Flux Schnell
 # STABILITY_API_KEY = "..." # dla SDXL Turbo
 # HUGGINGFACE_API_KEY = "..." # dla Playground v2
+# TAVILY_API_KEY = "tvly-..." # dla AI-powered web search
 
 [[env.production.kv_namespaces]]
 id = "77d84c01758a4064be011acc35b2c344"
