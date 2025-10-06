@@ -34,4 +34,23 @@ declare global {
   }
 }
 
+declare namespace App {
+  interface Locals {
+    runtime?: {
+      env?: Record<string, any>;
+      waitUntil?: (promise: Promise<any>) => void;
+      passThroughOnException?: () => void;
+    };
+  }
+}
+
+// Astro ImportMeta extension
+interface ImportMeta {
+  readonly env: ImportMetaEnv & {
+    readonly DEV: boolean;
+    readonly PROD: boolean;
+    readonly SSR: boolean;
+  };
+}
+
 export {};
