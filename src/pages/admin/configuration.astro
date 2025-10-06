@@ -1,0 +1,25 @@
+---
+import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
+import ConfigurationManager from '../../components/admin/ConfigurationManager.svelte';
+---
+<MyBonzoLayout siteTitle="Konfiguracja Sekretów API">
+  <main class="min-h-svh relative z-10 pt-20" style="background-color: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <h1 class="text-3xl font-bold text-cyan-300 my-4">Konfiguracja Integracji Google Cloud</h1>
+      <p class="text-gray-400 mb-8">
+        Ta strona pomoże Ci skonfigurować sekrety niezbędne do działania wszystkich zaawansowanych funkcji AI. Postępuj zgodnie z instrukcjami, aby uzyskać klucze, a następnie użyj poniższego formularza, aby wygenerować komendy do ich bezpiecznego wgrania.
+      </p>
+      
+      <div class="mb-8 p-4 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
+        <a href="/GEM_instrukcje/SETUP_GUIDE.md" target="_blank" class="text-yellow-300 hover:text-yellow-100 font-bold underline text-lg">
+          Otwórz Przewodnik Konfiguracji API (krok po kroku) &rarr;
+        </a>
+        <p class="text-yellow-400/80 text-sm mt-2">Przewodnik otworzy się w nowej karcie. Znajdziesz w nim szczegółowe instrukcje, jak uzyskać wszystkie wymagane klucze i ID.</p>
+      </div>
+
+      <div class="border border-cyan-500/30 rounded-xl overflow-hidden">
+        <ConfigurationManager client:load />
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>

@@ -1,44 +1,50 @@
 import type { APIRoute } from 'astro';
-import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
+
+// Helper to get secrets from Cloudflare environment
+function getEnv(locals: App.Locals): Record<string, any> {
+  return import.meta.env.DEV ? process.env : locals?.runtime?.env || {};
+}
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  const env = getEnv(locals);
+  const aiBinding = env.AI;
+
+  if (!aiBinding) {
+    return new Response(JSON.stringify({ success: false, error: 'AI binding is not configured.' }), { status: 500 });
+  }
+
   try {
-    const { prompt, contentType } = await request.json();
-    const env = locals.runtime.env;
-    
+    const body = await request.json();
+    const { prompt, contentType } = body;
+
     if (!prompt || !contentType) {
-      return createErrorResponse('Missing required fields', 400);
+      return new Response(JSON.stringify({ success: false, error: 'Prompt and contentType are required.' }), { status: 400 });
     }
 
-    if (!env.AI) {
-      return createErrorResponse('Cloudflare AI nie jest dostępny', 500);
-    }
+    const systemPrompt = `You are an expert Polish marketing content generator. Your task is to create a compelling and professional piece of content based on the user's topic and the specified content type. The response should be in Polish and ready to be published.
 
-    const systemPrompt = "Jesteś ekspertem marketingu tworzącym angażujące teksty w stylu nowoczesnym i profesjonalnym. Używaj dynamicznego, przystępnego stylu z wyraźnym CTA zachęcającym do działania.";
-    const userPrompt = `Napisz ${contentType} na temat: ${prompt}. Użyj stylu: dynamiczny, przystępny, z CTA zachęcającym do działania. Tekst powinien być profesjonalny ale przyjazny.`;
+    Content Type: ${contentType}
+    Topic: ${prompt}`;
 
-    // Użyj Cloudflare Workers AI
-    const response = await env.AI.run(env.ADVANCED_TEXT_MODEL || '@cf/meta/llama-3.1-8b-instruct', {
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      temperature: 0.7,
+    const aiResponse = await aiBinding.run('@cf/google/gemma-2-9b-it', {
+        messages: [
+            { role: 'system', content: systemPrompt }
+        ],
+        max_tokens: 1500,
     });
 
-    const generatedText = response.response;
-
-    return createSuccessResponse({ 
+    return new Response(JSON.stringify({
       success: true,
-      text: generatedText,
-      contentType: contentType,
-      prompt: prompt 
+      text: aiResponse.response || "AI model did not return a response."
+    }), {
+      headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
-    console.error('Error generating marketing content:', error);
-    return createErrorResponse('Failed to generate marketing content', 500);
+    console.error("Marketing Content API Error:", error);
+    return new Response(JSON.stringify({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to generate content.'
+    }), { status: 500 });
   }
 };
-
-export const OPTIONS = createOPTIONSHandler(['POST', 'OPTIONS']);

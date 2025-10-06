@@ -1,0 +1,137 @@
+---
+// Główny dashboard dodatków - bezpieczne rozszerzenie aplikacji
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Dodatki MyBonzo - Rozszerzone Funkcje">
+  <main class="min-h-svh relative z-10">
+    <!-- Background -->
+    <div class="fixed inset-0 bg-[#0a0f14]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0f14] to-[#0a0f14]"></div>
+    </div>
+
+    <!-- Header -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#1be1ff] mb-2 uppercase tracking-wider font-['Rajdhani']">
+              🧩 DODATKI MYBONZO
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              Rozszerzone funkcje i moduły systemu
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#00ff88]">ONLINE</span>
+            </div>
+            <div>
+              MODULY: <span class="text-[#00e5ff]">45+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Cards -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Agents Card -->
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6 hover:bg-[#0f3846]/80 transition-all duration-300">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-[#ff6b9d]/20 border border-[#ff6b9d]/50 rounded-lg flex items-center justify-center mr-4">
+                🤖
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-[#ff6b9d] font-['Rajdhani']">AGENTS</h3>
+                <p class="text-[#b0bec5] text-sm">24 inteligentnych agentów</p>
+              </div>
+            </div>
+            <p class="text-[#e1f5fe] mb-4">
+              Rozbudowany system agentów AI: Voice, Music, Analytics, Security, i więcej.
+            </p>
+            <a href="/dodatki/agents/" class="inline-flex items-center text-[#1be1ff] hover:text-[#00e5ff] font-medium">
+              Przeglądaj Agentów →
+            </a>
+          </div>
+
+          <!-- Workers Card -->
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6 hover:bg-[#0f3846]/80 transition-all duration-300">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-[#9333ea]/20 border border-[#9333ea]/50 rounded-lg flex items-center justify-center mr-4">
+                ⚡
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-[#9333ea] font-['Rajdhani']">WORKERS</h3>
+                <p class="text-[#b0bec5] text-sm">12 Cloudflare Workers</p>
+              </div>
+            </div>
+            <p class="text-[#e1f5fe] mb-4">
+              Zaawansowane workery: AI Chatbot, Image Generator, Voice Assistant, Flowise.
+            </p>
+            <a href="/dodatki/workers/" class="inline-flex items-center text-[#1be1ff] hover:text-[#00e5ff] font-medium">
+              Zarządzaj Workers →
+            </a>
+          </div>
+
+          <!-- AI Functions Card -->
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6 hover:bg-[#0f3846]/80 transition-all duration-300">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-[#ef4444]/20 border border-[#ef4444]/50 rounded-lg flex items-center justify-center mr-4">
+                🚀
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-[#ef4444] font-['Rajdhani']">AI FUNCTIONS</h3>
+                <p class="text-[#b0bec5] text-sm">9 funkcji biznesowych</p>
+              </div>
+            </div>
+            <p class="text-[#e1f5fe] mb-4">
+              Biznesowe funkcje AI: Marketing, Education, Customer Automation, Analytics.
+            </p>
+            <a href="/dodatki/ai-functions/" class="inline-flex items-center text-[#1be1ff] hover:text-[#00e5ff] font-medium">
+              Uruchom Funkcje →
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="relative z-20 py-8 border-t border-[#263238]">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4">
+            <div class="text-2xl font-bold text-[#00ff88]">24</div>
+            <div class="text-sm text-[#b0bec5]">Agenci AI</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4">
+            <div class="text-2xl font-bold text-[#ff6b9d]">12</div>
+            <div class="text-sm text-[#b0bec5]">Workers</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4">
+            <div class="text-2xl font-bold text-[#ffc107]">9</div>
+            <div class="text-sm text-[#b0bec5]">AI Functions</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4">
+            <div class="text-2xl font-bold text-[#1be1ff]">100%</div>
+            <div class="text-sm text-[#b0bec5]">Dostępność</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Main -->
+    <section class="relative z-20 py-8">
+      <div class="max-w-6xl mx-auto px-4 text-center">
+        <a href="/" class="inline-flex items-center text-[#1be1ff] hover:text-[#00e5ff] font-medium text-lg">
+          ← Powrót do głównego dashboardu
+        </a>
+      </div>
+    </section>
+
+  </main>
+</Layout>

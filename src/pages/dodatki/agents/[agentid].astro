@@ -1,0 +1,139 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// Get agent ID from URL params
+const { agentid } = Astro.params;
+
+// Agent configurations
+const agents = {
+  'voice': {
+    name: 'Voice Agent',
+    description: 'Rozpoznawanie mowy i przetwarzanie komend głosowych',
+    color: '#ff6b35',
+    icon: '🎤',
+    status: 'active'
+  },
+  'music': {
+    name: 'Music Agent', 
+    description: 'Generowanie i analiza muzyki',
+    color: '#9c27b0',
+    icon: '🎵',
+    status: 'active'
+  },
+  'analytics': {
+    name: 'Analytics Agent',
+    description: 'Analiza danych i generowanie raportów',
+    color: '#2196f3',
+    icon: '📊',
+    status: 'active'
+  }
+};
+
+const agent = agents[agentid] || {
+  name: 'Unknown Agent',
+  description: 'Agent nie został znaleziony',
+  color: '#666',
+  icon: '❓',
+  status: 'inactive'
+};
+
+// Redirect to specific agent implementation if exists
+if (agentid === 'voice') {
+  return Astro.redirect('/dodatki/agents/voice');
+}
+---
+
+<Layout title={`${agent.name} | MYBONZO`}>
+  <main class="min-h-svh relative z-10">
+    <!-- Background -->
+    <div class="fixed inset-0 bg-[#0a0f14]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0f14] to-[#0a0f14]"></div>
+    </div>
+
+    <!-- Header -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 uppercase tracking-wider font-['Rajdhani']" style={`color: ${agent.color}`}>
+              {agent.icon} {agent.name}
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              {agent.description}
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">
+              STATUS: <span class={agent.status === 'active' ? 'text-[#00ff88]' : 'text-[#ff4444]'}>{agent.status.toUpperCase()}</span>
+            </div>
+            <div>
+              ID: <span style={`color: ${agent.color}`}>{agentid}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        
+        {agent.name === 'Unknown Agent' ? (
+          <div class="bg-[#ff4444]/10 border border-[#ff4444]/20 rounded-lg p-8 text-center">
+            <h2 class="text-2xl font-bold text-[#ff4444] mb-4">Agent nie został znaleziony</h2>
+            <p class="text-[#b0bec5] mb-6">Agent o ID "{agentid}" nie istnieje w systemie.</p>
+            <a href="/dodatki/agents" class="inline-block px-6 py-3 bg-[#1be1ff] text-[#0a0f14] rounded-lg font-semibold hover:bg-[#00e5ff] transition-colors">
+              ← Powrót do listy agentów
+            </a>
+          </div>
+        ) : (
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-8">
+            <h2 class="text-2xl font-bold text-[#e1f5fe] mb-4">Agent w rozwoju</h2>
+            <p class="text-[#b0bec5] mb-6">
+              Ten agent jest obecnie w fazie rozwoju. Implementacja zostanie dodana wkrótce.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-[#0a0f14]/80 border border-[#1be1ff]/20 rounded-lg p-4">
+                <h3 class="text-[#1be1ff] font-semibold mb-2">Planowane funkcje:</h3>
+                <ul class="text-[#b0bec5] text-sm space-y-1">
+                  <li>• Zaawansowane API endpoints</li>
+                  <li>• Interaktywny interfejs użytkownika</li>
+                  <li>• Monitoring i statystyki</li>
+                  <li>• Konfiguracja agenta</li>
+                </ul>
+              </div>
+              
+              <div class="bg-[#0a0f14]/80 border border-[#00ff88]/20 rounded-lg p-4">
+                <h3 class="text-[#00ff88] font-semibold mb-2">Status rozwoju:</h3>
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-[#b0bec5]">Konfiguracja:</span>
+                    <span class="text-[#00ff88]">✓ Gotowe</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-[#b0bec5]">API:</span>
+                    <span class="text-[#ffd700]">⚠ W trakcie</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-[#b0bec5]">UI:</span>
+                    <span class="text-[#ff4444]">✗ Planowane</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-6 flex gap-4">
+              <a href="/dodatki/agents" class="px-6 py-3 bg-[#1be1ff] text-[#0a0f14] rounded-lg font-semibold hover:bg-[#00e5ff] transition-colors">
+                ← Lista agentów
+              </a>
+              <a href="/dodatki" class="px-6 py-3 border border-[#1be1ff]/30 text-[#1be1ff] rounded-lg font-semibold hover:bg-[#1be1ff]/10 transition-colors">
+                Dashboard dodatków
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</Layout>

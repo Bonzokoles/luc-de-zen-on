@@ -1,0 +1,207 @@
+---
+import QuickVoiceAI from "../QuickVoiceAI.tsx";
+import EdgeAudioVisualizer from "../voice-ai/EdgeAudioVisualizer.tsx";
+---
+
+<!-- AI Workers Section - Centered -->
+<section
+  class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
+  id="ai-workers"
+>
+  <div class="absolute left-0 right-0 h-full">
+    <!-- Inner vertical lines -->
+    <div
+      class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+    ></div>
+    <div
+      class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
+    ></div>
+    <!-- Outer vertical lines -->
+    <div
+      class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
+    ></div>
+    <div
+      class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
+    ></div>
+  </div>
+  <div class="max-w-6xl mx-auto w-full">
+    <div class="section-container">
+      <h2 class="system-title">SYSTEM ZAAWANSOWANEJ AUTOMATYZACJI AI</h2>
+
+      <!-- Separator after title -->
+      <div
+        style="
+          width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+          max-width: 1212px;
+          margin: 0 auto;
+          border-t: 1px solid #ffffff;
+          margin-top: 1rem;
+          margin-bottom: 1.5rem;
+        "
+      ></div>
+
+      <p
+        class="section-description"
+        style="
+          width: calc(100vw - 2 * (50vw - 576px - 10px - 20px) - 40px);
+          max-width: 1100px;
+          margin: 0 auto;
+          margin-left: calc(50% - 10px);
+          transform: translateX(-50%);
+          text-align: center;
+          font-size: 1.1rem;
+          line-height: 1.6;
+          padding: 0 15px;
+        "
+      >
+        Platforma integruje wyspecjalizowane Workery AI, działające w
+        chmurze Cloudflare, aby dostarczać kompleksowe rozwiązania
+        automatyzacji z wykorzystaniem sztucznej inteligencji.
+      </p>
+    </div>
+
+    <!-- Voice AI Controls -->
+    <QuickVoiceAI client:load />
+
+    <!-- Full-width Music Visualizer -->
+    <div
+      style="
+        position: relative;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        padding: 12px 0;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        left: 50%;
+        background: rgba(0, 0, 0, 0.4);
+      "
+    >
+      <!-- White lines extending to full screen width -->
+      <div
+        style="position:absolute; left:0; right:0; top:0; height:1px; background:#ffffff;"
+      ></div>
+      <div
+        style="position:absolute; left:0; right:0; bottom:0; height:1px; background:#ffffff;"
+      ></div>
+      
+      <!-- Music Visualizer - Two waves: Music Player and Mic -->
+      <div
+        style="
+          width: 100vw;
+          height: 120px;
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+      >
+        <!-- Back layer: reacts to Music Player -->
+        <div 
+          style="
+            position:absolute; 
+            left: 50%; 
+            transform: translateX(-50%) scaleY(1.03); 
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            height: 120px;
+            opacity: 0.4;
+            filter: hue-rotate(30deg) brightness(1.2);
+            pointer-events:none;
+          "
+        >
+          <EdgeAudioVisualizer
+            client:only="react"
+            height={120}
+            source="music"
+            variant="music"
+          />
+        </div>
+        
+        <!-- Back layer mirrored -->
+        <div 
+          style="
+            position:absolute; 
+            left: 50%; 
+            transform: translateX(-50%) scaleY(1.03) scaleX(-1); 
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            height: 120px;
+            opacity: 0.3;
+            filter: hue-rotate(30deg) brightness(0.8);
+            pointer-events:none;
+          "
+        >
+          <EdgeAudioVisualizer
+            client:only="react"
+            height={120}
+            source="music"
+            variant="music"
+          />
+        </div>
+        
+        <!-- Front layer: reacts to Avatar (mic) -->
+        <div 
+          style="
+            position:absolute; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
+            max-width: 1212px;
+            height: 120px;
+            opacity: 0.8;
+            pointer-events:none;
+          "
+        >
+          <EdgeAudioVisualizer
+            client:only="react"
+            height={120}
+            source="mic"
+            variant="mic"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Global audio context management
+  let globalAudioContext = null;
+  let audioContextInitialized = false;
+  
+  function getOrCreateAudioContext() {
+    if (!globalAudioContext && typeof window !== 'undefined') {
+      try {
+        globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+        window.GLOBAL_AUDIO_CONTEXT = globalAudioContext;
+        console.log('🎵 Global AudioContext created');
+      } catch (e) {
+        console.warn('🚫 AudioContext creation failed:', e.message);
+        return null;
+      }
+    }
+    return globalAudioContext;
+  }
+  
+  // Connect music player to visualizer
+  function connectMusicToVisualizer() {
+    if (audioContextInitialized || typeof window === 'undefined') return;
+    
+    try {
+      const audioContext = getOrCreateAudioContext();
+      if (audioContext) {
+        audioContextInitialized = true;
+        console.log('🎵 Music visualizer connected');
+      }
+    } catch (error) {
+      console.warn('🚫 Failed to connect music visualizer:', error);
+    }
+  }
+  
+  // Initialize on user interaction
+  document.addEventListener('click', connectMusicToVisualizer, { once: true });
+  document.addEventListener('keydown', connectMusicToVisualizer, { once: true });
+</script>

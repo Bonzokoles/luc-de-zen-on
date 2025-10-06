@@ -1,0 +1,151 @@
+/* SciFi Enhanced Styles - MyBonzo Theme */
+
+/* Cyberpunk gradient backgrounds */
+.cyber-gradient {
+  background: linear-gradient(
+    135deg,
+    #0a0f14 0%,
+    #1a2332 25%,
+    #0f3846 50%,
+    #1a2332 75%,
+    #0a0f14 100%
+  );
+}
+
+/* Neon glow effects */
+.neon-glow {
+  box-shadow: 
+    0 0 20px rgba(27, 225, 255, 0.3),
+    0 0 40px rgba(27, 225, 255, 0.2),
+    0 0 60px rgba(27, 225, 255, 0.1);
+}
+
+.neon-glow:hover {
+  box-shadow: 
+    0 0 25px rgba(27, 225, 255, 0.4),
+    0 0 50px rgba(27, 225, 255, 0.3),
+    0 0 75px rgba(27, 225, 255, 0.2);
+}
+
+/* Glass morphism effects */
+.glass-panel {
+  background: rgba(15, 56, 70, 0.4);
+  border: 1px solid rgba(27, 225, 255, 0.2);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+}
+
+/* Animated borders */
+.animated-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    rgba(27, 225, 255, 0.8), 
+    rgba(0, 255, 136, 0.8), 
+    rgba(255, 107, 53, 0.8), 
+    rgba(27, 225, 255, 0.8)
+  );
+  background-size: 400% 400%;
+  animation: borderGlow 3s ease-in-out infinite;
+  border-radius: 12px;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Pulse animations */
+.pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Matrix-style text effects */
+.matrix-text {
+  font-family: 'Courier New', monospace;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+}
+
+/* Holographic effects */
+.hologram {
+  background: linear-gradient(
+    45deg,
+    rgba(27, 225, 255, 0.1) 0%,
+    rgba(0, 255, 136, 0.1) 25%,
+    rgba(255, 107, 53, 0.1) 50%,
+    rgba(27, 225, 255, 0.1) 75%,
+    rgba(0, 255, 136, 0.1) 100%
+  );
+  background-size: 200% 200%;
+  animation: hologramShift 4s ease-in-out infinite;
+}
+
+@keyframes hologramShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Status indicators */
+.status-online {
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.8);
+}
+
+.status-offline {
+  color: #ff4444;
+  text-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
+}
+
+.status-warning {
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 15, 20, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 225, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 225, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .glass-panel {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  
+  .neon-glow {
+    box-shadow: 
+      0 0 10px rgba(27, 225, 255, 0.2),
+      0 0 20px rgba(27, 225, 255, 0.1);
+  }
+}

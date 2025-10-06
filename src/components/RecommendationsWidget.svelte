@@ -21,7 +21,7 @@
         ? history.split(",").map((item) => item.trim())
         : [];
 
-      const res = await fetch("/api/get-recommendations", {
+      const res = await fetch("/api/recommendations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

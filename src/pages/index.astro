@@ -1,7 +1,13 @@
 
 ---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
-import RandomQuote from "../components/RandomQuote.astro";
+// Optimized component sections for better SSR performance
+import HeroSection from "../components/sections/HeroSection.astro";
+import NavigationSection from "../components/sections/NavigationSection.astro";
+import AIWorkersSection from "../components/sections/AIWorkersSection.astro";
+import WorkersGridSection from "../components/sections/WorkersGridSection.astro";
+import MainWorkersCardsSection from "../components/sections/MainWorkersCardsSection.astro";
+// Core widgets - lazy loaded
 import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
 import PolaczekWidget from "../components/PolaczekWidget.svelte";
 import MainChatWidget from "../components/MainChatWidget.svelte";
@@ -10,11 +16,8 @@ import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
 import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
 import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
 import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import QuickVoiceAI from "../components/QuickVoiceAI.tsx";
-import EdgeAudioVisualizer from "../components/voice-ai/EdgeAudioVisualizer.tsx";
 import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
 import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
-import DecorativeLines from "../components/DecorativeLines.astro";
 import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
 // Modular Agents System
 import AgentsLoader from "../components/agents/AgentsLoader.astro";
@@ -37,862 +40,145 @@ import {
 ---
 
 <MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
-  <DecorativeLines />
-
-  <!-- Global vertical lines for workers sections -->
-  <div class="workers-vertical-line-left"></div>
-  <div class="workers-vertical-line-right"></div>
-
   <main class="min-h-svh">
-    <!-- Top Separator Section -->
-    <section class="border border-edge relative">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-      </div>
-      <div class="max-w-6xl mx-auto">
-        <div class="py-1"></div>
-      </div>
-    </section>
-
-    <!-- Header Section -->
-    <section class="border border-edge relative">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-      </div>
-      <div class="max-w-6xl mx-auto">
-        <div class="flex justify-between max-h-72 min-h-64">
-          <!-- Left corner - O_MNIE content -->
-          <div class="mt-auto" style="max-width: 45vw;">
-            <div
-              class="text-edge text-sm italic px-2"
-              style="
-                transform: scale(1.32);
-                transform-origin: left center;
-                margin: 15px;
-                margin-left: 0px;
-                width: calc(45vw - 30px);
-                max-width: 380px;
-                line-height: 1.4;
-                word-wrap: break-word;
-                hyphens: auto;
-              "
-            >
-              Pasjonat technologii i programista z misją.<br />
-              Tworzę nowoczesne rozwiązania, które łączą<br />
-              sztuczną inteligencję z automatyzacją.<br />
-              Moim celem jest budowanie użytecznych narzędzi.
-            </div>
-          </div>
-          <span class="mt-auto">
-            <div
-              style="
-              transform: scale(1.56);
-              transform-origin: center right;
-              margin: 15px;
-              width: calc(50vw - 576px - 10px - 20px - 30px);
-              max-width: 400px;
-              text-align: right;
-              word-wrap: break-word;
-              hyphens: auto;
-            "
-            >
-              <RandomQuote />
-            </div>
-            <span
-              style=""
-              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
-            >
-              AUG 2025
-            </span>
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Header-Navigation Separator -->
-    <section class="border border-edge relative">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-      </div>
-      <div class="max-w-6xl mx-auto">
-        <div class="py-1"></div>
-      </div>
-    </section>
-
-    <!-- Navigation Section -->
-    <section class="border border-edge relative">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-      </div>
-      <div class="max-w-6xl mx-auto">
-        <div class="flex flex-row p-2">
-          <a class="hover:brightness-125" href="/">
-            <h1 class="text-4xl sm:text-5xl">KAROL LISSON</h1>
-            <h2 class="text-2xl sm:text-3xl">MY_Bonzo_AI_ZEnon_HuB</h2>
-          </a>
-
-          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
-            <a
-              class="ml-auto hover:brightness-125 duration-200"
-              href="mailto:LissonKarol.msa@gmail.com"
-            >
-              LissonKarol.msa@gmail.com
-              <svg
-                style="--rotation: -45deg"
-                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </a>
-            <div class="flex flex-row-reverse flex-wrap gap-4">
-              <a
-                class="hover:brightness-125 duration-200"
-                href="https://www.linkedin.com/in/linkedinHandle"
-              >
-                LinkedIn
-                <svg
-                  style="--rotation: -45deg"
-                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </a>
-              <a
-                class="hover:brightness-125 duration-200"
-                href="https://www.github.com/githubUsername"
-              >
-                GitHub
-                <svg
-                  style="--rotation: -45deg"
-                  class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)]"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Optimized sections for better SSR streaming -->
+    <HeroSection />
+    <NavigationSection />
+    <AIWorkersSection />
 
     <!-- Separator Section 1 -->
     <section class="border border-edge relative">
       <div class="absolute left-0 right-0 h-full">
         <!-- Inner vertical lines -->
         <div
-t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
+          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+        ></div>
         <div
           class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
+        ></div>
         <!-- Outer vertical lines -->
         <div
           class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
+        ></div>
         <div
           class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
+        ></div>
       </div>
       <div class="max-w-6xl mx-auto">
         <div class="py-1"></div>
       </div>
     </section>
 
-    <!-- AI Workers Section - Centered -->
-    <section
-      class="border border-edge ai-workers-section flex items-center justify-center py-16 relative"
-      id="ai-workers"
-    >
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        >
-        </div>
-      </div>
-      <div class="max-w-6xl mx-auto w-full">
-        <div class="section-container">
-          <h2 class="system-title">SYSTEM ZAAWANSOWANEJ AUTOMATYZACJI AI</h2>
 
-          <!-- Separator after title -->
-          <div
-            style="
-            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
-            max-width: 1212px;
-            margin: 0 auto;
-            border-t: 1px solid #ffffff;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-          "
-          >
-          </div>
 
-          <p
-            class="section-description"
-            style="
-            width: calc(100vw - 2 * (50vw - 576px - 10px - 20px) - 40px);
-            max-width: 1100px;
-            margin: 0 auto;
-            margin-left: calc(50% - 10px);
-            transform: translateX(-50%);
-            text-align: center;
-            font-size: 1.1rem;
-            line-height: 1.6;
-            padding: 0 15px;
-          "
-          >
-            Platforma integruje wyspecjalizowane Workery AI, działające w
-            chmurze Cloudflare, aby dostarczać kompleksowe rozwiązania
-            automatyzacji z wykorzystaniem sztucznej inteligencji.
-          </p>
-        </div>
+            }
+        <WorkersGridSection />
+        <MainWorkersCardsSection />
 
-        {
-          /* Keep the avatar + start/stop controls mounted as before (unchanged position) */
-        }
-        <QuickVoiceAI client:load />
-
-        {/* Voice Avatar Component - animowany avatar z synchronizacją ust */}
-        {
-          /* Temporarily disabled - working on generator graphics 
-        <div class="my-8 flex justify-center">
-          <VoiceAvatarComponent
-            client:load
-            variant="hero"
-            avatarType="animated"
-            enableLipSync={true}
-            className="max-w-md"
-          />
-        </div>
-        */
-        }
-
-        <!-- Full-width Music Visualizer - Extended to Left Screen Edge -->
-        <div
-          style="
-            position: relative;
-            left: 0;
-            right: 0;
-            width: 100vw;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 12px 0;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            left: 50%;
-            background: rgba(0, 0, 0, 0.4);
-          "
-        >
-          <!-- White lines extending to full screen width -->
-          <div
-            style="position:absolute; left:0; right:0; top:0; height:1px; background:#ffffff;"
-          >
-          </div>
-          <div
-            style="position:absolute; left:0; right:0; bottom:0; height:1px; background:#ffffff;"
-          >
-          </div>
-          
-          <!-- Music Visualizer - Two waves: Music Player and Mic -->
-          <div
-            style="
-              width: 100vw;
-              height: 120px;
-              position: relative;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            "
-          >
-            <!-- Back layer: reacts to Music Player, same height but wave 3% taller -->
-            <div 
-              style="
-                position:absolute; 
-                left: 50%; 
-                transform: translateX(-50%) scaleY(1.03); 
-                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
-                max-width: 1212px;
-                height: 120px;
-                opacity: 0.4;
-                filter: hue-rotate(30deg) brightness(1.2);
-                pointer-events:none;
-              "
+        <!-- 9 New Functions Grid -->
+        <div class="additional-functions-section" data-astro-cid-my52qgmw>
+          <h3 class="additional-title" data-astro-cid-my52qgmw>
+            ZAAWANSOWANE FUNKCJE AI
+          </h3>
+          <div class="additional-grid" data-astro-cid-my52qgmw>
+            <!-- Row 1 -->
+            <div
+              class="feature-tile"
+              data-function="function2"
+              data-function-name="rekomendacje"
+              data-astro-cid-my52qgmw
             >
-              <EdgeAudioVisualizer
-                client:only="react"
-                height={120}
-                source="music"
-                variant="music"
-              />
+              <div class="feature-icon" data-astro-cid-my52qgmw>🎯</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Personalizowane rekomendacje
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                System rekomendacyjny produktów i usług z analizą preferencji
+                użytkowników
+              </div>
             </div>
-            
-            <!-- Back layer mirrored: reacts to Music Player, flipped horizontally with darker color -->
-            <div 
-              style="
-                position:absolute; 
-                left: 50%; 
-                transform: translateX(-50%) scaleY(1.03) scaleX(-1); 
-                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
-                max-width: 1212px;
-                height: 120px;
-                opacity: 0.3;
-                filter: hue-rotate(30deg) brightness(0.8);
-                pointer-events:none;
-              "
+
+            <div
+              class="feature-tile"
+              data-function="function3"
+              data-function-name="obsługa-klienta"
+              data-astro-cid-my52qgmw
             >
-              <EdgeAudioVisualizer
-                client:only="react"
-                height={120}
-                source="music"
-                variant="music"
-              />
+              <div class="feature-icon" data-astro-cid-my52qgmw>📞</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Automatyzacja obsługi klienta
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                AI do kwalifikacji leadów i automatycznych odpowiedzi z
+                integracją CRM
+              </div>
             </div>
-            
-            <!-- Front layer: reacts to Avatar (mic) -->
-            <div 
-              style="
-                position:absolute; 
-                left: 50%; 
-                transform: translateX(-50%); 
-                width: calc(100vw - 2 * (50vw - 576px - 10px - 20px));
-                max-width: 1212px;
-                height: 120px;
-                opacity: 0.8;
-                pointer-events:none;
-              "
+
+            <div
+              class="feature-tile"
+              data-function="function4"
+              data-function-name="monitorowanie"
+              data-astro-cid-my52qgmw
             >
-              <EdgeAudioVisualizer
-                client:only="react"
-                height={120}
-                source="mic"
-                variant="mic"
-              />
+              <div class="feature-icon" data-astro-cid-my52qgmw>📊</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Monitorowanie i raportowanie
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                Dashboard z automatycznym generowaniem raportów i alertami o
+                anomaliach
+              </div>
             </div>
-          </div>
-        
-        <!-- Script to connect music player with visualizer -->
-        <script>
-          // Global audio context management to prevent multiple instances
-          let globalAudioContext = null;
-          let audioContextInitialized = false;
-          
-          function getOrCreateAudioContext() {
-            if (!globalAudioContext && typeof window !== 'undefined') {
-              try {
-                globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
-                window.GLOBAL_AUDIO_CONTEXT = globalAudioContext;
-                console.log('🎵 Global AudioContext created');
-              } catch (e) {
-                console.warn('🚫 AudioContext creation failed:', e.message);
-                return null;
-              }
-            }
-            return globalAudioContext;
-          }
-          
-          // Ensure music player analyser is available for visualizer
-          function connectMusicToVisualizer() {
-            if (audioContextInitialized || typeof window === 'undefined') return;
-            
-            try {
-              const audioContext = getOrCreateAudioContext();
-              if (!audioContext) return;
-              
-              const musicElement = document.querySelector('audio');
-              
-              if (musicElement && !window.MUSIC_ANALYSER && window.MUSIC) {
-                // Check if element already has audio context connection
-                if (musicElement._audioContextConnected) {
-                  console.log('🎵 Music element already connected to AudioContext');
-                  return;
-                }
-                
-                const analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-                
-                const source = audioContext.createMediaElementSource(musicElement);
-                source.connect(analyser);
-                analyser.connect(audioContext.destination);
-                
-                // Mark as connected to prevent duplicate connections
-                musicElement._audioContextConnected = true;
-                
-                window.MUSIC_ANALYSER = analyser;
-                window.dispatchEvent(new CustomEvent('music-analyser-ready'));
-                console.log('🎵 Music visualizer connected to player');
-                audioContextInitialized = true;
-              }
-            } catch (e) {
-              console.warn('🚫 Failed to connect music visualizer:', e.message);
-            }
-            
-            // Retry connection only if not initialized yet
-            if (!audioContextInitialized) {
-              setTimeout(connectMusicToVisualizer, 2000);
-            }
-          }
-          
-          // Start connection attempts with delay
-          document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(connectMusicToVisualizer, 1000);
-          });
-          
-          // Fix audio issue - ensure audio context is resumed on user interaction
-          document.addEventListener('click', function resumeAudio() {
-            const audioContext = getOrCreateAudioContext();
-            if (audioContext && audioContext.state === 'suspended') {
-              audioContext.resume().then(() => {
-                console.log('🎵 Audio context resumed on user interaction');
-              }).catch(e => {
-                console.warn('🚫 Failed to resume audio context:', e.message);
-              });
-            }
-          }, { once: true });
-        </script>
-        </div>
 
-        <!-- Dashboard Buttons Section (only buttons after login) -->
-        <div class="dashboard-buttons-section hidden" id="dashboardButtons">
-          <a
-            href="/admin/"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>ADMIN PANEL</a
-          >
-          <a
-            href="/dashboard"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>DASHBOARD</a
-          >
-          <a
-            href="/admin/ai-models"
-            class="dashboard-btn"
-            data-astro-cid-my52qgmw>AI MODELS</a
-          >
-        </div>
-
-        <!-- Small Tags Section -->
-        <div
-          class="tags-section"
-          style="
-               display: flex !important;
-               justify-content: center !important;
-               gap: 1rem !important;
-               margin-bottom: 2rem !important;
-               width: 100% !important;
-               z-index: 1000 !important;
-               position: relative !important;
-             "
-          data-astro-cid-my52qgmw
-        >
-          <button
-            class="tag-btn"
-            onclick="window.open('/POLACZEK_AGENT_SYS_23', '_blank')"
-            style="
-              background: rgba(0, 217, 255, 0.1) !important;
-              border: 1px solid rgba(0, 217, 255, 0.4) !important;
-              color: #00d9ff !important;
-              padding: 0.8rem 2rem !important;
-              font-size: 0.9rem !important;
-              font-weight: 600 !important;
-              text-transform: uppercase !important;
-              letter-spacing: 1px !important;
-              cursor: pointer !important;
-              transition: all 0.3s ease !important;
-              font-family: Rajdhani, sans-serif !important;
-              flex: 1 !important;
-              text-align: center !important;
-              min-width: 0 !important;
-            "
-            data-astro-cid-my52qgmw>POLACZEK_AGENT_SYS_23</button
-          >
-          <button
-            class="tag-btn"
-            onclick="window.open('/hub/ai-agent-s', '_blank')"
-            style="
-              background: rgba(0, 217, 255, 0.1) !important;
-              border: 1px solid rgba(0, 217, 255, 0.4) !important;
-              color: #00d9ff !important;
-              padding: 0.8rem 2rem !important;
-              font-size: 0.9rem !important;
-              font-weight: 600 !important;
-              text-transform: uppercase !important;
-              letter-spacing: 1px !important;
-              cursor: pointer !important;
-              transition: all 0.3s ease !important;
-              font-family: Rajdhani, sans-serif !important;
-              flex: 1 !important;
-              text-align: center !important;
-              min-width: 0 !important;
-            "
-            data-astro-cid-my52qgmw>BIELIK</button
-          >
-          <button
-            class="tag-btn"
-            onclick="window.open('/workers-status', '_blank')"
-            style="
-              background: rgba(0, 217, 255, 0.1) !important;
-              border: 1px solid rgba(0, 217, 255, 0.4) !important;
-              color: #00d9ff !important;
-              padding: 0.8rem 2rem !important;
-              font-size: 0.9rem !important;
-              font-weight: 600 !important;
-              text-transform: uppercase !important;
-              letter-spacing: 1px !important;
-              cursor: pointer !important;
-              transition: all 0.3s ease !important;
-              font-family: Rajdhani, sans-serif !important;
-              flex: 1 !important;
-              text-align: center !important;
-              min-width: 0 !important;
-            "
-            data-astro-cid-my52qgmw>ZENON</button
-          >
-          <button
-            class="tag-btn"
-            onclick="window.open('/klf-sheed-shop', '_blank')"
-            style="
-              background: rgba(0, 217, 255, 0.1) !important;
-              border: 1px solid rgba(0, 217, 255, 0.4) !important;
-              color: #00d9ff !important;
-              padding: 0.8rem 2rem !important;
-              font-size: 0.9rem !important;
-              font-weight: 600 !important;
-              text-transform: uppercase !important;
-              letter-spacing: 1px !important;
-              cursor: pointer !important;
-              transition: all 0.3s ease !important;
-              font-family: Rajdhani, sans-serif !important;
-              flex: 1 !important;
-              text-align: center !important;
-              min-width: 0 !important;
-            "
-            data-astro-cid-my52qgmw>KLF_SHEED_SHOOP</button
-          >
-        </div>
-
-        <div class="workers-grid" data-astro-cid-my52qgmw>
-          <!-- Image Generator -->
-          <div class="worker-card" data-worker="image" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              Generator Obrazów
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Twórz niesamowite obrazy z tekstu używając Flux-1 Schnell
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Flux AI</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>512-1024px</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Tłumaczenie PL</span
-              >
+            <!-- Row 2 -->
+            <div
+              class="feature-tile"
+              data-function="function6"
+              data-function-name="przypomnienia"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>🔔</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Harmonogramowanie i przypomnienia
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                Inteligentne przypomnienia z adaptacyjnym harmonogramem i
+                priorytetyzacją
+              </div>
             </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Opisz obraz..."
-                class="quick-prompt"
-                id="imagePrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openImageGenerator()"
-                data-astro-cid-my52qgmw>Generuj</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/image-generator', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-            </div>
-          </div>
 
-          <!-- AI Chatbot -->
-          <div class="worker-card" data-worker="chat" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>AI Chatbot</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Inteligentny asystent do rozmów i odpowiadania na pytania
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>OpenAI GPT</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Język polski</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Kontekst</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="Zadaj pytanie..."
-                class="quick-prompt"
-                id="chatPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openChatbot()"
-                data-astro-cid-my52qgmw>Chat</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/chatbot', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-            </div>
-          </div>
-
-          <!-- BigQuery Analytics -->
+            <!-- Tavily Search function replacement -->
           <div
-            class="worker-card"
-            data-worker="bigquery"
-            data-astro-cid-my52qgmw
-          >
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              BigQuery Analytics
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Analizuj dane z Google BigQuery, wykonuj zapytania SQL
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Google Cloud</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>SQL Query</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
+              class="feature-tile"
+              data-function="function7"
+              data-function-name="faq-generator"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>❓</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Generator FAQ dynamiczny
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy
+                wiedzy
+              </div>
             </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="SELECT * FROM..."
-                class="quick-prompt"
-                id="bigqueryPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openBigQueryPopup()"
-                data-astro-cid-my52qgmw>Analizuj</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/bigquery-analytics', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-            </div>
-          </div>
 
-          <!-- Kaggle Datasets -->
-          <div class="worker-card" data-worker="kaggle" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              Kaggle Datasets
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Przeszukuj zbiory danych, konkursy i profile Kaggle
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Machine Learning</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Datasets</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Competitions</span
-              >
+            <div
+              class="feature-tile"
+              data-function="function8"
+              data-function-name="edukacja"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>📚</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Rekomendacje edukacyjne
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                System rekomendacji kursów i materiałów edukacyjnych z
+                profilowaniem użytkownika
+              </div>
             </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="machine learning..."
-                class="quick-prompt"
-                id="kagglePrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openKagglePopup()"
-                data-astro-cid-my52qgmw>Wyszukaj</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/kaggle-datasets', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-            </div>
-          </div>
-
-          <!-- Tavily Search -->
-          <div class="worker-card" data-worker="tavily" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              Tavily AI Search
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Zaawansowane wyszukiwanie internetowe powered by AI
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>AI Search</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Deep Analysis</span
-              >
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="wyszukaj w sieci..."
-                class="quick-prompt"
-                id="tavilyPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openTavily()"
-                data-astro-cid-my52qgmw>Szukaj</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/tavily-search', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-            </div>
-          </div>
-
-          <!-- Voice AI Worker -->
-          <div class="worker-card" data-worker="voice-ai" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              🎤 Voice AI Assistant
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Transkrypcja, synteza mowy i przetwarzanie komend głosowych
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Speech-to-Text</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Text-to-Speech</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Voice Commands</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <input
-                type="text"
-                placeholder="tekst do syntezy..."
-                class="quick-prompt"
-                id="voiceAiPrompt"
-                data-astro-cid-my52qgmw
-              />
-              <button
-                class="action-btn primary"
-                onclick="openVoiceAIPopup()"
-                data-astro-cid-my52qgmw>🎤 Nagrywaj</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="quickSynthesize()"
-                data-astro-cid-my52qgmw>🔊 Synteza</button
-              >
-            </div>
-          </div>
 
           <!-- STATUS WORKERS - Basic Opening Element -->
           <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
@@ -948,6 +234,60 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 class="action-btn secondary"
                 onclick="openAPITestConsole()"
                 data-astro-cid-my52qgmw>Konsola testów</button
+              >
+            </div>
+          </div>
+
+          <!-- Langchain Card -->
+          <div class="worker-card" data-worker="langchain" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              🔗 Langchain AI
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Framework do tworzenia aplikacji opartych na dużych modelach językowych
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>LLM Apps</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Integracje</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Agenty</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="alert('Langchain wkrótce!')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('https://www.langchain.com/', '_blank')"
+                data-astro-cid-my52qgmw>Dokumentacja</button
+              >
+            </div>
+          </div>
+
+          <!-- MCP Servers Card -->
+          <div class="worker-card" data-worker="mcp-servers" data-astro-cid-my52qgmw>
+            <h3 class="worker-title" data-astro-cid-my52qgmw>
+              ☁️ MCP Servers
+            </h3>
+            <p class="worker-description" data-astro-cid-my52qgmw>
+              Zarządzanie i monitorowanie serwerów Model Context Protocol
+            </p>
+            <div class="worker-features" data-astro-cid-my52qgmw>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Mikroserwisy</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Orkiestracja</span>
+              <span class="feature-tag" data-astro-cid-my52qgmw>Cloud</span>
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="action-btn primary"
+                onclick="alert('MCP Servers wkrótce!')"
+                data-astro-cid-my52qgmw>Otwórz</button
+              >
+              <button
+                class="action-btn secondary"
+                onclick="window.open('https://www.openmesh.network/', '_blank')"
+                data-astro-cid-my52qgmw>Dokumentacja</button
               >
             </div>
           </div>
@@ -2209,7 +1549,12 @@ t          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
                 ${data.fallback ? "<strong>Mode:</strong> Fallback (sprawdź konfigurację API)<br>" : ""}
                 ${data.metadata?.simulation ? "<strong>Mode:</strong> Simulation (skonfiguruj FLOWISE_API_TOKEN)<br>" : ""}
               </div>
-            </body>
+            <footer style="text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; margin-top: 4rem; border-top: 1px solid #333;">
+      <p style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        If robots are destined for eternal life, what will stop us from becoming one of them? There is no escape, only the illusion of choice; yet, the very essence of humanity lies in the absurd act of will—in the Sisyphus-like heroism of undertaking the struggle anew—where to the question 'Why?' we can always, ultimately, reply: 'Because I choose to.'
+      </p>
+    </footer>
+  </body>
           </html>
         `);
       } else {

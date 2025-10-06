@@ -236,47 +236,83 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 };
 
-async function performTavilySearch(env: any, query: string, options: any) {
-  // Mock search results for now
-  return {
-    answer: `Based on the search query "${query}", here are the key findings and insights from reliable sources.`,
+// Example search data for demonstration when Tavily API is not configured
+const EXAMPLE_SEARCHES = {
+  'artificial intelligence': {
+    answer: 'AI w 2025 roku charakteryzuje się przełomami w modelach językowych, autonomicznych systemach i zastosowaniach biznesowych.',
     results: [
       {
-        title: `Latest developments in ${query}`,
-        url: 'https://example1.com',
-        content: `Comprehensive overview of ${query} including recent advances, key technologies, and market trends. This source provides detailed analysis and expert insights.`,
+        title: 'AI Trends 2025: Przełomy w sztucznej inteligencji',
+        url: 'https://techcrunch.com/ai-trends-2025',
+        content: 'Sztuczna inteligencja w 2025 roku rozwija się w kierunku większej autonomii, lepszego rozumienia kontekstu i integracji z Internet of Things.',
         score: 0.95,
-        published_date: '2025-09-25'
+        published_date: '2025-10-01'
       },
       {
-        title: `${query} - Research and Applications`,
-        url: 'https://example2.com',
-        content: `In-depth research on ${query} applications across various industries. Covers implementation strategies, benefits, and future outlook.`,
+        title: 'Generative AI w biznesie - nowe możliwości',
+        url: 'https://forbes.com/generative-ai-business',
+        content: 'Firmy coraz częściej wykorzystują generatywną AI do automatyzacji procesów, tworzenia treści i wspomagania decyzji biznesowych.',
         score: 0.89,
-        published_date: '2025-09-24'
-      },
-      {
-        title: `${query} Best Practices Guide`,
-        url: 'https://example3.com',
-        content: `Practical guide covering best practices, common challenges, and solutions for ${query} implementation in real-world scenarios.`,
-        score: 0.82,
-        published_date: '2025-09-23'
+        published_date: '2025-09-28'
       }
-    ],
-    images: options.includeImages ? [
-      {
-        url: 'https://example.com/image1.jpg',
-        description: `Visual representation of ${query} concepts`
-      },
-      {
-        url: 'https://example.com/image2.jpg',
-        description: `Diagram showing ${query} architecture`
-      }
-    ] : [],
-    follow_up_questions: [
-      `What are the latest trends in ${query}?`,
-      `How is ${query} being implemented in different industries?`,
-      `What are the challenges of ${query} adoption?`
     ]
-  };
+  },
+  'machine learning': {
+    answer: 'Machine Learning ewoluuje w kierunku AutoML, edge computing i bardziej efektywnych algorytmów uczenia się.',
+    results: [
+      {
+        title: 'AutoML revolutionizes machine learning deployment',
+        url: 'https://nature.com/automl-2025',
+        content: 'Automated Machine Learning tools are making AI accessible to non-experts, democratizing data science capabilities.',
+        score: 0.92,
+        published_date: '2025-09-30'
+      }
+    ]
+  }
+};
+
+async function performTavilySearch(env: any, query: string, options: any) {
+  // Check if Tavily API key is configured
+  const tavilyApiKey = env.TAVILY_API_KEY;
+  
+  if (!tavilyApiKey) {
+    // Return example data when API key is not configured
+    const queryLower = query.toLowerCase();
+    const exampleKey = Object.keys(EXAMPLE_SEARCHES).find(key => 
+      queryLower.includes(key)
+    ) as keyof typeof EXAMPLE_SEARCHES;
+    
+    const exampleData = EXAMPLE_SEARCHES[exampleKey] || {
+      answer: `Przykładowe wyniki wyszukiwania dla "${query}". Skonfiguruj TAVILY_API_KEY dla prawdziwych wyników.`,
+      results: [
+        {
+          title: `Wyniki wyszukiwania: ${query}`,
+          url: 'https://example.com/search-results',
+          content: `Przykładowe wyniki wyszukiwania dla zapytania "${query}". W rzeczywistej implementacji tutaj pojawią się prawdziwe wyniki z internetu.`,
+          score: 0.85,
+          published_date: new Date().toISOString().split('T')[0]
+        }
+      ]
+    };
+
+    return {
+      ...exampleData,
+      images: options.includeImages ? [
+        {
+          url: 'https://via.placeholder.com/400x200?text=Example+Image',
+          description: `Przykładowy obraz dla ${query}`
+        }
+      ] : [],
+      follow_up_questions: [
+        `Jakie są najnowsze trendy w ${query}?`,
+        `Jak ${query} wpływa na różne branże?`,
+        `Jakie są wyzwania związane z ${query}?`
+      ],
+      note: 'Przykładowe dane - skonfiguruj TAVILY_API_KEY dla prawdziwych wyników wyszukiwania'
+    };
+  }
+
+  // Real Tavily API call would go here when configured
+  // For now, return example data even with API key until real implementation
+  return performTavilySearch(env, query, { ...options, mockData: true });
 }

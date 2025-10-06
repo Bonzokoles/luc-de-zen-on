@@ -1,0 +1,127 @@
+---
+import RandomQuote from "../RandomQuote.astro";
+import DecorativeLines from "../DecorativeLines.astro";
+---
+
+<!-- Header Hero Section -->
+<section class="header-hero-section">
+  <DecorativeLines />
+
+  <!-- Global vertical lines for workers sections -->
+  <div class="workers-vertical-line-left"></div>
+  <div class="workers-vertical-line-right"></div>
+
+  <!-- Top Separator Section -->
+  <section class="border border-edge relative">
+    <div class="absolute left-0 right-0 h-full">
+      <!-- Inner vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <!-- Outer vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+    </div>
+    <div class="max-w-6xl mx-auto">
+      <div class="py-1"></div>
+    </div>
+  </section>
+
+  <!-- Header Section -->
+  <section class="border border-edge relative">
+    <div class="absolute left-0 right-0 h-full">
+      <!-- Inner vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <!-- Outer vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+    </div>
+    <div class="max-w-6xl mx-auto">
+      <div class="flex justify-between max-h-72 min-h-64">
+        <!-- Left corner - O_MNIE content -->
+        <div class="mt-auto" style="max-width: 45vw;">
+          <div
+            class="text-edge text-sm italic px-2"
+            style="
+              transform: scale(1.32);
+              transform-origin: left center;
+              margin: 15px;
+              margin-left: 0px;
+              width: calc(45vw - 30px);
+              max-width: 380px;
+              line-height: 1.4;
+              word-wrap: break-word;
+              hyphens: auto;
+            "
+          >
+            Pasjonat technologii i programista z misją.<br />
+            Tworzę nowoczesne rozwiązania, które łączą<br />
+            sztuczną inteligencję z automatyzacją.<br />
+            Moim celem jest budowanie użytecznych narzędzi.
+          </div>
+        </div>
+        <span class="mt-auto">
+          <div
+            style="
+            transform: scale(1.56);
+            transform-origin: center right;
+            margin: 15px;
+            width: calc(50vw - 576px - 10px - 20px - 30px);
+            max-width: 400px;
+            text-align: right;
+            word-wrap: break-word;
+            hyphens: auto;
+          "
+          >
+            <RandomQuote />
+          </div>
+          <span
+            style=""
+            class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+          >
+            AUG 2025
+          </span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Header-Navigation Separator -->
+  <section class="border border-edge relative">
+    <div class="absolute left-0 right-0 h-full">
+      <!-- Inner vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <!-- Outer vertical lines -->
+      <div
+        class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+      <div
+        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
+      ></div>
+    </div>
+    <div class="max-w-6xl mx-auto">
+      <div class="py-1"></div>
+    </div>
+  </section>
+</section>

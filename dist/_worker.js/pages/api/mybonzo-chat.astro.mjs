@@ -1,8 +1,14 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { c as createOPTIONSHandler, b as createErrorResponse, a as createSuccessResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const OPTIONS = createOPTIONSHandler(["POST", "GET"]);
+async function GET({ request }) {
+  return createSuccessResponse({
+    message: "MyBonzo Chat is active and ready for POST requests.",
+    status: "ok"
+  });
+}
 async function POST({ request, locals }) {
   try {
     const { prompt, context, language = "pl" } = await request.json();
@@ -182,6 +188,7 @@ Podaj więcej szczegółów, a pomogę Ci rozwiązać problem! 💪
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
+  GET,
   OPTIONS,
   POST
 }, Symbol.toStringTag, { value: 'Module' }));

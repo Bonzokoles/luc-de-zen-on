@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const POST = async ({ request }) => {
   try {
@@ -13,8 +13,16 @@ const POST = async ({ request }) => {
         headers: { "Content-Type": "application/json" }
       });
     }
-    const tavilyApiKey = "TAVILY_API_KEY_SECRET";
-    if (!tavilyApiKey) ;
+    const tavilyApiKey = undefined                               || process.env.TAVILY_API_KEY;
+    if (!tavilyApiKey) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: "Tavily API key not configured"
+      }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
     const response = await fetch("https://api.tavily.com/search", {
       method: "POST",
       headers: {

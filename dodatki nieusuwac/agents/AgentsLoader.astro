@@ -1,0 +1,237 @@
+---
+// AgentsLoader.astro - Główny loader dla wszystkich agentów
+// Ładuje komponenty i skrypty dynamicznie, zmniejszając rozmiar głównego pliku
+---
+
+<!-- Import głównego managera agentów -->
+<div id="agentsSystem">
+  <!-- Floating Agents Manager -->
+  <div id="floatingAgentsContainer">
+    <!-- Container dla wszystkich floating widgets - ładowane z osobnego pliku -->
+  </div>
+</div>
+
+<!-- Główny skrypt inicjalizacyjny -->
+<script type="module" is:inline>
+  // Agents Loader - Dynamic loading system
+  class AgentsLoader {
+    constructor() {
+      this.loadedModules = new Set();
+      this.agentsContainer = null;
+      this.init();
+    }
+
+    async init() {
+      console.log("🚀 Initializing Agents Loader...");
+      
+      // Znajdź container
+      this.agentsContainer = document.getElementById('floatingAgentsContainer');
+      if (!this.agentsContainer) {
+        console.error("❌ Agents container not found");
+        return;
+      }
+
+      // Załaduj core system
+      await this.loadCoreSystem();
+      
+      // Załaduj floating widgets
+      await this.loadFloatingWidgets();
+      
+      // Załaduj funkcje agentów
+      await this.loadAgentsFunctions();
+      
+      console.log("✅ All agents loaded successfully");
+    }
+
+    async loadCoreSystem() {
+      try {
+        // Załaduj główny kontroler z absolute path
+        const controllerModule = await import('/src/components/agents/AgentsController.js');
+        
+        if (controllerModule.default) {
+          console.log("✅ AgentsController loaded");
+          this.loadedModules.add('controller');
+        }
+      } catch (error) {
+        console.warn("⚠️ Could not load AgentsController:", error);
+      }
+    }
+
+    async loadFloatingWidgets() {
+      try {
+        // Załaduj HTML dla floating widgets
+        const response = await fetch('/src/components/agents/AgentsFloatingManager.astro');
+        const widgetsHTML = await response.text();
+        
+        if (this.agentsContainer && widgetsHTML) {
+          // Extract tylko div content, nie cały astro file
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(widgetsHTML, 'text/html');
+          const widgets = doc.querySelectorAll('[id$="Widget"]');
+          
+          widgets.forEach(widget => {
+            this.agentsContainer.appendChild(widget.cloneNode(true));
+          });
+          
+          console.log(`✅ Loaded ${widgets.length} floating widgets`);
+        }
+      } catch (error) {
+        console.warn("⚠️ Could not load floating widgets:", error);
+        // Fallback - create widgets manually
+        this.createFallbackWidgets();
+      }
+    }
+
+    async loadAgentsFunctions() {
+      const agentModules = [
+        { name: 'voice', path: './components/agents/modules/voice-functions.js' },
+        { name: 'music', path: './components/agents/modules/music-functions.js' },
+        { name: 'system', path: './components/agents/modules/system-functions.js' }
+      ];
+
+      for (const module of agentModules) {
+        try {
+          const agentModule = await import(module.path);
+          
+          if (agentModule.default) {
+            console.log(`✅ ${module.name} agent functions loaded`);
+            this.loadedModules.add(module.name);
+          }
+        } catch (error) {
+          console.warn(`⚠️ Could not load ${module.name} agent:`, error);
+        }
+      }
+    }
+
+    createFallbackWidgets() {
+      // Podstawowe widget'y jako fallback
+      const basicWidgets = [
+        { id: 'voice', name: 'Voice Agent', emoji: '🎙️', color: '#ff6b9d' },
+        { id: 'music', name: 'Music Agent', emoji: '🎵', color: '#9333ea' },
+        { id: 'system', name: 'System Agent', emoji: '⚙️', color: '#ef4444' }
+      ];
+
+      basicWidgets.forEach(agent => {
+        const widget = this.createBasicWidget(agent);
+        this.agentsContainer.appendChild(widget);
+      });
+
+      console.log("✅ Fallback widgets created");
+    }
+
+    createBasicWidget(agent) {
+      const widget = document.createElement('div');
+      widget.id = `${agent.id}AgentWidget`;
+      widget.className = 'floating-widget hidden';
+      
+      widget.innerHTML = `
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>${agent.emoji} ${agent.name.toUpperCase()}</span>
+            <button onclick="toggle${agent.name.replace(' ', '')}()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <div style="padding: 20px; text-align: center;">
+              <p>Agent ${agent.name} jest ładowany...</p>
+              <div style="margin-top: 15px;">
+                <button onclick="clear${agent.name.replace(' ', '')}Agent()" style="background: rgba(255, 255, 255, 0.1); border: 1px solid ${agent.color}; padding: 10px 20px; border-radius: 4px; color: ${agent.color}; cursor: pointer;">Zamknij</button>
+              </div>
+            </div>
+            <div id="${agent.id}AgentResponse" style="margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 4px; min-height: 60px; text-align: left; font-size: 14px; display: none;"></div>
+          </div>
+        </div>
+      `;
+
+      return widget;
+    }
+
+    // Status check
+    getLoadedModules() {
+      return Array.from(this.loadedModules);
+    }
+
+    isModuleLoaded(moduleName) {
+      return this.loadedModules.has(moduleName);
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      window.agentsLoader = new AgentsLoader();
+    });
+  } else {
+    window.agentsLoader = new AgentsLoader();
+  }
+
+  // Export dla debugowania
+  window.AgentsLoader = AgentsLoader;
+</script>
+
+<!-- Podstawowe style dla floating widgets -->
+<style>
+  .floating-widget {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #1be1ff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .floating-widget.hidden {
+    display: none;
+  }
+
+  .floating-widget-template {
+    padding: 0;
+  }
+
+  .panel-header {
+    background: linear-gradient(135deg, #1be1ff, #0f3846);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .panel-content {
+    padding: 20px;
+    color: #333;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .floating-widget {
+      right: 10px;
+      left: 10px;
+      max-width: none;
+      top: 60px;
+    }
+  }
+
+  /* Animation for widget appearing */
+  .floating-widget:not(.hidden) {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+</style>

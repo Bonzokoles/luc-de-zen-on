@@ -1,6 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
 

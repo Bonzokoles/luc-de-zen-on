@@ -1,0 +1,1481 @@
+﻿---
+import MyBonzoLayout from "../../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout title="Marketing Content Generator | AI Functions">
+  <main class="min-h-svh interactive-page" id="mainContent">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              MARKETING
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              style=""
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              GENERATOR
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex flex-row p-2">
+          <a class="hover:brightness-125" href="/">
+            <h1 class="text-4xl sm:text-5xl">MARKETING CONTENT GENERATOR</h1>
+            <h2 class="text-2xl sm:text-3xl">Advanced AI Marketing Automation</h2>
+          </a>
+
+          <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
+            <a class="ml-auto hover:brightness-125 duration-200" href="/">
+              â† PowrĂłt do strony gĹ‚Ăłwnej
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section
+      class="marketing-section flex items-center justify-center py-16"
+      style="background: rgba(0, 0, 0, 0.5);"
+      id="marketing-section"
+    >
+      <div class="section-container max-w-7xl mx-auto">
+        <h2 class="section-title">GENERATOR TREĹšCI MARKETINGOWYCH</h2>
+        <p class="section-description">
+          Zaawansowany system AI do tworzenia profesjonalnych treĹ›ci marketingowych z automatycznÄ… publikacjÄ…
+        </p>
+
+        <!-- Content Types Selection -->
+        <div class="content-types-section mt-8">
+          <h3 class="content-types-title">Wybierz typ treĹ›ci do wygenerowania:</h3>
+          <div class="content-types-grid">
+            
+            <!-- Social Media Posts -->
+            <div class="content-type-card active" data-type="social-media">
+              <div class="content-icon">đź“±</div>
+              <div class="content-name">Social Media Posts</div>
+              <div class="content-desc">Facebook, Instagram, LinkedIn, Twitter</div>
+              <div class="content-features">
+                <span class="feature-badge">Hashtagi</span>
+                <span class="feature-badge">Emojis</span>
+                <span class="feature-badge">CTA</span>
+              </div>
+            </div>
+
+            <!-- Blog Articles -->
+            <div class="content-type-card" data-type="blog">
+              <div class="content-icon">đź“ť</div>
+              <div class="content-name">ArtykuĹ‚y Blog</div>
+              <div class="content-desc">SEO-optimized, dĹ‚ugie formy</div>
+              <div class="content-features">
+                <span class="feature-badge">SEO</span>
+                <span class="feature-badge">Keywords</span>
+                <span class="feature-badge">Structure</span>
+              </div>
+            </div>
+
+            <!-- Email Campaigns -->
+            <div class="content-type-card" data-type="email">
+              <div class="content-icon">đź“§</div>
+              <div class="content-name">Kampanie Email</div>
+              <div class="content-desc">Newsletters, promocje, nurturing</div>
+              <div class="content-features">
+                <span class="feature-badge">Subject</span>
+                <span class="feature-badge">Personalization</span>
+                <span class="feature-badge">A/B Test</span>
+              </div>
+            </div>
+
+            <!-- Ad Copy -->
+            <div class="content-type-card" data-type="ads">
+              <div class="content-icon">đźŽŻ</div>
+              <div class="content-name">Reklamy</div>
+              <div class="content-desc">Google Ads, Facebook Ads, banery</div>
+              <div class="content-features">
+                <span class="feature-badge">Headlines</span>
+                <span class="feature-badge">CTR</span>
+                <span class="feature-badge">Conversion</span>
+              </div>
+            </div>
+
+            <!-- Product Descriptions -->
+            <div class="content-type-card" data-type="product">
+              <div class="content-icon">đź›Ťď¸Ź</div>
+              <div class="content-name">Opisy ProduktĂłw</div>
+              <div class="content-desc">E-commerce, katalogi, specyfikacje</div>
+              <div class="content-features">
+                <span class="feature-badge">Benefits</span>
+                <span class="feature-badge">Features</span>
+                <span class="feature-badge">USP</span>
+              </div>
+            </div>
+
+            <!-- Landing Pages -->
+            <div class="content-type-card" data-type="landing">
+              <div class="content-icon">đźŽ¨</div>
+              <div class="content-name">Landing Pages</div>
+              <div class="content-desc">Strony sprzedaĹĽowe, lead magnets</div>
+              <div class="content-features">
+                <span class="feature-badge">Headlines</span>
+                <span class="feature-badge">Copy</span>
+                <span class="feature-badge">Forms</span>
+              </div>
+            </div>
+
+            <!-- Video Scripts -->
+            <div class="content-type-card" data-type="video">
+              <div class="content-icon">đźŽ¬</div>
+              <div class="content-name">Skrypty Video</div>
+              <div class="content-desc">YouTube, TikTok, reklamy video</div>
+              <div class="content-features">
+                <span class="feature-badge">Hook</span>
+                <span class="feature-badge">Story</span>
+                <span class="feature-badge">CTA</span>
+              </div>
+            </div>
+
+            <!-- Press Releases -->
+            <div class="content-type-card" data-type="press">
+              <div class="content-icon">đź“°</div>
+              <div class="content-name">Komunikaty Prasowe</div>
+              <div class="content-desc">PR, media relations, newsy</div>
+              <div class="content-features">
+                <span class="feature-badge">Newsworthy</span>
+                <span class="feature-badge">Professional</span>
+                <span class="feature-badge">Distribution</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Generation Interface -->
+        <div class="generation-interface mt-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Panel - Input Configuration -->
+            <div class="input-panel">
+              <div class="panel-card">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">Konfiguracja treĹ›ci</span>
+                  </div>
+                </div>
+
+                <div class="panel-content space-y-6">
+                  <!-- Brand Information -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      Informacje o marce:
+                    </label>
+                    <textarea
+                      id="brandInfo"
+                      placeholder="Nazwa firmy, branĹĽa, wartoĹ›ci, USP, grupa docelowa..."
+                      class="w-full h-24 p-3 border border-edge rounded text-primary-foreground placeholder-gray-400"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    ></textarea>
+                  </div>
+
+                  <!-- Campaign Objective -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      Cel kampanii:
+                    </label>
+                    <select id="campaignObjective" class="w-full p-3 bg-black/40 border border-edge rounded text-primary-foreground">
+                      <option value="awareness">ZwiÄ™kszenie Ĺ›wiadomoĹ›ci marki</option>
+                      <option value="engagement">ZwiÄ™kszenie zaangaĹĽowania</option>
+                      <option value="leads">Generowanie leadĂłw</option>
+                      <option value="sales">ZwiÄ™kszenie sprzedaĹĽy</option>
+                      <option value="retention">Utrzymanie klientĂłw</option>
+                      <option value="launch">Wprowadzenie produktu</option>
+                      <option value="event">Promocja wydarzenia</option>
+                      <option value="education">Edukacja rynku</option>
+                    </select>
+                  </div>
+
+                  <!-- Target Audience -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      Grupa docelowa:
+                    </label>
+                    <textarea
+                      id="targetAudience"
+                      placeholder="Wiek, pĹ‚eÄ‡, zainteresowania, zachowania, problemy, potrzeby..."
+                      class="w-full h-20 p-3 border border-edge rounded text-primary-foreground placeholder-gray-400"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    ></textarea>
+                  </div>
+
+                  <!-- Tone & Style -->
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        Ton komunikacji:
+                      </label>
+                      <select id="communicationTone" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                        <option value="professional">Profesjonalny</option>
+                        <option value="friendly">Przyjazny</option>
+                        <option value="casual">Casualowy</option>
+                        <option value="authoritative">Autorytatywny</option>
+                        <option value="playful">Zabawny</option>
+                        <option value="urgent">Pilny</option>
+                        <option value="inspirational">InspirujÄ…cy</option>
+                        <option value="educational">Edukacyjny</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        DĹ‚ugoĹ›Ä‡ treĹ›ci:
+                      </label>
+                      <select id="contentLength" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                        <option value="short">KrĂłtka (50-150 sĹ‚Ăłw)</option>
+                        <option value="medium">Ĺšrednia (150-400 sĹ‚Ăłw)</option>
+                        <option value="long">DĹ‚uga (400-800 sĹ‚Ăłw)</option>
+                        <option value="extended">Rozszerzona (800+ sĹ‚Ăłw)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Keywords & Hashtags -->
+                  <div>
+                    <label class="block text-sm font-medium mb-3 text-primary-foreground">
+                      SĹ‚owa kluczowe i hashtagi:
+                    </label>
+                    <input
+                      type="text"
+                      id="keywords"
+                      placeholder="#marketing, #ai, #automation, SEO keywords..."
+                      class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400"
+                      style="background: rgba(0, 0, 0, 0.5);"
+                    />
+                  </div>
+
+                  <!-- Advanced Options -->
+                  <div class="advanced-options">
+                    <h4 class="text-md font-semibold mb-3 text-primary-foreground">
+                      đźŽ›ď¸Ź Opcje zaawansowane:
+                    </h4>
+                    <div class="options-grid space-y-3">
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="includeEmojis" checked class="rounded">
+                        <span class="text-sm text-primary-foreground">Dodaj emojis</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="includeCTA" checked class="rounded">
+                        <span class="text-sm text-primary-foreground">Dodaj Call-to-Action</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="seoOptimized" checked class="rounded">
+                        <span class="text-sm text-primary-foreground">Optymalizacja SEO</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="multiLanguage" class="rounded">
+                        <span class="text-sm text-primary-foreground">Wersje jÄ™zykowe (EN/PL)</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="abTestVariants" class="rounded">
+                        <span class="text-sm text-primary-foreground">Warianty A/B test</span>
+                      </label>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="competitorAnalysis" class="rounded">
+                        <span class="text-sm text-primary-foreground">Analiza konkurencji</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- AI Models Selection -->
+                  <div class="models-selection">
+                    <h4 class="text-md font-semibold mb-3 text-primary-foreground">
+                      đź§  Wybierz modele AI:
+                    </h4>
+                    <div class="models-grid-compact">
+                      <label class="model-checkbox">
+                        <input type="checkbox" id="modelGPT4" checked>
+                        <span class="model-name">GPT-4</span>
+                        <span class="model-specialty">KreatywnoĹ›Ä‡</span>
+                      </label>
+                      <label class="model-checkbox">
+                        <input type="checkbox" id="modelClaude" checked>
+                        <span class="model-name">Claude 3</span>
+                        <span class="model-specialty">Copywriting</span>
+                      </label>
+                      <label class="model-checkbox">
+                        <input type="checkbox" id="modelGemini">
+                        <span class="model-name">Gemini Pro</span>
+                        <span class="model-specialty">Research</span>
+                      </label>
+                      <label class="model-checkbox">
+                        <input type="checkbox" id="modelBielik">
+                        <span class="model-name">Bielik</span>
+                        <span class="model-specialty">Polski</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Generate Button -->
+                  <button
+                    id="generateContentBtn"
+                    onclick="generateMarketingContent()"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded font-semibold transition-colors"
+                  >
+                    âś¨ Generuj treĹ›ci marketingowe
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center Panel - Content Preview -->
+            <div class="preview-panel">
+              <!-- Loading Section -->
+              <div id="loadingSection" class="loading-section hidden">
+                <div class="panel-card">
+                  <div class="text-center p-8">
+                    <div class="flex items-center justify-center gap-3 mb-4">
+                      <div class="w-4 h-4 bg-purple-400 rounded-full animate-bounce"></div>
+                      <div class="w-4 h-4 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                      <div class="w-4 h-4 bg-purple-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                    </div>
+                    <span class="text-primary-foreground">Generowanie treĹ›ci marketingowych...</span>
+                    <div class="mt-4">
+                      <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="progressBar" class="bg-purple-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                      </div>
+                    </div>
+                    <div id="loadingStatus" class="text-gray-400 text-sm mt-2">
+                      Analizowanie marki i grupy docelowej...
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Content Preview -->
+              <div id="previewSection" class="preview-section hidden">
+                <div class="panel-card">
+                  <div class="panel-header">
+                    <div class="flex items-center gap-3">
+                      <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                      <span class="text-primary-foreground font-semibold">PodglÄ…d treĹ›ci</span>
+                    </div>
+                    <div class="flex gap-2">
+                      <button
+                        onclick="editContent()"
+                        class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+                      >
+                        âśŹď¸Ź Edytuj
+                      </button>
+                      <button
+                        onclick="regenerateContent()"
+                        class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm"
+                      >
+                        đź”„ Regeneruj
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="panel-content">
+                    <div id="contentPreview" class="content-preview">
+                      <!-- Generated content will be displayed here -->
+                    </div>
+
+                    <!-- Content Metrics -->
+                    <div class="content-metrics mt-4 p-4 bg-black/30 rounded border border-edge">
+                      <h4 class="text-sm font-semibold mb-3 text-primary-foreground">
+                        đź“Š Metryki treĹ›ci:
+                      </h4>
+                      <div class="metrics-grid grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="metric-item">
+                          <div class="metric-label">SĹ‚owa:</div>
+                          <div class="metric-value" id="wordCount">0</div>
+                        </div>
+                        <div class="metric-item">
+                          <div class="metric-label">Znaki:</div>
+                          <div class="metric-value" id="charCount">0</div>
+                        </div>
+                        <div class="metric-item">
+                          <div class="metric-label">Hashtagi:</div>
+                          <div class="metric-value" id="hashtagCount">0</div>
+                        </div>
+                        <div class="metric-item">
+                          <div class="metric-label">SEO Score:</div>
+                          <div class="metric-value" id="seoScore">--</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel - Publishing & Analytics -->
+            <div class="publishing-panel">
+              <!-- Publishing Options -->
+              <div class="panel-card mb-6">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">Publikacja</span>
+                  </div>
+                </div>
+                <div class="panel-content">
+                  <div class="publishing-options space-y-4">
+                    <!-- Platform Selection -->
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        Platformy docelowe:
+                      </label>
+                      <div class="platforms-grid">
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformFacebook">
+                          <span class="platform-icon">đź“</span>
+                          <span class="platform-name">Facebook</span>
+                        </label>
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformInstagram">
+                          <span class="platform-icon">đź“·</span>
+                          <span class="platform-name">Instagram</span>
+                        </label>
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformLinkedIn">
+                          <span class="platform-icon">đź’Ľ</span>
+                          <span class="platform-name">LinkedIn</span>
+                        </label>
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformTwitter">
+                          <span class="platform-icon">đź¦</span>
+                          <span class="platform-name">Twitter</span>
+                        </label>
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformBlog">
+                          <span class="platform-icon">đź“ť</span>
+                          <span class="platform-name">Blog</span>
+                        </label>
+                        <label class="platform-checkbox">
+                          <input type="checkbox" id="platformEmail">
+                          <span class="platform-icon">đź“§</span>
+                          <span class="platform-name">Email</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Scheduling -->
+                    <div>
+                      <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                        Harmonogram publikacji:
+                      </label>
+                      <select id="publishSchedule" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                        <option value="now">Opublikuj teraz</option>
+                        <option value="1hour">Za 1 godzinÄ™</option>
+                        <option value="tomorrow">Jutro rano (9:00)</option>
+                        <option value="custom">Niestandardowy czas</option>
+                        <option value="optimal">Optymalny czas (AI)</option>
+                      </select>
+                    </div>
+
+                    <!-- Auto-Publishing -->
+                    <div class="auto-publish-section">
+                      <h5 class="text-sm font-semibold mb-2 text-primary-foreground">
+                        đź¤– Automatyczna publikacja:
+                      </h5>
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" id="autoPublish" class="rounded">
+                        <span class="text-sm text-primary-foreground">Publikuj automatycznie po generowaniu</span>
+                      </label>
+                      <label class="flex items-center space-x-2 mt-2">
+                        <input type="checkbox" id="crossPost" class="rounded">
+                        <span class="text-sm text-primary-foreground">Cross-posting na wszystkie platformy</span>
+                      </label>
+                    </div>
+
+                    <!-- Publish Button -->
+                    <button
+                      id="publishBtn"
+                      onclick="publishContent()"
+                      class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded font-semibold transition-colors disabled:opacity-50"
+                      disabled
+                    >
+                      đźš€ Opublikuj treĹ›Ä‡
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Analytics & Performance -->
+              <div class="panel-card">
+                <div class="panel-header">
+                  <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                    <span class="text-primary-foreground font-semibold">Analytics</span>
+                  </div>
+                </div>
+                <div class="panel-content">
+                  <div class="analytics-section">
+                    <!-- Performance Prediction -->
+                    <div class="performance-prediction mb-4">
+                      <h5 class="text-sm font-semibold mb-2 text-primary-foreground">
+                        đź“ Przewidywana wydajnoĹ›Ä‡:
+                      </h5>
+                      <div class="prediction-metrics">
+                        <div class="prediction-item">
+                          <span class="prediction-label">Engagement Rate:</span>
+                          <span class="prediction-value" id="predictedEngagement">--</span>
+                        </div>
+                        <div class="prediction-item">
+                          <span class="prediction-label">Reach:</span>
+                          <span class="prediction-value" id="predictedReach">--</span>
+                        </div>
+                        <div class="prediction-item">
+                          <span class="prediction-label">CTR:</span>
+                          <span class="prediction-value" id="predictedCTR">--</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Content History -->
+                    <div class="content-history">
+                      <h5 class="text-sm font-semibold mb-2 text-primary-foreground">
+                        đź“š Historia treĹ›ci:
+                      </h5>
+                      <div class="history-stats">
+                        <div class="history-item">
+                          <span class="history-label">Wygenerowane dzisiaj:</span>
+                          <span class="history-value" id="todayGenerated">23</span>
+                        </div>
+                        <div class="history-item">
+                          <span class="history-label">Opublikowane:</span>
+                          <span class="history-value" id="todayPublished">18</span>
+                        </div>
+                        <div class="history-item">
+                          <span class="history-label">Ĺšredni engagement:</span>
+                          <span class="history-value" id="avgEngagement">7.2%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Templates Library -->
+        <div class="templates-library mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">Biblioteka szablonĂłw</span>
+              </div>
+              <button
+                onclick="manageTemplates()"
+                class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded text-sm"
+              >
+                đź“‹ ZarzÄ…dzaj
+              </button>
+            </div>
+            <div class="panel-content">
+              <div class="templates-grid">
+                
+                <!-- Social Media Templates -->
+                <div class="template-category">
+                  <h4 class="template-category-title">đź“± Social Media</h4>
+                  <div class="template-items">
+                    <div class="template-item" onclick="useTemplate('social-promo')">
+                      <div class="template-name">Promocja produktu</div>
+                      <div class="template-desc">Post promocyjny z CTA</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('social-tips')">
+                      <div class="template-name">Tips & Tricks</div>
+                      <div class="template-desc">Edukacyjny post z poradami</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('social-story')">
+                      <div class="template-name">Brand Story</div>
+                      <div class="template-desc">Historia marki/sukcesu</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email Templates -->
+                <div class="template-category">
+                  <h4 class="template-category-title">đź“§ Email Marketing</h4>
+                  <div class="template-items">
+                    <div class="template-item" onclick="useTemplate('email-welcome')">
+                      <div class="template-name">Welcome Series</div>
+                      <div class="template-desc">Seria powitalna dla nowych</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('email-newsletter')">
+                      <div class="template-name">Newsletter</div>
+                      <div class="template-desc">MiesiÄ™czny newsletter</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('email-promo')">
+                      <div class="template-name">Promocja/Oferta</div>
+                      <div class="template-desc">Email promocyjny z rabatem</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Blog Templates -->
+                <div class="template-category">
+                  <h4 class="template-category-title">đź“ť Blog Content</h4>
+                  <div class="template-items">
+                    <div class="template-item" onclick="useTemplate('blog-howto')">
+                      <div class="template-name">How-to Guide</div>
+                      <div class="template-desc">Poradnik krok po kroku</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('blog-listicle')">
+                      <div class="template-name">Listicle</div>
+                      <div class="template-desc">Lista z punktami</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('blog-case-study')">
+                      <div class="template-name">Case Study</div>
+                      <div class="template-desc">Studium przypadku</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ad Copy Templates -->
+                <div class="template-category">
+                  <h4 class="template-category-title">đźŽŻ Reklamy</h4>
+                  <div class="template-items">
+                    <div class="template-item" onclick="useTemplate('ad-google')">
+                      <div class="template-name">Google Ads</div>
+                      <div class="template-desc">Reklamy tekstowe Google</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('ad-facebook')">
+                      <div class="template-name">Facebook Ads</div>
+                      <div class="template-desc">Reklamy Facebook/Instagram</div>
+                    </div>
+                    <div class="template-item" onclick="useTemplate('ad-display')">
+                      <div class="template-name">Display Ads</div>
+                      <div class="template-desc">Banery reklamowe</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campaign Management -->
+        <div class="campaign-management mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">ZarzÄ…dzanie kampaniami</span>
+              </div>
+              <button
+                onclick="createCampaign()"
+                class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
+              >
+                âž• Nowa kampania
+              </button>
+            </div>
+            <div class="panel-content">
+              <div class="campaigns-overview">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  
+                  <!-- Active Campaigns -->
+                  <div class="campaign-card active">
+                    <div class="campaign-status">đźź˘ AKTYWNA</div>
+                    <div class="campaign-name">Kampania Q1 2025</div>
+                    <div class="campaign-stats">
+                      <div class="campaign-stat">
+                        <span class="stat-label">TreĹ›ci:</span>
+                        <span class="stat-value">47</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">Engagement:</span>
+                        <span class="stat-value">8.4%</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">Reach:</span>
+                        <span class="stat-value">125K</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Scheduled Campaigns -->
+                  <div class="campaign-card scheduled">
+                    <div class="campaign-status">đźźˇ ZAPLANOWANA</div>
+                    <div class="campaign-name">Wprowadzenie produktu</div>
+                    <div class="campaign-stats">
+                      <div class="campaign-stat">
+                        <span class="stat-label">Start:</span>
+                        <span class="stat-value">15 Feb</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">TreĹ›ci:</span>
+                        <span class="stat-value">23</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">Platformy:</span>
+                        <span class="stat-value">5</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Completed Campaigns -->
+                  <div class="campaign-card completed">
+                    <div class="campaign-status">âś… ZAKOĹCZONA</div>
+                    <div class="campaign-name">Holiday Campaign 2024</div>
+                    <div class="campaign-stats">
+                      <div class="campaign-stat">
+                        <span class="stat-label">ROI:</span>
+                        <span class="stat-value">340%</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">Konwersje:</span>
+                        <span class="stat-value">1,247</span>
+                      </div>
+                      <div class="campaign-stat">
+                        <span class="stat-label">Revenue:</span>
+                        <span class="stat-value">$89K</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Content Analysis -->
+        <div class="content-analysis mt-8">
+          <div class="panel-card">
+            <div class="panel-header">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-indigo-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">Analiza AI treĹ›ci</span>
+              </div>
+            </div>
+            <div class="panel-content">
+              <div class="analysis-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Content Quality Analysis -->
+                <div class="analysis-section">
+                  <h4 class="analysis-title">đźŽŻ JakoĹ›Ä‡ treĹ›ci</h4>
+                  <div class="quality-metrics">
+                    <div class="quality-item">
+                      <div class="quality-label">CzytelnoĹ›Ä‡:</div>
+                      <div class="quality-bar">
+                        <div class="quality-fill" style="width: 87%"></div>
+                      </div>
+                      <div class="quality-score">87%</div>
+                    </div>
+                    <div class="quality-item">
+                      <div class="quality-label">Engagement Potential:</div>
+                      <div class="quality-bar">
+                        <div class="quality-fill" style="width: 92%"></div>
+                      </div>
+                      <div class="quality-score">92%</div>
+                    </div>
+                    <div class="quality-item">
+                      <div class="quality-label">Brand Alignment:</div>
+                      <div class="quality-bar">
+                        <div class="quality-fill" style="width: 95%"></div>
+                      </div>
+                      <div class="quality-score">95%</div>
+                    </div>
+                    <div class="quality-item">
+                      <div class="quality-label">Call-to-Action:</div>
+                      <div class="quality-bar">
+                        <div class="quality-fill" style="width: 89%"></div>
+                      </div>
+                      <div class="quality-score">89%</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Competitor Analysis -->
+                <div class="analysis-section">
+                  <h4 class="analysis-title">đź”Ť Analiza konkurencji</h4>
+                  <div class="competitor-insights">
+                    <div class="insight-item">
+                      <div class="insight-icon">đź’ˇ</div>
+                      <div class="insight-text">Twoja treĹ›Ä‡ jest 23% bardziej angaĹĽujÄ…ca niĹĽ Ĺ›rednia w branĹĽy</div>
+                    </div>
+                    <div class="insight-item">
+                      <div class="insight-icon">đź“Š</div>
+                      <div class="insight-text">UĹĽywasz 15% wiÄ™cej emocjonalnych sĹ‚Ăłw kluczowych</div>
+                    </div>
+                    <div class="insight-item">
+                      <div class="insight-icon">đźŽŻ</div>
+                      <div class="insight-text">CTA jest 2x silniejsze niĹĽ u konkurencji</div>
+                    </div>
+                    <div class="insight-item">
+                      <div class="insight-icon">âšˇ</div>
+                      <div class="insight-text">Optymalna dĹ‚ugoĹ›Ä‡ dla Twojej grupy docelowej</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  /* Interactive page lighting effects */
+  .interactive-page {
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%);
+    transition: all 0.5s ease;
+  }
+
+  .interactive-page.active {
+    background: radial-gradient(circle at center, rgba(40, 0, 40, 0.7) 0%, rgba(0, 0, 0, 0.9) 100%);
+  }
+
+  .interactive-page.highly-active {
+    background: radial-gradient(circle at center, rgba(80, 0, 80, 0.6) 0%, rgba(20, 0, 20, 0.85) 100%);
+  }
+
+  /* Base styles */
+  .section-container {
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #a855f7;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  }
+
+  .section-description {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+  }
+
+  /* Content Types Grid */
+  .content-types-section {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .content-types-title {
+    color: #a855f7;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .content-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .content-type-card {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #374151;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .content-type-card:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+  }
+
+  .content-type-card.active {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .content-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .content-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .content-desc {
+    color: #888;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
+  }
+
+  .feature-badge {
+    background: rgba(168, 85, 247, 0.2);
+    color: #a855f7;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  /* Panel Cards */
+  .panel-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .panel-header {
+    background: rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .panel-content {
+    padding: 1.5rem;
+  }
+
+  /* Models Grid Compact */
+  .models-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .model-checkbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .model-checkbox:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+  }
+
+  .model-checkbox input {
+    margin-bottom: 0.5rem;
+  }
+
+  .model-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .model-specialty {
+    color: #888;
+    font-size: 0.75rem;
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .platform-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .platform-checkbox:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+  }
+
+  .platform-icon {
+    font-size: 1.25rem;
+  }
+
+  .platform-name {
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Content Preview */
+  .content-preview {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    min-height: 200px;
+    white-space: pre-wrap;
+    color: #d1d5db;
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+  }
+
+  /* Metrics */
+  .metric-item {
+    text-align: center;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 4px;
+  }
+
+  .metric-label {
+    color: #888;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .metric-value {
+    color: #a855f7;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  /* Templates */
+  .templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .template-category {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  .template-category-title {
+    color: #a855f7;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .template-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .template-item {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 4px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .template-item:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.1);
+  }
+
+  .template-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .template-desc {
+    color: #888;
+    font-size: 0.75rem;
+  }
+
+  /* Campaign Cards */
+  .campaign-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .campaign-card:hover {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.05);
+    transform: translateY(-2px);
+  }
+
+  .campaign-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .campaign-name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .campaign-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .campaign-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .campaign-stat .stat-label {
+    color: #888;
+    font-size: 0.875rem;
+  }
+
+  .campaign-stat .stat-value {
+    color: #a855f7;
+    font-weight: 600;
+  }
+
+  /* Quality Analysis */
+  .quality-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .quality-label {
+    color: #888;
+    font-size: 0.875rem;
+    min-width: 120px;
+  }
+
+  .quality-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .quality-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #a855f7, #ec4899);
+    transition: width 0.5s ease;
+  }
+
+  .quality-score {
+    color: #a855f7;
+    font-weight: 600;
+    font-size: 0.875rem;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* Insights */
+  .insight-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-icon {
+    font-size: 1.25rem;
+  }
+
+  .insight-text {
+    color: #d1d5db;
+    font-size: 0.875rem;
+  }
+
+  /* Prediction Metrics */
+  .prediction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .prediction-item:last-child {
+    border-bottom: none;
+  }
+
+  .prediction-label {
+    color: #888;
+    font-size: 0.875rem;
+  }
+
+  .prediction-value {
+    color: #a855f7;
+    font-weight: 600;
+  }
+
+  /* History Stats */
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .history-item:last-child {
+    border-bottom: none;
+  }
+
+  .history-label {
+    color: #888;
+    font-size: 0.875rem;
+  }
+
+  .history-value {
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .content-types-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .generation-interface {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  let selectedContentType = 'social-media';
+  let selectedModels = ['gpt-4', 'claude-3'];
+  let activityLevel = 0;
+  let generatedContent = null;
+
+  // Interactive lighting system
+  function increaseActivity() {
+    activityLevel = Math.min(activityLevel + 1, 10);
+    updateLighting();
+    
+    setTimeout(() => {
+      activityLevel = Math.max(activityLevel - 1, 0);
+      updateLighting();
+    }, 3000);
+  }
+
+  function updateLighting() {
+    const mainContent = document.getElementById('mainContent');
+    const section = document.getElementById('marketing-section');
+    
+    if (activityLevel >= 7) {
+      mainContent.className = 'min-h-svh interactive-page highly-active';
+      section.className = 'marketing-section flex items-center justify-center py-16 highly-active';
+    } else if (activityLevel >= 3) {
+      mainContent.className = 'min-h-svh interactive-page active';
+      section.className = 'marketing-section flex items-center justify-center py-16 active';
+    } else {
+      mainContent.className = 'min-h-svh interactive-page';
+      section.className = 'marketing-section flex items-center justify-center py-16';
+    }
+  }
+
+  // Content type selection
+  function selectContentType(type) {
+    selectedContentType = type;
+    
+    // Update UI
+    document.querySelectorAll('.content-type-card').forEach(card => {
+      card.classList.remove('active');
+      if (card.dataset.type === type) {
+        card.classList.add('active');
+      }
+    });
+    
+    increaseActivity();
+    console.log('Selected content type:', type);
+  }
+
+  // Generate marketing content
+  async function generateMarketingContent() {
+    increaseActivity();
+    
+    const brandInfo = document.getElementById('brandInfo').value.trim();
+    const campaignObjective = document.getElementById('campaignObjective').value;
+    const targetAudience = document.getElementById('targetAudience').value.trim();
+    const communicationTone = document.getElementById('communicationTone').value;
+    const contentLength = document.getElementById('contentLength').value;
+    const keywords = document.getElementById('keywords').value.trim();
+    
+    if (!brandInfo) {
+      alert('ProszÄ™ podaÄ‡ informacje o marce');
+      return;
+    }
+
+    const loadingSection = document.getElementById('loadingSection');
+    const previewSection = document.getElementById('previewSection');
+    const progressBar = document.getElementById('progressBar');
+    const loadingStatus = document.getElementById('loadingStatus');
+
+    // Show loading
+    loadingSection.classList.remove('hidden');
+    previewSection.classList.add('hidden');
+
+    // Get selected options
+    const options = {
+      includeEmojis: document.getElementById('includeEmojis').checked,
+      includeCTA: document.getElementById('includeCTA').checked,
+      seoOptimized: document.getElementById('seoOptimized').checked,
+      multiLanguage: document.getElementById('multiLanguage').checked,
+      abTestVariants: document.getElementById('abTestVariants').checked,
+      competitorAnalysis: document.getElementById('competitorAnalysis').checked
+    };
+
+    // Get selected models
+    const models = [];
+    if (document.getElementById('modelGPT4').checked) models.push('gpt-4');
+    if (document.getElementById('modelClaude').checked) models.push('claude-3');
+    if (document.getElementById('modelGemini').checked) models.push('gemini-pro');
+    if (document.getElementById('modelBielik').checked) models.push('bielik');
+
+    // Simulate AI processing
+    const loadingMessages = [
+      'Analizowanie marki i grupy docelowej...',
+      'Badanie konkurencji i trendĂłw...',
+      'Generowanie treĹ›ci przez GPT-4...',
+      'Optymalizacja przez Claude 3...',
+      'Dodawanie elementĂłw SEO...',
+      'Tworzenie wariantĂłw A/B...',
+      'Analiza wydajnoĹ›ci...',
+      'Finalizowanie treĹ›ci...'
+    ];
+
+    let messageIndex = 0;
+    let progress = 0;
+
+    const updateProgress = () => {
+      if (messageIndex < loadingMessages.length) {
+        loadingStatus.textContent = loadingMessages[messageIndex];
+        progress = ((messageIndex + 1) / loadingMessages.length) * 100;
+        progressBar.style.width = progress + '%';
+        messageIndex++;
+        
+        setTimeout(updateProgress, 1000 + Math.random() * 1000);
+      } else {
+        // Show generated content
+        displayGeneratedContent();
+      }
+    };
+
+    updateProgress();
+  }
+
+  function displayGeneratedContent() {
+    const loadingSection = document.getElementById('loadingSection');
+    const previewSection = document.getElementById('previewSection');
+    const contentPreview = document.getElementById('contentPreview');
+    const publishBtn = document.getElementById('publishBtn');
+
+    // Hide loading, show preview
+    loadingSection.classList.add('hidden');
+    previewSection.classList.remove('hidden');
+
+    // Generate sample content based on selected type
+    const sampleContent = generateSampleContent(selectedContentType);
+    contentPreview.textContent = sampleContent;
+
+    // Update metrics
+    updateContentMetrics(sampleContent);
+
+    // Update performance predictions
+    updatePerformancePredictions();
+
+    // Enable publish button
+    publishBtn.disabled = false;
+
+    // Store generated content
+    generatedContent = sampleContent;
+
+    increaseActivity();
+  }
+
+  function generateSampleContent(type) {
+    const contentTemplates = {
+      'social-media': `đźš€ Odkryj przyszĹ‚oĹ›Ä‡ AI w biznesie!
+
+Czy wiesz, ĹĽe firmy wykorzystujÄ…ce sztucznÄ… inteligencjÄ™ zwiÄ™kszajÄ… swojÄ… efektywnoĹ›Ä‡ o 40%? 
+
+âś¨ MyBonzo AI oferuje:
+â€˘ AutomatyzacjÄ™ procesĂłw marketingowych
+â€˘ Personalizowane rekomendacje
+â€˘ AnalitykÄ™ w czasie rzeczywistym
+â€˘ IntegracjÄ™ z Google Drive i Cloudflare
+
+đź’ˇ Nie czekaj - doĹ‚Ä…cz do rewolucji AI juĹĽ dziĹ›!
+
+đź‘‰ SprawdĹş nasze rozwiÄ…zania: mybonzo.com
+
+#AI #Marketing #Automation #Innovation #MyBonzo #CloudflareWorkers #TechSolutions`,
+
+      'blog': `# Jak AI rewolucjonizuje marketing w 2025 roku
+
+## Wprowadzenie
+
+Sztuczna inteligencja przestaĹ‚a byÄ‡ futurystycznÄ… wizjÄ… - to rzeczywistoĹ›Ä‡, ktĂłra juĹĽ dziĹ› zmienia sposĂłb, w jaki firmy komunikujÄ… siÄ™ z klientami. W 2025 roku AI w marketingu to nie opcja, to koniecznoĹ›Ä‡.
+
+## Kluczowe trendy AI w marketingu
+
+### 1. Personalizacja na skalÄ™
+AI umoĹĽliwia tworzenie spersonalizowanych doĹ›wiadczeĹ„ dla milionĂłw uĹĽytkownikĂłw jednoczeĹ›nie. Algor
+

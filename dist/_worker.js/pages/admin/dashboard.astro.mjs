@@ -1,23 +1,99 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, b as renderScript, m as maybeRenderHead } from '../../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$UniversalPageLayout, a as $$GlassPanel, b as $$CyberpunkButton } from '../../chunks/CyberpunkButton_1fiZorPI.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+import { c as createComponent, d as renderHead, r as renderComponent, a as renderTemplate } from '../../chunks/astro/server_C1oOU0Od.mjs';
+import { e as escape_html, a as attr, b as ensure_array_like, c as attr_class, d as clsx } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+/* empty css                                        */
 
-const $$Dashboard = createComponent(async ($$result, $$props, $$slots) => {
-  const pageTitle = "Dashboard Administracyjny | MyBonzo";
-  const pageDescription = "Kompletny panel zarz\u0105dzania systemem MyBonzo AI z real-time monitoring";
-  const pageQuote = "Pe\u0142na kontrola nad infrastruktur\u0105 Cloudflare";
-  const pageAuthor = "MyBonzo Team";
-  return renderTemplate`${renderComponent($$result, "UniversalPageLayout", $$UniversalPageLayout, { "pageTitle": pageTitle, "pageDescription": pageDescription, "pageQuote": pageQuote, "pageAuthor": pageAuthor, "showRandomQuote": false }, { "default": async ($$result2) => renderTemplate`  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F9ED} Zarz\u0105dzanie systemem", "variant": "info", "padding": "sm" }, { "default": async ($$result3) => renderTemplate` ${maybeRenderHead()}<div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F3E0} Admin Home", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/'" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F465} U\u017Cytkownicy", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/users'" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4CA} Monitoring", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/monitoring'" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F916} AI Chat", "variant": "outline", "size": "sm", "onclick": "window.location.href='/admin/ai-chat'" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u2601\uFE0F Cloudflare - Statystyki w czasie rzeczywistym", "variant": "highlight", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 25px;"> <div style="background: rgba(255,165,0,0.1); padding: 15px; border: 1px solid rgba(255,165,0,0.4); border-radius: 8px; text-align: center;"> <div style="color: #ffa500; font-size: 1.8rem; font-weight: 700;" id="r2Storage">-- GB</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">R2 Storage</div> </div> <div style="background: rgba(34,197,94,0.1); padding: 15px; border: 1px solid rgba(34,197,94,0.4); border-radius: 8px; text-align: center;"> <div style="color: #22c55e; font-size: 1.8rem; font-weight: 700;" id="kvCalls">--</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">KV Calls</div> </div> <div style="background: rgba(168,85,247,0.1); padding: 15px; border: 1px solid rgba(168,85,247,0.4); border-radius: 8px; text-align: center;"> <div style="color: #a855f7; font-size: 1.8rem; font-weight: 700;" id="aiCalls">--</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">AI Calls</div> </div> <div style="background: rgba(239,68,68,0.1); padding: 15px; border: 1px solid rgba(239,68,68,0.4); border-radius: 8px; text-align: center;"> <div style="color: #ef4444; font-size: 1.8rem; font-weight: 700;" id="errorRate">--%</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Error Rate</div> </div> <div style="background: rgba(0,217,255,0.1); padding: 15px; border: 1px solid rgba(0,217,255,0.4); border-radius: 8px; text-align: center;"> <div style="color: #00d9ff; font-size: 1.8rem; font-weight: 700;" id="bandwidth">-- GB</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Bandwidth</div> </div> <div style="background: rgba(236,72,153,0.1); padding: 15px; border: 1px solid rgba(236,72,153,0.4); border-radius: 8px; text-align: center;"> <div style="color: #ec4899; font-size: 1.8rem; font-weight: 700;" id="avgResponse">-- ms</div> <div style="color: rgba(255,255,255,0.7); font-size: 0.8rem;">Avg Response</div> </div> </div> <div style="text-align: center; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F504} Od\u015Bwie\u017C statystyki", "variant": "primary", "size": "md", "onclick": "refreshAllStats()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4C8} Cloudflare Dashboard", "variant": "outline", "size": "md", "onclick": "window.open('https://dash.cloudflare.com/analytics', '_blank')" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F916} Zarz\u0105dzanie Cloudflare Workers", "variant": "success", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div id="workersPanel"> <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 25px;" id="workersGrid"> <!-- Workers will be loaded here --> </div> </div> <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F504} Od\u015Bwie\u017C workers", "variant": "primary", "size": "md", "onclick": "loadWorkers()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u2795 Nowy worker", "variant": "success", "size": "md", "onclick": "showCreateWorkerDialog()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F6E0}\uFE0F Wrangler CLI", "variant": "outline", "size": "md", "onclick": "openWranglerConsole()" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F310} Zarz\u0105dzanie stron\u0105", "variant": "default", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;"> <!-- Cache Management --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">🗄️ Zarządzanie cache</h3> <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-Wyczyść cache, ustaw TTL, zarządzaj regułami
-</p> <div style="display: flex; gap: 8px; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F9F9} Purge Cache", "variant": "warning", "size": "sm", "onclick": "purgeCache()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u2699\uFE0F Cache Rules", "variant": "outline", "size": "sm", "onclick": "manageCacheRules()" })} </div> </div> <!-- R2 Storage Management --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">📦 R2 Storage</h3> <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-Zarządzaj buckets R2, pliki i użycie storage
-</p> <div style="display: flex; gap: 8px; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4E6} Buckets", "variant": "outline", "size": "sm", "onclick": "window.open('https://dash.cloudflare.com/r2', '_blank')" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4CA} Usage", "variant": "outline", "size": "sm", "onclick": "showR2Usage()" })} </div> </div> <!-- DNS Management --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">🌍 DNS & Domeny</h3> <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-Zarządzaj rekordami DNS i domenami
-</p> <div style="display: flex; gap: 8px; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F517} DNS Records", "variant": "outline", "size": "sm", "onclick": "manageDNS()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4E1} Proxy Status", "variant": "outline", "size": "sm", "onclick": "checkProxyStatus()" })} </div> </div> <!-- Security Settings --> <div style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0,217,255,0.3); border-radius: 12px; padding: 20px;"> <h3 style="color: #00d9ff; margin-bottom: 15px;">🔒 Bezpieczeństwo</h3> <p style="color: rgba(255,255,255,0.7); margin-bottom: 15px; font-size: 0.9rem;">
-WAF, SSL, DDoS protection, API tokens
-</p> <div style="display: flex; gap: 8px; flex-wrap: wrap;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F6E1}\uFE0F WAF Rules", "variant": "outline", "size": "sm", "onclick": "manageWAF()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F510} SSL/TLS", "variant": "outline", "size": "sm", "onclick": "manageSSL()" })} </div> </div> </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u26A1 Szybkie akcje", "variant": "warning", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F680} Deploy Site", "variant": "success", "size": "lg", "onclick": "deploySite()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4DD} View Logs", "variant": "info", "size": "lg", "onclick": "viewLogs()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F527} Worker Editor", "variant": "primary", "size": "lg", "onclick": "openWorkerEditor()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4CA} Analytics", "variant": "outline", "size": "lg", "onclick": "window.open('https://dash.cloudflare.com/analytics', '_blank')" })} </div> ` })}  ${renderComponent($$result2, "GlassPanel", $$GlassPanel, { "title": "\u{1F527} Testowanie API", "variant": "highlight", "padding": "lg" }, { "default": async ($$result3) => renderTemplate` <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 20px;"> <!-- Kaggle API --> <div style="background: rgba(255,165,0,0.1); border: 1px solid rgba(255,165,0,0.4); border-radius: 12px; padding: 15px;"> <h4 style="color: #ffa500; margin-bottom: 10px; font-size: 1.1rem;">📊 Kaggle API</h4> <div id="kaggle-status" style="margin-bottom: 10px;"> <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="kaggle-indicator">⏳ Ładowanie...</span></span> </div> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Test Kaggle", "variant": "outline", "size": "sm", "onclick": "testKaggleAPI()" })} </div> <!-- BigQuery API --> <div style="background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.4); border-radius: 12px; padding: 15px;"> <h4 style="color: #22c55e; margin-bottom: 10px; font-size: 1.1rem;">🗄️ BigQuery API</h4> <div id="bigquery-status" style="margin-bottom: 10px;"> <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="bigquery-indicator">⏳ Ładowanie...</span></span> </div> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Test BigQuery", "variant": "outline", "size": "sm", "onclick": "testBigQueryAPI()" })} </div> <!-- Voice AI API --> <div style="background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.4); border-radius: 12px; padding: 15px;"> <h4 style="color: #a855f7; margin-bottom: 10px; font-size: 1.1rem;">🎤 Voice AI</h4> <div id="voice-status" style="margin-bottom: 10px;"> <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">Status: <span id="voice-indicator">⏳ Ładowanie...</span></span> </div> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "Test Voice AI", "variant": "outline", "size": "sm", "onclick": "testVoiceAPI()" })} </div> </div> <div style="text-align: center;"> ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F680} Test All APIs", "variant": "success", "size": "lg", "onclick": "testAllAPIs()" })} ${renderComponent($$result3, "CyberpunkButton", $$CyberpunkButton, { "text": "\u{1F4CA} Open Full Test Panel", "variant": "primary", "size": "lg", "onclick": "window.open('/api-test-panel', '_blank')" })} </div> ` })} ${renderScript($$result2, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/dashboard.astro?astro&type=script&index=0&lang.ts")} ` })}`;
+function PolaczekDyrektorPanel($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
+		let // Pobieranie agentów z backendu
+		// Pobierz konfigurację systemu
+		visibleAgents;
+
+		let agents = [];
+		let search = "";
+
+		let newAgent = {
+			name: "",
+			type: "T",
+			role: "",
+			description: "",
+			endpoint: ""
+		};
+
+		let config = {};
+
+		visibleAgents = agents.filter((a) => search === "");
+
+		$$renderer.push(`<div class="container svelte-ci4y1b"><h2>POLACZEK Dyrektor – Panel Agentów</h2> <div>GPU: ${escape_html(config.gpu)} | RAM: ${escape_html(config.ram)} | DB: ${escape_html(config.db)} | Routing: ${escape_html(config.routing)} | Liczba agentów: ${escape_html(config.agentsCount)}</div> <input type="text"${attr('value', search)} placeholder="Szukaj agentów..."/> <table class="svelte-ci4y1b"><thead><tr><th>ID</th><th>Nazwa</th><th>Typ</th><th>Rola</th><th>Status</th><th>Opis</th><th>Endpoint</th><th>Akcje</th></tr></thead><tbody><!--[-->`);
+
+		const each_array = ensure_array_like(visibleAgents);
+
+		for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+			let agent = each_array[$$index];
+
+			$$renderer.push(`<tr${attr_class(clsx(agent.status === "active" ? "active-row" : ""), 'svelte-ci4y1b')}><td>${escape_html(agent.id)}</td><td>${escape_html(agent.name)}</td><td>${escape_html(agent.type)}</td><td>${escape_html(agent.role)}</td><td>`);
+
+			$$renderer.select({ value: agent.status }, ($$renderer) => {
+				$$renderer.option({ value: 'active' }, ($$renderer) => {
+					$$renderer.push(`active`);
+				});
+
+				$$renderer.option({ value: 'idle' }, ($$renderer) => {
+					$$renderer.push(`idle`);
+				});
+
+				$$renderer.option({ value: 'busy' }, ($$renderer) => {
+					$$renderer.push(`busy`);
+				});
+
+				$$renderer.option({ value: 'error' }, ($$renderer) => {
+					$$renderer.push(`error`);
+				});
+
+				$$renderer.option({ value: 'disabled' }, ($$renderer) => {
+					$$renderer.push(`disabled`);
+				});
+			});
+
+			$$renderer.push(`</td><td>${escape_html(agent.description)}</td><td>${escape_html(agent.endpoint)}</td><td><button>Usuń</button></td></tr>`);
+		}
+
+		$$renderer.push(`<!--]--></tbody></table> <h3>Dodaj nowego agenta POLACZEK_X</h3> <div class="new-agent-row svelte-ci4y1b">`);
+
+		$$renderer.select({ value: newAgent.type }, ($$renderer) => {
+			$$renderer.option({ value: 'T' }, ($$renderer) => {
+				$$renderer.push(`Tłumacz`);
+			});
+
+			$$renderer.option({ value: 'M' }, ($$renderer) => {
+				$$renderer.push(`Music Assistant`);
+			});
+
+			$$renderer.option({ value: 'D' }, ($$renderer) => {
+				$$renderer.push(`Dashboard Keeper`);
+			});
+
+			$$renderer.option({ value: 'B' }, ($$renderer) => {
+				$$renderer.push(`Bibliotekarz`);
+			});
+
+			$$renderer.option({ value: 'Dyrektor' }, ($$renderer) => {
+				$$renderer.push(`Dyrektor`);
+			});
+
+			$$renderer.option({ value: 'Magazynier' }, ($$renderer) => {
+				$$renderer.push(`Magazynier`);
+			});
+		});
+
+		$$renderer.push(` <input type="text"${attr('value', newAgent.name)} placeholder="Nazwa agenta"/> <input type="text"${attr('value', newAgent.role)} placeholder="Rola agenta"/> <input type="text"${attr('value', newAgent.description)} placeholder="Opis (opcjonalnie)"/> <input type="text"${attr('value', newAgent.endpoint)} placeholder="Endpoint (opcjonalnie)"/> <button>Dodaj</button></div></div>`);
+	});
+}
+
+const $$Dashboard = createComponent(($$result, $$props, $$slots) => {
+  return renderTemplate`<html lang="pl" data-astro-cid-x6qnsptu> <head><title>Panel Dyrektora</title>${renderHead()}</head> <body data-astro-cid-x6qnsptu> ${renderComponent($$result, "PolaczekDyrektorPanel", PolaczekDyrektorPanel, { "client:load": true, "client:component-hydration": "load", "client:component-path": "Q:/mybonzo/luc-de-zen-on/src/components/admin/PolaczekDyrektorPanel.svelte", "client:component-export": "default", "data-astro-cid-x6qnsptu": true })} </body></html>`;
 }, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/dashboard.astro", void 0);
 
 const $$file = "Q:/mybonzo/luc-de-zen-on/src/pages/admin/dashboard.astro";

@@ -1,127 +1,114 @@
 import type { APIRoute } from 'astro';
+import { Logging } from '@google-cloud/logging';
 
-interface ActivityLog {
-  id: string;
-  action: string;
-  userId?: string;
-  timestamp: number;
-  details: Record<string, any>;
-  type: 'info' | 'warning' | 'error';
-  source: string;
+// Helper to get secrets
+function getEnv(locals: App.Locals): Record<string, any> {
+  return import.meta.env.DEV ? process.env : locals?.runtime?.env || {};
 }
 
-// Simple in-memory storage (in production, use database)
-const logs: ActivityLog[] = [
-  {
-    id: '1',
-    action: 'User login',
-    userId: 'user123',
-    timestamp: Date.now() - 3600000,
-    details: { ip: '192.168.1.1', browser: 'Chrome' },
-    type: 'info',
-    source: 'auth'
-  },
-  {
-    id: '2',
-    action: 'API call failed',
-    timestamp: Date.now() - 1800000,
-    details: { endpoint: '/api/generate-content', error: 'Rate limit exceeded' },
-    type: 'error',
-    source: 'api'
-  },
-  {
-    id: '3',
-    action: 'Content generated',
-    userId: 'user456',
-    timestamp: Date.now() - 900000,
-    details: { contentType: 'blog post', tokens: 850 },
-    type: 'info',
-    source: 'ai'
-  }
-];
+let logging: Logging;
 
-export const POST: APIRoute = async ({ request }) => {
+// Initialize the Logging client
+function initializeLogging(env: Record<string, any>) {
+  if (logging) return;
+
+  const projectId = env.GCP_PROJECT_ID;
+  const keyJson = env.GCP_SERVICE_ACCOUNT_KEY;
+
+  if (!projectId || !keyJson) {
+    throw new Error('GCP_PROJECT_ID and GCP_SERVICE_ACCOUNT_KEY must be configured.');
+  }
+
+  let credentials;
   try {
-    const data = await request.json();
+    credentials = JSON.parse(keyJson);
+  } catch (e) {
+    throw new Error('GCP_SERVICE_ACCOUNT_KEY is not valid JSON.');
+  }
+
+  logging = new Logging({ projectId, credentials });
+  console.log('Cloud Logging client initialized successfully.');
+}
+
+// --- GET: List log entries ---
+export const GET: APIRoute = async ({ url, locals }) => {
+  try {
+    const env = getEnv(locals);
+    initializeLogging(env);
+
+    const logName = env.GCP_LOG_NAME || 'my-bonzo-app-log'; // Default log name
+    const type = url.searchParams.get('type')?.toUpperCase();
     
-    const newLog: ActivityLog = {
-      id: crypto.randomUUID(),
-      timestamp: Date.now(),
-      ...data
+    let filter = `logName="projects/${env.GCP_PROJECT_ID}/logs/${logName}"`;
+    if (type && ['INFO', 'WARNING', 'ERROR', 'DEBUG', 'NOTICE'].includes(type)) {
+        filter += ` AND severity="${type}"`;
+    }
+
+    const [entries] = await logging.getEntries({
+      filter: filter,
+      pageSize: 50,
+      orderBy: 'timestamp desc',
+    });
+
+    const formattedLogs = entries.map(entry => {
+      const payload = entry.jsonPayload?.fields || {};
+      return {
+        id: entry.insertId,
+        action: payload.action?.stringValue || 'Generic Log',
+        userId: payload.userId?.stringValue,
+        timestamp: new Date(entry.metadata.timestamp as string).getTime(),
+        details: payload.details?.structValue?.fields || { message: entry.textPayload },
+        type: (entry.metadata.severity as string || 'info').toLowerCase(),
+        source: entry.resource.type,
+      }
+    });
+    
+    // In a real app, stats would be calculated from a larger dataset or a monitoring service
+    const stats = {
+        total: formattedLogs.length,
+        errors: formattedLogs.filter(l => l.type === 'error').length,
+        warnings: formattedLogs.filter(l => l.type === 'warning').length,
+        info: formattedLogs.filter(l => l.type === 'info').length,
+        lastHour: formattedLogs.filter(l => l.timestamp > Date.now() - 3600000).length,
+        sources: [...new Set(formattedLogs.map(l => l.source))],
+        anomalies: formattedLogs.filter(l => l.type === 'error').length > 5
     };
-    
-    logs.push(newLog);
-    
-    return new Response(JSON.stringify({ 
-      success: true, 
-      message: 'Activity logged',
-      id: newLog.id 
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+
+    return new Response(JSON.stringify({ success: true, logs: formattedLogs, stats }), { status: 200 });
+
   } catch (error) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      message: 'Failed to log activity' 
-    }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    console.error('Activity Monitor GET Error:', error);
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }
 };
 
-export const GET: APIRoute = async ({ url }) => {
-  const params = new URL(url).searchParams;
-  const type = params.get('type');
-  const limit = parseInt(params.get('limit') || '50');
-  
+// --- POST: Write a new log entry ---
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    let filteredLogs = logs;
-    
-    if (type) {
-      filteredLogs = logs.filter(log => log.type === type);
+    const env = getEnv(locals);
+    initializeLogging(env);
+
+    const logName = env.GCP_LOG_NAME || 'my-bonzo-app-log';
+    const log = logging.log(logName);
+
+    const { action, details, type = 'INFO', userId } = await request.json();
+
+    if (!action) {
+        return new Response(JSON.stringify({ success: false, message: 'Action is required.' }), { status: 400 });
     }
-    
-    // Sort by timestamp (newest first) and limit results
-    const sortedLogs = filteredLogs
-      .sort((a, b) => b.timestamp - a.timestamp)
-      .slice(0, limit);
-    
-    // Calculate statistics
-    const stats = {
-      total: logs.length,
-      errors: logs.filter(log => log.type === 'error').length,
-      warnings: logs.filter(log => log.type === 'warning').length,
-      info: logs.filter(log => log.type === 'info').length,
-      lastHour: logs.filter(log => log.timestamp > Date.now() - 3600000).length,
-      sources: [...new Set(logs.map(log => log.source))],
-      anomalies: logs.filter(log => log.type === 'error').length > 5 // Simple anomaly detection
+
+    const metadata = {
+      resource: { type: 'global' }, // Or more specific resource
+      severity: type.toUpperCase(),
     };
-    
-    return new Response(JSON.stringify({
-      success: true,
-      logs: sortedLogs,
-      stats
-    }), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+
+    const entry = log.entry(metadata, { action, userId, details });
+    await log.write(entry);
+
+    return new Response(JSON.stringify({ success: true, message: 'Activity logged' }), { status: 200 });
+
   } catch (error) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      message: 'Failed to retrieve logs' 
-    }), {
-      status: 500,
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+    console.error('Activity Monitor POST Error:', error);
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }
 };

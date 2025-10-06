@@ -1,0 +1,16 @@
+---
+import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
+import LeadQualificationForm from '../../components/LeadQualificationForm.svelte';
+---
+<MyBonzoLayout siteTitle="Kwalifikacja Leada | Customer Automation">
+  <main class="min-h-svh relative z-10 pt-20" style="background-color: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <a href="/customer-automation" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-200">← Powrót</a>
+      <h1 class="text-3xl font-bold text-cyan-300 my-4">AI Lead Qualification</h1>
+      <p class="text-gray-400 mb-8">Wypełnij formularz, aby nasz system AI ocenił potencjał leada i zasugerował dalsze kroki.</p>
+      <div class="border border-cyan-500/30 rounded-xl overflow-hidden">
+        <LeadQualificationForm client:load />
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>

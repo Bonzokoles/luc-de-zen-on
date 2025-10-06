@@ -1,0 +1,252 @@
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout
+  siteTitle="Analityka marketingowa | AI Functions | KAROL LISSON"
+>
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-green-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+              Analityka Marketingowa
+            </h1>
+            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+              Szczegółowe raporty i analiza wydajności kampanii
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#a0a0a0] font-mono">
+            <div class="mb-1">OSTATNIA AKTUALIZACJA: <span class="text-[#00ff00]">LIVE</span></div>
+            <div>OKRES: <span class="text-[#00ffff]">30 DNI</span></div>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex gap-4 mb-8">
+          <a href="../marketing-content/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#a0a0a0] hover:text-[#00ffff] transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            ← GENERATOR
+          </a>
+          <a href="./templates/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#a0a0a0] hover:text-[#00ffff] transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            SZABLONY
+          </a>
+          <a href="./campaigns/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#a0a0a0] hover:text-[#00ffff] transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm">
+            KAMPANIE
+          </a>
+        </div>
+
+        <!-- Date Range Selector -->
+        <div class="flex gap-4 mb-8">
+          <select class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] px-4 py-2 focus:border-[#00ffff] focus:outline-none">
+            <option>Ostatnie 7 dni</option>
+            <option selected>Ostatnie 30 dni</option>
+            <option>Ostatnie 90 dni</option>
+            <option>Ostatni rok</option>
+            <option>Niestandardowy okres</option>
+          </select>
+          <button class="px-4 py-2 bg-[#00ffff] text-[#0a0a0a] font-bold hover:brightness-110 transition-all duration-300 font-['Neuropol'] uppercase text-sm">
+            ODŚWIEŻ DANE
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Analytics Overview -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+          <div class="bg-[#111111] border border-[#333333] p-6 text-center">
+            <div class="text-3xl font-bold text-[#00ff00] mb-2 font-['Neuropol']">$18,420</div>
+            <div class="text-[#a0a0a0] text-sm uppercase">Przychód</div>
+            <div class="text-[#00ff00] text-xs mt-1">↗ +24.5%</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-6 text-center">
+            <div class="text-3xl font-bold text-[#00ffff] mb-2 font-['Neuropol']">4,847</div>
+            <div class="text-[#a0a0a0] text-sm uppercase">Nowi leady</div>
+            <div class="text-[#00ff00] text-xs mt-1">↗ +18.2%</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-6 text-center">
+            <div class="text-3xl font-bold text-[#ffaa00] mb-2 font-['Neuropol']">12.4%</div>
+            <div class="text-[#a0a0a0] text-sm uppercase">Conversion Rate</div>
+            <div class="text-[#ff6666] text-xs mt-1">↘ -2.1%</div>
+          </div>
+          <div class="bg-[#111111] border border-[#333333] p-6 text-center">
+            <div class="text-3xl font-bold text-[#ff6666] mb-2 font-['Neuropol']">$3.80</div>
+            <div class="text-[#a0a0a0] text-sm uppercase">CPA</div>
+            <div class="text-[#00ff00] text-xs mt-1">↗ +5.8% (lepsza optymalizacja)</div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <!-- Revenue Chart -->
+          <div class="bg-[#111111] border border-[#333333] p-6">
+            <h3 class="text-xl font-bold text-[#00ffff] mb-4 font-['Neuropol']">PRZYCHÓD W CZASIE</h3>
+            <div class="h-64 bg-[#0a0a0a] border border-[#333333] flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-[#00ffff] text-lg mb-2">📈</div>
+                <div class="text-[#a0a0a0] text-sm">Wykres przychodów</div>
+                <div class="text-[#666666] text-xs mt-2">[Chart.js integration placeholder]</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Traffic Sources -->
+          <div class="bg-[#111111] border border-[#333333] p-6">
+            <h3 class="text-xl font-bold text-[#00ffff] mb-4 font-['Neuropol']">ŹRÓDŁA RUCHU</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-[#a0a0a0]">Google Ads</span>
+                <div class="flex items-center gap-2">
+                  <div class="w-20 bg-[#333333] h-2 rounded">
+                    <div class="bg-[#00ffff] h-full rounded" style="width: 45%"></div>
+                  </div>
+                  <span class="text-[#00ffff] text-sm">45%</span>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[#a0a0a0]">Facebook Ads</span>
+                <div class="flex items-center gap-2">
+                  <div class="w-20 bg-[#333333] h-2 rounded">
+                    <div class="bg-[#00ff00] h-full rounded" style="width: 32%"></div>
+                  </div>
+                  <span class="text-[#00ff00] text-sm">32%</span>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[#a0a0a0]">Organiczny</span>
+                <div class="flex items-center gap-2">
+                  <div class="w-20 bg-[#333333] h-2 rounded">
+                    <div class="bg-[#ffaa00] h-full rounded" style="width: 15%"></div>
+                  </div>
+                  <span class="text-[#ffaa00] text-sm">15%</span>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[#a0a0a0]">Email</span>
+                <div class="flex items-center gap-2">
+                  <div class="w-20 bg-[#333333] h-2 rounded">
+                    <div class="bg-[#ff6666] h-full rounded" style="width: 8%"></div>
+                  </div>
+                  <span class="text-[#ff6666] text-sm">8%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campaign Performance Table -->
+        <div class="bg-[#111111] border border-[#333333] p-6 mb-8">
+          <h3 class="text-xl font-bold text-[#00ffff] mb-4 font-['Neuropol']">WYDAJNOŚĆ KAMPANII</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-[#333333]">
+                  <th class="text-left py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">Kampania</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">Impressions</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">Clicks</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">CTR</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">Conversions</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">CPA</th>
+                  <th class="text-right py-3 px-2 text-[#00ffff] uppercase font-['Neuropol']">ROAS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-[#333333] hover:bg-[#1a1a1a]">
+                  <td class="py-3 px-2 text-[#e0e0e0]">Kampania Świąteczna 2025</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">47,582</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">2,847</td>
+                  <td class="py-3 px-2 text-right text-[#00ff00]">5.98%</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">418</td>
+                  <td class="py-3 px-2 text-right text-[#ffaa00]">$1.91</td>
+                  <td class="py-3 px-2 text-right text-[#00ff00]">4.2x</td>
+                </tr>
+                <tr class="border-b border-[#333333] hover:bg-[#1a1a1a]">
+                  <td class="py-3 px-2 text-[#e0e0e0]">Lead Generation Q4</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">28,931</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">1,234</td>
+                  <td class="py-3 px-2 text-right text-[#ffaa00]">4.27%</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">89</td>
+                  <td class="py-3 px-2 text-right text-[#ff6666]">$6.74</td>
+                  <td class="py-3 px-2 text-right text-[#ffaa00]">2.8x</td>
+                </tr>
+                <tr class="border-b border-[#333333] hover:bg-[#1a1a1a]">
+                  <td class="py-3 px-2 text-[#e0e0e0]">Retargeting Autumn</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">15,672</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">892</td>
+                  <td class="py-3 px-2 text-right text-[#00ff00]">5.69%</td>
+                  <td class="py-3 px-2 text-right text-[#a0a0a0]">127</td>
+                  <td class="py-3 px-2 text-right text-[#00ff00]">$2.36</td>
+                  <td class="py-3 px-2 text-right text-[#00ff00]">5.1x</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- A/B Testing Results -->
+        <div class="bg-[#111111] border border-[#333333] p-6">
+          <h3 class="text-xl font-bold text-[#00ffff] mb-4 font-['Neuropol']">WYNIKI TESTÓW A/B</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Test 1 -->
+            <div class="bg-[#0a0a0a] border border-[#333333] p-4">
+              <h4 class="text-[#00ffff] font-bold mb-2 font-['Neuropol']">NAGŁÓWEK LANDING PAGE</h4>
+              <div class="space-y-2 mb-4">
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Wersja A:</span>
+                  <span class="text-[#ff6666]">2.4% konwersji</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Wersja B:</span>
+                  <span class="text-[#00ff00]">3.7% konwersji</span>
+                </div>
+              </div>
+              <div class="text-[#00ff00] text-sm">✓ Wersja B wygrywa o 54.2%</div>
+            </div>
+
+            <!-- Test 2 -->
+            <div class="bg-[#0a0a0a] border border-[#333333] p-4">
+              <h4 class="text-[#00ffff] font-bold mb-2 font-['Neuropol']">BUTTON CTA COLOR</h4>
+              <div class="space-y-2 mb-4">
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Niebieski:</span>
+                  <span class="text-[#ffaa00]">7.8% CTR</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-[#a0a0a0]">Pomarańczowy:</span>
+                  <span class="text-[#00ff00]">9.2% CTR</span>
+                </div>
+              </div>
+              <div class="text-[#00ff00] text-sm">✓ Pomarańczowy wygrywa o 17.9%</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<style>
+  .cyber-grid {
+    background-image: 
+      linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+</style>

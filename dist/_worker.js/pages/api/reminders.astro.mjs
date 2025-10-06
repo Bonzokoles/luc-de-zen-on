@@ -1,238 +1,104 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+import { s as srcExports } from '../../chunks/index_CXp9EPjx.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
-const reminders = [
-  {
-    id: "1",
-    title: "Spotkanie zespołowe",
-    description: "Cotygodniowe spotkanie z zespołem developerskim",
-    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1e3).toISOString(),
-    priority: "high",
-    userId: "user123",
-    completed: false,
-    createdAt: Date.now() - 864e5,
-    notifications: {
-      email: true,
-      push: true,
-      sms: false
-    },
-    recurrence: "weekly"
-  },
-  {
-    id: "2",
-    title: "Przegląd marketingowy",
-    description: "Analiza wyników kampanii i planowanie nowych akcji",
-    dueDate: new Date(Date.now() + 5 * 24 * 60 * 60 * 1e3).toISOString(),
-    priority: "medium",
-    userId: "user456",
-    completed: false,
-    createdAt: Date.now() - 432e5,
-    notifications: {
-      email: true,
-      push: false,
-      sms: false
-    }
-  },
-  {
-    id: "3",
-    title: "Backup danych",
-    description: "Rutynowy backup bazy danych i plików systemowych",
-    dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1e3).toISOString(),
-    priority: "high",
-    completed: false,
-    createdAt: Date.now() - 216e5,
-    notifications: {
-      email: true,
-      push: true,
-      sms: true
-    },
-    recurrence: "daily"
-  }
-];
-const GET = async ({ url }) => {
-  const params = new URL(url).searchParams;
-  const userId = params.get("userId");
-  const priority = params.get("priority");
-  const completed = params.get("completed");
+function getEnv(locals) {
+  return locals?.runtime?.env || {};
+}
+function getCalendarClient(env) {
+  const keyJson = env.GCP_SERVICE_ACCOUNT_KEY;
+  if (!keyJson) throw new Error("GCP_SERVICE_ACCOUNT_KEY must be configured.");
+  let credentials;
   try {
-    let filteredReminders = reminders;
-    if (userId) {
-      filteredReminders = filteredReminders.filter((r) => r.userId === userId);
+    credentials = JSON.parse(keyJson);
+  } catch (e) {
+    throw new Error("GCP_SERVICE_ACCOUNT_KEY is not valid JSON.");
+  }
+  const auth = new srcExports.google.auth.GoogleAuth({
+    credentials,
+    scopes: ["https://www.googleapis.com/auth/calendar"]
+  });
+  return srcExports.google.calendar({ version: "v3", auth });
+}
+const REMINDER_COLOR_ID = "5";
+const GET = async ({ locals }) => {
+  try {
+    const env = getEnv(locals);
+    const calendar = getCalendarClient(env);
+    const calendarId = env.GOOGLE_CALENDAR_ID || "primary";
+    const response = await calendar.events.list({
+      calendarId,
+      singleEvents: true,
+      orderBy: "startTime",
+      maxResults: 250
+      // Fetch more events to filter
+    });
+    const allEvents = response.data.items || [];
+    const reminders = allEvents.filter((event) => event.colorId === REMINDER_COLOR_ID && event.start?.date).map((event) => ({
+      // Map to the format expected by the Svelte component
+      id: event.id,
+      title: event.summary,
+      description: event.description,
+      dueDate: event.start.date,
+      // YYYY-MM-DD
+      completed: event.status === "cancelled",
+      // Other fields can be mapped or defaulted
+      priority: "medium",
+      createdAt: new Date(event.created).getTime(),
+      notifications: { email: true, push: false, sms: false }
+    }));
+    return new Response(JSON.stringify({ success: true, reminders, stats: {
+      /* mock stats */
+    } }), { status: 200 });
+  } catch (error) {
+    console.error("Reminders API GET Error:", error);
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
+  }
+};
+const POST = async ({ request, locals }) => {
+  try {
+    const env = getEnv(locals);
+    const calendar = getCalendarClient(env);
+    const calendarId = env.GOOGLE_CALENDAR_ID || "primary";
+    const { title, dueDate, description, priority } = await request.json();
+    if (!title || !dueDate) {
+      return new Response(JSON.stringify({ success: false, message: "Title and dueDate are required." }), { status: 400 });
     }
-    if (priority) {
-      filteredReminders = filteredReminders.filter((r) => r.priority === priority);
-    }
-    if (completed !== null) {
-      filteredReminders = filteredReminders.filter((r) => r.completed === (completed === "true"));
-    }
-    const sortedReminders = filteredReminders.sort(
-      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-    );
-    const stats = {
-      total: reminders.length,
-      completed: reminders.filter((r) => r.completed).length,
-      overdue: reminders.filter(
-        (r) => new Date(r.dueDate).getTime() < Date.now() && !r.completed
-      ).length,
-      today: reminders.filter((r) => {
-        const today = /* @__PURE__ */ new Date();
-        const reminderDate = new Date(r.dueDate);
-        return reminderDate.toDateString() === today.toDateString();
-      }).length,
-      high: reminders.filter((r) => r.priority === "high").length,
-      medium: reminders.filter((r) => r.priority === "medium").length,
-      low: reminders.filter((r) => r.priority === "low").length
+    const eventResource = {
+      summary: title,
+      description: description || "",
+      start: { date: dueDate.split("T")[0] },
+      // Ensure YYYY-MM-DD format
+      end: { date: dueDate.split("T")[0] },
+      colorId: REMINDER_COLOR_ID
     };
-    return new Response(JSON.stringify({
-      success: true,
-      reminders: sortedReminders,
-      stats
-    }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      }
+    const createdEvent = await calendar.events.insert({
+      calendarId,
+      requestBody: eventResource
     });
+    return new Response(JSON.stringify({ success: true, reminder: createdEvent.data }), { status: 201 });
   } catch (error) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: "Failed to retrieve reminders"
-    }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    console.error("Reminders API POST Error:", error);
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }
 };
-const POST = async ({ request }) => {
-  try {
-    const data = await request.json();
-    const newReminder = {
-      id: crypto.randomUUID(),
-      title: data.title,
-      description: data.description || "",
-      dueDate: data.dueDate,
-      priority: data.priority || "medium",
-      userId: data.userId,
-      completed: false,
-      createdAt: Date.now(),
-      notifications: data.notifications || {
-        email: true,
-        push: false,
-        sms: false
-      },
-      recurrence: data.recurrence
-    };
-    reminders.push(newReminder);
-    return new Response(JSON.stringify({
-      success: true,
-      message: "Reminder created successfully",
-      reminder: newReminder
-    }), {
-      status: 201,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: "Failed to create reminder"
-    }), {
-      status: 400,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-  }
+const PUT = async ({ request, locals }) => {
+  return new Response(JSON.stringify({ success: true, message: "Update functionality to be implemented." }), { status: 200 });
 };
-const PUT = async ({ request }) => {
+const DELETE = async ({ url, locals }) => {
   try {
-    const data = await request.json();
-    const { id, ...updateData } = data;
-    const reminderIndex = reminders.findIndex((r) => r.id === id);
-    if (reminderIndex === -1) {
-      return new Response(JSON.stringify({
-        success: false,
-        message: "Reminder not found"
-      }), {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+    const env = getEnv(locals);
+    const calendar = getCalendarClient(env);
+    const calendarId = env.GOOGLE_CALENDAR_ID || "primary";
+    const eventId = url.searchParams.get("id");
+    if (!eventId) {
+      return new Response(JSON.stringify({ success: false, message: "Event ID is required." }), { status: 400 });
     }
-    reminders[reminderIndex] = { ...reminders[reminderIndex], ...updateData };
-    return new Response(JSON.stringify({
-      success: true,
-      message: "Reminder updated successfully",
-      reminder: reminders[reminderIndex]
-    }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    await calendar.events.delete({ calendarId, eventId });
+    return new Response(JSON.stringify({ success: true, message: "Reminder deleted successfully." }), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: "Failed to update reminder"
-    }), {
-      status: 400,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-  }
-};
-const DELETE = async ({ url }) => {
-  const params = new URL(url).searchParams;
-  const id = params.get("id");
-  if (!id) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: "Reminder ID is required"
-    }), {
-      status: 400,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-  }
-  try {
-    const reminderIndex = reminders.findIndex((r) => r.id === id);
-    if (reminderIndex === -1) {
-      return new Response(JSON.stringify({
-        success: false,
-        message: "Reminder not found"
-      }), {
-        status: 404,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-    }
-    reminders.splice(reminderIndex, 1);
-    return new Response(JSON.stringify({
-      success: true,
-      message: "Reminder deleted successfully"
-    }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({
-      success: false,
-      message: "Failed to delete reminder"
-    }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+    console.error("Reminders API DELETE Error:", error);
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }
 };
 

@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BS6eKWK9.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BV683skl.mjs';
+import { e as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_C1oOU0Od.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DeSMV8-3.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_CYP07A9F.mjs';
 /* empty css                                                       */
-export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const $$Astro = createAstro("https://mybonzo.com");
 const $$ZaawansowaneFunkcjeAiNew = createComponent(($$result, $$props, $$slots) => {

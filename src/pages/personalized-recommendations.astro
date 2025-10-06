@@ -1,0 +1,16 @@
+---
+import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+import RecommendationsWidget from '../components/RecommendationsWidget.svelte';
+---
+<MyBonzoLayout siteTitle="Personalizowane Rekomendacje AI">
+  <main class="min-h-svh relative z-10 pt-20" style="background-color: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <a href="/" class="text-cyan-400 hover:text-cyan-200 transition-colors duration-200">← Powrót</a>
+      <h1 class="text-3xl font-bold text-cyan-300 my-4">Silnik Rekomendacji AI</h1>
+      <p class="text-gray-400 mb-8">Wprowadź swoje preferencje i historię, aby otrzymać spersonalizowane rekomendacje produktów, treści lub ścieżek rozwoju, wygenerowane przez AI.</p>
+      <div class="border border-cyan-500/30 rounded-xl overflow-hidden">
+        <RecommendationsWidget client:load />
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>

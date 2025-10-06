@@ -1,0 +1,273 @@
+---
+// AI Functions Dashboard - Funkcje biznesowe AI
+import Layout from '@/layouts/Layout.astro';
+
+// Lista dostępnych funkcji AI z folderu dodatki
+const aiFunctions = [
+  {
+    id: 'marketing-content',
+    name: 'Marketing Content AI',
+    description: 'Generowanie treści marketingowych z AI',
+    category: 'marketing',
+    status: 'active',
+    features: ['content_generation', 'seo_optimization', 'social_media', 'email_campaigns'],
+    color: '#ff6b9d'
+  },
+  {
+    id: 'customer-automation',
+    name: 'Customer Automation AI',
+    description: 'Automatyzacja obsługi klienta z AI',
+    category: 'customer',
+    status: 'development',
+    features: ['chat_automation', 'ticket_routing', 'sentiment_analysis', 'response_generation'],
+    color: '#9333ea'
+  },
+  {
+    id: 'education-recommendations',
+    name: 'Education Recommendations AI',
+    description: 'Personalizowane rekomendacje edukacyjne',
+    category: 'education',
+    status: 'active',
+    features: ['learning_paths', 'content_recommendations', 'progress_tracking', 'skill_assessment'],
+    color: '#ef4444'
+  },
+  {
+    id: 'dynamic-faq',
+    name: 'Dynamic FAQ AI',
+    description: 'Dynamiczne FAQ z uczeniem maszynowym',
+    category: 'support',
+    status: 'development',
+    features: ['question_classification', 'answer_generation', 'knowledge_base', 'auto_updates'],
+    color: '#ffc107'
+  },
+  {
+    id: 'personalized-recommendations',
+    name: 'Personalized Recommendations AI',
+    description: 'System personalizowanych rekomendacji',
+    category: 'personalization',
+    status: 'active',
+    features: ['user_profiling', 'recommendation_engine', 'a_b_testing', 'performance_tracking'],
+    color: '#00ff88'
+  },
+  {
+    id: 'interactive-quizzes',
+    name: 'Interactive Quizzes AI',
+    description: 'Interaktywne quizy z AI',
+    category: 'education',
+    status: 'development',
+    features: ['adaptive_questions', 'instant_feedback', 'progress_analytics', 'gamification'],
+    color: '#1be1ff'
+  },
+  {
+    id: 'ai-tickets',
+    name: 'AI Tickets System',
+    description: 'Inteligentny system ticketów',
+    category: 'support',
+    status: 'active',
+    features: ['auto_classification', 'priority_assignment', 'resolution_suggestions', 'escalation_rules'],
+    color: '#ff9500'
+  },
+  {
+    id: 'activity-monitoring',
+    name: 'Activity Monitoring AI',
+    description: 'Monitoring aktywności z AI',
+    category: 'analytics',
+    status: 'development',
+    features: ['behavior_analysis', 'anomaly_detection', 'pattern_recognition', 'predictive_alerts'],
+    color: '#ff5722'
+  },
+  {
+    id: 'reminders-calendar',
+    name: 'Reminders & Calendar AI',
+    description: 'Inteligentny kalendarz i przypomnienia',
+    category: 'productivity',
+    status: 'development',
+    features: ['smart_scheduling', 'conflict_detection', 'priority_management', 'natural_language_processing'],
+    color: '#9c27b0'
+  }
+];
+
+// Grupowanie po kategoriach
+const funcByCategory = aiFunctions.reduce((acc, func) => {
+  if (!acc[func.category]) acc[func.category] = [];
+  acc[func.category].push(func);
+  return acc;
+}, {});
+
+const categoryColors = {
+  marketing: '#ff6b9d',
+  customer: '#9333ea',
+  education: '#ef4444',
+  support: '#ffc107',
+  personalization: '#00ff88',
+  analytics: '#1be1ff',
+  productivity: '#9c27b0'
+};
+
+const categoryIcons = {
+  marketing: '📈',
+  customer: '👥',
+  education: '🎓',
+  support: '🎧',
+  personalization: '🎯',
+  analytics: '📊',
+  productivity: '⏰'
+};
+---
+
+<Layout title="AI Functions MyBonzo - Funkcje Biznesowe AI">
+  <main class="min-h-svh relative z-10">
+    <!-- Background -->
+    <div class="fixed inset-0 bg-[#0a0f14]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0f14] to-[#0a0f14]"></div>
+    </div>
+
+    <!-- Header -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#1be1ff] mb-2 uppercase tracking-wider font-['Rajdhani']">
+              🚀 AI FUNCTIONS
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              Zaawansowane funkcje biznesowe z wykorzystaniem AI
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">
+              AKTYWNE: <span class="text-[#00ff88]">{aiFunctions.filter(f => f.status === 'active').length}</span>
+            </div>
+            <div>
+              ŁĄCZNE: <span class="text-[#00e5ff]">{aiFunctions.length}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="relative z-20 py-8 border-b border-[#263238]">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-[#00ff88]">{aiFunctions.filter(f => f.status === 'active').length}</div>
+            <div class="text-sm text-[#b0bec5]">Aktywne Funkcje</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-[#ffc107]">{aiFunctions.filter(f => f.status === 'development').length}</div>
+            <div class="text-sm text-[#b0bec5]">W Rozwoju</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-[#ff6b9d]">{Object.keys(funcByCategory).length}</div>
+            <div class="text-sm text-[#b0bec5]">Kategorie</div>
+          </div>
+          <div class="bg-[#0f3846]/40 border border-[#1be1ff]/10 rounded-lg p-4 text-center">
+            <div class="text-2xl font-bold text-[#1be1ff]">
+              {aiFunctions.reduce((sum, f) => sum + f.features.length, 0)}
+            </div>
+            <div class="text-sm text-[#b0bec5]">Features</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Functions by Category -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        {Object.entries(funcByCategory).map(([category, functions]) => (
+          <div class="mb-12">
+            <!-- Category Header -->
+            <div class="flex items-center mb-6">
+              <div class={`w-8 h-8 rounded-lg flex items-center justify-center mr-4`} 
+                   style={`background: ${categoryColors[category]}20; border: 1px solid ${categoryColors[category]}50;`}>
+                {categoryIcons[category]}
+              </div>
+              <h2 class="text-2xl font-bold font-['Rajdhani'] uppercase tracking-wider"
+                  style={`color: ${categoryColors[category]};`}>
+                {category} Functions ({functions.length})
+              </h2>
+            </div>
+
+            <!-- Functions Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {functions.map(func => (
+                <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6 hover:bg-[#0f3846]/80 transition-all duration-300">
+                  <!-- Function Header -->
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                      <div class={`w-10 h-10 rounded-lg flex items-center justify-center mr-3`} 
+                           style={`background: ${func.color}20; border: 1px solid ${func.color}50;`}>
+                        {categoryIcons[func.category]}
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-bold font-['Rajdhani']" style={`color: ${func.color};`}>
+                          {func.name.toUpperCase()}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class={`px-2 py-1 rounded text-xs font-mono ${
+                      func.status === 'active' 
+                        ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/30'
+                        : 'bg-[#ffc107]/20 text-[#ffc107] border border-[#ffc107]/30'
+                    }`}>
+                      {func.status.toUpperCase()}
+                    </div>
+                  </div>
+
+                  <!-- Description -->
+                  <p class="text-[#e1f5fe] mb-4 text-sm leading-relaxed">
+                    {func.description}
+                  </p>
+
+                  <!-- Features -->
+                  <div class="mb-4">
+                    <div class="text-xs text-[#b0bec5] mb-2 font-mono">FUNKCJE:</div>
+                    <div class="flex flex-wrap gap-1">
+                      {func.features.map(feature => (
+                        <span class="px-2 py-1 bg-[#0a0f14]/60 border border-[#263238] rounded text-xs text-[#e1f5fe] font-mono">
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="flex gap-2">
+                    <button 
+                      onclick={`window.location.href='/dodatki/ai-functions/${func.id}'`}
+                      class="flex-1 bg-gradient-to-r from-[#1be1ff]/20 to-[#00e5ff]/20 border border-[#1be1ff]/30 text-[#1be1ff] px-3 py-2 rounded text-sm font-medium hover:bg-[#1be1ff]/10 transition-all duration-300"
+                    >
+                      Uruchom
+                    </button>
+                    <button 
+                      onclick={`console.log('Konfiguracja funkcji: ${func.id}')`}
+                      class="px-3 py-2 bg-[#0f3846]/60 border border-[#263238] text-[#b0bec5] rounded text-sm hover:text-[#e1f5fe] hover:border-[#1be1ff]/20 transition-all duration-300"
+                    >
+                      ⚙️
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <section class="relative z-20 py-8 border-t border-[#263238]">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex justify-between items-center">
+          <a href="/dodatki/" class="inline-flex items-center text-[#1be1ff] hover:text-[#00e5ff] font-medium">
+            ← Powrót do Dodatków
+          </a>
+          <div class="text-sm text-[#b0bec5] font-mono">
+            Łącznie funkcji: {aiFunctions.length}
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>

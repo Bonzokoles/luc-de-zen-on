@@ -348,16 +348,12 @@ const pageKey = Astro.url.pathname;
     
     <!-- FloatingButtonsManager - Floating Buttons System -->
     <script type="module">
-      import { floatingButtons } from '/src/utils/FloatingButtonsManager.ts';
-      
       // Initialize floating buttons after page load
       window.addEventListener('DOMContentLoaded', () => {
         console.log('🚀 Initializing Floating Buttons...');
         
         // DISABLED: Floating buttons moved to right panel
-        // floatingButtons.renderAll();
-        
-        console.log('✅ Floating Buttons disabled - using right panel instead');
+        console.log('✅ Floating buttons disabled - using right panel instead');
       });
     </script>
     
@@ -401,10 +397,14 @@ const pageKey = Astro.url.pathname;
     </div>
     <div class="compact-header">
       <nav style="position: fixed; top: 0; left: 0; width: 100%; z-index: 20; background: rgba(13, 13, 13, 0.8); backdrop-filter: blur(16px); padding: 1rem;">
-        <div style="display: flex; align-items: center; gap: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
           <a href="/" style="display: flex; align-items: center; gap: 0.5rem;">
             <img src="/favicon.svg" alt={siteTitle} width="24" height="24" />
             <span style="color: white; font-weight: bold;">{siteTitle}</span>
+          </a>
+          <a href="/dodatki" style="display: flex; align-items: center; gap: 0.5rem; color: #1be1ff; text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #1be1ff/30; border-radius: 6px; background: rgba(27, 225, 255, 0.1); transition: all 0.3s ease;">
+            <span style="font-size: 1.2em;">🔧</span>
+            <span style="font-weight: 600;">Dodatki</span>
           </a>
         </div>
       </nav>

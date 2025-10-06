@@ -1,0 +1,356 @@
+---
+// MainWorkersCardsSection.astro - Główne karty workerów AI
+---
+
+<div class="workers-grid" data-astro-cid-my52qgmw>
+  <!-- Image Generator -->
+  <div class="worker-card" data-worker="image" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      Generator Obrazów
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Twórz niesamowite obrazy z tekstu używając Flux-1 Schnell
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Flux AI</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>512-1024px</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Tłumaczenie PL</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="Opisz obraz..."
+        class="quick-prompt"
+        id="imagePrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openImageGenerator()"
+        data-astro-cid-my52qgmw>Generuj</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/image-generator', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz</button>
+    </div>
+  </div>
+
+  <!-- AI Chatbot -->
+  <div class="worker-card" data-worker="chat" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>AI Chatbot</h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Inteligentny asystent do rozmów i odpowiadania na pytania
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>OpenAI GPT</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Język polski</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Kontekst</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="Zadaj pytanie..."
+        class="quick-prompt"
+        id="chatPrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openChatbot()"
+        data-astro-cid-my52qgmw>Chat</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/chatbot', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz</button>
+    </div>
+  </div>
+
+  <!-- BigQuery Analytics -->
+  <div
+    class="worker-card"
+    data-worker="bigquery"
+    data-astro-cid-my52qgmw
+  >
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      BigQuery Analytics
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Analizuj dane z Google BigQuery, wykonuj zapytania SQL
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Google Cloud</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>SQL Query</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="SELECT * FROM..."
+        class="quick-prompt"
+        id="bigqueryPrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openBigQueryPopup()"
+        data-astro-cid-my52qgmw>Analizuj</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/bigquery-analytics', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz</button>
+    </div>
+  </div>
+
+  <!-- Kaggle Datasets -->
+  <div class="worker-card" data-worker="kaggle" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      Kaggle Datasets
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Przeszukuj zbiory danych, konkursy i profile Kaggle
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Machine Learning</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Datasets</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Competitions</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="machine learning..."
+        class="quick-prompt"
+        id="kagglePrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openKagglePopup()"
+        data-astro-cid-my52qgmw>Wyszukaj</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/kaggle-datasets', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz</button>
+    </div>
+  </div>
+
+  <!-- Tavily Search -->
+  <div class="worker-card" data-worker="tavily" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      Tavily AI Search
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Zaawansowane wyszukiwanie internetowe powered by AI
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>AI Search</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Deep Analysis</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="wyszukaj w sieci..."
+        class="quick-prompt"
+        id="tavilyPrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openTavily()"
+        data-astro-cid-my52qgmw>Szukaj</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/tavily-search', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz</button>
+    </div>
+  </div>
+
+  <!-- Voice AI Worker -->
+  <div class="worker-card" data-worker="voice-ai" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      🎤 Voice AI Assistant
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Transkrypcja, synteza mowy i przetwarzanie komend głosowych
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Speech-to-Text</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Text-to-Speech</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Voice Commands</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <input
+        type="text"
+        placeholder="tekst do syntezy..."
+        class="quick-prompt"
+        id="voiceAiPrompt"
+        data-astro-cid-my52qgmw
+      />
+      <button
+        class="action-btn primary"
+        onclick="openVoiceAIPopup()"
+        data-astro-cid-my52qgmw>🎤 Nagrywaj</button>
+      <button
+        class="action-btn secondary"
+        onclick="quickSynthesize()"
+        data-astro-cid-my52qgmw>🔊 Synteza</button>
+    </div>
+  </div>
+
+  <!-- STATUS WORKERS - Basic Opening Element -->
+  <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      🔧 STATUS WORKERS
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Zaawansowany system monitorowania statusu wszystkich Cloudflare
+      Workers
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="checkAllStatus()"
+        data-astro-cid-my52qgmw>Sprawdź Status</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('/status-workers', '_blank')"
+        data-astro-cid-my52qgmw>Otwórz Dashboard</button>
+    </div>
+  </div>
+
+  <!-- API Testing Card -->
+  <div
+    class="worker-card"
+    data-worker="api-tests"
+    data-astro-cid-my52qgmw
+  >
+    <h3 class="worker-title" data-astro-cid-my52qgmw>🧪 API Tests</h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Testuj wszystkie Workers API endpoints i sprawdź połączenia
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Testing</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>API</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Debug</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="runAllAPITests()"
+        data-astro-cid-my52qgmw>Testuj wszystkie API</button>
+      <button
+        class="action-btn secondary"
+        onclick="openAPITestConsole()"
+        data-astro-cid-my52qgmw>Konsola testów</button>
+    </div>
+  </div>
+
+  <!-- Langchain Card -->
+  <div class="worker-card" data-worker="langchain" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      🔗 Langchain AI
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Framework do tworzenia aplikacji opartych na dużych modelach językowych
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>LLM Apps</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Integracje</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Agenty</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="window.location.href='/langchain-integration'"
+        data-astro-cid-my52qgmw>Otwórz</button>
+      <button
+        class="action-btn secondary"
+        onclick="window.open('https://www.langchain.com/', '_blank')"
+        data-astro-cid-my52qgmw>Dokumentacja</button>
+    </div>
+  </div>
+
+  <!-- MCP Servers Card -->
+  <div class="worker-card" data-worker="mcp-servers" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      ☁️ MCP Servers
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Zarządzanie i monitorowanie serwerów Model Context Protocol
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Mikroserwisy</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Orkiestracja</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Cloud</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="window.location.href='/mcp-servers-management'"
+        data-astro-cid-my52qgmw>Otwórz</button>
+      <button
+        class="action-btn secondary"
+        onclick="alert('Status: Operacyjny')"
+        data-astro-cid-my52qgmw>Status</button>
+    </div>
+  </div>
+
+  <!-- Flowise Card -->
+  <div class="worker-card" data-worker="flowise" data-astro-cid-my52qgmw>
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      🌊 Flowise AI
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Visual tool to build LLM orchestration flow & AI agents
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Visual Builder</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>LLM Flow</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Integration</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="window.open('https://flowise.ai', '_blank')"
+        data-astro-cid-my52qgmw>Open Flowise</button>
+      <button
+        class="action-btn secondary"
+        onclick="launchFlowise()"
+        data-astro-cid-my52qgmw>Launch</button>
+    </div>
+  </div>
+
+  <!-- Activepieces Card -->
+  <div
+    class="worker-card"
+    data-worker="activepieces"
+    data-astro-cid-my52qgmw
+  >
+    <h3 class="worker-title" data-astro-cid-my52qgmw>
+      ⚡ Activepieces
+    </h3>
+    <p class="worker-description" data-astro-cid-my52qgmw>
+      Open-source automation platform for workflow automation
+    </p>
+    <div class="worker-features" data-astro-cid-my52qgmw>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Automation</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Open Source</span>
+      <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
+    </div>
+    <div class="worker-actions" data-astro-cid-my52qgmw>
+      <button
+        class="action-btn primary"
+        onclick="window.open('https://activepieces.com', '_blank')"
+        data-astro-cid-my52qgmw>Open Activepieces</button>
+      <button
+        class="action-btn secondary"
+        onclick="launchActivepieces()"
+        data-astro-cid-my52qgmw>Launch</button>
+    </div>
+  </div>
+</div>

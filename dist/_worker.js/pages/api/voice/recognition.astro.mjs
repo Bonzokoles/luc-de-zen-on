@@ -1,5 +1,5 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-export { r as renderers } from '../../../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const speechModels = {
   "latest_short": { accuracy: 95, speed: "fast" },

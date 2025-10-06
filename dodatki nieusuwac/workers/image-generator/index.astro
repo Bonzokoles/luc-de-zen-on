@@ -1,0 +1,239 @@
+---
+import MyBonzoLayout from "../../../LUCK_the_zen_on_AI/src/layouts/MyBonzoMainLayout.astro";
+import DecorativeLines from "../../../LUCK_the_zen_on_AI/src/components/ui/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="Generator Obrazów AI | MYBONZO">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <!-- Background -->
+    <div class="fixed inset-0 bg-[#0a0f14]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-[#0a0f14] to-[#0a0f14]"></div>
+    </div>
+
+    <!-- Header -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#1be1ff] mb-2 uppercase tracking-wider font-['Rajdhani']">
+              Generator Obrazów AI
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              Twórz niesamowite obrazy z tekstu używając Flux-1 Schnell
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">
+              STATUS: <span class="text-[#1be1ff]">ACTIVE</span>
+            </div>
+            <div>
+              MODEL: <span class="text-[#00e5ff]">FLUX-1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative z-20 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        
+        <!-- Image Generator Interface -->
+        <div class="grid lg:grid-cols-2 gap-8">
+          
+          <!-- Input Panel -->
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-[#1be1ff] mb-6 font-['Rajdhani']">
+              GENERUJ OBRAZ
+            </h2>
+            
+            <!-- Text Input -->
+            <div class="mb-6">
+              <label class="block text-[#e1f5fe] text-sm font-semibold mb-2">
+                Opis obrazu (po polsku)
+              </label>
+              <textarea
+                id="imagePrompt"
+                class="w-full bg-[#263238]/80 border border-[#1be1ff]/30 rounded-lg px-4 py-3 text-[#ffffff] placeholder-[#b0bec5] focus:border-[#1be1ff] focus:outline-none resize-none"
+                rows="4"
+                placeholder="Opisz obraz który chcesz wygenerować..."
+              ></textarea>
+            </div>
+
+            <!-- Settings -->
+            <div class="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <label class="block text-[#e1f5fe] text-sm font-semibold mb-2">
+                  Rozmiar
+                </label>
+                <select
+                  id="imageSize"
+                  class="w-full bg-[#263238]/80 border border-[#1be1ff]/30 rounded-lg px-4 py-2 text-[#ffffff] focus:border-[#1be1ff] focus:outline-none"
+                >
+                  <option value="512x512">512x512 (kwadrat)</option>
+                  <option value="768x512">768x512 (landscape)</option>
+                  <option value="512x768">512x768 (portrait)</option>
+                  <option value="1024x1024">1024x1024 (duży)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-[#e1f5fe] text-sm font-semibold mb-2">
+                  Styl
+                </label>
+                <select
+                  id="imageStyle"
+                  class="w-full bg-[#263238]/80 border border-[#1be1ff]/30 rounded-lg px-4 py-2 text-[#ffffff] focus:border-[#1be1ff] focus:outline-none"
+                >
+                  <option value="realistic">Realistyczny</option>
+                  <option value="artistic">Artystyczny</option>
+                  <option value="cartoon">Kreskówka</option>
+                  <option value="photographic">Fotograficzny</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button
+              id="generateBtn"
+              class="w-full bg-gradient-to-r from-[#1be1ff]/20 to-[#00e5ff]/20 border border-[#1be1ff]/50 rounded-lg py-3 px-6 text-[#1be1ff] font-bold uppercase tracking-wider hover:bg-gradient-to-r hover:from-[#1be1ff]/30 hover:to-[#00e5ff]/30 hover:border-[#1be1ff] transition-all duration-300"
+            >
+              Generuj Obraz
+            </button>
+          </div>
+
+          <!-- Preview Panel -->
+          <div class="bg-[#0f3846]/60 border border-[#1be1ff]/20 rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-[#1be1ff] mb-6 font-['Rajdhani']">
+              PODGLĄD
+            </h2>
+            
+            <div id="imagePreview" class="aspect-square bg-[#263238]/80 border-2 border-dashed border-[#1be1ff]/30 rounded-lg flex items-center justify-center">
+              <div class="text-center text-[#b0bec5]">
+                <div class="text-4xl mb-2">🎨</div>
+                <div>Obraz pojawi się tutaj</div>
+              </div>
+            </div>
+
+            <!-- Download Button -->
+            <button
+              id="downloadBtn"
+              class="w-full mt-4 bg-[#263238]/80 border border-[#1be1ff]/30 rounded-lg py-2 px-4 text-[#b0bec5] hover:text-[#1be1ff] hover:border-[#1be1ff]/50 transition-all duration-300"
+              disabled
+            >
+              Pobierz Obraz
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Recent Images -->
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold text-[#1be1ff] mb-6 font-['Rajdhani']">
+            OSTATNIE OBRAZY
+          </h2>
+          <div id="recentImages" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <!-- Recent images will be populated here -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const generateBtn = document.getElementById('generateBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const imagePrompt = document.getElementById('imagePrompt');
+    const imageSize = document.getElementById('imageSize');
+    const imageStyle = document.getElementById('imageStyle');
+    const imagePreview = document.getElementById('imagePreview');
+    const recentImages = document.getElementById('recentImages');
+
+    let currentImage = null;
+
+    generateBtn.addEventListener('click', function() {
+      const prompt = imagePrompt.value.trim();
+      if (!prompt) {
+        alert('Proszę opisać obraz do wygenerowania');
+        return;
+      }
+
+      generateImage(prompt);
+    });
+
+    downloadBtn.addEventListener('click', function() {
+      if (currentImage) {
+        downloadImage(currentImage);
+      }
+    });
+
+    function generateImage(prompt) {
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generowanie...';
+      
+      imagePreview.innerHTML = `
+        <div class="text-center text-[#1be1ff]">
+          <div class="animate-spin text-4xl mb-2">⚡</div>
+          <div>Generowanie obrazu...</div>
+        </div>
+      `;
+
+      // Simulate API call to Flux-1 Schnell
+      setTimeout(() => {
+        const mockImageUrl = `https://via.placeholder.com/512x512/0f3846/1be1ff?text=${encodeURIComponent(prompt.substring(0, 20))}`;
+        
+        currentImage = {
+          url: mockImageUrl,
+          prompt: prompt,
+          timestamp: new Date().toISOString()
+        };
+
+        displayImage(currentImage);
+        addToRecentImages(currentImage);
+        
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generuj Obraz';
+        downloadBtn.disabled = false;
+      }, 3000);
+    }
+
+    function displayImage(image) {
+      imagePreview.innerHTML = `
+        <img src="${image.url}" alt="Generated Image" class="w-full h-full object-cover rounded-lg">
+      `;
+    }
+
+    function addToRecentImages(image) {
+      const imageElement = document.createElement('div');
+      imageElement.className = 'aspect-square bg-[#263238]/80 border border-[#1be1ff]/20 rounded-lg overflow-hidden cursor-pointer hover:border-[#1be1ff]/50 transition-all duration-300';
+      imageElement.innerHTML = `
+        <img src="${image.url}" alt="Recent Image" class="w-full h-full object-cover">
+      `;
+      
+      imageElement.addEventListener('click', () => {
+        currentImage = image;
+        displayImage(image);
+        imagePrompt.value = image.prompt;
+        downloadBtn.disabled = false;
+      });
+
+      recentImages.insertBefore(imageElement, recentImages.firstChild);
+      
+      // Keep only last 12 images
+      while (recentImages.children.length > 12) {
+        recentImages.removeChild(recentImages.lastChild);
+      }
+    }
+
+    function downloadImage(image) {
+      const link = document.createElement('a');
+      link.href = image.url;
+      link.download = `generated-image-${Date.now()}.png`;
+      link.click();
+    }
+  });
+</script>

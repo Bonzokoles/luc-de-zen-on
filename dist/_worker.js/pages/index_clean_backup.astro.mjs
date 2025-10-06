@@ -1,14 +1,16 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_DFvGEJvU.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BS6eKWK9.mjs';
-import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_DG8m6w-P.mjs';
-import { I as ImageGeneratorWidget, M as MainChatWidget, P as PolaczekWidget, E as EducationRecommendationsWidget, T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_BDS6rj8J.mjs';
-import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_BNQ0YhcI.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_DW2S6fR-.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_BV683skl.mjs';
+import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_C1oOU0Od.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DeSMV8-3.mjs';
+import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_BMtE55Wm.mjs';
+import { I as ImageGeneratorWidget, M as MainChatWidget, P as PolaczekWidget } from '../chunks/MainChatWidget_B1mCP8kG.mjs';
+import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_CM8x7CSe.mjs';
+import { E as EducationRecommendationsWidget } from '../chunks/EducationRecommendationsWidget_BdUypaAL.mjs';
+import { T as TicketSubmissionWidget } from '../chunks/TicketSubmissionWidget_B_O55yeQ.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_0ARkhyEp.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_CYP07A9F.mjs';
 /* empty css                                              */
-export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const $$FlowiseButton = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${maybeRenderHead()}<input type="text" id="flowise-input" placeholder="Wpisz prompt do Flowise..."> <button onclick="handleFlowise()">

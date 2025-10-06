@@ -1,0 +1,44 @@
+---
+import KaggleWidget from '../components/KaggleWidget.svelte';
+---
+<html lang="pl">
+<head>
+  <title>Kaggle Dataset Explorer</title>
+  <meta name="description" content="Agent do eksploracji zbiorów danych." />
+  <style>
+    body { font-family: system-ui, sans-serif; background-color: #f0f4f8; color: #222; }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+    .widget-container {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        padding: 2rem;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    p {
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Kaggle Dataset Explorer</h1>
+    <p>
+      Ten komponent jest połączony z Twoim projektem Google Cloud i pozwala na wyszukiwanie oraz przeglądanie zbiorów danych ("listings") dostępnych w **Google Analytics Hub**.
+    </p>
+    <div class="widget-container">
+        <KaggleWidget client:load />
+    </div>
+  </div>
+</body>
+</html>

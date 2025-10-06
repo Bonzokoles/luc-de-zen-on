@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, d as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_DFvGEJvU.mjs';
-import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_DW2S6fR-.mjs';
+import { c as createComponent, d as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_C1oOU0Od.mjs';
+import { W as WorkersStatusDashboard } from '../chunks/WorkersStatusDashboard_0ARkhyEp.mjs';
 /* empty css                                               */
-export { r as renderers } from '../chunks/_@astro-renderers_Ba3qNCWV.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
 
 const $$WorkersStatusTest = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`title: "Status Workerów - Test Dashboard"; ---

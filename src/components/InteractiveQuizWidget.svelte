@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+
   type QuizQuestion = {
     question: string;
     answers: string[];
@@ -7,12 +9,17 @@
   };
 
   type QuizData = {
+    id?: string;
+    title?: string;
+    topic?: string;
+    difficulty?: "beginner" | "intermediate" | "advanced" | "expert";
     questions: QuizQuestion[];
   };
 
+  export let premadeQuiz: QuizData | null = null;
+
   let selectedTopic = "";
-  let difficulty: "beginner" | "intermediate" | "advanced" | "expert" =
-    "beginner";
+  let difficulty: "beginner" | "intermediate" | "advanced" | "expert" = "beginner";
   let currentQuiz: QuizData | null = null;
   let currentQuestionIndex = 0;
   let selectedAnswer = "";
@@ -29,60 +36,28 @@
   let quizCompleted = false;
   let feedback = "";
 
+  onMount(() => {
+    if (premadeQuiz) {
+      currentQuiz = premadeQuiz;
+      selectedTopic = premadeQuiz.topic || 'premade';
+      difficulty = premadeQuiz.difficulty || 'intermediate';
+    }
+  });
+
   const topics = [
-    {
-      id: "programming",
-      name: "💻 Programowanie",
-      description: "JavaScript, Python, React, Node.js",
-    },
-    {
-      id: "design",
-      name: "🎨 Design & UX",
-      description: "UI/UX design, design thinking, prototyping",
-    },
-    {
-      id: "data-science",
-      name: "📊 Data Science",
-      description: "Machine learning, statystyka, Python, R",
-    },
-    {
-      id: "marketing",
-      name: "📢 Marketing",
-      description: "Digital marketing, SEO, content marketing",
-    },
-    {
-      id: "business",
-      name: "💼 Business",
-      description: "Zarządzanie, finanse, strategia biznesowa",
-    },
-    {
-      id: "ai",
-      name: "🤖 Sztuczna Inteligencja",
-      description: "AI, machine learning, deep learning",
-    },
+    { id: "programming", name: "💻 Programowanie", description: "JavaScript, Python, React, Node.js" },
+    { id: "design", name: "🎨 Design & UX", description: "UI/UX design, design thinking, prototyping" },
+    { id: "data-science", name: "📊 Data Science", description: "Machine learning, statystyka, Python, R" },
+    { id: "marketing", name: "📢 Marketing", description: "Digital marketing, SEO, content marketing" },
+    { id: "business", name: "💼 Business", description: "Zarządzanie, finanse, strategia biznesowa" },
+    { id: "ai", name: "🤖 Sztuczna Inteligencja", description: "AI, machine learning, deep learning" },
   ];
 
   const difficultyLevels = [
-    {
-      id: "beginner",
-      name: "🌱 Początkujący",
-      description: "Podstawowe pytania wprowadzające",
-    },
-    {
-      id: "intermediate",
-      name: "⚡ Średniozaawansowany",
-      description: "Pytania wymagające analizy",
-    },
-    {
-      id: "advanced",
-      name: "🔥 Zaawansowany",
-      description: "Kompleksowe scenariusze",
-    },
-    {
-      id: "expert",
-      name: "💎 Ekspert",
-      description: "Najwyższy poziom trudności",
-    },
+    { id: "beginner", name: "🌱 Początkujący", description: "Podstawowe pytania wprowadzające" },
+    { id: "intermediate", name: "⚡ Średniozaawansowany", description: "Pytania wymagające analizy" },
+    { id: "advanced", name: "🔥 Zaawansowany", description: "Kompleksowe scenariusze" },
+    { id: "expert", name: "💎 Ekspert", description: "Najwyższy poziom trudności" },
   ];
 
   async function startQuiz() {
@@ -146,9 +121,7 @@
         }),
       });
       const data = await response.json();
-      feedback =
-        data.feedback ??
-        (isCorrect ? "Poprawna odpowiedź!" : "Niepoprawna odpowiedź.");
+      feedback = data.feedback ?? (isCorrect ? "Poprawna odpowiedź!" : "Niepoprawna odpowiedź.");
     } catch (e) {
       feedback = isCorrect ? "Poprawna odpowiedź!" : "Niepoprawna odpowiedź.";
     }
@@ -164,7 +137,6 @@
       },
     ];
 
-    // Auto-advance after short delay
     setTimeout(nextQuestion, 900);
   }
 
@@ -180,6 +152,7 @@
   }
 
   function resetQuiz() {
+    premadeQuiz = null;
     selectedTopic = "";
     difficulty = "beginner";
     currentQuiz = null;
@@ -200,12 +173,8 @@
   }
 
   $: currentQuestion = currentQuiz?.questions[currentQuestionIndex];
-  $: progress = currentQuiz
-    ? ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100
-    : 0;
-  $: scorePercentage = currentQuiz
-    ? Math.round((score / currentQuiz.questions.length) * 100)
-    : 0;
+  $: progress = currentQuiz ? ((currentQuestionIndex + 1) / currentQuiz.questions.length) * 100 : 0;
+  $: scorePercentage = currentQuiz ? Math.round((score / currentQuiz.questions.length) * 100) : 0;
 </script>
 
 <div class="quiz-widget-container">
