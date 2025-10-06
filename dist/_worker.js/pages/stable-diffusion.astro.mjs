@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { e as createAstro, c as createComponent, b as renderScript, d as renderHead, ao as renderSlot, a as renderTemplate, m as maybeRenderHead, r as renderComponent } from '../chunks/astro/server_C1oOU0Od.mjs';
+import { c as createComponent, e as createAstro, b as renderScript, d as renderHead, ao as renderSlot, a as renderTemplate, m as maybeRenderHead, r as renderComponent } from '../chunks/astro/server_HpSis98d.mjs';
 /* empty css                                            */
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro();
 const $$StableDiffusionLayout = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$StableDiffusionLayout;

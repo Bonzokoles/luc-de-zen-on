@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { e as createAstro, c as createComponent, g as addAttribute, d as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_C1oOU0Od.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, e as createAstro, g as addAttribute, d as renderHead, r as renderComponent, a as renderTemplate } from '../chunks/astro/server_HpSis98d.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro();
 const $$VoiceAvatarNew = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$VoiceAvatarNew;

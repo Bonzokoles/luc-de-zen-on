@@ -1,0 +1,1170 @@
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+// Optimized component sections for better SSR performance
+import HeroSection from "../components/sections/HeroSection.astro";
+import NavigationSection from "../components/sections/NavigationSection.astro";
+import AIWorkersSection from "../components/sections/AIWorkersSection.astro";
+import WorkersGridSection from "../components/sections/WorkersGridSection.astro";
+import MainWorkersCardsSection from "../components/sections/MainWorkersCardsSection.astro";
+// Core widgets - lazy loaded
+import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
+import PolaczekWidget from "../components/PolaczekWidget.svelte";
+import MainChatWidget from "../components/MainChatWidget.svelte";
+import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
+import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
+import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
+import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
+import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
+import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
+import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
+// Modular Agents System
+import AgentsLoader from "../components/agents/AgentsLoader.astro";
+// Heroicons React components
+import { 
+  MusicalNoteIcon,
+  CpuChipIcon,
+  SparklesIcon,
+  EyeIcon,
+  CodeBracketIcon,
+  DocumentTextIcon,
+  BoltIcon,
+  PaintBrushIcon,
+  BriefcaseIcon,
+  ChatBubbleLeftRightIcon,
+  ArrowPathIcon,
+  FolderIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
+---
+
+<MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
+  <main class="min-h-svh">
+    <!-- Optimized sections for better SSR streaming -->
+    <HeroSection />
+    <NavigationSection />
+    <AIWorkersSection />
+
+    <!-- Separator Section 1 -->
+    <section class="border border-edge relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_hsl(var(--color-accent))_0%,_transparent_70%)] opacity-[0.03]"></div>
+      <div class="container mx-auto px-4 py-12">
+        <div class="flex items-center justify-center">
+          <div class="text-center">
+            <h2 class="text-xl text-primary-foreground/80 mb-4">Platformy i Integracje</h2>
+            <p class="text-primary-foreground/60 text-sm max-w-md mx-auto">
+              Współpraca z najlepszymi narzędziami AI na rynku
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Original Workers section removal - handled by MainWorkersCardsSection.astro -->
+    <WorkersGridSection />
+    <MainWorkersCardsSection />
+
+    <!-- 9 New Functions Grid -->
+    <section class="py-20 bg-primary border-t border-edge">
+      <div class="container mx-auto px-4">
+        <div class="additional-functions-section">
+          <h3 class="additional-title">
+            ZAAWANSOWANE FUNKCJE AI
+          </h3>
+          <div class="additional-grid">
+            <!-- Row 1 -->
+            <div
+              class="feature-tile"
+              data-function="function2"
+              data-function-name="rekomendacje"
+            >
+              <div class="feature-icon">🎯</div>
+              <div class="feature-title">
+                Personalizowane rekomendacje
+              </div>
+              <div class="feature-desc">
+                System rekomendacyjny produktów i usług z analizą preferencji
+                użytkowników
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function3"
+              data-function-name="obsługa-klienta"
+            >
+              <div class="feature-icon">📞</div>
+              <div class="feature-title">
+                Automatyzacja obsługi klienta
+              </div>
+              <div class="feature-desc">
+                AI do kwalifikacji leadów i automatycznych odpowiedzi z
+                integracją CRM
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function4"
+              data-function-name="monitorowanie"
+            >
+              <div class="feature-icon">📊</div>
+              <div class="feature-title">
+                Monitorowanie i raportowanie
+              </div>
+              <div class="feature-desc">
+                Dashboard z automatycznym generowaniem raportów i alertami o
+                anomaliach
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div
+              class="feature-tile"
+              data-function="function6"
+              data-function-name="przypomnienia"
+            >
+              <div class="feature-icon">🔔</div>
+              <div class="feature-title">
+                Harmonogramowanie i przypomnienia
+              </div>
+              <div class="feature-desc">
+                Inteligentne przypomnienia z adaptacyjnym harmonogramem i
+                priorytetyzacją
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function7"
+              data-function-name="faq-generator"
+            >
+              <div class="feature-icon">❓</div>
+              <div class="feature-title">
+                Generator FAQ dynamiczny
+              </div>
+              <div class="feature-desc">
+                AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy
+                wiedzy
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function8"
+              data-function-name="edukacja"
+            >
+              <div class="feature-icon">📚</div>
+              <div class="feature-title">
+                Rekomendacje edukacyjne
+              </div>
+              <div class="feature-desc">
+                System rekomendacji kursów i materiałów edukacyjnych z
+                profilowaniem użytkownika
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div
+              class="feature-tile"
+              data-function="function9"
+              data-function-name="tickety"
+            >
+              <div class="feature-icon">🎫</div>
+              <div class="feature-title">
+                System ticketów AI
+              </div>
+              <div class="feature-desc">
+                Inteligentny system zgłoszeń z automatyczną kategoryzacją i priorytetyzacją
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function10"
+              data-function-name="quizy"
+            >
+              <div class="feature-icon">🧩</div>
+              <div class="feature-title">
+                Interaktywne quizy AI
+              </div>
+              <div class="feature-desc">
+                Generator quizów edukacyjnych z adaptacyjnym poziomem trudności
+              </div>
+            </div>
+
+            <div
+              class="feature-tile"
+              data-function="function11"
+              data-function-name="marketing"
+            >
+              <div class="feature-icon">📈</div>
+              <div class="feature-title">
+                Marketing Content AI
+              </div>
+              <div class="feature-desc">
+                Automatyczne tworzenie treści marketingowych i kampanii reklamowych
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Right Floating Panel - Fixed Right Side -->
+  <div class="right-panel-fixed">
+    <div class="floating-widget-container">
+      <button
+        onclick="toggleMusicPlayer()"
+        class="right-btn backroom-btn"
+        id="musicPlayerBtn"
+      >
+        <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
+      </button>
+      <div id="musicPlayerWidget" class="floating-widget">
+        <BackgroundMusicPlayerSimple client:load />
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button
+        onclick="togglePolaczekAssistant()"
+        class="right-btn backroom-btn"
+        id="polaczekBtn"
+        title="AI Assistant do wyjaśniania funkcji na stronie"
+      >
+        <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
+      </button>
+      <div id="polaczekWidget" class="floating-widget">
+        <AiHelpAssistant client:load />
+      </div>
+    </div>
+
+    <div class="floating-widget-container">
+      <button 
+        onclick="toggleGlobalVoice()"
+        class="right-btn backroom-btn"
+        id="globalVoiceBtn"
+        title="Globalny system Voice - Włącz/wyłącz wszystkie agenty Voice"
+      >
+        🎤 VOICE OFF
+      </button>
+      
+      <!-- DEBUG/TEST BUTTONS for Voice System -->
+      <div style="margin-top: 5px; display: flex; gap: 3px; flex-wrap: wrap;">
+        <button 
+          onclick="emergencyStopAll()"
+          title="Awaryjne zatrzymanie wszystkich systemów"
+          class="debug-btn emergency"
+        >
+          🚨 STOP
+        </button>
+        
+        <button 
+          onclick="resetSystem()"
+          title="Reset całego systemu Voice"
+          class="debug-btn warning"
+        >
+          🔄 RESET
+        </button>
+        
+        <button 
+          onclick="testAllFunctions()"
+          title="Test dostępności wszystkich funkcji"
+          class="debug-btn info"
+        >
+          🧪 TEST
+        </button>
+        
+        <button 
+          onclick="debugVoiceStatus()"
+          title="Wyświetl status wszystkich systemów Voice"
+          class="debug-btn success"
+        >
+          📊 DEBUG
+        </button>
+      </div>
+    </div>
+
+    <!-- Google Agent Widgets - Same structure as Music Player -->
+    <div class="floating-widget-container">
+      <button onclick="toggleGeminiPro()" class="right-btn backroom-btn" id="geminiProBtn" title="Gemini Pro - Zaawansowany model językowy">
+        <SparklesIcon className="w-6 h-6 inline mr-2" /> GEMINI PRO
+      </button>
+      <div id="geminiProWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>✨ GEMINI PRO</span>
+            <button onclick="toggleGeminiPro()" class="close-btn">×</button>
+          </div>
+          <div class="panel-content">
+            <!-- Voice Controls dla Gemini Pro -->
+            <div class="voice-controls">
+              <div class="voice-header">
+                <span class="voice-label">🎤 VOICE GEMINI PRO</span>
+                <button onclick="toggleGeminiProVoice()" id="geminiProVoiceBtn" class="voice-toggle-btn">Rozłączony</button>
+              </div>
+              <div class="voice-buttons">
+                <button onclick="startGeminiProVoice()" class="voice-btn start">▶ Słuchaj</button>
+                <button onclick="stopGeminiProVoice()" class="voice-btn stop">⏹ Stop</button>
+                <select id="geminiProVoiceSelect" class="voice-select">
+                  <option value="pl-PL">Polskie 🇵🇱</option>
+                  <option value="en-US">English 🇺🇸</option>
+                  <option value="de-DE">Deutsch 🇩🇪</option>
+                </select>
+              </div>
+              <div class="voice-help">
+                Przykłady: "Otwórz muzykę", "Uruchom asystenta", "Zamknij wszystko"
+              </div>
+            </div>
+            
+            <textarea id="geminiProInput" placeholder="Wpisz swoją wiadomość do Gemini Pro..." class="chat-input"></textarea>
+            <div class="chat-actions">
+              <button onclick="sendToGeminiPro()" class="action-btn primary">Wyślij</button>
+              <button onclick="clearGeminiPro()" class="action-btn secondary">Wyczyść</button>
+            </div>
+            <div id="geminiProResponse" class="chat-response"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Blog Launch -->
+    <div class="floating-widget-container">
+      <button 
+        onclick="launchMyBlogAI()" 
+        class="right-btn backroom-btn" 
+        id="myblogBtn"
+        title="Mój osobisty blog AI"
+      >
+        <DocumentTextIcon className="w-6 h-6 inline mr-2" /> MÓJ BLOG
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin Panel - Fixed Left Side -->
+  <div class="admin-panel-fixed">
+    <a href="/admin/" class="admin-btn">Panel Administracyjny</a>
+
+    <!-- Login Section Below Admin Panel -->
+    <div class="login-container-fixed" id="loginContainer">
+      <input
+        type="text"
+        id="dashboardLogin"
+        maxlength="16"
+        placeholder="Podaj login"
+        class="login-input-fixed"
+      />
+      <button onclick="checkDashboardLogin()" class="login-btn-fixed">
+        Zaloguj się
+      </button>
+    </div>
+  </div>
+
+  <!-- Status Dashboard Widget -->
+  <WorkersStatusDashboard client:only="svelte" />
+
+  <!-- Communication Popup -->
+  <WorkerCommunicationPopup />
+
+  <!-- Agents Loader -->
+  <AgentsLoader />
+
+  <!-- Hidden Widgets Container -->
+  <div id="hiddenWidgets" style="display: none;">
+    <div id="imageGeneratorContainer">
+      <ImageGeneratorWidget client:load />
+    </div>
+    <div id="faqGeneratorContainer">
+      <FAQGeneratorWidget client:load />
+    </div>
+    <div id="educationRecommendationsContainer">
+      <EducationRecommendationsWidget client:load />
+    </div>
+    <div id="ticketSubmissionContainer">
+      <TicketSubmissionWidget client:load />
+    </div>
+    <div id="mainChatContainer">
+      <MainChatWidget client:load />
+    </div>
+  </div>
+
+  <!-- Google Voice Agent -->
+  <GoogleVoiceAgent client:load />
+</MyBonzoLayout>
+
+<script>
+  // Google ADK Manager - dynamically imported
+  let adkManager: any = null;
+  let initializeADK: any = null;
+  let sendMessageToADK: any = null;
+  
+  // Initialize window properties
+  (window as any).apiTests = (window as any).apiTests || {};
+  (window as any).openImageGenerator = (window as any).openImageGenerator || function () {};
+  (window as any).openChatbot = (window as any).openChatbot || function () {};
+  (window as any).openBigQuery = (window as any).openBigQuery || function () {};
+  (window as any).openKaggle = (window as any).openKaggle || function () {};
+  (window as any).openTavily = (window as any).openTavily || function () {};
+  
+  // Google ADK Agent initialization flag
+  let adkInitialized = false;
+
+  // Initialize Google ADK Manager
+  async function initGoogleADK() {
+    try {
+      if (!adkManager) {
+        const adkModule = await import('../agents/google-adk/manager');
+        adkManager = adkModule.default;
+        initializeADK = adkModule.initializeADK;
+        sendMessageToADK = adkModule.sendMessageToADK;
+        console.log('✅ Google ADK Manager loaded successfully');
+      }
+      
+      if (!adkInitialized) {
+        await initializeADK();
+        adkInitialized = true;
+        console.log('✅ Google ADK initialized successfully');
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('❌ Failed to initialize Google ADK:', error);
+      return false;
+    }
+  }
+
+  // Function implementations
+  function openImageGenerator() {
+    console.log("openImageGenerator() called");
+    const imageWidget = document.getElementById("imageGeneratorContainer");
+    if (imageWidget) {
+      imageWidget.style.display = "block";
+      imageWidget.style.position = "fixed";
+      imageWidget.style.top = "50%";
+      imageWidget.style.left = "50%";
+      imageWidget.style.transform = "translate(-50%, -50%)";
+      imageWidget.style.zIndex = "9999";
+    }
+    console.log("Opening /image-generator");
+    window.open("/image-generator", "_blank");
+  }
+
+  function openChatbot() {
+    console.log("openChatbot() called");
+    window.open("/chatbot", "_blank");
+  }
+
+  function openBigQuery() {
+    console.log("openBigQuery() called");
+    window.open("/bigquery", "_blank");
+  }
+
+  function openKaggle() {
+    console.log("openKaggle() called");
+    window.open("/kaggle", "_blank");
+  }
+
+  function openTavily() {
+    console.log("openTavily() called");
+    window.open("/tavily-search", "_blank");
+  }
+
+  // Music Player Functions
+  function toggleMusicPlayer() {
+    const widget = document.getElementById("musicPlayerWidget");
+    const btn = document.getElementById("musicPlayerBtn");
+    
+    if (widget && btn) {
+      const isVisible = !widget.classList.contains("hidden");
+      
+      if (isVisible) {
+        widget.classList.add("hidden");
+        btn.textContent = "🎵 MUSIC PLAYER";
+      } else {
+        widget.classList.remove("hidden");
+        btn.textContent = "🎵 MUSIC PLAYER (OPEN)";
+        // Ensure music player is initialized after showing widget
+        setTimeout(() => {
+          const musicComponent = widget.querySelector('background-music-player-simple');
+          if (musicComponent && typeof (musicComponent as any).initialize === 'function') {
+            (musicComponent as any).initialize();
+          }
+        }, 100);
+      }
+      
+      console.log("Music Player widget toggled");
+    }
+  }
+
+  // Polaczek Assistant Functions
+  function togglePolaczekAssistant() {
+    const widget = document.getElementById("polaczekWidget");
+    const btn = document.getElementById("polaczekBtn");
+    
+    if (widget && btn) {
+      const isVisible = !widget.classList.contains("hidden");
+      
+      if (isVisible) {
+        widget.classList.add("hidden");
+        btn.innerHTML = '<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> AI ASSISTANT';
+      } else {
+        widget.classList.remove("hidden");
+        btn.innerHTML = '<svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> AI ASSISTANT (OPEN)';
+      }
+    }
+  }
+
+  // Voice System Functions
+  function toggleGlobalVoice() {
+    const btn = document.getElementById("globalVoiceBtn");
+    if (btn) {
+      const isOff = btn.textContent?.includes("OFF");
+      if (isOff) {
+        btn.textContent = "🎤 VOICE ON";
+        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
+        console.log("Global Voice System: ON");
+      } else {
+        btn.textContent = "🎤 VOICE OFF";
+        btn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
+        console.log("Global Voice System: OFF");
+      }
+    }
+  }
+
+  function emergencyStopAll() {
+    console.log("🚨 EMERGENCY STOP - All systems halted");
+    // Stop all voice recognition
+    if (typeof window !== 'undefined' && (window as any).speechRecognition) {
+      (window as any).speechRecognition.stop();
+    }
+    // Stop all audio
+    const audioElements = document.querySelectorAll('audio');
+    audioElements.forEach(audio => audio.pause());
+  }
+
+  function resetSystem() {
+    console.log("🔄 Resetting all systems");
+    emergencyStopAll();
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
+
+  function testAllFunctions() {
+    console.log("🧪 Testing all functions:");
+    console.log("- openImageGenerator:", typeof openImageGenerator);
+    console.log("- openChatbot:", typeof openChatbot);
+    console.log("- toggleMusicPlayer:", typeof toggleMusicPlayer);
+    console.log("- toggleGlobalVoice:", typeof toggleGlobalVoice);
+  }
+
+  function debugVoiceStatus() {
+    console.log("📊 Voice System Status:");
+    console.log("- Speech Recognition available:", 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window);
+    console.log("- Audio Context available:", 'AudioContext' in window || 'webkitAudioContext' in window);
+  }
+
+  // Gemini Pro Functions
+  function toggleGeminiPro() {
+    const widget = document.getElementById("geminiProWidget");
+    if (widget) {
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleGeminiProVoice() {
+    const btn = document.getElementById("geminiProVoiceBtn");
+    if (btn) {
+      const isDisconnected = btn.textContent === "Rozłączony";
+      btn.textContent = isDisconnected ? "Połączony" : "Rozłączony";
+      btn.style.color = isDisconnected ? "#00ff88" : "#1be1ff";
+    }
+  }
+
+  function startGeminiProVoice() {
+    console.log("Starting Gemini Pro Voice...");
+  }
+
+  function stopGeminiProVoice() {
+    console.log("Stopping Gemini Pro Voice...");
+  }
+
+  function sendToGeminiPro() {
+    const input = document.getElementById("geminiProInput") as HTMLTextAreaElement;
+    const response = document.getElementById("geminiProResponse");
+    if (input && response) {
+      response.innerHTML = `<p>Odpowiedź na: "${input.value}"</p>`;
+      input.value = "";
+    }
+  }
+
+  function clearGeminiPro() {
+    const input = document.getElementById("geminiProInput") as HTMLTextAreaElement;
+    const response = document.getElementById("geminiProResponse");
+    if (input) input.value = "";
+    if (response) response.innerHTML = "";
+  }
+
+  // MyBlog AI Launch Function
+  function launchMyBlogAI() {
+    window.open('/myblogai', '_blank');
+  }
+
+  // Dashboard Login Function
+  function checkDashboardLogin() {
+    const loginInput = document.getElementById("dashboardLogin") as HTMLInputElement;
+    const login = loginInput?.value?.trim();
+    
+    if (!login) {
+      alert("Proszę wprowadzić login");
+      return;
+    }
+    
+    // Simple login check - in production this should be more secure
+    if (login === "admin" || login === "karol") {
+      window.open("/admin/dashboard", "_blank");
+      loginInput.value = "";
+    } else {
+      alert("Nieprawidłowy login");
+      loginInput.value = "";
+    }
+  }
+
+  // Function router for data-function attributes
+  const functionRoutes: Record<string, string> = {
+    "rekomendacje": "/ai-functions/personalized-recommendations",
+    "obsługa-klienta": "/ai-functions/customer-automation",
+    "monitorowanie": "/ai-functions/activity-monitoring", 
+    "przypomnienia": "/ai-functions/reminders-calendar",
+    "faq-generator": "/ai-functions/dynamic-faq",
+    "edukacja": "/ai-functions/education-recommendations",
+    "tickety": "/ai-functions/ai-tickets",
+    "quizy": "/ai-functions/interactive-quizzes",
+    "marketing": "/ai-functions/marketing-content"
+  };
+
+  // Open Function for AI Functions
+  function openFunction(functionName: string) {
+    console.log(`🎯 Opening AI function: ${functionName}`);
+    const route = functionRoutes[functionName];
+    if (route) {
+      console.log(`Redirecting to: ${route}`);
+      window.open(route, "_blank");
+    } else {
+      console.error(`Unknown function: ${functionName}`);
+      alert(`Function "${functionName}" is under development. Try again later.`);
+    }
+  }
+
+  // Handle feature tile clicks
+  document.addEventListener("click", function(event) {
+    const target = event.target as HTMLElement;
+    const tile = target.closest(".feature-tile") as HTMLElement;
+    
+    if (tile) {
+      const functionName = tile.getAttribute("data-function-name");
+      if (functionName) {
+        openFunction(functionName);
+      }
+    }
+  });
+
+  // Make functions globally available
+  Object.assign(window, {
+    openImageGenerator,
+    openChatbot,
+    openBigQuery,
+    openKaggle,
+    openTavily,
+    toggleMusicPlayer,
+    togglePolaczekAssistant,
+    toggleGlobalVoice,
+    emergencyStopAll,
+    resetSystem,
+    testAllFunctions,
+    debugVoiceStatus,
+    toggleGeminiPro,
+    toggleGeminiProVoice,
+    startGeminiProVoice,
+    stopGeminiProVoice,
+    sendToGeminiPro,
+    clearGeminiPro,
+    launchMyBlogAI,
+    checkDashboardLogin,
+    initGoogleADK,
+    openFunction
+  });
+
+  // Initialize on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("🚀 Page initialized successfully");
+    initGoogleADK();
+  });
+</script>
+
+<!-- Backroom Theme CSS Integration -->
+<style>
+  /* Backroom Color Theme Variables */
+  :root {
+    --theme-hue: 200;
+    --color-primary: hsl(var(--theme-hue), 20%, 8%);
+    --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
+    --color-secondary: hsl(var(--theme-hue), 40%, 12%);
+    --color-accent: hsl(var(--theme-hue), 100%, 50%);
+    --color-edge: hsl(var(--theme-hue), 30%, 18%);
+    --font-primary: Rajdhani, system-ui;
+    --radius-interactive: 0.4rem;
+    --duration-interactive: 200ms;
+  }
+
+  /* Additional Functions Section */
+  .additional-functions-section {
+    padding: 60px 0;
+    background: var(--color-primary);
+    border-top: 1px solid var(--color-edge);
+  }
+
+  .additional-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary-foreground);
+    margin-bottom: 40px;
+    font-family: var(--font-primary);
+    letter-spacing: 2px;
+  }
+
+  .additional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .feature-tile {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    padding: 30px 20px;
+    text-align: center;
+    transition: all var(--duration-interactive);
+    cursor: pointer;
+    color: var(--color-primary-foreground);
+  }
+
+  .feature-tile:hover {
+    background: hsl(var(--theme-hue), 40%, 15%);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .feature-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--color-accent);
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  /* Right Panel Backroom Styling */
+  .right-panel-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    top: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) var(--color-secondary);
+  }
+
+  .right-panel-fixed::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .right-panel-fixed::-webkit-scrollbar-track {
+    background: var(--color-secondary);
+  }
+
+  .right-panel-fixed::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 3px;
+  }
+
+  .backroom-btn {
+    background: var(--color-secondary);
+    color: var(--color-primary-foreground);
+    padding: 12px 20px;
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--duration-interactive);
+    cursor: pointer;
+    min-width: 200px;
+    font-family: var(--font-primary);
+    backdrop-filter: blur(10px);
+  }
+
+  .backroom-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .debug-btn {
+    padding: 4px 8px;
+    border: none;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--duration-interactive);
+  }
+
+  .debug-btn.emergency {
+    background: #ff0000;
+    color: white;
+  }
+
+  .debug-btn.warning {
+    background: #ffa500;
+    color: white;
+  }
+
+  .debug-btn.info {
+    background: #0088ff;
+    color: white;
+  }
+
+  .debug-btn.success {
+    background: #00ff88;
+    color: white;
+  }
+
+  .floating-widget {
+    background: var(--color-primary);
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    backdrop-filter: blur(20px);
+    max-width: 400px;
+    min-height: 200px;
+  }
+
+  .floating-widget-template {
+    padding: 20px;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: var(--color-accent);
+    font-weight: bold;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-primary-foreground);
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--duration-interactive);
+  }
+
+  .close-btn:hover {
+    opacity: 1;
+  }
+
+  .voice-controls {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  .voice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .voice-label {
+    color: var(--color-accent);
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .voice-toggle-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-accent);
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--color-accent);
+    cursor: pointer;
+    font-size: 12px;
+    transition: all var(--duration-interactive);
+  }
+
+  .voice-toggle-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-primary);
+  }
+
+  .voice-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .voice-btn {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all var(--duration-interactive);
+  }
+
+  .voice-btn.start {
+    background: linear-gradient(45deg, #00ff88, var(--color-secondary));
+  }
+
+  .voice-btn.stop {
+    background: linear-gradient(45deg, #ff4444, var(--color-secondary));
+  }
+
+  .voice-select {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-edge);
+    padding: 5px;
+    border-radius: 4px;
+    color: var(--color-primary-foreground);
+    font-size: 12px;
+  }
+
+  .voice-help {
+    font-size: 11px;
+    color: var(--color-primary-foreground);
+    opacity: 0.7;
+    margin-top: 8px;
+  }
+
+  .chat-input {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    background: var(--color-secondary);
+    color: var(--color-primary-foreground);
+    resize: vertical;
+    font-family: inherit;
+  }
+
+  .chat-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--radius-interactive);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--duration-interactive);
+  }
+
+  .action-btn.primary {
+    background: var(--color-accent);
+    color: var(--color-primary);
+  }
+
+  .action-btn.primary:hover {
+    background: hsl(var(--theme-hue), 100%, 40%);
+  }
+
+  .action-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-edge);
+    color: var(--color-primary-foreground);
+  }
+
+  .action-btn.secondary:hover {
+    background: var(--color-secondary);
+  }
+
+  .chat-response {
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--color-secondary);
+    border-radius: var(--radius-interactive);
+    min-height: 50px;
+    color: var(--color-primary-foreground);
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .right-panel-fixed {
+      right: 10px;
+      bottom: 15px;
+      gap: 12px;
+    }
+
+    .admin-panel-fixed {
+      left: 10px;
+      bottom: 15px;
+      gap: 12px;
+    }
+
+    .backroom-btn, .admin-btn {
+      min-width: 180px;
+      font-size: 0.8rem;
+      padding: 10px 16px;
+    }
+
+    .login-container-fixed {
+      padding: 12px;
+    }
+
+    .login-input-fixed {
+      min-width: 130px;
+      font-size: 0.8rem;
+      padding: 6px 10px;
+    }
+
+    .login-btn-fixed {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+    }
+
+    .additional-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 0 15px;
+    }
+
+    .floating-widget {
+      max-width: calc(100vw - 40px);
+    }
+  }
+
+  /* Admin Panel Styling */
+  .admin-panel-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .admin-btn {
+    background: var(--color-secondary);
+    color: var(--color-primary-foreground);
+    padding: 12px 20px;
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--duration-interactive);
+    text-decoration: none;
+    text-align: center;
+    min-width: 180px;
+    font-family: var(--font-primary);
+    backdrop-filter: blur(10px);
+  }
+
+  .admin-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .login-container-fixed {
+    background: var(--color-secondary);
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .login-input-fixed {
+    background: var(--color-primary);
+    border: 1px solid var(--color-edge);
+    border-radius: var(--radius-interactive);
+    padding: 8px 12px;
+    color: var(--color-primary-foreground);
+    font-size: 0.9rem;
+    min-width: 150px;
+  }
+
+  .login-input-fixed:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(var(--color-accent), 0.2);
+  }
+
+  .login-btn-fixed {
+    background: var(--color-accent);
+    color: var(--color-primary);
+    border: none;
+    border-radius: var(--radius-interactive);
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-interactive);
+  }
+
+  .login-btn-fixed:hover {
+    background: hsl(var(--theme-hue), 100%, 40%);
+    transform: translateY(-1px);
+  }
+
+  /* Hide class utility */
+  .hidden {
+    display: none !important;
+  }
+</style>

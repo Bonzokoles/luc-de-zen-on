@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
-import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_CeBjvsH7.mjs';
-import { i as isRemotePath } from '../chunks/path_Oj0iLohx.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { i as isRemoteAllowed, a as imageConfig } from '../chunks/_astro_assets_BwsY1vj-.mjs';
+import { i as isRemotePath } from '../chunks/path_BUkk7WtB.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const prerender = false;
 const GET = (ctx) => {

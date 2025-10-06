@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, b as renderScript, d as renderHead, a as renderTemplate } from '../../chunks/astro/server_C1oOU0Od.mjs';
+import { c as createComponent, b as renderScript, d as renderHead, a as renderTemplate } from '../../chunks/astro/server_HpSis98d.mjs';
 /* empty css                                                    */
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$PolishMegaProAdmin = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`<html lang="pl" data-astro-cid-7fpblfjq> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>🚀 MyBonzo MEGA PRO ADMIN - POLISH SYSTEM</title>${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=0&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=1&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=2&lang.ts")}${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=3&lang.ts")}<link rel="stylesheet" href="/styles/global.css">${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/pages/admin/polish-mega-pro-admin.astro?astro&type=script&index=4&lang.ts")}${renderHead()}</head> <body class="bg-black text-white min-h-screen" data-astro-cid-7fpblfjq> <div id="app" class="main-container" data-astro-cid-7fpblfjq> <!-- MEGA PRO HEADER with Polish Fonts --> <header class="mb-8" data-astro-cid-7fpblfjq> <div class="dark-panel p-6" data-astro-cid-7fpblfjq> <div class="flex justify-between items-center" data-astro-cid-7fpblfjq> <div data-astro-cid-7fpblfjq> <h1 class="main-title" data-astro-cid-7fpblfjq>

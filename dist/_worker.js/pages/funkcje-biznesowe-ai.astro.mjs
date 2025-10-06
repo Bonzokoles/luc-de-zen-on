@@ -1,15 +1,12 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$Layout } from '../chunks/Layout__jhXgeXu.mjs';
+import { c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$Layout } from '../chunks/Layout_DuDM06hk.mjs';
 /* empty css                                                */
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
-function BgAnimation($$renderer, $$props) {
-	$$renderer.component(($$renderer) => {
-
-		$$renderer.push(`<canvas style="position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;" aria-hidden="true"></canvas>`);
-	});
+function BgAnimation($$renderer) {
+	$$renderer.push(`<div class="bg-animation-optimized svelte-1xyclvb"><div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10 svelte-1xyclvb"></div> <div class="absolute inset-0 opacity-20 svelte-1xyclvb"><div class="grid-pattern svelte-1xyclvb"></div></div></div>`);
 }
 
 const $$FunkcjeBiznesoweAi = createComponent(($$result, $$props, $$slots) => {

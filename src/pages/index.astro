@@ -180,341 +180,135 @@ import {
               </div>
             </div>
 
-          <!-- STATUS WORKERS - Basic Opening Element -->
-          <div class="worker-card" data-worker="status" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              🔧 STATUS WORKERS
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Zaawansowany system monitorowania statusu wszystkich Cloudflare
-              Workers
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Real-time</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Monitoring</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Analytics</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="checkAllStatus()"
-                data-astro-cid-my52qgmw>Sprawdź Status</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('/status-workers', '_blank')"
-                data-astro-cid-my52qgmw>Otwórz Dashboard</button
-              >
-            </div>
-          </div>
-
-          <!-- API Testing Card -->
-          <div
-            class="worker-card"
-            data-worker="api-tests"
-            data-astro-cid-my52qgmw
-          >
-            <h3 class="worker-title" data-astro-cid-my52qgmw>🧪 API Tests</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Testuj wszystkie Workers API endpoints i sprawdź połączenia
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Testing</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>API</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Debug</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="runAllAPITests()"
-                data-astro-cid-my52qgmw>Testuj wszystkie API</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="openAPITestConsole()"
-                data-astro-cid-my52qgmw>Konsola testów</button
-              >
-            </div>
-          </div>
-
-          <!-- Langchain Card -->
-          <div class="worker-card" data-worker="langchain" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              🔗 Langchain AI
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Framework do tworzenia aplikacji opartych na dużych modelach językowych
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>LLM Apps</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Integracje</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Agenty</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="alert('Langchain wkrótce!')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('https://www.langchain.com/', '_blank')"
-                data-astro-cid-my52qgmw>Dokumentacja</button
-              >
-            </div>
-          </div>
-
-          <!-- MCP Servers Card -->
-          <div class="worker-card" data-worker="mcp-servers" data-astro-cid-my52qgmw>
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              ☁️ MCP Servers
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Zarządzanie i monitorowanie serwerów Model Context Protocol
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Mikroserwisy</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Orkiestracja</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Cloud</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="alert('MCP Servers wkrótce!')"
-                data-astro-cid-my52qgmw>Otwórz</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="window.open('https://www.openmesh.network/', '_blank')"
-                data-astro-cid-my52qgmw>Dokumentacja</button
-              >
-            </div>
-          </div>
-
-          <!-- Flowise AI Card -->
-          <div
-            class="worker-card"
-            data-worker="flowise"
-            data-astro-cid-my52qgmw
-          >
-            <h3 class="worker-title" data-astro-cid-my52qgmw>🧠 Flowise AI</h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Visual AI workflow builder with drag-and-drop interface
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Visual Builder</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Integration</span
-              >
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="window.open('https://flowise.ai', '_blank')"
-                data-astro-cid-my52qgmw>Open Flowise</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="launchFlowise()"
-                data-astro-cid-my52qgmw>Launch</button
-              >
-            </div>
-          </div>
-
-          <!-- Activepieces Card -->
-          <div
-            class="worker-card"
-            data-worker="activepieces"
-            data-astro-cid-my52qgmw
-          >
-            <h3 class="worker-title" data-astro-cid-my52qgmw>
-              ⚡ Activepieces
-            </h3>
-            <p class="worker-description" data-astro-cid-my52qgmw>
-              Open-source automation platform for workflow automation
-            </p>
-            <div class="worker-features" data-astro-cid-my52qgmw>
-              <span class="feature-tag" data-astro-cid-my52qgmw>Automation</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw
-                >Open Source</span
-              >
-              <span class="feature-tag" data-astro-cid-my52qgmw>Workflows</span>
-            </div>
-            <div class="worker-actions" data-astro-cid-my52qgmw>
-              <button
-                class="action-btn primary"
-                onclick="window.open('https://activepieces.com', '_blank')"
-                data-astro-cid-my52qgmw>Open Activepieces</button
-              >
-              <button
-                class="action-btn secondary"
-                onclick="launchActivepieces()"
-                data-astro-cid-my52qgmw>Launch</button
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- 9 New Functions Grid -->
-        <div class="additional-functions-section" data-astro-cid-my52qgmw>
-          <h3 class="additional-title" data-astro-cid-my52qgmw>
-            ZAAWANSOWANE FUNKCJE AI
-          </h3>
-          <div class="additional-grid" data-astro-cid-my52qgmw>
-            <!-- Row 1 -->
-            <div
-              class="feature-tile"
-              data-function="function2"
-              data-function-name="rekomendacje"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>🎯</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Personalizowane rekomendacje
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                System rekomendacyjny produktów i usług z analizą preferencji
-                użytkowników
-              </div>
-            </div>
-
-            <div
-              class="feature-tile"
-              data-function="function3"
-              data-function-name="obsługa-klienta"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>📞</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Automatyzacja obsługi klienta
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                AI do kwalifikacji leadów i automatycznych odpowiedzi z
-                integracją CRM
-              </div>
-            </div>
-
-            <div
-              class="feature-tile"
-              data-function="function4"
-              data-function-name="monitorowanie"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>📊</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Monitorowanie i raportowanie
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                Dashboard z automatycznym generowaniem raportów i alertami o
-                anomaliach
-              </div>
-            </div>
-
-            <!-- Row 2 -->
-            <div
-              class="feature-tile"
-              data-function="function6"
-              data-function-name="przypomnienia"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>🔔</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Harmonogramowanie i przypomnienia
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                Inteligentny system przypomnień z integracją z kalendarzami i AI
-                przewidywaniem
-              </div>
-            </div>
-
-            <div
-              class="feature-tile"
-              data-function="function7"
-              data-function-name="faq-generator"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>❓</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Generator FAQ dynamiczny
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                AI generujący dynamicznie pytania i odpowiedzi na podstawie bazy
-                wiedzy
-              </div>
-            </div>
-
-            <div
-              class="feature-tile"
-              data-function="function8"
-              data-function-name="edukacja"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>📚</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                Rekomendacje edukacyjne
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                System rekomendacji kursów i materiałów edukacyjnych z
-                profilowaniem użytkownika
-              </div>
-            </div>
-
-            <!-- Row 3 -->
+            <!-- Quiz function -->
             <div
               class="feature-tile"
               data-function="function9"
-              data-function-name="tickety"
-              data-astro-cid-my52qgmw
-            >
-              <div class="feature-icon" data-astro-cid-my52qgmw>🎫</div>
-              <div class="feature-title" data-astro-cid-my52qgmw>
-                System ticketów AI
-              </div>
-              <div class="feature-desc" data-astro-cid-my52qgmw>
-                Automatyczna klasyfikacja zgłoszeń z integracją Jira/Zendesk
-              </div>
-            </div>
-
-            <div
-              class="feature-tile"
-              data-function="quiz"
               data-function-name="quizy"
               data-astro-cid-my52qgmw
             >
               <div class="feature-icon" data-astro-cid-my52qgmw>🧠</div>
               <div class="feature-title" data-astro-cid-my52qgmw>
-                Quizy i testy interaktywne
+                Quiz interaktywny
               </div>
               <div class="feature-desc" data-astro-cid-my52qgmw>
-                Framework do tworzenia quizów z AI oceną i spersonalizowanym
+                Inteligentne quizy z adaptacyjną trudnością i natychmiastowym
                 feedbackiem
               </div>
             </div>
 
+            <!-- Marketing Content function -->
             <div
               class="feature-tile"
-              data-function="marketing"
+              data-function="function10"
               data-function-name="marketing"
               data-astro-cid-my52qgmw
             >
-              <div class="feature-icon" data-astro-cid-my52qgmw>✍️</div>
+              <div class="feature-icon" data-astro-cid-my52qgmw>📈</div>
               <div class="feature-title" data-astro-cid-my52qgmw>
                 Generator treści marketingowych
               </div>
               <div class="feature-desc" data-astro-cid-my52qgmw>
-                Automatyczne generowanie i publikacja treści marketingowych
-                przez AI
+                AI tworzy spersonalizowane kampanie i treści marketingowe z
+                analizą skuteczności
               </div>
+            </div>
+
+            <!-- Tickets function -->
+            <div
+              class="feature-tile"
+              data-function="function11"
+              data-function-name="tickety"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>🎫</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                System zarządzania ticketami
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                AI do automatycznej kategoryzacji i priorytetyzacji zgłoszeń
+              </div>
+            </div>
+
+            <!-- Voice AI Assistant function -->
+            <div
+              class="feature-tile"
+              data-function="function12" 
+              data-function-name="voice-assistant"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>🎤</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Asystent głosowy AI
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                Zaawansowany asystent głosowy z rozpoznawaniem mowy i TTS
+              </div>
+            </div>
+
+            <!-- Content Generator function -->
+            <div
+              class="feature-tile"
+              data-function="function13"
+              data-function-name="content-generator"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>✍️</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Generator treści AI
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                AI do generowania artykułów, opisów i kontekstowych tekstów
+              </div>
+            </div>
+
+            <!-- Analytics Dashboard function -->
+            <div
+              class="feature-tile"
+              data-function="function14"
+              data-function-name="analytics-dashboard"
+              data-astro-cid-my52qgmw
+            >
+              <div class="feature-icon" data-astro-cid-my52qgmw>📊</div>
+              <div class="feature-title" data-astro-cid-my52qgmw>
+                Dashboard analityczny
+              </div>
+              <div class="feature-desc" data-astro-cid-my52qgmw>
+                Google Analytics API z wizualizacją danych w czasie rzeczywistym
+              </div>
+            </div>
+
+          <!-- Private Blog Card (Smaller) -->
+          <div
+            class="feature-tile"
+            data-worker="private-blog"
+            data-astro-cid-my52qgmw
+          >
+            <div class="feature-icon" data-astro-cid-my52qgmw>🔒</div>
+            <div class="feature-title" data-astro-cid-my52qgmw>
+              � Private Blog
+            </div>
+            <div class="feature-desc" data-astro-cid-my52qgmw>
+              Prywatny blog AI - dostęp tylko dla wybranych użytkowników
+            </div>
+            <div class="worker-actions" data-astro-cid-my52qgmw>
+              <button
+                class="feature-btn private-btn"
+                onclick="window.location.href='/myblogai'"
+                data-astro-cid-my52qgmw>Dostęp</button
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Duplikat usunięty całkowicie - sekcja worker-cards była powtórzona -->
             </div>
           </div>
         </div>
       </div>
     </section>
+    
+
   </main>
 
   <!-- Right Floating Panel - Fixed Right Side -->
@@ -1167,6 +961,8 @@ import {
             W mojej pracy skupiam się na integracji technologii w chmurze,
             nowoczesnych frameworków i AI, aby stworzyć asystenta, który rozumie
             i wspiera użytkownika w jego potrzebach.
+            <br><br>
+            If robots are destined for eternal life, what will stop us from becoming one of them? There is no escape, only the illusion of choice; yet, the very essence of humanity lies in the absurd act of will—in the Sisyphus-like heroism of undertaking the struggle anew—where to the question 'Why?' we can always, ultimately, reply: 'Because I choose to.'
           </div>
         </div>
 
@@ -1585,6 +1381,9 @@ import {
       tickety: "/ai-functions/ai-tickets",
       quizy: "/ai-functions/interactive-quizzes",
       marketing: "/ai-functions/marketing-content",
+      "voice-assistant": "/ai-functions/voice-assistant",
+      "content-generator": "/ai-functions/content-generator",
+      "analytics-dashboard": "/ai-functions/analytics-dashboard",
     };
 
     const route = functionRoutes[functionName];
@@ -3924,6 +3723,20 @@ import {
 </script>
 
 <style>
+  /* Backroom-style background with vertical lines */
+  body {
+    background: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 49px,
+        rgba(0, 217, 255, 0.02) 50px,
+        rgba(0, 217, 255, 0.02) 51px
+      ),
+      radial-gradient(ellipse at center, rgba(13, 21, 26, 0.95), rgba(5, 8, 10, 1));
+    background-attachment: fixed;
+  }
+
   /* System title - enlarged and bold */
   .system-title {
     color: #00d7ef !important;
@@ -4535,4 +4348,112 @@ import {
   body::after {
     display: none;
   }
+
+  /* Private Card Smaller Styles */
+  .private-card {
+    max-width: 280px !important;
+    min-height: 200px !important;
+  }
+
+  .private-title {
+    font-size: 1.1rem !important;
+    color: #ff6b6b !important;
+  }
+
+  .private-desc {
+    font-size: 0.85rem !important;
+    opacity: 0.8;
+  }
+
+  .private-tag {
+    background: rgba(255, 107, 107, 0.1) !important;
+    color: #ff6b6b !important;
+    font-size: 0.75rem !important;
+  }
+
+  .private-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+    font-size: 0.85rem !important;
+    padding: 8px 16px !important;
+  }
+
+  /* Floating Panel Styles */
+  .floating-panel {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    width: 280px;
+    background: rgba(20, 20, 25, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .floating-panel h3 {
+    color: #00ff88;
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .panel-section {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .panel-section h4 {
+    color: #fff;
+    margin: 0 0 8px 0;
+    font-size: 0.9rem;
+  }
+
+  .panel-button {
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 6px;
+    color: #00ff88;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .panel-button:hover {
+    background: rgba(0, 255, 136, 0.2);
+    border-color: #00ff88;
+  }
+
+  .admin-login-btn {
+    background: rgba(255, 107, 107, 0.1) !important;
+    border: 1px solid rgba(255, 107, 107, 0.3) !important;
+    color: #ff6b6b !important;
+  }
+
+  .admin-login-btn:hover {
+    background: rgba(255, 107, 107, 0.2) !important;
+    border-color: #ff6b6b !important;
+  }
+
+  /* Reset main padding since no footer */
+  main {
+    padding-bottom: 20px;
+  }
 </style>
+
+<script>
+  // MyBlog AI Launch Function
+  function launchMyBlogAI() {
+    window.open('/myblogai', '_blank');
+  }
+
+  // Make function globally available
+  window.launchMyBlogAI = launchMyBlogAI;
+</script>

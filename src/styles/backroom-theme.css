@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap");
+
+:root {
+  /* COLOR */
+  --theme-hue: 200;
+  --color-primary: hsl(var(--theme-hue), 20%, 8%);
+  --color-primary-foreground: hsl(var(--theme-hue), 100%, 92%);
+  --color-secondary: hsl(var(--theme-hue), 40%, 12%);
+  --color-accent: hsl(var(--theme-hue), 100%, 50%);
+  --color-edge: hsl(var(--theme-hue), 30%, 18%);
+
+  /* FONT */
+  --font-primary: Rajdhani, system-ui;
+
+  /* OTHER */
+  --radius-interactive: 0.4rem;
+  --duration-interactive: 200ms;
+
+  color: var(--color-primary-foreground);
+  font-family: var(--font-primary);
+}
+
+/* Backroom specific utilities */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.text-primary-foreground {
+  color: var(--color-primary-foreground);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.border-edge {
+  border-color: var(--color-edge);
+}
+
+.rounded-interactive {
+  border-radius: var(--radius-interactive);
+}
+
+.transition-interactive {
+  transition-duration: var(--duration-interactive);
+}
+
+.font-primary {
+  font-family: var(--font-primary);
+}
+
+/* Gradient utilities */
+.bg-radial-\[at_50\%_10\%\] {
+  background: radial-gradient(at 50% 10%, var(--color-accent) 0%, transparent 50%);
+}
+
+.bg-radial-\[at_50\%_90\%\] {
+  background: radial-gradient(at 50% 90%, var(--color-accent) 0%, transparent 50%);
+}
+
+/* Opacity variants */
+.from-accent\/10 {
+  --tw-gradient-from: hsl(var(--theme-hue), 100%, 50%, 0.1);
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent;
+}
+
+/* Additional backroom classes */
+.text-edge {
+  color: var(--color-edge);
+}
+
+.min-h-svh {
+  min-height: 100svh;
+}
+
+/* Backroom Sections */
+section {
+  position: relative;
+}

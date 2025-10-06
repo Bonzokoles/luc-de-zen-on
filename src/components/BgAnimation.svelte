@@ -1,91 +1,39 @@
-<script lang="ts">
-  import { onMount, onDestroy } from "svelte";
-  let canvas: HTMLCanvasElement;
-  let engine: any = null;
+﻿<!-- Optimized BgAnimation - CDN-based loading -->
+<div class="bg-animation-optimized">
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10"></div>
+  <div class="absolute inset-0 opacity-20">
+    <div class="grid-pattern"></div>
+  </div>
+</div>
 
-  onMount(async () => {
-    try {
-      const { loadBabylonCore } = await import("../utils/loadBabylonCore");
-      const {
-        Engine,
-        Scene,
-        Color3,
-        Color4,
-        FreeCamera,
-        Vector3,
-        HemisphericLight,
-        MeshBuilder,
-        StandardMaterial,
-      } = await loadBabylonCore();
-
-      if (!canvas) {
-        console.error("Canvas element not found");
-        return;
-      }
-
-      // Engine & scene
-      engine = new Engine(canvas, true, {
-        preserveDrawingBuffer: true,
-        stencil: true,
-      });
-      const scene = new Scene(engine);
-      scene.clearColor = new Color4(0, 0, 0, 0); // Transparent background
-
-      // Camera
-      const camera = new FreeCamera("camera", new Vector3(0, 0, -10), scene);
-      camera.setTarget(Vector3.Zero());
-      camera.attachControl(canvas, false);
-
-      // Light
-      const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
-      light.intensity = 0.7;
-
-      // Mesh
-      const torus = MeshBuilder.CreateTorus(
-        "torus",
-        {
-          diameter: 8,
-          thickness: 0.5,
-          tessellation: 32,
-        },
-        scene,
-      );
-
-      // Material
-      const material = new StandardMaterial("torusMaterial", scene);
-      material.emissiveColor = new Color3(0.5, 0.5, 1.0);
-      material.alpha = 0.6;
-      torus.material = material;
-
-      // Animation
-      scene.registerBeforeRender(() => {
-        torus.rotation.x += 0.003;
-        torus.rotation.y += 0.005;
-      });
-
-      // Render loop
-      engine.runRenderLoop(() => scene.render());
-
-      // Resize handling
-      const resizeObserver = new ResizeObserver(() => {
-        engine?.resize();
-      });
-      resizeObserver.observe(canvas);
-
-      // Cleanup
-      onDestroy(() => {
-        engine?.stopRenderLoop();
-        engine?.dispose();
-        resizeObserver.disconnect();
-      });
-    } catch (e) {
-      console.error("Babylon.js initialization error:", e);
-    }
-  });
-</script>
-
-<canvas
-  bind:this={canvas}
-  style="position: fixed; z-index: -1; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none;"
-  aria-hidden="true"
-></canvas>
+<style>
+  .bg-animation-optimized {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: subtle-pulse 4s ease-in-out infinite;
+  }
+  
+  .grid-pattern {
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: grid-move 20s linear infinite;
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+  
+  @keyframes grid-move {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(40px, 40px); }
+  }
+</style>
