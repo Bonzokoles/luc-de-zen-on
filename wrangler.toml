@@ -8,19 +8,40 @@ compatibility_flags = [ "nodejs_compat" ]
 minify = true
 main = "./dist/_worker.js"
 
+# Custom domains configuration for production
+[[routes]]
+pattern = "www.mybonzo.com"
+custom_domain = true
+
+[[routes]]
+pattern = "mybonzo.com"
+custom_domain = true
+
 # Workers KV Limits
 kv_namespaces = []
 
-# Resource limits for optimal performance
+# Resource limits for optimal performance - Enhanced for production
 [limits]
-cpu_ms = 50000
+cpu_ms = 30000  # Reduced for better performance
 memory_mb = 128
+
+# Smart placement for global optimization
+[placement]
+mode = "smart"
+
+# Enhanced observability
+[observability]
+enabled = true
+head_sampling_rate = 0.01
 
 [vars]
 NODE_ENV = "production"
 PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
 PUBLIC_SITE_URL = "https://www.mybonzo.com"
 WORKER_ENV = "production"
+MAX_CONCURRENT_REQUESTS = "100"
+CACHE_TTL = "3600"
+API_RATE_LIMIT = "1000"
 
 # Darmowe AI API Keys - ustaw w Cloudflare Dashboard Environment Variables
 # OPENAI_API_KEY = "sk-..." # dla Sora video generation  
@@ -62,9 +83,40 @@ binding = "DB"
 database_name = "mybonzo-main-db"
 database_id = "mybonzo-main-db"
 
-# Production Environment - Optimized
+# Production Environment - Optimized for www.mybonzo.com
 [env.production]
 minify = true
+
+# Custom domains for production environment
+[[env.production.routes]]
+pattern = "www.mybonzo.com"
+custom_domain = true
+
+[[env.production.routes]]
+pattern = "mybonzo.com"  
+custom_domain = true
+
+# Security headers for production
+[[env.production.routes]]
+pattern = "/secure/page"
+custom_domain = true
+
+[env.production.headers]
+"/secure/page" = { "X-Frame-Options" = "DENY", "X-Content-Type-Options" = "nosniff", "Referrer-Policy" = "no-referrer" }
+"/static/*" = { "Access-Control-Allow-Origin" = "*", "X-Robots-Tag" = "nosnippet" }
+"https://myproject.pages.dev/*" = { "X-Robots-Tag" = "noindex" }
+
+# Production performance optimization
+[env.production.limits]
+cpu_ms = 30000
+memory_mb = 128
+
+[env.production.placement]
+mode = "smart"
+
+[env.production.observability]
+enabled = true
+head_sampling_rate = 0.01
 
 [env.production.vars]
 NODE_ENV = "production"
@@ -74,6 +126,8 @@ WORKER_ENV = "production"
 MAX_CONCURRENT_REQUESTS = "100"
 CACHE_TTL = "3600"
 API_RATE_LIMIT = "1000"
+ENABLE_CACHING = "true"
+PERFORMANCE_MONITORING = "true"
 
 # Darmowe AI API Keys - ustaw w Cloudflare Dashboard
 # OPENAI_API_KEY = "..." # dla Sora video
