@@ -1,7 +1,7 @@
 // POLACZEK_AGENT_SYS_23 - Full SDK Chat API
 // Advanced AI Assistant with comprehensive SDK functions
 
-import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
 // Simple document search function for POLACZEK Agent System
 function findRelevantDocs(query: string) {

@@ -9,6 +9,7 @@ export const GET: APIRoute = async ({ locals }) => {
       timestamp: new Date().toISOString(),
       configuration: {
         tavily_api_key: env.TAVILY_API_KEY ? "✅ Configured" : "❌ Missing",
+        key_snippet: env.TAVILY_API_KEY ? `${env.TAVILY_API_KEY.substring(0, 4)}...${env.TAVILY_API_KEY.substring(env.TAVILY_API_KEY.length - 4)}` : "N/A",
         ai_binding: env.AI ? "✅ Available" : "❌ Missing",
       },
       endpoints: {
@@ -95,8 +96,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Use Tavily API directly
-    const tavilyApiKey =
-      import.meta.env.TAVILY_API_KEY || process.env.TAVILY_API_KEY;
+    const env = (locals as any)?.runtime?.env || {};
+    const tavilyApiKey = env.TAVILY_API_KEY;
 
     if (!tavilyApiKey) {
       return new Response(

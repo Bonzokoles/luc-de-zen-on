@@ -1,5 +1,4 @@
-
----
+--- 
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 // Optimized component sections for better SSR performance
 import HeroSection from "../components/sections/HeroSection.astro";
@@ -21,6 +20,7 @@ import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
 import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
 // Modular Agents System
 import AgentsLoader from "../components/agents/AgentsLoader.astro";
+import Agent09Dyrektor from "../components/agents/agent-09-dyrektor/index.svelte";
 // Heroicons React components
 import { 
   MusicalNoteIcon,
@@ -68,8 +68,6 @@ import {
         <div class="py-1"></div>
       </div>
     </section>
-
-
 
             }
         <WorkersGridSection />
@@ -295,7 +293,7 @@ import {
               <button
                 class="feature-btn private-btn"
                 onclick="window.open('https://mybonzoaiblog.com', '_blank')"
-                data-astro-cid-my52qgmw>Otw�rz Blog</button
+                data-astro-cid-my52qgmw>Otwórz Blog</button
               >
             </div>
           </div>
@@ -845,7 +843,7 @@ import {
 
     <!-- Modular Agents Section (01-10) -->
     <button onclick="toggleVoiceAgent()" class="right-btn" id="voiceAgentBtn" title="Agent 01 - Voice Command Agent">
-      � AGENT 01 - VOICE
+      🎤 AGENT 01 - VOICE
     </button>
 
     <button onclick="toggleMusicAgent()" class="right-btn" id="musicAgentBtn" title="Agent 02 - Music Control Agent">
@@ -853,7 +851,7 @@ import {
     </button>
 
     <button onclick="toggleSystemAgent()" class="right-btn" id="systemAgentBtn" title="Agent 03 - System Monitor Agent">
-      � AGENT 03 - SYSTEM
+      🤖 AGENT 03 - SYSTEM
     </button>
 
     <button onclick="toggleCrawlerAgent()" class="right-btn" id="crawlerAgentBtn" title="Agent 04 - Web Crawler Agent">
@@ -861,11 +859,11 @@ import {
     </button>
 
     <button onclick="toggleEmailAgent()" class="right-btn" id="emailAgentBtn" title="Agent 05 - Email Manager Agent">
-      � AGENT 05 - EMAIL
+      📧 AGENT 05 - EMAIL
     </button>
 
     <button onclick="toggleDatabaseAgent()" class="right-btn" id="databaseAgentBtn" title="Agent 06 - Database Query Agent">
-      �️ AGENT 06 - DATABASE
+      🗃️ AGENT 06 - DATABASE
     </button>
 
     <button onclick="toggleContentAgent()" class="right-btn" id="contentAgentBtn" title="Agent 07 - Content Creator Agent">
@@ -873,19 +871,33 @@ import {
     </button>
 
     <button onclick="toggleSecurityAgent()" class="right-btn" id="securityAgentBtn" title="Agent 08 - Security Guard Agent">
-      � AGENT 08 - SECURITY
+      🛡️ AGENT 08 - SECURITY
     </button>
 
-    <button onclick="toggleWebmasterAgent()" class="right-btn" id="webmasterAgentBtn" title="Agent 09 - Webmaster Agent">
-      🌐 AGENT 09 - WEBMASTER
-    </button>
+    <!-- Agent 09 Dyrektor Widget -->
+    <div class="floating-widget-container">
+      <button onclick="toggleAgent09Dyrektor()" class="right-btn" id="agent09DyrektorBtn" title="Agent 09 - Dyrektor Biznesowy">
+        <BriefcaseIcon className="w-6 h-6 inline mr-2" /> AGENT 09 - DYREKTOR
+      </button>
+      <div id="agent09DyrektorWidget" class="floating-widget hidden">
+        <div class="floating-widget-template">
+          <div class="panel-header">
+            <span>🏢 AGENT 09 - DYREKTOR</span>
+            <button onclick="toggleAgent09Dyrektor()" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+          </div>
+          <div class="panel-content">
+            <Agent09Dyrektor client:load />
+          </div>
+        </div>
+      </div>
+    </div>
 
     <button onclick="toggleAnalyticsAgent()" class="right-btn" id="analyticsAgentBtn" title="Agent 10 - Analytics Prophet Agent">
       📊 AGENT 10 - ANALYTICS
     </button>
 
     <button onclick="toggleFileAgent()" class="right-btn" id="fileAgentBtn" title="File Manager Agent - Zarządzanie plikami">
-      � FILE MANAGER
+      🗂️ FILE MANAGER
     </button>
 
     <button onclick="toggleMarketingAgent()" class="right-btn" id="marketingAgentBtn" title="Marketing Maestro Agent - Marketing AI">
@@ -1182,10 +1194,10 @@ import {
   function openAPITestConsole() {
     console.log("Opening API test console...");
     console.log("Available API tests:");
-    console.log("- window.apiTests.testChatAPI()");
-    console.log("- window.apiTests.testImageGeneration()");
-    console.log("- window.apiTests.testAIBot()");
-    console.log("- window.apiTests.testAllAPIs()");
+    console.log("- window.apiTests.testChatAPI()")
+    console.log("- window.apiTests.testImageGeneration()")
+    console.log("- window.apiTests.testAIBot()")
+    console.log("- window.apiTests.testAllAPIs()")
 
     if (window.apiTests) {
       console.log(
@@ -1320,7 +1332,8 @@ import {
         "width=800,height=600,scrollbars=yes"
       );
       if (resultWindow) {
-        resultWindow.document.write(`
+        resultWindow.document.write(
+          `
           <html>
             <head>
               <title>Flowise AI - Wynik</title>
@@ -1342,8 +1355,8 @@ import {
               <div class="metadata">
                 <strong>Timestamp:</strong> ${data.metadata?.timestamp || new Date().toISOString()}<br>
                 <strong>Source:</strong> ${data.metadata?.source || "flowise-api"}<br>
-                ${data.fallback ? "<strong>Mode:</strong> Fallback (sprawdź konfigurację API)<br>" : ""}
-                ${data.metadata?.simulation ? "<strong>Mode:</strong> Simulation (skonfiguruj FLOWISE_API_TOKEN)<br>" : ""}
+                ${data.fallback ? "<strong>Mode:</strong> Fallback (sprawdź konfigurację API)"<br> : ""}
+                ${data.metadata?.simulation ? "<strong>Mode:</strong> Simulation (skonfiguruj FLOWISE_API_TOKEN)"<br> : ""}
               </div>
             <footer style="text-align: center; padding: 2rem; color: #666; font-size: 0.9rem; margin-top: 4rem; border-top: 1px solid #333;">
       <p style="max-width: 800px; margin: 0 auto; line-height: 1.6;">
@@ -1352,7 +1365,8 @@ import {
     </footer>
   </body>
           </html>
-        `);
+        `
+        );
       } else {
         // Fallback if popup blocked
         console.log("Flowise AI Response:", data);
@@ -1553,6 +1567,7 @@ import {
     (window as any).toggleCodeBison = toggleCodeBison;
     (window as any).toggleTextBison = toggleTextBison;
     (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
+    (window as any).toggleAgent09Dyrektor = toggleAgent09Dyrektor;
     (window as any).toggleGlobalVoice = toggleGlobalVoice;
     (window as any).openMainChat = openMainChat;
     (window as any).openRefresh = openRefresh;
@@ -1878,7 +1893,7 @@ import {
 
   async function toggleGeminiVision(manualClick = true) {
     if (!manualClick) {
-      console.log("� Auto-activation blocked for Gemini Vision");
+      console.log("👁️ Auto-activation blocked for Gemini Vision");
       return;
     }
     
@@ -1900,7 +1915,7 @@ import {
 
   function toggleCodeBison(manualClick = true) {
     if (!manualClick) {
-      console.log("� Auto-activation blocked for Code Bison");
+      console.log("💻 Auto-activation blocked for Code Bison");
       return;
     }
     
@@ -1922,13 +1937,35 @@ import {
 
   function toggleTextBison(manualClick = true) {
     if (!manualClick) {
-      console.log("� Auto-activation blocked for Text Bison");
+      console.log("📝 Auto-activation blocked for Text Bison");
       return;
     }
     
     console.log("📝 Toggling Text Bison (manual click)");
     const btn = document.getElementById("textBisonBtn");
     const widget = document.getElementById("textBisonWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
+  function toggleAgent09Dyrektor(manualClick = true) {
+    if (!manualClick) {
+      console.log("🚫 Auto-activation blocked for Agent 09 Dyrektor");
+      return;
+    }
+    
+    console.log("💼 Toggling Agent 09 Dyrektor (manual click)");
+    const btn = document.getElementById("agent09DyrektorBtn");
+    const widget = document.getElementById("agent09DyrektorWidget");
 
     if (btn && widget) {
       // Button scaling effect
@@ -1998,1695 +2035,60 @@ import {
     }
     
     // Clear all audio contexts
-    if (window.globalAudioContext) {
-      try {
-        window.globalAudioContext.close();
-        window.globalAudioContext = null;
-      } catch (e) {
-        console.log("AudioContext close error:", e);
-      }
+    if (window.audioContext) {
+      window.audioContext.close();
+      window.audioContext = null;
+      console.log("AudioContext stopped and cleared");
     }
     
-    console.log("✅ System całkowicie zatrzymany");
+    // Close any open widgets
+    const allWidgets = document.querySelectorAll('.floating-widget');
+    allWidgets.forEach(widget => widget.classList.add('hidden'));
+    
+    console.log("All systems stopped.");
+    alert("Wszystkie systemy zostały zatrzymane.");
   }
 
   function resetSystem() {
-    console.log("🔄 RESET SYSTEMU - Restartowanie wszystkich komponentów");
-    
-    // First stop everything
-    emergencyStopAll();
-    
-    // Wait a moment then reinitialize
-    setTimeout(() => {
-      globalVoiceEnabled = false;
-      voiceRecognitionInstances = {};
-      
-      // Reinitialize audio context
-      initializeAudioContext();
-      
-      console.log("✅ System zresetowany i gotowy do użycia");
-    }, 1000);
+    console.log("🔄 Resetting system state...");
+    hardResetComponents(); // This will clear storage and reload the page
   }
 
-  function initializeAudioContext() {
-    if (!window.globalAudioContext) {
-      try {
-        window.globalAudioContext = new (window.AudioContext || window.webkitAudioContext)();
-        console.log("🎵 AudioContext zainicjalizowany");
-      } catch (e) {
-        console.log("❌ Błąd inicjalizacji AudioContext:", e);
-      }
-    }
-  }
-
-  // TEST AND DEBUG FUNCTIONS
   function testAllFunctions() {
-    console.log("🧪 TESTING ALL FUNCTIONS - Comprehensive Check");
-    
-    const allFunctions = [
-      'sendToGeminiPro', 'clearGeminiPro', 'toggleGeminiPro',
-      'sendToGeminiVision', 'clearGeminiVision', 'toggleGeminiVision',
-      'sendToCodeBison', 'clearCodeBison', 'toggleCodeBison',
-      'sendToTextBison', 'clearTextBison', 'toggleTextBison',
-      'sendToGoogleBard', 'clearGoogleBard', 'toggleGoogleBard',
-      'sendToPaLMAPI', 'clearPaLMAPI', 'togglePaLMAPI',
-      'sendToVertexAI', 'clearVertexAI', 'toggleVertexAI',
-      'sendToAIStudio', 'clearAIStudio', 'toggleAIStudio',
-      'startGeminiProVoice', 'stopGeminiProVoice', 'toggleGeminiProVoice',
-      'startGeminiVisionVoice', 'stopGeminiVisionVoice', 'toggleGeminiVisionVoice',
-      'toggleGlobalVoice', 'emergencyStopAll', 'resetSystem'
-    ];
-    
-    let available = 0;
-    let missing = [];
-    
-    allFunctions.forEach(fn => {
-      if (typeof window[fn] === 'function') {
-        available++;
-      } else {
-        missing.push(fn);
-      }
-    });
-    
-    console.log(`✅ Dostępne funkcje: ${available}/${allFunctions.length}`);
-    if (missing.length > 0) {
-      console.log(`❌ Brakujące funkcje:`, missing);
-    }
-    
-    // Show result in alert for easy viewing
-    const result = `Funkcji dostępnych: ${available}/${allFunctions.length}\n${missing.length > 0 ? 'Brakujące: ' + missing.join(', ') : 'Wszystko OK!'}`;
-    alert(result);
+    console.log("🧪 Testowanie wszystkich głównych funkcji...");
+    // This is a placeholder - in a real app, you'd call specific test functions
+    alert("Testowanie funkcji... Sprawdź konsolę, aby zobaczyć wyniki.");
+    checkAllStatus();
+    runAllAPITests();
   }
 
   function debugVoiceStatus() {
-    console.log("📊 DEBUG VOICE STATUS - Current System State");
+    console.log("📊 Debugging Voice Status...");
     console.log("Global Voice Enabled:", globalVoiceEnabled);
     console.log("Voice Recognition Instances:", voiceRecognitionInstances);
-    console.log("Global Audio Context:", window.globalAudioContext?.state || "Not initialized");
-    
-    // Check each voice button status
-    const voiceButtons = [
-      'geminiProVoiceBtn', 'geminiVisionVoiceBtn', 'codeBisonVoiceBtn', 
-      'textBisonVoiceBtn', 'bardVoiceBtn', 'palmVoiceBtn', 'vertexVoiceBtn', 'aiStudioVoiceBtn'
-    ];
-    
-    const buttonStatus = {};
-    voiceButtons.forEach(btnId => {
-      const btn = document.getElementById(btnId);
-      if (btn) {
-        buttonStatus[btnId] = btn.textContent || btn.innerHTML;
-      } else {
-        buttonStatus[btnId] = "Button not found";
-      }
-    });
-    
-    console.log("Voice Button Status:", buttonStatus);
-    
-    // Show summary in alert
-    const summary = `Global Voice: ${globalVoiceEnabled ? 'ON' : 'OFF'}\nActive Instances: ${Object.keys(voiceRecognitionInstances).length}\nAudio Context: ${window.globalAudioContext?.state || 'None'}`;
-    alert(summary);
+    alert(`Global Voice: ${globalVoiceEnabled ? 'ON' : 'OFF'}\nAktywne instancje: ${Object.keys(voiceRecognitionInstances).length}`);
   }
 
-  // Voice functions for each agent
-  function toggleGeminiProVoice() {
-    if (voiceRecognitionInstances.geminiPro) {
-      stopGeminiProVoice();
-    } else {
-      startGeminiProVoice();
-    }
-  }
-
-  function startGeminiProVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Najpierw włącz globalny system Voice!");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      const language = document.getElementById("geminiProVoiceSelect").value;
-      recognition.lang = language;
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      
-      recognition.onstart = () => {
-        const btn = document.getElementById("geminiProVoiceBtn");
-        btn.innerHTML = "🟢 Połączony";
-        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
-      };
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript;
-        document.getElementById("geminiProInput").value = transcript;
-      };
-      
-      recognition.onerror = () => {
-        stopGeminiProVoice();
-      };
-      
-      voiceRecognitionInstances.geminiPro = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopGeminiProVoice() {
-    if (voiceRecognitionInstances.geminiPro) {
-      voiceRecognitionInstances.geminiPro.stop();
-      delete voiceRecognitionInstances.geminiPro;
-      
-      const btn = document.getElementById("geminiProVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  function toggleGeminiVisionVoice() {
-    if (voiceRecognitionInstances.geminiVision) {
-      stopGeminiVisionVoice();
-    } else {
-      startGeminiVisionVoice();
-    }
-  }
-
-  function startGeminiVisionVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Najpierw włącz globalny system Voice!");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      const language = document.getElementById("geminiVisionVoiceSelect").value;
-      recognition.lang = language;
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      
-      recognition.onstart = () => {
-        const btn = document.getElementById("geminiVisionVoiceBtn");
-        btn.innerHTML = "🟢 Połączony";
-        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
-      };
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript;
-        document.getElementById("geminiVisionInput").value = transcript;
-      };
-      
-      recognition.onerror = () => {
-        stopGeminiVisionVoice();
-      };
-      
-      voiceRecognitionInstances.geminiVision = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopGeminiVisionVoice() {
-    if (voiceRecognitionInstances.geminiVision) {
-      voiceRecognitionInstances.geminiVision.stop();
-      delete voiceRecognitionInstances.geminiVision;
-      
-      const btn = document.getElementById("geminiVisionVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  function toggleCodeBisonVoice() {
-    if (voiceRecognitionInstances.codeBison) {
-      stopCodeBisonVoice();
-    } else {
-      startCodeBisonVoice();
-    }
-  }
-
-  function startCodeBisonVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Najpierw włącz globalny system Voice!");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      const language = document.getElementById("codeBisonVoiceSelect").value;
-      recognition.lang = language;
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      
-      recognition.onstart = () => {
-        const btn = document.getElementById("codeBisonVoiceBtn");
-        btn.innerHTML = "🟢 Połączony";
-        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
-      };
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript;
-        document.getElementById("codeBisonInput").value = transcript;
-      };
-      
-      recognition.onerror = () => {
-        stopCodeBisonVoice();
-      };
-      
-      voiceRecognitionInstances.codeBison = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopCodeBisonVoice() {
-    if (voiceRecognitionInstances.codeBison) {
-      voiceRecognitionInstances.codeBison.stop();
-      delete voiceRecognitionInstances.codeBison;
-      
-      const btn = document.getElementById("codeBisonVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  function toggleTextBisonVoice() {
-    if (voiceRecognitionInstances.textBison) {
-      stopTextBisonVoice();
-    } else {
-      startTextBisonVoice();
-    }
-  }
-
-  function startTextBisonVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Najpierw włącz globalny system Voice!");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      const language = document.getElementById("textBisonVoiceSelect").value;
-      recognition.lang = language;
-      recognition.continuous = true;
-      recognition.interimResults = false;
-      
-      recognition.onstart = () => {
-        const btn = document.getElementById("textBisonVoiceBtn");
-        btn.innerHTML = "🟢 Połączony";
-        btn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
-      };
-      
-      recognition.onresult = (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript;
-        document.getElementById("textBisonInput").value = transcript;
-      };
-      
-      recognition.onerror = () => {
-        stopTextBisonVoice();
-      };
-      
-      voiceRecognitionInstances.textBison = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopTextBisonVoice() {
-    if (voiceRecognitionInstances.textBison) {
-      voiceRecognitionInstances.textBison.stop();
-      delete voiceRecognitionInstances.textBison;
-      
-      const btn = document.getElementById("textBisonVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  // Agent communication functions
-  async function sendToGeminiPro() {
-    const input = document.getElementById("geminiProInput");
-    const response = document.getElementById("geminiProResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Gemini Pro...";
-    
-    try {
-      const res = await fetch("/api/gemini-pro", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          language: "pl"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Gemini Pro:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToGeminiVision() {
-    const input = document.getElementById("geminiVisionInput");
-    const response = document.getElementById("geminiVisionResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Gemini Vision...";
-    
-    try {
-      const res = await fetch("/api/gemini-pro", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value + " [VISION REQUEST]",
-          language: "pl"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Gemini Vision:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToCodeBison() {
-    const input = document.getElementById("codeBisonInput");
-    const response = document.getElementById("codeBisonResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Code Bison...";
-    
-    try {
-      const res = await fetch("/api/code-bison", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          language: "pl"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Code Bison:</strong><br><pre>${data.data?.response || data.response || "Błąd odpowiedzi"}</pre>`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToTextBison() {
-    const input = document.getElementById("textBisonInput");
-    const response = document.getElementById("textBisonResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Text Bison...";
-    
-    try {
-      const res = await fetch("/api/text-bison", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          language: "pl"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Text Bison:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToBusinessAssistant() {
-    const input = document.getElementById("businessAssistantInput");
-    const response = document.getElementById("businessAssistantResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Business Assistant...";
-    
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          model: "business-assistant"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Business Assistant:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  // Clear functions
-  function clearGeminiPro() {
-    document.getElementById("geminiProInput").value = "";
-    document.getElementById("geminiProResponse").style.display = "none";
-  }
-
-  function clearGeminiVision() {
-    document.getElementById("geminiVisionInput").value = "";
-    document.getElementById("geminiVisionResponse").style.display = "none";
-  }
-
-  function clearCodeBison() {
-    document.getElementById("codeBisonInput").value = "";
-    document.getElementById("codeBisonResponse").style.display = "none";
-  }
-
-  function clearTextBison() {
-    document.getElementById("textBisonInput").value = "";
-    document.getElementById("textBisonResponse").style.display = "none";
-  }
-
-  function clearBusinessAssistant() {
-    document.getElementById("businessAssistantInput").value = "";
-    document.getElementById("businessAssistantResponse").style.display = "none";
-  }
-
-  // Nowe funkcje Voice dla Google Bard
-  function toggleBardVoice() {
-    const btn = document.getElementById("bardVoiceBtn");
-    if (voiceRecognitionInstances.bard) {
-      stopBardVoice();
-    } else {
-      startBardVoice();
-    }
-  }
-
-  function startBardVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      const language = document.getElementById("bardVoiceSelect").value;
-      
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = language;
-      
-      const btn = document.getElementById("bardVoiceBtn");
-      btn.innerHTML = "🎤 Nasłuchuje...";
-      btn.style.background = "linear-gradient(45deg, #ffc107, #ff8f00)";
-      
-      recognition.onresult = function(event) {
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-        if (finalTranscript) {
-          document.getElementById("googleBardInput").value = finalTranscript;
-        }
-      };
-      
-      recognition.onerror = function(event) {
-        console.log('Voice recognition error:', event.error);
-        btn.innerHTML = "❌ Błąd";
-        btn.style.background = "rgba(255, 68, 68, 0.3)";
-      };
-      
-      voiceRecognitionInstances.bard = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopBardVoice() {
-    if (voiceRecognitionInstances.bard) {
-      voiceRecognitionInstances.bard.stop();
-      delete voiceRecognitionInstances.bard;
-      
-      const btn = document.getElementById("bardVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  // Nowe funkcje Voice dla PaLM API
-  function togglePaLMVoice() {
-    const btn = document.getElementById("palmVoiceBtn");
-    if (voiceRecognitionInstances.palm) {
-      stopPaLMVoice();
-    } else {
-      startPaLMVoice();
-    }
-  }
-
-  function startPaLMVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      const language = document.getElementById("palmVoiceSelect").value;
-      
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = language;
-      
-      const btn = document.getElementById("palmVoiceBtn");
-      btn.innerHTML = "🎤 Nasłuchuje...";
-      btn.style.background = "linear-gradient(45deg, #4caf50, #388e3c)";
-      
-      recognition.onresult = function(event) {
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-        if (finalTranscript) {
-          document.getElementById("palmAPIInput").value = finalTranscript;
-        }
-      };
-      
-      recognition.onerror = function(event) {
-        console.log('Voice recognition error:', event.error);
-        btn.innerHTML = "❌ Błąd";
-        btn.style.background = "rgba(255, 68, 68, 0.3)";
-      };
-      
-      voiceRecognitionInstances.palm = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopPaLMVoice() {
-    if (voiceRecognitionInstances.palm) {
-      voiceRecognitionInstances.palm.stop();
-      delete voiceRecognitionInstances.palm;
-      
-      const btn = document.getElementById("palmVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  // Nowe funkcje Voice dla Vertex AI
-  function toggleVertexVoice() {
-    const btn = document.getElementById("vertexVoiceBtn");
-    if (voiceRecognitionInstances.vertex) {
-      stopVertexVoice();
-    } else {
-      startVertexVoice();
-    }
-  }
-
-  function startVertexVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      const language = document.getElementById("vertexVoiceSelect").value;
-      
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = language;
-      
-      const btn = document.getElementById("vertexVoiceBtn");
-      btn.innerHTML = "🎤 Nasłuchuje...";
-      btn.style.background = "linear-gradient(45deg, #9c27b0, #7b1fa2)";
-      
-      recognition.onresult = function(event) {
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-        if (finalTranscript) {
-          document.getElementById("vertexAIInput").value = finalTranscript;
-        }
-      };
-      
-      recognition.onerror = function(event) {
-        console.log('Voice recognition error:', event.error);
-        btn.innerHTML = "❌ Błąd";
-        btn.style.background = "rgba(255, 68, 68, 0.3)";
-      };
-      
-      voiceRecognitionInstances.vertex = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopVertexVoice() {
-    if (voiceRecognitionInstances.vertex) {
-      voiceRecognitionInstances.vertex.stop();
-      delete voiceRecognitionInstances.vertex;
-      
-      const btn = document.getElementById("vertexVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  // Nowe funkcje Voice dla AI Studio
-  function toggleAIStudioVoice() {
-    const btn = document.getElementById("aiStudioVoiceBtn");
-    if (voiceRecognitionInstances.aiStudio) {
-      stopAIStudioVoice();
-    } else {
-      startAIStudioVoice();
-    }
-  }
-
-  function startAIStudioVoice() {
-    if (!globalVoiceEnabled) {
-      alert("Globalny system Voice jest wyłączony! Włącz go najpierw.");
-      return;
-    }
-    
-    if ('webkitSpeechRecognition' in window) {
-      const recognition = new webkitSpeechRecognition();
-      const language = document.getElementById("aiStudioVoiceSelect").value;
-      
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = language;
-      
-      const btn = document.getElementById("aiStudioVoiceBtn");
-      btn.innerHTML = "🎤 Nasłuchuje...";
-      btn.style.background = "linear-gradient(45deg, #ff5722, #e64a19)";
-      
-      recognition.onresult = function(event) {
-        let finalTranscript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript;
-          }
-        }
-        if (finalTranscript) {
-          document.getElementById("aiStudioInput").value = finalTranscript;
-        }
-      };
-      
-      recognition.onerror = function(event) {
-        console.log('Voice recognition error:', event.error);
-        btn.innerHTML = "❌ Błąd";
-        btn.style.background = "rgba(255, 68, 68, 0.3)";
-      };
-      
-      voiceRecognitionInstances.aiStudio = recognition;
-      recognition.start();
-    }
-  }
-
-  function stopAIStudioVoice() {
-    if (voiceRecognitionInstances.aiStudio) {
-      voiceRecognitionInstances.aiStudio.stop();
-      delete voiceRecognitionInstances.aiStudio;
-      
-      const btn = document.getElementById("aiStudioVoiceBtn");
-      btn.innerHTML = "Rozłączony";
-      btn.style.background = "rgba(255, 255, 255, 0.1)";
-    }
-  }
-
-  // Nowe funkcje komunikacji z agentami
-  async function sendToGoogleBard() {
-    const input = document.getElementById("googleBardInput");
-    const response = document.getElementById("googleBardResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Google Bard...";
-    
-    try {
-      const res = await fetch("/api/google-bard", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          language: "pl"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Google Bard:</strong><br>${data.data?.response || data.response || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToPaLMAPI() {
-    const input = document.getElementById("palmAPIInput");
-    const response = document.getElementById("palmAPIResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do PaLM API...";
-    
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          model: "palm-api"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>PaLM API:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToVertexAI() {
-    const input = document.getElementById("vertexAIInput");
-    const response = document.getElementById("vertexAIResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do Vertex AI...";
-    
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          model: "vertex-ai"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>Vertex AI:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  async function sendToAIStudio() {
-    const input = document.getElementById("aiStudioInput");
-    const response = document.getElementById("aiStudioResponse");
-    
-    if (!input.value.trim()) return;
-    
-    response.style.display = "block";
-    response.innerHTML = "🔄 Wysyłanie do AI Studio...";
-    
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: input.value,
-          model: "ai-studio"
-        })
-      });
-      
-      const data = await res.json();
-      response.innerHTML = `<strong>AI Studio:</strong><br>${data.response || data.message || "Błąd odpowiedzi"}`;
-    } catch (error) {
-      response.innerHTML = `❌ Błąd: ${error.message}`;
-    }
-  }
-
-  // Nowe funkcje czyszczenia
-  function clearGoogleBard() {
-    document.getElementById("googleBardInput").value = "";
-    document.getElementById("googleBardResponse").style.display = "none";
-  }
-
-  function clearPaLMAPI() {
-    document.getElementById("palmAPIInput").value = "";
-    document.getElementById("palmAPIResponse").style.display = "none";
-  }
-
-  function clearVertexAI() {
-    document.getElementById("vertexAIInput").value = "";
-    document.getElementById("vertexAIResponse").style.display = "none";
-  }
-
-  function clearAIStudio() {
-    document.getElementById("aiStudioInput").value = "";
-    document.getElementById("aiStudioResponse").style.display = "none";
-  }
-
-  // Nowe funkcje toggle dla widgetów
-  function toggleGoogleBard() {
-    const widget = document.getElementById("googleBardWidget");
-    const btn = document.getElementById("googleBardBtn");
-    
-    if (widget.classList.contains("hidden")) {
-      widget.classList.remove("hidden");
-      btn.style.background = "linear-gradient(45deg, #ffc107, #ff8f00)";
-    } else {
-      widget.classList.add("hidden");
-      btn.style.background = "";
-      stopBardVoice();
-    }
-  }
-
-  function togglePaLMAPI() {
-    const widget = document.getElementById("palmAPIWidget");
-    const btn = document.getElementById("palmAPIBtn");
-    
-    if (widget.classList.contains("hidden")) {
-      widget.classList.remove("hidden");
-      btn.style.background = "linear-gradient(45deg, #4caf50, #388e3c)";
-    } else {
-      widget.classList.add("hidden");
-      btn.style.background = "";
-      stopPaLMVoice();
-    }
-  }
-
-  function toggleVertexAI() {
-    const widget = document.getElementById("vertexAIWidget");
-    const btn = document.getElementById("vertexAIBtn");
-    
-    if (widget.classList.contains("hidden")) {
-      widget.classList.remove("hidden");
-      btn.style.background = "linear-gradient(45deg, #9c27b0, #7b1fa2)";
-    } else {
-      widget.classList.add("hidden");
-      btn.style.background = "";
-      stopVertexVoice();
-    }
-  }
-
-  function toggleAIStudio() {
-    const widget = document.getElementById("aiStudioWidget");
-    const btn = document.getElementById("aiStudioBtn");
-    
-    if (widget.classList.contains("hidden")) {
-      widget.classList.remove("hidden");
-      btn.style.background = "linear-gradient(45deg, #ff5722, #e64a19)";
-    } else {
-      widget.classList.add("hidden");
-      btn.style.background = "";
-      stopAIStudioVoice();
-    }
-  }
-
+  // Main Chat, Refresh, Folder, Close Functions
   function openMainChat() {
-    console.log("💬 Opening Main Chat");
-    window.open("/chatbot", "_blank");
+    // Placeholder for Main Chat functionality
+    alert("Funkcja Main Chat jest w trakcie implementacji.");
   }
 
   function openRefresh() {
-    console.log("🔄 Refreshing page");
     window.location.reload();
   }
 
   function openFolder() {
-    console.log("📁 Opening folder");
-    alert(
-      "Otwieranie lokalnego folderu jest zablokowane przez przeglądarki ze względów bezpieczeństwa."
-    );
+    // This is a security risk and generally not possible from a browser
+    alert("Ze względów bezpieczeństwa, otwieranie lokalnych folderów jest niemożliwe.");
   }
 
   function openClose() {
-    console.log("❌ Closing tab");
-    try {
-      window.close();
-    } catch (e) {
-      alert("Zamykanie karty może być zablokowane przez przeglądarkę.");
-    }
+    // This will close the current tab/window
+    window.close();
   }
 
-  // EXPORT ALL VOICE FUNCTIONS TO GLOBAL SCOPE - COMPLETE FIX for onclick handlers
-  
-  // Global Voice Control
-  window.toggleGlobalVoice = toggleGlobalVoice;
-  
-  // Gemini Pro Voice Functions
-  window.startGeminiProVoice = startGeminiProVoice;
-  window.stopGeminiProVoice = stopGeminiProVoice;
-  window.toggleGeminiProVoice = toggleGeminiProVoice;
-  
-  // Gemini Vision Voice Functions  
-  window.startGeminiVisionVoice = startGeminiVisionVoice;
-  window.stopGeminiVisionVoice = stopGeminiVisionVoice;
-  window.toggleGeminiVisionVoice = toggleGeminiVisionVoice;
-  
-  // Code Bison Voice Functions  
-  window.startCodeBisonVoice = startCodeBisonVoice;
-  window.stopCodeBisonVoice = stopCodeBisonVoice;
-  window.toggleCodeBisonVoice = toggleCodeBisonVoice;
-  
-  // Text Bison Voice Functions
-  window.startTextBisonVoice = startTextBisonVoice;
-  window.stopTextBisonVoice = stopTextBisonVoice;
-  window.toggleTextBisonVoice = toggleTextBisonVoice;
-  
-  // Google Bard Voice Functions (mapped to correct function names)
-  window.startBardVoice = startBardVoice;
-  window.stopBardVoice = stopBardVoice;
-  window.toggleBardVoice = toggleBardVoice;
-  window.startGoogleBardVoice = startBardVoice; // Alias
-  window.stopGoogleBardVoice = stopBardVoice; // Alias
-  window.toggleGoogleBardVoice = toggleBardVoice; // Alias
-  
-  // PaLM Voice Functions
-  window.startPaLMVoice = startPaLMVoice;
-  window.stopPaLMVoice = stopPaLMVoice;
-  window.togglePaLMVoice = togglePaLMVoice;
-  
-  // Vertex Voice Functions
-  window.startVertexVoice = startVertexVoice;
-  window.stopVertexVoice = stopVertexVoice;
-  window.toggleVertexVoice = toggleVertexVoice;
-  
-  // AI Studio Voice Functions
-  window.startAIStudioVoice = startAIStudioVoice;
-  window.stopAIStudioVoice = stopAIStudioVoice;
-  window.toggleAIStudioVoice = toggleAIStudioVoice;
-
-  // EXPORT ALL MAIN AI FUNCTIONS TO GLOBAL SCOPE - FIX for onclick handlers
-  
-  // Gemini Pro Functions
-  window.sendToGeminiPro = sendToGeminiPro;
-  window.clearGeminiPro = clearGeminiPro;
-  
-  // Gemini Vision Functions
-  window.sendToGeminiVision = sendToGeminiVision;
-  window.clearGeminiVision = clearGeminiVision;
-  
-  // Code Bison Functions
-  window.sendToCodeBison = sendToCodeBison;
-  window.clearCodeBison = clearCodeBison;
-  
-  // Text Bison Functions
-  window.sendToTextBison = sendToTextBison;
-  window.clearTextBison = clearTextBison;
-  
-  // Google Bard Functions (correct function names)
-  window.sendToGoogleBard = sendToGoogleBard;
-  window.clearGoogleBard = clearGoogleBard;
-  window.toggleGoogleBard = toggleGoogleBard;
-  
-  // PaLM Functions (correct function names)
-  window.sendToPaLMAPI = sendToPaLMAPI;
-  window.clearPaLMAPI = clearPaLMAPI;
-  
-  // Vertex Functions (correct function names)
-  window.sendToVertexAI = sendToVertexAI;
-  window.clearVertexAI = clearVertexAI;
-  
-  // AI Studio Functions
-  window.sendToAIStudio = sendToAIStudio;
-  window.clearAIStudio = clearAIStudio;
-  
-  // Toggle Functions for Floating Buttons
-  window.toggleGeminiPro = toggleGeminiPro;
-  window.toggleGeminiVision = toggleGeminiVision;
-  window.toggleCodeBison = toggleCodeBison;
-  window.toggleTextBison = toggleTextBison;
-  window.toggleGoogleBard = toggleGoogleBard;
-  window.togglePaLMAPI = togglePaLMAPI;
-  window.toggleVertexAI = toggleVertexAI;
-  window.toggleAIStudio = toggleAIStudio;
-  
-  // Global Helper Functions
-  window.closeTab = closeTab;
-  
-  // Emergency Control Functions
-  window.emergencyStopAll = emergencyStopAll;
-  window.resetSystem = resetSystem;
-  window.initializeAudioContext = initializeAudioContext;
-  
-  // Test and Debug Functions
-  window.testAllFunctions = testAllFunctions;
-  window.debugVoiceStatus = debugVoiceStatus;
-
-  // Worker Communication Popup Functions
-  function openBigQueryPopup() {
-    console.log("🔍 Opening BigQuery Communication Popup");
-    if (typeof window.openWorkerPopup === 'function') {
-      const prompt = document.getElementById("bigqueryPrompt")?.value || "";
-      window.openWorkerPopup("bigquery", "https://mybonzo.com/api/polaczek/bigquery", "BigQuery Analytics");
-    } else {
-      console.warn("Worker popup functions not yet loaded, trying direct BigQuery interface");
-      if (typeof window.BigQueryInterface !== 'undefined') {
-        const bigQueryInterface = new window.BigQueryInterface();
-        bigQueryInterface.openInterface();
-      } else {
-        // Fallback to original function
-        openBigQuery();
-      }
-    }
-  }
-
-  function openKagglePopup() {
-    console.log("🔍 Opening Kaggle Communication Popup");
-    if (typeof window.openWorkerPopup === 'function') {
-      const prompt = document.getElementById("kagglePrompt")?.value || "";
-      window.openWorkerPopup("kaggle", "https://mybonzo.com/api/polaczek/kaggle", "Kaggle Datasets");
-    } else {
-      console.warn("Worker popup functions not yet loaded, trying direct Kaggle interface");
-      if (typeof window.KaggleInterface !== 'undefined') {
-        const kaggleInterface = new window.KaggleInterface();
-        kaggleInterface.openInterface();
-      } else {
-        // Fallback to original function
-        openKaggle();
-      }
-    }
-  }
-
-  function openVoiceAIPopup() {
-    console.log("🎤 Opening Voice AI Communication Popup");
-    if (typeof window.openWorkerPopup === 'function') {
-      const prompt = document.getElementById("voiceAiPrompt")?.value || "";
-      window.openWorkerPopup("voice-ai", "https://mybonzo.com/api/polaczek/voice-ai", "Voice AI Assistant");
-    } else {
-      console.warn("Worker popup functions not yet loaded, trying direct Voice AI interface");
-      if (typeof window.VoiceAIInterface !== 'undefined') {
-        const voiceAIInterface = new window.VoiceAIInterface();
-        voiceAIInterface.quickTranscribe();
-      } else {
-        // Fallback alert
-        alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
-      }
-    }
-  }
-
-  function quickSynthesize() {
-    console.log("🔊 Quick Text Synthesis");
-    const text = document.getElementById("voiceAiPrompt")?.value;
-    if (!text || text.trim().length === 0) {
-      alert("Wprowadź tekst do syntezy w polu powyżej");
-      return;
-    }
-    
-    if (typeof window.VoiceAIInterface !== 'undefined') {
-      const voiceAIInterface = new window.VoiceAIInterface();
-      voiceAIInterface.quickSynthesize(text);
-    } else {
-      console.warn("Voice AI interface not loaded yet");
-      alert("Voice AI interface nie jest jeszcze załadowane. Spróbuj ponownie za chwilę.");
-    }
-  }
-
-  // Toggle functions for new AI agents with Google ADK integration
-  async function toggleVoiceAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Voice Agent");
-      return;
-    }
-    
-    console.log("🎙️ Toggling Voice Agent (manual click)");
-    
-    // Initialize ADK if not done yet
-    if (!adkInitialized) {
-      await initGoogleADK();
-    }
-    
-    const btn = document.getElementById("voiceAgentBtn");
-    const widget = document.getElementById("voiceAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      
-      widget.classList.toggle("hidden");
-      
-      // Activate Voice Command Agent
-      if (!widget.classList.contains("hidden") && adkManager) {
-        adkManager.setActiveAgent('voice_command_001');
-        await adkManager.startVoiceListening();
-        console.log("🎤 Voice Command Agent activated and listening");
-        
-        const statusDiv = document.getElementById('voiceAgentStatus');
-        if (statusDiv) {
-          statusDiv.textContent = 'Agent aktywny - nasłuchiwanie włączone 🎤';
-        }
-      } else if (adkManager) {
-        await adkManager.stopVoiceListening();
-        console.log("🔇 Voice listening stopped");
-      }
-    }
-  }
-
-  async function toggleMusicAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Music Agent");
-      return;
-    }
-    
-    console.log("🎵 Toggling Music Agent (manual click)");
-    
-    // Initialize ADK if not done yet
-    if (!adkInitialized) {
-      await initGoogleADK();
-    }
-    
-    const btn = document.getElementById("musicAgentBtn");
-    const widget = document.getElementById("musicAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      
-      widget.classList.toggle("hidden");
-      
-      // Activate Music Control Agent
-      if (!widget.classList.contains("hidden") && adkManager) {
-        adkManager.setActiveAgent('music_control_001');
-        const status = await adkManager.getMusicStatus();
-        console.log("🎵 Music Control Agent activated:", status);
-        
-        // Update widget with current status
-        const statusDiv = document.getElementById("musicAgentStatus");
-        if (statusDiv) {
-          statusDiv.textContent = status;
-        }
-      }
-    }
-  }
-
-  function toggleSystemAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for System Agent");
-      return;
-    }
-    
-    console.log("⚙️ Toggling System Agent (manual click)");
-    const btn = document.getElementById("systemAgentBtn");
-    const widget = document.getElementById("systemAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleCrawlerAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Crawler Agent");
-      return;
-    }
-    
-    console.log("🕷️ Toggling Crawler Agent (manual click)");
-    const btn = document.getElementById("crawlerAgentBtn");
-    const widget = document.getElementById("crawlerAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleFileAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for File Agent");
-      return;
-    }
-    
-    console.log("📁 Toggling File Agent (manual click)");
-    const btn = document.getElementById("fileAgentBtn");
-    const widget = document.getElementById("fileAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleDatabaseAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Database Agent");
-      return;
-    }
-    
-    console.log("🗄️ Toggling Database Agent (manual click)");
-    const btn = document.getElementById("databaseAgentBtn");
-    const widget = document.getElementById("databaseAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleEmailAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Email Agent");
-      return;
-    }
-    
-    console.log("📧 Toggling Email Agent (manual click)");
-    const btn = document.getElementById("emailAgentBtn");
-    const widget = document.getElementById("emailAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleSecurityAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Security Agent");
-      return;
-    }
-    
-    console.log("🔒 Toggling Security Agent (manual click)");
-    const btn = document.getElementById("securityAgentBtn");
-    const widget = document.getElementById("securityAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleWebmasterAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Webmaster Agent");
-      return;
-    }
-    
-    console.log("🌐 Toggling Webmaster Agent (manual click)");
-    const btn = document.getElementById("webmasterAgentBtn");
-    const widget = document.getElementById("webmasterAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleAnalyticsAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Analytics Agent");
-      return;
-    }
-    
-    console.log("📊 Toggling Analytics Agent (manual click)");
-    const btn = document.getElementById("analyticsAgentBtn");
-    const widget = document.getElementById("analyticsAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleContentAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Content Agent");
-      return;
-    }
-    
-    console.log("📝 Toggling Content Agent (manual click)");
-    const btn = document.getElementById("contentAgentBtn");
-    const widget = document.getElementById("contentAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleMarketingAgent(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Marketing Agent");
-      return;
-    }
-    
-    console.log("📈 Toggling Marketing Agent (manual click)");
-    const btn = document.getElementById("marketingAgentBtn");
-    const widget = document.getElementById("marketingAgentWidget");
-
-    if (btn && widget) {
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  // Business Assistant Function
-  function openBusinessAssistant() {
-    console.log("💼 Opening Business Assistant");
-    if (typeof window.GOOGLE_VOICE !== 'undefined' && window.GOOGLE_VOICE.openBusinessAssistant) {
-      window.GOOGLE_VOICE.openBusinessAssistant();
-    } else {
-      // Fallback - open business functions directly
-      alert("Business Assistant jest ładowany... Spróbuj ponownie za chwilę.");
-      console.warn("Google Voice not loaded yet, trying to load business assistant");
-      
-      // Try to load GoogleVoiceAgent if not loaded
-      if (typeof window.loadGoogleVoiceAgent === 'function') {
-        window.loadGoogleVoiceAgent().then(() => {
-          if (window.GOOGLE_VOICE && window.GOOGLE_VOICE.openBusinessAssistant) {
-            window.GOOGLE_VOICE.openBusinessAssistant();
-          }
-        });
-      }
-    }
-  }
-
-  // Google ADK Agent Widget Functions
-  async function startVoiceListening() {
-    try {
-      if (!adkInitialized) {
-        await initGoogleADK();
-      }
-      if (adkManager) {
-        const success = await adkManager.startVoiceListening();
-        const statusDiv = document.getElementById('voiceAgentStatus');
-        if (statusDiv) {
-          statusDiv.textContent = success ? 'Nasłuchiwanie aktywne 🎤' : 'Błąd uruchomienia';
-        }
-      }
-    } catch (error) {
-      console.error('❌ Voice listening error:', error);
-    }
-  }
-
-  async function stopVoiceListening() {
-    try {
-      if (adkManager) {
-        await adkManager.stopVoiceListening();
-        const statusDiv = document.getElementById('voiceAgentStatus');
-        if (statusDiv) {
-          statusDiv.textContent = 'Nasłuchiwanie wyłączone 🔇';
-        }
-      }
-    } catch (error) {
-      console.error('❌ Stop voice error:', error);
-    }
-  }
-
-  async function sendToVoiceAgent() {
-    try {
-      const input = document.getElementById('voiceAgentInput') as HTMLTextAreaElement;
-      const responseDiv = document.getElementById('voiceAgentResponse');
-      
-      if (!input || !responseDiv) return;
-      
-      const message = input.value.trim();
-      if (!message) return;
-
-      if (!adkInitialized) {
-        await initGoogleADK();
-      }
-
-      responseDiv.style.display = 'block';
-      responseDiv.textContent = 'Przetwarzanie...';
-      
-      if (sendMessageToADK) {
-        const response = await sendMessageToADK(message, 'voice_command_001');
-        
-        responseDiv.textContent = response.status === 'success' 
-          ? response.response || 'Brak odpowiedzi'
-          : `Błąd: ${response.error_message}`;
-      }
-        
-    } catch (error) {
-      console.error('❌ Voice agent error:', error);
-    }
-  }
-
-  function clearVoiceAgent() {
-    const input = document.getElementById('voiceAgentInput') as HTMLTextAreaElement;
-    const responseDiv = document.getElementById('voiceAgentResponse');
-    
-    if (input) input.value = '';
-    if (responseDiv) {
-      responseDiv.style.display = 'none';
-      responseDiv.textContent = '';
-    }
-  }
-
-  async function musicAgentPlay() {
-    try {
-      if (!adkInitialized) {
-        await initGoogleADK();
-      }
-      if (adkManager) {
-        const result = await adkManager.playMusic();
-        console.log('🎵 Play result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Music play error:', error);
-    }
-  }
-
-  async function musicAgentPause() {
-    try {
-      if (adkManager) {
-        const result = await adkManager.pauseMusic();
-        console.log('⏸ Pause result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Music pause error:', error);
-    }
-  }
-
-  async function musicAgentStop() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'stop' in musicAgent) {
-        const result = await musicAgent.stop();
-        console.log('⏹ Stop result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Music stop error:', error);
-    }
-  }
-
-  async function musicAgentNext() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'nextTrack' in musicAgent) {
-        const result = await musicAgent.nextTrack();
-        console.log('⏭ Next result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Music next error:', error);
-    }
-  }
-
-  async function musicAgentPrevious() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'previousTrack' in musicAgent) {
-        const result = await musicAgent.previousTrack();
-        console.log('⏮ Previous result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Music previous error:', error);
-    }
-  }
-
-  async function setMusicVolume(volume: number) {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'setVolume' in musicAgent) {
-        const result = await musicAgent.setVolume(volume / 100);
-        console.log('🔊 Volume result:', result);
-        
-        const volumeValue = document.getElementById('volumeValue');
-        if (volumeValue) {
-          volumeValue.textContent = volume.toString();
-        }
-      }
-    } catch (error) {
-      console.error('❌ Volume error:', error);
-    }
-  }
-
-  async function toggleShuffle() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'toggleShuffle' in musicAgent) {
-        const result = await musicAgent.toggleShuffle();
-        console.log('🔀 Shuffle result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Shuffle error:', error);
-    }
-  }
-
-  async function toggleRepeat() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const musicAgent = await adkManager.getAgent('music_control_001');
-      if (musicAgent && 'toggleRepeat' in musicAgent) {
-        const result = await musicAgent.toggleRepeat();
-        console.log('🔁 Repeat result:', result);
-        updateMusicStatus();
-      }
-    } catch (error) {
-      console.error('❌ Repeat error:', error);
-    }
-  }
-
-  async function sendToMusicAgent() {
-    try {
-      const input = document.getElementById('musicAgentInput') as HTMLTextAreaElement;
-      const responseDiv = document.getElementById('musicAgentResponse');
-      
-      if (!input || !responseDiv) return;
-      
-      const message = input.value.trim();
-      if (!message) return;
-
-      if (!adkInitialized) {
-        await initGoogleADK();
-      }
-
-      responseDiv.style.display = 'block';
-      responseDiv.textContent = 'Przetwarzanie...';
-      
-      if (sendMessageToADK) {
-        const response = await sendMessageToADK(message, 'music_control_001');
-        
-        responseDiv.textContent = response.status === 'success' 
-          ? response.response || 'Brak odpowiedzi'
-          : `Błąd: ${response.error_message}`;
-          
-        updateMusicStatus();
-      }
-        
-    } catch (error) {
-      console.error('❌ Music agent error:', error);
-    }
-  }
-
-  function clearMusicAgent() {
-    const input = document.getElementById('musicAgentInput') as HTMLTextAreaElement;
-    const responseDiv = document.getElementById('musicAgentResponse');
-    
-    if (input) input.value = '';
-    if (responseDiv) {
-      responseDiv.style.display = 'none';
-      responseDiv.textContent = '';
-    }
-  }
-
-  async function updateMusicStatus() {
-    try {
-      if (!adkInitialized || !adkManager) return;
-      const status = await adkManager.getMusicStatus();
-      const statusDiv = document.getElementById('musicAgentStatus');
-      if (statusDiv) {
-        statusDiv.textContent = status;
-      }
-    } catch (error) {
-      console.error('❌ Music status update error:', error);
-    }
-  }
-
-  // Export new popup functions to global scope
-  window.openBigQueryPopup = openBigQueryPopup;
-  window.openKagglePopup = openKagglePopup;
-  window.openVoiceAIPopup = openVoiceAIPopup;
-  window.quickSynthesize = quickSynthesize;
-  window.openBusinessAssistant = openBusinessAssistant;
-
-  // Export Google ADK functions to global scope
-  window.startVoiceListening = startVoiceListening;
-  window.stopVoiceListening = stopVoiceListening;
-  window.sendToVoiceAgent = sendToVoiceAgent;
-  window.clearVoiceAgent = clearVoiceAgent;
-  window.musicAgentPlay = musicAgentPlay;
-  window.musicAgentPause = musicAgentPause;
-  window.musicAgentStop = musicAgentStop;
-  window.musicAgentNext = musicAgentNext;
-  window.musicAgentPrevious = musicAgentPrevious;
-  window.setMusicVolume = setMusicVolume;
-  window.toggleShuffle = toggleShuffle;
-  window.toggleRepeat = toggleRepeat;
-  window.sendToMusicAgent = sendToMusicAgent;
-  window.clearMusicAgent = clearMusicAgent;
-  window.updateMusicStatus = updateMusicStatus;
-
-  // Export new agent toggle functions to global scope
-  window.toggleVoiceAgent = toggleVoiceAgent;
-  window.toggleMusicAgent = toggleMusicAgent;
-  window.toggleSystemAgent = toggleSystemAgent;
-  window.toggleCrawlerAgent = toggleCrawlerAgent;
-  window.toggleFileAgent = toggleFileAgent;
-  window.toggleDatabaseAgent = toggleDatabaseAgent;
-  window.toggleEmailAgent = toggleEmailAgent;
-  window.toggleSecurityAgent = toggleSecurityAgent;
-  window.toggleWebmasterAgent = toggleWebmasterAgent;
-  window.toggleAnalyticsAgent = toggleAnalyticsAgent;
-  window.toggleContentAgent = toggleContentAgent;
-  window.toggleMarketingAgent = toggleMarketingAgent;
-
-  console.log("✅ All Voice AI, BigQuery, Kaggle popup functions and Agent toggles exported to global scope");
 </script>
 
 <!-- BigQuery API Integration Script -->
@@ -4229,7 +2631,7 @@ import {
   }
 
   @media (max-width: 1024px) {
-    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
       grid-template-columns: 1fr;
       gap: 1rem;
     }
@@ -4310,13 +2712,13 @@ import {
   }
 
   @media (min-width: 1024px) and (max-width: 1280px) {
-    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (min-width: 1280px) {
-    .grid-cols-1.lg\\:grid-cols-2.xl\\:grid-cols-3 {
+    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
       grid-template-columns: repeat(3, 1fr);
     }
   }
@@ -4344,8 +2746,7 @@ import {
   }
 
   /* Remove body pseudo-elements */
-  body::before,
-  body::after {
+  body::before, body::after {
     display: none;
   }
 
@@ -4457,4 +2858,3 @@ import {
   // Make function globally available
   window.launchMyBlogAI = launchMyBlogAI;
 </script>
-

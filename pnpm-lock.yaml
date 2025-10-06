@@ -41,6 +41,9 @@ importers:
       '@chatscope/chat-ui-kit-styles':
         specifier: ^1.4.0
         version: 1.4.0
+      '@cloudflare/pages-plugin-sentry':
+        specifier: ^1.1.4
+        version: 1.1.4
       '@google-cloud/bigquery':
         specifier: ^8.1.1
         version: 8.1.1
@@ -77,6 +80,9 @@ importers:
       '@rollup/plugin-json':
         specifier: ^6.1.0
         version: 6.1.0(rollup@4.52.4)
+      '@sentry/cloudflare':
+        specifier: ^10.17.0
+        version: 10.17.0(@cloudflare/workers-types@4.20251004.0)
       '@tabler/icons-react':
         specifier: ^3.34.1
         version: 3.35.0(react@18.3.1)
@@ -355,6 +361,10 @@ packages:
   '@cloudflare/kv-asset-handler@0.4.0':
     resolution: {integrity: sha512-+tv3z+SPp+gqTIcImN9o0hqE9xyfQjI1XD9pL6NuKjua9B1y7mNYv0S9cP+QEbA4ppVgGZEmKOvHX5G5Ei1CVA==}
     engines: {node: '>=18.0.0'}
+
+  '@cloudflare/pages-plugin-sentry@1.1.4':
+    resolution: {integrity: sha512-BFcTebWpD4pp6+RePLp5bckoYKMoXKApm0D3PholFnen5FGAv70reIfa+Y031ZD/yGx7ty+8MlAqB7cnPDQfCg==}
+    deprecated: Sentry now provides official support for Cloudflare Workers and Pages. Refer to the Sentry documentation (https://docs.sentry.io/platforms/javascript/guides/cloudflare/) for more details.
 
   '@cloudflare/unenv-preset@2.7.3':
     resolution: {integrity: sha512-tsQQagBKjvpd9baa6nWVIv399ejiqcrUBBW6SZx6Z22+ymm+Odv5+cFimyuCsD/fC1fQTwfRmwXBNpzvHSeGCw==}
@@ -1391,6 +1401,19 @@ packages:
     resolution: {integrity: sha512-bf9PtUa0u8IXDVxzRToFQKsNCRz9qLYfR/MpECxl4mRoWYjAeFjgxj1XdZr2M/GNVpT05p+LgQOHopYDlUu6/w==}
     cpu: [x64]
     os: [win32]
+
+  '@sentry/cloudflare@10.17.0':
+    resolution: {integrity: sha512-99ZITwImTbIkMNQReJQs0NqXvOIX/AgNie9pjWnPeLqTiv5jji0ZMnXyd5YSS58iuqqnDqETnbomoFjpvh/ufA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.x
+    peerDependenciesMeta:
+      '@cloudflare/workers-types':
+        optional: true
+
+  '@sentry/core@10.17.0':
+    resolution: {integrity: sha512-UVIvxSzS0n5QbIDPyFf0WX9I77Of1bcr6a0sCEKfjhJGmGQ8mFWoWgR2gF4wcPw60XUrzbryCr79eOsIHLQ5cw==}
+    engines: {node: '>=18'}
 
   '@shikijs/core@3.13.0':
     resolution: {integrity: sha512-3P8rGsg2Eh2qIHekwuQjzWhKI4jV97PhvYjYUzGqjvJfqdQPz+nMlfWahU24GZAyW1FxFI1sYjyhfh5CoLmIUA==}
@@ -4439,6 +4462,8 @@ snapshots:
     dependencies:
       mime: 3.0.0
 
+  '@cloudflare/pages-plugin-sentry@1.1.4': {}
+
   '@cloudflare/unenv-preset@2.7.3(unenv@2.0.0-rc.21)(workerd@1.20250906.0)':
     dependencies:
       unenv: 2.0.0-rc.21
@@ -5246,6 +5271,15 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.52.4':
     optional: true
+
+  '@sentry/cloudflare@10.17.0(@cloudflare/workers-types@4.20251004.0)':
+    dependencies:
+      '@opentelemetry/api': 1.9.0
+      '@sentry/core': 10.17.0
+    optionalDependencies:
+      '@cloudflare/workers-types': 4.20251004.0
+
+  '@sentry/core@10.17.0': {}
 
   '@shikijs/core@3.13.0':
     dependencies:

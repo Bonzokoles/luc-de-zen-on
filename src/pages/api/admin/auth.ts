@@ -1,4 +1,4 @@
-import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
 export const OPTIONS = createOPTIONSHandler(['POST']);
 

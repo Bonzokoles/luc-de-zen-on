@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { addCORSHeaders, createErrorResponse, createSuccessResponse } from '../../../utils/corsUtils';
+import { addCORSHeaders, createErrorResponse, createSuccessResponse } from '@/utils/corsUtils';
 
 const execAsync = promisify(exec);
 

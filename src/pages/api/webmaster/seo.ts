@@ -3,7 +3,7 @@
  */
 
 import type { APIRoute } from 'astro';
-import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils.ts';
+import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
 export const OPTIONS = createOPTIONSHandler(['POST']);
 

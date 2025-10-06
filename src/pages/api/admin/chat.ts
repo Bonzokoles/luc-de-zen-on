@@ -1,4 +1,4 @@
-import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
 // Admin AI system prompts for different modes
 const ADMIN_SYSTEM_PROMPTS = {

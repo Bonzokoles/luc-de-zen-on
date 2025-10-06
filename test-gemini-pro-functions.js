@@ -23,6 +23,7 @@ const mockWindow = {
 
 // Sprawdź czy mamy dostęp do implementation  
 console.log("ℹ️ Test uruchamiany w Node.js - niektóre funkcje będą symulowane");
+if (typeof window !== 'undefined' && window.geminiProAgent) {
   console.log("✅ geminiProAgent - DOSTĘPNY");
   
   coreFunctions.forEach(func => {

@@ -1,6 +1,31 @@
 import type { APIRoute } from 'astro';
+import { Buffer } from 'node:buffer';
 
-export const POST: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ locals }) => {
+  const env = (locals as any)?.runtime?.env || {};
+  const statusInfo = {
+    service: "DeepSeek + Kaggle API Test",
+    timestamp: new Date().toISOString(),
+    configuration: {
+      deepseek_api_key: env.DEEPSEEK_API_KEY ? "✅ Configured" : "❌ Missing",
+      kaggle_username: env.KAGGLE_USERNAME ? "✅ Configured" : "❌ Missing",
+      kaggle_key: env.KAGGLE_KEY ? "✅ Configured" : "❌ Missing",
+    },
+    usage: {
+      method: "POST",
+      body: {
+        dataset: "<name_of_dataset_to_search>",
+        analysisType: "'quick' | 'detailed' | 'ml' | 'custom'",
+        customPrompt: "<your_custom_prompt_if_analysisType_is_custom>"
+      }
+    }
+  };
+  return new Response(JSON.stringify(statusInfo, null, 2), {
+    headers: { 'Content-Type': 'application/json' }
+  });
+};
+
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { dataset, analysisType, customPrompt } = await request.json();
     
@@ -15,9 +40,10 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Get API keys from environment
-    const deepseekApiKey = import.meta.env.DEEPSEEK_API_KEY || process.env.DEEPSEEK_API_KEY;
-    const kaggleUsername = import.meta.env.KAGGLE_USERNAME || process.env.KAGGLE_USERNAME;
-    const kaggleKey = import.meta.env.KAGGLE_KEY || process.env.KAGGLE_KEY;
+    const env = (locals as any)?.runtime?.env || {};
+    const deepseekApiKey = env.DEEPSEEK_API_KEY;
+    const kaggleUsername = env.KAGGLE_USERNAME;
+    const kaggleKey = env.KAGGLE_KEY;
 
     if (!deepseekApiKey) {
       return new Response(JSON.stringify({ 
@@ -40,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Search for datasets on Kaggle
-    const auth = btoa(`${kaggleUsername}:${kaggleKey}`);
+    const auth = Buffer.from(`${kaggleUsername}:${kaggleKey}`).toString('base64');
     
     const kaggleResponse = await fetch(`https://www.kaggle.com/api/v1/datasets/list?search=${encodeURIComponent(dataset)}&page=1&pageSize=5`, {
       headers: {

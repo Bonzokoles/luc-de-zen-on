@@ -571,7 +571,7 @@ ORDER BY date;`,
       const rowLimit = parseInt(document.getElementById("rowLimit").value);
       const format = document.getElementById("outputFormat").value;
 
-      const response = await fetch("/api/bigquery", {
+      const response = await fetch("/api/bigquery-light", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

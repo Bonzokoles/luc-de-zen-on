@@ -63,9 +63,9 @@ export class CloudflareVoiceAI {
       await this.setupAudioCapture();
       await this.setupWebSocket();
       console.log('✅ Voice AI initialized successfully');
-    } catch (error) {
+    } catch (error: any) {
       console.error('❌ Failed to initialize Voice AI:', error);
-      this.onError?.(`Initialization failed: ${error}`);
+      this.onError?.(`Initialization failed: ${error.message}`);
       throw error;
     }
   }
@@ -102,7 +102,7 @@ export class CloudflareVoiceAI {
       source.connect(workletNode);
       
       // Handle worklet messages
-      workletNode.port.onmessage = (event) => {
+      workletNode.port.onmessage = (event: any) => {
         if (event.data.type === 'metrics') {
           this.metrics = {
             ...this.metrics,
@@ -123,7 +123,7 @@ export class CloudflareVoiceAI {
       // Store worklet reference
       (this as any).workletNode = workletNode;
       
-    } catch (error) {
+    } catch (error: any) {
       console.warn('Audio worklet not available, using fallback:', error);
       // Fallback to basic audio processing
       this.setupBasicAudioProcessing();
@@ -201,11 +201,11 @@ export class CloudflareVoiceAI {
       });
     };
 
-    this.ws.onmessage = (event) => {
+    this.ws.onmessage = (event: any) => {
       try {
         const data = JSON.parse(event.data);
         this.handleWebSocketMessage(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to parse WebSocket message:', error);
       }
     };
@@ -215,7 +215,7 @@ export class CloudflareVoiceAI {
       this.onConnectionChange?.(false);
     };
 
-    this.ws.onerror = (error) => {
+    this.ws.onerror = (error: any) => {
       console.error('❌ WebSocket error:', error);
       this.onError?.('WebSocket connection failed');
     };
@@ -283,7 +283,7 @@ export class CloudflareVoiceAI {
         })
       });
 
-      const result = await response.json();
+      const result: any = await response.json();
       
       if (result.success) {
         // Generate speech from AI response
@@ -296,7 +296,7 @@ export class CloudflareVoiceAI {
       } else {
         throw new Error(result.error);
       }
-    } catch (error) {
+    } catch (error: any) {
       this.onError?.(`AI processing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       return '';
     }
@@ -322,7 +322,7 @@ export class CloudflareVoiceAI {
       }
       
       return null;
-    } catch (error) {
+    } catch (error: any) {
       this.onError?.(`Speech generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       return null;
     }
@@ -343,14 +343,14 @@ export class CloudflareVoiceAI {
         })
       });
 
-      const result = await response.json();
+      const result: any = await response.json();
       
       if (result.success) {
         return result.transcription;
       } else {
         throw new Error(result.error);
       }
-    } catch (error) {
+    } catch (error: any) {
       this.onError?.(`Transcription failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
       return '';
     }

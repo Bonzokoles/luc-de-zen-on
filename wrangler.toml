@@ -38,10 +38,15 @@ head_sampling_rate = 0.01
 NODE_ENV = "production"
 PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
 PUBLIC_SITE_URL = "https://www.mybonzo.com"
+SENTRY_ENVIRONMENT = "production"
 WORKER_ENV = "production"
 MAX_CONCURRENT_REQUESTS = "100"
 CACHE_TTL = "3600"
 API_RATE_LIMIT = "1000"
+TAVILY_API_KEY = ""
+DEEPSEEK_API_KEY = ""
+KAGGLE_USERNAME = ""
+KAGGLE_KEY = ""
 
 # Darmowe AI API Keys - ustaw w Cloudflare Dashboard Environment Variables
 # OPENAI_API_KEY = "sk-..." # dla Sora video generation  

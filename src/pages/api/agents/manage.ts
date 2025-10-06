@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { createSuccessResponse, createErrorResponse } from '../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse } from '@/utils/corsUtils';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {

@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import * as Sentry from "@sentry/cloudflare";
 
 // Helper to get secrets from Cloudflare environment
 function getEnv(locals: any): Record<string, any> {
@@ -44,6 +45,19 @@ async function performTavilySearch(env: any, query: string) {
     return data;
   } catch (error) {
     console.error("Tavily API error:", error);
+
+    // Wysyłaj błędy do Sentry z kontekstem
+    Sentry.captureException(error, {
+      tags: {
+        endpoint: "tavily-search",
+        api: "tavily",
+      },
+      extra: {
+        query: query,
+        apiKeyConfigured: !!tavilyApiKey,
+      },
+    });
+
     throw error;
   }
 }
@@ -196,6 +210,19 @@ export const GET: APIRoute = async ({ url, locals }) => {
       }
     }
   } catch (error) {
+    // Główne błędy API do Sentry
+    Sentry.captureException(error, {
+      tags: {
+        endpoint: "tavi-api",
+        method: "GET",
+      },
+      extra: {
+        query: query,
+        userAgent: request.headers.get("user-agent"),
+        ip: request.headers.get("cf-connecting-ip"),
+      },
+    });
+
     return new Response(
       JSON.stringify({
         status: "error",
@@ -212,10 +239,11 @@ export const GET: APIRoute = async ({ url, locals }) => {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = getEnv(locals);
+  let query = ""; // Deklaruję wcześniej dla Sentry scope
 
   try {
-    const body = await request.json();
-    const query = body.query;
+    const body = (await request.json()) as { query: string };
+    query = body.query;
 
     if (!query) {
       return new Response(
@@ -227,7 +255,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    let searchData;
+    let searchData: any;
     let searchMethod = "tavily";
 
     try {
@@ -287,6 +315,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
   } catch (error) {
     console.error("Tavi API Error:", error);
+
+    // POST błędy też do Sentry
+    Sentry.captureException(error, {
+      tags: {
+        endpoint: "tavi-api",
+        method: "POST",
+      },
+      extra: {
+        query: query,
+        userAgent: request.headers.get("user-agent"),
+        ip: request.headers.get("cf-connecting-ip"),
+      },
+    });
     return new Response(
       JSON.stringify({
         status: "error",

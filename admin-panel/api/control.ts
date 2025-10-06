@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { createSuccessResponse, createErrorResponse, addCORSHeaders } from '../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse, addCORSHeaders } from '@/utils/corsUtils';
 
 // Admin API - Comprehensive control endpoints
 export const GET: APIRoute = async ({ request, locals }) => {

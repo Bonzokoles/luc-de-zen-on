@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { createSuccessResponse, createErrorResponse } from '../../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse } from '@/utils/corsUtils';
 
 // In-memory storage for created agents (in production would use database/KV)
 const createdAgents = new Map();

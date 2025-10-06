@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { createSuccessResponse, createErrorResponse } from '../../../../utils/corsUtils';
+import { createSuccessResponse, createErrorResponse } from '@/utils/corsUtils';
 
 // Te same konfiguracje agentów
 const agentConfigs = {
