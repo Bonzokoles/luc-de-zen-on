@@ -4,12 +4,12 @@ export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 const GET = async ({ request, locals }) => {
   try {
     const env = false ? process.env : locals?.runtime?.env || {};
-    const projectId = env.GOOGLE_CLOUD_PROJECT_ID || env.GCP_PROJECT_ID;
+    const projectId = env.GOOGLE_CLOUD_PROJECT_ID || env.GOOGLE_PROJECT_ID || env.GCP_PROJECT_ID;
     if (!projectId) {
       return new Response(JSON.stringify({
         success: false,
         error: "Google Cloud project not configured",
-        message: "GOOGLE_CLOUD_PROJECT_ID environment variable is required"
+        message: "GOOGLE_CLOUD_PROJECT_ID or GOOGLE_PROJECT_ID environment variable is required"
       }), {
         status: 500,
         headers: { "Content-Type": "application/json" }
