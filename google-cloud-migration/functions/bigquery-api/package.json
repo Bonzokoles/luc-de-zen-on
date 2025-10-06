@@ -1,0 +1,20 @@
+{
+  "name": "mybonzo-bigquery-api",
+  "version": "1.0.0",
+  "description": "MyBonzo BigQuery API - Google Cloud Function",
+  "main": "index.js",
+  "scripts": {
+    "start": "functions-framework --target=mybonzo-bigquery-api",
+    "deploy": "gcloud functions deploy mybonzo-bigquery-api --runtime nodejs18 --trigger-http --allow-unauthenticated --memory 256MB --timeout 60s --region europe-west1"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.3.0",
+    "@google-cloud/functions-framework": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["mybonzo", "bigquery", "ai", "analytics"],
+  "author": "MyBonzo AI System",
+  "license": "MIT"
+}

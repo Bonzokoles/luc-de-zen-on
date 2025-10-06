@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DeSMV8-3.mjs';
-import { a as attr, b as ensure_array_like, e as escape_html, c as attr_class, s as stringify } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BwiF4hL0.mjs';
+import { a as attr, b as ensure_array_like, e as escape_html, c as attr_class, s as stringify } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 /* empty css                                              */
 
 function AIWorkersManager($$renderer, $$props) {
@@ -69,37 +69,45 @@ function AIWorkersManager($$renderer, $$props) {
 
 		$$renderer.push(`<!--]--> <div class="create-worker-section svelte-1sonwds"><h3>➕ Utwórz Nowy Worker</h3> <form class="worker-form svelte-1sonwds"><div class="form-group svelte-1sonwds"><label for="worker-name" class="svelte-1sonwds">Nazwa Worker:</label> <input id="worker-name" type="text"${attr('value', newWorkerName)} placeholder="np. Chat Assistant v2" required class="svelte-1sonwds"/></div> <div class="form-group svelte-1sonwds"><label for="worker-type" class="svelte-1sonwds">Typ Worker:</label> `);
 
-		$$renderer.select({ id: 'worker-type', value: newWorkerType, class: '' }, ($$renderer) => {
-			$$renderer.push(`<!--[-->`);
+		$$renderer.select(
+			{ id: 'worker-type', value: newWorkerType, class: '' },
+			($$renderer) => {
+				$$renderer.push(`<!--[-->`);
 
-			const each_array = ensure_array_like(workerTypes);
+				const each_array = ensure_array_like(workerTypes);
 
-			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
-				let type = each_array[$$index];
+				for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+					let type = each_array[$$index];
 
-				$$renderer.option({ value: type.id }, ($$renderer) => {
-					$$renderer.push(`${escape_html(type.name)}`);
-				});
-			}
+					$$renderer.option({ value: type.id }, ($$renderer) => {
+						$$renderer.push(`${escape_html(type.name)}`);
+					});
+				}
 
-			$$renderer.push(`<!--]-->`);
-		});
+				$$renderer.push(`<!--]-->`);
+			},
+			'svelte-1sonwds'
+		);
 
 		$$renderer.push(`</div> <div class="config-section"><h4>Konfiguracja AI:</h4> <div class="form-row svelte-1sonwds"><div class="form-group svelte-1sonwds"><label for="model" class="svelte-1sonwds">Model:</label> `);
 
-		$$renderer.select({ id: 'model', value: workerConfig.model, class: '' }, ($$renderer) => {
-			$$renderer.option({ value: 'llama-3.1-8b-instant' }, ($$renderer) => {
-				$$renderer.push(`Llama 3.1 8B`);
-			});
+		$$renderer.select(
+			{ id: 'model', value: workerConfig.model, class: '' },
+			($$renderer) => {
+				$$renderer.option({ value: 'llama-3.1-8b-instant' }, ($$renderer) => {
+					$$renderer.push(`Llama 3.1 8B`);
+				});
 
-			$$renderer.option({ value: 'llama-3.1-70b-versatile' }, ($$renderer) => {
-				$$renderer.push(`Llama 3.1 70B`);
-			});
+				$$renderer.option({ value: 'llama-3.1-70b-versatile' }, ($$renderer) => {
+					$$renderer.push(`Llama 3.1 70B`);
+				});
 
-			$$renderer.option({ value: 'gemma-7b-it' }, ($$renderer) => {
-				$$renderer.push(`Gemma 7B`);
-			});
-		});
+				$$renderer.option({ value: 'gemma-7b-it' }, ($$renderer) => {
+					$$renderer.push(`Gemma 7B`);
+				});
+			},
+			'svelte-1sonwds'
+		);
 
 		$$renderer.push(`</div> <div class="form-group svelte-1sonwds"><label for="max-tokens" class="svelte-1sonwds">Max Tokens:</label> <input id="max-tokens" type="number"${attr('value', workerConfig.maxTokens)} min="100" max="4000" class="svelte-1sonwds"/></div> <div class="form-group svelte-1sonwds"><label for="temperature" class="svelte-1sonwds">Temperature:</label> <input id="temperature" type="range"${attr('value', workerConfig.temperature)} min="0" max="2" step="0.1" class="svelte-1sonwds"/> <span class="range-value svelte-1sonwds">${escape_html(workerConfig.temperature)}</span></div></div></div> <button type="submit" class="btn-primary svelte-1sonwds"${attr('disabled', !newWorkerName.trim(), true)}>🚀 Utwórz Worker</button></form></div> <div class="workers-list-section svelte-1sonwds"><div class="section-header svelte-1sonwds"><h3>📋 Lista Workers (${escape_html(workers.length)})</h3> <button class="btn-secondary svelte-1sonwds"${attr('disabled', loading, true)}>🔄 Odśwież</button></div> `);
 

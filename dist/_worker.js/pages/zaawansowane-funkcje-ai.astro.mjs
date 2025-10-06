@@ -1,12 +1,12 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { e as createAstro, c as createComponent, g as addAttribute, d as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_C1oOU0Od.mjs';
-import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_-wXzlrJt.mjs';
-import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_BR8tRSiG.mjs';
-import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm__cEx6JrF.mjs';
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, e as createAstro, g as addAttribute, d as renderHead, r as renderComponent, b as renderScript, a as renderTemplate } from '../chunks/astro/server_HpSis98d.mjs';
+import { M as MarketingContentGenerator } from '../chunks/MarketingContentGenerator_Bak0Wq-g.mjs';
+import { R as RecommendationsWidget } from '../chunks/RecommendationsWidget_CwcpB5Wk.mjs';
+import { L as LeadQualificationForm } from '../chunks/LeadQualificationForm_C_TdSYWJ.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro();
 const $$ZaawansowaneFunkcjeAi = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ZaawansowaneFunkcjeAi;

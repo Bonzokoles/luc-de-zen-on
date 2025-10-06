@@ -1,12 +1,12 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
-import { e as createAstro, c as createComponent, r as renderComponent, b as renderScript, a as renderTemplate, ao as renderSlot, m as maybeRenderHead, g as addAttribute } from '../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DeSMV8-3.mjs';
-import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_CYP07A9F.mjs';
+import { c as createComponent, e as createAstro, r as renderComponent, b as renderScript, a as renderTemplate, ao as renderSlot, m as maybeRenderHead, g as addAttribute } from '../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BwiF4hL0.mjs';
+import { $ as $$DecorativeLines } from '../chunks/DecorativeLines_Cd-cyKtG.mjs';
 /* empty css                                 */
-export { r as renderers } from '../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
-const $$Astro$1 = createAstro("https://mybonzo.com");
+const $$Astro$1 = createAstro();
 const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$CyberpunkButton;
@@ -35,7 +35,7 @@ const $$CyberpunkButton = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Tag", Tag, { "href": href, "type": type, "disabled": disabled, "onclick": onclick, "class": `cyberpunk-btn ${variantClasses[variant]} ${sizeClasses[size]} ${className}`, "data-astro-cid-kv7rg66x": true }, { "default": ($$result2) => renderTemplate`${icon && renderTemplate`${maybeRenderHead()}<span class="btn-icon" data-astro-cid-kv7rg66x>${icon}</span>`}${renderSlot($$result2, $$slots["default"])} ` })}  ${renderScript($$result, "Q:/mybonzo/luc-de-zen-on/src/components/CyberpunkButton.astro?astro&type=script&index=0&lang.ts")}`;
 }, "Q:/mybonzo/luc-de-zen-on/src/components/CyberpunkButton.astro", void 0);
 
-const $$Astro = createAstro("https://mybonzo.com");
+const $$Astro = createAstro();
 const $$CyberStatCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$CyberStatCard;

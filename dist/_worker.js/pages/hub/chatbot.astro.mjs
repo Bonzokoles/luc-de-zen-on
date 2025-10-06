@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_CVwAN01d.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_DxdwxM_T.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$Chatbot = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "AI Chatbot" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-4xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">AI Chatbot</h1> <p class="text-cyber-text-dim mt-4">

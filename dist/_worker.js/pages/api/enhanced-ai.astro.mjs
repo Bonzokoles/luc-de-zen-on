@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, a as renderTemplate } from '../../chunks/astro/server_C1oOU0Od.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, a as renderTemplate } from '../../chunks/astro/server_HpSis98d.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const ALL = async ({ request }) => {
   const corsHeaders = {

@@ -1,8 +1,8 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, d as renderHead, r as renderComponent, a as renderTemplate } from '../../chunks/astro/server_C1oOU0Od.mjs';
-import { e as escape_html, a as attr, b as ensure_array_like, c as attr_class, d as clsx } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, d as renderHead, r as renderComponent, a as renderTemplate } from '../../chunks/astro/server_HpSis98d.mjs';
+import { e as escape_html, a as attr, b as ensure_array_like, c as attr_class, d as clsx } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 /* empty css                                        */
 
 function PolaczekDyrektorPanel($$renderer, $$props) {

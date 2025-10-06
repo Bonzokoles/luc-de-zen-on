@@ -1,10 +1,10 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_DeSMV8-3.mjs';
-import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_CYP07A9F.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$MyBonzoLayout } from '../../chunks/MyBonzoLayout_BwiF4hL0.mjs';
+import { $ as $$DecorativeLines } from '../../chunks/DecorativeLines_Cd-cyKtG.mjs';
 /* empty css                                                */
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$AgentDataSimple = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "MyBonzoLayout", $$MyBonzoLayout, { "siteTitle": "Agent Data Management | POLACZEK AGENTS SYS_23", "data-astro-cid-3gy65juh": true }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "DecorativeLines", $$DecorativeLines, { "data-astro-cid-3gy65juh": true })}  ${maybeRenderHead()}<div class="workers-vertical-line-left" data-astro-cid-3gy65juh></div> <div class="workers-vertical-line-right" data-astro-cid-3gy65juh></div> <main class="min-h-svh" data-astro-cid-3gy65juh> <!-- Header Section --> <section class="border border-edge relative" data-astro-cid-3gy65juh> <div class="max-w-6xl mx-auto" data-astro-cid-3gy65juh> <div class="flex flex-row p-2" data-astro-cid-3gy65juh> <a class="hover:brightness-125" href="/POLACZEK_AGENT_SYS_23" data-astro-cid-3gy65juh> <h1 class="text-4xl sm:text-5xl" style="border: 1px solid white;" data-astro-cid-3gy65juh>AGENT DATA MANAGER</h1> <h2 class="text-2xl sm:text-3xl" data-astro-cid-3gy65juh>Custom Content & Knowledge Base</h2> </a> <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col" data-astro-cid-3gy65juh> <a class="ml-auto hover:brightness-125 duration-200" href="/POLACZEK_AGENT_SYS_23" data-astro-cid-3gy65juh>

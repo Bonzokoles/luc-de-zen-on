@@ -1,0 +1,302 @@
+---
+import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
+---
+
+<MyBonzoLayout title="Dashboard Analityczny - MyBonzo">
+  <main class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          📊 Dashboard Analityczny
+        </h1>
+        <p class="text-xl text-gray-300 mb-6">
+          Google Analytics API z wizualizacją danych w czasie rzeczywistym
+        </p>
+      </div>
+
+      <!-- Analytics Dashboard -->
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Overview Stats -->
+        <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-cyan-500/30 p-6">
+          <h2 class="text-2xl font-bold text-cyan-400 mb-4">📈 Przegląd Ruchu</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-black/30 rounded-xl p-4 text-center">
+              <div id="totalUsers" class="text-3xl font-bold text-green-400">---</div>
+              <div class="text-gray-300">Użytkownicy (30 dni)</div>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4 text-center">
+              <div id="totalSessions" class="text-3xl font-bold text-blue-400">---</div>
+              <div class="text-gray-300">Sesje (30 dni)</div>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4 text-center">
+              <div id="bounceRate" class="text-3xl font-bold text-yellow-400">---</div>
+              <div class="text-gray-300">Współczynnik odrzuceń</div>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4 text-center">
+              <div id="avgSessionDuration" class="text-3xl font-bold text-purple-400">---</div>
+              <div class="text-gray-300">Śr. czas sesji</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-time Data -->
+        <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-green-500/30 p-6">
+          <h2 class="text-2xl font-bold text-green-400 mb-4">🔴 Dane Real-time</h2>
+          <div class="space-y-4">
+            <div class="bg-black/30 rounded-xl p-4">
+              <div id="activeUsers" class="text-4xl font-bold text-green-400 text-center">---</div>
+              <div class="text-gray-300 text-center">Aktywni użytkownicy</div>
+            </div>
+            <div class="bg-black/30 rounded-xl p-4">
+              <h3 class="text-lg font-bold text-cyan-400 mb-2">Aktualne strony:</h3>
+              <div id="currentPages" class="text-gray-300">Ładowanie...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="grid lg:grid-cols-2 gap-6 mb-8">
+        <!-- Traffic Chart -->
+        <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-purple-500/30 p-6">
+          <h2 class="text-2xl font-bold text-purple-400 mb-4">📊 Ruch w czasie</h2>
+          <div id="trafficChart" class="h-64 bg-black/30 rounded-xl flex items-center justify-center">
+            <div class="text-gray-400">Wykres ruchu - ładowanie...</div>
+          </div>
+        </div>
+
+        <!-- Top Pages -->
+        <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-yellow-500/30 p-6">
+          <h2 class="text-2xl font-bold text-yellow-400 mb-4">🏆 Najpopularniejsze strony</h2>
+          <div id="topPages" class="space-y-2">
+            <div class="text-gray-300">Ładowanie danych...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Analytics -->
+      <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-cyan-500/30 p-6 mb-8">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-4">🎯 Szczegółowe Analizy</h2>
+        
+        <!-- Date Range Selector -->
+        <div class="mb-6 flex gap-4 items-center">
+          <label class="text-cyan-400 font-bold">Okres:</label>
+          <select id="dateRange" class="bg-black/50 border border-cyan-500/30 rounded-xl px-4 py-2 text-white">
+            <option value="7d">Ostatnie 7 dni</option>
+            <option value="30d" selected>Ostatnie 30 dni</option>
+            <option value="90d">Ostatnie 90 dni</option>
+            <option value="1y">Ostatni rok</option>
+          </select>
+          <button 
+            id="refreshData"
+            class="bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-4 py-2 rounded-xl font-bold hover:from-cyan-600 hover:to-purple-600 transition-all duration-300"
+          >
+            🔄 Odśwież
+          </button>
+        </div>
+
+        <!-- Acquisition Sources -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-bold text-cyan-400 mb-3">📍 Źródła ruchu</h3>
+            <div id="trafficSources" class="space-y-2">
+              <div class="text-gray-300">Ładowanie...</div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-bold text-purple-400 mb-3">🌍 Lokalizacje</h3>
+            <div id="userLocations" class="space-y-2">
+              <div class="text-gray-300">Ładowanie...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Options -->
+      <div class="bg-black/40 backdrop-blur-md rounded-2xl border border-green-500/30 p-6 mb-8">
+        <h2 class="text-2xl font-bold text-green-400 mb-4">📊 Eksport Danych</h2>
+        <div class="flex gap-4">
+          <button 
+            id="exportCSV"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-bold transition-colors"
+          >
+            📄 Eksportuj CSV
+          </button>
+          <button 
+            id="exportJSON"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold transition-colors"
+          >
+            📋 Eksportuj JSON
+          </button>
+          <button 
+            id="generateReport"
+            class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl font-bold transition-colors"
+          >
+            📈 Wygeneruj Raport
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="text-center">
+        <a href="/" class="inline-block bg-gradient-to-r from-cyan-500 to-purple-500 text-white px-6 py-3 rounded-xl font-bold hover:from-cyan-600 hover:to-purple-600 transition-all duration-300">
+          ← Powrót do głównej
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize dashboard
+      loadAnalyticsData();
+      
+      // Auto-refresh every 5 minutes
+      setInterval(loadAnalyticsData, 5 * 60 * 1000);
+
+      // Event listeners
+      document.getElementById('refreshData')?.addEventListener('click', loadAnalyticsData);
+      document.getElementById('dateRange')?.addEventListener('change', loadAnalyticsData);
+      document.getElementById('exportCSV')?.addEventListener('click', exportData('csv'));
+      document.getElementById('exportJSON')?.addEventListener('click', exportData('json'));
+      document.getElementById('generateReport')?.addEventListener('click', generateReport);
+
+      async function loadAnalyticsData() {
+        const dateRange = (document.getElementById('dateRange') as HTMLSelectElement)?.value || '30d';
+        
+        try {
+          // Load overview stats
+          const overviewResponse = await fetch(`/api/analytics/overview?period=${dateRange}`);
+          const overviewData = await overviewResponse.json();
+          
+          if (overviewData.success) {
+            updateOverviewStats(overviewData.data);
+          }
+
+          // Load real-time data
+          const realtimeResponse = await fetch('/api/analytics/realtime');
+          const realtimeData = await realtimeResponse.json();
+          
+          if (realtimeData.success) {
+            updateRealtimeData(realtimeData.data);
+          }
+
+          // Load detailed analytics
+          const detailedResponse = await fetch(`/api/analytics/detailed?period=${dateRange}`);
+          const detailedData = await detailedResponse.json();
+          
+          if (detailedData.success) {
+            updateDetailedAnalytics(detailedData.data);
+          }
+
+        } catch (error) {
+          console.error('Error loading analytics data:', error);
+          showErrorMessage('Błąd ładowania danych analitycznych');
+        }
+      }
+
+      function updateOverviewStats(data: any) {
+        document.getElementById('totalUsers')!.textContent = formatNumber(data.totalUsers);
+        document.getElementById('totalSessions')!.textContent = formatNumber(data.totalSessions);
+        document.getElementById('bounceRate')!.textContent = `${data.bounceRate}%`;
+        document.getElementById('avgSessionDuration')!.textContent = formatDuration(data.avgSessionDuration);
+      }
+
+      function updateRealtimeData(data: any) {
+        document.getElementById('activeUsers')!.textContent = formatNumber(data.activeUsers);
+        
+        const pagesHtml = data.currentPages.map((page: any) => 
+          `<div class="flex justify-between"><span>${page.path}</span><span class="text-cyan-400">${page.users}</span></div>`
+        ).join('');
+        document.getElementById('currentPages')!.innerHTML = pagesHtml;
+      }
+
+      function updateDetailedAnalytics(data: any) {
+        // Update traffic sources
+        const sourcesHtml = data.trafficSources.map((source: any) => 
+          `<div class="flex justify-between bg-black/20 p-2 rounded"><span>${source.source}</span><span class="text-cyan-400">${source.users}</span></div>`
+        ).join('');
+        document.getElementById('trafficSources')!.innerHTML = sourcesHtml;
+
+        // Update user locations
+        const locationsHtml = data.userLocations.map((location: any) => 
+          `<div class="flex justify-between bg-black/20 p-2 rounded"><span>${location.country}</span><span class="text-purple-400">${location.users}</span></div>`
+        ).join('');
+        document.getElementById('userLocations')!.innerHTML = locationsHtml;
+
+        // Update top pages
+        const pagesHtml = data.topPages.map((page: any, index: number) => 
+          `<div class="flex justify-between bg-black/20 p-2 rounded">
+            <span><span class="text-yellow-400">${index + 1}.</span> ${page.path}</span>
+            <span class="text-yellow-400">${formatNumber(page.pageviews)}</span>
+          </div>`
+        ).join('');
+        document.getElementById('topPages')!.innerHTML = pagesHtml;
+      }
+
+      function formatNumber(num: number): string {
+        return new Intl.NumberFormat('pl-PL').format(num);
+      }
+
+      function formatDuration(seconds: number): string {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+      }
+
+      function showErrorMessage(message: string) {
+        // Show error in all placeholder areas
+        const placeholders = ['totalUsers', 'totalSessions', 'bounceRate', 'avgSessionDuration', 'activeUsers'];
+        placeholders.forEach(id => {
+          const element = document.getElementById(id);
+          if (element) element.textContent = 'Error';
+        });
+        alert(message);
+      }
+
+      function exportData(format: string) {
+        return async () => {
+          try {
+            const response = await fetch(`/api/analytics/export?format=${format}`);
+            const blob = await response.blob();
+            
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `analytics-export.${format}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          } catch (error) {
+            alert('Błąd eksportu danych');
+          }
+        };
+      }
+
+      async function generateReport() {
+        try {
+          const response = await fetch('/api/analytics/generate-report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              period: (document.getElementById('dateRange') as HTMLSelectElement)?.value || '30d' 
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            alert('Raport został wygenerowany i wysłany na Twój e-mail');
+          } else {
+            alert('Błąd generowania raportu: ' + data.message);
+          }
+        } catch (error) {
+          alert('Błąd generowania raportu');
+        }
+      }
+    });
+  </script>
+</MyBonzoLayout>

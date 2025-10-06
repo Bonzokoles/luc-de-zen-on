@@ -1,9 +1,9 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                        */
-import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_C1oOU0Od.mjs';
-import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_CVwAN01d.mjs';
-import { T as TavilyWidget } from '../../../chunks/TavilyWidget_qr7Ily3r.mjs';
-export { r as renderers } from '../../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_HpSis98d.mjs';
+import { $ as $$BackroomInterface } from '../../../chunks/BackroomInterface_DxdwxM_T.mjs';
+import { T as TavilyWidget } from '../../../chunks/TavilyWidget_BcPo9a33.mjs';
+export { r as renderers } from '../../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$2 = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate`${renderComponent($$result, "Layout", $$BackroomInterface, { "siteTitle": "Tavily AI Search" }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<section class="max-w-6xl mx-auto py-12"> <h1 class="text-2xl font-bold text-cyber-blue">🔍 Tavily AI Search & Research</h1> <p class="text-cyber-text-dim mt-4">

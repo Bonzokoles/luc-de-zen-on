@@ -1,6 +1,6 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 import { c as createOPTIONSHandler, a as createSuccessResponse, b as createErrorResponse } from '../../chunks/corsUtils_CwKkZG2q.mjs';
-export { r as renderers } from '../../chunks/_@astro-renderers_CsfOuLCA.mjs';
+export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const artistStyles = [
   { "Name": "Aertsen, Pieter", "Prompt": "style of Pieter Aertsen", "Category": "Painting, Oil, Still Life, Portrait, Netherlands, 16th Century", "Type": "Classical" },
