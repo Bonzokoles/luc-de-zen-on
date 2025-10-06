@@ -170,7 +170,7 @@ This report details the comprehensive optimization implemented for the MyBonzo w
 
 #### Environment Variables
 
-```env
+```plaintext
 # Add to .env.local
 CLOUDFLARE_ACCOUNT_ID=your_account_id
 CLOUDFLARE_API_TOKEN=your_api_token

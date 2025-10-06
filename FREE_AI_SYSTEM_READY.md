@@ -3,19 +3,22 @@
 ## 🚀 Dostępne Modele
 
 ### 📸 Generowanie Obrazów
+
 - **Flux Schnell** (Together AI) - ultra szybki
 - **SDXL Turbo** (Stability AI) - 1 krok
 - **Playground v2** (Hugging Face) - estetyczny
 
-### 🎬 Generowanie Video  
+### 🎬 Generowanie Video
+
 - **OpenAI Sora Turbo** - DARMOWY od października 2024!
 
 ## ⚙️ Konfiguracja (GOTOWA!)
 
 Wszystkie klucze API zostały skonfigurowane w Cloudflare Dashboard:
-- ✅ OPENAI_API_KEY 
+
+- ✅ OPENAI_API_KEY
 - ✅ TOGETHER_API_KEY
-- ✅ STABILITY_API_KEY  
+- ✅ STABILITY_API_KEY
 - ✅ HUGGINGFACE_API_KEY
 
 ## 🌐 Interface

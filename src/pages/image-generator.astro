@@ -25,13 +25,40 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               class="block text-lg font-semibold mb-2 text-primary-foreground"
               >Opis obrazu</label
             >
-            <textarea
-              id="imagePrompt"
-              rows="3"
-              class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none"
-              style="background: rgba(0,0,0,0.5);"
-              placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"
-            ></textarea>
+            <div class="relative">
+              <textarea
+                id="imagePrompt"
+                rows="3"
+                class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none pr-24"
+                style="background: rgba(0,0,0,0.5);"
+                placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"
+              ></textarea>
+              
+              <!-- Prompt Tools -->
+              <div class="absolute top-2 right-2 flex gap-1">
+                <button
+                  id="translateBtn"
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                  onclick="translatePrompt()"
+                  title="Przetłumacz na angielski"
+                >🌐</button>
+                <button
+                  id="enhanceBtn"
+                  class="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded text-xs transition-colors"
+                  onclick="enhancePrompt()"
+                  title="Magic Prompt - ulepszanie przez AI Stable Diffusion"
+                >✨</button>
+              </div>
+            </div>
+            
+            <!-- Quick Prompt Templates -->
+            <div class="mt-2 flex flex-wrap gap-1">
+              <button onclick="setTemplate('photo')" class="prompt-template">📸 Fotograficzny</button>
+              <button onclick="setTemplate('art')" class="prompt-template">🎨 Artystyczny</button>
+              <button onclick="setTemplate('anime')" class="prompt-template">🎭 Anime</button>
+              <button onclick="setTemplate('3d')" class="prompt-template">🎮 3D Render</button>
+              <button onclick="setTemplate('vintage')" class="prompt-template">📼 Vintage</button>
+            </div>
           </div>
 
           <!-- Controls -->
@@ -46,15 +73,34 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0,0,0,0.5);"
               >
-                <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
-                  >Stable Diffusion XL</option
-                >
-                <option value="@cf/lykon/dreamshaper-8-lcm"
-                  >DreamShaper 8 LCM</option
-                >
-                <option value="@cf/black-forest-labs/flux-1-schnell"
-                  >Flux-1 Schnell</option
-                >
+                <!-- Cloudflare Models -->
+                <optgroup label="🔥 Cloudflare AI">
+                  <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
+                    >Stable Diffusion XL</option
+                  >
+                  <option value="@cf/lykon/dreamshaper-8-lcm"
+                    >DreamShaper 8 LCM</option
+                  >
+                  <option value="@cf/black-forest-labs/flux-1-schnell"
+                    >Flux-1 Schnell</option
+                  >
+                </optgroup>
+                
+                <!-- External Free AI Models -->
+                <optgroup label="🆓 Darmowe AI">
+                  <option value="together_flux"
+                    >Together AI - FLUX.1-schnell</option
+                  >
+                  <option value="hf_playground"
+                    >HuggingFace - Playground v2.5</option
+                  >
+                  <option value="stability_sdxl"
+                    >Stability AI - SDXL</option
+                  >
+                  <option value="openai_sora"
+                    >OpenAI - Sora (Wideo - wkrótce)</option
+                  >
+                </optgroup>
               </select>
             </div>
             <div>
@@ -198,6 +244,21 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   .ai-workers-section {
     min-height: 100vh;
   }
+  .prompt-template {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .prompt-template:hover {
+    background: rgba(6, 182, 212, 0.2);
+    border-color: #06b6d4;
+    color: #06b6d4;
+  }
   .quick-prompt-btn {
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid #374151;
@@ -236,6 +297,132 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       h = 512;
     }
     return { width: w, height: h };
+  }
+
+  // Template prompts
+  var promptTemplates = {
+    photo: "professional photography, high quality, 4K, realistic, detailed",
+    art: "digital art, masterpiece, highly detailed, artistic, beautiful colors",
+    anime: "anime style, manga style, vibrant colors, cel shading, high quality",
+    "3d": "3D render, octane render, cinema4d, blender, high quality, realistic lighting",
+    vintage: "vintage style, retro, film photography, nostalgic, warm tones"
+  };
+
+  function setTemplate(type) {
+    var promptEl = document.getElementById("imagePrompt");
+    if (promptEl && promptTemplates[type]) {
+      var currentText = promptEl.value.trim();
+      if (currentText) {
+        promptEl.value = currentText + ", " + promptTemplates[type];
+      } else {
+        promptEl.value = promptTemplates[type];
+      }
+    }
+  }
+
+  async function translatePrompt() {
+    var promptEl = document.getElementById("imagePrompt");
+    var translateBtn = document.getElementById("translateBtn");
+    
+    if (!promptEl || !translateBtn) return;
+    
+    var text = promptEl.value.trim();
+    if (!text) {
+      alert("Wprowadź tekst do przetłumaczenia");
+      return;
+    }
+
+    translateBtn.disabled = true;
+    translateBtn.textContent = "⏳";
+    
+    try {
+      var response = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: text,
+          from: "pl",
+          to: "en"
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Błąd tłumaczenia");
+      }
+
+      var data = await response.json();
+      if (data.success && data.translatedText) {
+        promptEl.value = data.translatedText;
+      } else {
+        throw new Error(data.error || "Brak tłumaczenia");
+      }
+    } catch (error) {
+      console.error("Translation error:", error);
+      alert("Błąd tłumaczenia: " + error.message);
+    } finally {
+      translateBtn.disabled = false;
+      translateBtn.textContent = "🌐";
+    }
+  }
+
+  async function enhancePrompt() {
+    var promptEl = document.getElementById("imagePrompt");
+    var enhanceBtn = document.getElementById("enhanceBtn");
+    var styleEl = document.getElementById("imageStyle");
+    
+    if (!promptEl || !enhanceBtn) return;
+    
+    var text = promptEl.value.trim();
+    if (!text) {
+      alert("Wprowadź tekst do ulepszenia");
+      return;
+    }
+
+    enhanceBtn.disabled = true;
+    enhanceBtn.textContent = "⏳";
+    
+    try {
+      var style = styleEl ? styleEl.value : "default";
+      var response = await fetch("/api/magic-prompt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: text,
+          style: style
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Błąd Magic Prompt");
+      }
+
+      var data = await response.json();
+      if (data.success && data.enhancedPrompt) {
+        promptEl.value = data.enhancedPrompt;
+        
+        // Show enhancement info
+        var info = document.createElement("div");
+        info.className = "mt-1 text-xs text-green-400";
+        info.textContent = "✨ Prompt ulepszony przez MagicPrompt-SD";
+        
+        var existingInfo = promptEl.parentElement.querySelector(".magic-info");
+        if (existingInfo) existingInfo.remove();
+        info.className += " magic-info";
+        promptEl.parentElement.appendChild(info);
+        
+        setTimeout(() => {
+          if (info.parentElement) info.remove();
+        }, 3000);
+      } else {
+        throw new Error(data.error || "Brak ulepszonego promptu");
+      }
+    } catch (error) {
+      console.error("Magic Prompt error:", error);
+      alert("Błąd Magic Prompt: " + error.message);
+    } finally {
+      enhanceBtn.disabled = false;
+      enhanceBtn.textContent = "✨";
+    }
   }
 
   function setPrompt(p) {
@@ -311,16 +498,51 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         throw new Error(errMsg);
       }
 
-      var blob = await res.blob();
-      var objUrl = URL.createObjectURL(blob);
-
       var img = document.getElementById("generatedImage");
-      if (img) img.src = objUrl;
+      var objUrl;
+
+      // Check if it's JSON response (external models) or blob (Cloudflare)
+      var contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        // External model response with base64 image
+        var jsonData = await res.json();
+        if (jsonData.success && jsonData.image) {
+          if (img) img.src = jsonData.image; // Already data URL
+          objUrl = jsonData.image;
+          
+          // Show provider info
+          var providerInfo = document.createElement("div");
+          providerInfo.className = "mt-2 text-sm text-cyan-400";
+          providerInfo.textContent = "Wygenerowane przez: " + (jsonData.provider || "AI");
+          if (result) {
+            var existingInfo = result.querySelector(".provider-info");
+            if (existingInfo) existingInfo.remove();
+            providerInfo.className += " provider-info";
+            result.appendChild(providerInfo);
+          }
+        } else {
+          throw new Error(jsonData.error || "Błąd zewnętrznego API");
+        }
+      } else {
+        // Cloudflare blob response
+        var blob = await res.blob();
+        objUrl = URL.createObjectURL(blob);
+        if (img) img.src = objUrl;
+      }
+      
       if (result) result.classList.remove("hidden");
 
       // Persist history as data URL to survive reloads
       try {
-        var dataUrl = await blobToDataUrl(blob);
+        var dataUrl;
+        if (contentType && contentType.includes("application/json")) {
+          // For external models, use the base64 data URL directly
+          dataUrl = objUrl;
+        } else {
+          // For Cloudflare models, convert blob to data URL
+          dataUrl = await blobToDataUrl(blob);
+        }
+        
         var item = {
           id: Date.now(),
           prompt: prompt,

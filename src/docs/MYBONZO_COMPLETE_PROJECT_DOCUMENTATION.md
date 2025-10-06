@@ -445,7 +445,7 @@ node scripts/deployWorkflows.js
 
 ### Environment Variables
 **File**: `.env`
-```env
+```plaintext
 # AI Models
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...

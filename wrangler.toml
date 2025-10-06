@@ -1,0 +1,119 @@
+# MyBonzo AI Platform - Optimized Cloudflare Workers Configuration
+name = "luc-de-zen-on"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
+compatibility_flags = [ "nodejs_compat" ]
+
+# Performance Optimizations
+minify = true
+main = "./dist/_worker.js"
+
+# Workers KV Limits
+kv_namespaces = []
+
+# Resource limits for optimal performance
+[limits]
+cpu_ms = 50000
+memory_mb = 128
+
+[vars]
+NODE_ENV = "production"
+PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
+PUBLIC_SITE_URL = "https://www.mybonzo.com"
+WORKER_ENV = "production"
+
+# Darmowe AI API Keys - ustaw w Cloudflare Dashboard Environment Variables
+# OPENAI_API_KEY = "sk-..." # dla Sora video generation  
+# TOGETHER_API_KEY = "tgp_..." # dla Flux Schnell obrazy
+# STABILITY_API_KEY = "sk-..." # dla SDXL Turbo obrazy
+# HUGGINGFACE_API_KEY = "hf_..." # dla Playground v2 obrazy
+
+# Optimized KV Storage with TTL
+[[kv_namespaces]]
+id = "77d84c01758a4064be011acc35b2c344"
+binding = "SESSION"
+preview_id = "77d84c01758a4064be011acc35b2c344"
+
+# Additional KV for caching
+[[kv_namespaces]]
+id = "mybonzo-cache-kv"
+binding = "CACHE_KV"
+preview_id = "mybonzo-cache-kv"
+
+# R2 Storage with optimized settings
+[[r2_buckets]]
+bucket_name = "mybonzo-temp-storage"
+binding = "mybonzo_temp_storage"
+preview_bucket_name = "mybonzo-temp-storage"
+
+# Additional R2 for assets
+[[r2_buckets]]
+bucket_name = "mybonzo-assets"
+binding = "ASSETS_BUCKET"
+preview_bucket_name = "mybonzo-assets"
+
+# AI Binding with optimized settings
+[ai]
+binding = "AI"
+
+# D1 Database for persistent storage
+[[d1_databases]]
+binding = "DB"
+database_name = "mybonzo-main-db"
+database_id = "mybonzo-main-db"
+
+# Production Environment - Optimized
+[env.production]
+minify = true
+
+[env.production.vars]
+NODE_ENV = "production"
+PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
+PUBLIC_SITE_URL = "https://www.mybonzo.com"
+WORKER_ENV = "production"
+MAX_CONCURRENT_REQUESTS = "100"
+CACHE_TTL = "3600"
+API_RATE_LIMIT = "1000"
+
+# Darmowe AI API Keys - ustaw w Cloudflare Dashboard
+# OPENAI_API_KEY = "..." # dla Sora video
+# TOGETHER_API_KEY = "..." # dla Flux Schnell
+# STABILITY_API_KEY = "..." # dla SDXL Turbo
+# HUGGINGFACE_API_KEY = "..." # dla Playground v2
+
+[[env.production.kv_namespaces]]
+id = "77d84c01758a4064be011acc35b2c344"
+binding = "SESSION"
+
+[[env.production.kv_namespaces]]
+id = "mybonzo-cache-kv"
+binding = "CACHE_KV"
+
+[[env.production.r2_buckets]]
+bucket_name = "mybonzo-temp-storage"
+binding = "mybonzo_temp_storage"
+
+[[env.production.r2_buckets]]
+bucket_name = "mybonzo-assets"
+binding = "ASSETS_BUCKET"
+
+[env.production.ai]
+binding = "AI"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "mybonzo-main-db"
+database_id = "mybonzo-main-db"
+
+# Development Environment - Fast iterations
+[env.development]
+minify = false
+
+[env.development.vars]
+NODE_ENV = "development"
+PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
+PUBLIC_SITE_URL = "http://localhost:4321"
+WORKER_ENV = "development"
+MAX_CONCURRENT_REQUESTS = "50"
+CACHE_TTL = "60"
+API_RATE_LIMIT = "500"

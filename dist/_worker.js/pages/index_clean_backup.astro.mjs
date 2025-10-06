@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                  */
 import { c as createComponent, m as maybeRenderHead, b as renderScript, a as renderTemplate, r as renderComponent } from '../chunks/astro/server_HpSis98d.mjs';
-import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_BwiF4hL0.mjs';
+import { $ as $$MyBonzoLayout } from '../chunks/MyBonzoLayout_DvEt2LDO.mjs';
 import { A as AiHelpAssistant, B as BackgroundMusicPlayerSimple, $ as $$RandomQuote } from '../chunks/BackgroundMusicPlayerSimple_87Q_JamG.mjs';
 import { I as ImageGeneratorWidget, M as MainChatWidget, P as PolaczekWidget } from '../chunks/MainChatWidget_B1mCP8kG.mjs';
 import { F as FAQGeneratorWidget } from '../chunks/FAQGeneratorWidget_DUWckKx-.mjs';

@@ -1,7 +1,7 @@
 globalThis.process ??= {}; globalThis.process.env ??= {};
 /* empty css                                     */
 import { c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead } from '../../chunks/astro/server_HpSis98d.mjs';
-import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_DxdwxM_T.mjs';
+import { $ as $$BackroomInterface } from '../../chunks/BackroomInterface_4leLu3ax.mjs';
 export { r as renderers } from '../../chunks/_@astro-renderers_D_xeYX_3.mjs';
 
 const $$Status = createComponent(($$result, $$props, $$slots) => {

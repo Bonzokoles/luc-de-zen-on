@@ -1,4 +1,4 @@
-﻿---
+---
 import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
 import DecorativeLines from "../../../components/DecorativeLines.astro";
 ---
@@ -38,7 +38,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                 hyphens: auto;
               "
             >
-              đź› ď¸Ź KREATOR AGENTĂ“W - StwĂłrz<br />
+              🛠️ KREATOR AGENTÓW - Stwórz<br />
               spersonalizowanego agenta AI<br />
               dopasowanego do Twoich potrzeb<br />
               biznesowych i osobistych.
@@ -78,7 +78,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                     class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
                     required
                   />
-                  <p class="text-xs text-gray-500 mt-1">Nazwa musi byÄ‡ unikalna i nie zawieraÄ‡ spacji</p>
+                  <p class="text-xs text-gray-500 mt-1">Nazwa musi być unikalna i nie zawierać spacji</p>
                 </div>
 
                 <div>
@@ -92,16 +92,16 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                     required
                   >
                     <option value="">Wybierz typ agenta</option>
-                    <option value="chatbot">đź¤– Chatbot - Asystent konwersacyjny</option>
-                    <option value="translator">đźŚ Translator - TĹ‚umacz jÄ™zykĂłw</option>
-                    <option value="searcher">đź”Ť Searcher - Agent wyszukujÄ…cy</option>
-                    <option value="monitor">đź“Š Monitor - Agent monitorujÄ…cy</option>
-                    <option value="artist">đźŽ¨ Artist - Generator grafik</option>
-                    <option value="analyst">đź“ Analyst - Analityk danych</option>
-                    <option value="writer">âśŤď¸Ź Writer - Generator treĹ›ci</option>
-                    <option value="coder">đź’» Coder - Asystent programisty</option>
-                    <option value="scheduler">âŹ° Scheduler - ZarzÄ…dca zadaĹ„</option>
-                    <option value="custom">đź”§ Custom - Niestandardowy</option>
+                    <option value="chatbot">🤖 Chatbot - Asystent konwersacyjny</option>
+                    <option value="translator">🌐 Translator - Tłumacz języków</option>
+                    <option value="searcher">🔍 Searcher - Agent wyszukujący</option>
+                    <option value="monitor">📊 Monitor - Agent monitorujący</option>
+                    <option value="artist">🎨 Artist - Generator grafik</option>
+                    <option value="analyst">📈 Analyst - Analityk danych</option>
+                    <option value="writer">✍️ Writer - Generator treści</option>
+                    <option value="coder">💻 Coder - Asystent programisty</option>
+                    <option value="scheduler">⏰ Scheduler - Zarządca zadań</option>
+                    <option value="custom">🔧 Custom - Niestandardowy</option>
                   </select>
                 </div>
               </div>
@@ -114,7 +114,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                   name="description" 
                   id="agent-description"
                   rows="3"
-                  placeholder="Opisz funkcjonalnoĹ›Ä‡ i przeznaczenie agenta..."
+                  placeholder="Opisz funkcjonalność i przeznaczenie agenta..."
                   class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
                   required
                 ></textarea>
@@ -135,21 +135,21 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                     max="9999"
                     class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
                   />
-                  <p class="text-xs text-gray-500 mt-1">Port dla WebSocket serwera (domyĹ›lnie: auto)</p>
+                  <p class="text-xs text-gray-500 mt-1">Port dla WebSocket serwera (domyślnie: auto)</p>
                 </div>
 
                 <div>
                   <label class="block text-sm font-medium text-gray-300 mb-2">
-                    JÄ™zyk
+                    Język
                   </label>
                   <select 
                     name="language" 
                     id="agent-language"
                     class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-cyan-500"
                   >
-                    <option value="python">đźŤ Python</option>
-                    <option value="javascript">đźź¨ JavaScript/Node.js</option>
-                    <option value="typescript">đź”· TypeScript</option>
+                    <option value="python">🐍 Python</option>
+                    <option value="javascript">🟨 JavaScript/Node.js</option>
+                    <option value="typescript">🔷 TypeScript</option>
                   </select>
                 </div>
               </div>
@@ -157,7 +157,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
               <!-- Capabilities -->
               <div>
                 <label class="block text-sm font-medium text-gray-300 mb-4">
-                  MoĹĽliwoĹ›ci Agenta
+                  Możliwości Agenta
                 </label>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                   <label class="flex items-center space-x-2">
@@ -174,11 +174,11 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" name="capabilities" value="file_processing" class="form-checkbox text-cyan-600">
-                    <span class="text-sm text-gray-300">Przetwarzanie plikĂłw</span>
+                    <span class="text-sm text-gray-300">Przetwarzanie plików</span>
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" name="capabilities" value="image_generation" class="form-checkbox text-cyan-600">
-                    <span class="text-sm text-gray-300">Generowanie obrazĂłw</span>
+                    <span class="text-sm text-gray-300">Generowanie obrazów</span>
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" name="capabilities" value="data_analysis" class="form-checkbox text-cyan-600">
@@ -194,7 +194,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" name="capabilities" value="scheduling" class="form-checkbox text-cyan-600">
-                    <span class="text-sm text-gray-300">Planowanie zadaĹ„</span>
+                    <span class="text-sm text-gray-300">Planowanie zadań</span>
                   </label>
                 </div>
               </div>
@@ -224,7 +224,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
 
                   <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">
-                      Temperatura (KreatywnoĹ›Ä‡)
+                      Temperatura (Kreatywność)
                     </label>
                     <input 
                       type="range" 
@@ -252,7 +252,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                     name="system_prompt" 
                     id="system-prompt"
                     rows="4"
-                    placeholder="JesteĹ› pomocnym asystentem AI. Twoje zadanie to..."
+                    placeholder="Jesteś pomocnym asystentem AI. Twoje zadanie to..."
                     class="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500"
                   ></textarea>
                 </div>
@@ -262,7 +262,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
               <div class="border-t border-gray-600 pt-6">
                 <details class="group">
                   <summary class="cursor-pointer text-lg font-semibold text-white group-open:text-cyan-400">
-                    âš™ď¸Ź Zaawansowane Ustawienia
+                    ⚙️ Zaawansowane Ustawienia
                   </summary>
                   <div class="mt-4 space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -302,11 +302,11 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                       </label>
                       <label class="flex items-center space-x-2">
                         <input type="checkbox" name="logging_enabled" checked class="form-checkbox text-cyan-600">
-                        <span class="text-sm text-gray-300">WĹ‚Ä…cz logowanie</span>
+                        <span class="text-sm text-gray-300">Włącz logowanie</span>
                       </label>
                       <label class="flex items-center space-x-2">
                         <input type="checkbox" name="monitoring_enabled" checked class="form-checkbox text-cyan-600">
-                        <span class="text-sm text-gray-300">WĹ‚Ä…cz monitoring wydajnoĹ›ci</span>
+                        <span class="text-sm text-gray-300">Włącz monitoring wydajności</span>
                       </label>
                     </div>
                   </div>
@@ -320,13 +320,13 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                   id="preview-agent"
                   class="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white font-medium transition-colors"
                 >
-                  đź‘€ PodglÄ…d Konfiguracji
+                  👀 Podgląd Konfiguracji
                 </button>
                 <button 
                   type="submit"
                   class="px-6 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white font-medium transition-colors"
                 >
-                  đźš€ UtwĂłrz Agenta
+                  🚀 Utwórz Agenta
                 </button>
               </div>
             </form>
@@ -341,9 +341,9 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-gray-900 rounded-xl border border-cyan-500/30 p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <div class="flex justify-between items-center mb-4">
-          <h3 class="text-xl font-bold text-white">đź‘€ PodglÄ…d Konfiguracji Agenta</h3>
+          <h3 class="text-xl font-bold text-white">👀 Podgląd Konfiguracji Agenta</h3>
           <button id="close-preview" class="text-gray-400 hover:text-white">
-            âś•
+            ✕
           </button>
         </div>
         <div id="preview-content" class="text-gray-300">
@@ -363,8 +363,8 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-gray-900 rounded-xl border border-green-500/30 p-6 max-w-md w-full">
         <div class="text-center">
-          <div class="text-4xl mb-4">đźŽ‰</div>
-          <h3 class="text-xl font-bold text-white mb-4">Agent Utworzony PomyĹ›lnie!</h3>
+          <div class="text-4xl mb-4">🎉</div>
+          <h3 class="text-xl font-bold text-white mb-4">Agent Utworzony Pomyślnie!</h3>
           <div id="success-content" class="text-gray-300 mb-6">
             <!-- Success content will be generated here -->
           </div>
@@ -373,13 +373,13 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
               id="goto-dashboard" 
               class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white transition-colors"
             >
-              đź“Š PrzejdĹş do Dashboard
+              📊 Przejdź do Dashboard
             </button>
             <button 
               id="create-another" 
               class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-white transition-colors"
             >
-              âž• UtwĂłrz Kolejnego
+              ➕ Utwórz Kolejnego
             </button>
           </div>
         </div>
@@ -452,7 +452,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
           // Validate port range
           const port = parseInt(e.target.value);
           if (port && (port < 3000 || port > 9999)) {
-            e.target.setCustomValidity('Port musi byÄ‡ miÄ™dzy 3000 a 9999');
+            e.target.setCustomValidity('Port musi być między 3000 a 9999');
           } else {
             e.target.setCustomValidity('');
           }
@@ -462,15 +462,15 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
       updateConfigForType(type) {
         const systemPromptArea = document.getElementById('system-prompt');
         const prompts = {
-          chatbot: 'JesteĹ› przyjaznym i pomocnym asystentem AI. Odpowiadaj w sposĂłb naturalny i profesjonalny. Zawsze staraj siÄ™ byÄ‡ pomocny i dokĹ‚adny.',
-          translator: 'JesteĹ› ekspertem w tĹ‚umaczeniu jÄ™zykĂłw. TĹ‚umacz tekst dokĹ‚adnie zachowujÄ…c kontekst i ton wypowiedzi.',
-          searcher: 'JesteĹ› specjalistÄ… od wyszukiwania informacji. ZnajdĹş najbardziej aktualne i wiarygodne informacje na zadany temat.',
-          monitor: 'JesteĹ› agentem monitorujÄ…cym system. Analizuj metryki i alarmuj o problemach. BÄ…dĹş precyzyjny w raportowaniu.',
-          artist: 'JesteĹ› kreatywnym asystentem AI specjalizujÄ…cym siÄ™ w generowaniu obrazĂłw i sztuki. TwĂłrz szczegĂłĹ‚owe prompty dla AI.',
-          analyst: 'JesteĹ› analitykiem danych. Analizuj informacje, twĂłrz raporty i wyciÄ…gaj wnioski z dostÄ™pnych danych.',
-          writer: 'JesteĹ› profesjonalnym pisarzem. TwĂłrz wysokiej jakoĹ›ci treĹ›ci dopasowane do stylu i celu.',
-          coder: 'JesteĹ› doĹ›wiadczonym programistÄ…. Pomagaj w pisaniu, debugowaniu i optymalizacji kodu.',
-          scheduler: 'JesteĹ› zarzÄ…dcÄ… zadaĹ„ i harmonogramĂłw. Organizuj i planuj dziaĹ‚ania w sposĂłb efektywny.'
+          chatbot: 'Jesteś przyjaznym i pomocnym asystentem AI. Odpowiadaj w sposób naturalny i profesjonalny. Zawsze staraj się być pomocny i dokładny.',
+          translator: 'Jesteś ekspertem w tłumaczeniu języków. Tłumacz tekst dokładnie zachowując kontekst i ton wypowiedzi.',
+          searcher: 'Jesteś specjalistą od wyszukiwania informacji. Znajdź najbardziej aktualne i wiarygodne informacje na zadany temat.',
+          monitor: 'Jesteś agentem monitorującym system. Analizuj metryki i alarmuj o problemach. Bądź precyzyjny w raportowaniu.',
+          artist: 'Jesteś kreatywnym asystentem AI specjalizującym się w generowaniu obrazów i sztuki. Twórz szczegółowe prompty dla AI.',
+          analyst: 'Jesteś analitykiem danych. Analizuj informacje, twórz raporty i wyciągaj wnioski z dostępnych danych.',
+          writer: 'Jesteś profesjonalnym pisarzem. Twórz wysokiej jakości treści dopasowane do stylu i celu.',
+          coder: 'Jesteś doświadczonym programistą. Pomagaj w pisaniu, debugowaniu i optymalizacji kodu.',
+          scheduler: 'Jesteś zarządcą zadań i harmonogramów. Organizuj i planuj działania w sposób efektywny.'
         };
 
         if (prompts[type]) {
@@ -565,14 +565,14 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
                 <div>${data.port}</div>
               </div>
               <div>
-                <strong class="text-cyan-400">JÄ™zyk:</strong>
+                <strong class="text-cyan-400">Język:</strong>
                 <div>${data.language || 'python'}</div>
               </div>
             </div>
 
             ${data.capabilities && data.capabilities.length > 0 ? `
             <div>
-              <strong class="text-cyan-400">MoĹĽliwoĹ›ci:</strong>
+              <strong class="text-cyan-400">Możliwości:</strong>
               <div class="flex flex-wrap gap-2 mt-1">
                 ${data.capabilities.map(cap => `<span class="px-2 py-1 bg-blue-600/20 text-blue-300 rounded text-xs">${cap.replace('_', ' ')}</span>`).join('')}
               </div>
@@ -600,15 +600,15 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
             <div class="grid grid-cols-3 gap-4 text-sm">
               <div>
                 <strong class="text-cyan-400">Auto Start:</strong>
-                <div>${data.auto_start ? 'âś… Tak' : 'âťŚ Nie'}</div>
+                <div>${data.auto_start ? '✅ Tak' : '❌ Nie'}</div>
               </div>
               <div>
                 <strong class="text-cyan-400">Logowanie:</strong>
-                <div>${data.logging_enabled ? 'âś… Tak' : 'âťŚ Nie'}</div>
+                <div>${data.logging_enabled ? '✅ Tak' : '❌ Nie'}</div>
               </div>
               <div>
                 <strong class="text-cyan-400">Monitoring:</strong>
-                <div>${data.monitoring_enabled ? 'âś… Tak' : 'âťŚ Nie'}</div>
+                <div>${data.monitoring_enabled ? '✅ Tak' : '❌ Nie'}</div>
               </div>
             </div>
           </div>
@@ -622,7 +622,7 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
 
         // Basic validation
         if (!data.name || !data.type || !data.description) {
-          alert('WypeĹ‚nij wszystkie wymagane pola!');
+          alert('Wypełnij wszystkie wymagane pola!');
           return;
         }
 
@@ -640,11 +640,11 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
           if (result.success) {
             this.showSuccess(result);
           } else {
-            alert(`BĹ‚Ä…d podczas tworzenia agenta: ${result.error || result.message}`);
+            alert(`Błąd podczas tworzenia agenta: ${result.error || result.message}`);
           }
         } catch (error) {
           console.error('Error creating agent:', error);
-          alert('WystÄ…piĹ‚ bĹ‚Ä…d podczas tworzenia agenta. SprĂłbuj ponownie.');
+          alert('Wystąpił błąd podczas tworzenia agenta. Spróbuj ponownie.');
         }
       }
 

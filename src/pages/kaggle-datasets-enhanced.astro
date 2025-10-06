@@ -1,4 +1,4 @@
-﻿---
+---
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 ---
 
@@ -39,7 +39,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
           <div class="hidden ml-auto gap-4 md:gap-0 md:flex md:flex-col">
             <a class="ml-auto hover:brightness-125 duration-200" href="/">
-              â† PowrĂłt do strony gĹ‚Ăłwnej
+              ← Powrót do strony głównej
             </a>
           </div>
         </div>
@@ -55,7 +55,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       <div class="section-container max-w-7xl mx-auto">
         <h2 class="section-title">KAGGLE DATASETS ENHANCED</h2>
         <p class="section-description">
-          Zaawansowany generator raportĂłw z analizÄ… danych Kaggle
+          Zaawansowany generator raportów z analizą danych Kaggle
         </p>
 
         <!-- Search Interface -->
@@ -101,17 +101,17 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   onclick="performEnhancedSearch()"
                   class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded font-semibold transition-colors"
                 >
-                  đź”Ť Wyszukaj
+                  🔍 Wyszukaj
                 </button>
 
                 <!-- Quick Searches -->
                 <div class="border-t border-edge pt-4">
                   <h4 class="text-sm font-medium mb-3 text-primary-foreground">Popularne:</h4>
                   <div class="grid grid-cols-2 gap-2">
-                    <button class="quick-search-btn" onclick="quickSearch('machine learning')">đź¤– ML</button>
-                    <button class="quick-search-btn" onclick="quickSearch('covid-19')">đź¦  COVID</button>
-                    <button class="quick-search-btn" onclick="quickSearch('finance')">đź“ Finanse</button>
-                    <button class="quick-search-btn" onclick="quickSearch('climate')">đźŚˇď¸Ź Klimat</button>
+                    <button class="quick-search-btn" onclick="quickSearch('machine learning')">🤖 ML</button>
+                    <button class="quick-search-btn" onclick="quickSearch('covid-19')">🦠 COVID</button>
+                    <button class="quick-search-btn" onclick="quickSearch('finance')">📈 Finanse</button>
+                    <button class="quick-search-btn" onclick="quickSearch('climate')">🌡️ Klimat</button>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="bg-black/30 border border-edge rounded-lg">
             <div class="border-b border-edge p-4">
               <h3 class="text-lg font-semibold text-primary-foreground">Wybrane elementy do analizy</h3>
-              <p class="text-gray-400 text-sm">Wybierz elementy, ktĂłre chcesz przeanalizowaÄ‡</p>
+              <p class="text-gray-400 text-sm">Wybierz elementy, które chcesz przeanalizować</p>
             </div>
             
             <div class="p-4">
@@ -186,7 +186,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" id="includeComparison" class="rounded">
-                    <span class="text-sm text-primary-foreground">PorĂłwnanie</span>
+                    <span class="text-sm text-primary-foreground">Porównanie</span>
                   </label>
                   <label class="flex items-center space-x-2">
                     <input type="checkbox" id="includeRecommendations" checked class="rounded">
@@ -212,7 +212,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   class="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded font-semibold transition-colors disabled:opacity-50"
                   disabled
                 >
-                  đź“Š Generuj raport
+                  📊 Generuj raport
                 </button>
               </div>
             </div>
@@ -234,11 +234,11 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
               </div>
               
               <div id="reportTimer" class="text-orange-400 font-mono text-lg mb-2">
-                Twoje zapytanie bÄ™dzie gotowe za: <span id="countdown">20:00</span>
+                Twoje zapytanie będzie gotowe za: <span id="countdown">20:00</span>
               </div>
               
               <div id="reportDetails" class="text-gray-400 text-sm">
-                Analizowanie wybranych zbiorĂłw danych...
+                Analizowanie wybranych zbiorów danych...
               </div>
             </div>
           </div>
@@ -250,10 +250,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             <div class="text-center">
               <div class="mb-4">
                 <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span class="text-2xl">âś“</span>
+                  <span class="text-2xl">✓</span>
                 </div>
                 <h3 class="text-xl font-semibold text-primary-foreground mb-2">Raport gotowy!</h3>
-                <p class="text-gray-400">TwĂłj raport zostaĹ‚ wygenerowany i jest gotowy do pobrania</p>
+                <p class="text-gray-400">Twój raport został wygenerowany i jest gotowy do pobrania</p>
               </div>
               
               <div class="flex flex-col sm:flex-row gap-3 justify-center">
@@ -262,19 +262,19 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                   onclick="downloadReport()"
                   class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded font-semibold transition-colors"
                 >
-                  đź“Ą Pobierz raport
+                  📥 Pobierz raport
                 </button>
                 <button
                   onclick="previewReport()"
                   class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded font-semibold transition-colors"
                 >
-                  đź‘ď¸Ź PodglÄ…d
+                  👁️ Podgląd
                 </button>
                 <button
                   onclick="shareReport()"
                   class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-6 rounded font-semibold transition-colors"
                 >
-                  đź”— UdostÄ™pnij
+                  🔗 Udostępnij
                 </button>
               </div>
             </div>
@@ -299,7 +299,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                     <span class="text-blue-400 font-mono" id="queriesIn">47</span>
                   </div>
                   <div class="flex justify-between items-center p-2 bg-black/40 rounded">
-                    <span class="text-sm text-gray-300">Dane wejĹ›ciowe:</span>
+                    <span class="text-sm text-gray-300">Dane wejściowe:</span>
                     <span class="text-blue-400 font-mono" id="dataIn">2.3 GB</span>
                   </div>
                   <div class="flex justify-between items-center p-2 bg-black/40 rounded">
@@ -328,7 +328,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                     <span class="text-orange-400 font-mono" id="reportsOut">23</span>
                   </div>
                   <div class="flex justify-between items-center p-2 bg-black/40 rounded">
-                    <span class="text-sm text-gray-300">Dane wyjĹ›ciowe:</span>
+                    <span class="text-sm text-gray-300">Dane wyjściowe:</span>
                     <span class="text-orange-400 font-mono" id="dataOut">156 MB</span>
                   </div>
                   <div class="flex justify-between items-center p-2 bg-black/40 rounded">
@@ -336,7 +336,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                     <span class="text-orange-400 font-mono" id="downloads">89</span>
                   </div>
                   <div class="flex justify-between items-center p-2 bg-black/40 rounded">
-                    <span class="text-sm text-gray-300">Ĺšredni czas:</span>
+                    <span class="text-sm text-gray-300">Średni czas:</span>
                     <span class="text-orange-400 font-mono">18:32</span>
                   </div>
                 </div>
@@ -539,7 +539,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   async function performEnhancedSearch() {
     const query = document.getElementById("searchQuery").value.trim();
     if (!query) {
-      alert("ProszÄ™ wprowadziÄ‡ zapytanie");
+      alert("Proszę wprowadzić zapytanie");
       return;
     }
 
@@ -572,7 +572,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         currentResults = data.results || [];
         displayEnhancedResults(currentResults, data.totalResults || currentResults.length);
       } else {
-        throw new Error(data.error || "BĹ‚Ä…d wyszukiwania");
+        throw new Error(data.error || "Błąd wyszukiwania");
       }
     } catch (error) {
       console.error("Search error:", error);
@@ -580,7 +580,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     } finally {
       // Reset UI
       searchBtn.disabled = false;
-      searchBtn.textContent = "đź”Ť Wyszukaj";
+      searchBtn.textContent = "🔍 Wyszukaj";
       loadingSection.classList.add("hidden");
     }
   }
@@ -590,10 +590,10 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     const resultsGrid = document.getElementById("resultsGrid");
     const resultsInfo = document.getElementById("resultsInfo");
 
-    resultsInfo.textContent = `Znaleziono ${totalResults} wynikĂłw`;
+    resultsInfo.textContent = `Znaleziono ${totalResults} wyników`;
 
     if (results.length === 0) {
-      resultsGrid.innerHTML = '<div class="text-gray-400 text-center py-8">Brak wynikĂłw dla tego zapytania</div>';
+      resultsGrid.innerHTML = '<div class="text-gray-400 text-center py-8">Brak wyników dla tego zapytania</div>';
     } else {
       const grid = document.createElement("div");
       grid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3";
@@ -616,15 +616,15 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="dataset-description-enhanced">${item.description}</div>
           
           <div class="dataset-meta-enhanced">
-            <span class="meta-tag-enhanced">đź“Š ${item.size || item.downloadCount || 'N/A'}</span>
-            <span class="meta-tag-enhanced">đź“ ${item.fileTypes || item.language || 'N/A'}</span>
-            <span class="meta-tag-enhanced">đź“… ${item.lastUpdated || 'N/A'}</span>
+            <span class="meta-tag-enhanced">📊 ${item.size || item.downloadCount || 'N/A'}</span>
+            <span class="meta-tag-enhanced">📁 ${item.fileTypes || item.language || 'N/A'}</span>
+            <span class="meta-tag-enhanced">📅 ${item.lastUpdated || 'N/A'}</span>
           </div>
           
           <div class="dataset-stats-enhanced">
-            <span>đź‘Ť ${item.voteCount || item.votes || 0}</span>
-            <span>â¬‡ď¸Ź ${item.downloadCount || item.downloads || 0}</span>
-            <span>đź“ť ${item.tasks || item.submissions || 0}</span>
+            <span>👍 ${item.voteCount || item.votes || 0}</span>
+            <span>⬇️ ${item.downloadCount || item.downloads || 0}</span>
+            <span>📝 ${item.tasks || item.submissions || 0}</span>
           </div>
         `;
 
@@ -697,7 +697,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <div class="font-medium text-green-300">${item.title}</div>
           <div class="text-xs text-gray-400">${item.author || 'N/A'}</div>
         </div>
-        <button class="remove-btn" onclick="removeSelectedItem(${index})">Ă—</button>
+        <button class="remove-btn" onclick="removeSelectedItem(${index})">×</button>
       `;
       selectedItemsContainer.appendChild(chip);
     });
@@ -760,12 +760,12 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         const estimatedTime = data.estimatedCompletion || 20000; // 20 seconds default
         startReportProgress(data.reportId, estimatedTime);
       } else {
-        throw new Error(data.error || "BĹ‚Ä…d generowania raportu");
+        throw new Error(data.error || "Błąd generowania raportu");
       }
 
     } catch (error) {
       console.error("Report generation error:", error);
-      alert("BĹ‚Ä…d podczas generowania raportu: " + error.message);
+      alert("Błąd podczas generowania raportu: " + error.message);
       reportStatus.classList.add("hidden");
     }
   }
@@ -782,9 +782,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     // Update status messages
     const reportDetails = document.getElementById("reportDetails");
     const messages = [
-      "Analizowanie wybranych zbiorĂłw danych...",
+      "Analizowanie wybranych zbiorów danych...",
       "Pobieranie metadanych z Kaggle...",
-      "Generowanie statystyk i trendĂłw...",
+      "Generowanie statystyk i trendów...",
       "Tworzenie wizualizacji...",
       "Kompilowanie raportu...",
       "Finalizowanie dokumentu..."
@@ -832,7 +832,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           clearInterval(messageInterval);
           clearInterval(countdownTimer);
           clearInterval(statusInterval);
-          alert("Generowanie raportu nie powiodĹ‚o siÄ™");
+          alert("Generowanie raportu nie powiodło się");
           document.getElementById("reportStatus").classList.add("hidden");
         }
 
@@ -876,13 +876,13 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 
   function previewReport() {
     window.open('#', '_blank');
-    alert("Otwieranie podglÄ…du raportu...");
+    alert("Otwieranie podglądu raportu...");
   }
 
   function shareReport() {
     const shareUrl = `${window.location.origin}/reports/shared/${Date.now()}`;
     navigator.clipboard.writeText(shareUrl);
-    alert("Link do raportu zostaĹ‚ skopiowany do schowka!");
+    alert("Link do raportu został skopiowany do schowka!");
   }
 
   function updatePortStats() {
@@ -901,9 +901,9 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     const resultsGrid = document.getElementById("resultsGrid");
     const resultsInfo = document.getElementById("resultsInfo");
 
-    resultsInfo.textContent = "BĹ‚Ä…d wyszukiwania";
+    resultsInfo.textContent = "Błąd wyszukiwania";
     resultsGrid.innerHTML = `<div class="bg-red-600/20 border border-red-400/30 rounded p-4">
-      <div class="text-red-400 font-semibold mb-2">BĹ‚Ä…d wyszukiwania:</div>
+      <div class="text-red-400 font-semibold mb-2">Błąd wyszukiwania:</div>
       <div class="text-primary-foreground">${error}</div>
     </div>`;
 

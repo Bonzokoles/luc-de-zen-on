@@ -58,7 +58,7 @@ curl -X POST http://localhost:PORT/api/flowise \
 ## 🔧 KONFIGURACJA ŚRODOWISKA
 
 ### Plik `.env` (do utworzenia w przyszłości):
-```env
+```plaintext
 # Flowise AI Configuration
 FLOWISE_API_URL=https://twoj-flowise-instance.com/api/v1
 FLOWISE_API_TOKEN=twoj_api_token_tutaj

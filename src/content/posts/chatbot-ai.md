@@ -1,6 +1,6 @@
-ï»¿---
+---
 title: "Chatbot AI"
-description: "Inteligentny chatbot obsÅ‚ugujÄ…cy zapytania uÅ¼ytkownikÃ³w"
+description: "Inteligentny chatbot obs³uguj¹cy zapytania u¿ytkowników"
 date: "2025-08-27"
 published: true
 tags: ["AI", "Chatbot", "Automatyzacja"]
@@ -9,15 +9,15 @@ layout: "../../layouts/AgentLayout.astro"
 
 # Chatbot AI
 
-Zaawansowany chatbot wykorzystujÄ…cy sztucznÄ… inteligencjÄ™ do obsÅ‚ugi klientÃ³w.
+Zaawansowany chatbot wykorzystuj¹cy sztuczn¹ inteligencjê do obs³ugi klientów.
 
-## MoÅ¼liwoÅ›ci
+## Mo¿liwoœci
 
-- Odpowiadanie na pytania w jÄ™zyku naturalnym
-- Integracja z bazÄ… wiedzy
-- Uczenie siÄ™ z konwersacji
-- ObsÅ‚uga wielojÄ™zyczna
+- Odpowiadanie na pytania w jêzyku naturalnym
+- Integracja z baz¹ wiedzy
+- Uczenie siê z konwersacji
+- Obs³uga wielojêzyczna
 
 ## Konfiguracja
 
-Chatbot moÅ¼na dostosowaÄ‡ do specyficznych potrzeb branÅ¼y.
+Chatbot mo¿na dostosowaæ do specyficznych potrzeb bran¿y.
