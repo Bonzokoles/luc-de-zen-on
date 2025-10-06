@@ -383,6 +383,11 @@ import {
           📊 DEBUG
         </button>
       </div>
+      
+      <!-- GoogleVoiceAgent Widget -->
+      <div id="globalVoiceWidget" class="floating-widget hidden">
+        <GoogleVoiceAgent client:load />
+      </div>
     </div>
 
     <!-- Google Agent Widgets - Same structure as Music Player -->
@@ -1984,16 +1989,22 @@ import {
   let voiceRecognitionInstances = {};
 
   function toggleGlobalVoice() {
-    globalVoiceEnabled = !globalVoiceEnabled;
-    const voiceBtn = document.getElementById("globalVoiceBtn");
+    const widget = document.getElementById("globalVoiceWidget");
+    const isHidden = widget.classList.contains("hidden");
     
-    if (globalVoiceEnabled) {
+    if (isHidden) {
+      widget.classList.remove("hidden");
+      globalVoiceEnabled = true;
+      const voiceBtn = document.getElementById("globalVoiceBtn");
       voiceBtn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
-      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE ON</span>';
+      voiceBtn.innerHTML = '🎤 VOICE ON';
       console.log("🎤 Global Voice System: ENABLED");
     } else {
+      widget.classList.add("hidden");
+      globalVoiceEnabled = false;
+      const voiceBtn = document.getElementById("globalVoiceBtn");
       voiceBtn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
-      voiceBtn.innerHTML = '<span style="color: white;">🎤 VOICE OFF</span>';
+      voiceBtn.innerHTML = '🎤 VOICE OFF';
       console.log("🎤 Global Voice System: DISABLED");
       
       // Stop all voice instances
