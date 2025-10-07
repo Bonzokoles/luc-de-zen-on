@@ -80,6 +80,13 @@
       <span class="service-badge">ML Platform</span>
     </div>
     <div class="header-actions">
+      <button 
+        on:click={() => window.open('/kaggle-datasets-pro', '_blank')} 
+        class="pro-btn" 
+        title="Wersja PRO z pełnymi instrukcjami ML"
+      >
+        ⭐ PRO
+      </button>
       <button on:click={toggleExpanded} class="expand-btn" title="Rozwiń/Zwiń">
         {isExpanded ? "▼" : "▲"}
       </button>
@@ -235,6 +242,28 @@
   .header-actions {
     display: flex;
     gap: 6px;
+  }
+
+  .pro-btn {
+    background: linear-gradient(135deg, #9333ea, #7c3aed);
+    border: 1px solid #7c3aed;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(147, 51, 234, 0.3);
+  }
+
+  .pro-btn:hover {
+    background: linear-gradient(135deg, #a855f7, #8b5cf6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(147, 51, 234, 0.5);
   }
 
   .expand-btn,

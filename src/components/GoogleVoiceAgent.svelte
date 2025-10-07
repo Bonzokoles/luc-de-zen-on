@@ -29,12 +29,22 @@
   let googleManager = null;
   let importedAgents = [];
   let showAdvanced = false;
-  let showAgentSelector = false;
+  let showAgentSelector = true; // Always show agent selector in enhanced mode
   let selectedCategory = "core";
   let activeAgents = [];
   let googleFactory = null;
   let agentResults = {};
   let showAgentPanel = false;
+
+  // Enhanced Voice Interface State
+  let selectedAgent = "gemini-pro"; // Default agent
+  let selectedLanguage = "pl-PL"; // Default language
+  let voiceVolume = 70;
+  let audioVisualization = true;
+  let voiceMode = "continuous"; // continuous, single, command-only
+
+  // Voice Assistant Visibility
+  let showVoiceAssistant = true;
 
   // Individual Agent Window States
   let showGeminiProWindow = false;
@@ -50,6 +60,26 @@
   let textBisonAgent = null;
   let businessAssistantAgent = null;
   let newAgents = [];
+
+  // Multi-Agent Configuration
+  const availableAgents = [
+    { id: "gemini-pro", name: "Gemini Pro", category: "Google AI", icon: "✨" },
+    { id: "gemini-vision", name: "Gemini Vision", category: "Google AI", icon: "👁️" },
+    { id: "code-bison", name: "Code Bison", category: "Development", icon: "💻" },
+    { id: "text-bison", name: "Text Bison", category: "Content", icon: "📝" },
+    { id: "google-bard", name: "Google Bard", category: "Chat", icon: "🧠" },
+    { id: "palm-api", name: "PaLM API", category: "Google AI", icon: "🌴" },
+    { id: "vertex-ai", name: "Vertex AI", category: "ML Platform", icon: "⚡" },
+    { id: "ai-studio", name: "AI Studio", category: "Development", icon: "🎨" }
+  ];
+
+  const languageOptions = [
+    { code: "pl-PL", name: "Polskie", flag: "🇵🇱" },
+    { code: "en-US", name: "English", flag: "🇺🇸" },
+    { code: "de-DE", name: "Deutsch", flag: "🇩🇪" },
+    { code: "fr-FR", name: "Français", flag: "🇫🇷" },
+    { code: "es-ES", name: "Español", flag: "🇪🇸" }
+  ];
 
   // Web Speech API Configuration
   let SpeechRecognition = null;
@@ -83,9 +113,9 @@
 
   function setupSpeechRecognition() {
     recognition = new SpeechRecognition();
-    recognition.continuous = false;
+    recognition.continuous = voiceMode === "continuous";
     recognition.interimResults = true;
-    recognition.lang = "pl-PL"; // Polish language
+    recognition.lang = selectedLanguage;
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
@@ -128,16 +158,40 @@
       agentStatus = "error";
       isListening = false;
       isProcessing = false;
+      
+      // In background mode, try to restart after error
+      if (backgroundMode && keepConnectionAlive && event.error !== 'no-speech') {
+        setTimeout(() => {
+          if (backgroundMode && !isListening) {
+            console.log("🔄 Background mode: Attempting to restart after error");
+            startListening();
+          }
+        }, 3000);
+      }
     };
 
     recognition.onend = () => {
       console.log("🎤 Voice recognition ended");
       isListening = false;
+      backgroundProcessing = false;
+      
       if (agentStatus !== "error") {
         agentStatus = "ready";
       }
+      
+      // Auto-restart in background mode
+      if (backgroundMode && keepConnectionAlive) {
+        setTimeout(() => {
+          if (backgroundMode && !isListening) {
+            console.log("🔄 Background mode: Auto-restarting voice recognition");
+            startListening();
+          }
+        }, 1000);
+      }
     };
   }
+
+
 
   function setupGoogleVoiceAPI() {
     // Inicjalizuj ADK Adapter
@@ -175,6 +229,13 @@
       getAllRecommendedAgents: getAllAgents,
       testGoogleAgent: testGoogleAgent,
       toggleAgentPanel: () => (showAgentPanel = !showAgentPanel),
+      // Enhanced Multi-Agent Functions
+      switchAgent: switchAgent,
+      setLanguage: setLanguage,
+      setVoiceMode: setVoiceMode,
+      getSelectedAgent: () => selectedAgent,
+      getAvailableAgents: () => availableAgents,
+      setVolume: setVolume,
       // Individual Agent Window Functions
       openGeminiPro: () => (showGeminiProWindow = true),
       openGeminiVision: () => (showGeminiVisionWindow = true),
@@ -359,9 +420,14 @@
     }
 
     try {
+      agentStatus = "starting";
+      recognition.lang = selectedLanguage;
+      recognition.continuous = voiceMode === "continuous";
+      
       recognition.start();
       transcript = "";
       confidence = 0;
+      console.log("🎤 Started listening in", selectedLanguage);
     } catch (error) {
       console.error("🎤 Failed to start recognition:", error);
       agentStatus = "error";
@@ -370,6 +436,7 @@
 
   function stopListening() {
     if (recognition && isListening) {
+      console.log("🎤 Stopping voice recognition");
       recognition.stop();
     }
   }
@@ -382,6 +449,8 @@
     }
   }
 
+
+
   async function processVoiceCommand(command) {
     isProcessing = true;
     agentStatus = "processing";
@@ -389,31 +458,54 @@
     console.log("🎤 Processing voice command:", command);
 
     try {
-      // Basic voice commands processing
+      // Enhanced voice commands processing with agent switching
       const lowerCommand = command.toLowerCase();
 
+      // Agent switching commands
+      if (lowerCommand.includes("przełącz na") || lowerCommand.includes("aktywuj")) {
+        if (lowerCommand.includes("gemini pro")) {
+          switchAgent("gemini-pro");
+          return;
+        } else if (lowerCommand.includes("gemini vision")) {
+          switchAgent("gemini-vision");
+          return;
+        } else if (lowerCommand.includes("code bison")) {
+          switchAgent("code-bison");
+          return;
+        } else if (lowerCommand.includes("text bison")) {
+          switchAgent("text-bison");
+          return;
+        }
+      }
+
+      // Language switching commands
+      if (lowerCommand.includes("zmień język na") || lowerCommand.includes("language")) {
+        if (lowerCommand.includes("polski") || lowerCommand.includes("polish")) {
+          setLanguage("pl-PL");
+          return;
+        } else if (lowerCommand.includes("english") || lowerCommand.includes("angielski")) {
+          setLanguage("en-US");
+          return;
+        } else if (lowerCommand.includes("deutsch") || lowerCommand.includes("niemiecki")) {
+          setLanguage("de-DE");
+          return;
+        }
+      }
+
+      // System control commands
       if (lowerCommand.includes("otwórz") || lowerCommand.includes("uruchom")) {
-        if (
-          lowerCommand.includes("muzykę") ||
-          lowerCommand.includes("player")
-        ) {
-          // Open music player
+        if (lowerCommand.includes("muzykę") || lowerCommand.includes("player")) {
           if (window.toggleMusicPlayer) {
             window.toggleMusicPlayer(true);
           }
-        } else if (
-          lowerCommand.includes("asystent") ||
-          lowerCommand.includes("pomoc")
-        ) {
-          // Open AI assistant
+          return;
+        } else if (lowerCommand.includes("asystent") || lowerCommand.includes("pomoc")) {
           if (window.togglePolaczekAssistant) {
             window.togglePolaczekAssistant(true);
           }
+          return;
         }
-      } else if (
-        lowerCommand.includes("zamknij") ||
-        lowerCommand.includes("ukryj")
-      ) {
+      } else if (lowerCommand.includes("zamknij") || lowerCommand.includes("ukryj")) {
         // Close widgets
         const musicWidget = document.getElementById("musicPlayerWidget");
         const aiWidget = document.getElementById("polaczekWidget");
@@ -424,10 +516,12 @@
         if (aiWidget && !aiWidget.classList.contains("hidden")) {
           window.togglePolaczekAssistant(true);
         }
+        return;
       }
 
-      // Here you could add Google Speech-to-Text API integration
-      // or other advanced voice processing features
+      // If no system command matched, process with current agent
+      await processVoiceCommandWithAgent(command);
+
     } catch (error) {
       console.error("🎤 Error processing voice command:", error);
     } finally {
@@ -440,6 +534,150 @@
     transcript = "";
     lastResult = "";
     confidence = 0;
+  }
+
+  // Enhanced Multi-Agent Functions
+  function switchAgent(agentId) {
+    const agent = availableAgents.find(a => a.id === agentId);
+    if (agent) {
+      selectedAgent = agentId;
+      console.log(`🔄 Switched to agent: ${agent.name}`);
+      
+      // Update recognition settings if needed
+      if (recognition) {
+        recognition.lang = selectedLanguage;
+      }
+      
+      // Trigger UI update
+      showAgentSelector = true;
+    } else {
+      console.warn(`⚠️ Agent not found: ${agentId}`);
+    }
+  }
+
+  function setLanguage(langCode) {
+    const language = languageOptions.find(l => l.code === langCode);
+    if (language) {
+      selectedLanguage = langCode;
+      console.log(`🌐 Language set to: ${language.name}`);
+      
+      // Update recognition language
+      if (recognition) {
+        recognition.lang = langCode;
+      }
+    } else {
+      console.warn(`⚠️ Language not found: ${langCode}`);
+    }
+  }
+
+  function setVoiceMode(mode) {
+    const validModes = ["continuous", "single", "command-only"];
+    if (validModes.includes(mode)) {
+      voiceMode = mode;
+      console.log(`🎤 Voice mode set to: ${mode}`);
+      
+      // Update recognition settings
+      if (recognition) {
+        recognition.continuous = mode === "continuous";
+      }
+    } else {
+      console.warn(`⚠️ Invalid voice mode: ${mode}`);
+    }
+  }
+
+  function setVolume(volume) {
+    if (volume >= 0 && volume <= 100) {
+      voiceVolume = volume;
+      console.log(`🔊 Volume set to: ${volume}%`);
+      
+      // Here you could implement actual volume control for voice feedback
+      if (window.speechSynthesis) {
+        window.speechSynthesis.volume = volume / 100;
+      }
+    } else {
+      console.warn(`⚠️ Invalid volume: ${volume}`);
+    }
+  }
+
+  // Enhanced voice command processing with agent routing
+  async function processVoiceCommandWithAgent(command) {
+    if (!command || command.trim().length === 0) return;
+
+    isProcessing = true;
+    agentStatus = "processing";
+
+    try {
+      console.log(`🎤 Processing command with ${selectedAgent}: ${command}`);
+      
+      // Route command to selected agent
+      let response = "";
+      
+      switch (selectedAgent) {
+        case "gemini-pro":
+          if (geminiProAgent) {
+            response = await geminiProAgent.processMessage(command);
+          }
+          break;
+        case "gemini-vision":
+          if (geminiVisionAgent) {
+            response = await geminiVisionAgent.processMessage(command);
+          }
+          break;
+        case "code-bison":
+          if (codeBisonAgent) {
+            response = await codeBisonAgent.processMessage(command);
+          }
+          break;
+        case "text-bison":
+          if (textBisonAgent) {
+            response = await textBisonAgent.processMessage(command);
+          }
+          break;
+        default:
+          response = `Command received: ${command}. Agent ${selectedAgent} processing...`;
+      }
+
+      // Store result
+      if (!agentResults[selectedAgent]) {
+        agentResults[selectedAgent] = { messages: [] };
+      }
+      
+      agentResults[selectedAgent].messages.push({
+        role: "user",
+        content: command,
+        timestamp: Date.now()
+      });
+      
+      agentResults[selectedAgent].messages.push({
+        role: "assistant",
+        content: response,
+        timestamp: Date.now()
+      });
+
+      // Update UI
+      agentResults = { ...agentResults };
+      
+      console.log(`✅ Agent ${selectedAgent} response:`, response);
+      
+    } catch (error) {
+      console.error(`❌ Error processing with agent ${selectedAgent}:`, error);
+      
+      // Add error to results
+      if (!agentResults[selectedAgent]) {
+        agentResults[selectedAgent] = { messages: [] };
+      }
+      
+      agentResults[selectedAgent].messages.push({
+        role: "assistant",
+        content: `Error: ${error.message}`,
+        timestamp: Date.now()
+      });
+      
+      agentResults = { ...agentResults };
+    } finally {
+      isProcessing = false;
+      agentStatus = "ready";
+    }
   }
 
   // New Agent Activation Functions
@@ -780,24 +1018,97 @@
   }
 </script>
 
-<div class="voice-control-panel floating-widget-template">
+<div class="voice-control-panel floating-widget-template" class:minimized={isMinimized}>
   <div class="voice-header">
     <div class="voice-title-section">
       <div class="voice-icon">🎤</div>
-      <div class="voice-title">GOOGLE VOICE</div>
+      <div class="voice-title">
+        {#if backgroundMode}
+          VOICE SYSTEM - Background Mode
+        {:else}
+          VOICE SYSTEM - Enhanced
+        {/if}
+      </div>
     </div>
-    <div class="voice-status" style="color: {getStatusColor()};">
-      {getStatusText()}
+    <div class="voice-controls">
+      <div class="voice-status" style="color: {getStatusColor()};">
+        {getStatusText()}
+      </div>
     </div>
   </div>
 
-  <div class="voice-content">
-    {#if !isSupported}
-      <div class="voice-error">
-        <p>Przeglądarka nie obsługuje rozpoznawania mowy</p>
-        <small>Użyj Chrome, Edge lub Safari</small>
-      </div>
-    {:else}
+  {#if showVoiceAssistant}
+    <div class="voice-content">
+      {#if !isSupported}
+        <div class="voice-error">
+          <p>Przeglądarka nie obsługuje rozpoznawania mowy</p>
+          <small>Użyj Chrome, Edge lub Safari</small>
+        </div>
+      {:else}
+      <!-- Enhanced Voice Interface - Multi-Agent Controls -->
+      {#if showAgentSelector}
+        <div class="enhanced-voice-section">
+          <div class="agent-selector">
+            <label for="agentSelect">🤖 Active Agent:</label>
+            <select 
+              id="agentSelect" 
+              bind:value={selectedAgent} 
+              on:change={(e) => switchAgent(e.target.value)}
+              class="agent-select"
+            >
+              {#each availableAgents as agent}
+                <option value={agent.id}>
+                  {agent.icon} {agent.name} - {agent.category}
+                </option>
+              {/each}
+            </select>
+          </div>
+
+          <div class="language-selector">
+            <label for="languageSelect">🌐 Language:</label>
+            <select 
+              id="languageSelect" 
+              bind:value={selectedLanguage} 
+              on:change={(e) => setLanguage(e.target.value)}
+              class="language-select"
+            >
+              {#each languageOptions as lang}
+                <option value={lang.code}>
+                  {lang.flag} {lang.name}
+                </option>
+              {/each}
+            </select>
+          </div>
+
+          <div class="voice-mode-selector">
+            <label for="voiceModeSelect">🎤 Mode:</label>
+            <select 
+              id="voiceModeSelect" 
+              bind:value={voiceMode} 
+              on:change={(e) => setVoiceMode(e.target.value)}
+              class="mode-select"
+            >
+              <option value="continuous">🔄 Continuous</option>
+              <option value="single">🎯 Single Command</option>
+              <option value="command-only">⚙️ Command Only</option>
+            </select>
+          </div>
+
+          <div class="volume-control">
+            <label for="volumeSlider">🔊 Volume: {voiceVolume}%</label>
+            <input 
+              type="range" 
+              id="volumeSlider" 
+              min="0" 
+              max="100" 
+              bind:value={voiceVolume}
+              on:input={(e) => setVolume(parseInt(e.target.value))}
+              class="volume-slider"
+            >
+          </div>
+        </div>
+      {/if}
+
       <div class="voice-controls">
         <button
           class="voice-button {isListening ? 'listening' : ''}"
@@ -873,26 +1184,81 @@
         </div>
       {/if}
 
+      <!-- Enhanced Agent Results Section -->
+      {#if Object.keys(agentResults).length > 0}
+        <div class="agent-results-section">
+          <div class="results-header">
+            <span class="results-title">🤖 Agent Conversations</span>
+            <button 
+              class="clear-results-btn"
+              on:click={() => agentResults = {}}
+            >
+              🗑️ Clear All
+            </button>
+          </div>
+          
+          {#each Object.entries(agentResults) as [agentId, result]}
+            <div class="agent-conversation">
+              <div class="conversation-header">
+                <span class="agent-name">
+                  {availableAgents.find(a => a.id === agentId)?.icon || '🤖'} 
+                  {availableAgents.find(a => a.id === agentId)?.name || agentId}
+                </span>
+                <span class="message-count">
+                  {result.messages ? result.messages.length : 0} messages
+                </span>
+              </div>
+              
+              {#if result.messages && result.messages.length > 0}
+                <div class="conversation-messages">
+                  {#each result.messages.slice(-4) as message}
+                    <div class="message {message.role}">
+                      <div class="message-role">
+                        {message.role === 'user' ? '👤' : '🤖'}
+                      </div>
+                      <div class="message-content">
+                        {message.content}
+                      </div>
+                      {#if message.timestamp}
+                        <div class="message-time">
+                          {new Date(message.timestamp).toLocaleTimeString()}
+                        </div>
+                      {/if}
+                    </div>
+                  {/each}
+                </div>
+              {/if}
+            </div>
+          {/each}
+        </div>
+      {/if}
+
       <div class="voice-help">
         <small>
-          Przykłady: "Otwórz muzykę", "Uruchom asystenta", "Zamknij wszystko"
+          Enhanced Commands: "Przełącz na Gemini Pro", "Zmień język na English", "Opisz obraz"
         </small>
       </div>
     {/if}
-  </div>
+    </div>
+  {/if}
 </div>
 
-<!-- Floating Toggle Button dla Google Agents -->
+<!-- Floating Toggle Button dla Voice AI Assistant -->
 <button
-  class="floating-agents-toggle"
+  class="floating-voice-toggle"
   on:click={() => {
-    console.log("🔘 Kliknięto floating toggle button");
-    showAgentPanel = !showAgentPanel;
-    console.log("📱 showAgentPanel:", showAgentPanel);
+    showVoiceAssistant = !showVoiceAssistant;
+    console.log("🎤 Voice Assistant:", showVoiceAssistant ? "ON" : "OFF");
+    
+    // Jeśli wyłączamy, zatrzymaj nasłuchiwanie
+    if (!showVoiceAssistant && isListening) {
+      stopListening();
+    }
   }}
-  title="Toggle Google Agents Panel"
+  title={showVoiceAssistant ? "Wyłącz Voice AI Assistant" : "Włącz Voice AI Assistant"}
+  class:active={showVoiceAssistant}
 >
-  🤖
+  🎤
 </button>
 
 <!-- Individual Agent Floating Buttons -->
@@ -1328,7 +1694,7 @@
         <span class="agent-badge">Conversational AI</span>
       </div>
       <div class="window-actions">
-        <button class="minimize-btn" title="Minimize">➖</button>
+        <button class="minimize-btn" title="Hide Window" on:click={() => showGeminiProWindow = false}>📌</button>
         <button
           class="close-window-btn"
           on:click={() => {
@@ -1386,7 +1752,7 @@
         <span class="agent-badge">Computer Vision</span>
       </div>
       <div class="window-actions">
-        <button class="minimize-btn" title="Minimize">➖</button>
+        <button class="minimize-btn" title="Hide Window" on:click={() => showGeminiVisionWindow = false}>📌</button>
         <button
           class="close-window-btn"
           on:click={() => {
@@ -1433,7 +1799,7 @@
         <span class="agent-badge">Code Generation</span>
       </div>
       <div class="window-actions">
-        <button class="minimize-btn" title="Minimize">➖</button>
+        <button class="minimize-btn" title="Hide Window" on:click={() => showCodeBisonWindow = false}>📌</button>
         <button
           class="close-window-btn"
           on:click={() => {
@@ -1482,7 +1848,7 @@
         <span class="agent-badge">Content Creation</span>
       </div>
       <div class="window-actions">
-        <button class="minimize-btn" title="Minimize">➖</button>
+        <button class="minimize-btn" title="Hide Window" on:click={() => showTextBisonWindow = false}>📌</button>
         <button
           class="close-window-btn"
           on:click={() => {
@@ -1533,7 +1899,7 @@
         <span class="agent-badge">Business Management</span>
       </div>
       <div class="window-actions">
-        <button class="minimize-btn" title="Minimize">➖</button>
+        <button class="minimize-btn" title="Hide Window" on:click={() => showBusinessAssistantWindow = false}>📌</button>
         <button
           class="close-window-btn"
           on:click={() => {
@@ -1841,22 +2207,22 @@
     line-height: 1.3;
   }
 
-  /* Floating Toggle Button - MyBonzo Style */
-  .floating-agents-toggle {
+  /* Floating Voice Toggle Button - ON/OFF Style */
+  .floating-voice-toggle {
     position: fixed;
     right: 20px;
     top: 80px;
-    width: 52px;
-    height: 52px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #1be1ff;
-    color: #1be1ff;
-    font-size: 18px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #ff4444;
+    color: #ff4444;
+    font-size: 20px;
     cursor: pointer;
     z-index: 9999;
     box-shadow:
-      0 0 20px rgba(27, 225, 255, 0.3),
+      0 0 20px rgba(255, 68, 68, 0.3),
       0 4px 16px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
     display: flex;
@@ -1865,14 +2231,30 @@
     backdrop-filter: blur(10px);
   }
 
-  .floating-agents-toggle:hover {
-    background: rgba(27, 225, 255, 0.1);
+  .floating-voice-toggle:hover {
+    transform: scale(1.1);
     box-shadow:
-      0 0 25px rgba(27, 225, 255, 0.5),
+      0 0 30px rgba(255, 68, 68, 0.5),
       0 6px 20px rgba(0, 0, 0, 0.5);
-    transform: scale(1.05);
+  }
+
+  .floating-voice-toggle.active {
+    background: rgba(0, 255, 136, 0.1);
     border-color: #00ff88;
     color: #00ff88;
+    box-shadow:
+      0 0 25px rgba(0, 255, 136, 0.4),
+      0 4px 16px rgba(0, 0, 0, 0.4);
+    animation: voiceActivePulse 2s infinite;
+  }
+
+  @keyframes voiceActivePulse {
+    0%, 100% {
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.4), 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 35px rgba(0, 255, 136, 0.7), 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
   }
 
   /* Individual Agent Floating Buttons */
@@ -1927,6 +2309,220 @@
 
   .business-assistant-btn {
     top: 380px;
+  }
+
+  /* Enhanced Voice Interface Styles */
+  .enhanced-voice-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.3),
+      rgba(27, 225, 255, 0.05)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .agent-selector,
+  .language-selector,
+  .voice-mode-selector,
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .agent-selector label,
+  .language-selector label,
+  .voice-mode-selector label,
+  .volume-control label {
+    color: #1be1ff;
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 80px;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.3);
+  }
+
+  .agent-select,
+  .language-select,
+  .mode-select {
+    flex: 1;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.4),
+      rgba(27, 225, 255, 0.05)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    border-radius: 2px;
+    padding: 6px 8px;
+    color: #1be1ff;
+    font-size: 10px;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.3);
+    cursor: pointer;
+  }
+
+  .agent-select:focus,
+  .language-select:focus,
+  .mode-select:focus {
+    outline: none;
+    border-color: #1be1ff;
+    box-shadow: 0 0 8px rgba(27, 225, 255, 0.3);
+    background: linear-gradient(
+      135deg,
+      rgba(27, 225, 255, 0.1),
+      rgba(15, 56, 70, 0.6)
+    );
+  }
+
+  .volume-slider {
+    flex: 1;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      rgba(15, 56, 70, 0.4),
+      rgba(27, 225, 255, 0.2)
+    );
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: #1be1ff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 6px rgba(27, 225, 255, 0.4);
+  }
+
+  .volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #1be1ff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 6px rgba(27, 225, 255, 0.4);
+  }
+
+  /* Agent Results Section Styles */
+  .agent-results-section {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 56, 70, 0.2),
+      rgba(27, 225, 255, 0.03)
+    );
+    border: 1px solid rgba(27, 225, 255, 0.15);
+    border-radius: 4px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(27, 225, 255, 0.05);
+    border-bottom: 1px solid rgba(27, 225, 255, 0.1);
+  }
+
+  .results-title {
+    color: #1be1ff;
+    font-size: 11px;
+    font-weight: 600;
+    text-shadow: 0 0 3px rgba(27, 225, 255, 0.3);
+  }
+
+  .clear-results-btn {
+    background: transparent;
+    border: 1px solid rgba(27, 225, 255, 0.2);
+    color: #1be1ff;
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-size: 9px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-results-btn:hover {
+    background: rgba(27, 225, 255, 0.1);
+    border-color: #1be1ff;
+  }
+
+  .agent-conversation {
+    border-bottom: 1px solid rgba(27, 225, 255, 0.1);
+  }
+
+  .conversation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+    background: rgba(15, 56, 70, 0.3);
+  }
+
+  .agent-name {
+    color: #1be1ff;
+    font-size: 10px;
+    font-weight: 600;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.3);
+  }
+
+  .message-count {
+    color: rgba(27, 225, 255, 0.7);
+    font-size: 9px;
+  }
+
+  .conversation-messages {
+    padding: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .message {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding: 4px 6px;
+    border-radius: 2px;
+    align-items: flex-start;
+  }
+
+  .message.user {
+    background: rgba(27, 225, 255, 0.05);
+  }
+
+  .message.assistant {
+    background: rgba(15, 56, 70, 0.3);
+  }
+
+  .message-role {
+    font-size: 10px;
+    min-width: 16px;
+  }
+
+  .message-content {
+    flex: 1;
+    color: #1be1ff;
+    font-size: 9px;
+    line-height: 1.3;
+    text-shadow: 0 0 2px rgba(27, 225, 255, 0.3);
+    word-wrap: break-word;
+  }
+
+  .message-time {
+    font-size: 8px;
+    color: rgba(27, 225, 255, 0.5);
+    min-width: 50px;
+    text-align: right;
   }
 
   /* Google Agents Panel Styles - MyBonzo Theme */
@@ -2588,8 +3184,8 @@
   }
 
   .minimize-btn:hover {
-    background: rgba(255, 193, 7, 0.4);
-    border-color: #ffc107;
+    background: rgba(255, 165, 0, 0.4);
+    border-color: #ffa500;
     color: #000;
   }
 
@@ -3084,4 +3680,37 @@
       margin: 10px auto;
     }
   }
+
+  /* Minimize and Background Mode Styles */
+  .voice-control-panel.minimized {
+    height: auto;
+    min-height: 60px;
+    max-height: 80px;
+    transition: all 0.3s ease;
+  }
+
+  .voice-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .minimize-btn {
+    background: rgba(255, 165, 0, 0.2);
+    border: 1px solid rgba(255, 165, 0, 0.4);
+    color: #ffa500;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .minimize-btn:hover {
+    background: rgba(255, 165, 0, 0.3);
+    border-color: #ffa500;
+    transform: scale(1.05);
+  }
+
+
 </style>

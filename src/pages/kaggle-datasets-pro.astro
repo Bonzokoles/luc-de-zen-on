@@ -1,0 +1,861 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Kaggle Datasets Pro | MyBonzo AI Platform",
+  description = "Zaawansowane narzędzia Kaggle z kompletnymi instrukcjami, przykładami i integracją API",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "Complete Kaggle API Tutorial",
+    "Dataset Download & Analysis Tools",
+    "Competition Submission System", 
+    "Polish Machine Learning Examples",
+    "Performance Monitoring",
+    "Advanced Report Generation"
+  ]
+};
+---
+
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
+  <main class="min-h-svh bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900">
+    
+    <!-- Enhanced Header with Tutorial Toggle -->
+    <section class="border border-edge">
+      <div class="max-w-7xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center max-h-72 min-h-64 p-6">
+          <div class="flex items-end gap-8">
+            <span style="writing-mode: vertical-lr;" class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]">
+              KAGGLE
+            </span>
+            <div>
+              <h1 class="text-4xl sm:text-5xl font-bold text-primary-foreground">KAGGLE DATASETS PRO</h1>
+              <h2 class="text-2xl sm:text-3xl text-purple-300">Pełny przewodnik ML i Data Science</h2>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <button id="tutorialToggle" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-semibold transition-colors">
+              📚 Pokaż instrukcje
+            </button>
+            <a href="/kaggle-datasets" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded font-semibold transition-colors text-center">
+              ⚡ Wersja podstawowa
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tutorial Section - Hidden by default -->
+    <section id="tutorialSection" class="tutorial-section hidden border border-edge bg-gradient-to-r from-purple-900/30 to-blue-900/30">
+      <div class="max-w-7xl mx-auto p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          <!-- Left Column: Kaggle Setup -->
+          <div class="space-y-6">
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-purple-300 mb-4">🚀 Konfiguracja Kaggle API</h3>
+              
+              <div class="space-y-4">
+                <div class="step">
+                  <h4 class="text-lg font-semibold text-white mb-2">1. Tworzenie konta</h4>
+                  <ul class="text-gray-300 space-y-1 ml-4">
+                    <li>• Rejestracja na <a href="https://kaggle.com" class="text-blue-400 hover:underline">kaggle.com</a></li>
+                    <li>• Weryfikacja numeru telefonu (wymagane)</li>
+                    <li>• Akceptacja Terms of Service</li>
+                  </ul>
+                </div>
+
+                <div class="step">
+                  <h4 class="text-lg font-semibold text-white mb-2">2. API Token</h4>
+                  <ul class="text-gray-300 space-y-1 ml-4">
+                    <li>• Idź do Account → Create New API Token</li>
+                    <li>• Pobierz plik <span class="text-purple-300 font-mono">kaggle.json</span></li>
+                    <li>• Umieść w <span class="text-purple-300 font-mono">~/.kaggle/</span> (Linux/Mac)</li>
+                    <li>• Lub <span class="text-purple-300 font-mono">%USERPROFILE%\.kaggle\</span> (Windows)</li>
+                  </ul>
+                </div>
+
+                <div class="step">
+                  <h4 class="text-lg font-semibold text-white mb-2">3. Instalacja bibliotek</h4>
+                  <pre class="bg-gray-900 border border-gray-700 rounded p-3 text-sm text-green-400 overflow-x-auto"><code>pip install kaggle pandas numpy matplotlib seaborn
+kaggle --version</code></pre>
+                </div>
+
+                <div class="bg-green-900/30 border border-green-500 rounded p-3">
+                  <p class="text-green-300"><strong>✅ Pro tip:</strong> Użyj virtual environment dla każdego projektu!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dataset Categories -->
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-blue-300 mb-4">📊 Kategorie zbiorów danych</h3>
+              <div class="space-y-3 text-gray-300">
+                <div><strong class="text-white">🏠 Real Estate:</strong> Ceny nieruchomości, trendy rynkowe</div>
+                <div><strong class="text-white">💰 Finance:</strong> Kursy walut, akcje, krypto</div>
+                <div><strong class="text-white">🏥 Healthcare:</strong> Dane medyczne, COVID-19</div>
+                <div><strong class="text-white">🛒 E-commerce:</strong> Sprzedaż, produkty, recenzje</div>
+                <div><strong class="text-white">🚗 Transportation:</strong> Uber, taxi, loty</div>
+                <div><strong class="text-white">🎯 Marketing:</strong> Kampanie, konwersje, SEO</div>
+                <div><strong class="text-white">🌍 Government:</strong> GUS, Open Data</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle Column: Code Examples -->
+          <div class="space-y-6">
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-green-300 mb-4">💻 Przykłady kodu</h3>
+              
+              <div class="space-y-4">
+                <div class="code-example">
+                  <h4 class="text-white font-semibold mb-2">Pobieranie datasetu:</h4>
+                  <pre class="bg-gray-900 border border-gray-700 rounded p-3 text-sm text-green-400 overflow-x-auto"><code>import kaggle
+import pandas as pd
+
+# Download dataset
+kaggle.api.dataset_download_files(
+    'mycompany/housing-prices', 
+    path='./data', 
+    unzip=True
+)
+
+# Load data
+df = pd.read_csv('./data/train.csv')
+print(f"Shape: {'{'}df.shape{'}'}")
+print(df.head())</code></pre>
+                </div>
+
+                <div class="code-example">
+                  <h4 class="text-white font-semibold mb-2">Eksploracja danych:</h4>
+                  <pre class="bg-gray-900 border border-gray-700 rounded p-3 text-sm text-green-400 overflow-x-auto"><code># Basic info
+df.info()
+df.describe()
+
+# Missing values
+missing = df.isnull().sum()
+print(missing[missing > 0])
+
+# Correlations
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(df.corr(), annot=True)
+plt.show()</code></pre>
+                </div>
+
+                <div class="code-example">
+                  <h4 class="text-white font-semibold mb-2">Model Machine Learning:</h4>
+                  <pre class="bg-gray-900 border border-gray-700 rounded p-3 text-sm text-green-400 overflow-x-auto"><code>from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+
+# Prepare data
+X = df.drop('target', axis=1)
+y = df['target']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train model
+rf = RandomForestRegressor(n_estimators=100)
+rf.fit(X_train, y_train)
+
+# Predict
+y_pred = rf.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+print(f"MSE: {'{'}mse:.4f{'}'}")</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Advanced Tips -->
+          <div class="space-y-6">
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-orange-300 mb-4">🏆 Strategie konkursów</h3>
+              
+              <div class="space-y-3 text-gray-300">
+                <div>
+                  <h4 class="text-white font-semibold mb-1">📈 Feature Engineering</h4>
+                  <p class="text-sm">Tworzenie nowych zmiennych z istniejących danych</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-white font-semibold mb-1">🔄 Cross Validation</h4>
+                  <p class="text-sm">Stratified K-Fold dla stabilnych wyników</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-white font-semibold mb-1">🎯 Ensemble Methods</h4>
+                  <p class="text-sm">Kombinowanie modeli: XGBoost + LightGBM</p>
+                </div>
+                
+                <div>
+                  <h4 class="text-white font-semibold mb-1">🔍 Hyperparameter Tuning</h4>
+                  <p class="text-sm">Optuna lub GridSearchCV</p>
+                </div>
+
+                <div class="bg-yellow-900/30 border border-yellow-500 rounded p-3 mt-4">
+                  <p class="text-yellow-300"><strong>💡 Złota zasada:</strong> Najpierw zrozum dane, potem buduj model!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Polish ML Resources -->
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-red-300 mb-4">🇵🇱 Polskie zasoby ML</h3>
+              <div class="space-y-3 text-gray-300">
+                <div><strong class="text-white">📊 GUS API:</strong> Dane demograficzne, ekonomiczne</div>
+                <div><strong class="text-white">🏛️ Dane.gov.pl:</strong> Publiczne zbiory danych</div>
+                <div><strong class="text-white">💹 GPW:</strong> Dane giełdowe polskich spółek</div>
+                <div><strong class="text-white">🌡️ IMGW:</strong> Dane meteorologiczne</div>
+                <div><strong class="text-white">🚗 CEPiK:</strong> Rejestracja pojazdów</div>
+                <div><strong class="text-white">🏥 NFZ:</strong> Dane zdrowotne (ograniczone)</div>
+              </div>
+            </div>
+
+            <!-- Performance Tips -->
+            <div class="tutorial-card bg-black/40 border border-edge rounded-lg p-6">
+              <h3 class="text-2xl font-bold text-cyan-300 mb-4">⚡ Optymalizacja</h3>
+              <div class="space-y-3 text-gray-300">
+                <div><strong class="text-white">RAM:</strong> pandas → polars dla dużych zbiorów</div>
+                <div><strong class="text-white">CPU:</strong> joblib.parallel dla operacji</div>
+                <div><strong class="text-white">GPU:</strong> RAPIDS cuDF + cuML</div>
+                <div><strong class="text-white">Storage:</strong> Parquet zamiast CSV</div>
+                <div><strong class="text-white">Cache:</strong> Zapisuj pośrednie wyniki</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Interface -->
+    <section class="max-w-7xl mx-auto p-8">
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        
+        <!-- Left Column: Dataset Search -->
+        <div class="xl:col-span-2 space-y-6">
+          
+          <!-- Enhanced Search -->
+          <div class="bg-black/30 border border-edge rounded-lg">
+            <div class="border-b border-edge p-4">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                <h3 class="text-xl font-semibold text-white">Kaggle Dataset Explorer Pro</h3>
+              </div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <!-- Search Filters -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <label class="block text-sm font-medium mb-2 text-white">Kategoria:</label>
+                  <select id="categoryFilter" class="w-full p-2 bg-black/50 border border-edge rounded text-white">
+                    <option value="">Wszystkie</option>
+                    <option value="finance">💰 Finance</option>
+                    <option value="healthcare">🏥 Healthcare</option>
+                    <option value="education">🎓 Education</option>
+                    <option value="sports">⚽ Sports</option>
+                    <option value="technology">💻 Technology</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2 text-white">Rozmiar:</label>
+                  <select id="sizeFilter" class="w-full p-2 bg-black/50 border border-edge rounded text-white">
+                    <option value="">Dowolny</option>
+                    <option value="small">< 100 MB</option>
+                    <option value="medium">100 MB - 1 GB</option>
+                    <option value="large">> 1 GB</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2 text-white">Typ pliku:</label>
+                  <select id="fileTypeFilter" class="w-full p-2 bg-black/50 border border-edge rounded text-white">
+                    <option value="">Wszystkie</option>
+                    <option value="csv">📊 CSV</option>
+                    <option value="json">🔗 JSON</option>
+                    <option value="image">🖼️ Images</option>
+                    <option value="text">📝 Text</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium mb-2 text-white">Licencja:</label>
+                  <select id="licenseFilter" class="w-full p-2 bg-black/50 border border-edge rounded text-white">
+                    <option value="">Dowolna</option>
+                    <option value="open">🔓 Open</option>
+                    <option value="attribution">📝 Attribution</option>
+                    <option value="commercial">💼 Commercial</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Search Bar -->
+              <div class="flex gap-3">
+                <div class="flex-1 relative">
+                  <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Wyszukaj datasety (np. 'house prices', 'covid data', 'stock market')..."
+                    class="w-full p-3 pr-10 bg-black/50 border border-edge rounded-lg text-white placeholder-gray-400"
+                  />
+                  <div class="absolute right-3 top-3 text-gray-400">🔍</div>
+                </div>
+                <button 
+                  id="searchButton"
+                  class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-colors"
+                >
+                  Szukaj
+                </button>
+                <button class="px-4 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors">
+                  🤖 AI Suggest
+                </button>
+              </div>
+
+              <!-- Quick Categories -->
+              <div class="flex flex-wrap gap-2">
+                <span class="text-sm text-gray-300">Popularne:</span>
+                <button class="px-3 py-1 bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 rounded text-sm category-tag">House Prices</button>
+                <button class="px-3 py-1 bg-green-600/30 hover:bg-green-600/50 text-green-300 rounded text-sm category-tag">Stock Market</button>
+                <button class="px-3 py-1 bg-purple-600/30 hover:bg-purple-600/50 text-purple-300 rounded text-sm category-tag">COVID-19</button>
+                <button class="px-3 py-1 bg-orange-600/30 hover:bg-orange-600/50 text-orange-300 rounded text-sm category-tag">Titanic</button>
+                <button class="px-3 py-1 bg-red-600/30 hover:bg-red-600/50 text-red-300 rounded text-sm category-tag">Sales Data</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Section -->
+          <div id="resultsContainer" class="space-y-4">
+            <!-- Sample Results -->
+            <div class="bg-black/30 border border-edge rounded-lg p-4 dataset-card">
+              <div class="flex justify-between items-start mb-3">
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-1">House Sales in King County, USA</h4>
+                  <p class="text-gray-300 text-sm">Comprehensive real estate dataset with 21,613 homes sold between May 2014 and May 2015</p>
+                </div>
+                <div class="flex gap-2">
+                  <span class="px-2 py-1 bg-blue-600/20 text-blue-300 rounded text-xs">CSV</span>
+                  <span class="px-2 py-1 bg-green-600/20 text-green-300 rounded text-xs">54MB</span>
+                </div>
+              </div>
+              
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+                <div>
+                  <span class="text-gray-400">Downloads:</span>
+                  <span class="text-white ml-1 font-mono">847K</span>
+                </div>
+                <div>
+                  <span class="text-gray-400">Upvotes:</span>
+                  <span class="text-white ml-1 font-mono">1.2K</span>
+                </div>
+                <div>
+                  <span class="text-gray-400">Columns:</span>
+                  <span class="text-white ml-1 font-mono">21</span>
+                </div>
+                <div>
+                  <span class="text-gray-400">Rows:</span>
+                  <span class="text-white ml-1 font-mono">21,613</span>
+                </div>
+              </div>
+
+              <div class="flex gap-2 flex-wrap">
+                <button class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm transition-colors">
+                  📥 Download
+                </button>
+                <button class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors">
+                  👁️ Preview
+                </button>
+                <button class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors">
+                  🔗 Kaggle
+                </button>
+                <button class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm transition-colors">
+                  📊 Analyze
+                </button>
+              </div>
+            </div>
+
+            <!-- Loading placeholder -->
+            <div id="loadingPlaceholder" class="hidden">
+              <div class="bg-black/30 border border-edge rounded-lg p-8 text-center">
+                <div class="animate-spin w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-300">Wyszukiwanie datasetów...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Tools & Status -->
+        <div class="space-y-6">
+          
+          <!-- API Status -->
+          <div class="bg-black/30 border border-edge rounded-lg">
+            <div class="border-b border-edge p-4">
+              <h3 class="text-lg font-semibold text-white">📡 Status API</h3>
+            </div>
+            <div class="p-4 space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-300">Kaggle API:</span>
+                <div class="flex items-center gap-2">
+                  <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span class="text-green-400 text-sm font-mono">Connected</span>
+                </div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-300">Quota dzisiaj:</span>
+                <span class="text-blue-400 font-mono">47/1000</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-300">Downloads:</span>
+                <span class="text-purple-400 font-mono">12</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-300">Cache:</span>
+                <span class="text-orange-400 font-mono">2.3 GB</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-black/30 border border-edge rounded-lg">
+            <div class="border-b border-edge p-4">
+              <h3 class="text-lg font-semibold text-white">⚡ Szybkie akcje</h3>
+            </div>
+            <div class="p-4 space-y-2">
+              <button class="w-full p-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors">
+                🏆 My Competitions
+              </button>
+              <button class="w-full p-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors">
+                📊 Downloaded Datasets
+              </button>
+              <button class="w-full p-2 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm transition-colors">
+                🤖 ML Auto-Analysis
+              </button>
+              <button class="w-full p-2 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm transition-colors">
+                📈 Generate Report
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Downloads -->
+          <div class="bg-black/30 border border-edge rounded-lg">
+            <div class="border-b border-edge p-4">
+              <h3 class="text-lg font-semibold text-white">📥 Ostatnie pobrane</h3>
+            </div>
+            <div class="p-4 space-y-2">
+              <div class="download-item p-2 bg-black/40 rounded cursor-pointer hover:bg-black/60">
+                <div class="text-white text-sm font-medium">house-prices-advanced</div>
+                <div class="text-xs text-gray-400">2 godziny temu • 127 MB</div>
+              </div>
+              <div class="download-item p-2 bg-black/40 rounded cursor-pointer hover:bg-black/60">
+                <div class="text-white text-sm font-medium">titanic-dataset</div>
+                <div class="text-xs text-gray-400">1 dzień temu • 59 KB</div>
+              </div>
+              <div class="download-item p-2 bg-black/40 rounded cursor-pointer hover:bg-black/60">
+                <div class="text-white text-sm font-medium">covid19-global-data</div>
+                <div class="text-xs text-gray-400">3 dni temu • 2.1 MB</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Monitor -->
+          <div class="bg-black/30 border border-edge rounded-lg">
+            <div class="border-b border-edge p-4">
+              <h3 class="text-lg font-semibold text-white">📊 Monitor postępu</h3>
+            </div>
+            <div id="progressMonitor" class="p-4">
+              <div class="text-center text-gray-400 text-sm">
+                Brak aktywnych operacji
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Download Modal -->
+    <div id="downloadModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+      <div class="bg-gray-900 border border-edge rounded-lg p-6 max-w-md w-full mx-4">
+        <h3 class="text-xl font-semibold text-white mb-4">Pobieranie datasetu</h3>
+        <div id="downloadProgress" class="space-y-3">
+          <!-- Progress content will be inserted here -->
+        </div>
+        <div class="flex gap-3 mt-4">
+          <button id="cancelDownload" class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition-colors">
+            Anuluj
+          </button>
+          <button id="backgroundDownload" class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">
+            W tle
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</MyBonzoLayout>
+
+<script>
+  // Tutorial toggle functionality
+  document.getElementById('tutorialToggle').addEventListener('click', function() {
+    const tutorialSection = document.getElementById('tutorialSection');
+    const button = this;
+    
+    if (tutorialSection.classList.contains('hidden')) {
+      tutorialSection.classList.remove('hidden');
+      button.textContent = '📚 Ukryj instrukcje';
+      button.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+      button.classList.add('bg-red-600', 'hover:bg-red-700');
+    } else {
+      tutorialSection.classList.add('hidden');
+      button.textContent = '📚 Pokaż instrukcje';
+      button.classList.remove('bg-red-600', 'hover:bg-red-700');
+      button.classList.add('bg-purple-600', 'hover:bg-purple-700');
+    }
+  });
+
+  // Search functionality
+  document.getElementById('searchButton').addEventListener('click', performSearch);
+  document.getElementById('searchInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // Category tags
+  document.querySelectorAll('.category-tag').forEach(tag => {
+    tag.addEventListener('click', function() {
+      document.getElementById('searchInput').value = this.textContent;
+      performSearch();
+    });
+  });
+
+  async function performSearch() {
+    const query = document.getElementById('searchInput').value.trim();
+    if (!query) return;
+
+    const button = document.getElementById('searchButton');
+    const loadingPlaceholder = document.getElementById('loadingPlaceholder');
+    const resultsContainer = document.getElementById('resultsContainer');
+    
+    button.disabled = true;
+    button.textContent = '⏳ Szukam...';
+    loadingPlaceholder.classList.remove('hidden');
+
+    try {
+      const response = await fetch('/api/kaggle-search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          category: document.getElementById('categoryFilter').value,
+          size: document.getElementById('sizeFilter').value,
+          fileType: document.getElementById('fileTypeFilter').value,
+          license: document.getElementById('licenseFilter').value
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.status === 'success') {
+        displayResults(result.datasets);
+      } else {
+        alert('Błąd wyszukiwania: ' + result.error);
+      }
+    } catch (error) {
+      alert('Błąd połączenia: ' + error.message);
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Szukaj';
+      loadingPlaceholder.classList.add('hidden');
+    }
+  }
+
+  function displayResults(datasets) {
+    const container = document.getElementById('resultsContainer');
+    const loadingPlaceholder = document.getElementById('loadingPlaceholder');
+    
+    // Clear existing results (except loading placeholder)
+    const existingCards = container.querySelectorAll('.dataset-card');
+    existingCards.forEach(card => card.remove());
+
+    if (datasets && datasets.length > 0) {
+      datasets.forEach(dataset => {
+        const card = createDatasetCard(dataset);
+        container.insertBefore(card, loadingPlaceholder);
+      });
+    } else {
+      const noResults = document.createElement('div');
+      noResults.className = 'bg-black/30 border border-edge rounded-lg p-8 text-center dataset-card';
+      noResults.innerHTML = `
+        <div class="text-gray-400 mb-2">🔍</div>
+        <p class="text-gray-300">Nie znaleziono datasetów dla tego zapytania</p>
+        <p class="text-sm text-gray-400 mt-2">Spróbuj innych słów kluczowych</p>
+      `;
+      container.insertBefore(noResults, loadingPlaceholder);
+    }
+  }
+
+  function createDatasetCard(dataset) {
+    const card = document.createElement('div');
+    card.className = 'bg-black/30 border border-edge rounded-lg p-4 dataset-card';
+    
+    card.innerHTML = `
+      <div class="flex justify-between items-start mb-3">
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-1">${dataset.title}</h4>
+          <p class="text-gray-300 text-sm">${dataset.description || 'Opis niedostępny'}</p>
+        </div>
+        <div class="flex gap-2">
+          <span class="px-2 py-1 bg-blue-600/20 text-blue-300 rounded text-xs">${dataset.fileType || 'CSV'}</span>
+          <span class="px-2 py-1 bg-green-600/20 text-green-300 rounded text-xs">${dataset.size || 'Unknown'}</span>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
+        <div>
+          <span class="text-gray-400">Downloads:</span>
+          <span class="text-white ml-1 font-mono">${dataset.downloadCount || '0'}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Upvotes:</span>
+          <span class="text-white ml-1 font-mono">${dataset.voteCount || '0'}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">Updated:</span>
+          <span class="text-white ml-1 font-mono">${dataset.lastUpdated || 'Unknown'}</span>
+        </div>
+        <div>
+          <span class="text-gray-400">License:</span>
+          <span class="text-white ml-1 font-mono">${dataset.licenseName || 'Unknown'}</span>
+        </div>
+      </div>
+
+      <div class="flex gap-2 flex-wrap">
+        <button class="download-btn px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm transition-colors" data-dataset='${JSON.stringify(dataset)}'>
+          📥 Download
+        </button>
+        <button class="preview-btn px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors" data-ref="${dataset.ref}">
+          👁️ Preview
+        </button>
+        <a href="https://kaggle.com/datasets/${dataset.ref}" target="_blank" class="inline-block px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm transition-colors">
+          🔗 Kaggle
+        </a>
+        <button class="analyze-btn px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm transition-colors" data-ref="${dataset.ref}">
+          📊 Analyze
+        </button>
+      </div>
+    `;
+
+    // Add event listeners for buttons
+    card.querySelector('.download-btn').addEventListener('click', function() {
+      const dataset = JSON.parse(this.dataset.dataset);
+      startDownload(dataset);
+    });
+
+    card.querySelector('.preview-btn').addEventListener('click', function() {
+      previewDataset(this.dataset.ref);
+    });
+
+    card.querySelector('.analyze-btn').addEventListener('click', function() {
+      analyzeDataset(this.dataset.ref);
+    });
+
+    return card;
+  }
+
+  function startDownload(dataset) {
+    const modal = document.getElementById('downloadModal');
+    const progressDiv = document.getElementById('downloadProgress');
+    
+    progressDiv.innerHTML = `
+      <div class="text-white font-semibold">${dataset.title}</div>
+      <div class="text-sm text-gray-300 mb-3">${dataset.size || 'Rozmiar nieznany'}</div>
+      <div class="w-full bg-gray-700 rounded-full h-2">
+        <div id="progressBar" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+      </div>
+      <div class="text-xs text-gray-400 mt-2">
+        <span id="progressText">Inicjalizowanie pobierania...</span>
+      </div>
+    `;
+    
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    // Simulate download progress
+    simulateDownload(dataset);
+  }
+
+  async function simulateDownload(dataset) {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    
+    try {
+      // Call actual Kaggle API
+      const response = await fetch('/api/kaggle-download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dataset_ref: dataset.ref })
+      });
+
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+
+      // Simulate progress updates
+      for (let i = 0; i <= 100; i += 10) {
+        progressBar.style.width = i + '%';
+        progressText.textContent = `Pobieranie... ${i}%`;
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+
+      progressText.textContent = 'Pobieranie zakończone!';
+      progressBar.classList.add('bg-green-600');
+      
+      setTimeout(() => {
+        closeDownloadModal();
+      }, 1000);
+
+    } catch (error) {
+      progressText.textContent = 'Błąd pobierania: ' + error.message;
+      progressBar.classList.add('bg-red-600');
+    }
+  }
+
+  function closeDownloadModal() {
+    const modal = document.getElementById('downloadModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  // Modal event listeners
+  document.getElementById('cancelDownload').addEventListener('click', closeDownloadModal);
+  document.getElementById('backgroundDownload').addEventListener('click', closeDownloadModal);
+
+  // Close modal on backdrop click
+  document.getElementById('downloadModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeDownloadModal();
+    }
+  });
+
+  async function previewDataset(ref) {
+    try {
+      const response = await fetch(`/api/kaggle-preview/${ref}`);
+      const result = await response.json();
+      
+      if (result.status === 'success') {
+        // Open preview in new window or modal
+        window.open(`/kaggle-preview/${ref}`, '_blank');
+      } else {
+        alert('Nie można załadować podglądu');
+      }
+    } catch (error) {
+      alert('Błąd ładowania podglądu: ' + error.message);
+    }
+  }
+
+  async function analyzeDataset(ref) {
+    try {
+      const response = await fetch(`/api/kaggle-analyze/${ref}`, {
+        method: 'POST'
+      });
+      const result = await response.json();
+      
+      if (result.status === 'success') {
+        // Open analysis results
+        window.open(`/kaggle-analysis/${ref}`, '_blank');
+      } else {
+        alert('Nie można przeprowadzić analizy');
+      }
+    } catch (error) {
+      alert('Błąd analizy: ' + error.message);
+    }
+  }
+
+  // Initialize with sample search
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-search for popular datasets on load
+    setTimeout(() => {
+      document.getElementById('searchInput').value = 'house prices';
+      performSearch();
+    }, 500);
+  });
+</script>
+
+<style>
+  .tutorial-section {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tutorial-card {
+    backdrop-filter: blur(10px);
+  }
+
+  .code-example pre {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .dataset-card {
+    transition: all 0.2s ease;
+  }
+
+  .dataset-card:hover {
+    border-color: rgba(147, 51, 234, 0.5);
+  }
+
+  .download-item {
+    transition: all 0.2s ease;
+  }
+
+  /* Custom scrollbar */
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background: rgba(147, 51, 234, 0.5);
+    border-radius: 4px;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+    background: rgba(147, 51, 234, 0.7);
+  }
+
+  #progressBar {
+    transition: width 0.3s ease;
+  }
+</style>

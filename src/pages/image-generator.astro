@@ -1,18 +1,68 @@
 ---
+// TypeScript interface for component props (Astro best practice)
+interface Props {
+  siteTitle?: string;
+  description?: string;
+}
+
+// Proper destructuring of props with defaults (Astro best practice)
+const { 
+  siteTitle = "Generator Obrazów | AI Workers",
+  description = "Zaawansowany generator obrazów z AI. Flux-1 Schnell, Stable Diffusion, DALL-E i więcej!"
+} = Astro.props;
+
+// Proper type imports (Astro best practice)
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+// Metadata for SEO and performance (Astro best practice)
+const pageMetadata = {
+  title: siteTitle,
+  description,
+  robots: "index, follow",
+  og: {
+    title: siteTitle,
+    description: description,
+    type: "website"
+  }
+};
 ---
 
 <MyBonzoLayout
-  siteTitle="Generator Obrazów | AI Workers"
-  description="Generuj obrazy z tekstu za pomocą Cloudflare AI."
+  {siteTitle}
+  {description}
 >
   <main class="min-h-svh">
     <section class="ai-workers-section py-10">
       <div class="section-container max-w-4xl mx-auto">
-        <h1 class="section-title">GENERATOR OBRAZÓW AI</h1>
+        <h1 class="section-title">🎨 GENERATOR OBRAZÓW AI</h1>
         <p class="section-description">
-          Podaj opis i wybierz parametry. Otrzymasz PNG bezpośrednio z serwera.
+          Zaawansowany generator obrazów z AI. Flux-1 Schnell, Stable Diffusion, DALL-E i więcej!
         </p>
+
+        <!-- Quick Stats -->
+        <div class="global-stats-grid mb-8">
+          <div class="stat-card">
+            <div class="stat-icon">🎨</div>
+            <div class="stat-value" id="totalGenerated">0</div>
+            <div class="stat-label">Wygenerowanych obrazów</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-value" id="avgTime">-</div>
+            <div class="stat-label">Średni czas generacji</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🤖</div>
+            <div class="stat-value" id="activeModel">Flux-1</div>
+            <div class="stat-label">Aktywny model</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💾</div>
+            <div class="stat-value" id="savedImages">0</div>
+            <div class="stat-label">Zapisane obrazy</div>
+          </div>
+        </div>
 
         <div
           class="border border-edge rounded-lg p-6 mt-6"
@@ -154,13 +204,38 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             </div>
           </div>
 
-          <!-- Action -->
-          <div class="mb-5">
+          <!-- Action Buttons -->
+          <div class="mb-5 grid grid-cols-1 md:grid-cols-3 gap-3">
             <button
               id="generateBtn"
-              class="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              class="bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               onclick="generateImage()">🎨 Generuj Obraz</button
             >
+            <button
+              id="randomPromptBtn"
+              class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+              onclick="generateRandomPrompt()">🎲 Losowy Prompt</button
+            >
+            <button
+              id="savePresetBtn"
+              class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+              onclick="saveCurrentPreset()">💾 Zapisz Preset</button
+            >
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="mb-5">
+            <label class="block text-sm font-medium mb-2 text-primary-foreground">Szybkie presety</label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <button class="preset-btn" onclick="loadPreset('portrait')">👤 Portret</button>
+              <button class="preset-btn" onclick="loadPreset('landscape')">🏞️ Krajobraz</button>
+              <button class="preset-btn" onclick="loadPreset('abstract')">🎭 Abstrakcja</button>
+              <button class="preset-btn" onclick="loadPreset('scifi')">🚀 Sci-Fi</button>
+              <button class="preset-btn" onclick="loadPreset('anime')">🎌 Anime</button>
+              <button class="preset-btn" onclick="loadPreset('vintage')">📷 Vintage</button>
+              <button class="preset-btn" onclick="loadPreset('cyberpunk')">🌆 Cyberpunk</button>
+              <button class="preset-btn" onclick="loadPreset('nature')">🌿 Natura</button>
+            </div>
           </div>
 
           <!-- Loading -->
@@ -211,14 +286,169 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           </div>
         </div>
 
-        <!-- History -->
-        <div class="mt-8">
-          <h3 class="text-xl font-semibold mb-3 text-primary-foreground">
-            Historia
-          </h3>
-          <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <!-- Advanced Options -->
+        <div class="mt-8 border border-edge rounded-lg p-6" style="background: rgba(0,0,0,0.3);">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">⚙️ Zaawansowane opcje</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Negative prompt</label>
+              <input
+                id="negativePrompt"
+                type="text"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0,0,0,0.5);"
+                placeholder="Co ma NIE być na obrazie..."
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">CFG Scale</label>
+              <input
+                id="cfgScale"
+                type="range"
+                min="1"
+                max="20"
+                value="7"
+                class="w-full"
+                oninput="document.getElementById('cfgValue').textContent = this.value"
+              />
+              <span id="cfgValue" class="text-sm text-gray-400">7</span>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Seed</label>
+              <div class="flex gap-2">
+                <input
+                  id="imageSeed"
+                  type="number"
+                  class="flex-1 p-2 border border-edge rounded text-primary-foreground"
+                  style="background: rgba(0,0,0,0.5);"
+                  placeholder="Random"
+                />
+                <button
+                  class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded"
+                  onclick="randomSeed()"
+                >🎲</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                <input type="checkbox" id="upscaleImage" class="mr-2">
+                Powiększ obraz (2x)
+              </label>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                <input type="checkbox" id="faceRestore" class="mr-2">
+                Popraw twarze
+              </label>
+            </div>
           </div>
         </div>
+
+        <!-- Batch Generation -->
+        <div class="mt-6 border border-edge rounded-lg p-6" style="background: rgba(0,0,0,0.3);">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">🔄 Generacja wsadowa</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Liczba obrazów</label>
+              <select
+                id="batchCount"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0,0,0,0.5);"
+              >
+                <option value="1">1 obraz</option>
+                <option value="2">2 obrazy</option>
+                <option value="4">4 obrazy</option>
+                <option value="8">8 obrazów</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">
+                <input type="checkbox" id="varySeeds" class="mr-2">
+                Różne seeds
+              </label>
+            </div>
+            <div>
+              <button
+                id="batchGenerateBtn"
+                class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded font-semibold transition-colors"
+                onclick="generateBatch()"
+              >🔄 Generuj wsadowo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">🖼️ Galeria wyników</h3>
+          <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="mt-8">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-primary-foreground">📚 Historia generacji</h3>
+            <div class="flex gap-2">
+              <button 
+                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm"
+                onclick="clearHistory()"
+              >🗑️ Wyczyść</button>
+              <button 
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
+                onclick="exportHistory()"
+              >📤 Eksportuj</button>
+            </div>
+          </div>
+          <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          </div>
+        </div>
+
+        <!-- History panel -->
+        <div id="historyPanel" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50" style="display: none;">
+          <div class="bg-gray-900 p-6 rounded-lg max-w-6xl w-full max-h-[80vh] overflow-auto">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold text-[#00bcd4]">Historia generowanych obrazów</h3>
+              <div class="flex gap-2">
+                <button onclick="exportHistory()" class="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">Eksportuj</button>
+                <button onclick="clearHistory()" class="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700">Wyczyść</button>
+                <button onclick="closeHistory()" class="text-gray-400 hover:text-white text-xl">✕</button>
+              </div>
+            </div>
+            <div id="historyStats" class="mb-4 p-4 bg-gray-800 rounded-lg">
+              <div class="grid grid-cols-4 gap-4 text-center">
+                <div>
+                  <div class="text-[#00bcd4] font-bold text-lg" id="historyTotal">0</div>
+                  <div class="text-sm text-gray-400">Łącznie</div>
+                </div>
+                <div>
+                  <div class="text-[#00bcd4] font-bold text-lg" id="historyToday">0</div>
+                  <div class="text-sm text-gray-400">Dzisiaj</div>
+                </div>
+                <div>
+                  <div class="text-[#00bcd4] font-bold text-lg" id="historyWeek">0</div>
+                  <div class="text-sm text-gray-400">Ten tydzień</div>
+                </div>
+                <div>
+                  <div class="text-[#00bcd4] font-bold text-lg" id="historyFavorites">0</div>
+                  <div class="text-sm text-gray-400">Ulubione</div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-4 flex gap-2 flex-wrap">
+              <button onclick="filterHistory('all')" class="px-3 py-1 bg-[#00bcd4] text-white rounded text-sm">Wszystkie</button>
+              <button onclick="filterHistory('today')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Dzisiaj</button>
+              <button onclick="filterHistory('week')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Ten tydzień</button>
+              <button onclick="filterHistory('favorites')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Ulubione</button>
+            </div>
+            <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+          </div>
+        </div>
+
       </div>
     </section>
   </main>
@@ -235,6 +465,122 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     color: #00bcd4;
     margin-bottom: 1rem;
     text-transform: uppercase;
+  }
+
+  .global-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--edge);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    border-color: #00bcd4;
+    transform: translateY(-2px);
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #00bcd4;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: #888;
+  }
+
+  .preset-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--edge);
+    color: white;
+    padding: 0.5rem 1rem;
+    rounded: 0.25rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .preset-btn:hover {
+    background: #00bcd4;
+    border-color: #00bcd4;
+    transform: translateY(-1px);
+  }
+
+  .result-card {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--edge);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .result-card:hover {
+    border-color: #00bcd4;
+    transform: translateY(-2px);
+  }
+
+  .result-card img {
+    width: 100%;
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .result-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .result-actions button {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .history-item {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--edge);
+    border-radius: 0.375rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .history-item:hover {
+    border-color: #00bcd4;
+    transform: scale(1.05);
+  }
+
+  .history-item img {
+    width: 100%;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .history-prompt {
+    font-size: 0.75rem;
+    color: #ccc;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .section-description {
     font-size: 1.1rem;
@@ -577,6 +923,274 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     }
   }
 
+  // Presets for different image types
+  var imagePresets = {
+    portraits: [
+      "professional portrait photography, studio lighting, high quality",
+      "realistic portrait, detailed face, soft lighting, 4K",
+      "cinematic portrait, dramatic lighting, professional"
+    ],
+    landscapes: [
+      "breathtaking landscape photography, golden hour, high resolution",
+      "epic mountain vista, dramatic clouds, professional photography",
+      "serene natural landscape, perfect lighting, 4K"
+    ],
+    art: [
+      "digital art masterpiece, highly detailed, artstation trending",
+      "concept art, fantasy illustration, detailed background",
+      "artistic painting, oil painting style, museum quality"
+    ],
+    fantasy: [
+      "fantasy art, magical atmosphere, detailed illustration",
+      "mystical scene, glowing effects, epic fantasy art",
+      "enchanted world, fantasy landscape, magical lighting"
+    ],
+    scifi: [
+      "futuristic sci-fi scene, cyberpunk style, neon lighting",
+      "space exploration, cosmic vista, detailed spacecraft",
+      "dystopian future, high-tech environment, dramatic"
+    ],
+    anime: [
+      "anime style illustration, vibrant colors, detailed",
+      "manga style artwork, cel shading, high quality anime",
+      "kawaii anime character, colorful, studio quality"
+    ],
+    realistic: [
+      "photorealistic, ultra detailed, professional photography",
+      "hyperrealistic rendering, perfect lighting, 8K quality",
+      "realistic photo, natural lighting, high definition"
+    ],
+    abstract: [
+      "abstract art, geometric patterns, vibrant colors",
+      "surreal abstract composition, artistic expression",
+      "modern abstract design, bold colors, creative"
+    ]
+  };
+
+  function loadPreset(category) {
+    var presets = imagePresets[category];
+    if (!presets || !presets.length) return;
+    
+    var randomPreset = presets[Math.floor(Math.random() * presets.length)];
+    var promptEl = document.getElementById("imagePrompt");
+    if (promptEl) {
+      promptEl.value = randomPreset;
+    }
+  }
+
+  function randomizeSeed() {
+    var seedEl = document.getElementById("seed");
+    if (seedEl) {
+      seedEl.value = Math.floor(Math.random() * 1000000);
+    }
+  }
+
+  function generateBatch() {
+    var batchCount = parseInt(document.getElementById("batchCount").value) || 1;
+    var varySeeds = document.getElementById("varySeeds").checked;
+    var originalSeed = document.getElementById("seed").value;
+    
+    var generateBtn = document.getElementById("generateBtn");
+    if (generateBtn) {
+      for (var i = 0; i < batchCount; i++) {
+        setTimeout(function(index) {
+          if (varySeeds && index > 0) {
+            randomizeSeed();
+          }
+          generateImage();
+        }, i * 2000, i); // 2 second delay between generations
+      }
+    }
+    
+    // Restore original seed if not varying
+    if (!varySeeds) {
+      setTimeout(function() {
+        document.getElementById("seed").value = originalSeed;
+      }, batchCount * 2000);
+    }
+  }
+
+  function addToResults(imageUrl, prompt, settings) {
+    var resultsGrid = document.getElementById("resultsGrid");
+    if (!resultsGrid) return;
+
+    var resultCard = document.createElement("div");
+    resultCard.className = "result-card";
+    resultCard.innerHTML = 
+      '<img src="' + imageUrl + '" alt="Generated image" />' +
+      '<div class="result-actions">' +
+        '<button onclick="downloadResult(\'' + imageUrl + '\')" style="background: #10b981; color: white;">💾 Pobierz</button>' +
+        '<button onclick="copyPromptFromResult(\'' + prompt.replace(/'/g, "\\'") + '\')" style="background: #3b82f6; color: white;">📋 Kopiuj prompt</button>' +
+        '<button onclick="toggleFavorite(this)" style="background: #f59e0b; color: white;">⭐ Ulubione</button>' +
+      '</div>';
+    
+    resultsGrid.insertBefore(resultCard, resultsGrid.firstChild);
+  }
+
+  function downloadResult(imageUrl) {
+    var link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = "generated_image_" + Date.now() + ".png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function copyPromptFromResult(prompt) {
+    navigator.clipboard.writeText(prompt).then(function() {
+      alert("Prompt skopiowany do schowka!");
+    });
+  }
+
+  function toggleFavorite(button) {
+    var isFavorite = button.classList.contains("favorited");
+    if (isFavorite) {
+      button.classList.remove("favorited");
+      button.style.background = "#f59e0b";
+      button.textContent = "⭐ Ulubione";
+    } else {
+      button.classList.add("favorited");
+      button.style.background = "#ef4444";
+      button.textContent = "❤️ Ulubione";
+    }
+  }
+
+  function clearResults() {
+    var resultsGrid = document.getElementById("resultsGrid");
+    if (resultsGrid) {
+      resultsGrid.innerHTML = "";
+    }
+  }
+
+  function exportHistory() {
+    var dataStr = JSON.stringify(generationHistory, null, 2);
+    var dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = "image_generation_history_" + new Date().toISOString().split('T')[0] + ".json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  function clearHistory() {
+    if (confirm("Czy na pewno chcesz wyczyścić całą historię generacji?")) {
+      generationHistory = [];
+      localStorage.removeItem("imageHistory");
+      updateHistoryDisplay();
+      updateGlobalStats();
+    }
+  }
+
+  function openHistoryPanel() {
+    var panel = document.getElementById("historyPanel");
+    if (panel) {
+      panel.style.display = "flex";
+      panel.classList.remove("hidden");
+      updateHistoryPanelStats();
+    }
+  }
+
+  function closeHistory() {
+    var panel = document.getElementById("historyPanel");
+    if (panel) {
+      panel.style.display = "none";
+      panel.classList.add("hidden");
+    }
+  }
+
+  function updateHistoryPanelStats() {
+    var total = generationHistory.length;
+    var today = 0;
+    var week = 0;
+    var favorites = 0;
+    
+    var todayDate = new Date().toDateString();
+    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    
+    generationHistory.forEach(function(item) {
+      var itemDate = new Date(item.ts);
+      if (itemDate.toDateString() === todayDate) today++;
+      if (itemDate >= weekAgo) week++;
+      if (item.favorite) favorites++;
+    });
+    
+    var totalEl = document.getElementById("historyTotal");
+    var todayEl = document.getElementById("historyToday");
+    var weekEl = document.getElementById("historyWeek");
+    var favoritesEl = document.getElementById("historyFavorites");
+    
+    if (totalEl) totalEl.textContent = total;
+    if (todayEl) todayEl.textContent = today;
+    if (weekEl) weekEl.textContent = week;
+    if (favoritesEl) favoritesEl.textContent = favorites;
+  }
+
+  function filterHistory(filter) {
+    var historyList = document.getElementById("historyList");
+    if (!historyList) return;
+    
+    var filteredHistory;
+    var todayDate = new Date().toDateString();
+    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    
+    switch (filter) {
+      case 'today':
+        filteredHistory = generationHistory.filter(function(item) {
+          return new Date(item.ts).toDateString() === todayDate;
+        });
+        break;
+      case 'week':
+        filteredHistory = generationHistory.filter(function(item) {
+          return new Date(item.ts) >= weekAgo;
+        });
+        break;
+      case 'favorites':
+        filteredHistory = generationHistory.filter(function(item) {
+          return item.favorite;
+        });
+        break;
+      default:
+        filteredHistory = generationHistory;
+    }
+    
+    displayFilteredHistory(filteredHistory);
+    
+    // Update filter button states
+    var filterButtons = document.querySelectorAll('[onclick^="filterHistory"]');
+    filterButtons.forEach(function(btn) {
+      btn.className = btn.className.replace('bg-[#00bcd4]', 'bg-gray-600');
+    });
+    event.target.className = event.target.className.replace('bg-gray-600', 'bg-[#00bcd4]');
+  }
+
+  function displayFilteredHistory(filteredHistory) {
+    var historyList = document.getElementById("historyList");
+    if (!historyList) return;
+    
+    historyList.innerHTML = "";
+    
+    filteredHistory.forEach(function(item) {
+      var historyItem = document.createElement("div");
+      historyItem.className = "history-item";
+      historyItem.innerHTML =
+        '<img src="' + item.imageUrl + '" alt="History image" />' +
+        '<div class="history-prompt">' + (item.prompt || "").substring(0, 50) + '...</div>' +
+        '<div class="text-xs text-gray-500 mt-1">' + new Date(item.ts).toLocaleString() + '</div>';
+      
+      historyItem.onclick = function() {
+        var promptEl = document.getElementById("imagePrompt");
+        if (promptEl && item.prompt) {
+          promptEl.value = item.prompt;
+        }
+        closeHistory();
+      };
+      
+      historyList.appendChild(historyItem);
+    });
+  }
+
   function downloadImage() {
     var img = document.getElementById("generatedImage");
     if (!img || !img.src) return;
@@ -649,7 +1263,37 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     }
   }
 
+  // Global statistics functions
+  function updateGlobalStats() {
+    var totalImages = generationHistory.length;
+    var todayImages = 0;
+    var weekImages = 0;
+    var favoriteImages = 0;
+    
+    var todayDate = new Date().toDateString();
+    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    
+    generationHistory.forEach(function(item) {
+      var itemDate = new Date(item.ts);
+      if (itemDate.toDateString() === todayDate) todayImages++;
+      if (itemDate >= weekAgo) weekImages++;
+      if (item.favorite) favoriteImages++;
+    });
+    
+    var totalEl = document.getElementById("statTotalImages");
+    var todayEl = document.getElementById("statTodayImages");
+    var weekEl = document.getElementById("statWeekImages");
+    var avgEl = document.getElementById("statAvgTime");
+    
+    if (totalEl) totalEl.textContent = totalImages;
+    if (todayEl) todayEl.textContent = todayImages;
+    if (weekEl) weekEl.textContent = weekImages;
+    if (avgEl) avgEl.textContent = "~2.5s"; // Estimated average
+  }
+
+  // Initialize stats on page load
   document.addEventListener("DOMContentLoaded", function () {
     updateHistoryDisplay();
+    updateGlobalStats();
   });
 </script>

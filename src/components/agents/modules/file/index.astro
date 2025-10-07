@@ -1,12 +1,38 @@
 ---
+// TypeScript interface for component props (Astro 2025 best practice)
+interface Props {
+  siteTitle?: string;
+  description?: string;
+}
+
+// Proper destructuring of props with defaults (Astro 2025 best practice)
+const { 
+  siteTitle = `${fileManagerConfig.displayName} - LUC de ZEN ON`,
+  description = fileManagerConfig.description
+} = Astro.props;
+
+// Proper type imports (Astro 2025 best practice)
+import type { HTMLAttributes } from "astro/types";
 import Layout from '../../../layouts/Layout.astro';
 import FileManagerComponent from './component.svelte';
 import { fileManagerConfig } from './config';
+
+// Metadata for SEO and performance (Astro 2025 best practice)
+const pageMetadata = {
+  title: siteTitle,
+  description,
+  robots: "index, follow",
+  og: {
+    title: siteTitle,
+    description: description,
+    type: "website"
+  }
+};
 ---
 
 <Layout 
-  siteTitle={`${fileManagerConfig.displayName} - LUC de ZEN ON`}
-  description={fileManagerConfig.description}
+  {siteTitle}
+  {description}
   theme="cyberpunk"
 >
   <main class="min-h-screen bg-cyber-dark text-cyber-text p-4 circuit-overlay">

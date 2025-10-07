@@ -20,12 +20,13 @@
 3. **bigquery-analytics** 📁 FOLDER
    - BigQuery Analytics
    - Potrzebny index.astro
-
+   
+### Rząd 2:
 4. **kaggle-datasets** 📁 FOLDER
    - Kaggle Datasets
    - Potrzebny index.astro
 
-### Rząd 2:
+
 5. **tavily-ai-search** 📁 FOLDER
    - Tavily AI Search
    - Potrzebny index.astro
@@ -33,23 +34,23 @@
 6. **voice-ai-assistant** 📁 FOLDER
    - Voice AI Assistant
    - Potrzebny index.astro
-
-### Rząd 3:  
+   
+### Rząd 3: 
 7. **flowise** 📁 FOLDER
    - Flowise AI Flow Builder
    - Potrzebny index.astro
-
+    
 8. **langflow** ✅ GOTOWE
    - Langflow Visual AI Builder  
    - Flow management interface
    - Templates i recent flows
 
-### Rząd 4:
 9. **mcp-servers** ✅ GOTOWE
    - MCP Servers Management
    - 5 aktywnych serwerów
    - Server monitoring i templates
-
+   
+### Rząd 4:
 10. **nodered** 📁 FOLDER
     - NodeRED Flow Programming
     - Potrzebny index.astro
@@ -81,3 +82,5 @@ Wszystkie przyciski w WorkersGridSection.astro już mają poprawne data-worker a
 - `/workers/ai-chatbot`
 - `/workers/bigquery-analytics`
 - itd...
+
+### pod przyciskami jeden dłógi na serokość okna i przerw pomiedzy oknami z napisem MY_PRSONAL_AI_BLOG

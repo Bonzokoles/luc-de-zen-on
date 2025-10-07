@@ -1,8 +1,36 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "LangChain Integration | AI Workers",
+  description = "Zaawansowana integracja z LangChain Framework - chains, agents, tools i memory management",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "LangChain Framework Integration",
+    "Chain Composition Tools", 
+    "Agent-based Processing",
+    "Memory Management",
+    "Tool Integration Hub",
+    "Custom Workflow Builder"
+  ]
+};
 ---
 
-<MyBonzoLayout title="LangChain Integration | AI Workers">
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
   <main class="min-h-svh bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900">
     <!-- Header Section -->
     <section class="border border-edge">

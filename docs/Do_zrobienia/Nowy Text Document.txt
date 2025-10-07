@@ -1,0 +1,25 @@
+Po analizie aktualnej funkcjonalności MyBonzo.com, oto propozycje zmian, ulepszeń oraz dodania nowych funkcji AI:
+
+**1. Co można usunąć lub zmodyfikować:**
+- **Voice AI Assistant** –dodac zasoby i dodanie przekierowania na doskonalszą tekstową asystenturę.
+- **BigQuery Analytics** – jeśli użytkownicy nie korzystają z zaawansowanej analizy SQL, rozważ uproszczenie lub integrację z tańszą alternatywą (np. DuckDB dla lokalnych analiz).
+- **Kaggle Datasets** – jeśli dostęp do Kaggle nie generuje wartości dodanej, można zamienić na integrację z HuggingFace Datasets (większa różnorodność i otwartość).
+- **MCP Servers** – jeśli nie zarządzasz własną infrastrukturą modeli, rozważ przeniesienie na w pełni edge’ową obsługę modeli na Cloudflare Workers lub OpenRouter dla uproszczenia.
+
+**2. Co warto zmienić/ulepszyć:**
+- **AI Chatbot** – zaktualizować backend na najnowsze modele (Llama 3, Gemini, Claude Sonnet, Qwen3), dodać profile ról (instruktor, asystent, concierge) oraz lepszą obsługę promptów systemowych; opcjonalnie dostarczyć funkcje „function calling” do bezpośredniej obsługi akcji w platformie.
+- **Orkiestracja (Langchain, Flowise, Activepieces)** – połączyć orchestratory w jeden dashboard agentów, uprościć tworzenie multi-agentowych workflow przez użytkownika końcowego.
+- **AI Search (Tavily)** – zautomatyzować integrację z natywnym AI search z Cloudflare lub OpenRouter; Tavily można zastąpić systemowym AI Search edge (szybciej działa, lepsza obsługa polskiego).
+- **Monitoring i testy endpointów** – dodać automatyczne testowanie endpointów i workerów po każdym deploymencie (np. przez internal agent testera).
+
+**3. Nowe funkcje AI, które warto dodać:**
+- **Instruktor/Przewodnik AI** – typ agenta prowadzącego onboarding klienta, wyjaśniającego krok po kroku funkcje platformy (systemowy prompt „Jesteś przewodnikiem dla nowych użytkowników MyBonzo...”).
+- **Agent do automatycznych demo na żywo** – AI generujący interaktywne tutoriale (wizualne instrukcje, klikanie, nawigacja po stronie krok po kroku).
+- **Multi-agent dashboard** – panel do zarządzania różnymi agentami (asystent techniczny, agent wsparcia, agent demo, agent wiedzy), łatwe dodawanie i testowanie nowych AI.
+- **Generatywne FAQ (dynamiczne odpowiedzi)** – bot analizuje pytania użytkowników i samodzielnie generuje FAQ oraz skróty do funkcji serwisu.
+- **Obsługa multimodalnych modeli** – integracja Qwen3 VL lub Gemini 1.5 Pro do przetwarzania tekst+obraz+dokument dla rozbudowanych zapytań użytkowników.
+- **Automatyczna personalizacja agenta** – chatbot rozpoznaje poziom zaawansowania użytkownika i sam ustawia styl prowadzenia rozmowy (tryb dla nowicjuszy, tryb zaawansowany itd.).
+
+**Podsumowując:** Najwięcej zyskasz przez usunięcie nieużywanych/nieaktywnych funkcji voice oraz detalu analiz SQL, uproszczenie orchestratorów, aktualizację core modelu AI Chatbot do najnowszych LLMs, dodanie dedykowanego przewodnika i multi-agentowego dashboardu. Zalecam integrację edge AI search i multimodalnych agentów oraz dynamicznych FAQ dla lepszej interakcji z klientami. Platformę rozwiniesz na bazie najnowszych dostępnych modeli z Cloudflare i OpenRouter.
+
+[1](https://www.perplexity.ai/search/www-mybonzo-com-https-www-mybo-hMcVP3stShi2B49_8RDdyQ)

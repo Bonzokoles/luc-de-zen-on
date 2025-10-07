@@ -1,12 +1,37 @@
 ---
+// TypeScript interface for component props (Astro 2025 best practice)
+interface Props {
+  pageTitle?: string;
+  pageDescription?: string;
+  pageQuote?: string;
+  pageAuthor?: string;
+}
+
+// Proper destructuring of props with defaults (Astro 2025 best practice)
+const { 
+  pageTitle = "SupaGruen SD CheatSheet",
+  pageDescription = "Zaawansowany generator promptów AI z 833+ stylami artystycznymi",
+  pageQuote = "Człowiek jest tym, czym są jego decyzje.",
+  pageAuthor = "Frank Herbert (Dune)"
+} = Astro.props;
+
+// Proper type imports (Astro 2025 best practice)
+import type { HTMLAttributes } from "astro/types";
 import UniversalPageLayout from "../layouts/UniversalPageLayout.astro";
 import GlassPanel from "../layouts/components/GlassPanel.astro";
 import CyberpunkButton from "../layouts/components/CyberpunkButton.astro";
 
-const pageTitle = "SupaGruen SD CheatSheet";
-const pageDescription = "Zaawansowany generator promptów AI z 833+ stylami artystycznymi";
-const pageQuote = "Człowiek jest tym, czym są jego decyzje.";
-const pageAuthor = "Frank Herbert (Dune)";
+// Metadata for SEO and performance (Astro 2025 best practice)
+const pageMetadata = {
+  title: pageTitle,
+  description: pageDescription,
+  robots: "index, follow",
+  og: {
+    title: pageTitle,
+    description: pageDescription,
+    type: "website"
+  }
+};
 ---
 
 <UniversalPageLayout 

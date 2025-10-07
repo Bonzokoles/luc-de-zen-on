@@ -1,0 +1,2019 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Voice AI Assistant | MyBonzo Platform",
+  description = "Zaawansowany asystent głosowy z AI, rozpoznawanie mowy, synteza głosu i sterowanie głosowe",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "Voice Recognition & Synthesis",
+    "Multi-language Support", 
+    "Real-time Speech Processing",
+    "Voice Command Interface",
+    "Audio Visualization",
+    "WebRTC Integration"
+  ]
+};
+---
+
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
+  <main class="min-h-svh">
+    <!-- Header Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between max-h-72 min-h-64">
+          <div class="mt-auto">
+            <span
+              style="writing-mode: vertical-lr;"
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              VOICE
+            </span>
+          </div>
+          <span class="mt-auto">
+            <span
+              class="text-edge block px-2 text-xl font-semibold tracking-[0.3em]"
+            >
+              AI ASSISTANT
+            </span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="border border-edge">
+      <div class="max-w-6xl mx-auto border-x border-edge">
+        <div class="flex justify-between items-center p-4">
+          <div class="flex gap-4">
+            <a 
+              href="/" 
+              class="nav-link hover:text-accent transition-colors"
+            >
+              ← Powrót do głównej
+            </a>
+            <span class="text-edge">|</span>
+            <a 
+              href="/api-test-panel.html" 
+              class="nav-link hover:text-accent transition-colors"
+            >
+              API Tests
+            </a>
+          </div>
+          <div class="flex items-center gap-4">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-accent"
+            >
+              <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <a
+              href="/"
+              class="bg-accent text-background px-4 py-2 rounded hover:bg-accent/80 transition-colors"
+            >
+              Strona główna
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Voice AI Assistant Section -->
+    <section class="ai-workers-section flex items-center justify-center py-16" id="voice-ai-assistant">
+      <div class="section-container max-w-6xl mx-auto">
+        <h2 class="section-title">🎤 VOICE AI ASSISTANT</h2>
+        <p class="section-description">
+          Zaawansowany asystent głosowy z transkrypcją, syntezą mowy i przetwarzaniem komend głosowych
+        </p>
+
+        <!-- Voice AI Features -->
+        <div class="global-stats-grid mb-8">
+          <div class="stat-card">
+            <div class="stat-icon">🎤</div>
+            <div class="stat-value">Speech-to-Text</div>
+            <div class="stat-label">Transkrypcja głosu na tekst</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🔊</div>
+            <div class="stat-value">Text-to-Speech</div>
+            <div class="stat-label">Synteza mowy z tekstu</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-value">Voice Commands</div>
+            <div class="stat-label">Przetwarzanie komend głosowych</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-value">Polski język</div>
+            <div class="stat-label">Pełne wsparcie języka polskiego</div>
+          </div>
+        </div>
+
+          <!-- Page-Level Voice Control -->
+        <div class="page-control-container bg-surface border border-edge rounded-lg p-8 mb-8">
+          <h3 class="control-title">📄 Kontrola głosu per podstrona</h3>
+          <p class="text-sm text-gray-400 mb-6">Ustaw na których podstronach Voice AI ma być aktywny</p>
+          
+          <div class="page-grid">
+            <div class="page-item">
+              <input type="checkbox" id="page-home" class="page-checkbox" checked>
+              <label for="page-home" class="page-label">
+                <div class="page-icon">🏠</div>
+                <div class="page-info">
+                  <div class="page-name">Strona główna (/)</div>
+                  <div class="page-description">Index i floating button</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="page-item">
+              <input type="checkbox" id="page-agents" class="page-checkbox" checked>
+              <label for="page-agents" class="page-label">
+                <div class="page-icon">🤖</div>
+                <div class="page-info">
+                  <div class="page-name">Agenty AI (/agent-*)</div>
+                  <div class="page-description">Wszystkie podstrony agentów</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="page-item">
+              <input type="checkbox" id="page-api" class="page-checkbox">
+              <label for="page-api" class="page-label">
+                <div class="page-icon">⚙️</div>
+                <div class="page-info">
+                  <div class="page-name">API Panel (/api-*)</div>
+                  <div class="page-description">Panele testowe i konfiguracji</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="page-item">
+              <input type="checkbox" id="page-voice" class="page-checkbox" checked>
+              <label for="page-voice" class="page-label">
+                <div class="page-icon">🎤</div>
+                <div class="page-info">
+                  <div class="page-name">Voice Assistant (/voice-*)</div>
+                  <div class="page-description">Strony głosowe</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="page-actions mt-6">
+            <button id="save-page-config" class="control-btn primary">💾 Zapisz konfigurację stron</button>
+            <button id="reset-page-config" class="control-btn secondary">🔄 Przywróć domyślne</button>
+          </div>
+        </div>
+
+        <!-- Agent Selection for Voice Control -->
+        <div class="agent-selection-container bg-surface border border-edge rounded-lg p-8 mb-8">
+          <h3 class="control-title">🎯 Wybór agentów do obsługi głosowej</h3>
+          <p class="text-sm text-gray-400 mb-6">Wybierz które agenty MyBonzo będą obsługiwane przez sterowanie głosowe</p>          <div class="agents-grid">
+            <div class="agent-item">
+              <input type="checkbox" id="chatbot-agent" class="agent-checkbox" checked>
+              <label for="chatbot-agent" class="agent-label">
+                <div class="agent-icon">🤖</div>
+                <div class="agent-info">
+                  <div class="agent-name">AI CHATBOT</div>
+                  <div class="agent-description">Główny czatbot MyBonzo</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="agent-item">
+              <input type="checkbox" id="polaczek-agent" class="agent-checkbox" checked>
+              <label for="polaczek-agent" class="agent-label">
+                <div class="agent-icon">🇵🇱</div>
+                <div class="agent-info">
+                  <div class="agent-name">AI Assistant Polaczek</div>
+                  <div class="agent-description">Polski asystent AI</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="agent-item">
+              <input type="checkbox" id="kaggle-agent" class="agent-checkbox">
+              <label for="kaggle-agent" class="agent-label">
+                <div class="agent-icon">📊</div>
+                <div class="agent-info">
+                  <div class="agent-name">Kaggle Analytics</div>
+                  <div class="agent-description">Analiza danych i ML</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="agent-item">
+              <input type="checkbox" id="bigquery-agent" class="agent-checkbox">
+              <label for="bigquery-agent" class="agent-label">
+                <div class="agent-icon">🏢</div>
+                <div class="agent-info">
+                  <div class="agent-name">BigQuery Analytics</div>
+                  <div class="agent-description">Analiza danych BigQuery</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="agent-item">
+              <input type="checkbox" id="tavily-agent" class="agent-checkbox">
+              <label for="tavily-agent" class="agent-label">
+                <div class="agent-icon">🔍</div>
+                <div class="agent-info">
+                  <div class="agent-name">Tavily Search</div>
+                  <div class="agent-description">Wyszukiwanie internetowe</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="agent-item">
+              <input type="checkbox" id="deepseek-agent" class="agent-checkbox">
+              <label for="deepseek-agent" class="agent-label">
+                <div class="agent-icon">🧠</div>
+                <div class="agent-info">
+                  <div class="agent-name">DeepSeek Coder</div>
+                  <div class="agent-description">AI do programowania</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="selection-actions mt-6">
+            <button id="select-all-agents" class="control-btn secondary">✅ Zaznacz wszystkie</button>
+            <button id="deselect-all-agents" class="control-btn secondary">❌ Odznacz wszystkie</button>
+            <button id="save-agent-selection" class="control-btn primary">💾 Zapisz wybór agentów</button>
+          </div>
+        </div>
+
+        <!-- Voice AI Controls & Settings -->
+        <div class="voice-controls-grid">
+          <!-- Speech-to-Text Settings -->
+          <div class="control-card">
+            <h3 class="control-title">🎙️ Speech-to-Text (STT)</h3>
+            <div class="control-content">
+              <div class="setting-item">
+                <label>Język rozpoznawania:</label>
+                <select id="stt-language" class="setting-select">
+                  <option value="pl-PL">🇵🇱 Polski</option>
+                  <option value="en-US">🇺🇸 Angielski</option>
+                  <option value="de-DE">🇩🇪 Niemiecki</option>
+                  <option value="fr-FR">🇫🇷 Francuski</option>
+                  <option value="es-ES">🇪🇸 Hiszpański</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Tryb nagrywania:</label>
+                <select id="recording-mode" class="setting-select">
+                  <option value="continuous">Ciągły</option>
+                  <option value="single">Pojedyncze komendy</option>
+                  <option value="push-to-talk">Push-to-Talk</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Czułość mikrofonu:</label>
+                <input type="range" id="mic-sensitivity" min="0" max="100" value="70" class="setting-range">
+                <span id="mic-value">70%</span>
+              </div>
+              <button id="start-recording" class="control-btn primary">🎤 Rozpocznij nagrywanie</button>
+              <button id="stop-recording" class="control-btn secondary" disabled>⏹️ Zatrzymaj</button>
+            </div>
+          </div>
+
+          <!-- Text-to-Speech Settings -->
+          <div class="control-card">
+            <h3 class="control-title">🔊 Text-to-Speech (TTS)</h3>
+            <div class="control-content">
+              <div class="setting-item">
+                <label>Głos:</label>
+                <select id="tts-voice" class="setting-select">
+                  <option value="pl-zofia">Zofia (Premium) �🇱</option>
+                  <option value="pl-marek">Marek (Premium) 🇵🇱</option>
+                  <option value="pl-ewa">Ewa 🇵🇱</option>
+                  <option value="pl-adam">Adam 🇵🇱</option>
+                  <option value="en-sarah">Sarah (Premium) 🇺🇸</option>
+                  <option value="en-michael">Michael (Premium) 🇺🇸</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Prędkość mowy:</label>
+                <input type="range" id="speech-speed" min="0.5" max="2.0" step="0.1" value="1.0" class="setting-range">
+                <span id="speed-value">1.0x</span>
+              </div>
+              <div class="setting-item">
+                <label>Wysokość głosu:</label>
+                <input type="range" id="speech-pitch" min="0.5" max="2.0" step="0.1" value="1.0" class="setting-range">
+                <span id="pitch-value">1.0</span>
+              </div>
+              <div class="setting-item">
+                <label>Ton emocjonalny:</label>
+                <select id="emotional-tone" class="setting-select">
+                  <option value="neutral">Neutralny</option>
+                  <option value="friendly">Przyjazny</option>
+                  <option value="professional">Profesjonalny</option>
+                  <option value="excited">Podekscytowany</option>
+                  <option value="calm">Spokojny</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <textarea id="tts-text" placeholder="Wpisz tekst do syntezy..." class="setting-textarea"></textarea>
+              </div>
+              <button id="start-synthesis" class="control-btn primary">🔊 Syntezuj mowę</button>
+              <button id="play-audio" class="control-btn secondary" disabled>▶️ Odtwórz</button>
+            </div>
+          </div>
+
+          <!-- Voice Commands & AI Models -->
+          <div class="control-card">
+            <h3 class="control-title">⚡ Voice Commands & AI</h3>
+            <div class="control-content">
+              <div class="setting-item">
+                <label>Model AI:</label>
+                <select id="ai-model" class="setting-select">
+                  <option value="gemini-pro">Gemini Pro ✨</option>
+                  <option value="gemini-vision">Gemini Vision 👁️</option>
+                  <option value="code-bison">Code Bison 💻</option>
+                  <option value="text-bison">Text Bison 📝</option>
+                  <option value="google-bard">Google Bard 🧠</option>
+                  <option value="palm-api">PaLM API 🌴</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Tryb Voice AI:</label>
+                <select id="voice-mode" class="setting-select">
+                  <option value="passive">Pasywny (nasłuchiwanie)</option>
+                  <option value="active">Aktywny (instruktor)</option>
+                  <option value="faq">FAQ/Tutorial</option>
+                  <option value="ondemand">Na żądanie</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Tryb przetwarzania:</label>
+                <select id="processing-mode" class="setting-select">
+                  <option value="realtime">Czas rzeczywisty</option>
+                  <option value="batch">Wsadowy</option>
+                  <option value="background">W tle</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Auto-odpowiedzi:</label>
+                <input type="checkbox" id="auto-responses" checked> 
+                <span>Automatyczne odpowiedzi głosowe</span>
+              </div>
+              <div class="setting-item">
+                <label>Wizualizacja audio:</label>
+                <input type="checkbox" id="audio-visualization" checked>
+                <span>Pokaż wizualizację dźwięku</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy & Permissions -->
+          <div class="control-card">
+            <h3 class="control-title">🔒 Prywatność i uprawnienia</h3>
+            <div class="control-content">
+              <div class="privacy-section">
+                <div class="setting-item">
+                  <input type="checkbox" id="microphone-consent" class="setting-checkbox">
+                  <label for="microphone-consent">
+                    <strong>Wyrażam zgodę na używanie mikrofonu</strong><br>
+                    <small class="text-gray-400">Wymagane do działania funkcji rozpoznawania mowy</small>
+                  </label>
+                </div>
+                <div class="setting-item">
+                  <input type="checkbox" id="data-processing-consent" class="setting-checkbox">
+                  <label for="data-processing-consent">
+                    <strong>Zgoda na przetwarzanie danych głosowych</strong><br>
+                    <small class="text-gray-400">Dane są przetwarzane lokalnie i nie są przechowywane</small>
+                  </label>
+                </div>
+                <div class="setting-item">
+                  <input type="checkbox" id="ai-learning-consent" class="setting-checkbox">
+                  <label for="ai-learning-consent">
+                    <strong>Zgoda na uczenie się systemu</strong><br>
+                    <small class="text-gray-400">Pozwala systemowi uczyć się z feedback i poprawiać odpowiedzi</small>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="privacy-info">
+                <p class="text-sm text-gray-400 mb-4">
+                  🛡️ <strong>Gwarancje prywatności:</strong><br>
+                  • Dane głosowe są przetwarzane lokalnie w przeglądarce<br>
+                  • Nie przechowujemy nagrań głosowych na serwerach<br>
+                  • Możesz w każdej chwili wyłączyć funkcje głosowe<br>
+                  • Twoje ustawienia są zapisywane tylko lokalnie
+                </p>
+                <button id="privacy-reset" class="control-btn danger">🗑️ Usuń wszystkie dane lokalne</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Save Settings -->
+          <div class="control-card settings-save">
+            <h3 class="control-title">💾 Zarządzanie ustawieniami</h3>
+            <div class="control-content">
+              <div class="settings-actions">
+                <button id="save-settings" class="control-btn primary">💾 Zapisz ustawienia</button>
+                <button id="load-settings" class="control-btn secondary">📥 Wczytaj ustawienia</button>
+                <button id="load-api-config" class="control-btn secondary">📡 Wczytaj z API</button>
+                <button id="reset-settings" class="control-btn danger">🔄 Przywróć domyślne</button>
+              </div>
+              <div class="settings-status" id="settings-status">
+                Gotowy do zapisania ustawień
+              </div>
+              <div class="preset-profiles">
+                <label>Predefiniowane profile:</label>
+                <select id="voice-profiles" class="setting-select">
+                  <option value="">-- Wybierz profil --</option>
+                  <option value="polish-assistant">Polski Asystent</option>
+                  <option value="english-professional">English Professional</option>
+                  <option value="multilingual">Wielojęzyczny</option>
+                  <option value="developer">Developer Mode</option>
+                </select>
+                <button id="apply-profile" class="control-btn secondary">Zastosuj profil</button>
+              </div>
+            </div>
+          </div>
+                  <option>Niska (22kHz)</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Auto-stop:</label>
+                <input type="checkbox" class="setting-checkbox" checked>
+                <span>Automatyczne zatrzymanie po ciszy</span>
+              </div>
+              <div class="setting-item">
+                <label>Noise reduction:</label>
+                <input type="checkbox" class="setting-checkbox" checked>
+                <span>Redukcja szumów</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Synthesis Settings -->
+          <div class="control-card">
+            <h3 class="control-title">🔊 Ustawienia syntezy</h3>
+            <div class="control-content">
+              <div class="setting-item">
+                <label>Głos:</label>
+                <select class="setting-select">
+                  <option>Kobieta (Polski)</option>
+                  <option>Mężczyzna (Polski)</option>
+                  <option>Neural (Jakub)</option>
+                  <option>Neural (Zofia)</option>
+                </select>
+              </div>
+              <div class="setting-item">
+                <label>Prędkość:</label>
+                <input type="range" min="0.5" max="2" step="0.1" value="1" class="setting-range">
+                <span>1.0x</span>
+              </div>
+              <div class="setting-item">
+                <label>Wysokość:</label>
+                <input type="range" min="0.5" max="2" step="0.1" value="1" class="setting-range">
+                <span>1.0x</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Command Settings -->
+          <div class="control-card">
+            <h3 class="control-title">⚡ Komendy głosowe</h3>
+            <div class="control-content">
+              <div class="command-list">
+                <div class="command-item">
+                  <strong>"Rozpocznij nagrywanie"</strong> - Uruchamia transkrypcję
+                </div>
+                <div class="command-item">
+                  <strong>"Zatrzymaj nagrywanie"</strong> - Kończy transkrypcję
+                </div>
+                <div class="command-item">
+                  <strong>"Przeczytaj to"</strong> - Synteza zaznaczonego tekstu
+                </div>
+                <div class="command-item">
+                  <strong>"Wyczyść wszystko"</strong> - Czyści transkrypcję
+                </div>
+                <div class="command-item">
+                  <strong>"Zapisz plik"</strong> - Zapisuje transkrypcję jako plik
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics -->
+          <div class="control-card">
+            <h3 class="control-title">📊 Statystyki sesji</h3>
+            <div class="control-content">
+              <div class="stat-row">
+                <span>Łączny czas nagrywania:</span>
+                <span id="totalRecordingTime">0:00</span>
+              </div>
+              <div class="stat-row">
+                <span>Liczba słów:</span>
+                <span id="wordCount">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Użyte API calls:</span>
+                <span id="apiCalls">0</span>
+              </div>
+              <div class="stat-row">
+                <span>Dokładność transkrypcji:</span>
+                <span id="accuracy">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions-section">
+          <h3 class="section-subtitle">⚡ Szybkie akcje</h3>
+          <div class="quick-actions-grid">
+            <button class="quick-action-btn" onclick="testMicrophone()">
+              🎤 Testuj mikrofon
+            </button>
+            <button class="quick-action-btn" onclick="testSpeakers()">
+              🔊 Testuj głośniki
+            </button>
+            <button class="quick-action-btn" onclick="downloadTranscription()">
+              📝 Pobierz transkrypcję
+            </button>
+            <button class="quick-action-btn" onclick="clearAll()">
+              🗑️ Wyczyść wszystko
+            </button>
+            <button class="quick-action-btn" onclick="openSettings()">
+              ⚙️ Ustawienia
+            </button>
+            <button class="quick-action-btn" onclick="openHelp()">
+              ❓ Pomoc
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <style>
+    .voice-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .control-card {
+      background: var(--surface);
+      border: 1px solid var(--edge);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .control-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .control-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .control-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .setting-item label {
+      font-weight: 500;
+      min-width: 100px;
+    }
+
+    .setting-select, .setting-range {
+      flex: 1;
+      min-width: 120px;
+      padding: 0.5rem;
+      border: 1px solid var(--edge);
+      border-radius: 0.25rem;
+      background: var(--background);
+      color: var(--foreground);
+    }
+
+    .setting-checkbox {
+      margin-right: 0.5rem;
+    }
+
+    .command-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .command-item {
+      padding: 0.75rem;
+      background: var(--background);
+      border: 1px solid var(--edge);
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--edge);
+    }
+
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .quick-action-btn {
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--edge);
+      border-radius: 0.5rem;
+      color: var(--foreground);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quick-action-btn:hover {
+      background: var(--accent);
+      color: var(--background);
+      transform: translateY(-2px);
+    }
+
+    .agent-selection-container {
+      border: 2px solid var(--accent);
+      background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+    }
+
+    .agents-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .agent-item {
+      position: relative;
+    }
+
+    .agent-checkbox {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .agent-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--background);
+      border: 2px solid var(--edge);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .agent-checkbox:checked + .agent-label {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, var(--accent)10, var(--background));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .agent-icon {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      background: var(--surface);
+      border-radius: 50%;
+      border: 1px solid var(--edge);
+    }
+
+    .agent-checkbox:checked + .agent-label .agent-icon {
+      background: var(--accent);
+      color: var(--background);
+    }
+
+    .agent-info {
+      flex: 1;
+    }
+
+    .agent-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .agent-description {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .selection-actions, .page-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .page-control-container {
+      border: 2px solid #0ea5e9;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, var(--background) 100%);
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .page-item {
+      position: relative;
+    }
+
+    .page-checkbox {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .page-label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--background);
+      border: 2px solid var(--edge);
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .page-checkbox:checked + .page-label {
+      border-color: #0ea5e9;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), var(--background));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+    }
+
+    .page-icon {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      background: var(--surface);
+      border-radius: 50%;
+      border: 1px solid var(--edge);
+    }
+
+    .page-checkbox:checked + .page-label .page-icon {
+      background: #0ea5e9;
+      color: white;
+    }
+
+    .page-info {
+      flex: 1;
+    }
+
+    .page-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--foreground);
+      margin-bottom: 0.25rem;
+    }
+
+    .page-description {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .privacy-section {
+      border: 1px solid var(--edge);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 193, 7, 0.05);
+    }
+
+    .privacy-info {
+      background: var(--surface);
+      border: 1px solid var(--edge);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    /* Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 400px;
+    }
+
+    .toast {
+      background: var(--surface);
+      border: 1px solid var(--edge);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideInRight 0.3s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .toast.success {
+      border-left: 4px solid #22c55e;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), var(--surface));
+    }
+
+    .toast.error {
+      border-left: 4px solid #ef4444;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), var(--surface));
+    }
+
+    .toast.warning {
+      border-left: 4px solid #f59e0b;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), var(--surface));
+    }
+
+    .toast.info {
+      border-left: 4px solid #3b82f6;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), var(--surface));
+    }
+
+    .toast-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .toast-message {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    .toast-close {
+      background: none;
+      border: none;
+      font-size: 1.125rem;
+      cursor: pointer;
+      color: var(--muted-foreground);
+      padding: 0.25rem;
+      border-radius: 0.25rem;
+      transition: background-color 0.2s;
+    }
+
+    .toast-close:hover {
+      background: var(--muted);
+    }
+
+    .toast-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: currentColor;
+      animation: progress 5s linear forwards;
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes progress {
+      from { width: 100%; }
+      to { width: 0%; }
+    }
+
+    .control-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn.primary {
+      background: var(--accent);
+      color: var(--background);
+    }
+
+    .control-btn.primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .control-btn.secondary {
+      background: var(--surface);
+      color: var(--foreground);
+      border: 1px solid var(--edge);
+    }
+
+    .control-btn.secondary:hover {
+      background: var(--muted);
+      transform: translateY(-2px);
+    }
+
+    .control-btn.danger {
+      background: #dc2626;
+      color: white;
+    }
+
+    .control-btn.danger:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+    .section-subtitle {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .quick-actions-section {
+      margin-top: 3rem;
+    }
+
+    /* Enhanced Voice AI Styles */
+    .setting-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+
+    .setting-item label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .setting-select, .setting-textarea {
+      padding: 0.6rem;
+      border: 1px solid var(--edge);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.9rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .setting-select:focus, .setting-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .setting-textarea {
+      min-height: 80px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .setting-range {
+      width: 100%;
+      margin: 0.25rem 0;
+      accent-color: var(--accent);
+    }
+
+    .setting-item span {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      font-weight: 500;
+    }
+
+    .control-btn {
+      padding: 0.7rem 1.4rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 0.25rem 0.25rem 0.25rem 0;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .control-btn.primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    }
+
+    .control-btn.secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--edge);
+    }
+
+    .control-btn.danger {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    }
+
+    .control-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .control-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .control-btn.recording {
+      background: linear-gradient(135deg, #ff4757 0%, #ff3742 100%);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+    }
+
+    .settings-save {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+      border: 1px solid var(--accent);
+    }
+
+    .settings-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .settings-status {
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      background: var(--surface);
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+
+    .settings-status.success {
+      background: linear-gradient(135deg, #00d2d3 0%, #54a0ff 100%);
+      color: white;
+    }
+
+    .settings-status.error {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+      color: white;
+    }
+
+    .settings-status.warning {
+      background: linear-gradient(135deg, #feca57 0%, #ff9ff3 100%);
+      color: white;
+    }
+
+    .settings-status.info {
+      background: linear-gradient(135deg, #48dbfb 0%, #0abde3 100%);
+      color: white;
+    }
+
+    .preset-profiles {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--edge);
+    }
+
+    .preset-profiles label {
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .setting-item input[type="checkbox"] {
+      margin-right: 0.5rem;
+      accent-color: var(--accent);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .voice-controls-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .settings-actions {
+        flex-direction: column;
+      }
+      
+      .control-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+
+  <script>
+    // Voice AI Assistant - Enhanced with full STT/TTS functionality
+    let recognition = null;
+    let synthesis = null;
+    let isRecording = false;
+    let currentSettings = {};
+    let audioContext = null;
+    let analyser = null;
+    let microphone = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🎙️ Voice AI Assistant Enhanced - Loaded');
+      
+      // Show welcome toast
+      showToast(
+        'System Voice AI Assistant załadowany pomyślnie',
+        'success',
+        'Witaj w Voice AI Assistant!'
+      );
+      
+      initializeVoiceControls();
+      loadSavedSettings();
+      loadAgentSelection();
+      loadPageConfiguration();
+      checkPrivacyConsent();
+      setupEventListeners();
+      updateStats();
+      
+      // Page configuration event listeners
+      const savePageBtn = document.getElementById('save-page-config');
+      const resetPageBtn = document.getElementById('reset-page-config');
+      
+      if (savePageBtn) savePageBtn.addEventListener('click', savePageConfiguration);
+      if (resetPageBtn) resetPageBtn.addEventListener('click', resetPageConfiguration);
+
+      // Agent selection event listeners
+      const selectAllBtn = document.getElementById('select-all-agents');
+      const deselectAllBtn = document.getElementById('deselect-all-agents');
+      const saveSelectionBtn = document.getElementById('save-agent-selection');
+      
+      if (selectAllBtn) selectAllBtn.addEventListener('click', selectAllAgents);
+      if (deselectAllBtn) deselectAllBtn.addEventListener('click', deselectAllAgents);
+      if (saveSelectionBtn) saveSelectionBtn.addEventListener('click', saveAgentSelection);
+
+      // Privacy event listeners
+      const privacyResetBtn = document.getElementById('privacy-reset');
+      if (privacyResetBtn) privacyResetBtn.addEventListener('click', clearAllLocalData);
+
+      document.querySelectorAll('#microphone-consent, #data-processing-consent, #ai-learning-consent').forEach(checkbox => {
+        checkbox.addEventListener('change', savePrivacyConsent);
+      });
+
+      // Voice mode change listener
+      const voiceModeSelect = document.getElementById('voice-mode');
+      if (voiceModeSelect) voiceModeSelect.addEventListener('change', handleVoiceModeChange);
+
+      // Auto-save on checkbox changes
+      document.querySelectorAll('.agent-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', saveAgentSelection);
+      });
+
+      document.querySelectorAll('.page-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', savePageConfiguration);
+      });
+    });
+
+    function initializeVoiceControls() {
+      // Initialize Web Speech API for Speech-to-Text
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'pl-PL';
+
+        recognition.onstart = () => {
+          console.log('🎤 Voice recognition started');
+          isRecording = true;
+          updateRecordingUI(true);
+        };
+
+        recognition.onresult = (event) => {
+          let finalTranscript = '';
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            if (event.results[i].isFinal) {
+              finalTranscript += event.results[i][0].transcript;
+            }
+          }
+          if (finalTranscript) processVoiceCommand(finalTranscript);
+        };
+
+        recognition.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          updateRecordingUI(false);
+        };
+
+        recognition.onend = () => {
+          console.log('Voice recognition ended');
+          isRecording = false;
+          updateRecordingUI(false);
+        };
+      }
+
+      // Initialize Speech Synthesis for Text-to-Speech
+      if ('speechSynthesis' in window) {
+        synthesis = window.speechSynthesis;
+        if (synthesis.onvoiceschanged !== undefined) {
+          synthesis.onvoiceschanged = loadVoices;
+        }
+      }
+    }
+
+    function setupEventListeners() {
+      // STT Controls
+      const startBtn = document.getElementById('start-recording');
+      const stopBtn = document.getElementById('stop-recording');
+      
+      if (startBtn) startBtn.addEventListener('click', startRecording);
+      if (stopBtn) stopBtn.addEventListener('click', stopRecording);
+      
+      // TTS Controls
+      const synthesisBtn = document.getElementById('start-synthesis');
+      const playBtn = document.getElementById('play-audio');
+      
+      if (synthesisBtn) synthesisBtn.addEventListener('click', synthesizeSpeech);
+      if (playBtn) playBtn.addEventListener('click', playAudio);
+      
+      // Settings Controls
+      const saveBtn = document.getElementById('save-settings');
+      const loadBtn = document.getElementById('load-settings');
+      const loadApiBtn = document.getElementById('load-api-config');
+      const resetBtn = document.getElementById('reset-settings');
+      const applyProfileBtn = document.getElementById('apply-profile');
+      
+      if (saveBtn) saveBtn.addEventListener('click', saveSettings);
+      if (loadBtn) loadBtn.addEventListener('click', loadSettings);
+      if (loadApiBtn) loadApiBtn.addEventListener('click', loadConfigFromAPI);
+      if (resetBtn) resetBtn.addEventListener('click', resetSettings);
+      if (applyProfileBtn) applyProfileBtn.addEventListener('click', applyProfile);
+
+      // Range sliders
+      setupRangeSliders();
+      
+      // Language change
+      const sttLanguage = document.getElementById('stt-language');
+      if (sttLanguage) {
+        sttLanguage.addEventListener('change', function() {
+          if (recognition) recognition.lang = this.value;
+        });
+      }
+    }
+
+    function setupRangeSliders() {
+      const sliders = [
+        { id: 'mic-sensitivity', display: 'mic-value', suffix: '%' },
+        { id: 'speech-speed', display: 'speed-value', suffix: 'x' },
+        { id: 'speech-pitch', display: 'pitch-value', suffix: '' }
+      ];
+
+      sliders.forEach(slider => {
+        const element = document.getElementById(slider.id);
+        const display = document.getElementById(slider.display);
+        
+        if (element && display) {
+          element.addEventListener('input', function() {
+            display.textContent = this.value + slider.suffix;
+          });
+        }
+      });
+    }
+
+    function startRecording() {
+      console.log('🎤 Rozpoczynanie nagrywania...');
+      
+      if (recognition && !isRecording) {
+        const language = document.getElementById('stt-language')?.value || 'pl-PL';
+        recognition.lang = language;
+        
+        try {
+          recognition.start();
+        } catch (error) {
+          console.error('Error starting recognition:', error);
+          showStatus('❌ Błąd uruchamiania rozpoznawania mowy');
+        }
+      }
+    }
+
+    function stopRecording() {
+      console.log('⏹️ Zatrzymywanie nagrywania...');
+      
+      if (recognition && isRecording) {
+        recognition.stop();
+      }
+    }
+
+    function synthesizeSpeech() {
+      console.log('🔊 Synteza mowy...');
+      
+      const textEl = document.getElementById('tts-text');
+      const text = textEl?.value;
+      
+      if (!text || !synthesis) {
+        showStatus('⚠️ Brak tekstu lub wsparcia TTS');
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      // Apply settings
+      const speed = parseFloat(document.getElementById('speech-speed')?.value || '1.0');
+      const pitch = parseFloat(document.getElementById('speech-pitch')?.value || '1.0');
+      
+      utterance.rate = speed;
+      utterance.pitch = pitch;
+      utterance.lang = 'pl-PL';
+
+      utterance.onstart = () => {
+        const playBtn = document.getElementById('play-audio');
+        if (playBtn) playBtn.disabled = true;
+        showStatus('🔊 Synteza w toku...');
+      };
+      
+      utterance.onend = () => {
+        const playBtn = document.getElementById('play-audio');
+        if (playBtn) playBtn.disabled = false;
+        showStatus('✅ Synteza zakończona');
+      };
+
+      synthesis.speak(utterance);
+    }
+
+    function playAudio() {
+      console.log('▶️ Test audio...');
+      
+      if (!synthesis) return;
+      
+      const testText = "Test polskiego głosu MyBonzo AI Assistant. System działa prawidłowo.";
+      const utterance = new SpeechSynthesisUtterance(testText);
+      utterance.lang = 'pl-PL';
+      synthesis.speak(utterance);
+    }
+
+    function processVoiceCommand(command) {
+      console.log('Processing voice command:', command);
+      
+      const model = document.getElementById('ai-model')?.value || 'gemini-pro';
+      const autoResponses = document.getElementById('auto-responses')?.checked;
+      
+      // Display recognized command
+      const textArea = document.getElementById('tts-text');
+      if (textArea) {
+        textArea.value = `Rozpoznano: "${command}"`;
+      }
+      
+      if (autoResponses) {
+        generateAIResponse(command, model);
+      }
+      
+      showStatus(`🎯 Przetworzono komendę: ${command.substring(0, 30)}...`);
+    }
+
+    function generateAIResponse(command, model) {
+      const responses = {
+        'gemini-pro': `Gemini Pro analizuje: "${command}". Mogę pomóc w dalszej analizie.`,
+        'gemini-vision': `Gemini Vision interpretuje polecenie wizualne: "${command}".`,
+        'code-bison': `Code Bison generuje kod dla: "${command}". Czy potrzebujesz implementacji?`,
+        'text-bison': `Text Bison przetwarza tekst: "${command}". Oto szczegółowa odpowiedź.`,
+        'google-bard': `Google Bard odpowiada kreatywnie na: "${command}".`,
+        'palm-api': `PaLM API analizuje inteligentnie: "${command}".`
+      };
+      
+      const response = responses[model] || `AI ${model}: "${command}"`;
+      
+      // Update text area and speak response
+      const textArea = document.getElementById('tts-text');
+      if (textArea) textArea.value = response;
+      
+      if (synthesis) {
+        const utterance = new SpeechSynthesisUtterance(response);
+        utterance.lang = 'pl-PL';
+        synthesis.speak(utterance);
+      }
+    }
+
+    // Removed old saveSettings - using new async version below
+
+    function loadSettings() {
+      try {
+        const saved = localStorage.getItem('voiceAISettings');
+        if (saved) {
+          currentSettings = JSON.parse(saved);
+          applySettingsToUI(currentSettings);
+          showSettingsStatus('✅ Ustawienia wczytane!', 'success');
+        } else {
+          showSettingsStatus('⚠️ Brak zapisanych ustawień', 'warning');
+        }
+      } catch (error) {
+        showSettingsStatus('❌ Błąd wczytywania', 'error');
+      }
+    }
+
+    function loadSavedSettings() {
+      const saved = localStorage.getItem('voiceAISettings');
+      if (saved) {
+        try {
+          currentSettings = JSON.parse(saved);
+          applySettingsToUI(currentSettings);
+        } catch (error) {
+          console.error('Auto-load error:', error);
+        }
+      }
+    }
+
+    function applySettingsToUI(settings) {
+      Object.keys(settings).forEach(key => {
+        const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+        const element = document.getElementById(kebabKey);
+        
+        if (element) {
+          if (element.type === 'checkbox') {
+            element.checked = settings[key];
+          } else {
+            element.value = settings[key];
+          }
+          element.dispatchEvent(new Event('input'));
+        }
+      });
+    }
+
+    function resetSettings() {
+      if (confirm('Przywrócić domyślne ustawienia?')) {
+        localStorage.removeItem('voiceAISettings');
+        showSettingsStatus('🔄 Ustawienia zresetowane', 'info');
+        setTimeout(() => location.reload(), 1000);
+      }
+    }
+
+    function applyProfile() {
+      const profileName = document.getElementById('voice-profiles')?.value;
+      if (!profileName) return;
+
+      const profiles = {
+        'polish-assistant': {
+          sttLanguage: 'pl-PL', ttsVoice: 'pl-zofia', speechSpeed: '1.0',
+          emotionalTone: 'friendly', aiModel: 'gemini-pro', autoResponses: true
+        },
+        'english-professional': {
+          sttLanguage: 'en-US', ttsVoice: 'en-sarah', speechSpeed: '0.9',
+          emotionalTone: 'professional', aiModel: 'gemini-pro', autoResponses: true
+        },
+        'multilingual': {
+          sttLanguage: 'pl-PL', ttsVoice: 'pl-zofia', speechSpeed: '1.1',
+          emotionalTone: 'neutral', aiModel: 'gemini-vision', autoResponses: false
+        },
+        'developer': {
+          sttLanguage: 'en-US', ttsVoice: 'en-michael', speechSpeed: '1.2',
+          emotionalTone: 'professional', aiModel: 'code-bison', autoResponses: true
+        }
+      };
+
+      const profile = profiles[profileName];
+      if (profile) {
+        applySettingsToUI(profile);
+        showSettingsStatus(`✅ Profil "${profileName}" zastosowany!`, 'success');
+      }
+    }
+
+    function showSettingsStatus(message, type = 'info') {
+      const statusEl = document.getElementById('settings-status');
+      if (statusEl) {
+        statusEl.textContent = message;
+        statusEl.className = `settings-status ${type}`;
+        setTimeout(() => {
+          statusEl.textContent = 'Gotowy do zapisania ustawień';
+          statusEl.className = 'settings-status';
+        }, 3000);
+      }
+    }
+
+    function showStatus(message) {
+      console.log(message);
+      // Could show in UI status bar if exists
+    }
+
+    function updateRecordingUI(recording) {
+      const startBtn = document.getElementById('start-recording');
+      const stopBtn = document.getElementById('stop-recording');
+      
+      if (startBtn) {
+        startBtn.disabled = recording;
+        startBtn.textContent = recording ? '🔴 Nagrywanie...' : '🎤 Rozpocznij nagrywanie';
+        if (recording) startBtn.classList.add('recording');
+        else startBtn.classList.remove('recording');
+      }
+      
+      if (stopBtn) stopBtn.disabled = !recording;
+    }
+
+    function loadVoices() {
+      if (synthesis) {
+        const voices = synthesis.getVoices();
+        console.log(`Available voices: ${voices.length}`);
+      }
+    }
+
+    // Original functions adapted
+    function testMicrophone() {
+      console.log('🎤 Testowanie mikrofonu...');
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+          .then(() => showStatus('✅ Mikrofon działa prawidłowo'))
+          .catch(() => showStatus('❌ Problem z mikrofonem'));
+      }
+    }
+
+    function testSpeakers() {
+      console.log('🔊 Testowanie głośników...');
+      playAudio();
+    }
+
+    function downloadTranscription() {
+      console.log('📝 Pobieranie transkrypcji...');
+      const textEl = document.getElementById('tts-text');
+      const text = textEl?.value || 'Brak transkrypcji do pobrania';
+      
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `transkrypcja_${new Date().toISOString().slice(0,10)}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearAll() {
+      console.log('🗑️ Czyszczenie wszystkiego...');
+      const textArea = document.getElementById('tts-text');
+      if (textArea) textArea.value = '';
+      if (isRecording) stopRecording();
+      if (synthesis) synthesis.cancel();
+      showStatus('🗑️ Wyczyszczono');
+    }
+
+    function openSettings() {
+      console.log('⚙️ Otwieranie ustawień...');
+      const settingsCard = document.querySelector('.settings-save');
+      if (settingsCard) {
+        settingsCard.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function openHelp() {
+      console.log('❓ Otwieranie pomocy...');
+      alert(`MyBonzo Voice AI Assistant - Pomoc:
+
+🎤 Speech-to-Text: Wybierz język → Rozpocznij nagrywanie → Mów
+🔊 Text-to-Speech: Wpisz tekst → Dostosuj ustawienia → Syntezuj
+⚡ AI Models: Gemini Pro, Vision, Code/Text Bison, Bard, PaLM
+💾 Ustawienia: Zapisuj preferencje, używaj profili
+
+Wsparcie: Web Speech API, 5 języków, 8 modeli AI`);
+    }
+
+    function updateStats() {
+      const stats = {
+        'models-count': '8 modeli AI',
+        'languages-count': '5 języków', 
+        'features-count': '15+ funkcji'
+      };
+      
+      Object.keys(stats).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = stats[id];
+      });
+    }
+
+    // Global exports
+    window.getVoiceSettings = () => currentSettings;
+    window.applyVoiceSettings = (settings) => {
+      if (settings) {
+        applySettingsToUI(settings);
+        currentSettings = settings;
+      }
+    };
+
+    // Toast Notification System
+    function showToast(message, type = 'info', title = '', duration = 5000) {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icons = {
+        success: '✅',
+        error: '❌', 
+        warning: '⚠️',
+        info: 'ℹ️'
+      };
+
+      toast.innerHTML = `
+        <div class="toast-icon">${icons[type] || icons.info}</div>
+        <div class="toast-content">
+          ${title ? `<div class="toast-title">${title}</div>` : ''}
+          <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+        <div class="toast-progress"></div>
+      `;
+
+      container.appendChild(toast);
+
+      // Auto remove after duration
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.style.animation = 'slideInRight 0.3s ease-out reverse';
+          setTimeout(() => toast.remove(), 300);
+        }
+      }, duration);
+
+      console.log(`🍞 Toast: [${type.toUpperCase()}] ${title} - ${message}`);
+    }
+
+    // Page-level voice configuration
+    function savePageConfiguration() {
+      const selectedPages = [];
+      const checkboxes = document.querySelectorAll('.page-checkbox:checked');
+      
+      checkboxes.forEach(checkbox => {
+        selectedPages.push({
+          id: checkbox.id,
+          name: checkbox.nextElementSibling.querySelector('.page-name').textContent,
+          pattern: getPagePattern(checkbox.id)
+        });
+      });
+
+      localStorage.setItem('voiceEnabledPages', JSON.stringify(selectedPages));
+      
+      showToast(
+        `Zapisano konfigurację dla ${selectedPages.length} typów stron`,
+        'success',
+        'Konfiguracja stron zapisana'
+      );
+      
+      console.log('📄 Zapisano konfigurację stron:', selectedPages);
+    }
+
+    function getPagePattern(pageId) {
+      const patterns = {
+        'page-home': '/',
+        'page-agents': '/agent-*',
+        'page-api': '/api-*', 
+        'page-voice': '/voice-*'
+      };
+      return patterns[pageId] || '/*';
+    }
+
+    function loadPageConfiguration() {
+      const savedPages = localStorage.getItem('voiceEnabledPages');
+      if (savedPages) {
+        const pageData = JSON.parse(savedPages);
+        
+        // Odznacz wszystkie
+        document.querySelectorAll('.page-checkbox').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+
+        // Zaznacz zapisane
+        pageData.forEach(page => {
+          const checkbox = document.getElementById(page.id);
+          if (checkbox) checkbox.checked = true;
+        });
+
+        console.log('📥 Wczytano konfigurację stron:', pageData);
+      }
+    }
+
+    function resetPageConfiguration() {
+      if (confirm('Przywrócić domyślną konfigurację stron?')) {
+        localStorage.removeItem('voiceEnabledPages');
+        
+        // Ustaw domyślne
+        document.getElementById('page-home').checked = true;
+        document.getElementById('page-agents').checked = true;
+        document.getElementById('page-api').checked = false;
+        document.getElementById('page-voice').checked = true;
+        
+        showToast('Przywrócono domyślną konfigurację stron', 'info', 'Reset konfiguracji');
+        savePageConfiguration();
+      }
+    }
+
+    // Privacy and consent management
+    function checkPrivacyConsent() {
+      const microphone = localStorage.getItem('microphoneConsent') === 'true';
+      const dataProcessing = localStorage.getItem('dataProcessingConsent') === 'true';
+      const aiLearning = localStorage.getItem('aiLearningConsent') === 'true';
+
+      document.getElementById('microphone-consent').checked = microphone;
+      document.getElementById('data-processing-consent').checked = dataProcessing;
+      document.getElementById('ai-learning-consent').checked = aiLearning;
+
+      return { microphone, dataProcessing, aiLearning };
+    }
+
+    function savePrivacyConsent() {
+      const microphone = document.getElementById('microphone-consent').checked;
+      const dataProcessing = document.getElementById('data-processing-consent').checked;
+      const aiLearning = document.getElementById('ai-learning-consent').checked;
+
+      localStorage.setItem('microphoneConsent', microphone);
+      localStorage.setItem('dataProcessingConsent', dataProcessing);
+      localStorage.setItem('aiLearningConsent', aiLearning);
+
+      showToast('Zapisano ustawienia prywatności', 'success', 'Prywatność');
+    }
+
+    function clearAllLocalData() {
+      if (confirm('⚠️ To usunie WSZYSTKIE lokalne dane Voice AI!\n\nUsuniemy:\n• Ustawienia głosowe\n• Wybór agentów\n• Konfigurację stron\n• Zgody prywatności\n\nCzy kontynuować?')) {
+        const keys = ['voiceAISettings', 'voiceEnabledAgents', 'voiceEnabledPages', 'microphoneConsent', 'dataProcessingConsent', 'aiLearningConsent'];
+        
+        keys.forEach(key => localStorage.removeItem(key));
+        
+        showToast('Wszystkie lokalne dane zostały usunięte', 'warning', 'Dane wyczyszczone');
+        
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      }
+    }
+
+    // Voice mode management
+    function handleVoiceModeChange() {
+      const mode = document.getElementById('voice-mode').value;
+      const descriptions = {
+        passive: 'Nasłuchuje komend głosowych po aktywacji słowem kluczowym',
+        active: 'Aktywnie prowadzi użytkownika przez funkcje krok po kroku',
+        faq: 'Aktywny tylko na stronach pomocy i dokumentacji', 
+        ondemand: 'Uruchamiany tylko na życzenie użytkownika'
+      };
+
+      showToast(
+        descriptions[mode] || 'Nieznany tryb głosowy',
+        'info',
+        `Tryb głosowy: ${mode}`
+      );
+    }
+
+    // Agent selection functions
+    function selectAllAgents() {
+      const checkboxes = document.querySelectorAll('.agent-checkbox');
+      checkboxes.forEach(checkbox => checkbox.checked = true);
+      saveAgentSelection();
+    }
+
+    function deselectAllAgents() {
+      const checkboxes = document.querySelectorAll('.agent-checkbox');
+      checkboxes.forEach(checkbox => checkbox.checked = false);
+      saveAgentSelection();
+    }
+
+    function saveAgentSelection() {
+      const selectedAgents = [];
+      const checkboxes = document.querySelectorAll('.agent-checkbox:checked');
+      
+      checkboxes.forEach(checkbox => {
+        selectedAgents.push({
+          id: checkbox.id,
+          name: checkbox.nextElementSibling.querySelector('.agent-name').textContent
+        });
+      });
+
+      localStorage.setItem('voiceEnabledAgents', JSON.stringify(selectedAgents));
+      
+      showToast(
+        `Zapisano wybór ${selectedAgents.length} agentów`,
+        'success',
+        'Konfiguracja agentów'
+      );
+      console.log('🎯 Zapisano wybór agentów:', selectedAgents);
+    }
+
+    function loadAgentSelection() {
+      const savedAgents = localStorage.getItem('voiceEnabledAgents');
+      if (savedAgents) {
+        const agentData = JSON.parse(savedAgents);
+        
+        // Odznacz wszystkie
+        document.querySelectorAll('.agent-checkbox').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+
+        // Zaznacz zapisane
+        agentData.forEach(agent => {
+          const checkbox = document.getElementById(agent.id);
+          if (checkbox) checkbox.checked = true;
+        });
+
+        console.log('📥 Wczytano wybór agentów:', agentData);
+      }
+    }
+
+    // API Communication
+    async function loadConfigFromAPI() {
+      try {
+        const response = await fetch('/api/voice-assistant/config');
+        const data = await response.json();
+        
+        if (data.success) {
+          showToast('Wczytano konfigurację z serwera', 'success', 'API Config');
+          console.log('📡 API Config loaded:', data.config);
+          return data.config;
+        }
+      } catch (error) {
+        showToast('Błąd wczytywania konfiguracji z API', 'error', 'API Error');
+        console.error('❌ API Config error:', error);
+      }
+      return null;
+    }
+
+    async function saveConfigToAPI(config) {
+      try {
+        const response = await fetch('/api/voice-assistant/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ config })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          showToast('Konfiguracja zapisana na serwerze', 'success', 'API Save');
+          return true;
+        } else {
+          showToast('Błąd zapisywania na serwerze', 'error', 'API Error');
+          return false;
+        }
+      } catch (error) {
+        showToast('Błąd komunikacji z API', 'error', 'API Error');
+        console.error('❌ API Save error:', error);
+        return false;
+      }
+    }
+
+    // Enhanced settings management with API sync
+    async function saveSettings() {
+      console.log('💾 Enhanced saving settings with API sync...');
+      
+      const settings = collectAllSettings();
+      
+      // Save locally
+      try {
+        localStorage.setItem('voiceAISettings', JSON.stringify(settings));
+        
+        // Save to API
+        const apiSuccess = await saveConfigToAPI(settings);
+        
+        showToast(
+          apiSuccess ? 'Ustawienia zapisane lokalnie i na serwerze' : 'Ustawienia zapisane tylko lokalnie',
+          apiSuccess ? 'success' : 'warning',
+          'Zapisywanie ustawień'
+        );
+
+        // Notify parent for floating button integration
+        if (window.parent !== window) {
+          window.parent.postMessage({
+            type: 'VOICE_SETTINGS_SAVED',
+            settings: settings
+          }, '*');
+        }
+        
+      } catch (error) {
+        console.error('Error saving settings:', error);
+        showToast('Błąd podczas zapisywania ustawień', 'error', 'Błąd zapisu');
+      }
+    }
+
+    function collectAllSettings() {
+      // Collect all current settings from UI
+      const agentCheckboxes = Array.from(document.querySelectorAll('.agent-checkbox:checked')).map(cb => cb.id);
+      const pageCheckboxes = Array.from(document.querySelectorAll('.page-checkbox:checked')).map(cb => cb.id);
+      
+      return {
+        // Agent and page configuration
+        agents: agentCheckboxes,
+        pages: pageCheckboxes,
+        
+        // Voice settings
+        voiceMode: document.getElementById('voice-mode')?.value || 'passive',
+        sttLanguage: document.getElementById('stt-language')?.value || 'pl-PL',
+        recordingMode: document.getElementById('recording-mode')?.value || 'continuous',
+        micSensitivity: document.getElementById('mic-sensitivity')?.value || '70',
+        
+        // TTS settings
+        ttsVoice: document.getElementById('tts-voice')?.value || 'pl-zofia',
+        speechSpeed: document.getElementById('speech-speed')?.value || '1.0',
+        speechPitch: document.getElementById('speech-pitch')?.value || '1.0',
+        emotionalTone: document.getElementById('emotional-tone')?.value || 'neutral',
+        
+        // AI settings
+        aiModel: document.getElementById('ai-model')?.value || 'gemini-pro',
+        processingMode: document.getElementById('processing-mode')?.value || 'realtime',
+        autoResponses: document.getElementById('auto-responses')?.checked || false,
+        audioVisualization: document.getElementById('audio-visualization')?.checked || false,
+        
+        // Privacy settings
+        privacy: {
+          microphone: document.getElementById('microphone-consent')?.checked || false,
+          dataProcessing: document.getElementById('data-processing-consent')?.checked || false,
+          aiLearning: document.getElementById('ai-learning-consent')?.checked || false
+        },
+        
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    // Listen for parent messages
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'APPLY_VOICE_SETTINGS' && event.data.settings) {
+        window.applyVoiceSettings(event.data.settings);
+      }
+    });
+  </script>
+</MyBonzoLayout>

@@ -1,10 +1,36 @@
 ---
+// TypeScript interface for component props (Astro 2025 best practice)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+// Proper destructuring of props with defaults (Astro 2025 best practice)
+const { 
+  title = "Analytics Prophet - Demo",
+  description = "Demonstracja agenta Analytics Prophet - analiza widoczności w Google."
+} = Astro.props;
+
+// Proper type imports (Astro 2025 best practice)
+import type { HTMLAttributes } from "astro/types";
 import AnalyticsWidget from '../components/analytics/AnalyticsWidget.svelte';
+
+// Metadata for SEO and performance (Astro 2025 best practice)
+const pageMetadata = {
+  title,
+  description,
+  robots: "index, follow",
+  og: {
+    title,
+    description,
+    type: "website"
+  }
+};
 ---
 <html lang="pl">
 <head>
-  <title>Analytics Prophet - Demo</title>
-  <meta name="description" content="Demonstracja agenta Analytics Prophet - analiza widoczności w Google." />
+  <title>{pageMetadata.title}</title>
+  <meta name="description" content={pageMetadata.description} />
   <style>
     body { font-family: system-ui, sans-serif; background-color: #f0f4f8; color: #222; }
     .container {

@@ -389,7 +389,7 @@ async function performTavilySearch(env: any, query: string, options: any) {
       );
     }
 
-    const data = await response.json();
+    const data: any = await response.json();
 
     // Transform Tavily response to our format
     return {
@@ -437,3 +437,119 @@ async function performTavilySearch(env: any, query: string, options: any) {
     };
   }
 }
+
+// POST method for handling search requests from frontend
+export const POST: APIRoute = async ({ request, locals }) => {
+  try {
+    const body: any = await request.json();
+    const query = body.query;
+    const includeImages = body.includeImages || false;
+    const searchDepth = body.searchDepth || "basic";
+    const aiInsights = body.aiInsights || false;
+    const maxResults = body.maxResults || 5;
+    const includeDomains = body.includeDomains;
+    const excludeDomains = body.excludeDomains;
+
+    const env = (locals as any)?.runtime?.env;
+
+    if (!query) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Query parameter is required",
+          message: "Brak zapytania wyszukiwania",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    if (!env?.TAVILY_API_KEY) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          service: "Tavily Search",
+          error: "Tavily nie jest skonfigurowane",
+          message: "Brak klucza API Tavily - używam przykładowych danych",
+          example: true,
+        }),
+        {
+          status: 200, // 200 bo zwracamy przykładowe dane
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const startTime = Date.now();
+    const searchResults = await performTavilySearch(env, query, {
+      includeImages,
+      searchDepth,
+      maxResults,
+      includeDomains,
+      excludeDomains,
+    });
+    const executionTime = Date.now() - startTime;
+
+    // Generate AI insights if requested
+    let insights = null;
+    if (aiInsights) {
+      insights = await generateSearchInsights(
+        searchResults.results || [],
+        query,
+        env
+      );
+    }
+
+    // Track search in history
+    const searchId = `search_${Date.now()}`;
+    searchHistory.push({
+      id: searchId,
+      query,
+      timestamp: Date.now(),
+      results: searchResults.results?.length || 0,
+      searchDepth,
+      executionTime,
+      status: "success",
+    });
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        service: "Tavily Search API",
+        search_id: searchId,
+        query,
+        search_depth: searchDepth,
+        execution_time_ms: executionTime,
+        answer: searchResults.answer,
+        results: searchResults.results || [],
+        images: searchResults.images || [],
+        follow_up_questions: searchResults.follow_up_questions || [],
+        ai_insights: insights,
+        timestamp: new Date().toISOString(),
+        total_results: searchResults.results?.length || 0,
+        note: (searchResults as any)?.note || null,
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error) {
+    console.error("Tavily POST API error:", error);
+
+    return new Response(
+      JSON.stringify({
+        success: false,
+        service: "Tavily Search API",
+        error: "Internal server error",
+        message: error instanceof Error ? error.message : "Nieznany błąd",
+        timestamp: new Date().toISOString(),
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+};

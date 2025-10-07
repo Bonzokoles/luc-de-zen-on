@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Tavily API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      .test-section {
+        margin: 20px 0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        background: #007acc;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #005b9a;
+      }
+      .result {
+        margin: 10px 0;
+        padding: 15px;
+        background: #f5f5f5;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        font-family: monospace;
+      }
+      .success {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+      }
+      .error {
+        background: #f8d7da;
+        border-left: 4px solid #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 Test Tavily API</h1>
+
+    <div class="test-section">
+      <h3>GET Test - Basic Search</h3>
+      <button onclick="testGet()">Test GET Endpoint</button>
+      <div id="getResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>POST Test - Advanced Search</h3>
+      <button onclick="testPost()">Test POST Endpoint</button>
+      <div id="postResult" class="result"></div>
+    </div>
+
+    <script>
+      async function testGet() {
+        const resultDiv = document.getElementById("getResult");
+        resultDiv.textContent = "Testing GET endpoint...";
+
+        try {
+          const response = await fetch(
+            "/api/tavily/search?q=AI&search_depth=basic&include_images=true"
+          );
+          const data = await response.json();
+
+          if (response.ok) {
+            resultDiv.className = "result success";
+            resultDiv.textContent = `✅ GET Success (${
+              response.status
+            })\n\n${JSON.stringify(data, null, 2)}`;
+          } else {
+            resultDiv.className = "result error";
+            resultDiv.textContent = `❌ GET Error (${
+              response.status
+            })\n\n${JSON.stringify(data, null, 2)}`;
+          }
+        } catch (error) {
+          resultDiv.className = "result error";
+          resultDiv.textContent = `❌ GET Network Error: ${error.message}`;
+        }
+      }
+
+      async function testPost() {
+        const resultDiv = document.getElementById("postResult");
+        resultDiv.textContent = "Testing POST endpoint...";
+
+        try {
+          const postData = {
+            query: "artificial intelligence trends 2024",
+            searchDepth: "advanced",
+            includeImages: true,
+            aiInsights: true,
+            maxResults: 3,
+          };
+
+          const response = await fetch("/api/tavily/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(postData),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            resultDiv.className = "result success";
+            resultDiv.textContent = `✅ POST Success (${
+              response.status
+            })\n\n${JSON.stringify(data, null, 2)}`;
+          } else {
+            resultDiv.className = "result error";
+            resultDiv.textContent = `❌ POST Error (${
+              response.status
+            })\n\n${JSON.stringify(data, null, 2)}`;
+          }
+        } catch (error) {
+          resultDiv.className = "result error";
+          resultDiv.textContent = `❌ POST Network Error: ${error.message}`;
+        }
+      }
+
+      // Auto-test when page loads
+      window.addEventListener("load", function () {
+        setTimeout(() => {
+          testGet();
+          setTimeout(() => {
+            testPost();
+          }, 2000);
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

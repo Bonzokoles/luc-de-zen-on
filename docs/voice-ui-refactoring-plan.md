@@ -65,16 +65,18 @@ function toggleGlobalVoice() {
 ### 1. **Główne Okno** - Pełna Funkcjonalność Voice
 
 #### GoogleVoiceAgent Enhancement:
+
 - **Multi-Agent Support**: Obsługa wszystkich AI agentów z jednego miejsca
 - **Unified Voice Interface**: Jeden interfejs dla wszystkich funkcji głosowych
 - **Agent Selector**: Dropdown do wyboru aktywnego agenta
-- **Advanced Controls**: 
+- **Advanced Controls**:
   - Language selection (pl-PL, en-US, de-DE)
   - Voice recognition settings
   - Response mode selection
   - Audio quality controls
 
 #### Funkcje do przeniesienia:
+
 ```typescript
 interface VoiceAgentFunctions {
   geminiPro: {
@@ -82,19 +84,34 @@ interface VoiceAgentFunctions {
     stop: () => void;
     toggle: () => void;
   };
-  geminiVision: { /* same interface */ };
-  codeBison: { /* same interface */ };
-  textBison: { /* same interface */ };
-  googleBard: { /* same interface */ };
-  palmAPI: { /* same interface */ };
-  vertexAI: { /* same interface */ };
-  aiStudio: { /* same interface */ };
+  geminiVision: {
+    /* same interface */
+  };
+  codeBison: {
+    /* same interface */
+  };
+  textBison: {
+    /* same interface */
+  };
+  googleBard: {
+    /* same interface */
+  };
+  palmAPI: {
+    /* same interface */
+  };
+  vertexAI: {
+    /* same interface */
+  };
+  aiStudio: {
+    /* same interface */
+  };
 }
 ```
 
 ### 2. **Floating Buttons** - Tylko Globalna Kontrola
 
 #### Uproszczony Interfejs:
+
 ```astro
 <!-- Globalna Aktywacja Głosu -->
 <button id="globalVoiceActivator" class="voice-global-btn">
@@ -119,17 +136,17 @@ interface AudioLayerManager {
   layers: {
     voice: {
       priority: 1;
-      channels: ['speech_recognition', 'tts_output'];
+      channels: ["speech_recognition", "tts_output"];
       volume: number;
     };
     musicPrimary: {
       priority: 2;
-      channels: ['music_main', 'ambient_sounds'];
+      channels: ["music_main", "ambient_sounds"];
       volume: number;
     };
     musicSecondary: {
       priority: 3;
-      channels: ['background_music', 'system_sounds'];
+      channels: ["background_music", "system_sounds"];
       volume: number;
     };
   };
@@ -141,36 +158,42 @@ interface AudioLayerManager {
 ## 📝 Plan Implementacji
 
 ### Faza 1: Backup i Przygotowanie
+
 - [x] ✅ Analiza obecnej struktury
 - [x] ✅ Dokumentacja planu
 - [ ] 🔄 Backup aktualnego kodu
 - [ ] 🔄 Przygotowanie środowiska testowego
 
 ### Faza 2: Refaktoryzacja GoogleVoiceAgent
+
 - [ ] 📋 Enhancement komponentu GoogleVoiceAgent.svelte
 - [ ] 📋 Dodanie obsługi multi-agent
 - [ ] 📋 Implementacja agent selector
 - [ ] 📋 Unified voice controls interface
 
-### Faza 3: Uproszczenie Floating Buttons  
+### Faza 3: Uproszczenie Floating Buttons
+
 - [ ] 📋 Usunięcie duplicate voice controls z każdego agenta
 - [ ] 📋 Implementacja globalnego przycisku aktywacji
 - [ ] 📋 Utworzenie audio visualizer widget
 - [ ] 📋 Zachowanie podstawowych funkcji agentów (bez voice controls)
 
 ### Faza 4: Audio Layer Management
+
 - [ ] 📋 Implementacja AudioLayerManager
 - [ ] 📋 Separacja kanałów audio (voice vs music)
 - [ ] 📋 Priority management system
 - [ ] 📋 Volume control per layer
 
 ### Faza 5: Testing i Optymalizacja
+
 - [ ] 📋 Testy funkcjonalności głosowych
 - [ ] 📋 Testy audio layer separation
 - [ ] 📋 Performance optimization
 - [ ] 📋 Browser compatibility check
 
 ### Faza 6: Deployment
+
 - [ ] 📋 Build i test na luc-de-zen-on.pages.dev
 - [ ] 📋 Validation na środowisku produkcyjnym
 - [ ] 📋 Deploy to production (mybonzo.com)
@@ -182,45 +205,49 @@ interface AudioLayerManager {
 ### Pliki do Modyfikacji:
 
 #### 1. **src/pages/index.astro**
+
 - Usunięcie voice controls z floating widgets (linie 404-758)
 - Modyfikacja globalVoiceWidget integration
 - Dodanie globalnego audio visualizer
 
 #### 2. **src/components/GoogleVoiceAgent.svelte**
+
 - Enhancement do obsługi multi-agent
 - Dodanie agent selector UI
 - Implementacja unified voice interface
 - Integration z wszystkimi AI agents
 
 #### 3. **Nowe pliki**:
+
 - `src/components/AudioVisualizer.svelte` - Real-time audio visualization
 - `src/utils/AudioLayerManager.ts` - Audio layer management
 - `src/types/VoiceTypes.ts` - TypeScript definitions
 
 ### API Endpoints do Zachowania:
+
 - `/api/voice?action=status` ✅ (aktualnie działa)
-- `/api/gemini-pro-voice` 
+- `/api/gemini-pro-voice`
 - `/api/gemini-vision-voice`
 - `/api/code-bison-voice`
 - Wszystkie pozostałe voice endpoints
 
 ### JavaScript Functions do Refaktoryzacji:
+
 ```javascript
 // REMOVE: Individual voice functions
-- toggleGeminiProVoice()
-- toggleGeminiVisionVoice() 
-- toggleCodeBisonVoice()
-- toggleTextBisonVoice()
-- toggleBardVoice()
-- togglePaLMVoice()
-- toggleVertexVoice()
-- toggleAIStudioVoice()
-
-// ENHANCE: Global voice management
-+ enhancedToggleGlobalVoice()
-+ switchVoiceAgent(agentName)
-+ getAudioVisualizationData()
-+ manageAudioLayers()
+-toggleGeminiProVoice() -
+  toggleGeminiVisionVoice() -
+  toggleCodeBisonVoice() -
+  toggleTextBisonVoice() -
+  toggleBardVoice() -
+  togglePaLMVoice() -
+  toggleVertexVoice() -
+  toggleAIStudioVoice() +
+  // ENHANCE: Global voice management
+  enhancedToggleGlobalVoice() +
+  switchVoiceAgent(agentName) +
+  getAudioVisualizationData() +
+  manageAudioLayers();
 ```
 
 ---
@@ -228,6 +255,7 @@ interface AudioLayerManager {
 ## 🎨 UI/UX Improvements
 
 ### Główne Okno - Enhanced Voice Interface:
+
 ```
 ┌─────────────────────────────────────┐
 │ 🎤 VOICE SYSTEM - MyBonzo Platform  │
@@ -244,6 +272,7 @@ interface AudioLayerManager {
 ```
 
 ### Floating Button - Simplified:
+
 ```
 ┌─────────────────┐
 │ 🎤 VOICE SYSTEM │ ← Global Activation Only
@@ -261,21 +290,25 @@ interface AudioLayerManager {
 ## ⚠️ Uwagi i Considerations
 
 ### Zachowanie Backward Compatibility:
+
 - Wszystkie istniejące API endpoints muszą działać
 - Existing JavaScript functions powinny mieć graceful degradation
 - User preferences i settings zachowane w localStorage
 
 ### Performance Considerations:
+
 - Audio visualization nie może wpływać na performance voice recognition
 - Lazy loading komponentów głosowych
 - Efficient memory management dla audio streams
 
 ### Browser Support:
+
 - Web Speech API compatibility
 - Audio Context support
 - WebRTC considerations dla realtime audio
 
 ### Security:
+
 - Microphone permissions handling
 - Audio data privacy
 - Secure API communications
@@ -285,18 +318,21 @@ interface AudioLayerManager {
 ## 📊 Success Metrics
 
 ### Funkcjonalne:
+
 - [x] ✅ Voice API status check: `success` (verified)
 - [ ] 📋 Wszystkie agenty dostępne z głównego okna
 - [ ] 📋 Floating buttons tylko do globalnej kontroli
 - [ ] 📋 Audio layers properly separated
 
 ### Performance:
+
 - [ ] 📋 < 2s voice recognition startup time
 - [ ] 📋 < 100ms audio layer switching
 - [ ] 📋 60fps audio visualization
 - [ ] 📋 < 50MB memory usage increase
 
 ### User Experience:
+
 - [ ] 📋 Intuitive single voice interface
 - [ ] 📋 Clear visual feedback
 - [ ] 📋 Responsive audio controls
@@ -307,11 +343,13 @@ interface AudioLayerManager {
 ## 🚀 Post-Implementation
 
 ### Documentation Updates:
+
 - Update AGENT_BRIEFING.md
 - Update component documentation
 - User guide dla nowego voice interface
 
 ### Future Enhancements:
+
 - Voice commands dla switching agents
 - Custom voice training
 - Multi-language TTS

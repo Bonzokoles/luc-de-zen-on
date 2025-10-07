@@ -1,8 +1,36 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Tavily Search | AI Workers",
+  description = "Zaawansowane wyszukiwanie internetowe z AI, wyciąganie treści i analiza wyników",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "AI-Powered Web Search",
+    "Content Extraction", 
+    "Real-time Results Analysis",
+    "Multi-source Aggregation",
+    "Advanced Query Processing",
+    "Research Assistant Tools"
+  ]
+};
 ---
 
-<MyBonzoLayout title="Tavily Search | AI Workers">
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
   <main class="min-h-svh">
     <!-- Header Section -->
     <section class="border border-edge">

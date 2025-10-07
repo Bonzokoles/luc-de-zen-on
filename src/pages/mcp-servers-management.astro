@@ -1,8 +1,36 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from '../layouts/MyBonzoLayout.astro';
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "MCP Servers Management | AI Workers",
+  description = "Zarządzanie Model Context Protocol (MCP) Servers - konfiguracja, monitoring i integracja",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "Model Context Protocol Management",
+    "Server Configuration Dashboard", 
+    "Real-time Monitoring",
+    "Integration Hub",
+    "Performance Analytics",
+    "Protocol Standards Compliance"
+  ]
+};
 ---
 
-<MyBonzoLayout title="MCP Servers Management | AI Workers">
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
   <main class="min-h-svh bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900">
     <!-- Header Section -->
     <section class="border border-edge">

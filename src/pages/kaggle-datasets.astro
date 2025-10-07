@@ -1,8 +1,36 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Kaggle Datasets | AI Workers",
+  description = "Przeszukuj zbiory danych, konkursy i profile na platformie Kaggle",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "Dataset Search & Discovery",
+    "Competition Analysis", 
+    "User Profile Insights",
+    "Data Download Tools",
+    "ML Research Repository",
+    "Community Integration"
+  ]
+};
 ---
 
-<MyBonzoLayout title="Kaggle Datasets | AI Workers">
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
   <main class="min-h-svh">
     <!-- Header Section -->
     <section class="border border-edge">

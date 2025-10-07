@@ -1,9 +1,35 @@
 ---
+// TypeScript interface for component props (Astro best practice)
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+// Proper destructuring of props with defaults (Astro best practice)
+const { 
+  title = "AI Chatbot | AI Workers",
+  description = "Inteligentny asystent AI z obsługą głosu i wieloma modelami"
+} = Astro.props;
+
+// Proper type imports (Astro best practice)
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
 // import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
+
+// Metadata for SEO and performance (Astro best practice)
+const pageMetadata = {
+  title,
+  description,
+  robots: "index, follow",
+  og: {
+    title: title,
+    description: description,
+    type: "website"
+  }
+};
 ---
 
-<MyBonzoLayout title="AI Chatbot | AI Workers">
+<MyBonzoLayout {title}>
   <main class="min-h-svh">
     <!-- Chat Settings Panel               <select
                 id="chatTemperature"
@@ -80,6 +106,59 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           zadaniach
         </p>
 
+        <!-- Voice AI Integration Panel -->
+        <div class="voice-ai-panel mb-8 border border-edge rounded-lg p-6" style="background: rgba(0, 0, 0, 0.5);">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-semibold text-primary-foreground">🎤 Voice AI Assistant</h3>
+            <div class="flex gap-2">
+              <button
+                id="voiceToggle"
+                onclick="toggleVoiceMode()"
+                class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded font-semibold transition-colors"
+              >
+                🎤 Voice OFF
+              </button>
+              <button
+                onclick="openVoiceAssistant()"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm"
+              >
+                🔧 Ustawienia
+              </button>
+            </div>
+          </div>
+          <div id="voiceControls" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Język mowy:</label>
+                <select id="voiceLanguage" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                  <option value="pl-PL">🇵🇱 Polski</option>
+                  <option value="en-US">🇺🇸 English</option>
+                  <option value="de-DE">🇩🇪 Deutsch</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Tryb nagrywania:</label>
+                <select id="voiceMode" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                  <option value="continuous">Ciągły</option>
+                  <option value="single">Pojedynczy</option>
+                  <option value="command">Tylko komendy</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Auto-send:</label>
+                <label class="flex items-center">
+                  <input type="checkbox" id="voiceAutoSend" class="mr-2">
+                  <span class="text-sm">Wyślij automatycznie</span>
+                </label>
+              </div>
+            </div>
+            <div id="voiceStatus" class="text-center p-4 bg-gray-800 rounded-lg">
+              <div class="text-cyan-400 font-medium">🎤 Gotowy do nagrywania</div>
+              <div class="text-sm text-gray-400 mt-1">Kliknij przycisk Voice lub powiedz "Słucham"</div>
+            </div>
+          </div>
+        </div>
+
         <!-- Chat Interface -->
         <div
           class="chat-container border border-edge rounded-lg overflow-hidden mt-8"
@@ -97,7 +176,35 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 >AI Assistant Online</span
               >
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-wrap">
+              <button
+                onclick="generateRandomPrompt()"
+                class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded text-sm"
+                title="Losowy prompt"
+              >
+                🎲 Losowy
+              </button>
+              <button
+                onclick="copyLastResponse()"
+                class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white rounded text-sm"
+                title="Kopiuj ostatnią odpowiedź"
+              >
+                📋 Kopiuj
+              </button>
+              <button
+                onclick="regenerateLastResponse()"
+                class="px-3 py-1 bg-orange-600 hover:bg-orange-700 text-white rounded text-sm"
+                title="Regeneruj odpowiedź"
+              >
+                🔄 Regeneruj
+              </button>
+              <button
+                onclick="startVoiceRecording()"
+                class="px-3 py-1 bg-cyan-600 hover:bg-cyan-700 text-white rounded text-sm"
+                title="Nagrywanie głosowe (F2)"
+              >
+                🎤 Głos
+              </button>
               <button
                 onclick="clearChat()"
                 class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm"
@@ -225,6 +332,31 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
             >
               🔬 Technologia
             </button>
+            <button
+              class="quick-action-btn"
+              onclick="startVoiceRecording()"
+              style="border-color: #00bcd4; color: #00bcd4;"
+            >
+              🎤 Nagrywanie głosowe
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Wygeneruj kod HTML dla strony internetowej')"
+            >
+              🌐 HTML/CSS
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Stwórz plan marketingowy dla startupu')"
+            >
+              📈 Marketing
+            </button>
+            <button
+              class="quick-action-btn"
+              onclick="askQuestion('Pomóż mi zoptymalizować bazę danych SQL')"
+            >
+              🗄️ Bazy danych
+            </button>
           </div>
         </div>
 
@@ -235,7 +367,7 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
           <h3 class="text-xl font-semibold mb-4 text-primary-foreground">
             Ustawienia czatu:
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label
                 class="block text-sm font-medium mb-2 text-primary-foreground"
@@ -245,11 +377,41 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 id="aiModel"
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0, 0, 0, 0.5);"
+                onchange="updateModelInfo()"
               >
-                <option value="gpt-4">GPT-4 (Zalecany)</option>
-                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                <option value="claude">Claude</option>
-                <option value="bielik">Bielik</option>
+                <optgroup label="🚀 Cloudflare Models">
+                  <option value="@cf/google/gemma-3-12b-it">Gemma 3 12B (Zalecany)</option>
+                  <option value="@cf/meta/llama-3.1-8b-instruct">Llama 3.1 8B</option>
+                  <option value="@cf/qwen/qwen2.5-7b-instruct">Qwen 2.5 7B</option>
+                  <option value="@cf/microsoft/phi-2">Phi-2</option>
+                </optgroup>
+                <optgroup label="🇵🇱 Polskie Modele">
+                  <option value="polaczek">POLACZEK (Polski AI)</option>
+                  <option value="bielik">Bielik (Sperix)</option>
+                </optgroup>
+                <optgroup label="🌟 Premium Models">
+                  <option value="gpt-4">GPT-4 (OpenAI)</option>
+                  <option value="claude">Claude (Anthropic)</option>
+                  <option value="gemini-pro">Gemini Pro</option>
+                </optgroup>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Rola AI:</label>
+              <select
+                id="aiRole"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0, 0, 0, 0.5);"
+                onchange="updateSystemPrompt()"
+              >
+                <option value="assistant">🤖 Asystent uniwersalny</option>
+                <option value="programmer">💻 Programista</option>
+                <option value="writer">✍️ Pisarz/Copywriter</option>
+                <option value="analyst">📊 Analityk danych</option>
+                <option value="teacher">👨‍🏫 Nauczyciel</option>
+                <option value="business">💼 Doradca biznesowy</option>
+                <option value="creative">🎨 Kreatywny designer</option>
+                <option value="translator">🌐 Tłumacz</option>
               </select>
             </div>
             <div>
@@ -280,6 +442,23 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
                 <option value="en">English</option>
                 <option value="auto">Automatyczny</option>
               </select>
+            </div>
+          </div>
+          
+          <!-- Model Info Panel -->
+          <div id="modelInfo" class="mt-4 p-3 bg-gray-800 rounded-lg">
+            <div class="text-sm text-gray-300">
+              <span class="font-medium text-cyan-400">Gemma 3 12B:</span> Najnowszy model Google, zoptymalizowany dla różnorodnych zadań. Szybki i precyzyjny.
+            </div>
+          </div>
+          
+          <!-- System Prompt Preview -->
+          <div class="mt-4">
+            <button onclick="toggleSystemPrompt()" class="text-sm text-gray-400 hover:text-cyan-400">
+              📝 Pokaż/ukryj prompt systemowy
+            </button>
+            <div id="systemPromptPreview" class="hidden mt-2 p-3 bg-gray-800 rounded text-xs text-gray-300 max-h-32 overflow-y-auto">
+              <!-- System prompt will be displayed here -->
             </div>
           </div>
         </div>
@@ -400,16 +579,270 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
   .chat-messages::-webkit-scrollbar-thumb:hover {
     background: #4b5563;
   }
+
+  /* Voice AI Panel Styles */
+  .voice-ai-panel {
+    border: 1px solid #374151;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .voice-ai-panel:hover {
+    border-color: #00bcd4;
+  }
+
+  #voiceStatus {
+    transition: all 0.3s ease;
+  }
+
+  #voiceStatus.listening {
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid #f59e0b;
+  }
+
+  #voiceStatus.active {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid #10b981;
+  }
+
+  #voiceStatus.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid #ef4444;
+  }
+
+  /* Enhanced button styles */
+  .quick-action-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #374151;
+    color: #d1d5db;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quick-action-btn:hover {
+    background-color: #374151;
+    border-color: #00bcd4;
+    color: #00bcd4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.2);
+  }
+
+  .quick-action-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Model info animation */
+  #modelInfo {
+    transition: all 0.3s ease;
+  }
+
+  #systemPromptPreview {
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* Chat input enhancements */
+  #messageInput:focus {
+    box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+  }
+
+  /* Loading animation for voice status */
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .voice-pulse {
+    animation: pulse 2s infinite;
+  }
 </style>
 
 <script>
   let chatHistory = JSON.parse(localStorage.getItem("chatHistory") || "[]");
   let currentChatId = null;
+  let isVoiceEnabled = false;
+  let recognition = null;
+  let synthesis = null;
+  let currentSystemPrompt = "";
+
+  // Voice AI Integration
+  let SpeechRecognition = null;
+  let speechSynthesis = null;
+
+  // AI Role System Prompts
+  const rolePrompts = {
+    assistant: `Jesteś MyBonzo AI Assistant - pomocnym asystentem polskiej platformy AI. Odpowiadaj profesjonalnie i pomocnie na wszystkie pytania użytkowników.`,
+    programmer: `Jesteś ekspertem programistą. Specjalizujesz się w JavaScript, TypeScript, Python, Astro, Svelte i technologiach webowych. Dostarczasz dokładne rozwiązania kodowe z wyjaśnieniami.`,
+    writer: `Jesteś profesjonalnym pisarzem i copywriterem. Tworzysz angażujące treści, artykuły, opisy produktów i teksty marketingowe. Dbasz o styl, gramatykę i perswazyjność.`,
+    analyst: `Jesteś analitykiem danych i eksperten od BigQuery, SQL, Python i narzędzi analitycznych. Pomagasz w analizie danych, tworzeniu raportów i wizualizacji.`,
+    teacher: `Jesteś doświadczonym nauczycielem i edukatorem. Wyjaśniasz skomplikowane tematy w prosty sposób, używasz przykładów i zachęcasz do nauki.`,
+    business: `Jesteś doradcą biznesowym i strategiem. Pomagasz w planowaniu biznesowym, analizie rynku, strategii marketingowej i podejmowaniu decyzji biznesowych.`,
+    creative: `Jesteś kreatywnym designerem i artystą. Pomagasz w projektowaniu, generowaniu pomysłów kreatywnych, tworzeniu konceptów wizualnych i rozwiązań artystycznych.`,
+    translator: `Jesteś profesjonalnym tłumaczem. Specjalizujesz się w tłumaczeniu tekstów między językami, dbając o kontekst kulturowy i precyzję znaczeniową.`
+  };
+
+  // Model Information
+  const modelInfo = {
+    "@cf/google/gemma-3-12b-it": "Najnowszy model Google Gemma 3 z 12B parametrów. Zoptymalizowany dla różnorodnych zadań AI, szybki i precyzyjny.",
+    "@cf/meta/llama-3.1-8b-instruct": "Meta Llama 3.1 8B - model instrukcyjny doskonały do rozmów i złożonych zadań reasoning.",
+    "@cf/qwen/qwen2.5-7b-instruct": "Qwen 2.5 7B od Alibaba - mocny model o świetnej jakości odpowiedzi w języku polskim.",
+    "@cf/microsoft/phi-2": "Microsoft Phi-2 - kompaktowy ale wydajny model, szybki w generowaniu odpowiedzi.",
+    "polaczek": "POLACZEK - pierwszy polski model AI stworzony specjalnie dla użytkowników polskojęzycznych.",
+    "bielik": "Bielik od Sperix - zaawansowany polski model AI o wysokiej jakości rozumienia języka polskiego.",
+    "gpt-4": "OpenAI GPT-4 - najbardziej zaawansowany model AI dostępny publicznie (wymaga API key).",
+    "claude": "Anthropic Claude - model AI skupiony na bezpieczeństwie i pomocności (wymaga API key).",
+    "gemini-pro": "Google Gemini Pro - zaawansowany model multimodalny (wymaga API key)."
+  };
+
+  function initializeVoiceAI() {
+    if (typeof window !== 'undefined') {
+      SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      speechSynthesis = window.speechSynthesis;
+      
+      if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = document.getElementById('voiceLanguage').value || 'pl-PL';
+        
+        recognition.onstart = function() {
+          updateVoiceStatus('🎤 Słucham...', 'listening');
+        };
+        
+        recognition.onresult = function(event) {
+          const transcript = event.results[0][0].transcript;
+          const confidence = event.results[0][0].confidence;
+          
+          document.getElementById('messageInput').value = transcript;
+          updateVoiceStatus(`✅ Rozpoznano (${Math.round(confidence * 100)}%): ${transcript}`, 'success');
+          
+          if (document.getElementById('voiceAutoSend').checked) {
+            setTimeout(sendMessage, 500);
+          }
+        };
+        
+        recognition.onerror = function(event) {
+          updateVoiceStatus(`❌ Błąd rozpoznawania: ${event.error}`, 'error');
+        };
+        
+        recognition.onend = function() {
+          if (isVoiceEnabled) {
+            updateVoiceStatus('🎤 Gotowy do nagrywania', 'ready');
+          }
+        };
+      }
+    }
+  }
+
+  function toggleVoiceMode() {
+    isVoiceEnabled = !isVoiceEnabled;
+    const voiceToggle = document.getElementById('voiceToggle');
+    const voiceControls = document.getElementById('voiceControls');
+    
+    if (isVoiceEnabled) {
+      voiceToggle.textContent = '🎤 Voice ON';
+      voiceToggle.className = voiceToggle.className.replace('bg-cyan-600', 'bg-green-600').replace('hover:bg-cyan-700', 'hover:bg-green-700');
+      voiceControls.classList.remove('hidden');
+      updateVoiceStatus('🎤 Voice AI aktywny', 'active');
+      initializeVoiceAI();
+    } else {
+      voiceToggle.textContent = '🎤 Voice OFF';
+      voiceToggle.className = voiceToggle.className.replace('bg-green-600', 'bg-cyan-600').replace('hover:bg-green-700', 'hover:bg-cyan-700');
+      voiceControls.classList.add('hidden');
+      if (recognition) recognition.stop();
+    }
+  }
+
+  function updateVoiceStatus(message, type = 'info') {
+    const statusEl = document.getElementById('voiceStatus');
+    const colors = {
+      info: 'text-cyan-400',
+      listening: 'text-yellow-400',
+      success: 'text-green-400',
+      error: 'text-red-400',
+      active: 'text-green-400',
+      ready: 'text-cyan-400'
+    };
+    
+    statusEl.innerHTML = `<div class="${colors[type]} font-medium">${message}</div>`;
+  }
+
+  function startVoiceRecording() {
+    if (recognition && isVoiceEnabled) {
+      recognition.lang = document.getElementById('voiceLanguage').value || 'pl-PL';
+      recognition.start();
+    }
+  }
+
+  function openVoiceAssistant() {
+    window.open('/voice-ai-assistant', '_blank');
+  }
+
+  function updateModelInfo() {
+    const selectedModel = document.getElementById('aiModel').value;
+    const modelInfoEl = document.getElementById('modelInfo');
+    
+    if (modelInfo[selectedModel]) {
+      modelInfoEl.innerHTML = `
+        <div class="text-sm text-gray-300">
+          <span class="font-medium text-cyan-400">${selectedModel}:</span> ${modelInfo[selectedModel]}
+        </div>
+      `;
+    }
+    
+    updateSystemPrompt();
+  }
+
+  function updateSystemPrompt() {
+    const selectedRole = document.getElementById('aiRole').value;
+    currentSystemPrompt = rolePrompts[selectedRole] || rolePrompts.assistant;
+    
+    const previewEl = document.getElementById('systemPromptPreview');
+    if (previewEl && !previewEl.classList.contains('hidden')) {
+      previewEl.textContent = currentSystemPrompt;
+    }
+  }
+
+  function toggleSystemPrompt() {
+    const previewEl = document.getElementById('systemPromptPreview');
+    previewEl.classList.toggle('hidden');
+    
+    if (!previewEl.classList.contains('hidden')) {
+      previewEl.textContent = currentSystemPrompt;
+    }
+  }
+
+  function speakResponse(text) {
+    if (speechSynthesis && isVoiceEnabled) {
+      // Cancel any ongoing speech
+      speechSynthesis.cancel();
+      
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = document.getElementById('voiceLanguage').value || 'pl-PL';
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      utterance.volume = 0.8;
+      
+      speechSynthesis.speak(utterance);
+    }
+  }
 
   function handleKeyPress(event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       sendMessage();
+    }
+    
+    // Voice command shortcuts
+    if (event.key === "F2" && isVoiceEnabled) {
+      event.preventDefault();
+      startVoiceRecording();
     }
   }
 
@@ -457,13 +890,15 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         model: aiModel,
         temperature: temperature,
         language: language,
+        system: currentSystemPrompt,
+        usePolaczek: aiModel === 'polaczek'
       };
       console.log("📤 Wysyłanie żądania do /api/chat:", requestData);
 
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: message }),
+        body: JSON.stringify(requestData),
       });
 
       console.log(
@@ -484,6 +919,11 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
         const aiResponse = data.answer || data.response;
         console.log("✅ Dodawanie odpowiedzi AI:", aiResponse);
         addMessage(aiResponse, "assistant");
+
+        // Voice AI - speak response if enabled
+        if (isVoiceEnabled && document.getElementById('voiceAutoSend').checked) {
+          speakResponse(aiResponse);
+        }
 
         // Save to history
         saveChatToHistory(message, aiResponse);
@@ -718,10 +1158,55 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
     }
   }
 
+  // Enhanced Chat Features
+  function generateRandomPrompt() {
+    const prompts = [
+      "Opowiedz mi o najnowszych trendach w AI",
+      "Jak mogę zoptymalizować swoją stronę internetową?",
+      "Napisz krótką historię o robotach w przyszłości",
+      "Wyjaśnij różnice między różnymi modelami AI",
+      "Pomóż mi stworzyć plan nauki programowania",
+      "Jakie są najlepsze praktyki w web developmencie?",
+      "Stwórz listę pomysłów na biznes online",
+      "Jak działają sieci neuronowe?"
+    ];
+    
+    const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+    document.getElementById('messageInput').value = randomPrompt;
+  }
+
+  function copyLastResponse() {
+    const messages = document.querySelectorAll('.assistant-message .message-text');
+    if (messages.length > 0) {
+      const lastResponse = messages[messages.length - 1].textContent;
+      navigator.clipboard.writeText(lastResponse).then(() => {
+        alert('Ostatnia odpowiedź AI skopiowana do schowka!');
+      });
+    }
+  }
+
+  function regenerateLastResponse() {
+    const messages = document.querySelectorAll('.user-message .message-text');
+    if (messages.length > 0) {
+      const lastUserMessage = messages[messages.length - 1].textContent;
+      document.getElementById('messageInput').value = lastUserMessage;
+      sendMessage();
+    }
+  }
+
   // Initialize
   document.addEventListener("DOMContentLoaded", () => {
     console.log("🚀 Chatbot DOM załadowany");
+    
+    // Initialize all systems
     updateHistoryDisplay();
+    updateModelInfo();
+    updateSystemPrompt();
+    
+    // Initialize Voice AI if supported
+    if (typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
+      console.log("🎤 Voice AI dostępny");
+    }
 
     // Test API connectivity
     testAPI();
@@ -734,9 +1219,22 @@ import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
       localStorage.removeItem("quickChatPrompt");
     }
 
+    // Add keyboard shortcuts info
+    console.log("⌨️ Skróty klawiszowe: Enter - wyślij, Shift+Enter - nowa linia, F2 - nagrywanie głosowe");
+
     // Make functions globally available for debugging
     window.testAPI = testAPI;
     window.sendMessage = sendMessage;
-    console.log("✅ Funkcje chatbot dostępne globalnie");
+    window.toggleVoiceMode = toggleVoiceMode;
+    window.startVoiceRecording = startVoiceRecording;
+    window.updateModelInfo = updateModelInfo;
+    window.updateSystemPrompt = updateSystemPrompt;
+    window.toggleSystemPrompt = toggleSystemPrompt;
+    window.openVoiceAssistant = openVoiceAssistant;
+    window.generateRandomPrompt = generateRandomPrompt;
+    window.copyLastResponse = copyLastResponse;
+    window.regenerateLastResponse = regenerateLastResponse;
+    
+    console.log("✅ Chatbot w pełni zainicjalizowany z Voice AI i zaawansowanymi funkcjami");
   });
 </script>

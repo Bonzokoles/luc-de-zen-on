@@ -1,8 +1,36 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "BigQuery Analytics | AI Workers",
+  description = "Analizuj dane z Google BigQuery, wykonuj zapytania SQL i generuj raporty",
+  ...attrs 
+} = Astro.props;
+
+// Metadata for SEO
+const metadata = {
+  title,
+  description,
+  canonical: new URL(Astro.url.pathname, Astro.site),
+  type: "website",
+  features: [
+    "SQL Query Interface",
+    "Real-time Data Analysis", 
+    "Export to Multiple Formats",
+    "BigQuery Integration",
+    "Advanced Analytics",
+    "Data Visualization"
+  ]
+};
 ---
 
-<MyBonzoLayout title="BigQuery Analytics | AI Workers">
+<MyBonzoLayout title={metadata.title} description={metadata.description}>
   <main class="min-h-svh">
     <!-- Header Section -->
     <section class="border border-edge">

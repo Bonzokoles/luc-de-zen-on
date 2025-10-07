@@ -79,6 +79,13 @@
       <span class="service-badge">Google Cloud</span>
     </div>
     <div class="header-actions">
+      <button 
+        on:click={() => window.open('/bigquery-analytics-pro', '_blank')} 
+        class="pro-btn" 
+        title="Wersja PRO z pełnymi instrukcjami"
+      >
+        ⭐ PRO
+      </button>
       <button on:click={toggleExpanded} class="expand-btn" title="Rozwiń/Zwiń">
         {isExpanded ? "▼" : "▲"}
       </button>
@@ -235,6 +242,28 @@
   .header-actions {
     display: flex;
     gap: 6px;
+  }
+
+  .pro-btn {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border: 1px solid #ffa500;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+  }
+
+  .pro-btn:hover {
+    background: linear-gradient(135deg, #ffed4e, #ffb84d);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 215, 0, 0.5);
   }
 
   .expand-btn,
