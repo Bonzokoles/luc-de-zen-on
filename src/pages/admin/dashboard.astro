@@ -1,18 +1,93 @@
 ---
+import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
 import PolaczekDyrektorPanel from '../../components/admin/PolaczekDyrektorPanel.svelte';
 ---
-<html lang="pl">
-  <head>
-    <title>Panel Dyrektora</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        background-color: #f0f2f5;
-        color: #333;
-      }
-    </style>
-  </head>
-  <body>
-    <PolaczekDyrektorPanel client:load />
-  </body>
-</html>
+
+<MyBonzoLayout
+  title="Admin Dashboard - MyBonzo"
+  description="Centralny panel administracyjny MyBonzo - zarządzanie systemem, workers, API i monitorowanie"
+  keywords="admin, dashboard, panel, workers, api, monitoring, mybonzo"
+>
+  <main class="min-h-screen bg-black text-white">
+    <!-- Header Section -->
+    <section class="relative z-20 border-b border-[#263238] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#1be1ff] mb-2 uppercase tracking-wider font-['Rajdhani']">
+              🏢 ADMIN DASHBOARD
+            </h1>
+            <p class="text-[#e1f5fe] text-lg">
+              Centralny panel administracyjny MyBonzo - pełna kontrola nad systemem
+            </p>
+          </div>
+          <div class="text-right text-sm text-[#b0bec5] font-mono">
+            <div class="mb-1">STATUS: <span class="text-[#00ff88]">ONLINE</span></div>
+            <div>ADMIN: <span class="text-[#00d7ef]">AUTHORIZED</span></div>
+          </div>
+        </div>
+
+        <!-- Quick Admin Navigation -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <a
+            href="/admin/workers-status-panel"
+            class="bg-black/60 border border-[#00d7ef]/30 rounded-lg p-4 hover:bg-[#00d7ef]/10 transition-all duration-200 group"
+          >
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🔧</div>
+            <div class="font-bold text-[#00d7ef]">Workers Status</div>
+            <div class="text-xs text-gray-400">Monitoring Cloudflare Workers</div>
+          </a>
+          
+          <a
+            href="/admin/api-tests-panel"
+            class="bg-black/60 border border-[#00d7ef]/30 rounded-lg p-4 hover:bg-[#00d7ef]/10 transition-all duration-200 group"
+          >
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🧪</div>
+            <div class="font-bold text-[#00d7ef]">API Tests</div>
+            <div class="text-xs text-gray-400">Testowanie endpoints</div>
+          </a>
+          
+          <a
+            href="/admin/monitoring"
+            class="bg-black/60 border border-[#00d7ef]/30 rounded-lg p-4 hover:bg-[#00d7ef]/10 transition-all duration-200 group"
+          >
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">📊</div>
+            <div class="font-bold text-[#00d7ef]">Monitoring</div>
+            <div class="text-xs text-gray-400">System monitoring</div>
+          </a>
+          
+          <a
+            href="/admin/security"
+            class="bg-black/60 border border-[#00d7ef]/30 rounded-lg p-4 hover:bg-[#00d7ef]/10 transition-all duration-200 group"
+          >
+            <div class="text-2xl mb-2 group-hover:scale-110 transition-transform">🔒</div>
+            <div class="font-bold text-[#00d7ef]">Security</div>
+            <div class="text-xs text-gray-400">Zarządzanie bezpieczeństwem</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Admin Panel -->
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <PolaczekDyrektorPanel client:load />
+      </div>
+    </section>
+
+    <!-- Admin Links -->
+    <section class="border-t border-[#263238] mt-16">
+      <div class="max-w-6xl mx-auto px-8 py-8">
+        <div class="text-center">
+          <h3 class="text-xl font-bold text-[#00d7ef] mb-4">Dodatkowe Panele Administracyjne</h3>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/admin/users" class="text-[#00d7ef] hover:text-[#1be1ff] transition-colors">👥 Zarządzanie Użytkownikami</a>
+            <a href="/admin/configuration" class="text-[#00d7ef] hover:text-[#1be1ff] transition-colors">⚙️ Konfiguracja Systemu</a>
+            <a href="/admin/ai-models" class="text-[#00d7ef] hover:text-[#1be1ff] transition-colors">🤖 Modele AI</a>
+            <a href="/admin/ai-chat" class="text-[#00d7ef] hover:text-[#1be1ff] transition-colors">💬 AI Chat Panel</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</MyBonzoLayout>
