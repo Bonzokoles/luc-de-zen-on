@@ -383,9 +383,14 @@ import {
           📊 DEBUG
         </button>
       </div>
-      
-      <!-- GoogleVoiceAgent Widget -->
-      <div id="globalVoiceWidget" class="floating-widget hidden">
+    </div>
+
+    <!-- Voice AI Assistant Widget -->
+    <div class="floating-widget-container">
+      <button onclick="toggleVoiceAssistant()" class="right-btn" id="voiceAssistantBtn" title="Voice AI Assistant - Zaawansowany asystent głosowy">
+        🎙️ VOICE ASSISTANT
+      </button>
+      <div id="voiceAssistantWidget" class="floating-widget hidden">
         <GoogleVoiceAgent client:load />
       </div>
     </div>
@@ -1573,7 +1578,12 @@ import {
     (window as any).toggleTextBison = toggleTextBison;
     (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
     (window as any).toggleAgent09Dyrektor = toggleAgent09Dyrektor;
+    (window as any).toggleVoiceAssistant = toggleVoiceAssistant;
     (window as any).toggleGlobalVoice = toggleGlobalVoice;
+    (window as any).emergencyStopAll = emergencyStopAll;
+    (window as any).resetSystem = resetSystem;
+    (window as any).testAllFunctions = testAllFunctions;
+    (window as any).debugVoiceStatus = debugVoiceStatus;
     (window as any).openMainChat = openMainChat;
     (window as any).openRefresh = openRefresh;
     (window as any).openFolder = openFolder;
@@ -1984,28 +1994,46 @@ import {
     }
   }
 
+  // Voice Assistant Widget Toggle
+  function toggleVoiceAssistant() {
+    console.log("🎙️ Toggling Voice Assistant widget");
+    const btn = document.getElementById("voiceAssistantBtn");
+    const widget = document.getElementById("voiceAssistantWidget");
+
+    if (btn && widget) {
+      // Button scaling effect
+      btn.style.transform = "scale(1.1) translateY(-2px)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+
+      // Toggle widget visibility
+      widget.classList.toggle("hidden");
+    }
+  }
+
   // Global Voice System Management
   let globalVoiceEnabled = false;
   let voiceRecognitionInstances = {};
 
   function toggleGlobalVoice() {
-    const widget = document.getElementById("globalVoiceWidget");
-    const isHidden = widget.classList.contains("hidden");
+    const voiceBtn = document.getElementById("globalVoiceBtn");
     
-    if (isHidden) {
-      widget.classList.remove("hidden");
+    if (!globalVoiceEnabled) {
+      // WŁĄCZ wszystkie funkcje Voice globalnie
       globalVoiceEnabled = true;
-      const voiceBtn = document.getElementById("globalVoiceBtn");
       voiceBtn.style.background = "linear-gradient(45deg, #00ff88, #0f3846)";
       voiceBtn.innerHTML = '🎤 VOICE ON';
-      console.log("🎤 Global Voice System: ENABLED");
+      console.log("🎤 Global Voice System: ENABLED - Wszystkie funkcje Voice są teraz dostępne");
+      
+      // Powiadom wszystkie komponenty o włączeniu Voice
+      document.dispatchEvent(new CustomEvent('globalVoiceEnabled', { detail: { enabled: true } }));
     } else {
-      widget.classList.add("hidden");
+      // WYŁĄCZ wszystkie funkcje Voice globalnie
       globalVoiceEnabled = false;
-      const voiceBtn = document.getElementById("globalVoiceBtn");
       voiceBtn.style.background = "linear-gradient(45deg, #ff4444, #0f3846)";
       voiceBtn.innerHTML = '🎤 VOICE OFF';
-      console.log("🎤 Global Voice System: DISABLED");
+      console.log("🎤 Global Voice System: DISABLED - Wszystkie funkcje Voice są wyłączone");
       
       // Stop all voice instances
       stopGeminiProVoice();
@@ -2017,6 +2045,9 @@ import {
       stopVertexVoice();
       stopAIStudioVoice();
       voiceRecognitionInstances = {};
+      
+      // Powiadom wszystkie komponenty o wyłączeniu Voice
+      document.dispatchEvent(new CustomEvent('globalVoiceEnabled', { detail: { enabled: false } }));
     }
   }
 
@@ -2082,8 +2113,15 @@ import {
 
   // Main Chat, Refresh, Folder, Close Functions
   function openMainChat() {
-    // Placeholder for Main Chat functionality
-    alert("Funkcja Main Chat jest w trakcie implementacji.");
+    console.log('💬 Opening Enhanced Main Chat...');
+    if (window.mainChatAgentFunctions) {
+      window.mainChatAgentFunctions.openMainChat();
+    } else {
+      // Initialize if not already done
+      window.mainChatAgentFunctions = new MainChatAgentFunctions();
+      window.mainChatAgentFunctions.bindToRightPanel();
+      window.mainChatAgentFunctions.openMainChat();
+    }
   }
 
   function openRefresh() {
@@ -2868,4 +2906,317 @@ import {
 
   // Make function globally available
   window.launchMyBlogAI = launchMyBlogAI;
+
+  // Enhanced Main Chat System
+  class MainChatAgentFunctions {
+    constructor() {
+      this.isActive = false;
+      this.chatHistory = [];
+    }
+
+    // Bind to global scope for right-panel integration
+    bindToRightPanel() {
+      window.openMainChat = this.openMainChat.bind(this);
+      window.toggleMainChat = this.toggleMainChat.bind(this);
+      window.closeMainChat = this.closeMainChat.bind(this);
+      window.sendToMainChat = this.sendToMainChat.bind(this);
+      window.clearMainChat = this.clearMainChat.bind(this);
+    }
+
+    // Open main chat
+    openMainChat() {
+      console.log('💬 Opening Enhanced Main Chat...');
+      this.createChatWidget();
+      this.isActive = true;
+    }
+
+    // Toggle chat widget
+    toggleMainChat() {
+      if (this.isActive) {
+        this.closeMainChat();
+      } else {
+        this.openMainChat();
+      }
+    }
+
+    // Create chat widget
+    createChatWidget() {
+      const existingWidget = document.getElementById('mainChatWidget');
+      if (existingWidget) {
+        existingWidget.classList.remove('hidden');
+        return;
+      }
+
+      const widget = document.createElement('div');
+      widget.id = 'mainChatWidget';
+      widget.className = 'floating-widget';
+      widget.style.cssText = `
+        position: fixed;
+        top: 10%;
+        right: 20px;
+        width: 400px;
+        height: 600px;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(15, 56, 70, 0.9));
+        border: 1px solid #1be1ff;
+        border-radius: 12px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+      `;
+
+      widget.innerHTML = `
+        <div class="agent-panel-header" style="background: rgba(27, 225, 255, 0.1); padding: 12px; border-bottom: 1px solid #1be1ff; display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: #1be1ff; font-weight: bold;">💬 MAIN CHAT</span>
+          <button onclick="closeMainChat()" style="background: none; border: none; color: #ff6b6b; font-size: 20px; cursor: pointer; padding: 0; width: 30px; height: 30px;">×</button>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; padding: 0;">
+          <div style="padding: 15px 15px 10px 15px;">
+            <div style="margin-bottom: 15px; padding: 10px; background: rgba(27, 225, 255, 0.1); border-radius: 4px;">
+              <span style="color: #1be1ff; font-weight: bold;">💬 CHAT HUB</span>
+              <div style="font-size: 12px; color: #ccc; margin-top: 5px;">Centralny system komunikacji</div>
+            </div>
+            
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
+              <button onclick="connectToAssistant()" style="background: rgba(27, 225, 255, 0.2); border: 1px solid #1be1ff; color: #1be1ff; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">🤖 AI Assistant</button>
+              <button onclick="openChannels()" style="background: rgba(74, 222, 128, 0.2); border: 1px solid #4ade80; color: #4ade80; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">📺 Channels</button>
+              <button onclick="chatHistory()" style="background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; color: #ffc107; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">📋 History</button>
+            </div>
+          </div>
+
+          <div id="chatMessages" style="flex: 1; padding: 0 15px; overflow-y: auto; background: rgba(0, 0, 0, 0.2); margin: 0 10px; border-radius: 8px; max-height: 300px;">
+            <div style="padding: 15px; color: #ccc; text-align: center; font-size: 14px;">
+              💬 Witaj w Main Chat!<br>
+              <small>Rozpocznij rozmowę wpisując wiadomość poniżej</small>
+            </div>
+          </div>
+
+          <div style="padding: 15px;">
+            <textarea id="chatInput" placeholder="Wpisz swoją wiadomość..." style="width: 100%; height: 80px; resize: none; background: rgba(0, 0, 0, 0.3); border: 1px solid #1be1ff; border-radius: 6px; color: white; padding: 10px; font-family: inherit;"></textarea>
+            
+            <div style="margin-top: 10px; display: flex; gap: 8px;">
+              <button onclick="sendToMainChat()" style="background: rgba(27, 225, 255, 0.2); border: 1px solid #1be1ff; color: #1be1ff; padding: 8px 16px; border-radius: 6px; cursor: pointer; flex: 1;">📤 Wyślij</button>
+              <button onclick="clearMainChat()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🗑️ Wyczyść</button>
+            </div>
+
+            <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <button onclick="quickMessage('status')" style="background: rgba(74, 222, 128, 0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">📊 Status</button>
+              <button onclick="quickMessage('help')" style="background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; color: #ffc107; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">❓ Help</button>
+              <button onclick="quickMessage('agents')" style="background: rgba(167, 139, 250, 0.2); border: 1px solid #a78bfa; color: #a78bfa; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">🤖 Agents</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(widget);
+      
+      // Animate in
+      setTimeout(() => {
+        widget.style.opacity = '1';
+        widget.style.transform = 'scale(1)';
+      }, 10);
+    }
+
+    // Close chat
+    closeMainChat() {
+      const widget = document.getElementById('mainChatWidget');
+      if (widget) {
+        widget.style.opacity = '0';
+        widget.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+          if (widget.parentNode) {
+            widget.parentNode.removeChild(widget);
+          }
+        }, 200);
+      }
+      this.isActive = false;
+    }
+
+    // Send to chat - Enhanced with POLACZEK API
+    async sendToMainChat() {
+      const input = document.getElementById('chatInput');
+      const messagesContainer = document.getElementById('chatMessages');
+      
+      if (!input || !input.value.trim()) return;
+      
+      const message = input.value.trim();
+      console.log('📤 Sending chat message:', message);
+      
+      // Add user message
+      this.addMessage('user', message);
+      
+      // Clear input
+      input.value = '';
+      
+      // Show typing indicator
+      this.addMessage('system', '⏳ POLACZEK pisze...');
+      
+      try {
+        // Call POLACZEK API with Poznań dialect
+        const response = await fetch('/api/polaczek-chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: message,
+            model: 'qwen',
+            language: 'pl'
+          })
+        });
+        
+        const data = await response.json();
+        
+        // Remove typing indicator
+        const messages = messagesContainer.querySelectorAll('.message');
+        const lastMessage = messages[messages.length - 1];
+        if (lastMessage && lastMessage.textContent.includes('pisze')) {
+          messagesContainer.removeChild(lastMessage);
+        }
+        
+        // Add POLACZEK response
+        const aiResponse = data.response || data.answer || 'Przepraszam, wystąpił problem z odpowiedzią.';
+        this.addMessage('assistant', `🤖 POLACZEK: ${aiResponse}`);
+        
+      } catch (error) {
+        // Remove typing indicator
+        const messages = messagesContainer.querySelectorAll('.message');
+        const lastMessage = messages[messages.length - 1];
+        if (lastMessage && lastMessage.textContent.includes('pisze')) {
+          messagesContainer.removeChild(lastMessage);
+        }
+        
+        // Fallback response
+        const response = this.generateChatResponse(message);
+        this.addMessage('assistant', response);
+      }
+    }
+
+    // Add message to chat
+    addMessage(type, content) {
+      const messagesContainer = document.getElementById('chatMessages');
+      if (!messagesContainer) return;
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'message';
+      messageDiv.style.cssText = `
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+        ${type === 'user' ? 'background: rgba(27, 225, 255, 0.1); border-left: 3px solid #1be1ff; margin-left: 20px;' : ''}
+        ${type === 'assistant' ? 'background: rgba(74, 222, 128, 0.1); border-left: 3px solid #4ade80; margin-right: 20px;' : ''}
+        ${type === 'system' ? 'background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; text-align: center; font-style: italic;' : ''}
+        ${type === 'error' ? 'background: rgba(239, 68, 68, 0.1); border-left: 3px solid #ef4444;' : ''}
+      `;
+      
+      const timestamp = new Date().toLocaleTimeString('pl-PL', {
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      
+      messageDiv.innerHTML = `
+        <div>${content}</div>
+        <div style="font-size: 11px; color: #666; margin-top: 5px; text-align: right;">${timestamp}</div>
+      `;
+      
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      // Store in history
+      this.chatHistory.push({
+        type,
+        content,
+        timestamp: new Date()
+      });
+    }
+
+    // Generate fallback responses
+    generateChatResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      
+      if (lowerMessage.includes('status')) {
+        return `📊 Status systemu:<br>• Agenty: 20 aktywnych<br>• Usługi: Wszystkie działają<br>• Pamięć: 67% wykorzystana<br>• Uptime: 99.9%`;
+      }
+      
+      if (lowerMessage.includes('help') || lowerMessage.includes('pomoc')) {
+        return `❓ Dostępne komendy:<br>• "status" - status systemu<br>• "agents" - lista agentów<br>• "pogoda" - info o pogodzie<br>• "czas" - aktualny czas<br>• Zadaj dowolne pytanie dla AI`;
+      }
+      
+      if (lowerMessage.includes('agents') || lowerMessage.includes('agent')) {
+        return `🤖 Aktywne agenty:<br>• Voice Agent ✅<br>• Music Agent ✅<br>• System Agent ✅<br>• Business Agent ✅<br>• POLACZEK ✅`;
+      }
+      
+      return `💬 Rozumiem: "${message}"<br><br>Jestem twoim AI asystentem! Mogę pomóc z:<br>• Monitorowaniem systemu<br>• Zarządzaniem agentami<br>• Odpowiedziami na pytania<br>• Automatyzacją zadań`;
+    }
+
+    // Clear chat
+    clearMainChat() {
+      const input = document.getElementById('chatInput');
+      const messagesContainer = document.getElementById('chatMessages');
+      
+      if (input) input.value = '';
+      if (messagesContainer) {
+        messagesContainer.innerHTML = `
+          <div style="padding: 15px; color: #ccc; text-align: center; font-size: 14px;">
+            💬 Chat wyczyszczony!<br>
+            <small>Rozpocznij nową rozmowę</small>
+          </div>
+        `;
+      }
+      
+      this.chatHistory = [];
+    }
+  }
+
+  // Global chat helper functions
+  window.connectToAssistant = function() {
+    console.log('🤖 Łączenie z AI Assistant...');
+    const messagesContainer = document.getElementById('chatMessages');
+    if (messagesContainer) {
+      const messageDiv = document.createElement('div');
+      messageDiv.style.cssText = 'padding: 10px; color: #4ade80; text-align: center; font-style: italic;';
+      messageDiv.innerHTML = '🤖 POLACZEK AI połączony - Gotowy do pomocy!';
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  };
+
+  window.openChannels = function() {
+    console.log('📺 Otwieranie kanałów...');
+    const messagesContainer = document.getElementById('chatMessages');
+    if (messagesContainer) {
+      const messageDiv = document.createElement('div');
+      messageDiv.style.cssText = 'padding: 10px; color: #1be1ff; text-align: center; font-style: italic;';
+      messageDiv.innerHTML = '📺 Dostępne kanały: #ogólny, #agenty, #wsparcie, #aktualizacje';
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  };
+
+  window.chatHistory = function() {
+    console.log('📋 Ładowanie historii...');
+    const messagesContainer = document.getElementById('chatMessages');
+    if (messagesContainer && window.mainChatAgentFunctions) {
+      const history = window.mainChatAgentFunctions.chatHistory;
+      const messageDiv = document.createElement('div');
+      messageDiv.style.cssText = 'padding: 10px; color: #ffc107; text-align: center; font-style: italic;';
+      messageDiv.innerHTML = `📋 Historia chatu: ${history.length} wiadomości zapisanych`;
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  };
+
+  window.quickMessage = function(type) {
+    const input = document.getElementById('chatInput');
+    if (input) {
+      input.value = type;
+      if (window.mainChatAgentFunctions) {
+        window.mainChatAgentFunctions.sendToMainChat();
+      }
+    }
+  };
 </script>

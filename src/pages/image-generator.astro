@@ -137,20 +137,54 @@ const pageMetadata = {
                 </optgroup>
                 
                 <!-- External Free AI Models -->
-                <optgroup label="🆓 Darmowe AI">
+                <optgroup label="🆓 Darmowe AI - Obrazy">
+                  <option value="stabilityai/stable-diffusion-3-medium"
+                    >Stable Diffusion 3 Medium</option
+                  >
+                  <option value="black-forest-labs/flux-1.1-pro"
+                    >FLUX 1.1 Pro</option
+                  >
                   <option value="together_flux"
                     >Together AI - FLUX.1-schnell</option
                   >
                   <option value="hf_playground"
                     >HuggingFace - Playground v2.5</option
                   >
-                  <option value="stability_sdxl"
-                    >Stability AI - SDXL</option
-                  >
-                  <option value="openai_sora"
-                    >OpenAI - Sora (Wideo - wkrótce)</option
+                </optgroup>
+                
+                <!-- Video Generation -->
+                <optgroup label="🎬 Generowanie Wideo">
+                  <option value="openai/sora-turbo"
+                    >OpenAI - Sora Turbo (Free)</option
                   >
                 </optgroup>
+                
+                <!-- 3D & Photo2Photo -->
+                <optgroup label="🎨 Specjalne">
+                  <option value="triposr-3d"
+                    >TripoSR - 3D Models</option
+                  >
+                  <option value="rembg-photo2photo"
+                    >Photo2Photo - ControlNet</option
+                  >
+                </optgroup>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-sm font-medium mb-2 text-primary-foreground"
+                >Typ Generowania</label
+              >
+              <select
+                id="generationType"
+                class="w-full p-2 border border-edge rounded text-primary-foreground"
+                style="background: rgba(0,0,0,0.5);"
+                onchange="updateGenerationType()"
+              >
+                <option value="image">🖼️ Obraz (Image)</option>
+                <option value="video">🎬 Wideo (5s)</option>
+                <option value="3d">🎲 Model 3D</option>
+                <option value="photo2photo">📸 Photo2Photo</option>
               </select>
             </div>
             <div>
@@ -163,11 +197,14 @@ const pageMetadata = {
                 class="w-full p-2 border border-edge rounded text-primary-foreground"
                 style="background: rgba(0,0,0,0.5);"
               >
-                <option value="photographic">Fotograficzny</option>
-                <option value="artistic">Artystyczny</option>
-                <option value="digital">Cyfrowy</option>
-                <option value="anime">Anime</option>
-                <option value="abstract">Abstrakcyjny</option>
+                <option value="photographic">📸 Fotograficzny</option>
+                <option value="artistic">🎨 Artystyczny</option>
+                <option value="digital">💻 Cyfrowy</option>
+                <option value="anime">🎭 Anime</option>
+                <option value="abstract">🌈 Abstrakcyjny</option>
+                <option value="cinematic">🎬 Kinowy</option>
+                <option value="fantasy">🧙 Fantasy</option>
+                <option value="cyberpunk">🤖 Cyberpunk</option>
               </select>
             </div>
             <div>
@@ -204,12 +241,36 @@ const pageMetadata = {
             </div>
           </div>
 
+          <!-- NSFW Content Settings -->
+          <div class="mb-5 p-4 bg-red-900/20 border border-red-600 rounded-lg">
+            <h4 class="text-sm font-medium mb-3 text-red-400">⚠️ Ustawienia Treści dla Dorosłych</h4>
+            <div class="flex items-center gap-4">
+              <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" id="nsfwBlur" checked class="rounded">
+                <span class="text-primary-foreground">Automatycznie rozmywaj treści NSFW</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" id="autoTranslate" checked class="rounded">
+                <span class="text-primary-foreground">🔄 Auto-tłumacz (POLACZEK_T)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Source Image Upload (for Photo2Photo) -->
+          <div id="sourceImageSection" class="mb-5 hidden">
+            <label class="block text-sm font-medium mb-2 text-primary-foreground">📸 Obraz Źródłowy (Photo2Photo)</label>
+            <input type="file" id="sourceImageFile" accept="image/*" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+            <div id="sourcePreview" class="mt-2 hidden">
+              <img id="sourceImg" class="max-w-full max-h-32 rounded" alt="Source image">
+            </div>
+          </div>
+
           <!-- Action Buttons -->
           <div class="mb-5 grid grid-cols-1 md:grid-cols-3 gap-3">
             <button
               id="generateBtn"
-              class="bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              onclick="generateImage()">🎨 Generuj Obraz</button
+              class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              onclick="generateContent()">✨ <span id="generateBtnText">Generuj Obraz</span></button
             >
             <button
               id="randomPromptBtn"
@@ -1263,6 +1324,245 @@ const pageMetadata = {
     }
   }
 
+  // Multi-modal generation functions
+  function updateGenerationUI() {
+    var generationType = document.getElementById("generationType").value;
+    var sourceImageGroup = document.getElementById("sourceImageGroup");
+    var videoOptions = document.getElementById("videoOptions");
+    var modelGroup = document.getElementById("modelGroup");
+    var modelSelect = document.getElementById("model");
+    
+    // Show/hide source image upload for photo2photo
+    if (sourceImageGroup) {
+      sourceImageGroup.style.display = generationType === 'photo2photo' ? 'block' : 'none';
+    }
+    
+    // Show/hide video options for video generation
+    if (videoOptions) {
+      videoOptions.style.display = generationType === 'video' ? 'block' : 'none';
+    }
+    
+    // Update model options based on generation type
+    if (modelSelect) {
+      modelSelect.innerHTML = '';
+      var models = [];
+      
+      switch (generationType) {
+        case 'image':
+          models = [
+            { value: '@cf/stabilityai/stable-diffusion-xl-base-1.0', text: 'Stability AI SDXL (Cloudflare)' },
+            { value: '@cf/lykon/dreamshaper-8-lcm', text: 'DreamShaper 8 LCM (Cloudflare)' },
+            { value: '@cf/runwayml/stable-diffusion-v1-5-inpainting', text: 'SD 1.5 Inpainting (Cloudflare)' },
+            { value: 'openrouter/stabilityai/stable-diffusion-3-medium', text: 'SD 3 Medium (OpenRouter)' },
+            { value: 'openrouter/black-forest-labs/flux-1-schnell', text: 'FLUX.1 Schnell (OpenRouter)' }
+          ];
+          break;
+        case 'video':
+          models = [
+            { value: 'sora', text: 'OpenAI Sora (Free Tier)' },
+            { value: 'openrouter/minimax/video-01', text: 'MiniMax Video-01 (OpenRouter)' },
+            { value: '@cf/runwayml/stable-video-diffusion', text: 'Stable Video Diffusion (Cloudflare)' }
+          ];
+          break;
+        case '3d':
+          models = [
+            { value: 'triposr', text: 'TripoSR (3D Reconstruction)' },
+            { value: 'openrouter/stability/3d-model', text: 'Stability 3D (OpenRouter)' },
+            { value: '@cf/meta/llama-mesh', text: 'LLaMA Mesh (Cloudflare)' }
+          ];
+          break;
+        case 'photo2photo':
+          models = [
+            { value: '@cf/runwayml/stable-diffusion-v1-5-img2img', text: 'SD 1.5 Img2Img (Cloudflare)' },
+            { value: 'openrouter/stability/controlnet', text: 'ControlNet (OpenRouter)' },
+            { value: '@cf/lykon/dreamshaper-8-lcm-img2img', text: 'DreamShaper Img2Img (Cloudflare)' }
+          ];
+          break;
+      }
+      
+      models.forEach(function(model) {
+        var option = document.createElement('option');
+        option.value = model.value;
+        option.textContent = model.text;
+        modelSelect.appendChild(option);
+      });
+    }
+  }
+
+  function handleSourceImageUpload(event) {
+    var file = event.target.files[0];
+    if (!file) return;
+    
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var preview = document.getElementById('sourceImagePreview');
+      if (preview) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function toggleNSFWBlur() {
+    var enabled = document.getElementById('nsfwBlur').checked;
+    var allImages = document.querySelectorAll('#generatedImage, .history-item img, .result-card img');
+    
+    allImages.forEach(function(img) {
+      if (enabled && img.dataset.nsfw === 'true') {
+        img.style.filter = 'blur(20px)';
+        img.style.cursor = 'pointer';
+        img.onclick = function() {
+          this.style.filter = 'none';
+          this.onclick = null;
+        };
+      } else {
+        img.style.filter = 'none';
+        img.onclick = null;
+      }
+    });
+  }
+
+  async function enhancedGenerateImage() {
+    var btn = document.getElementById("generateBtn");
+    var loading = document.getElementById("loadingSpinner");
+    var errorBox = document.getElementById("errorBox");
+    var resultSection = document.getElementById("resultSection");
+    var generatedImage = document.getElementById("generatedImage");
+
+    if (btn) btn.disabled = true;
+    if (loading) loading.classList.remove("hidden");
+    if (errorBox) errorBox.classList.add("hidden");
+
+    try {
+      var generationType = document.getElementById("generationType").value;
+      var prompt = document.getElementById("imagePrompt").value.trim();
+      var model = document.getElementById("model").value;
+      var autoTranslate = document.getElementById("autoTranslate").checked;
+      var nsfwBlur = document.getElementById("nsfwBlur").checked;
+      
+      if (!prompt) {
+        throw new Error("Wprowadź prompt do generacji");
+      }
+
+      var formData = new FormData();
+      formData.append('generationType', generationType);
+      formData.append('prompt', prompt);
+      formData.append('model', model);
+      formData.append('autoTranslate', autoTranslate);
+      formData.append('nsfwBlur', nsfwBlur);
+
+      // Add specific parameters based on generation type
+      if (generationType === 'image' || generationType === 'photo2photo') {
+        var dims = getDimensions();
+        formData.append('width', dims.width);
+        formData.append('height', dims.height);
+        formData.append('steps', document.getElementById("steps").value);
+        
+        if (generationType === 'photo2photo') {
+          var sourceImage = document.getElementById('sourceImage').files[0];
+          if (!sourceImage) {
+            throw new Error("Wybierz obraz źródłowy dla photo2photo");
+          }
+          formData.append('sourceImage', sourceImage);
+        }
+      } else if (generationType === 'video') {
+        formData.append('duration', document.getElementById('videoDuration').value);
+        formData.append('fps', document.getElementById('videoFPS').value);
+      }
+
+      var response = await fetch('/api/enhanced-generator', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        var errorData = await response.json();
+        throw new Error(errorData.error || `Server error: ${response.status}`);
+      }
+
+      var result = await response.json();
+      
+      if (result.success) {
+        if (generatedImage && result.imageUrl) {
+          generatedImage.src = result.imageUrl;
+          generatedImage.dataset.nsfw = result.isNSFW ? 'true' : 'false';
+          
+          // Apply NSFW blur if enabled
+          if (nsfwBlur && result.isNSFW) {
+            generatedImage.style.filter = 'blur(20px)';
+            generatedImage.style.cursor = 'pointer';
+            generatedImage.onclick = function() {
+              this.style.filter = 'none';
+              this.onclick = null;
+            };
+          }
+        }
+        
+        if (resultSection) resultSection.classList.remove("hidden");
+        
+        // Update generation history
+        var historyItem = {
+          id: Date.now(),
+          prompt: result.originalPrompt || prompt,
+          translatedPrompt: result.translatedPrompt,
+          imageUrl: result.imageUrl || result.videoUrl || result.modelUrl,
+          generationType: generationType,
+          model: model,
+          isNSFW: result.isNSFW,
+          ts: new Date().toISOString(),
+          settings: {
+            model: model,
+            generationType: generationType,
+            autoTranslate: autoTranslate
+          }
+        };
+        
+        generationHistory.unshift(historyItem);
+        if (generationHistory.length > 20) {
+          generationHistory = generationHistory.slice(0, 20);
+        }
+        localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
+        updateHistoryDisplay();
+        
+        // Show translation info if used
+        if (result.translatedPrompt && result.translatedPrompt !== prompt) {
+          var translationInfo = document.getElementById('translationInfo');
+          if (translationInfo) {
+            translationInfo.innerHTML = 
+              `<div class="bg-blue-900/20 border border-blue-500 rounded-lg p-3 mt-4">
+                <h4 class="text-blue-400 font-semibold mb-2">🌐 Auto-tłumaczenie POLACZEK_T</h4>
+                <p class="text-sm text-gray-300"><strong>Oryginalny:</strong> ${prompt}</p>
+                <p class="text-sm text-gray-300"><strong>Przetłumaczony:</strong> ${result.translatedPrompt}</p>
+              </div>`;
+          }
+        }
+        
+      } else {
+        throw new Error(result.error || 'Wystąpił błąd podczas generacji');
+      }
+
+    } catch (err) {
+      console.error("Enhanced generation error:", err);
+      if (errorBox) {
+        errorBox.textContent = err.message || String(err);
+        errorBox.classList.remove("hidden");
+      }
+    } finally {
+      if (loading) loading.classList.add("hidden");
+      if (btn) {
+        btn.disabled = false;
+        var buttonTexts = {
+          'image': '🎨 Generuj Obraz',
+          'video': '🎬 Generuj Wideo',
+          '3d': '🗿 Generuj Model 3D',
+          'photo2photo': '🔄 Przekształć Obraz'
+        };
+        btn.textContent = buttonTexts[document.getElementById("generationType").value] || '🎨 Generuj';
+      }
+    }
+  }
+
   // Global statistics functions
   function updateGlobalStats() {
     var totalImages = generationHistory.length;
@@ -1288,12 +1588,37 @@ const pageMetadata = {
     if (totalEl) totalEl.textContent = totalImages;
     if (todayEl) todayEl.textContent = todayImages;
     if (weekEl) weekEl.textContent = weekImages;
-    if (avgEl) avgEl.textContent = "~2.5s"; // Estimated average
+    if (avgEl) avgEl.textContent = "~3.2s"; // Updated average for multi-modal
   }
 
-  // Initialize stats on page load
+  // Initialize enhanced generator on page load
   document.addEventListener("DOMContentLoaded", function () {
     updateHistoryDisplay();
     updateGlobalStats();
+    updateGenerationUI();
+    
+    // Replace standard generate function with enhanced version
+    var generateBtn = document.getElementById("generateBtn");
+    if (generateBtn) {
+      generateBtn.onclick = enhancedGenerateImage;
+    }
+    
+    // Setup generation type change handler
+    var generationTypeSelect = document.getElementById("generationType");
+    if (generationTypeSelect) {
+      generationTypeSelect.onchange = updateGenerationUI;
+    }
+    
+    // Setup source image upload handler
+    var sourceImageInput = document.getElementById("sourceImage");
+    if (sourceImageInput) {
+      sourceImageInput.onchange = handleSourceImageUpload;
+    }
+    
+    // Setup NSFW blur toggle
+    var nsfwBlurToggle = document.getElementById("nsfwBlur");
+    if (nsfwBlurToggle) {
+      nsfwBlurToggle.onchange = toggleNSFWBlur;
+    }
   });
 </script>

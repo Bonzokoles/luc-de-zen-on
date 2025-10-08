@@ -237,12 +237,35 @@ import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
           </div>
         </div>
 
+        <!-- Global Sales Data Section -->
+        <div class="mt-6 bg-gray-900/30 border border-gray-700 p-6">
+          <h2 class="text-xl font-semibold text-gray-200 mb-4">🌍 Dane Sprzedażowe Globalne</h2>
+          <div id="global-sales-container" class="space-y-4">
+            <div class="text-center text-gray-500 py-8">
+              <div class="mb-4">📊</div>
+              <div>Ładowanie danych sprzedażowych...</div>
+            </div>
+          </div>
+          <div class="mt-4 flex gap-3">
+            <button id="load-sales-data" class="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white transition-colors">
+              📥 Załaduj Dane Sprzedażowe
+            </button>
+            <button id="import-sales-file" class="px-4 py-2 bg-green-700 hover:bg-green-600 text-white transition-colors">
+              📂 Import Pliku JSON
+            </button>
+            <input type="file" id="sales-file-input" accept=".json,.csv" class="hidden">
+          </div>
+        </div>
+
         <!-- Reports Section -->
         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Quick Reports -->
           <div class="bg-gray-900/30 border border-gray-700 p-6">
             <h2 class="text-xl font-semibold text-gray-200 mb-4">📋 Szybkie Raporty</h2>
             <div class="space-y-3">
+              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
+                🌍 Raport Sprzedaży Globalnej
+              </button>
               <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
                 📊 Raport sprzedaży miesięcznej
               </button>
@@ -567,14 +590,16 @@ import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
       if (!message) return;
       
       const selectedAgent = agentSelector?.value || 'POLACZEK_B';
-      const selectedModel = modelSelector?.value || '@cf/facebook/bart-large-cnn';
+      const selectedModel = modelSelector?.value || '@cf/qwen/qwen1.5-7b-chat-awq';
+      const selectedRole = document.getElementById('role-selector')?.value || 'assistant';
       
       addChatMessage('user', message);
       chatInput.value = '';
       
-      // Show typing indicator with agent info
+      // Show typing indicator with enhanced info
       const agentName = selectedAgent === 'POLACZEK_B' ? 'POLĄCZEK Business' : 'POLĄCZEK Finance';
-      const typingId = addChatMessage('ai', `⌨️ ${agentName} analizuje (${selectedModel.split('/').pop()})...`);
+      const roleName = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+      const typingId = addChatMessage('ai', `⌨️ ${agentName} (${roleName}) analizuje...`);
       
       try {
         // Call multi-model AI API
@@ -886,6 +911,124 @@ import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
     addChatMessage('system', `✅ Załadowano szablon "${template.name}" - ${template.rows.length} rekordów`);
   }
 
+  // Setup global sales data functionality
+  function setupGlobalSalesData() {
+    const loadBtn = document.getElementById('load-sales-data');
+    const importBtn = document.getElementById('import-sales-file');
+    const fileInput = document.getElementById('sales-file-input');
+
+    if (loadBtn) {
+      loadBtn.addEventListener('click', loadGlobalSalesData);
+    }
+
+    if (importBtn) {
+      importBtn.addEventListener('click', () => fileInput.click());
+    }
+
+    if (fileInput) {
+      fileInput.addEventListener('change', handleSalesFileImport);
+    }
+  }
+
+  async function loadGlobalSalesData() {
+    const container = document.getElementById('global-sales-container');
+    if (!container) return;
+
+    container.innerHTML = '<div class="text-center text-gray-400 py-8">🔄 Ładowanie danych sprzedażowych...</div>';
+
+    try {
+      const response = await fetch('/api/admin/sales-data-import');
+      const data = await response.json();
+
+      if (data.success && data.stats) {
+        displayGlobalSalesStats(data.stats, data.countries || []);
+        addChatMessage('system', `📊 Załadowano dane sprzedażowe: ${data.stats.total_records} rekordów z ${data.stats.countries_count} krajów`);
+      } else {
+        container.innerHTML = '<div class="text-center text-gray-500 py-8">📊 Brak danych sprzedażowych. Zaimportuj plik JSON.</div>';
+      }
+    } catch (error) {
+      container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd ładowania danych</div>';
+      console.error('Error loading global sales data:', error);
+    }
+  }
+
+  async function handleSalesFileImport(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const container = document.getElementById('global-sales-container');
+    container.innerHTML = '<div class="text-center text-gray-400 py-8">📤 Importowanie danych...</div>';
+
+    try {
+      const text = await file.text();
+      const jsonData = JSON.parse(text);
+
+      const response = await fetch('/api/admin/sales-data-import', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer mybonzo_admin_2025'
+        },
+        body: JSON.stringify(jsonData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        addChatMessage('system', `✅ Zaimportowano ${result.imported} rekordów`);
+        await loadGlobalSalesData();
+      } else {
+        throw new Error(result.error || 'Import failed');
+      }
+    } catch (error) {
+      container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd importu danych</div>';
+      addChatMessage('system', `❌ Błąd importu: ${error.message}`);
+    }
+  }
+
+  function displayGlobalSalesStats(stats, countries) {
+    const container = document.getElementById('global-sales-container');
+    
+    const html = `
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-blue-900/30 p-4 border border-blue-600/30">
+          <div class="text-blue-400 text-2xl mb-2">📊</div>
+          <div class="text-white font-bold text-lg">${stats.total_records?.toLocaleString() || '0'}</div>
+          <div class="text-blue-300 text-sm">Wszystkie rekordy</div>
+        </div>
+        <div class="bg-green-900/30 p-4 border border-green-600/30">
+          <div class="text-green-400 text-2xl mb-2">🌍</div>
+          <div class="text-white font-bold text-lg">${stats.countries_count || '0'}</div>
+          <div class="text-green-300 text-sm">Kraje</div>
+        </div>
+        <div class="bg-purple-900/30 p-4 border border-purple-600/30">
+          <div class="text-purple-400 text-2xl mb-2">💰</div>
+          <div class="text-white font-bold text-lg">$${stats.total_revenue?.toLocaleString() || '0'}</div>
+          <div class="text-purple-300 text-sm">Przychód</div>
+        </div>
+        <div class="bg-orange-900/30 p-4 border border-orange-600/30">
+          <div class="text-orange-400 text-2xl mb-2">📦</div>
+          <div class="text-white font-bold text-lg">${stats.total_units?.toLocaleString() || '0'}</div>
+          <div class="text-orange-300 text-sm">Sprzedane jednostki</div>
+        </div>
+      </div>
+      
+      <div class="bg-gray-800/50 border border-gray-600 p-4">
+        <h3 class="text-white font-semibold mb-3">🏆 Top 5 krajów według przychodów:</h3>
+        <div class="space-y-2">
+          ${countries.slice(0, 5).map((country, idx) => `
+            <div class="flex justify-between items-center py-2 border-b border-gray-700">
+              <span class="text-gray-300">${idx + 1}. ${country.country}</span>
+              <span class="text-green-400 font-bold">$${country.total_revenue?.toLocaleString()}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    
+    container.innerHTML = html;
+  }
+
   // Initialize everything
   document.addEventListener('DOMContentLoaded', () => {
     initDuckDB();
@@ -895,6 +1038,7 @@ import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
     setupReports();
     setupExports();
     setupTemplates();
+    setupGlobalSalesData();
   });
 </script>
 

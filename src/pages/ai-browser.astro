@@ -1,0 +1,593 @@
+---
+// AI Browser with POLACZEK Agents System
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔍 AI Browser - POLACZEK Agents System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .browser-header {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1rem;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .browser-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .search-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .search-btn {
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .search-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .agents-panel {
+      max-width: 1200px;
+      margin: 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    .agent-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .agent-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .agent-icon {
+      font-size: 2rem;
+    }
+
+    .agent-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .agent-status {
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .status-active {
+      background: #4ecdc4;
+      color: #0f3460;
+    }
+
+    .status-busy {
+      background: #ffa726;
+      color: #0f3460;
+    }
+
+    .agent-description {
+      margin-bottom: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
+    .agent-capabilities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .capability-tag {
+      background: rgba(255, 107, 107, 0.2);
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 107, 107, 0.3);
+    }
+
+    .agent-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .results-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .result-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .result-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #4ecdc4;
+    }
+
+    .result-content {
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.2rem;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #4ecdc4;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .translation-panel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 15px;
+      padding: 1rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-width: 300px;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .translation-panel.active {
+      transform: translateY(0);
+    }
+
+    .translate-input {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-header">
+    <h1 class="browser-title">🔍 AI Browser - POLACZEK Agents System</h1>
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        id="searchInput"
+        placeholder="Wpisz zapytanie... (AI wyszuka i przetłumaczy)"
+      >
+      <button class="search-btn" onclick="performSearch()">🔍 Szukaj</button>
+      <button class="search-btn" onclick="toggleTranslator()">🌍 Tłumacz</button>
+    </div>
+  </div>
+
+  <div class="agents-panel">
+    <!-- POLACZEK_D - Dyrektor -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <span class="agent-icon">🎯</span>
+        <div>
+          <div class="agent-name">POLACZEK_D - Dyrektor</div>
+          <span class="agent-status status-active">AKTYWNY</span>
+        </div>
+      </div>
+      <div class="agent-description">
+        Główny orchestrator agentów AI. Zarządza całym systemem wyszukiwania i koordynuje pracę innych agentów.
+      </div>
+      <div class="agent-capabilities">
+        <span class="capability-tag">Orchestracja</span>
+        <span class="capability-tag">Planowanie</span>
+        <span class="capability-tag">Koordynacja</span>
+      </div>
+      <div class="agent-actions">
+        <button class="action-btn btn-primary" onclick="activateAgent('POLACZEK_D')">Aktywuj</button>
+        <button class="action-btn btn-secondary" onclick="configureAgent('POLACZEK_D')">Konfiguruj</button>
+      </div>
+    </div>
+
+    <!-- POLACZEK_T - Tłumacz -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <span class="agent-icon">🔄</span>
+        <div>
+          <div class="agent-name">POLACZEK_T - Tłumacz</div>
+          <span class="agent-status status-active">AKTYWNY</span>
+        </div>
+      </div>
+      <div class="agent-description">
+        Specjalista od tłumaczeń i lokalizacji. Automatycznie tłumaczy wyniki wyszukiwania na język polski.
+      </div>
+      <div class="agent-capabilities">
+        <span class="capability-tag">Tłumaczenia</span>
+        <span class="capability-tag">Lokalizacja</span>
+        <span class="capability-tag">Multi-język</span>
+      </div>
+      <div class="agent-actions">
+        <button class="action-btn btn-primary" onclick="activateAgent('POLACZEK_T')">Aktywuj</button>
+        <button class="action-btn btn-secondary" onclick="testTranslation()">Test</button>
+      </div>
+    </div>
+
+    <!-- POLACZEK_B - Bibliotekarz -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <span class="agent-icon">📚</span>
+        <div>
+          <div class="agent-name">POLACZEK_B - Bibliotekarz</div>
+          <span class="agent-status status-busy">ZAJĘTY</span>
+        </div>
+      </div>
+      <div class="agent-description">
+        Zarządca bazy wiedzy i dokumentacji. Indeksuje i kategoryzuje wyniki wyszukiwania.
+      </div>
+      <div class="agent-capabilities">
+        <span class="capability-tag">Baza wiedzy</span>
+        <span class="capability-tag">Indeksowanie</span>
+        <span class="capability-tag">Kategoryzacja</span>
+      </div>
+      <div class="agent-actions">
+        <button class="action-btn btn-primary" onclick="activateAgent('POLACZEK_B')">Aktywuj</button>
+        <button class="action-btn btn-secondary" onclick="viewKnowledge()">Baza</button>
+      </div>
+    </div>
+
+    <!-- POLACZEK_M1 - Manager -->
+    <div class="agent-card">
+      <div class="agent-header">
+        <span class="agent-icon">⚙️</span>
+        <div>
+          <div class="agent-name">POLACZEK_M1 - Manager</div>
+          <span class="agent-status status-active">AKTYWNY</span>
+        </div>
+      </div>
+      <div class="agent-description">
+        Koordynator zadań między agentami. Optymalizuje wydajność wyszukiwania i zarządza workflow.
+      </div>
+      <div class="agent-capabilities">
+        <span class="capability-tag">Zarządzanie</span>
+        <span class="capability-tag">Workflow</span>
+        <span class="capability-tag">Optymalizacja</span>
+      </div>
+      <div class="agent-actions">
+        <button class="action-btn btn-primary" onclick="activateAgent('POLACZEK_M1')">Aktywuj</button>
+        <button class="action-btn btn-secondary" onclick="viewWorkflow()">Workflow</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-container" id="resultsContainer" style="display: none;">
+    <h2>🔍 Wyniki wyszukiwania</h2>
+    <div id="searchResults"></div>
+  </div>
+
+  <!-- Translation Panel -->
+  <div class="translation-panel" id="translationPanel">
+    <h3>🌍 POLACZEK_T Translator</h3>
+    <input type="text" class="translate-input" id="translateInput" placeholder="Tekst do tłumaczenia...">
+    <div style="display: flex; gap: 0.5rem;">
+      <select id="sourceLang" style="flex: 1; padding: 0.5rem; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: none;">
+        <option value="auto">Auto-detect</option>
+        <option value="en">English</option>
+        <option value="pl">Polski</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+      </select>
+      <select id="targetLang" style="flex: 1; padding: 0.5rem; border-radius: 5px; background: rgba(255,255,255,0.1); color: white; border: none;">
+        <option value="pl">Polski</option>
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+      </select>
+    </div>
+    <button onclick="translateText()" style="width: 100%; margin-top: 1rem; padding: 0.8rem; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer;">Tłumacz</button>
+    <div id="translationResult" style="margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px; min-height: 50px;"></div>
+  </div>
+
+  <script>
+    let activeAgents = ['POLACZEK_D', 'POLACZEK_T', 'POLACZEK_M1'];
+    let searchHistory = [];
+
+    async function performSearch() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) return;
+
+      showLoading();
+      
+      try {
+        // Call enhanced search with POLACZEK agents
+        const response = await fetch('/api/agents-search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: query,
+            agents: activeAgents,
+            translate: true,
+            orchestrate: true
+          })
+        });
+
+        const results = await response.json();
+        displayResults(results);
+        searchHistory.push({ query, results, timestamp: new Date() });
+        
+      } catch (error) {
+        displayError('Błąd wyszukiwania: ' + error.message);
+      }
+    }
+
+    function showLoading() {
+      const container = document.getElementById('resultsContainer');
+      container.style.display = 'block';
+      container.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>🤖 Agenci POLACZEK pracują nad Twoim zapytaniem...</p>
+        </div>
+      `;
+    }
+
+    function displayResults(results) {
+      const container = document.getElementById('searchResults');
+      
+      if (!results.success) {
+        displayError(results.error || 'Nieznany błąd');
+        return;
+      }
+
+      let html = '';
+      
+      if (results.orchestration) {
+        html += `
+          <div class="result-item">
+            <div class="result-title">🎯 Orchestracja POLACZEK_D</div>
+            <div class="result-content">${results.orchestration.plan}</div>
+          </div>
+        `;
+      }
+
+      if (results.search_results) {
+        results.search_results.forEach((result, index) => {
+          html += `
+            <div class="result-item">
+              <div class="result-title">📖 Wynik ${index + 1}</div>
+              <div class="result-content">
+                <strong>Tytuł:</strong> ${result.title}<br>
+                <strong>Źródło:</strong> <a href="${result.url}" target="_blank" style="color: #4ecdc4;">${result.url}</a><br>
+                <strong>Treść:</strong> ${result.content}
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      if (results.translation) {
+        html += `
+          <div class="result-item">
+            <div class="result-title">🔄 Tłumaczenie POLACZEK_T</div>
+            <div class="result-content">${results.translation}</div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function displayError(error) {
+      document.getElementById('searchResults').innerHTML = `
+        <div class="result-item" style="border-left: 4px solid #ff6b6b;">
+          <div class="result-title">❌ Błąd</div>
+          <div class="result-content">${error}</div>
+        </div>
+      `;
+    }
+
+    function activateAgent(agentId) {
+      if (!activeAgents.includes(agentId)) {
+        activeAgents.push(agentId);
+      }
+      updateAgentStatus(agentId, 'active');
+      console.log(`Agent ${agentId} activated`);
+    }
+
+    function updateAgentStatus(agentId, status) {
+      // Update UI to reflect agent status
+      const statusClass = status === 'active' ? 'status-active' : 'status-busy';
+      const statusText = status === 'active' ? 'AKTYWNY' : 'ZAJĘTY';
+      
+      // Find and update status element
+      document.querySelectorAll('.agent-card').forEach(card => {
+        if (card.innerHTML.includes(agentId)) {
+          const statusElement = card.querySelector('.agent-status');
+          statusElement.className = `agent-status ${statusClass}`;
+          statusElement.textContent = statusText;
+        }
+      });
+    }
+
+    function toggleTranslator() {
+      const panel = document.getElementById('translationPanel');
+      panel.classList.toggle('active');
+    }
+
+    async function translateText() {
+      const text = document.getElementById('translateInput').value;
+      const sourceLang = document.getElementById('sourceLang').value;
+      const targetLang = document.getElementById('targetLang').value;
+      
+      if (!text.trim()) return;
+
+      try {
+        const response = await fetch('/api/polaczek-t', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: text,
+            source: sourceLang,
+            target: targetLang
+          })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          document.getElementById('translationResult').innerHTML = `
+            <strong>Tłumaczenie:</strong><br>
+            ${result.response}
+          `;
+        } else {
+          document.getElementById('translationResult').innerHTML = `
+            <span style="color: #ff6b6b;">Błąd: ${result.error}</span>
+          `;
+        }
+      } catch (error) {
+        document.getElementById('translationResult').innerHTML = `
+          <span style="color: #ff6b6b;">Błąd połączenia: ${error.message}</span>
+        `;
+      }
+    }
+
+    function testTranslation() {
+      toggleTranslator();
+      document.getElementById('translateInput').value = 'Hello, this is a test translation.';
+    }
+
+    function configureAgent(agentId) {
+      window.open(`/admin/agent-config?agent=${agentId}`, '_blank');
+    }
+
+    function viewKnowledge() {
+      window.open('/admin/knowledge-base', '_blank');
+    }
+
+    function viewWorkflow() {
+      window.open('/admin/workflow-manager', '_blank');
+    }
+
+    // Enter key search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performSearch();
+      }
+    });
+
+    document.getElementById('translateInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        translateText();
+      }
+    });
+
+    // Initialize
+    console.log('🤖 AI Browser with POLACZEK Agents System initialized');
+    console.log('Active agents:', activeAgents);
+  </script>
+</body>
+</html>

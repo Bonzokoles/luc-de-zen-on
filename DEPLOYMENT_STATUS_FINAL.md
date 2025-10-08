@@ -12,8 +12,9 @@
 ### Projekty Cloudflare Pages
 
 1. **mybonzo-production** - Główny produkcyjny projekt
+
    - Environment: Production
-   - Branch: main  
+   - Branch: main
    - Build: 371 modułów, 4049.19 KiB
    - URL: <https://539bb221.mybonzo-production.pages.dev>
 
@@ -46,7 +47,7 @@ Build: SUKCES
 
 ### Deploy #dd712506 (POPRZEDNI)
 
-- Data: 8.10.2025 09:48  
+- Data: 8.10.2025 09:48
 - Status: ✅ Sukces
 - Pierwszy deploy na mybonzo-production
 
@@ -85,7 +86,7 @@ Build: SUKCES
 ### Monitoring
 
 - Health check: /api/health-check
-- Status check: /api/status-check  
+- Status check: /api/status-check
 - Test connections: /api/test-connections
 
 ---

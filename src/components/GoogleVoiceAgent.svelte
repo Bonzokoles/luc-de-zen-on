@@ -48,6 +48,11 @@
 
   // Individual Agent Window States
   let showGeminiProWindow = false;
+  
+  // Widget state variables
+  let isMinimized = false;
+  let backgroundMode = false;
+  let keepConnectionAlive = true;
   let showGeminiVisionWindow = false;
   let showCodeBisonWindow = false;
   let showTextBisonWindow = false;

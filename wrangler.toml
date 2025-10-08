@@ -20,6 +20,12 @@ custom_domain = true
 # Workers KV Limits
 kv_namespaces = []
 
+# Cloudflare D1 Database for global sales data
+[[d1_databases]]
+binding = "DB"
+database_name = "mybonzo-analytics"
+database_id = "5d83cdc3-e897-4af2-b647-27352297430b"
+
 # Resource limits for optimal performance - Enhanced for production
 [limits]
 cpu_ms = 30000  # Reduced for better performance
