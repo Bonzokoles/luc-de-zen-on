@@ -57,7 +57,7 @@ export const createErrorResponse = (message: string, status: number = 400, extra
     {
       status,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         ...getCORSHeaders(),
       },
     }
@@ -73,7 +73,7 @@ export const createSuccessResponse = (data: any, status: number = 200) => {
     {
       status,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
         ...getCORSHeaders(),
       },
     }

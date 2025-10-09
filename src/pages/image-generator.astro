@@ -267,11 +267,9 @@ const pageMetadata = {
 
           <!-- Action Buttons -->
           <div class="mb-5 grid grid-cols-1 md:grid-cols-3 gap-3">
-            <button
-              id="generateBtn"
-              class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              onclick="generateContent()">✨ <span id="generateBtnText">Generuj Obraz</span></button
-            >
+                        <button
+                          id="generateBtn"
+                          class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">✨ <span id="generateBtnText">Generuj Obraz</span></button>
             <button
               id="randomPromptBtn"
               class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
@@ -1425,7 +1423,7 @@ const pageMetadata = {
 
   async function enhancedGenerateImage() {
     var btn = document.getElementById("generateBtn");
-    var loading = document.getElementById("loadingSpinner");
+    var loading = document.getElementById("loading");
     var errorBox = document.getElementById("errorBox");
     var resultSection = document.getElementById("resultSection");
     var generatedImage = document.getElementById("generatedImage");
@@ -1437,7 +1435,7 @@ const pageMetadata = {
     try {
       var generationType = document.getElementById("generationType").value;
       var prompt = document.getElementById("imagePrompt").value.trim();
-      var model = document.getElementById("model").value;
+      var model = document.getElementById("imageModel").value;
       var autoTranslate = document.getElementById("autoTranslate").checked;
       var nsfwBlur = document.getElementById("nsfwBlur").checked;
       

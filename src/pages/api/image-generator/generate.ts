@@ -176,6 +176,12 @@ export const GET: APIRoute = async ({ request }) => {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    console.log("=== IMAGE GENERATOR DEBUG (POST) ===");
+    const envForDebug = (locals as any)?.runtime?.env ?? {};
+    console.log("env available:", !!(locals as any)?.runtime?.env);
+    console.log("env?.AI available:", !!envForDebug.AI);
+    console.log("env keys:", Object.keys(envForDebug));
+
     const data = await request.json();
     const { prompt, style = 'realistic', size = '1024x1024', steps = 20, count = 1, enhance_prompt = false } = data;
     

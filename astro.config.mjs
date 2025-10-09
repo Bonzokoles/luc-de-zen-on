@@ -28,7 +28,13 @@ export default defineConfig({
   integrations: [
     tailwind(),
     react(),
-    svelte()
+    svelte({
+      compilerOptions: {
+        experimental: {
+          async: true
+        }
+      }
+    })
   ],
   
   // Optymalizacja bundlingu

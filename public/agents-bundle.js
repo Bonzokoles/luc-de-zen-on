@@ -751,7 +751,7 @@ Proszę stworzyć:
                     systemPrompt: this.generateSystemPrompt(agentName),
                     configuration: {
                         projectId: 'vertxaizenon-project-467918',
-                        location: 'global',
+                        location: 'globalThis',
                         agentId: this.generatePolaczekId(agentName),
                         language: 'pl',
                         timeZone: 'Europe/Warsaw'
@@ -1061,7 +1061,7 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
           this.googleManager = new GoogleAgentManager();
           this.googleFactory = new GoogleAgentFactory();
           
-          // Create global agents with demo credentials
+          // Create globalThis agents with demo credentials
           const apiKey = "demo-key";
           const projectId = "mybonzo-project";
           const config = {
@@ -1279,14 +1279,14 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
         setTimeout(async () => {
           console.log('🚀 Rozpoczynam automatyczne uruchamianie agentów...');
           
-          // Initialize global and local systems
+          // Initialize globalThis and local systems
           const globalSuccess = await this.initializeGlobal();
           const localSuccess = this.initializeLocal();
           
           if (globalSuccess && localSuccess) {
             console.log('🎉 Wszystkie agenci gotowi do pracy!');
             
-            // Expose global API
+            // Expose globalThis API
             if (typeof window !== 'undefined') {
               window.MyBonzoAgents = this;
               window.AGENTS_READY = true;

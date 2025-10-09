@@ -756,6 +756,31 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
       scroll-behavior: smooth;
     }
 
+    /* Disable zoom/scale on scroll wheel */
+    body {
+      zoom: 1.0;
+      -moz-transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+      transform: scale(1.0);
+      -ms-zoom: 1.0;
+      -webkit-user-scalable: no;
+      -moz-user-scalable: no;
+      -ms-user-scalable: no;
+      user-scalable: no;
+    }
+
+    /* Prevent zoom gestures */
+    * {
+      touch-action: manipulation;
+    }
+
+    /* Disable browser zoom controls */
+    @media screen {
+      body {
+        zoom: reset;
+      }
+    }
+
     /* Loading states */
     .loading {
       opacity: 0.7;
@@ -783,6 +808,38 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
   </style>
 
   <script>
+    // Setup zoom prevention
+    function setupZoomPrevention() {
+      // Disable zoom on scroll wheel
+      document.addEventListener('wheel', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          return false;
+        }
+      }, { passive: false });
+
+      // Disable pinch-to-zoom
+      document.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      // Disable double-tap zoom
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = (new Date()).getTime();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, { passive: false });
+
+      // Reset any zoom that might have been applied
+      document.body.style.zoom = '1';
+      document.body.style.transform = 'scale(1)';
+    }
+
     // Voice Assistant JavaScript functionality
     class VoiceAssistant {
       constructor() {
@@ -801,16 +858,21 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
       }
 
       setupEventListeners() {
+        console.log('Setting up event listeners...');
+        
         // Speed slider
         const speedSlider = document.getElementById('speedSlider');
         const speedValue = document.getElementById('speedValue');
+        console.log('Speed elements:', { speedSlider, speedValue });
+        
         speedSlider?.addEventListener('input', (e) => {
-          speedValue.textContent = e.target.value;
+          if (speedValue) speedValue.textContent = e.target.value;
         });
 
         // Temperature slider
         const temperatureSlider = document.getElementById('temperatureSlider');
         const temperatureValue = document.getElementById('temperatureValue');
+        console.log('Temperature elements:', { temperatureSlider, temperatureValue });
         
         // Volume slider for audio player
         const volumeSlider2 = document.getElementById('volumeSlider2');
@@ -822,19 +884,21 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
         });
 
         // Character counter for text input
-        const textInput = document.getElementById('textInput');
-        const charCounter = document.getElementById('charCounter');
+        const textInput = document.getElementById('speechText');
+        const charCounter = document.getElementById('charCount');
         textInput?.addEventListener('input', (e) => {
           const length = e.target.value.length;
-          charCounter.textContent = length;
-          
-          // Change color based on length
-          if (length > 500) {
-            charCounter.className = 'text-red-400 font-medium';
-          } else if (length > 300) {
-            charCounter.className = 'text-yellow-400 font-medium';
-          } else {
-            charCounter.className = 'text-gray-400 font-medium';
+          if (charCounter) {
+            charCounter.textContent = `${length} / 1000`;
+            
+            // Change color based on length
+            if (length > 500) {
+              charCounter.className = 'absolute bottom-3 right-3 text-xs text-red-400 font-medium';
+            } else if (length > 300) {
+              charCounter.className = 'absolute bottom-3 right-3 text-xs text-yellow-400 font-medium';
+            } else {
+              charCounter.className = 'absolute bottom-3 right-3 text-xs text-gray-500';
+            }
           }
         });
 
@@ -846,7 +910,11 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
 
         // Generate speech button
         const generateBtn = document.getElementById('generateSpeechBtn');
-        generateBtn?.addEventListener('click', () => this.generateSpeech());
+        console.log('Generate button:', generateBtn);
+        generateBtn?.addEventListener('click', () => {
+          console.log('Generate button clicked!');
+          this.generateSpeech();
+        });
 
         // Upload voice sample
         const uploadBtn = document.getElementById('uploadSampleBtn');
@@ -1419,9 +1487,16 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
       }
     }
 
-    // Initialize Voice Assistant when page loads
+    // Initialize everything when page loads
     document.addEventListener('DOMContentLoaded', () => {
-      new VoiceAssistant();
+      // Setup zoom prevention first
+      setupZoomPrevention();
+      
+      // Initialize Voice Assistant
+      const voiceAssistant = new VoiceAssistant();
+      window.voiceAssistant = voiceAssistant; // Make globally accessible for debugging
+      
+      console.log('Voice Assistant initialized successfully');
     });
   </script>
 </MyBonzoLayout>

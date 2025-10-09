@@ -3,6 +3,13 @@ import type { APIRoute } from "astro";
 // Enhanced AI Multi-Modal Generator with POLACZEK_T Auto-Translation
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
+    console.log("=== ENHANCED GENERATOR DEBUG (POST) ===");
+    const runtimeForDebug = (locals as any)?.runtime;
+    console.log("runtime available:", !!runtimeForDebug);
+    console.log("runtime.env available:", !!runtimeForDebug?.env);
+    console.log("runtime.env.AI available:", !!runtimeForDebug?.env?.AI);
+    console.log("runtime.env keys:", runtimeForDebug?.env ? Object.keys(runtimeForDebug.env) : "env is not available");
+
     const body = (await request.json()) as {
       prompt: string;
       model: string;
