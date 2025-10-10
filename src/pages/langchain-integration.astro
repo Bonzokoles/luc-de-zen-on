@@ -121,7 +121,32 @@ const metadata = {
         <div class="chain-type-card" data-chain="custom">
           <div class="chain-icon">⚙️</div>
           <h3 class="chain-title">Custom Chain</h3>
-          <p class="chain-description">Własne łańcuchy przetwarzania</p>
+      </div>
+
+      <!-- Example Prompts -->
+      <div class="example-prompts-container mb-12">
+        <h3 class="text-2xl font-bold text-white mb-4 text-center">Przykładowe Prompty</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="prompt-card" onclick="setPrompt('conversation', 'Jakie są główne różnice między Svelte i React?')">
+            <div class="prompt-title">💬 Porównanie Frameworków</div>
+            <div class="prompt-text">"Jakie są główne różnice między Svelte i React?"</div>
+          </div>
+          <div class="prompt-card" onclick="setPrompt('summarization', 'Podsumuj ten artykuł o najnowszych trendach w AI: [link do artykułu]')">
+            <div class="prompt-title">📄 Podsumowanie Artykułu</div>
+            <div class="prompt-text">"Podsumuj ten artykuł o najnowszych trendach w AI..."</div>
+          </div>
+          <div class="prompt-card" onclick="setPrompt('qa', 'Kto był pierwszym prezydentem Stanów Zjednoczonych?')">
+            <div class="prompt-title">❓ Pytanie i Odpowiedź</div>
+            <div class="prompt-text">"Kto był pierwszym prezydentem Stanów Zjednoczonych?"</div>
+          </div>
+          <div class="prompt-card" onclick="setPrompt('code_analysis', 'Przeanalizuj ten kod pod kątem błędów i zaproponuj ulepszenia: [wklej kod]')">
+            <div class="prompt-title">💻 Analiza Kodu</div>
+            <div class="prompt-text">"Przeanalizuj ten kod pod kątem błędów..."</div>
+          </div>
+          <div class="prompt-card" onclick="setPrompt('document_qa', 'Na podstawie tego dokumentu, jakie są główne wnioski? [wklej tekst dokumentu]')">
+            <div class="prompt-title">📚 Q&A z Dokumentu</div>
+            <div class="prompt-text">"Na podstawie tego dokumentu, jakie są główne wnioski..."</div>
+          </div>
         </div>
       </div>
 
@@ -203,6 +228,18 @@ const metadata = {
         </div>
       </div>
     </section>
+
+    <!-- Custom Chain Modal -->
+    <div id="customChainModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+      <div class="bg-gray-800 p-8 rounded-lg max-w-2xl w-full">
+        <h2 class="text-2xl font-bold text-white mb-4">Stwórz własny łańcuch</h2>
+        <textarea id="customChainPrompt" class="w-full h-40 p-2 rounded bg-gray-700 text-white" placeholder="Wpisz swój system prompt..."></textarea>
+        <div class="mt-4 flex justify-end gap-4">
+          <button id="cancelCustomChain" class="secondary-btn">Anuluj</button>
+          <button id="saveCustomChain" class="primary-btn">Zapisz i użyj</button>
+        </div>
+      </div>
+    </div>
   </main>
 
   <style>
@@ -435,9 +472,39 @@ const metadata = {
       color: white;
       font-size: 0.9rem;
     }
+
+    .prompt-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .prompt-card:hover {
+      border-color: #00d9ff;
+      background: rgba(0, 217, 255, 0.1);
+    }
+
+    .prompt-title {
+      font-weight: 600;
+      color: #00d9ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .prompt-text {
+      font-size: 0.9rem;
+      color: #b0b0b0;
+    }
   </style>
 
   <script>
+    function setPrompt(chainType, promptText) {
+      document.getElementById('chainType').value = chainType;
+      document.getElementById('langchainInput').value = promptText;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       const chainCards = document.querySelectorAll('.chain-type-card');
       const chainTypeSelect = document.getElementById('chainType');
@@ -527,6 +594,33 @@ const metadata = {
       langchainInput.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' && e.ctrlKey) {
           processBtn.click();
+        }
+      });
+
+      // Custom Chain Modal
+      const customChainCard = document.querySelector('[data-chain="custom"]');
+      const customChainModal = document.getElementById('customChainModal');
+      const cancelCustomChainBtn = document.getElementById('cancelCustomChain');
+      const saveCustomChainBtn = document.getElementById('saveCustomChain');
+      const customChainPrompt = document.getElementById('customChainPrompt');
+
+      customChainCard.addEventListener('click', () => {
+        customChainModal.classList.remove('hidden');
+      });
+
+      cancelCustomChainBtn.addEventListener('click', () => {
+        customChainModal.classList.add('hidden');
+      });
+
+      saveCustomChainBtn.addEventListener('click', () => {
+        const newPrompt = customChainPrompt.value.trim();
+        if (newPrompt) {
+          // This is a simplified implementation. A real implementation would
+          // require updating the backend to handle custom prompts.
+          alert(`Zapisano custom prompt: ${newPrompt}`);
+          chainTypeSelect.value = 'custom';
+          // You would need to pass the custom prompt to the API.
+          customChainModal.classList.add('hidden');
         }
       });
     });

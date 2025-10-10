@@ -1,4 +1,25 @@
+
 import type { APIRoute } from 'astro';
+import { promises as fs } from 'fs';
+import path from 'path';
+
+const DB_PATH = path.join(process.cwd(), 'src', 'data', 'mcp-servers.json');
+
+async function readDB() {
+  try {
+    const data = await fs.readFile(DB_PATH, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      return { servers: [] };
+    }
+    throw error;
+  }
+}
+
+async function writeDB(data) {
+  await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
+}
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
@@ -10,20 +31,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
         error: 'Action is required'
       }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
-    }
-
-    // Access Cloudflare runtime environment
-    const runtime = (locals as any)?.runtime;
-    const DEEPSEEK_API_KEY = runtime?.env?.DEEPSEEK_API_KEY;
-    
-    if (!DEEPSEEK_API_KEY) {
-      return new Response(JSON.stringify({
-        status: 'error',
-        error: 'API key not configured'
-      }), {
-        status: 500,
         headers: { 'Content-Type': 'application/json' }
       });
     }
@@ -116,52 +123,26 @@ export const GET: APIRoute = async ({ url }) => {
   }
 };
 
-// MCP Server Management Functions
 async function listMCPServers() {
+  const db = await readDB();
+  const running_servers = db.servers.filter(s => s.status === 'running').length;
+  const stopped_servers = db.servers.length - running_servers;
+  const total_memory = db.servers.reduce((acc, s) => acc + parseInt(s.memory_usage), 0);
+  const total_cpu = db.servers.reduce((acc, s) => acc + parseInt(s.cpu_usage), 0);
+
   return {
-    active_servers: [
-      {
-        name: 'gemini-pro-mcp',
-        status: 'running',
-        port: 3001,
-        uptime: '2d 14h 32m',
-        memory_usage: '156MB',
-        cpu_usage: '12%',
-        last_request: new Date().toISOString(),
-        version: '1.2.0'
-      },
-      {
-        name: 'langchain-orchestrator',
-        status: 'running',
-        port: 3002,
-        uptime: '1d 8h 15m',
-        memory_usage: '89MB',
-        cpu_usage: '8%',
-        last_request: new Date().toISOString(),
-        version: '0.9.1'
-      },
-      {
-        name: 'voice-ai-mcp',
-        status: 'stopped',
-        port: 3003,
-        uptime: '0m',
-        memory_usage: '0MB',
-        cpu_usage: '0%',
-        last_request: null,
-        version: '1.0.3'
-      }
-    ],
-    total_servers: 3,
-    running_servers: 2,
-    stopped_servers: 1,
-    total_memory: '245MB',
-    total_cpu: '20%'
+    active_servers: db.servers,
+    total_servers: db.servers.length,
+    running_servers: running_servers,
+    stopped_servers: stopped_servers,
+    total_memory: `${total_memory}MB`,
+    total_cpu: `${total_cpu}%`
   };
 }
 
 async function getServerStatus(serverName: string) {
-  const servers = await listMCPServers();
-  const server = servers.active_servers.find(s => s.name === serverName);
+  const db = await readDB();
+  const server = db.servers.find(s => s.name === serverName);
   
   if (!server) {
     throw new Error(`Server ${serverName} not found`);
@@ -184,32 +165,23 @@ async function getServerStatus(serverName: string) {
 }
 
 async function startMCPServer(serverName: string, config: any) {
-  // Simulate server startup
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  
-  return {
-    server_name: serverName,
-    status: 'starting',
-    port: config.port || 3000 + Math.floor(Math.random() * 100),
-    config: {
-      max_connections: config.max_connections || 100,
-      timeout: config.timeout || 30000,
-      debug_mode: config.debug_mode || false,
-      ...config
-    },
-    message: `Server ${serverName} is starting up...`
-  };
+  const db = await readDB();
+  const server = db.servers.find(s => s.name === serverName);
+  if (server) {
+    server.status = 'running';
+    await writeDB(db);
+  }
+  return { server_name: serverName, status: 'running' };
 }
 
 async function stopMCPServer(serverName: string) {
-  // Simulate server shutdown
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  
-  return {
-    server_name: serverName,
-    status: 'stopped',
-    message: `Server ${serverName} has been stopped`
-  };
+  const db = await readDB();
+  const server = db.servers.find(s => s.name === serverName);
+  if (server) {
+    server.status = 'stopped';
+    await writeDB(db);
+  }
+  return { server_name: serverName, status: 'stopped' };
 }
 
 async function getServerLogs(serverName: string) {
@@ -228,26 +200,31 @@ async function getServerLogs(serverName: string) {
 }
 
 async function createMCPServer(serverName: string, config: any) {
-  return {
-    server_name: serverName,
-    status: 'created',
-    config: {
-      port: config.port || 3000 + Math.floor(Math.random() * 100),
-      max_connections: config.max_connections || 100,
-      timeout: config.timeout || 30000,
-      auto_start: config.auto_start || false,
-      ...config
-    },
-    created_at: new Date().toISOString(),
-    message: `MCP Server ${serverName} created successfully`
+  const db = await readDB();
+  const newServer = {
+    name: serverName,
+    status: 'stopped',
+    port: config.port || 3000 + Math.floor(Math.random() * 100),
+    uptime: '0m',
+    memory_usage: '0MB',
+    cpu_usage: '0%',
+    last_request: null,
+    version: '1.0.0',
+    ...config
   };
+  db.servers.push(newServer);
+  await writeDB(db);
+  return newServer;
 }
 
 async function getServerHealth() {
+    const db = await readDB();
+    const running_servers = db.servers.filter(s => s.status === 'running').length;
+    const total_servers = db.servers.length;
   return {
     overall_health: 'healthy',
-    services_up: 2,
-    services_down: 1,
+    services_up: running_servers,
+    services_down: total_servers - running_servers,
     avg_response_time: 125,
     error_rate: 0.5,
     system_load: {
@@ -260,6 +237,8 @@ async function getServerHealth() {
 }
 
 async function getMonitoringData() {
+    const db = await readDB();
+    const running_servers = db.servers.filter(s => s.status === 'running').length;
   return {
     timestamp: new Date().toISOString(),
     metrics: {
@@ -268,7 +247,7 @@ async function getMonitoringData() {
       failed_requests: 12,
       avg_response_time: 125,
       peak_response_time: 1250,
-      active_servers: 2,
+      active_servers: running_servers,
       total_uptime: '15d 4h 23m'
     },
     alerts: [

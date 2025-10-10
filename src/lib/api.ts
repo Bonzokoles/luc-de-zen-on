@@ -1,32 +1,61 @@
-import { agentB } from "./agents/polaczek/b";
-import { agentD1 } from "./agents/polaczek/d1";
-import { agentDyrektor } from "./agents/polaczek/dyrektor";
-import { agentM1 } from "./agents/polaczek/m1";
-import { agentT } from "./agents/polaczek/t";
-import { bielikAgent } from "./agents/bielik";
-
-// Agreguje wszystkich agentów w jednym miejscu dla łatwego dostępu
-export const allAgents = {
-    b: agentB,
-    d1: agentD1,
-    dyrektor: agentDyrektor,
-    m1: agentM1,
-    t: agentT,
-};
-
-export const advancedAgents = {
-    bielik: bielikAgent,
-}
+import { agents } from "./agents/agent-store";
 
 // Funkcja do pobierania statusu wszystkich agentów
 export function getAgentsStatus() {
-    const polaczekStatus = Object.values(allAgents).map(agent => ({
+    return agents.map(agent => ({
         id: agent.id,
         name: agent.name,
         status: agent.status,
+        role: agent.role,
+        type: agent.id.split('_')[1],
+        description: agent.goal,
+        endpoint: agent.tools.join(', ')
     }));
+}
 
-    const bielikStatus = advancedAgents.bielik.getStatus();
+// Funkcja do dodawania nowego agenta
+export function addAgent(agentData) {
+    const newAgent = {
+        ...agentData,
+        id: agentData.id || `POLACZEK_${agentData.type}${Math.floor(Math.random() * 100)}`,
+        status: 'idle',
+        performance_metrics: {
+            avg_response_time: "N/A",
+            queries_per_minute: 0,
+            error_rate: "0%",
+        },
+    };
+    agents.push(newAgent);
+    return newAgent;
+}
 
-    return [...polaczekStatus, bielikStatus];
+// Funkcja do aktualizacji statusu agenta
+export function updateAgentStatus(id, status) {
+    const agent = agents.find(a => a.id === id);
+    if (agent) {
+        agent.status = status;
+        return agent;
+    }
+    return null;
+}
+
+// Funkcja do usuwania agenta
+export function removeAgent(id) {
+    const index = agents.findIndex(a => a.id === id);
+    if (index !== -1) {
+        const removedAgent = agents.splice(index, 1);
+        return removedAgent[0];
+    }
+    return null;
+}
+
+// Funkcja do pobierania konfiguracji (mock)
+export function getConfig() {
+    return {
+        gpu: "NVIDIA RTX 4090",
+        ram: "64GB DDR5",
+        db: "PostgreSQL",
+        routing: "Advanced",
+        agentsCount: agents.length,
+    };
 }

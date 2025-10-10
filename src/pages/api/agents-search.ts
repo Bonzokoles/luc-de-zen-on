@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json();
-    const { query, agents = [], translate = false, orchestrate = false } = body;
+    const { query, agents = [], translate = false, orchestrate = false, dateRange, fileType, siteSearch } = body;
 
     if (!query?.trim()) {
       return new Response(
@@ -96,8 +96,10 @@ Odpowiedz w języku polskim, konkretnie i praktycznie.`;
             include_answer: true,
             include_raw_content: false,
             max_results: 5,
-            include_domains: [],
+            include_domains: siteSearch ? [siteSearch] : [],
             exclude_domains: [],
+            date_range: dateRange,
+            file_type: fileType,
           }),
         });
 

@@ -1,1083 +1,918 @@
+
 ---
-// AI Business Box - Analiza biznesowa dla MŚP
-// MVP z DuckDB local i CSV upload
-import MyBonzoLayout from '@/layouts/MyBonzoLayout.astro';
+import BackroomInterface from '@/layouts/BackroomInterface.astro';
+import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
-<MyBonzoLayout title="AI Business Box - Analiza biznesowa dla MŚP">
-  <main class="min-h-screen relative">
-    <!-- Background - ciemny stonowany -->
-    <div class="fixed inset-0 bg-[#0a0a0a]">
-      <div class="absolute inset-0 bg-gradient-to-br from-slate-900/30 via-[#0a0a0a] to-[#0a0a0a]"></div>
+<BackroomInterface siteTitle="AI Business Box - Analiza biznesowa dla MŚP">
+  <div class="fixed inset-0 bg-[#0f1419]">
+    <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
+  </div>
+
+  <section class="backroom-header">
+    <div class="backroom-container">
+      <h1 class="backroom-title">AI Business Box</h1>
+      <p class="backroom-description">Analiza biznesowa dla małych i średnich przedsiębiorstw</p>
     </div>
+  </section>
 
-    <!-- Header -->
-    <section class="relative z-20 pt-20 pb-8 border-b border-gray-800">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center">
-          <h1 class="text-4xl font-bold text-gray-100 mb-4 font-['Rajdhani']">
-            💼 AI BUSINESS BOX
-          </h1>
-          <p class="text-xl text-gray-400 mb-2">
-            Analiza biznesowa dla małych i średnich przedsiębiorstw
-          </p>
-          <p class="text-gray-500">
-            DuckDB Local • BigQuery Cloud • Polski AI Assistant
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Main Dashboard -->
-    <section class="relative z-10 py-8">
-      <div class="max-w-7xl mx-auto px-4">
-        <!-- Status Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <!-- Local Database Status -->
-          <div class="bg-gray-900/50 border border-gray-700 p-5">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-base text-gray-400">Local Database</span>
-              <span id="local-status" class="w-3 h-3 rounded-full bg-green-500"></span>
-            </div>
-            <div class="text-xl font-semibold text-gray-200">DuckDB Ready</div>
-            <div class="text-base text-gray-500">In-memory analytics</div>
-          </div>
-
-          <!-- Cloud Status -->
-          <div class="bg-gray-900/50 border border-gray-700 p-5">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-base text-gray-400">Cloud Connection</span>
-              <span id="cloud-status" class="w-3 h-3 rounded-full bg-yellow-500"></span>
-            </div>
-            <div class="text-xl font-semibold text-gray-200">BigQuery</div>
-            <div class="text-base text-gray-500">Optional cloud sync</div>
-          </div>
-
-          <!-- AI Assistant Status -->
-          <div class="bg-gray-900/50 border border-gray-700 p-5">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-base text-gray-400">AI Assistant</span>
-              <span id="ai-status" class="w-3 h-3 rounded-full bg-green-500"></span>
-            </div>
-            <div class="text-xl font-semibold text-gray-200">Polski AI</div>
-            <div class="text-base text-gray-500">Business chat ready</div>
-          </div>
-
-          <!-- Data Status -->
-          <div class="bg-gray-900/50 border border-gray-700 p-5">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-base text-gray-400">Loaded Data</span>
-              <span id="data-status" class="w-3 h-3 rounded-full bg-gray-500"></span>
-            </div>
-            <div class="text-xl font-semibold text-gray-200" id="data-count">0 Tabele</div>
-            <div class="text-base text-gray-500">Załadowane dane</div>
-          </div>
-        </div>
-
-        <!-- Main Interface Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Data Upload Panel -->
-          <div class="bg-gray-900/30 border border-gray-700 p-6">
-            <h2 class="text-2xl font-semibold text-gray-200 mb-5 flex items-center">
-              <span class="text-3xl mr-3">📊</span> Upload Danych
-            </h2>
-            
-            <!-- CSV Upload -->
-            <div class="mb-6">
-              <label for="csv-upload" class="block text-base text-gray-400 mb-3">
-                Plik CSV/Excel (.csv, .xlsx)
-              </label>
-              <input 
-                type="file" 
-                id="csv-upload" 
-                accept=".csv,.xlsx" 
-                class="w-full p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base"
-              />
-              <button 
-                id="upload-btn" 
-                class="w-full mt-4 p-4 bg-blue-700 hover:bg-blue-600 text-white font-medium text-lg transition-colors"
-              >
-                Załaduj Dane
-              </button>
-            </div>
-
-            <!-- Quick Templates -->
-            <div>
-              <h3 class="text-lg font-medium text-gray-400 mb-3">Szablony Danych:</h3>
-              <div class="space-y-3">
-                <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="sales">
-                  <span class="text-2xl">📈</span> Sprzedaż miesięczna
-                </button>
-                <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="costs">
-                  <span class="text-2xl">💰</span> Koszty operacyjne
-                </button>
-                <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="customers">
-                  <span class="text-2xl">👥</span> Baza klientów
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- SQL Query Panel -->
-          <div class="bg-gray-900/30 border border-gray-700 p-6">
-            <h2 class="text-xl font-semibold text-gray-200 mb-4 flex items-center">
-              🔍 Analiza SQL
-            </h2>
-            
-            <!-- SQL Editor -->
-            <div class="mb-4">
-              <textarea 
-                id="sql-query" 
-                placeholder="SELECT * FROM uploaded_data LIMIT 10;"
-                class="w-full h-32 p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base font-mono resize-none"
-              ></textarea>
-            </div>
-
-            <!-- Quick Queries -->
-            <div class="mb-4">
-              <h3 class="text-base font-medium text-gray-400 mb-3">Szybkie Zapytania:</h3>
-              <div class="space-y-1">
-                <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
-                  SHOW TABLES
-                </button>
-                <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
-                  SELECT COUNT(*) FROM uploaded_data
-                </button>
-                <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
-                  DESCRIBE uploaded_data
-                </button>
-              </div>
-            </div>
-
+  <section class="backroom-section">
+    <div class="backroom-container">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Data Upload Panel -->
+        <div class="function-container">
+          <div class="mb-6">
+            <label for="csv-upload" class="block text-base text-gray-400 mb-3">
+              Plik CSV/Excel (.csv, .xlsx)
+            </label>
+            <input 
+              type="file" 
+              id="csv-upload" 
+              accept=".csv,.xlsx" 
+              class="w-full p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base"
+            />
             <button 
-              id="execute-sql" 
-              class="w-full p-4 bg-green-700 hover:bg-green-600 text-white font-medium text-lg transition-colors mt-4"
+              id="upload-btn" 
+              class="w-full mt-4 p-4 bg-blue-700 hover:bg-blue-600 text-white font-medium text-lg transition-colors"
             >
-              Wykonaj Zapytanie
+              Załaduj Dane
             </button>
           </div>
 
-          <!-- AI Chat Panel with Multi-Model Support -->
-          <div class="bg-gray-900/30 border border-gray-700 p-6">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-xl font-semibold text-gray-200 flex items-center">
-                🤖 Multi-Model AI Assistant
-              </h2>
-              
-              <!-- Agent & Model Selector -->
-              <div class="flex gap-2">
-                <select id="agent-selector" class="text-sm p-3 bg-gray-800 border border-gray-600 text-gray-300">
-                  <option value="POLACZEK_B">💼 POLĄCZEK Business</option>
-                  <option value="POLACZEK_F">💰 POLĄCZEK Finance</option>
-                </select>
-                <select id="model-selector" class="text-sm p-3 bg-gray-800 border border-gray-600 text-gray-300">
-                  <option value="@cf/facebook/bart-large-cnn">📊 BART CNN</option>
-                  <option value="@cf/deepseek-ai/deepseek-math-7b-instruct">🔢 DeepSeek Math</option>
-                  <option value="@cf/meta/llama-3.1-8b-instruct">� Llama 3.1</option>
-                  <option value="deepseek-chat">💎 DeepSeek Chat</option>
-                </select>
-              </div>
-            </div>
-            
-            <!-- Model Status -->
-            <div id="model-status" class="mb-4 p-3 bg-gray-800/50 border border-gray-600 text-sm text-gray-400">
-              🔄 Ładowanie dostępnych modeli...
-            </div>
-            
-            <!-- Chat Messages -->
-            <div id="chat-messages" class="h-64 overflow-y-auto mb-4 p-3 bg-gray-800 border border-gray-600">
-              <div class="text-gray-400 text-base">
-                👋 Wybierz specjalistę AI i model, potem zadaj pytanie o analizę biznesową.
-              </div>
-            </div>
-
-            <!-- Chat Input -->
-            <div class="flex gap-3">
-              <input 
-                type="text" 
-                id="chat-input" 
-                placeholder="Jak wygląda sprzedaż w ostatnim kwartale?"
-                class="flex-1 p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base"
-              />
-              <button 
-                id="send-chat" 
-                class="p-4 bg-purple-700 hover:bg-purple-600 text-white text-xl transition-colors"
-              >
-                📤
-              </button>
-            </div>
-
-            <!-- Quick Questions -->
-            <div class="mt-4">
-              <div class="text-base text-gray-500 mb-4">Szybkie pytania:</div>
-              <div class="space-y-2">
-                <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
-                  Jakie są najlepsze produkty?
-                </button>
-                <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
-                  Analiza trendów sprzedaży
-                </button>
-                <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
-                  Prognoza na następny miesiąc
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Results Panel -->
-        <div class="mt-6 bg-gray-900/30 border border-gray-700 p-6">
-          <h2 class="text-2xl font-semibold text-gray-200 mb-5 flex items-center">
-            📊 Wyniki Analizy
-          </h2>
-          <div id="results-container" class="min-h-48">
-            <div class="text-center text-gray-500 py-12">
-              Załaduj dane i wykonaj pierwsze zapytanie aby zobaczyć wyniki
-            </div>
-          </div>
-        </div>
-
-        <!-- Global Sales Data Section -->
-        <div class="mt-6 bg-gray-900/30 border border-gray-700 p-6">
-          <h2 class="text-xl font-semibold text-gray-200 mb-4">🌍 Dane Sprzedażowe Globalne</h2>
-          <div id="global-sales-container" class="space-y-4">
-            <div class="text-center text-gray-500 py-8">
-              <div class="mb-4">📊</div>
-              <div>Ładowanie danych sprzedażowych...</div>
-            </div>
-          </div>
-          <div class="mt-4 flex gap-3">
-            <button id="load-sales-data" class="px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white transition-colors">
-              📥 Załaduj Dane Sprzedażowe
-            </button>
-            <button id="import-sales-file" class="px-4 py-2 bg-green-700 hover:bg-green-600 text-white transition-colors">
-              📂 Import Pliku JSON
-            </button>
-            <input type="file" id="sales-file-input" accept=".json,.csv" class="hidden">
-          </div>
-        </div>
-
-        <!-- Reports Section -->
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Quick Reports -->
-          <div class="bg-gray-900/30 border border-gray-700 p-6">
-            <h2 class="text-xl font-semibold text-gray-200 mb-4">📋 Szybkie Raporty</h2>
+          <!-- Quick Templates -->
+          <div>
+            <h3 class="text-lg font-medium text-gray-400 mb-3">Szablony Danych:</h3>
             <div class="space-y-3">
-              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
-                🌍 Raport Sprzedaży Globalnej
+              <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="sales">
+                <span class="text-2xl">📈</span> Sprzedaż miesięczna
               </button>
-              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
-                📊 Raport sprzedaży miesięcznej
+              <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="costs">
+                <span class="text-2xl">💰</span> Koszty operacyjne
               </button>
-              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
-                💰 Analiza rentowności
+              <button class="template-btn w-full p-4 bg-gray-800 hover:bg-gray-700 text-gray-300 text-lg border border-gray-600 transition-colors" data-template="customers">
+                <span class="text-2xl">👥</span> Baza klientów
               </button>
-              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
-                👥 Segmentacja klientów
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Query Panel -->
+        <div class="function-container">
+          <div class="mb-4">
+            <textarea 
+              id="sql-query" 
+              placeholder="SELECT * FROM uploaded_data LIMIT 10;"
+              class="w-full h-32 p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base font-mono resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Quick Queries -->
+          <div class="mb-4">
+            <h3 class="text-base font-medium text-gray-400 mb-3">Szybkie Zapytania:</h3>
+            <div class="space-y-1">
+              <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
+                SHOW TABLES
               </button>
-              <button class="report-btn w-full p-3 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-600 transition-colors">
-                📈 Trendy i prognozy
+              <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
+                SELECT COUNT(*) FROM uploaded_data
+              </button>
+              <button class="quick-query w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors">
+                DESCRIBE uploaded_data
               </button>
             </div>
           </div>
 
-          <!-- Export Options -->
-          <div class="bg-gray-900/30 border border-gray-700 p-6">
-            <h2 class="text-xl font-semibold text-gray-200 mb-4">💾 Export Danych</h2>
-            <div class="space-y-3">
-              <button class="export-btn w-full p-3 bg-indigo-700 hover:bg-indigo-600 text-white border border-indigo-600 transition-colors">
-                📄 Export do CSV
+          <button 
+            id="execute-sql" 
+            class="w-full p-4 bg-green-700 hover:bg-green-600 text-white font-medium text-lg transition-colors mt-4"
+          >
+            Wykonaj Zapytanie
+          </button>
+        </div>
+
+        <!-- AI Chat Panel -->
+        <div class="function-container">
+          <h2 class="text-xl font-semibold text-primary mb-4">🤖 Multi-Model AI Assistant</h2>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-200 flex items-center">
+              🤖 Multi-Model AI Assistant
+            </h2>
+            
+            <!-- Agent & Model Selector -->
+            <div class="flex gap-2">
+              <select id="agent-selector" class="text-sm p-3 bg-gray-800 border border-gray-600 text-gray-300">
+                <option value="POLACZEK_B">💼 POLĄCZEK Business</option>
+                <option value="POLACZEK_F">💰 POLĄCZEK Finance</option>
+              </select>
+              <select id="model-selector" class="text-sm p-3 bg-gray-800 border border-gray-600 text-gray-300">
+                <option value="@cf/facebook/bart-large-cnn">📊 BART CNN</option>
+                <option value="@cf/deepseek-ai/deepseek-math-7b-instruct">🔢 DeepSeek Math</option>
+                <option value="@cf/meta/llama-3.1-8b-instruct">🦙 Llama 3.1</option>
+                <option value="deepseek-chat">💎 DeepSeek Chat</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Model Status -->
+          <div id="model-status" class="mb-4 p-3 bg-gray-800/50 border border-gray-600 text-sm text-gray-400">
+            🔄 Ładowanie dostępnych modeli...
+          </div>
+          
+          <!-- Chat Messages -->
+          <div id="chat-messages" class="h-64 overflow-y-auto mb-4 p-3 bg-gray-800 border border-gray-600">
+            <div class="text-gray-400 text-base">
+              👋 Wybierz specjalistę AI i model, potem zadaj pytanie o analizę biznesową.
+            </div>
+          </div>
+
+          <!-- Chat Input -->
+          <div class="flex gap-3">
+            <input 
+              type="text" 
+              id="chat-input" 
+              placeholder="Jak wygląda sprzedaż w ostatnim kwartale?"
+              class="flex-1 p-4 bg-gray-800 border border-gray-600 text-gray-200 text-base"
+            />
+            <button 
+              id="send-chat" 
+              class="p-4 bg-purple-700 hover:bg-purple-600 text-white text-xl transition-colors"
+            >
+              📤
+            </button>
+          </div>
+
+          <!-- Quick Questions -->
+          <div class="mt-4">
+            <div class="text-base text-gray-500 mb-4">Szybkie pytania:</div>
+            <div class="space-y-2">
+              <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
+                Jakie są najlepsze produkty?
               </button>
-              <button class="export-btn w-full p-3 bg-indigo-700 hover:bg-indigo-600 text-white border border-indigo-600 transition-colors">
-                📊 Export do Excel
+              <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
+                Analiza trendów sprzedaży
               </button>
-              <button class="export-btn w-full p-3 bg-indigo-700 hover:bg-indigo-600 text-white border border-indigo-600 transition-colors">
-                📋 Raport PDF
-              </button>
-              <button class="export-btn w-full p-3 bg-indigo-700 hover:bg-indigo-600 text-white border border-indigo-600 transition-colors">
-                ☁️ Sync do BigQuery
+              <button class="quick-question w-full text-left p-3 text-sm text-gray-400 hover:text-gray-200 hover:bg-gray-800 transition-colors border border-gray-600">
+                Prognoza na następny miesiąc
               </button>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- Loading Overlay -->
-  <div id="loading-overlay" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center">
-    <div class="bg-gray-900 border border-gray-700 p-8 text-center">
-      <div class="animate-spin w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-      <div class="text-gray-200">Przetwarzanie danych...</div>
+      <!-- Results Panel -->
+      <div class="mt-6 function-container">
+        <h2 class="text-2xl font-semibold text-primary mb-5">📊 Wyniki Analizy</h2>
+        <div id="results-container" class="min-h-48">
+          <div class="text-center text-gray-500 py-12">
+            Załaduj dane i wykonaj pierwsze zapytanie aby zobaczyć wyniki
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POLACZEK_T Floating Assistant -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
+    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
+      <AiHelpAssistant client:load pageTitle="AI Business Box - Analiza biznesowa dla MŚP" />
     </div>
   </div>
-</MyBonzoLayout>
 
-<script>
-  // AI Business Box JavaScript
-  let duckdb = null;
-  let connection = null;
-  let uploadedData = new Map();
+  <script>
+    // AI Business Box JavaScript
+    let duckdb = null;
+    let connection = null;
+    let uploadedData = new Map();
 
-  // Initialize system and check API health
-  async function initDuckDB() {
-    try {
-      console.log('Initializing AI Business Box...');
-      
-      // Check API health
-      const response = await fetch('/api/ai-business-box?action=health');
-      const data = await response.json();
-      
-      if (data.success) {
-        updateStatus('local-status', data.services.duckdb);
-        updateStatus('ai-status', data.services.ai_assistant);
-        updateStatus('cloud-status', data.services.bigquery);
-        
-        addChatMessage('system', '✅ AI Business Box zainicjalizowany pomyślnie');
-        
-        // Load demo data
-        uploadedData.set('demo_sales', {
-          columns: ['date', 'product', 'amount', 'quantity'],
-          rows: [
-            ['2024-01-01', 'Produkt A', 1500, 10],
-            ['2024-01-02', 'Produkt B', 2300, 15],
-            ['2024-01-03', 'Produkt A', 1800, 12],
-            ['2024-01-04', 'Produkt C', 2100, 18],
-            ['2024-01-05', 'Produkt A', 1700, 11]
-          ]
-        });
-        
-        updateDataCount();
-        
-        // Load statistics from API
-        loadStats();
-        
-      } else {
-        throw new Error('API initialization failed');
-      }
-      
-    } catch (error) {
-      console.error('System initialization failed:', error);
-      updateStatus('local-status', false);
-      updateStatus('ai-status', false);
-      addChatMessage('system', '❌ Błąd inicjalizacji systemu');
-    }
-  }
-
-  // Load statistics from API
-  async function loadStats() {
-    try {
-      const response = await fetch('/api/ai-business-box?action=stats');
-      const data = await response.json();
-      
-      if (data.success) {
-        addChatMessage('system', `📊 Załadowano dane: ${data.stats.customers_count} klientów, zysk ${data.stats.profit_margin}%`);
-      }
-    } catch (error) {
-      console.error('Failed to load stats:', error);
-    }
-  }
-
-  // Load available AI models and agents
-  async function loadAvailableModels() {
-    try {
-      const response = await fetch('/api/ai-business-box?action=models');
-      const data = await response.json();
-      
-      if (data.success) {
-        updateModelStatus('✅ Modele załadowane: ' + Object.keys(data.models.cloudflare).length + ' CF + ' + Object.keys(data.models.external).length + ' zewnętrzne');
-        console.log('Available models:', data.models);
-        console.log('Available agents:', data.agents);
-      }
-    } catch (error) {
-      updateModelStatus('❌ Błąd ładowania modeli');
-      console.error('Failed to load models:', error);
-    }
-  }
-  
-  // Update model status display
-  function updateModelStatus(message) {
-    const statusElement = document.getElementById('model-status');
-    if (statusElement) {
-      statusElement.textContent = message;
-      statusElement.className = message.includes('✅') 
-        ? 'mb-4 p-3 bg-green-900/30 border border-green-600 text-sm text-green-400'
-        : message.includes('❌')
-        ? 'mb-4 p-3 bg-red-900/30 border border-red-600 text-sm text-red-400'
-        : 'mb-4 p-3 bg-gray-800/50 border border-gray-600 text-sm text-gray-400';
-    }
-  }
-
-  // Update status indicators
-  function updateStatus(elementId, isActive) {
-    const element = document.getElementById(elementId);
-    if (element) {
-      element.className = `w-2 h-2 rounded-full ${isActive ? 'bg-green-500' : 'bg-red-500'}`;
-    }
-  }
-
-  // Update data count
-  function updateDataCount() {
-    const countElement = document.getElementById('data-count');
-    if (countElement) {
-      countElement.textContent = `${uploadedData.size} Tabele`;
-    }
-    updateStatus('data-status', uploadedData.size > 0);
-  }
-
-  // File upload handler with real processing
-  function setupFileUpload() {
-    const uploadBtn = document.getElementById('upload-btn');
-    const fileInput = document.getElementById('csv-upload');
-    
-    uploadBtn?.addEventListener('click', async () => {
-      const file = fileInput?.files[0];
-      if (!file) {
-        alert('Wybierz plik do załadowania');
-        return;
-      }
-      
-      // Validate file type
-      const validTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
-      if (!validTypes.includes(file.type) && !file.name.endsWith('.csv') && !file.name.endsWith('.xlsx')) {
-        alert('Obsługiwane formaty: CSV, Excel (.xlsx)');
-        return;
-      }
-      
-      showLoading(true);
-      addChatMessage('system', `📤 Ładowanie pliku "${file.name}"...`);
-      
+    // Initialize system and check API health
+    async function initDuckDB() {
       try {
-        // Read file content
-        const fileContent = await readFileContent(file);
+        console.log('Initializing AI Business Box...');
         
-        // Call API to process file
-        const response = await fetch('/api/ai-business-box', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            action: 'upload_csv',
-            data: {
-              filename: file.name,
-              content: fileContent,
-              size: file.size
-            }
-          })
-        });
-        
+        // Check API health
+        const response = await fetch('/api/ai-business-box?action=health');
         const data = await response.json();
         
         if (data.success) {
-          const tableName = data.table_name;
-          uploadedData.set(tableName, {
-            columns: data.columns,
-            rows: [] // Will be loaded from API
+          updateStatus('local-status', data.services.duckdb);
+          updateStatus('ai-status', data.services.ai_assistant);
+          updateStatus('cloud-status', data.services.bigquery);
+          
+          addChatMessage('system', '✅ AI Business Box zainicjalizowany pomyślnie');
+          
+          // Load demo data
+          uploadedData.set('demo_sales', {
+            columns: ['date', 'product', 'amount', 'quantity'],
+            rows: [
+              ['2024-01-01', 'Produkt A', 1500, 10],
+              ['2024-01-02', 'Produkt B', 2300, 15],
+              ['2024-01-03', 'Produkt A', 1800, 12],
+              ['2024-01-04', 'Produkt C', 2100, 18],
+              ['2024-01-05', 'Produkt A', 1700, 11]
+            ]
           });
           
           updateDataCount();
-          addChatMessage('system', `✅ ${data.message} - ${data.rows_imported} rekordów`);
-          addChatMessage('system', `📊 Kolumny: ${data.columns.join(', ')}`);
           
-          // Auto-populate SQL query
-          const queryInput = document.getElementById('sql-query');
-          if (queryInput) {
-            queryInput.value = `SELECT * FROM ${tableName} LIMIT 10;`;
-          }
+          // Load statistics from API
+          loadStats();
           
         } else {
-          throw new Error(data.error || 'Upload failed');
+          throw new Error('API initialization failed');
         }
         
       } catch (error) {
-        addChatMessage('system', `❌ Błąd podczas ładowania pliku: ${error.message}`);
-        console.error('File upload error:', error);
+        console.error('System initialization failed:', error);
+        updateStatus('local-status', false);
+        updateStatus('ai-status', false);
+        addChatMessage('system', '❌ Błąd inicjalizacji systemu');
       }
-      
-      showLoading(false);
-    });
-  }
+    }
 
-  // Read file content
-  function readFileContent(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      
-      reader.onload = (e) => {
-        resolve(e.target.result);
-      };
-      
-      reader.onerror = () => {
-        reject(new Error('Nie można odczytać pliku'));
-      };
-      
-      // Read as text for CSV, as binary for Excel
-      if (file.name.endsWith('.csv')) {
-        reader.readAsText(file);
-      } else {
-        reader.readAsArrayBuffer(file);
-      }
-    });
-  }
-
-  // SQL Query execution via API
-  function setupSQLExecutor() {
-    const executeBtn = document.getElementById('execute-sql');
-    const queryInput = document.getElementById('sql-query');
-    
-    executeBtn?.addEventListener('click', async () => {
-      const query = queryInput?.value.trim();
-      if (!query) {
-        alert('Wprowadź zapytanie SQL');
-        return;
-      }
-      
-      showLoading(true);
-      
+    // Load statistics from API
+    async function loadStats() {
       try {
-        // Call API to execute SQL
-        const response = await fetch('/api/ai-business-box', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            action: 'execute_sql',
-            data: { query }
-          })
-        });
-        
+        const response = await fetch('/api/ai-business-box?action=stats');
         const data = await response.json();
         
         if (data.success) {
-          displayResults(data.results);
-          addChatMessage('system', `✅ Zapytanie wykonane w ${data.execution_time || '0.05s'}. Znaleziono ${data.results.length} rekordów.`);
-        } else {
-          throw new Error(data.error || 'Unknown SQL error');
+          addChatMessage('system', `📊 Załadowano dane: ${data.stats.customers_count} klientów, zysk ${data.stats.profit_margin}%`);
         }
-        
       } catch (error) {
-        addChatMessage('system', `❌ Błąd SQL: ${error.message}`);
-        console.error('SQL execution error:', error);
+        console.error('Failed to load stats:', error);
       }
-      
-      showLoading(false);
-    });
+    }
 
-    // Quick queries
-    document.querySelectorAll('.quick-query').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (queryInput) {
-          queryInput.value = btn.textContent;
-        }
-      });
-    });
-  }
-
-  // Chat system with multi-model AI support
-  function setupChat() {
-    const sendBtn = document.getElementById('send-chat');
-    const chatInput = document.getElementById('chat-input');
-    const agentSelector = document.getElementById('agent-selector');
-    const modelSelector = document.getElementById('model-selector');
-    
-    // Load available models on startup
-    loadAvailableModels();
-    
-    const sendMessage = async () => {
-      const message = chatInput?.value.trim();
-      if (!message) return;
-      
-      const selectedAgent = agentSelector?.value || 'POLACZEK_B';
-      const selectedModel = modelSelector?.value || '@cf/qwen/qwen1.5-7b-chat-awq';
-      const selectedRole = document.getElementById('role-selector')?.value || 'assistant';
-      
-      addChatMessage('user', message);
-      chatInput.value = '';
-      
-      // Show typing indicator with enhanced info
-      const agentName = selectedAgent === 'POLACZEK_B' ? 'POLĄCZEK Business' : 'POLĄCZEK Finance';
-      const roleName = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
-      const typingId = addChatMessage('ai', `⌨️ ${agentName} (${roleName}) analizuje...`);
-      
+    // Load available AI models and agents
+    async function loadAvailableModels() {
       try {
-        // Call multi-model AI API
-        const response = await fetch('/api/ai-business-box', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            action: 'ai_chat',
-            data: { 
-              message, 
-              agent: selectedAgent,
-              model: selectedModel
-            }
-          })
-        });
-        
+        const response = await fetch('/api/ai-business-box?action=models');
         const data = await response.json();
         
-        // Remove typing indicator
-        removeMessage(typingId);
-        
         if (data.success) {
-          addChatMessage('ai', `[${data.agent}]: ${data.response}`);
-          // Update model status
-          updateModelStatus(`✅ Model: ${data.model.split('/').pop()}`);
-        } else {
-          throw new Error(data.error || 'AI service error');
+          updateModelStatus('✅ Modele załadowane: ' + Object.keys(data.models.cloudflare).length + ' CF + ' + Object.keys(data.models.external).length + ' zewnętrzne');
+          console.log('Available models:', data.models);
+          console.log('Available agents:', data.agents);
+        }
+      } catch (error) {
+        updateModelStatus('❌ Błąd ładowania modeli');
+        console.error('Failed to load models:', error);
+      }
+    }
+    
+    // Update model status display
+    function updateModelStatus(message) {
+      const statusElement = document.getElementById('model-status');
+      if (statusElement) {
+        statusElement.textContent = message;
+        statusElement.className = message.includes('✅') 
+          ? 'mb-4 p-3 bg-green-900/30 border border-green-600 text-sm text-green-400'
+          : message.includes('❌')
+          ? 'mb-4 p-3 bg-red-900/30 border border-red-600 text-sm text-red-400'
+          : 'mb-4 p-3 bg-gray-800/50 border border-gray-600 text-sm text-gray-400';
+      }
+    }
+
+    // Update status indicators
+    function updateStatus(elementId, isActive) {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.className = `w-2 h-2 rounded-full ${isActive ? 'bg-green-500' : 'bg-red-500'}`;
+      }
+    }
+
+    // Update data count
+    function updateDataCount() {
+      const countElement = document.getElementById('data-count');
+      if (countElement) {
+        countElement.textContent = `${uploadedData.size} Tabele`;
+      }
+      updateStatus('data-status', uploadedData.size > 0);
+    }
+
+    // File upload handler with real processing
+    function setupFileUpload() {
+      const uploadBtn = document.getElementById('upload-btn');
+      const fileInput = document.getElementById('csv-upload');
+      
+      uploadBtn?.addEventListener('click', async () => {
+        const file = fileInput?.files[0];
+        if (!file) {
+          alert('Wybierz plik do załadowania');
+          return;
         }
         
-      } catch (error) {
-        removeMessage(typingId);
-        addChatMessage('ai', '❌ Przepraszam, wystąpił błąd w komunikacji z AI. Spróbuj ponownie.');
-        console.error('AI chat error:', error);
-      }
-    };
-    
-    sendBtn?.addEventListener('click', sendMessage);
-    
-    chatInput?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-
-    // Quick questions
-    document.querySelectorAll('.quick-question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (chatInput) {
-          chatInput.value = btn.textContent;
+        // Validate file type
+        const validTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+        if (!validTypes.includes(file.type) && !file.name.endsWith('.csv') && !file.name.endsWith('.xlsx')) {
+          alert('Obsługiwane formaty: CSV, Excel (.xlsx)');
+          return;
         }
-      });
-    });
-  }
-
-  // Add chat message with ID for removal
-  function addChatMessage(type, message) {
-    const messagesContainer = document.getElementById('chat-messages');
-    if (!messagesContainer) return;
-    
-    const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    
-    const messageDiv = document.createElement('div');
-    messageDiv.id = messageId;
-    messageDiv.className = `mb-3 ${type === 'user' ? 'text-right' : 'text-left'}`;
-    
-    const bubble = document.createElement('div');
-    bubble.className = `inline-block p-4 max-w-xs text-base ${
-      type === 'user' 
-        ? 'bg-blue-600 text-white' 
-        : type === 'ai'
-        ? 'bg-purple-600 text-white'
-        : 'bg-gray-700 text-gray-300'
-    }`;
-    bubble.textContent = message;
-    
-    messageDiv.appendChild(bubble);
-    messagesContainer.appendChild(messageDiv);
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    
-    return messageId;
-  }
-
-  // Remove message by ID
-  function removeMessage(messageId) {
-    const messageElement = document.getElementById(messageId);
-    if (messageElement) {
-      messageElement.remove();
-    }
-  }
-
-  // Display query results
-  function displayResults(results) {
-    const container = document.getElementById('results-container');
-    if (!container || !results.length) return;
-    
-    container.innerHTML = '';
-    
-    // Create table
-    const table = document.createElement('table');
-    table.className = 'w-full text-base';
-    
-    // Headers
-    const headers = Object.keys(results[0]);
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    headerRow.className = 'border-b border-gray-600';
-    
-    headers.forEach(header => {
-      const th = document.createElement('th');
-      th.className = 'text-left p-2 text-gray-400 font-medium';
-      th.textContent = header;
-      headerRow.appendChild(th);
-    });
-    
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
-    
-    // Body
-    const tbody = document.createElement('tbody');
-    
-    results.forEach((row, i) => {
-      const tr = document.createElement('tr');
-      tr.className = i % 2 === 0 ? 'bg-gray-800/50' : 'bg-gray-900/50';
-      
-      headers.forEach(header => {
-        const td = document.createElement('td');
-        td.className = 'p-2 text-gray-300';
-        td.textContent = row[header];
-        tr.appendChild(td);
-      });
-      
-      tbody.appendChild(tr);
-    });
-    
-    table.appendChild(tbody);
-    container.appendChild(table);
-  }
-
-  // Show/hide loading
-  function showLoading(show) {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-      overlay.classList.toggle('hidden', !show);
-      overlay.classList.toggle('flex', show);
-    }
-  }
-
-  // Setup report buttons with real API calls
-  function setupReports() {
-    document.querySelectorAll('.report-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const reportName = btn.textContent.trim();
-        addChatMessage('system', `📊 Generowanie raportu: ${reportName}...`);
         
         showLoading(true);
+        addChatMessage('system', `📤 Ładowanie pliku "${file.name}"...`);
         
         try {
+          // Read file content
+          const fileContent = await readFileContent(file);
+          
+          // Call API to process file
           const response = await fetch('/api/ai-business-box', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              action: 'generate_report',
-              data: { report_type: reportName }
+              action: 'upload_csv',
+              data: {
+                filename: file.name,
+                content: fileContent,
+                size: file.size
+              }
             })
           });
           
           const data = await response.json();
           
           if (data.success) {
-            const reportData = data.report.data;
-            displayResults([
-              {metric: 'Przychody', value: `${(reportData.revenue / 1000).toFixed(0)}k PLN`, trend: '+12%'},
-              {metric: 'Koszty', value: `${(reportData.costs / 1000).toFixed(0)}k PLN`, trend: '-5%'},
-              {metric: 'Zysk', value: `${(reportData.profit / 1000).toFixed(0)}k PLN`, trend: '+18%'},
-              {metric: 'Marża', value: `${reportData.margin}%`, trend: '+2%'}
-            ]);
+            const tableName = data.table_name;
+            uploadedData.set(tableName, {
+              columns: data.columns,
+              rows: [] // Will be loaded from API
+            });
             
-            addChatMessage('system', `✅ Raport "${reportName}" wygenerowany pomyślnie`);
+            updateDataCount();
+            addChatMessage('system', `✅ ${data.message} - ${data.rows_imported} rekordów`);
+            addChatMessage('system', `📊 Kolumny: ${data.columns.join(', ')}`);
+            
+            // Auto-populate SQL query
+            const queryInput = document.getElementById('sql-query');
+            if (queryInput) {
+              queryInput.value = `SELECT * FROM ${tableName} LIMIT 10;`;
+            }
+            
           } else {
-            throw new Error(data.error);
+            throw new Error(data.error || 'Upload failed');
           }
           
         } catch (error) {
-          addChatMessage('system', `❌ Błąd generowania raportu: ${error.message}`);
+          addChatMessage('system', `❌ Błąd podczas ładowania pliku: ${error.message}`);
+          console.error('File upload error:', error);
         }
         
         showLoading(false);
       });
-    });
-  }
+    }
 
-  // Setup export buttons with real functionality
-  function setupExports() {
-    document.querySelectorAll('.export-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const exportType = btn.textContent.trim();
-        addChatMessage('system', `💾 Przygotowuję export: ${exportType}...`);
+    // Read file content
+    function readFileContent(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+          resolve(e.target.result);
+        };
+        
+        reader.onerror = () => {
+          reject(new Error('Nie można odczytać pliku'));
+        };
+        
+        // Read as text for CSV, as binary for Excel
+        if (file.name.endsWith('.csv')) {
+          reader.readAsText(file);
+        } else {
+          reader.readAsArrayBuffer(file);
+        }
+      });
+    }
+
+    // SQL Query execution via API
+    function setupSQLExecutor() {
+      const executeBtn = document.getElementById('execute-sql');
+      const queryInput = document.getElementById('sql-query');
+      
+      executeBtn?.addEventListener('click', async () => {
+        const query = queryInput?.value.trim();
+        if (!query) {
+          alert('Wprowadź zapytanie SQL');
+          return;
+        }
+        
+        showLoading(true);
         
         try {
-          let action = 'export_data';
-          let format = 'csv';
-          
-          if (exportType.includes('CSV')) format = 'csv';
-          else if (exportType.includes('Excel')) format = 'xlsx';
-          else if (exportType.includes('PDF')) format = 'pdf';
-          else if (exportType.includes('BigQuery')) action = 'sync_bigquery';
-          
+          // Call API to execute SQL
           const response = await fetch('/api/ai-business-box', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              action: action,
-              data: { format: format, table: 'current_data' }
+              action: 'execute_sql',
+              data: { query }
             })
           });
           
           const data = await response.json();
           
           if (data.success) {
-            addChatMessage('system', `✅ ${data.message}`);
-            
-            if (data.download_url) {
-              // Simulate download link
-              addChatMessage('system', `📁 Plik gotowy: ${data.file_size}`);
-            }
+            displayResults(data.results);
+            addChatMessage('system', `✅ Zapytanie wykonane w ${data.execution_time || '0.05s'}. Znaleziono ${data.results.length} rekordów.`);
           } else {
-            throw new Error(data.error);
+            throw new Error(data.error || 'Unknown SQL error');
           }
           
         } catch (error) {
-          addChatMessage('system', `❌ Błąd exportu: ${error.message}`);
+          addChatMessage('system', `❌ Błąd SQL: ${error.message}`);
+          console.error('SQL execution error:', error);
+        }
+        
+        showLoading(false);
+      });
+
+      // Quick queries
+      document.querySelectorAll('.quick-query').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (queryInput) {
+            queryInput.value = btn.textContent;
+          }
+        });
+      });
+    }
+
+    // Chat system with multi-model AI support
+    function setupChat() {
+      const sendBtn = document.getElementById('send-chat');
+      const chatInput = document.getElementById('chat-input');
+      const agentSelector = document.getElementById('agent-selector');
+      const modelSelector = document.getElementById('model-selector');
+      
+      // Load available models on startup
+      loadAvailableModels();
+      
+      const sendMessage = async () => {
+        const message = chatInput?.value.trim();
+        if (!message) return;
+        
+        const selectedAgent = agentSelector?.value || 'POLACZEK_B';
+        const selectedModel = modelSelector?.value || '@cf/qwen/qwen1.5-7b-chat-awq';
+        const selectedRole = document.getElementById('role-selector')?.value || 'assistant';
+        
+        addChatMessage('user', message);
+        chatInput.value = '';
+        
+        // Show typing indicator with enhanced info
+        const agentName = selectedAgent === 'POLACZEK_B' ? 'POLĄCZEK Business' : 'POLĄCZEK Finance';
+        const roleName = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+        const typingId = addChatMessage('ai', `⌨️ ${agentName} (${roleName}) analizuje...`);
+        
+        try {
+          // Call multi-model AI API
+          const response = await fetch('/api/ai-business-box', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              action: 'ai_chat',
+              data: { 
+                message, 
+                agent: selectedAgent,
+                model: selectedModel
+              }
+            })
+          });
+          
+          const data = await response.json();
+          
+          // Remove typing indicator
+          removeMessage(typingId);
+          
+          if (data.success) {
+            addChatMessage('ai', `[${data.agent}]: ${data.response}`);
+            // Update model status
+            updateModelStatus(`✅ Model: ${data.model.split('/').pop()}`);
+          } else {
+            throw new Error(data.error || 'AI service error');
+          }
+          
+        } catch (error) {
+          removeMessage(typingId);
+          addChatMessage('ai', '❌ Przepraszam, wystąpił błąd w komunikacji z AI. Spróbuj ponownie.');
+          console.error('AI chat error:', error);
+        }
+      };
+      
+      sendBtn?.addEventListener('click', sendMessage);
+      
+      chatInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          sendMessage();
         }
       });
-    });
-  }
 
-  // Setup data templates
-  function setupTemplates() {
-    document.querySelectorAll('.template-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const template = btn.dataset.template;
-        loadTemplate(template);
+      // Quick questions
+      document.querySelectorAll('.quick-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (chatInput) {
+            chatInput.value = btn.textContent;
+          }
+        });
       });
-    });
-  }
-
-  // Load data templates
-  function loadTemplate(templateType) {
-    addChatMessage('system', `📊 Ładowanie szablonu: ${templateType}...`);
-    
-    const templates = {
-      sales: {
-        name: 'sprzedaz_miesieczna',
-        columns: ['data', 'produkt', 'kwota', 'ilosc', 'klient'],
-        rows: [
-          ['2024-01-01', 'Laptop Dell', 3500, 1, 'Firma ABC'],
-          ['2024-01-02', 'Monitor LG', 800, 2, 'Studio XYZ'],
-          ['2024-01-03', 'Klawiatura', 150, 5, 'Office Pro'],
-          ['2024-01-04', 'Mysz', 80, 10, 'Tech Solutions'],
-          ['2024-01-05', 'Laptop HP', 4200, 1, 'Marketing Ltd']
-        ]
-      },
-      costs: {
-        name: 'koszty_operacyjne',
-        columns: ['data', 'kategoria', 'opis', 'kwota', 'typ'],
-        rows: [
-          ['2024-01-01', 'Biuro', 'Czynsz', 5000, 'Stały'],
-          ['2024-01-02', 'IT', 'Licencje software', 2500, 'Stały'],
-          ['2024-01-03', 'Marketing', 'Kampania Google Ads', 1200, 'Zmienny'],
-          ['2024-01-04', 'Personel', 'Wynagrodzenia', 15000, 'Stały'],
-          ['2024-01-05', 'Transport', 'Paliwo', 800, 'Zmienny']
-        ]
-      },
-      customers: {
-        name: 'baza_klientow',
-        columns: ['id', 'nazwa', 'segment', 'wartosc_roczna', 'miasto'],
-        rows: [
-          [1, 'Firma ABC Sp. z o.o.', 'Duże przedsiębiorstwo', 150000, 'Warszawa'],
-          [2, 'Studio XYZ', 'MŚP', 45000, 'Kraków'],
-          [3, 'Office Pro', 'Małe', 25000, 'Gdańsk'],
-          [4, 'Tech Solutions', 'MŚP', 65000, 'Wrocław'],
-          [5, 'Marketing Ltd', 'Średnie', 85000, 'Poznań']
-        ]
-      }
-    };
-    
-    const template = templates[templateType];
-    if (!template) {
-      addChatMessage('system', '❌ Nieznany szablon');
-      return;
-    }
-    
-    // Add to local data
-    uploadedData.set(template.name, template);
-    updateDataCount();
-    
-    // Update SQL query
-    const queryInput = document.getElementById('sql-query');
-    if (queryInput) {
-      queryInput.value = `SELECT * FROM ${template.name} LIMIT 10;`;
-    }
-    
-    addChatMessage('system', `✅ Załadowano szablon "${template.name}" - ${template.rows.length} rekordów`);
-  }
-
-  // Setup global sales data functionality
-  function setupGlobalSalesData() {
-    const loadBtn = document.getElementById('load-sales-data');
-    const importBtn = document.getElementById('import-sales-file');
-    const fileInput = document.getElementById('sales-file-input');
-
-    if (loadBtn) {
-      loadBtn.addEventListener('click', loadGlobalSalesData);
     }
 
-    if (importBtn) {
-      importBtn.addEventListener('click', () => fileInput.click());
-    }
-
-    if (fileInput) {
-      fileInput.addEventListener('change', handleSalesFileImport);
-    }
-  }
-
-  async function loadGlobalSalesData() {
-    const container = document.getElementById('global-sales-container');
-    if (!container) return;
-
-    container.innerHTML = '<div class="text-center text-gray-400 py-8">🔄 Ładowanie danych sprzedażowych...</div>';
-
-    try {
-      const response = await fetch('/api/admin/sales-data-import');
-      const data = await response.json();
-
-      if (data.success && data.stats) {
-        displayGlobalSalesStats(data.stats, data.countries || []);
-        addChatMessage('system', `📊 Załadowano dane sprzedażowe: ${data.stats.total_records} rekordów z ${data.stats.countries_count} krajów`);
-      } else {
-        container.innerHTML = '<div class="text-center text-gray-500 py-8">📊 Brak danych sprzedażowych. Zaimportuj plik JSON.</div>';
-      }
-    } catch (error) {
-      container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd ładowania danych</div>';
-      console.error('Error loading global sales data:', error);
-    }
-  }
-
-  async function handleSalesFileImport(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const container = document.getElementById('global-sales-container');
-    container.innerHTML = '<div class="text-center text-gray-400 py-8">📤 Importowanie danych...</div>';
-
-    try {
-      const text = await file.text();
-      const jsonData = JSON.parse(text);
-
-      const response = await fetch('/api/admin/sales-data-import', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer mybonzo_admin_2025'
-        },
-        body: JSON.stringify(jsonData)
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        addChatMessage('system', `✅ Zaimportowano ${result.imported} rekordów`);
-        await loadGlobalSalesData();
-      } else {
-        throw new Error(result.error || 'Import failed');
-      }
-    } catch (error) {
-      container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd importu danych</div>';
-      addChatMessage('system', `❌ Błąd importu: ${error.message}`);
-    }
-  }
-
-  function displayGlobalSalesStats(stats, countries) {
-    const container = document.getElementById('global-sales-container');
-    
-    const html = `
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-blue-900/30 p-4 border border-blue-600/30">
-          <div class="text-blue-400 text-2xl mb-2">📊</div>
-          <div class="text-white font-bold text-lg">${stats.total_records?.toLocaleString() || '0'}</div>
-          <div class="text-blue-300 text-sm">Wszystkie rekordy</div>
-        </div>
-        <div class="bg-green-900/30 p-4 border border-green-600/30">
-          <div class="text-green-400 text-2xl mb-2">🌍</div>
-          <div class="text-white font-bold text-lg">${stats.countries_count || '0'}</div>
-          <div class="text-green-300 text-sm">Kraje</div>
-        </div>
-        <div class="bg-purple-900/30 p-4 border border-purple-600/30">
-          <div class="text-purple-400 text-2xl mb-2">💰</div>
-          <div class="text-white font-bold text-lg">$${stats.total_revenue?.toLocaleString() || '0'}</div>
-          <div class="text-purple-300 text-sm">Przychód</div>
-        </div>
-        <div class="bg-orange-900/30 p-4 border border-orange-600/30">
-          <div class="text-orange-400 text-2xl mb-2">📦</div>
-          <div class="text-white font-bold text-lg">${stats.total_units?.toLocaleString() || '0'}</div>
-          <div class="text-orange-300 text-sm">Sprzedane jednostki</div>
-        </div>
-      </div>
+    // Add chat message with ID for removal
+    function addChatMessage(type, message) {
+      const messagesContainer = document.getElementById('chat-messages');
+      if (!messagesContainer) return;
       
-      <div class="bg-gray-800/50 border border-gray-600 p-4">
-        <h3 class="text-white font-semibold mb-3">🏆 Top 5 krajów według przychodów:</h3>
-        <div class="space-y-2">
-          ${countries.slice(0, 5).map((country, idx) => `
-            <div class="flex justify-between items-center py-2 border-b border-gray-700">
-              <span class="text-gray-300">${idx + 1}. ${country.country}</span>
-              <span class="text-green-400 font-bold">$${country.total_revenue?.toLocaleString()}</span>
-            </div>
-          `).join('')}
+      const messageId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.id = messageId;
+      messageDiv.className = `mb-3 ${type === 'user' ? 'text-right' : 'text-left'}`;
+      
+      const bubble = document.createElement('div');
+      bubble.className = `inline-block p-4 max-w-xs text-base ${
+        type === 'user' 
+          ? 'bg-blue-600 text-white' 
+          : type === 'ai'
+          ? 'bg-purple-600 text-white'
+          : 'bg-gray-700 text-gray-300'
+      }`;
+      bubble.textContent = message;
+      
+      messageDiv.appendChild(bubble);
+      messagesContainer.appendChild(messageDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      
+      return messageId;
+    }
+
+    // Remove message by ID
+    function removeMessage(messageId) {
+      const messageElement = document.getElementById(messageId);
+      if (messageElement) {
+        messageElement.remove();
+      }
+    }
+
+    // Display query results
+    function displayResults(results) {
+      const container = document.getElementById('results-container');
+      if (!container || !results.length) return;
+      
+      container.innerHTML = '';
+      
+      // Create table
+      const table = document.createElement('table');
+      table.className = 'w-full text-base';
+      
+      // Headers
+      const headers = Object.keys(results[0]);
+      const thead = document.createElement('thead');
+      const headerRow = document.createElement('tr');
+      headerRow.className = 'border-b border-gray-600';
+      
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.className = 'text-left p-2 text-gray-400 font-medium';
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+      
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+      
+      // Body
+      const tbody = document.createElement('tbody');
+      
+      results.forEach((row, i) => {
+        const tr = document.createElement('tr');
+        tr.className = i % 2 === 0 ? 'bg-gray-800/50' : 'bg-gray-900/50';
+        
+        headers.forEach(header => {
+          const td = document.createElement('td');
+          td.className = 'p-2 text-gray-300';
+          td.textContent = row[header];
+          tr.appendChild(td);
+        });
+        
+        tbody.appendChild(tr);
+      });
+      
+      table.appendChild(tbody);
+      container.appendChild(table);
+    }
+
+    // Show/hide loading
+    function showLoading(show) {
+      const overlay = document.getElementById('loading-overlay');
+      if (overlay) {
+        overlay.classList.toggle('hidden', !show);
+        overlay.classList.toggle('flex', show);
+      }
+    }
+
+    // Setup report buttons with real API calls
+    function setupReports() {
+      document.querySelectorAll('.report-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const reportName = btn.textContent.trim();
+          addChatMessage('system', `📊 Generowanie raportu: ${reportName}...`);
+          
+          showLoading(true);
+          
+          try {
+            const response = await fetch('/api/ai-business-box', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                action: 'generate_report',
+                data: { report_type: reportName }
+              })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              const reportData = data.report.data;
+              displayResults([
+                {metric: 'Przychody', value: `${(reportData.revenue / 1000).toFixed(0)}k PLN`, trend: '+12%'},
+                {metric: 'Koszty', value: `${(reportData.costs / 1000).toFixed(0)}k PLN`, trend: '-5%'},
+                {metric: 'Zysk', value: `${(reportData.profit / 1000).toFixed(0)}k PLN`, trend: '+18%'},
+                {metric: 'Marża', value: `${reportData.margin}%`, trend: '+2%'}
+              ]);
+              
+              addChatMessage('system', `✅ Raport "${reportName}" wygenerowany pomyślnie`);
+            } else {
+              throw new Error(data.error);
+            }
+            
+          } catch (error) {
+            addChatMessage('system', `❌ Błąd generowania raportu: ${error.message}`);
+          }
+          
+          showLoading(false);
+        });
+      });
+    }
+
+    // Setup export buttons with real functionality
+    function setupExports() {
+      document.querySelectorAll('.export-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const exportType = btn.textContent.trim();
+          addChatMessage('system', `💾 Przygotowuję export: ${exportType}...`);
+          
+          try {
+            let action = 'export_data';
+            let format = 'csv';
+            
+            if (exportType.includes('CSV')) format = 'csv';
+            else if (exportType.includes('Excel')) format = 'xlsx';
+            else if (exportType.includes('PDF')) format = 'pdf';
+            else if (exportType.includes('BigQuery')) action = 'sync_bigquery';
+            
+            const response = await fetch('/api/ai-business-box', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                action: action,
+                data: { format: format, table: 'current_data' }
+              })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+              addChatMessage('system', `✅ ${data.message}`);
+              
+              if (data.download_url) {
+                // Simulate download link
+                addChatMessage('system', `📁 Plik gotowy: ${data.file_size}`);
+              }
+            } else {
+              throw new Error(data.error);
+            }
+            
+          } catch (error) {
+            addChatMessage('system', `❌ Błąd exportu: ${error.message}`);
+          }
+        });
+      });
+    }
+
+    // Setup data templates
+    function setupTemplates() {
+      document.querySelectorAll('.template-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const template = btn.dataset.template;
+          loadTemplate(template);
+        });
+      });
+    }
+
+    // Load data templates
+    function loadTemplate(templateType) {
+      addChatMessage('system', `📊 Ładowanie szablonu: ${templateType}...`);
+      
+      const templates = {
+        sales: {
+          name: 'sprzedaz_miesieczna',
+          columns: ['data', 'produkt', 'kwota', 'ilosc', 'klient'],
+          rows: [
+            ['2024-01-01', 'Laptop Dell', 3500, 1, 'Firma ABC'],
+            ['2024-01-02', 'Monitor LG', 800, 2, 'Studio XYZ'],
+            ['2024-01-03', 'Klawiatura', 150, 5, 'Office Pro'],
+            ['2024-01-04', 'Mysz', 80, 10, 'Tech Solutions'],
+            ['2024-01-05', 'Laptop HP', 4200, 1, 'Marketing Ltd']
+          ]
+        },
+        costs: {
+          name: 'koszty_operacyjne',
+          columns: ['data', 'kategoria', 'opis', 'kwota', 'typ'],
+          rows: [
+            ['2024-01-01', 'Biuro', 'Czynsz', 5000, 'Stały'],
+            ['2024-01-02', 'IT', 'Licencje software', 2500, 'Stały'],
+            ['2024-01-03', 'Marketing', 'Kampania Google Ads', 1200, 'Zmienny'],
+            ['2024-01-04', 'Personel', 'Wynagrodzenia', 15000, 'Stały'],
+            ['2024-01-05', 'Transport', 'Paliwo', 800, 'Zmienny']
+          ]
+        },
+        customers: {
+          name: 'baza_klientow',
+          columns: ['id', 'nazwa', 'segment', 'wartosc_roczna', 'miasto'],
+          rows: [
+            [1, 'Firma ABC Sp. z o.o.', 'Duże przedsiębiorstwo', 150000, 'Warszawa'],
+            [2, 'Studio XYZ', 'MŚP', 45000, 'Kraków'],
+            [3, 'Office Pro', 'Małe', 25000, 'Gdańsk'],
+            [4, 'Tech Solutions', 'MŚP', 65000, 'Wrocław'],
+            [5, 'Marketing Ltd', 'Średnie', 85000, 'Poznań']
+          ]
+        }
+      };
+      
+      const template = templates[templateType];
+      if (!template) {
+        addChatMessage('system', '❌ Nieznany szablon');
+        return;
+      }
+      
+      // Add to local data
+      uploadedData.set(template.name, template);
+      updateDataCount();
+      
+      // Update SQL query
+      const queryInput = document.getElementById('sql-query');
+      if (queryInput) {
+        queryInput.value = `SELECT * FROM ${template.name} LIMIT 10;`;
+      }
+      
+      addChatMessage('system', `✅ Załadowano szablon "${template.name}" - ${template.rows.length} rekordów`);
+    }
+
+    // Setup global sales data functionality
+    function setupGlobalSalesData() {
+      const loadBtn = document.getElementById('load-sales-data');
+      const importBtn = document.getElementById('import-sales-file');
+      const fileInput = document.getElementById('sales-file-input');
+
+      if (loadBtn) {
+        loadBtn.addEventListener('click', loadGlobalSalesData);
+      }
+
+      if (importBtn) {
+        importBtn.addEventListener('click', () => fileInput.click());
+      }
+
+      if (fileInput) {
+        fileInput.addEventListener('change', handleSalesFileImport);
+      }
+    }
+
+    async function loadGlobalSalesData() {
+      const container = document.getElementById('global-sales-container');
+      if (!container) return;
+
+      container.innerHTML = '<div class="text-center text-gray-400 py-8">🔄 Ładowanie danych sprzedażowych...</div>';
+
+      try {
+        const response = await fetch('/api/admin/sales-data-import');
+        const data = await response.json();
+
+        if (data.success && data.stats) {
+          displayGlobalSalesStats(data.stats, data.countries || []);
+          addChatMessage('system', `📊 Załadowano dane sprzedażowe: ${data.stats.total_records} rekordów z ${data.stats.countries_count} krajów`);
+        } else {
+          container.innerHTML = '<div class="text-center text-gray-500 py-8">📊 Brak danych sprzedażowych. Zaimportuj plik JSON.</div>';
+        }
+      } catch (error) {
+        container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd ładowania danych</div>';
+        console.error('Error loading global sales data:', error);
+      }
+    }
+
+    async function handleSalesFileImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const container = document.getElementById('global-sales-container');
+      container.innerHTML = '<div class="text-center text-gray-400 py-8">📤 Importowanie danych...</div>';
+
+      try {
+        const text = await file.text();
+        const jsonData = JSON.parse(text);
+
+        const response = await fetch('/api/admin/sales-data-import', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer mybonzo_admin_2025'
+          },
+          body: JSON.stringify(jsonData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          addChatMessage('system', `✅ Zaimportowano ${result.imported} rekordów`);
+          await loadGlobalSalesData();
+        } else {
+          throw new Error(result.error || 'Import failed');
+        }
+      } catch (error) {
+        container.innerHTML = '<div class="text-center text-red-400 py-8">❌ Błąd importu danych</div>';
+        addChatMessage('system', `❌ Błąd importu: ${error.message}`);
+      }
+    }
+
+    function displayGlobalSalesStats(stats, countries) {
+      const container = document.getElementById('global-sales-container');
+      
+      const html = `
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div class="bg-blue-900/30 p-4 border border-blue-600/30">
+            <div class="text-blue-400 text-2xl mb-2">📊</div>
+            <div class="text-white font-bold text-lg">${stats.total_records?.toLocaleString() || '0'}</div>
+            <div class="text-blue-300 text-sm">Wszystkie rekordy</div>
+          </div>
+          <div class="bg-green-900/30 p-4 border border-green-600/30">
+            <div class="text-green-400 text-2xl mb-2">🌍</div>
+            <div class="text-white font-bold text-lg">${stats.countries_count || '0'}</div>
+            <div class="text-green-300 text-sm">Kraje</div>
+          </div>
+          <div class="bg-purple-900/30 p-4 border border-purple-600/30">
+            <div class="text-purple-400 text-2xl mb-2">💰</div>
+            <div class="text-white font-bold text-lg">$${stats.total_revenue?.toLocaleString() || '0'}</div>
+            <div class="text-purple-300 text-sm">Przychód</div>
+          </div>
+          <div class="bg-orange-900/30 p-4 border border-orange-600/30">
+            <div class="text-orange-400 text-2xl mb-2">📦</div>
+            <div class="text-white font-bold text-lg">${stats.total_units?.toLocaleString() || '0'}</div>
+            <div class="text-orange-300 text-sm">Sprzedane jednostki</div>
+          </div>
         </div>
-      </div>
-    `;
-    
-    container.innerHTML = html;
-  }
+        
+        <div class="bg-gray-800/50 border border-gray-600 p-4">
+          <h3 class="text-white font-semibold mb-3">🏆 Top 5 krajów według przychodów:</h3>
+          <div class="space-y-2">
+            ${countries.slice(0, 5).map((country, idx) => `
+              <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                <span class="text-gray-300">${idx + 1}. ${country.country}</span>
+                <span class="text-green-400 font-bold">$${country.total_revenue?.toLocaleString()}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      container.innerHTML = html;
+    }
 
-  // Initialize everything
-  document.addEventListener('DOMContentLoaded', () => {
-    initDuckDB();
-    setupFileUpload();
-    setupSQLExecutor();
-    setupChat();
-    setupReports();
-    setupExports();
-    setupTemplates();
-    setupGlobalSalesData();
-  });
-</script>
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+      initDuckDB();
+      setupFileUpload();
+      setupSQLExecutor();
+      setupChat();
+      setupReports();
+      setupExports();
+      setupTemplates();
+      setupGlobalSalesData();
+    });
 
-<style>
-  /* Custom scrollbar dla ciemnego motywu */
-  #chat-messages::-webkit-scrollbar {
-    width: 6px;
-  }
+    // POLACZEK_T Assistant
+    const polaczekBtn = document.getElementById('polaczekBtn');
+    const polaczekWidget = document.getElementById('polaczekWidget');
 
-  #chat-messages::-webkit-scrollbar-track {
-    background: #374151;
-  }
-
-  #chat-messages::-webkit-scrollbar-thumb {
-    background: #6b7280;
-    border-radius: 3px;
-  }
-
-  #chat-messages::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
-  }
-
-  /* Proste ramki bez zaokrągleń */
-  .bg-gray-900\/30,
-  .bg-gray-900\/50,
-  .bg-gray-800,
-  input,
-  textarea,
-  button {
-    border-radius: 0 !important;
-  }
-
-  /* Stonowane przejścia */
-  * {
-    transition: all 0.2s ease;
-  }
-
-  /* Hover effects - subtelne */
-  button:hover {
-    transform: translateY(-1px);
-  }
-</style>
+    polaczekBtn.addEventListener('click', () => {
+      polaczekWidget.classList.toggle('hidden');
+    });
+  </script>
+</BackroomInterface>

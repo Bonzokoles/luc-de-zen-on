@@ -1,46 +1,24 @@
 ---
-// TypeScript interface for component props (Astro best practice)
-interface Props {
-  siteTitle?: string;
-  description?: string;
-}
-
-// Proper destructuring of props with defaults (Astro best practice)
-const { 
-  siteTitle = "Generator Obrazów | AI Workers",
-  description = "Zaawansowany generator obrazów z AI. Flux-1 Schnell, Stable Diffusion, DALL-E i więcej!"
-} = Astro.props;
-
-// Proper type imports (Astro best practice)
-import type { HTMLAttributes } from "astro/types";
-import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
-
-// Metadata for SEO and performance (Astro best practice)
-const pageMetadata = {
-  title: siteTitle,
-  description,
-  robots: "index, follow",
-  og: {
-    title: siteTitle,
-    description: description,
-    type: "website"
-  }
-};
+import BackroomInterface from '@/layouts/BackroomInterface.astro';
+import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
-<MyBonzoLayout
-  {siteTitle}
-  {description}
->
-  <main class="min-h-svh">
-    <section class="ai-workers-section py-10">
-      <div class="section-container max-w-4xl mx-auto">
-        <h1 class="section-title">🎨 GENERATOR OBRAZÓW AI</h1>
-        <p class="section-description">
-          Zaawansowany generator obrazów z AI. Flux-1 Schnell, Stable Diffusion, DALL-E i więcej!
-        </p>
+<BackroomInterface siteTitle="Generator Obrazów | AI Workers">
+  <div class="fixed inset-0 bg-[#0f1419]">
+    <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
+  </div>
 
-        <!-- Quick Stats -->
+  <section class="backroom-header">
+    <div class="backroom-container">
+      <h1 class="backroom-title">Generator Obrazów AI</h1>
+      <p class="backroom-description">Zaawansowany generator obrazów z AI. Flux-1 Schnell, Stable Diffusion, DALL-E i więcej!</p>
+    </div>
+  </section>
+
+  <section class="backroom-section">
+    <div class="backroom-container">
+      <div class="function-container">
+        <h2 class="text-2xl font-semibold text-primary mb-5">🎨 Generator Obrazów</h2>
         <div class="global-stats-grid mb-8">
           <div class="stat-card">
             <div class="stat-icon">🎨</div>
@@ -64,40 +42,17 @@ const pageMetadata = {
           </div>
         </div>
 
-        <div
-          class="border border-edge rounded-lg p-6 mt-6"
-          style="background: rgba(0,0,0,0.5);"
-        >
+        <div class="border border-edge rounded-lg p-6 mt-6" style="background: rgba(0,0,0,0.5);">
           <!-- Prompt -->
           <div class="mb-5">
-            <label
-              for="imagePrompt"
-              class="block text-lg font-semibold mb-2 text-primary-foreground"
-              >Opis obrazu</label
-            >
+            <label for="imagePrompt" class="block text-lg font-semibold mb-2 text-primary-foreground">Opis obrazu</label>
             <div class="relative">
-              <textarea
-                id="imagePrompt"
-                rows="3"
-                class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none pr-24"
-                style="background: rgba(0,0,0,0.5);"
-                placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"
-              ></textarea>
+              <textarea id="imagePrompt" rows="3" class="w-full p-3 border border-edge rounded text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none pr-24" style="background: rgba(0,0,0,0.5);" placeholder="Np. Futurystyczne miasto o zachodzie słońca, styl fotograficzny, 4K"></textarea>
               
               <!-- Prompt Tools -->
               <div class="absolute top-2 right-2 flex gap-1">
-                <button
-                  id="translateBtn"
-                  class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition-colors"
-                  onclick="translatePrompt()"
-                  title="Przetłumacz na angielski"
-                >🌐</button>
-                <button
-                  id="enhanceBtn"
-                  class="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded text-xs transition-colors"
-                  onclick="enhancePrompt()"
-                  title="Magic Prompt - ulepszanie przez AI Stable Diffusion"
-                >✨</button>
+                <button id="translateBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition-colors" onclick="translatePrompt()" title="Przetłumacz na angielski">🌐</button>
+                <button id="enhanceBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-2 py-1 rounded text-xs transition-colors" onclick="enhancePrompt()" title="Magic Prompt - ulepszanie przez AI Stable Diffusion">✨</button>
               </div>
             </div>
             
@@ -114,73 +69,38 @@ const pageMetadata = {
           <!-- Controls -->
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
             <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Model</label
-              >
-              <select
-                id="imageModel"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-              >
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Model</label>
+              <select id="imageModel" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
                 <!-- Cloudflare Models -->
                 <optgroup label="🔥 Cloudflare AI">
-                  <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0"
-                    >Stable Diffusion XL</option
-                  >
-                  <option value="@cf/lykon/dreamshaper-8-lcm"
-                    >DreamShaper 8 LCM</option
-                  >
-                  <option value="@cf/black-forest-labs/flux-1-schnell"
-                    >Flux-1 Schnell</option
-                  >
+                  <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
+                  <option value="@cf/lykon/dreamshaper-8-lcm">DreamShaper 8 LCM</option>
+                  <option value="@cf/black-forest-labs/flux-1-schnell">Flux-1 Schnell</option>
                 </optgroup>
                 
                 <!-- External Free AI Models -->
                 <optgroup label="🆓 Darmowe AI - Obrazy">
-                  <option value="stabilityai/stable-diffusion-3-medium"
-                    >Stable Diffusion 3 Medium</option
-                  >
-                  <option value="black-forest-labs/flux-1.1-pro"
-                    >FLUX 1.1 Pro</option
-                  >
-                  <option value="together_flux"
-                    >Together AI - FLUX.1-schnell</option
-                  >
-                  <option value="hf_playground"
-                    >HuggingFace - Playground v2.5</option
-                  >
+                  <option value="stabilityai/stable-diffusion-3-medium">Stable Diffusion 3 Medium</option>
+                  <option value="black-forest-labs/flux-1.1-pro">FLUX 1.1 Pro</option>
+                  <option value="together_flux">Together AI - FLUX.1-schnell</option>
+                  <option value="hf_playground">HuggingFace - Playground v2.5</option>
                 </optgroup>
                 
                 <!-- Video Generation -->
                 <optgroup label="🎬 Generowanie Wideo">
-                  <option value="openai/sora-turbo"
-                    >OpenAI - Sora Turbo (Free)</option
-                  >
+                  <option value="openai/sora-turbo">OpenAI - Sora Turbo (Free)</option>
                 </optgroup>
                 
                 <!-- 3D & Photo2Photo -->
                 <optgroup label="🎨 Specjalne">
-                  <option value="triposr-3d"
-                    >TripoSR - 3D Models</option
-                  >
-                  <option value="rembg-photo2photo"
-                    >Photo2Photo - ControlNet</option
-                  >
+                  <option value="triposr-3d">TripoSR - 3D Models</option>
+                  <option value="rembg-photo2photo">Photo2Photo - ControlNet</option>
                 </optgroup>
               </select>
             </div>
             <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Typ Generowania</label
-              >
-              <select
-                id="generationType"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-                onchange="updateGenerationType()"
-              >
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Typ Generowania</label>
+              <select id="generationType" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);" onchange="updateGenerationType()">
                 <option value="image">🖼️ Obraz (Image)</option>
                 <option value="video">🎬 Wideo (5s)</option>
                 <option value="3d">🎲 Model 3D</option>
@@ -188,15 +108,8 @@ const pageMetadata = {
               </select>
             </div>
             <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Styl</label
-              >
-              <select
-                id="imageStyle"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-              >
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Styl</label>
+              <select id="imageStyle" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
                 <option value="photographic">📸 Fotograficzny</option>
                 <option value="artistic">🎨 Artystyczny</option>
                 <option value="digital">💻 Cyfrowy</option>
@@ -208,15 +121,8 @@ const pageMetadata = {
               </select>
             </div>
             <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Rozmiar</label
-              >
-              <select
-                id="imageSize"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-              >
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Rozmiar</label>
+              <select id="imageSize" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
                 <option value="512x512">512×512 (kwadrat)</option>
                 <option value="768x512">768×512 (poziomo)</option>
                 <option value="512x768">512×768 (pionowo)</option>
@@ -224,15 +130,8 @@ const pageMetadata = {
               </select>
             </div>
             <div>
-              <label
-                class="block text-sm font-medium mb-2 text-primary-foreground"
-                >Kroki</label
-              >
-              <select
-                id="imageSteps"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-              >
+              <label class="block text-sm font-medium mb-2 text-primary-foreground">Kroki</label>
+              <select id="imageSteps" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
                 <option value="15">15</option>
                 <option value="25">25</option>
                 <option value="35">35</option>
@@ -241,1660 +140,383 @@ const pageMetadata = {
             </div>
           </div>
 
-          <!-- NSFW Content Settings -->
-          <div class="mb-5 p-4 bg-red-900/20 border border-red-600 rounded-lg">
-            <h4 class="text-sm font-medium mb-3 text-red-400">⚠️ Ustawienia Treści dla Dorosłych</h4>
-            <div class="flex items-center gap-4">
-              <label class="flex items-center gap-2 text-sm">
-                <input type="checkbox" id="nsfwBlur" checked class="rounded">
-                <span class="text-primary-foreground">Automatycznie rozmywaj treści NSFW</span>
-              </label>
-              <label class="flex items-center gap-2 text-sm">
-                <input type="checkbox" id="autoTranslate" checked class="rounded">
-                <span class="text-primary-foreground">🔄 Auto-tłumacz (POLACZEK_T)</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Image Display Canvas & Upload Section -->
-          <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Generated Image Canvas -->
-            <div class="bg-gray-900/50 border border-edge rounded-lg p-4">
-              <h4 class="text-sm font-medium mb-3 text-primary-foreground">🖼️ Podgląd Obrazu</h4>
-              <div class="relative">
-                <canvas 
-                  id="imageCanvas" 
-                  width="512" 
-                  height="512"
-                  class="w-full max-w-md mx-auto border border-gray-600 rounded-lg bg-gray-800"
-                  style="max-height: 400px;"
-                ></canvas>
-                <div id="canvasPlaceholder" class="absolute inset-0 flex items-center justify-center text-gray-400 text-sm">
-                  Obraz pojawi się tutaj
-                </div>
-              </div>
-              <div class="mt-3 text-xs text-gray-400 text-center">
-                <span id="imageInfo">Rozmiar: - | Model: - | Czas: -</span>
-              </div>
-            </div>
-
-            <!-- Source Image Upload (for Photo2Photo, Photo2Video, Photo2Speak) -->
-            <div class="bg-gray-900/50 border border-edge rounded-lg p-4">
-              <h4 class="text-sm font-medium mb-3 text-primary-foreground">� Upload Obrazu</h4>
-              <div id="uploadArea" class="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-cyan-400 transition-colors cursor-pointer">
-                <div id="uploadPlaceholder">
-                  <div class="text-4xl mb-2">📸</div>
-                  <p class="text-gray-400 mb-2">Przeciągnij obraz tutaj lub kliknij aby wybrać</p>
-                  <p class="text-xs text-gray-500">PNG, JPG, WebP - max 10MB</p>
-                  <input type="file" id="sourceImageFile" accept="image/*" class="hidden">
-                </div>
-                <div id="uploadPreview" class="hidden">
-                  <img id="sourceImg" class="max-w-full max-h-48 mx-auto rounded-lg mb-2" alt="Source image">
-                  <div class="flex gap-2 justify-center">
-                    <button onclick="clearSourceImage()" class="text-red-400 hover:text-red-300 text-sm">🗑️ Usuń</button>
-                    <button onclick="useAsPrompt()" class="text-blue-400 hover:text-blue-300 text-sm">🔍 Analizuj</button>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Function Selector for Uploaded Image -->
-              <div id="imageProcessingOptions" class="mt-4 hidden">
-                <label class="block text-sm font-medium mb-2 text-primary-foreground">🔧 Co chcesz zrobić z obrazem?</label>
-                <div class="grid grid-cols-1 gap-2">
-                  <button onclick="processImage('PHOTO_2_PHOTO')" class="bg-blue-600/80 hover:bg-blue-600 text-white py-2 px-4 rounded text-sm">
-                    📸 PHOTO_2_PHOTO - Zmień styl/edytuj obraz
-                  </button>
-                  <button onclick="processImage('PHOTO_2_VIDEO')" class="bg-purple-600/80 hover:bg-purple-600 text-white py-2 px-4 rounded text-sm">
-                    🎬 PHOTO_2_VIDEO - Animuj obraz (5s video)
-                  </button>
-                  <button onclick="processImage('PHOTO_2_SPEAK')" class="bg-green-600/80 hover:bg-green-600 text-white py-2 px-4 rounded text-sm">
-                    🗣️ PHOTO_2_SPEAK - Ożyw portret (mówienie)
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Action Buttons -->
           <div class="mb-5 grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <button
-                          id="generateBtn"
-                          class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed">✨ <span id="generateBtnText">Generuj Obraz</span></button>
-            <button
-              id="randomPromptBtn"
-              class="bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-              onclick="generateRandomPrompt()">🎲 Losowy Prompt</button
-            >
-            <button
-              id="savePresetBtn"
-              class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-              onclick="saveCurrentPreset()">💾 Zapisz Preset</button
-            >
-          </div>
-
-          <!-- Quick Presets -->
-          <div class="mb-5">
-            <label class="block text-sm font-medium mb-2 text-primary-foreground">Szybkie presety</label>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <button class="preset-btn" onclick="loadPreset('portrait')">👤 Portret</button>
-              <button class="preset-btn" onclick="loadPreset('landscape')">🏞️ Krajobraz</button>
-              <button class="preset-btn" onclick="loadPreset('abstract')">🎭 Abstrakcja</button>
-              <button class="preset-btn" onclick="loadPreset('scifi')">🚀 Sci-Fi</button>
-              <button class="preset-btn" onclick="loadPreset('anime')">🎌 Anime</button>
-              <button class="preset-btn" onclick="loadPreset('vintage')">📷 Vintage</button>
-              <button class="preset-btn" onclick="loadPreset('cyberpunk')">🌆 Cyberpunk</button>
-              <button class="preset-btn" onclick="loadPreset('nature')">🌿 Natura</button>
-            </div>
+            <button id="generateBtn" class="action-btn">✨ <span id="generateBtnText">Generuj Obraz</span></button>
+            <button id="randomPromptBtn" class="action-btn-secondary" onclick="generateRandomPrompt()">🎲 Losowy Prompt</button>
+            <button id="savePresetBtn" class="action-btn-secondary" onclick="saveCurrentPreset()">💾 Zapisz Preset</button>
           </div>
 
           <!-- Loading -->
           <div id="loading" class="text-center py-3 hidden">
-            <div
-              class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"
-            >
-            </div>
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
             <p class="mt-2 text-muted-foreground">Generowanie obrazu...</p>
           </div>
 
           <!-- Error -->
-          <div
-            id="errorBox"
-            class="mt-3 p-3 bg-red-900/50 border border-red-600 rounded hidden text-red-200"
-          >
-          </div>
+          <div id="errorBox" class="mt-3 p-3 bg-red-900/50 border border-red-600 rounded hidden text-red-200"></div>
 
-          <!-- Processing Result -->
-          <div id="processingResultSection" class="hidden mt-5 bg-gray-900/50 border border-edge rounded-lg p-4">
-            <h3 class="text-xl font-semibold mb-3 text-primary-foreground">🎯 Wynik Przetwarzania</h3>
-            <div id="processingResult">
-              <!-- Dynamic content based on processing type -->
-              <div id="imageResult" class="hidden">
-                <img id="processedImage" class="w-full max-w-md mx-auto rounded-lg mb-3" alt="Processed image">
-              </div>
-              <div id="videoResult" class="hidden">
-                <video id="processedVideo" class="w-full max-w-md mx-auto rounded-lg mb-3" controls>
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-              <div id="speakResult" class="hidden">
-                <img id="speakingImage" class="w-full max-w-md mx-auto rounded-lg mb-3" alt="Speaking portrait">
-                <audio id="speakingAudio" class="w-full mb-3" controls>
-                  Your browser does not support the audio tag.
-                </audio>
-              </div>
-              <div class="flex gap-2 flex-wrap justify-center">
-                <button id="downloadProcessed" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">
-                  💾 Pobierz Wynik
-                </button>
-                <button id="shareProcessed" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
-                  📤 Udostępnij
-                </button>
-                <button id="processAnother" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm">
-                  🔄 Przetwórz Ponownie
-                </button>
-              </div>
+          <!-- Results Grid -->
+          <div class="mt-8">
+            <h3 class="text-xl font-semibold mb-4 text-primary-foreground">🖼️ Galeria wyników</h3>
+            <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             </div>
           </div>
         </div>
-
-        <!-- Advanced Options -->
-        <div class="mt-8 border border-edge rounded-lg p-6" style="background: rgba(0,0,0,0.3);">
-          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">⚙️ Zaawansowane opcje</h3>
-          
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">Negative prompt</label>
-              <input
-                id="negativePrompt"
-                type="text"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-                placeholder="Co ma NIE być na obrazie..."
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">CFG Scale</label>
-              <input
-                id="cfgScale"
-                type="range"
-                min="1"
-                max="20"
-                value="7"
-                class="w-full"
-                oninput="document.getElementById('cfgValue').textContent = this.value"
-              />
-              <span id="cfgValue" class="text-sm text-gray-400">7</span>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">Seed</label>
-              <div class="flex gap-2">
-                <input
-                  id="imageSeed"
-                  type="number"
-                  class="flex-1 p-2 border border-edge rounded text-primary-foreground"
-                  style="background: rgba(0,0,0,0.5);"
-                  placeholder="Random"
-                />
-                <button
-                  class="bg-gray-600 hover:bg-gray-700 text-white px-3 py-2 rounded"
-                  onclick="randomSeed()"
-                >🎲</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">
-                <input type="checkbox" id="upscaleImage" class="mr-2">
-                Powiększ obraz (2x)
-              </label>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">
-                <input type="checkbox" id="faceRestore" class="mr-2">
-                Popraw twarze
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Batch Generation -->
-        <div class="mt-6 border border-edge rounded-lg p-6" style="background: rgba(0,0,0,0.3);">
-          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">🔄 Generacja wsadowa</h3>
-          
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">Liczba obrazów</label>
-              <select
-                id="batchCount"
-                class="w-full p-2 border border-edge rounded text-primary-foreground"
-                style="background: rgba(0,0,0,0.5);"
-              >
-                <option value="1">1 obraz</option>
-                <option value="2">2 obrazy</option>
-                <option value="4">4 obrazy</option>
-                <option value="8">8 obrazów</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium mb-2 text-primary-foreground">
-                <input type="checkbox" id="varySeeds" class="mr-2">
-                Różne seeds
-              </label>
-            </div>
-            <div>
-              <button
-                id="batchGenerateBtn"
-                class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded font-semibold transition-colors"
-                onclick="generateBatch()"
-              >🔄 Generuj wsadowo</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Results Grid -->
-        <div class="mt-8">
-          <h3 class="text-xl font-semibold mb-4 text-primary-foreground">🖼️ Galeria wyników</h3>
-          <div id="resultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          </div>
-        </div>
-
-        <!-- History -->
-        <div class="mt-8">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold text-primary-foreground">📚 Historia generacji</h3>
-            <div class="flex gap-2">
-              <button 
-                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm"
-                onclick="clearHistory()"
-              >🗑️ Wyczyść</button>
-              <button 
-                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-                onclick="exportHistory()"
-              >📤 Eksportuj</button>
-            </div>
-          </div>
-          <div id="historyGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          </div>
-        </div>
-
-        <!-- History panel -->
-        <div id="historyPanel" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center p-4 z-50" style="display: none;">
-          <div class="bg-gray-900 p-6 rounded-lg max-w-6xl w-full max-h-[80vh] overflow-auto">
-            <div class="flex justify-between items-center mb-4">
-              <h3 class="text-xl font-semibold text-[#00bcd4]">Historia generowanych obrazów</h3>
-              <div class="flex gap-2">
-                <button onclick="exportHistory()" class="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700">Eksportuj</button>
-                <button onclick="clearHistory()" class="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700">Wyczyść</button>
-                <button onclick="closeHistory()" class="text-gray-400 hover:text-white text-xl">✕</button>
-              </div>
-            </div>
-            <div id="historyStats" class="mb-4 p-4 bg-gray-800 rounded-lg">
-              <div class="grid grid-cols-4 gap-4 text-center">
-                <div>
-                  <div class="text-[#00bcd4] font-bold text-lg" id="historyTotal">0</div>
-                  <div class="text-sm text-gray-400">Łącznie</div>
-                </div>
-                <div>
-                  <div class="text-[#00bcd4] font-bold text-lg" id="historyToday">0</div>
-                  <div class="text-sm text-gray-400">Dzisiaj</div>
-                </div>
-                <div>
-                  <div class="text-[#00bcd4] font-bold text-lg" id="historyWeek">0</div>
-                  <div class="text-sm text-gray-400">Ten tydzień</div>
-                </div>
-                <div>
-                  <div class="text-[#00bcd4] font-bold text-lg" id="historyFavorites">0</div>
-                  <div class="text-sm text-gray-400">Ulubione</div>
-                </div>
-              </div>
-            </div>
-            <div class="mb-4 flex gap-2 flex-wrap">
-              <button onclick="filterHistory('all')" class="px-3 py-1 bg-[#00bcd4] text-white rounded text-sm">Wszystkie</button>
-              <button onclick="filterHistory('today')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Dzisiaj</button>
-              <button onclick="filterHistory('week')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Ten tydzień</button>
-              <button onclick="filterHistory('favorites')" class="px-3 py-1 bg-gray-600 text-white rounded text-sm hover:bg-[#00bcd4]">Ulubione</button>
-            </div>
-            <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
-          </div>
-        </div>
-
       </div>
-    </section>
-  </main>
-</MyBonzoLayout>
+    </div>
+  </section>
 
-<style>
-  .section-container {
-    padding: 2rem;
-    text-align: center;
-  }
-  .section-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #00bcd4;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
+  <!-- POLACZEK_T Floating Assistant -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
+    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
+      <AiHelpAssistant client:load pageTitle="Generator Obrazów | AI Workers" />
+    </div>
+  </div>
 
-  .global-stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .stat-card {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--edge);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-
-  .stat-card:hover {
-    border-color: #00bcd4;
-    transform: translateY(-2px);
-  }
-
-  .stat-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00bcd4;
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: #888;
-  }
-
-  .preset-btn {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid var(--edge);
-    color: white;
-    padding: 0.5rem 1rem;
-    rounded: 0.25rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .preset-btn:hover {
-    background: #00bcd4;
-    border-color: #00bcd4;
-    transform: translateY(-1px);
-  }
-
-  .result-card {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--edge);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .result-card:hover {
-    border-color: #00bcd4;
-    transform: translateY(-2px);
-  }
-
-  .result-card img {
-    width: 100%;
-    border-radius: 0.375rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .result-actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-
-  .result-actions button {
-    font-size: 0.75rem;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .history-item {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--edge);
-    border-radius: 0.375rem;
-    padding: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .history-item:hover {
-    border-color: #00bcd4;
-    transform: scale(1.05);
-  }
-
-  .history-item img {
-    width: 100%;
-    border-radius: 0.25rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .history-prompt {
-    font-size: 0.75rem;
-    color: #ccc;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .section-description {
-    font-size: 1.1rem;
-    color: #d1d5db;
-    margin-bottom: 1.25rem;
-  }
-  .ai-workers-section {
-    min-height: 100vh;
-  }
-  .prompt-template {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #374151;
-    color: #d1d5db;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.75rem;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .prompt-template:hover {
-    background: rgba(6, 182, 212, 0.2);
-    border-color: #06b6d4;
-    color: #06b6d4;
-  }
-  .quick-prompt-btn {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid #374151;
-    color: #d1d5db;
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .quick-prompt-btn:hover {
-    background-color: #374151;
-    border-color: #00bcd4;
-    color: #00bcd4;
-  }
-</style>
-
-<script>
-  // @ts-nocheck
-  // Frontend for binary PNG API with loading/error/history (no template literals)
-  var generationHistory = [];
-  try {
-    generationHistory = JSON.parse(
-      localStorage.getItem("imageHistory") || "[]"
-    );
-  } catch (e) {
-    generationHistory = [];
-  }
-
-  function parseSize(size) {
-    var parts = String(size || "").split("x");
-    var w = parseInt(parts[0], 10);
-    var h = parseInt(parts[1], 10);
-    if (isNaN(w) || isNaN(h)) {
-      w = 512;
-      h = 512;
-    }
-    return { width: w, height: h };
-  }
-
-  // Template prompts
-  var promptTemplates = {
-    photo: "professional photography, high quality, 4K, realistic, detailed",
-    art: "digital art, masterpiece, highly detailed, artistic, beautiful colors",
-    anime: "anime style, manga style, vibrant colors, cel shading, high quality",
-    "3d": "3D render, octane render, cinema4d, blender, high quality, realistic lighting",
-    vintage: "vintage style, retro, film photography, nostalgic, warm tones"
-  };
-
-  function setTemplate(type) {
-    var promptEl = document.getElementById("imagePrompt");
-    if (promptEl && promptTemplates[type]) {
-      var currentText = promptEl.value.trim();
-      if (currentText) {
-        promptEl.value = currentText + ", " + promptTemplates[type];
-      } else {
-        promptEl.value = promptTemplates[type];
-      }
-    }
-  }
-
-  async function translatePrompt() {
-    var promptEl = document.getElementById("imagePrompt");
-    var translateBtn = document.getElementById("translateBtn");
-    
-    if (!promptEl || !translateBtn) return;
-    
-    var text = promptEl.value.trim();
-    if (!text) {
-      alert("Wprowadź tekst do przetłumaczenia");
-      return;
-    }
-
-    translateBtn.disabled = true;
-    translateBtn.textContent = "⏳";
-    
+  <script>
+    // @ts-nocheck
+    // Frontend for binary PNG API with loading/error/history (no template literals)
+    var generationHistory = [];
     try {
-      var response = await fetch("/api/translate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: text,
-          from: "pl",
-          to: "en"
-        })
-      });
+      generationHistory = JSON.parse(
+        localStorage.getItem("imageHistory") || "[]"
+      );
+    } catch (e) {
+      generationHistory = [];
+    }
 
-      if (!response.ok) {
-        throw new Error("Błąd tłumaczenia");
+    function parseSize(size) {
+      var parts = String(size || "").split("x");
+      var w = parseInt(parts[0], 10);
+      var h = parseInt(parts[1], 10);
+      if (isNaN(w) || isNaN(h)) {
+        w = 512;
+        h = 512;
       }
-
-      var data = await response.json();
-      if (data.success && data.translatedText) {
-        promptEl.value = data.translatedText;
-      } else {
-        throw new Error(data.error || "Brak tłumaczenia");
-      }
-    } catch (error) {
-      console.error("Translation error:", error);
-      alert("Błąd tłumaczenia: " + error.message);
-    } finally {
-      translateBtn.disabled = false;
-      translateBtn.textContent = "🌐";
-    }
-  }
-
-  async function enhancePrompt() {
-    var promptEl = document.getElementById("imagePrompt");
-    var enhanceBtn = document.getElementById("enhanceBtn");
-    var styleEl = document.getElementById("imageStyle");
-    
-    if (!promptEl || !enhanceBtn) return;
-    
-    var text = promptEl.value.trim();
-    if (!text) {
-      alert("Wprowadź tekst do ulepszenia");
-      return;
+      return { width: w, height: h };
     }
 
-    enhanceBtn.disabled = true;
-    enhanceBtn.textContent = "⏳";
-    
-    try {
-      var style = styleEl ? styleEl.value : "default";
-      var response = await fetch("/api/magic-prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: text,
-          style: style
-        })
-      });
+    // Template prompts
+    var promptTemplates = {
+      photo: "professional photography, high quality, 4K, realistic, detailed",
+      art: "digital art, masterpiece, highly detailed, artistic, beautiful colors",
+      anime: "anime style, manga style, vibrant colors, cel shading, high quality",
+      "3d": "3D render, octane render, cinema4d, blender, high quality, realistic lighting",
+      vintage: "vintage style, retro, film photography, nostalgic, warm tones"
+    };
 
-      if (!response.ok) {
-        throw new Error("Błąd Magic Prompt");
-      }
-
-      var data = await response.json();
-      if (data.success && data.enhancedPrompt) {
-        promptEl.value = data.enhancedPrompt;
-        
-        // Show enhancement info
-        var info = document.createElement("div");
-        info.className = "mt-1 text-xs text-green-400";
-        info.textContent = "✨ Prompt ulepszony przez MagicPrompt-SD";
-        
-        var existingInfo = promptEl.parentElement.querySelector(".magic-info");
-        if (existingInfo) existingInfo.remove();
-        info.className += " magic-info";
-        promptEl.parentElement.appendChild(info);
-        
-        setTimeout(() => {
-          if (info.parentElement) info.remove();
-        }, 3000);
-      } else {
-        throw new Error(data.error || "Brak ulepszonego promptu");
-      }
-    } catch (error) {
-      console.error("Magic Prompt error:", error);
-      alert("Błąd Magic Prompt: " + error.message);
-    } finally {
-      enhanceBtn.disabled = false;
-      enhanceBtn.textContent = "✨";
-    }
-  }
-
-  function setPrompt(p) {
-    var el = document.getElementById("imagePrompt");
-    if (el) el.value = p;
-  }
-
-  function blobToDataUrl(blob) {
-    return new Promise(function (resolve, reject) {
-      var r = new FileReader();
-      r.onloadend = function () {
-        resolve(String(r.result || ""));
-      };
-      r.onerror = reject;
-      r.readAsDataURL(blob);
-    });
-  }
-
-  async function generateImage() {
-    var promptEl = document.getElementById("imagePrompt");
-    var modelEl = document.getElementById("imageModel");
-    var styleEl = document.getElementById("imageStyle");
-    var sizeEl = document.getElementById("imageSize");
-    var stepsEl = document.getElementById("imageSteps");
-    var loading = document.getElementById("loading");
-    var errorBox = document.getElementById("errorBox");
-    var btn = document.getElementById("generateBtn");
-    var result = document.getElementById("resultSection");
-
-    var prompt = promptEl ? String(promptEl.value).trim() : "";
-    if (!prompt) {
-      alert("Proszę wprowadzić opis obrazu");
-      return;
-    }
-
-    if (errorBox) {
-      errorBox.classList.add("hidden");
-      errorBox.textContent = "";
-    }
-    if (result) result.classList.add("hidden");
-    if (loading) loading.classList.remove("hidden");
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = "Generowanie...";
-    }
-
-    try {
-      var model = modelEl ? String(modelEl.value) : "";
-      var style = styleEl ? String(styleEl.value) : "";
-      var steps = stepsEl ? parseInt(String(stepsEl.value), 10) : undefined;
-      var size = sizeEl ? String(sizeEl.value) : "512x512";
-      var dims = parseSize(size);
-
-      var res = await fetch("/api/generate-image", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt: prompt,
-          model: model,
-          style: style,
-          width: dims.width,
-          height: dims.height,
-          steps: steps,
-        }),
-      });
-
-      if (!res.ok) {
-        var errMsg = "Błąd generacji obrazu";
-        try {
-          var j = await res.json();
-          if (j && j.error) errMsg = j.error;
-        } catch (e) {}
-        throw new Error(errMsg);
-      }
-
-      var img = document.getElementById("generatedImage");
-      var objUrl;
-
-      // Check if it's JSON response (external models) or blob (Cloudflare)
-      var contentType = res.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        // External model response with base64 image
-        var jsonData = await res.json();
-        if (jsonData.success && jsonData.image) {
-          if (img) img.src = jsonData.image; // Already data URL
-          objUrl = jsonData.image;
-          
-          // Show provider info
-          var providerInfo = document.createElement("div");
-          providerInfo.className = "mt-2 text-sm text-cyan-400";
-          providerInfo.textContent = "Wygenerowane przez: " + (jsonData.provider || "AI");
-          if (result) {
-            var existingInfo = result.querySelector(".provider-info");
-            if (existingInfo) existingInfo.remove();
-            providerInfo.className += " provider-info";
-            result.appendChild(providerInfo);
-          }
+    function setTemplate(type) {
+      var promptEl = document.getElementById("imagePrompt");
+      if (promptEl && promptTemplates[type]) {
+        var currentText = promptEl.value.trim();
+        if (currentText) {
+          promptEl.value = currentText + ", " + promptTemplates[type];
         } else {
-          throw new Error(jsonData.error || "Błąd zewnętrznego API");
+          promptEl.value = promptTemplates[type];
         }
-      } else {
-        // Cloudflare blob response
-        var blob = await res.blob();
-        objUrl = URL.createObjectURL(blob);
-        if (img) img.src = objUrl;
       }
+    }
+
+    async function translatePrompt() {
+      var promptEl = document.getElementById("imagePrompt");
+      var translateBtn = document.getElementById("translateBtn");
       
-      if (result) result.classList.remove("hidden");
+      if (!promptEl || !translateBtn) return;
+      
+      var text = promptEl.value.trim();
+      if (!text) {
+        alert("Wprowadź tekst do przetłumaczenia");
+        return;
+      }
 
-      // Persist history as data URL to survive reloads
+      translateBtn.disabled = true;
+      translateBtn.textContent = "⏳";
+      
       try {
-        var dataUrl;
-        if (contentType && contentType.includes("application/json")) {
-          // For external models, use the base64 data URL directly
-          dataUrl = objUrl;
-        } else {
-          // For Cloudflare models, convert blob to data URL
-          dataUrl = await blobToDataUrl(blob);
+        var response = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: text,
+            from: "pl",
+            to: "en"
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Błąd tłumaczenia");
         }
-        
-        var item = {
-          id: Date.now(),
-          prompt: prompt,
-          imageUrl: dataUrl,
-          ts: new Date().toISOString(),
-          settings: {
+
+        var data = await response.json();
+        if (data.success && data.translatedText) {
+          promptEl.value = data.translatedText;
+        } else {
+          throw new Error(data.error || "Brak tłumaczenia");
+        }
+      } catch (error) {
+        console.error("Translation error:", error);
+        alert("Błąd tłumaczenia: " + error.message);
+      } finally {
+        translateBtn.disabled = false;
+        translateBtn.textContent = "🌐";
+      }
+    }
+
+    async function enhancePrompt() {
+      var promptEl = document.getElementById("imagePrompt");
+      var enhanceBtn = document.getElementById("enhanceBtn");
+      var styleEl = document.getElementById("imageStyle");
+      
+      if (!promptEl || !enhanceBtn) return;
+      
+      var text = promptEl.value.trim();
+      if (!text) {
+        alert("Wprowadź tekst do ulepszenia");
+        return;
+      }
+
+      enhanceBtn.disabled = true;
+      enhanceBtn.textContent = "⏳";
+      
+      try {
+        var style = styleEl ? styleEl.value : "default";
+        var response = await fetch("/api/magic-prompt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: text,
+            style: style
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error("Błąd Magic Prompt");
+        }
+
+        var data = await response.json();
+        if (data.success && data.enhancedPrompt) {
+          promptEl.value = data.enhancedPrompt;
+          
+          // Show enhancement info
+          var info = document.createElement("div");
+          info.className = "mt-1 text-xs text-green-400";
+          info.textContent = "✨ Prompt ulepszony przez MagicPrompt-SD";
+          
+          var existingInfo = promptEl.parentElement.querySelector(".magic-info");
+          if (existingInfo) existingInfo.remove();
+          info.className += " magic-info";
+          promptEl.parentElement.appendChild(info);
+          
+          setTimeout(() => {
+            if (info.parentElement) info.remove();
+          }, 3000);
+        } else {
+          throw new Error(data.error || "Brak ulepszonego promptu");
+        }
+      } catch (error) {
+        console.error("Magic Prompt error:", error);
+        alert("Błąd Magic Prompt: " + error.message);
+      } finally {
+        enhanceBtn.disabled = false;
+        enhanceBtn.textContent = "✨";
+      }
+    }
+
+    function setPrompt(p) {
+      var el = document.getElementById("imagePrompt");
+      if (el) el.value = p;
+    }
+
+    function blobToDataUrl(blob) {
+      return new Promise(function (resolve, reject) {
+        var r = new FileReader();
+        r.onloadend = function () {
+          resolve(String(r.result || ""));
+        };
+        r.onerror = reject;
+        r.readAsDataURL(blob);
+      });
+    }
+
+    async function generateImage() {
+      var promptEl = document.getElementById("imagePrompt");
+      var modelEl = document.getElementById("imageModel");
+      var styleEl = document.getElementById("imageStyle");
+      var sizeEl = document.getElementById("imageSize");
+      var stepsEl = document.getElementById("imageSteps");
+      var loading = document.getElementById("loading");
+      var errorBox = document.getElementById("errorBox");
+      var btn = document.getElementById("generateBtn");
+      var result = document.getElementById("resultSection");
+
+      var prompt = promptEl ? String(promptEl.value).trim() : "";
+      if (!prompt) {
+        alert("Proszę wprowadzić opis obrazu");
+        return;
+      }
+
+      if (errorBox) {
+        errorBox.classList.add("hidden");
+        errorBox.textContent = "";
+      }
+      if (result) result.classList.add("hidden");
+      if (loading) loading.classList.remove("hidden");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Generowanie...";
+      }
+
+      try {
+        var model = modelEl ? String(modelEl.value) : "";
+        var style = styleEl ? String(styleEl.value) : "";
+        var steps = stepsEl ? parseInt(String(stepsEl.value), 10) : undefined;
+        var size = sizeEl ? String(sizeEl.value) : "512x512";
+        var dims = parseSize(size);
+
+        var res = await fetch("/api/generate-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: prompt,
             model: model,
             style: style,
             width: dims.width,
             height: dims.height,
             steps: steps,
-          },
-        };
-        generationHistory.unshift(item);
-        if (generationHistory.length > 20)
-          generationHistory = generationHistory.slice(0, 20);
-        localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
-        updateHistoryDisplay();
-      } catch (e) {}
-    } catch (err) {
-      console.error("Generation error:", err);
-      if (errorBox) {
-        errorBox.textContent = err && err.message ? err.message : String(err);
-        errorBox.classList.remove("hidden");
-      }
-    } finally {
-      if (loading) loading.classList.add("hidden");
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = "🎨 Generuj Obraz";
-      }
-    }
-  }
-
-  // Presets for different image types
-  var imagePresets = {
-    portraits: [
-      "professional portrait photography, studio lighting, high quality",
-      "realistic portrait, detailed face, soft lighting, 4K",
-      "cinematic portrait, dramatic lighting, professional"
-    ],
-    landscapes: [
-      "breathtaking landscape photography, golden hour, high resolution",
-      "epic mountain vista, dramatic clouds, professional photography",
-      "serene natural landscape, perfect lighting, 4K"
-    ],
-    art: [
-      "digital art masterpiece, highly detailed, artstation trending",
-      "concept art, fantasy illustration, detailed background",
-      "artistic painting, oil painting style, museum quality"
-    ],
-    fantasy: [
-      "fantasy art, magical atmosphere, detailed illustration",
-      "mystical scene, glowing effects, epic fantasy art",
-      "enchanted world, fantasy landscape, magical lighting"
-    ],
-    scifi: [
-      "futuristic sci-fi scene, cyberpunk style, neon lighting",
-      "space exploration, cosmic vista, detailed spacecraft",
-      "dystopian future, high-tech environment, dramatic"
-    ],
-    anime: [
-      "anime style illustration, vibrant colors, detailed",
-      "manga style artwork, cel shading, high quality anime",
-      "kawaii anime character, colorful, studio quality"
-    ],
-    realistic: [
-      "photorealistic, ultra detailed, professional photography",
-      "hyperrealistic rendering, perfect lighting, 8K quality",
-      "realistic photo, natural lighting, high definition"
-    ],
-    abstract: [
-      "abstract art, geometric patterns, vibrant colors",
-      "surreal abstract composition, artistic expression",
-      "modern abstract design, bold colors, creative"
-    ]
-  };
-
-  function loadPreset(category) {
-    var presets = imagePresets[category];
-    if (!presets || !presets.length) return;
-    
-    var randomPreset = presets[Math.floor(Math.random() * presets.length)];
-    var promptEl = document.getElementById("imagePrompt");
-    if (promptEl) {
-      promptEl.value = randomPreset;
-    }
-  }
-
-  function randomizeSeed() {
-    var seedEl = document.getElementById("seed");
-    if (seedEl) {
-      seedEl.value = Math.floor(Math.random() * 1000000);
-    }
-  }
-
-  function generateBatch() {
-    var batchCount = parseInt(document.getElementById("batchCount").value) || 1;
-    var varySeeds = document.getElementById("varySeeds").checked;
-    var originalSeed = document.getElementById("seed").value;
-    
-    var generateBtn = document.getElementById("generateBtn");
-    if (generateBtn) {
-      for (var i = 0; i < batchCount; i++) {
-        setTimeout(function(index) {
-          if (varySeeds && index > 0) {
-            randomizeSeed();
-          }
-          generateImage();
-        }, i * 2000, i); // 2 second delay between generations
-      }
-    }
-    
-    // Restore original seed if not varying
-    if (!varySeeds) {
-      setTimeout(function() {
-        document.getElementById("seed").value = originalSeed;
-      }, batchCount * 2000);
-    }
-  }
-
-  function addToResults(imageUrl, prompt, settings) {
-    var resultsGrid = document.getElementById("resultsGrid");
-    if (!resultsGrid) return;
-
-    var resultCard = document.createElement("div");
-    resultCard.className = "result-card";
-    resultCard.innerHTML = 
-      '<img src="' + imageUrl + '" alt="Generated image" />' +
-      '<div class="result-actions">' +
-        '<button onclick="downloadResult(\'' + imageUrl + '\')" style="background: #10b981; color: white;">💾 Pobierz</button>' +
-        '<button onclick="copyPromptFromResult(\'' + prompt.replace(/'/g, "\\'") + '\')" style="background: #3b82f6; color: white;">📋 Kopiuj prompt</button>' +
-        '<button onclick="toggleFavorite(this)" style="background: #f59e0b; color: white;">⭐ Ulubione</button>' +
-      '</div>';
-    
-    resultsGrid.insertBefore(resultCard, resultsGrid.firstChild);
-  }
-
-  function downloadResult(imageUrl) {
-    var link = document.createElement("a");
-    link.href = imageUrl;
-    link.download = "generated_image_" + Date.now() + ".png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  function copyPromptFromResult(prompt) {
-    navigator.clipboard.writeText(prompt).then(function() {
-      alert("Prompt skopiowany do schowka!");
-    });
-  }
-
-  function toggleFavorite(button) {
-    var isFavorite = button.classList.contains("favorited");
-    if (isFavorite) {
-      button.classList.remove("favorited");
-      button.style.background = "#f59e0b";
-      button.textContent = "⭐ Ulubione";
-    } else {
-      button.classList.add("favorited");
-      button.style.background = "#ef4444";
-      button.textContent = "❤️ Ulubione";
-    }
-  }
-
-  function clearResults() {
-    var resultsGrid = document.getElementById("resultsGrid");
-    if (resultsGrid) {
-      resultsGrid.innerHTML = "";
-    }
-  }
-
-  function exportHistory() {
-    var dataStr = JSON.stringify(generationHistory, null, 2);
-    var dataBlob = new Blob([dataStr], {type: 'application/json'});
-    
-    var link = document.createElement("a");
-    link.href = URL.createObjectURL(dataBlob);
-    link.download = "image_generation_history_" + new Date().toISOString().split('T')[0] + ".json";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
-  function clearHistory() {
-    if (confirm("Czy na pewno chcesz wyczyścić całą historię generacji?")) {
-      generationHistory = [];
-      localStorage.removeItem("imageHistory");
-      updateHistoryDisplay();
-      updateGlobalStats();
-    }
-  }
-
-  function openHistoryPanel() {
-    var panel = document.getElementById("historyPanel");
-    if (panel) {
-      panel.style.display = "flex";
-      panel.classList.remove("hidden");
-      updateHistoryPanelStats();
-    }
-  }
-
-  function closeHistory() {
-    var panel = document.getElementById("historyPanel");
-    if (panel) {
-      panel.style.display = "none";
-      panel.classList.add("hidden");
-    }
-  }
-
-  function updateHistoryPanelStats() {
-    var total = generationHistory.length;
-    var today = 0;
-    var week = 0;
-    var favorites = 0;
-    
-    var todayDate = new Date().toDateString();
-    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    
-    generationHistory.forEach(function(item) {
-      var itemDate = new Date(item.ts);
-      if (itemDate.toDateString() === todayDate) today++;
-      if (itemDate >= weekAgo) week++;
-      if (item.favorite) favorites++;
-    });
-    
-    var totalEl = document.getElementById("historyTotal");
-    var todayEl = document.getElementById("historyToday");
-    var weekEl = document.getElementById("historyWeek");
-    var favoritesEl = document.getElementById("historyFavorites");
-    
-    if (totalEl) totalEl.textContent = total;
-    if (todayEl) todayEl.textContent = today;
-    if (weekEl) weekEl.textContent = week;
-    if (favoritesEl) favoritesEl.textContent = favorites;
-  }
-
-  function filterHistory(filter) {
-    var historyList = document.getElementById("historyList");
-    if (!historyList) return;
-    
-    var filteredHistory;
-    var todayDate = new Date().toDateString();
-    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    
-    switch (filter) {
-      case 'today':
-        filteredHistory = generationHistory.filter(function(item) {
-          return new Date(item.ts).toDateString() === todayDate;
+          }),
         });
-        break;
-      case 'week':
-        filteredHistory = generationHistory.filter(function(item) {
-          return new Date(item.ts) >= weekAgo;
-        });
-        break;
-      case 'favorites':
-        filteredHistory = generationHistory.filter(function(item) {
-          return item.favorite;
-        });
-        break;
-      default:
-        filteredHistory = generationHistory;
-    }
-    
-    displayFilteredHistory(filteredHistory);
-    
-    // Update filter button states
-    var filterButtons = document.querySelectorAll('[onclick^="filterHistory"]');
-    filterButtons.forEach(function(btn) {
-      btn.className = btn.className.replace('bg-[#00bcd4]', 'bg-gray-600');
-    });
-    event.target.className = event.target.className.replace('bg-gray-600', 'bg-[#00bcd4]');
-  }
 
-  function displayFilteredHistory(filteredHistory) {
-    var historyList = document.getElementById("historyList");
-    if (!historyList) return;
-    
-    historyList.innerHTML = "";
-    
-    filteredHistory.forEach(function(item) {
-      var historyItem = document.createElement("div");
-      historyItem.className = "history-item";
-      historyItem.innerHTML =
-        '<img src="' + item.imageUrl + '" alt="History image" />' +
-        '<div class="history-prompt">' + (item.prompt || "").substring(0, 50) + '...</div>' +
-        '<div class="text-xs text-gray-500 mt-1">' + new Date(item.ts).toLocaleString() + '</div>';
-      
-      historyItem.onclick = function() {
-        var promptEl = document.getElementById("imagePrompt");
-        if (promptEl && item.prompt) {
-          promptEl.value = item.prompt;
+        if (!res.ok) {
+          var errMsg = "Błąd generacji obrazu";
+          try {
+            var j = await res.json();
+            if (j && j.error) errMsg = j.error;
+          } catch (e) {}
+          throw new Error(errMsg);
         }
-        closeHistory();
-      };
-      
-      historyList.appendChild(historyItem);
-    });
-  }
 
-  function downloadImage() {
-    var img = document.getElementById("generatedImage");
-    if (!img || !img.src) return;
-    var link = document.createElement("a");
-    link.download = "generated_image.png";
-    link.href = img.src;
-    link.click();
-  }
+        var img = document.getElementById("generatedImage");
+        var objUrl;
 
-  function shareImage() {
-    var img = document.getElementById("generatedImage");
-    if (!img || !img.src) return;
-    if (navigator.share) {
-      navigator
-        .share({ title: "Wygenerowany obraz AI", url: img.src })
-        .catch(function () {});
-    } else if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(img.src);
-      alert("Link do obrazu skopiowany do schowka!");
-    }
-  }
-
-  function generateVariation() {
-    var promptEl = document.getElementById("imagePrompt");
-    var currentPrompt = promptEl ? String(promptEl.value) : "";
-    var v = [
-      ", w innym stylu",
-      ", z innymi kolorami",
-      ", z innej perspektywy",
-      ", w wersji artystycznej",
-      ", z dodatkowymi detalami",
-    ];
-    var add = v[Math.floor(Math.random() * v.length)];
-    if (promptEl) promptEl.value = currentPrompt + add;
-    generateImage();
-  }
-
-  function createHistoryCard(item) {
-    var wrap = document.createElement("div");
-    wrap.className =
-      "history-item border border-edge rounded-lg p-2 cursor-pointer hover:border-cyan-400 transition-colors";
-    wrap.style.background = "rgba(0,0,0,0.5)";
-    var image = document.createElement("img");
-    image.src = item.imageUrl;
-    image.alt = "Historia";
-    image.className = "w-full aspect-square object-cover rounded mb-2";
-    wrap.appendChild(image);
-    var p = document.createElement("p");
-    p.className = "text-xs text-gray-400 truncate";
-    p.textContent = item.prompt;
-    wrap.appendChild(p);
-    wrap.onclick = function () {
-      var el = document.getElementById("imagePrompt");
-      if (el) el.value = item.prompt;
-      var img = document.getElementById("generatedImage");
-      if (img) img.src = item.imageUrl;
-      var res = document.getElementById("resultSection");
-      if (res) res.classList.remove("hidden");
-    };
-    return wrap;
-  }
-
-  function updateHistoryDisplay() {
-    var grid = document.getElementById("historyGrid");
-    if (!grid) return;
-    grid.innerHTML = "";
-    var items = generationHistory.slice(0, 8);
-    for (var i = 0; i < items.length; i++) {
-      grid.appendChild(createHistoryCard(items[i]));
-    }
-  }
-
-  // Multi-modal generation functions
-  function updateGenerationUI() {
-    var generationType = document.getElementById("generationType").value;
-    var sourceImageGroup = document.getElementById("sourceImageGroup");
-    var videoOptions = document.getElementById("videoOptions");
-    var modelGroup = document.getElementById("modelGroup");
-    var modelSelect = document.getElementById("model");
-    
-    // Show/hide source image upload for photo2photo
-    if (sourceImageGroup) {
-      sourceImageGroup.style.display = generationType === 'photo2photo' ? 'block' : 'none';
-    }
-    
-    // Show/hide video options for video generation
-    if (videoOptions) {
-      videoOptions.style.display = generationType === 'video' ? 'block' : 'none';
-    }
-    
-    // Update model options based on generation type
-    if (modelSelect) {
-      modelSelect.innerHTML = '';
-      var models = [];
-      
-      switch (generationType) {
-        case 'image':
-          models = [
-            { value: '@cf/stabilityai/stable-diffusion-xl-base-1.0', text: 'Stability AI SDXL (Cloudflare)' },
-            { value: '@cf/lykon/dreamshaper-8-lcm', text: 'DreamShaper 8 LCM (Cloudflare)' },
-            { value: '@cf/runwayml/stable-diffusion-v1-5-inpainting', text: 'SD 1.5 Inpainting (Cloudflare)' },
-            { value: 'openrouter/stabilityai/stable-diffusion-3-medium', text: 'SD 3 Medium (OpenRouter)' },
-            { value: 'openrouter/black-forest-labs/flux-1-schnell', text: 'FLUX.1 Schnell (OpenRouter)' }
-          ];
-          break;
-        case 'video':
-          models = [
-            { value: 'sora', text: 'OpenAI Sora (Free Tier)' },
-            { value: 'openrouter/minimax/video-01', text: 'MiniMax Video-01 (OpenRouter)' },
-            { value: '@cf/runwayml/stable-video-diffusion', text: 'Stable Video Diffusion (Cloudflare)' }
-          ];
-          break;
-        case '3d':
-          models = [
-            { value: 'triposr', text: 'TripoSR (3D Reconstruction)' },
-            { value: 'openrouter/stability/3d-model', text: 'Stability 3D (OpenRouter)' },
-            { value: '@cf/meta/llama-mesh', text: 'LLaMA Mesh (Cloudflare)' }
-          ];
-          break;
-        case 'photo2photo':
-          models = [
-            { value: '@cf/runwayml/stable-diffusion-v1-5-img2img', text: 'SD 1.5 Img2Img (Cloudflare)' },
-            { value: 'openrouter/stability/controlnet', text: 'ControlNet (OpenRouter)' },
-            { value: '@cf/lykon/dreamshaper-8-lcm-img2img', text: 'DreamShaper Img2Img (Cloudflare)' }
-          ];
-          break;
-      }
-      
-      models.forEach(function(model) {
-        var option = document.createElement('option');
-        option.value = model.value;
-        option.textContent = model.text;
-        modelSelect.appendChild(option);
-      });
-    }
-  }
-
-  function handleSourceImageUpload(event) {
-    var file = event.target.files[0];
-    if (!file) return;
-    
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      var preview = document.getElementById('sourceImagePreview');
-      if (preview) {
-        preview.src = e.target.result;
-        preview.style.display = 'block';
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  function toggleNSFWBlur() {
-    var enabled = document.getElementById('nsfwBlur').checked;
-    var allImages = document.querySelectorAll('#generatedImage, .history-item img, .result-card img');
-    
-    allImages.forEach(function(img) {
-      if (enabled && img.dataset.nsfw === 'true') {
-        img.style.filter = 'blur(20px)';
-        img.style.cursor = 'pointer';
-        img.onclick = function() {
-          this.style.filter = 'none';
-          this.onclick = null;
-        };
-      } else {
-        img.style.filter = 'none';
-        img.onclick = null;
-      }
-    });
-  }
-
-  async function enhancedGenerateImage() {
-    var btn = document.getElementById("generateBtn");
-    var loading = document.getElementById("loading");
-    var errorBox = document.getElementById("errorBox");
-    var resultSection = document.getElementById("resultSection");
-    var generatedImage = document.getElementById("generatedImage");
-
-    if (btn) btn.disabled = true;
-    if (loading) loading.classList.remove("hidden");
-    if (errorBox) errorBox.classList.add("hidden");
-
-    try {
-      var generationType = document.getElementById("generationType").value;
-      var prompt = document.getElementById("imagePrompt").value.trim();
-      var model = document.getElementById("imageModel").value;
-      var autoTranslate = document.getElementById("autoTranslate").checked;
-      var nsfwBlur = document.getElementById("nsfwBlur").checked;
-      
-      if (!prompt) {
-        throw new Error("Wprowadź prompt do generacji");
-      }
-
-      var formData = new FormData();
-      formData.append('generationType', generationType);
-      formData.append('prompt', prompt);
-      formData.append('model', model);
-      formData.append('autoTranslate', autoTranslate);
-      formData.append('nsfwBlur', nsfwBlur);
-
-      // Add specific parameters based on generation type
-      if (generationType === 'image' || generationType === 'photo2photo') {
-        var dims = getDimensions();
-        formData.append('width', dims.width);
-        formData.append('height', dims.height);
-        formData.append('steps', document.getElementById("steps").value);
-        
-        if (generationType === 'photo2photo') {
-          var sourceImage = document.getElementById('sourceImage').files[0];
-          if (!sourceImage) {
-            throw new Error("Wybierz obraz źródłowy dla photo2photo");
+        // Check if it's JSON response (external models) or blob (Cloudflare)
+        var contentType = res.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          // External model response with base64 image
+          var jsonData = await res.json();
+          if (jsonData.success && jsonData.image) {
+            if (img) img.src = jsonData.image; // Already data URL
+            objUrl = jsonData.image;
+            
+            // Show provider info
+            var providerInfo = document.createElement("div");
+            providerInfo.className = "mt-2 text-sm text-cyan-400";
+            providerInfo.textContent = "Wygenerowane przez: " + (jsonData.provider || "AI");
+            if (result) {
+              var existingInfo = result.querySelector(".provider-info");
+              if (existingInfo) existingInfo.remove();
+              providerInfo.className += " provider-info";
+              result.appendChild(providerInfo);
+            }
+          } else {
+            throw new Error(jsonData.error || "Błąd zewnętrznego API");
           }
-          formData.append('sourceImage', sourceImage);
-        }
-      } else if (generationType === 'video') {
-        formData.append('duration', document.getElementById('videoDuration').value);
-        formData.append('fps', document.getElementById('videoFPS').value);
-      }
-
-      var response = await fetch('/api/enhanced-generator', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        var errorData = await response.json();
-        throw new Error(errorData.error || `Server error: ${response.status}`);
-      }
-
-      var result = await response.json();
-      
-      if (result.success) {
-        if (generatedImage && result.imageUrl) {
-          generatedImage.src = result.imageUrl;
-          generatedImage.dataset.nsfw = result.isNSFW ? 'true' : 'false';
-          
-          // Apply NSFW blur if enabled
-          if (nsfwBlur && result.isNSFW) {
-            generatedImage.style.filter = 'blur(20px)';
-            generatedImage.style.cursor = 'pointer';
-            generatedImage.onclick = function() {
-              this.style.filter = 'none';
-              this.onclick = null;
-            };
-          }
-        }
-        
-        if (resultSection) resultSection.classList.remove("hidden");
-        
-        // Update generation history
-        var historyItem = {
-          id: Date.now(),
-          prompt: result.originalPrompt || prompt,
-          translatedPrompt: result.translatedPrompt,
-          imageUrl: result.imageUrl || result.videoUrl || result.modelUrl,
-          generationType: generationType,
-          model: model,
-          isNSFW: result.isNSFW,
-          ts: new Date().toISOString(),
-          settings: {
-            model: model,
-            generationType: generationType,
-            autoTranslate: autoTranslate
-          }
-        };
-        
-        generationHistory.unshift(historyItem);
-        if (generationHistory.length > 20) {
-          generationHistory = generationHistory.slice(0, 20);
-        }
-        localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
-        updateHistoryDisplay();
-        
-        // Show translation info if used
-        if (result.translatedPrompt && result.translatedPrompt !== prompt) {
-          var translationInfo = document.getElementById('translationInfo');
-          if (translationInfo) {
-            translationInfo.innerHTML = 
-              `<div class="bg-blue-900/20 border border-blue-500 rounded-lg p-3 mt-4">
-                <h4 class="text-blue-400 font-semibold mb-2">🌐 Auto-tłumaczenie POLACZEK_T</h4>
-                <p class="text-sm text-gray-300"><strong>Oryginalny:</strong> ${prompt}</p>
-                <p class="text-sm text-gray-300"><strong>Przetłumaczony:</strong> ${result.translatedPrompt}</p>
-              </div>`;
-          }
-        }
-        
-      } else {
-        throw new Error(result.error || 'Wystąpił błąd podczas generacji');
-      }
-
-    } catch (err) {
-      console.error("Enhanced generation error:", err);
-      if (errorBox) {
-        errorBox.textContent = err.message || String(err);
-        errorBox.classList.remove("hidden");
-      }
-    } finally {
-      if (loading) loading.classList.add("hidden");
-      if (btn) {
-        btn.disabled = false;
-        var buttonTexts = {
-          'image': '🎨 Generuj Obraz',
-          'video': '🎬 Generuj Wideo',
-          '3d': '🗿 Generuj Model 3D',
-          'photo2photo': '🔄 Przekształć Obraz'
-        };
-        btn.textContent = buttonTexts[document.getElementById("generationType").value] || '🎨 Generuj';
-      }
-    }
-  }
-
-  // Global statistics functions
-  function updateGlobalStats() {
-    var totalImages = generationHistory.length;
-    var todayImages = 0;
-    var weekImages = 0;
-    var favoriteImages = 0;
-    
-    var todayDate = new Date().toDateString();
-    var weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    
-    generationHistory.forEach(function(item) {
-      var itemDate = new Date(item.ts);
-      if (itemDate.toDateString() === todayDate) todayImages++;
-      if (itemDate >= weekAgo) weekImages++;
-      if (item.favorite) favoriteImages++;
-    });
-    
-    var totalEl = document.getElementById("statTotalImages");
-    var todayEl = document.getElementById("statTodayImages");
-    var weekEl = document.getElementById("statWeekImages");
-    var avgEl = document.getElementById("statAvgTime");
-    
-    if (totalEl) totalEl.textContent = totalImages;
-    if (todayEl) todayEl.textContent = todayImages;
-    if (weekEl) weekEl.textContent = weekImages;
-    if (avgEl) avgEl.textContent = "~3.2s"; // Updated average for multi-modal
-  }
-
-  // Initialize enhanced generator on page load
-  document.addEventListener("DOMContentLoaded", function () {
-    updateHistoryDisplay();
-    updateGlobalStats();
-    updateGenerationUI();
-    
-    // Replace standard generate function with enhanced version
-    var generateBtn = document.getElementById("generateBtn");
-    if (generateBtn) {
-      generateBtn.onclick = enhancedGenerateImage;
-    }
-    
-    // Setup generation type change handler
-    var generationTypeSelect = document.getElementById("generationType");
-    if (generationTypeSelect) {
-      generationTypeSelect.onchange = updateGenerationUI;
-    }
-    
-    // Setup source image upload handler
-    var sourceImageInput = document.getElementById("sourceImage");
-    if (sourceImageInput) {
-      sourceImageInput.onchange = handleSourceImageUpload;
-    }
-    
-    // Setup NSFW blur toggle
-    var nsfwBlurToggle = document.getElementById("nsfwBlur");
-    if (nsfwBlurToggle) {
-      nsfwBlurToggle.onchange = toggleNSFWBlur;
-    }
-    
-    // Setup canvas and file upload
-    setupCanvas();
-    setupFileUpload();
-    
-    // Canvas and Image Processing Functions
-    function setupCanvas() {
-      var canvas = document.getElementById('imageCanvas');
-      if (!canvas) return;
-      var ctx = canvas.getContext('2d');
-      
-      // Clear canvas with dark background
-      ctx.fillStyle = '#1f2937';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      // Add placeholder text
-      ctx.fillStyle = '#9ca3af';
-      ctx.font = '16px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('Obraz pojawi się tutaj', canvas.width/2, canvas.height/2);
-    }
-
-    function displayImageOnCanvas(imageUrl) {
-      var canvas = document.getElementById('imageCanvas');
-      if (!canvas) return;
-      var ctx = canvas.getContext('2d');
-      var img = new Image();
-      
-      img.onload = function() {
-        // Calculate dimensions to fit canvas while maintaining aspect ratio
-        var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-        var newWidth = img.width * scale;
-        var newHeight = img.height * scale;
-        var x = (canvas.width - newWidth) / 2;
-        var y = (canvas.height - newHeight) / 2;
-        
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#1f2937';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw image
-        ctx.drawImage(img, x, y, newWidth, newHeight);
-        
-        // Update image info
-        var info = document.getElementById('imageInfo');
-        if (info) {
-          info.textContent = `Rozmiar: ${img.width}x${img.height} | Model: ${document.getElementById('imageModel').value} | Status: OK`;
-        }
-      };
-      
-      img.src = imageUrl;
-    }
-
-    // File Upload Functions
-    function setupFileUpload() {
-      var uploadArea = document.getElementById('uploadArea');
-      var fileInput = document.getElementById('sourceImageFile');
-      
-      if (!uploadArea || !fileInput) return;
-      
-      // Click to upload
-      uploadArea.addEventListener('click', function() {
-        fileInput.click();
-      });
-      
-      // Drag and drop
-      uploadArea.addEventListener('dragover', function(e) {
-        e.preventDefault();
-        uploadArea.classList.add('border-cyan-400');
-      });
-      
-      uploadArea.addEventListener('dragleave', function(e) {
-        e.preventDefault();
-        uploadArea.classList.remove('border-cyan-400');
-      });
-      
-      uploadArea.addEventListener('drop', function(e) {
-        e.preventDefault();
-        uploadArea.classList.remove('border-cyan-400');
-        var files = e.dataTransfer.files;
-        if (files.length > 0) {
-          handleFileUpload(files[0]);
-        }
-      });
-      
-      // File input change
-      fileInput.addEventListener('change', function() {
-        if (this.files.length > 0) {
-          handleFileUpload(this.files[0]);
-        }
-      });
-    }
-
-    function handleFileUpload(file) {
-      // Validate file
-      if (!file.type.startsWith('image/')) {
-        alert('Proszę wybrać plik obrazu!');
-        return;
-      }
-      
-      if (file.size > 10 * 1024 * 1024) { // 10MB
-        alert('Plik jest za duży! Maksymalny rozmiar: 10MB');
-        return;
-      }
-      
-      // Show preview
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var sourceImg = document.getElementById('sourceImg');
-        var uploadPlaceholder = document.getElementById('uploadPlaceholder');
-        var uploadPreview = document.getElementById('uploadPreview');
-        var processingOptions = document.getElementById('imageProcessingOptions');
-        
-        if (sourceImg) sourceImg.src = e.target.result;
-        if (uploadPlaceholder) uploadPlaceholder.classList.add('hidden');
-        if (uploadPreview) uploadPreview.classList.remove('hidden');
-        if (processingOptions) processingOptions.classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Global functions for HTML onclick events
-    window.clearSourceImage = function() {
-      var uploadPlaceholder = document.getElementById('uploadPlaceholder');
-      var uploadPreview = document.getElementById('uploadPreview');
-      var processingOptions = document.getElementById('imageProcessingOptions');
-      var fileInput = document.getElementById('sourceImageFile');
-      
-      if (uploadPlaceholder) uploadPlaceholder.classList.remove('hidden');
-      if (uploadPreview) uploadPreview.classList.add('hidden');
-      if (processingOptions) processingOptions.classList.add('hidden');
-      if (fileInput) fileInput.value = '';
-    };
-
-    window.useAsPrompt = function() {
-      // Use AI to analyze the image and generate a prompt
-      var sourceImg = document.getElementById('sourceImg');
-      if (sourceImg && sourceImg.src) {
-        alert('Funkcja analizy obrazu zostanie wkrótce dodana!');
-      }
-    };
-
-    // Image Processing Functions
-    window.processImage = async function(processType) {
-      var fileInput = document.getElementById('sourceImageFile');
-      if (!fileInput.files.length) {
-        alert('Proszę najpierw wgrać obraz!');
-        return;
-      }
-      
-      var loadingEl = document.getElementById('loading');
-      var errorBox = document.getElementById('errorBox');
-      var resultSection = document.getElementById('processingResultSection');
-      
-      try {
-        if (loadingEl) loadingEl.classList.remove('hidden');
-        if (errorBox) errorBox.classList.add('hidden');
-        
-        var formData = new FormData();
-        formData.append('sourceImage', fileInput.files[0]);
-        formData.append('processType', processType);
-        formData.append('prompt', document.getElementById('imagePrompt').value);
-        
-        var response = await fetch('/api/image-processing', {
-          method: 'POST',
-          body: formData
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
-        
-        var result = await response.json();
-        
-        if (result.success) {
-          displayProcessingResult(result, processType);
-          if (resultSection) resultSection.classList.remove('hidden');
         } else {
-          throw new Error(result.error || 'Processing failed');
+          // Cloudflare blob response
+          var blob = await res.blob();
+          objUrl = URL.createObjectURL(blob);
+          if (img) img.src = objUrl;
         }
         
-      } catch (error) {
-        console.error('Processing error:', error);
+        if (result) result.classList.remove("hidden");
+
+        // Persist history as data URL to survive reloads
+        try {
+          var dataUrl;
+          if (contentType && contentType.includes("application/json")) {
+            // For external models, use the base64 data URL directly
+            dataUrl = objUrl;
+          } else {
+            // For Cloudflare models, convert blob to data URL
+            dataUrl = await blobToDataUrl(blob);
+          }
+          
+          var item = {
+            id: Date.now(),
+            prompt: prompt,
+            imageUrl: dataUrl,
+            ts: new Date().toISOString(),
+            settings: {
+              model: model,
+              style: style,
+              width: dims.width,
+              height: dims.height,
+              steps: steps,
+            },
+          };
+          generationHistory.unshift(item);
+          if (generationHistory.length > 20)
+            generationHistory = generationHistory.slice(0, 20);
+          localStorage.setItem("imageHistory", JSON.stringify(generationHistory));
+          updateHistoryDisplay();
+        } catch (e) {}
+      } catch (err) {
+        console.error("Generation error:", err);
         if (errorBox) {
-          errorBox.textContent = error.message;
-          errorBox.classList.remove('hidden');
+          errorBox.textContent = err && err.message ? err.message : String(err);
+          errorBox.classList.remove("hidden");
         }
       } finally {
-        if (loadingEl) loadingEl.classList.add('hidden');
-      }
-    };
-
-    function displayProcessingResult(result, processType) {
-      var imageResult = document.getElementById('imageResult');
-      var videoResult = document.getElementById('videoResult');
-      var speakResult = document.getElementById('speakResult');
-      
-      // Hide all result types
-      if (imageResult) imageResult.classList.add('hidden');
-      if (videoResult) videoResult.classList.add('hidden');
-      if (speakResult) speakResult.classList.add('hidden');
-      
-      switch (processType) {
-        case 'PHOTO_2_PHOTO':
-          if (result.imageUrl && imageResult) {
-            document.getElementById('processedImage').src = result.imageUrl;
-            imageResult.classList.remove('hidden');
-            displayImageOnCanvas(result.imageUrl);
-          }
-          break;
-        case 'PHOTO_2_VIDEO':
-          if (result.videoUrl && videoResult) {
-            document.getElementById('processedVideo').src = result.videoUrl;
-            videoResult.classList.remove('hidden');
-          }
-          break;
-        case 'PHOTO_2_SPEAK':
-          if (result.imageUrl && result.audioUrl && speakResult) {
-            document.getElementById('speakingImage').src = result.imageUrl;
-            document.getElementById('speakingAudio').src = result.audioUrl;
-            speakResult.classList.remove('hidden');
-          }
-          break;
+        if (loading) loading.classList.add("hidden");
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "🎨 Generuj Obraz";
+        }
       }
     }
-  });
-</script>
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", function () {
+      updateHistoryDisplay();
+      updateGlobalStats();
+      updateGenerationUI();
+      
+      // Replace standard generate function with enhanced version
+      var generateBtn = document.getElementById("generateBtn");
+      if (generateBtn) {
+        generateBtn.onclick = enhancedGenerateImage;
+      }
+      
+      // Setup generation type change handler
+      var generationTypeSelect = document.getElementById("generationType");
+      if (generationTypeSelect) {
+        generationTypeSelect.onchange = updateGenerationUI;
+      }
+      
+      // Setup source image upload handler
+      var sourceImageInput = document.getElementById("sourceImage");
+      if (sourceImageInput) {
+        sourceImageInput.onchange = handleSourceImageUpload;
+      }
+      
+      // Setup NSFW blur toggle
+      var nsfwBlurToggle = document.getElementById("nsfwBlur");
+      if (nsfwBlurToggle) {
+        nsfwBlurToggle.onchange = toggleNSFWBlur;
+      }
+      
+      // Setup canvas and file upload
+      setupCanvas();
+      setupFileUpload();
+    });
+
+    // POLACZEK_T Assistant
+    const polaczekBtn = document.getElementById('polaczekBtn');
+    const polaczekWidget = document.getElementById('polaczekWidget');
+
+    polaczekBtn.addEventListener('click', () => {
+      polaczekWidget.classList.toggle('hidden');
+    });
+  </script>
+</BackroomInterface>

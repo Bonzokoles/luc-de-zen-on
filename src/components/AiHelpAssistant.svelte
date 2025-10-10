@@ -1,5 +1,8 @@
 <script>
   import { onMount, onDestroy } from "svelte";
+  import VoiceControl from "./VoiceControl.svelte";
+
+  export let pageTitle = "";
 
   let isConnected = false;
   let messages = [];
@@ -20,7 +23,35 @@
   const STATUS_ENDPOINT = `${API_BASE_URL}/api/health`;
   const HEALTH_ENDPOINT = `${API_BASE_URL}/api/health`;
 
+  function getContextualHelp(title) {
+    switch (title) {
+      case "Strona Główna":
+        return "Jesteś na stronie głównej. Możesz poprosić o status systemu, listę agentów lub pomoc w nawigacji.";
+      case "AI Browser - POLACZEK Agents System":
+        return "Jesteś w przeglądarce AI. Możesz wydawać polecenia agentom, np. 'znajdź informacje o Astro'.";
+      case "AI Business Box - Analiza biznesowa dla MŚP":
+        return "Jesteś w AI Business Box. Możesz poprosić o analizę danych, np. 'pokaż mi sprzedaż w ostatnim kwartale'.";
+      case "BigQuery Analytics | AI Workers":
+        return "Jesteś w panelu BigQuery. Możesz podyktować zapytanie SQL, a ja je wykonam.";
+      case "AI Chatbot | AI Workers":
+        return "Jesteś w głównym oknie czatu. Możesz prowadzić rozmowę z wybranym modelem AI.";
+      case "Generator Obrazów | AI Workers":
+        return "Jesteś w generatorze obrazów. Możesz podyktować, co chcesz zobaczyć, np. 'wygeneruj obraz kota w kosmosie'.";
+      case "Kaggle Datasets | AI Workers":
+        return "Jesteś w przeglądarce zbiorów danych Kaggle. Możesz wyszukać datasety, np. 'znajdź zbiory danych o cenach domów'.";
+      case "Tavily Search | AI Workers":
+        return "Jesteś w wyszukiwarce Tavily. Możesz wyszukać informacje w internecie, np. 'jakie są najnowsze wiadomości o AI'.";
+      case "Voice AI Assistant | MyBonzo Platform":
+        return "Jesteś w panelu konfiguracji asystenta głosowego. Możesz zarządzać ustawieniami głosu.";
+      default:
+        return "Witaj w asystencie MyBonzo! Jak mogę Ci pomóc?";
+    }
+  }
+
   onMount(() => {
+    const helpMessage = getContextualHelp(pageTitle);
+    addMessage("system", helpMessage);
+
     // Clear any previous instances to prevent conflicts
     if (typeof window !== "undefined") {
       // Force clean state
@@ -198,6 +229,12 @@
     }
   }
 
+  function handleVoiceCommand(event) {
+    console.log(`Voice command received in context: ${pageTitle}`);
+    inputValue = event.detail;
+    sendMessage();
+  }
+
   function getStatusColor(status) {
     switch (status) {
       case "connected":
@@ -342,6 +379,7 @@
         >
           Wyślij
         </button>
+        <VoiceControl on:voicecommand={handleVoiceCommand} />
       </div>
 
       {#if capabilities.length > 0}

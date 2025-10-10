@@ -354,6 +354,48 @@ async function generateImage(env: any, options: any) {
       console.error('Cloudflare AI image generation failed:', error);
     }
   }
+
+  // Fallback to Together AI API
+  if (env?.TOGETHER_API_KEY) {
+    try {
+      const response = await fetch("https://api.together.xyz/v1/images/generations", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${env.TOGETHER_API_KEY}`,
+        },
+        body: JSON.stringify({
+          prompt: prompt,
+          model: "black-forest-labs/FLUX.1-schnell-Free",
+          width: 1024,
+          height: 1024,
+          steps: 4,
+          n: 1,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.data && data.data.length > 0) {
+          const imageUrl = data.data[0].b64_json;
+          return {
+            imageUrl: `data:image/png;base64,${imageUrl}`,
+            metadata: {
+              prompt: prompt,
+              style: style,
+              size: '1024x1024',
+              steps: 4,
+              model: 'FLUX.1-schnell (Together AI)',
+            },
+            source: 'together-ai',
+            real_generation: true,
+          };
+        }
+      }
+    } catch (error) {
+      console.error('Together AI image generation failed:', error);
+    }
+  }
   
   // Fallback to mock generation
   await new Promise(resolve => setTimeout(resolve, 2000));

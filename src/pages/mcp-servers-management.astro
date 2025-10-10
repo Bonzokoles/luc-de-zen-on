@@ -173,35 +173,17 @@ const metadata = {
         <div class="charts-grid">
           <div class="chart-container">
             <h4>Wykorzystanie CPU</h4>
-            <div class="chart-placeholder" id="cpuChart">
-              <div class="chart-bar" style="height: 60%"></div>
-              <div class="chart-bar" style="height: 45%"></div>
-              <div class="chart-bar" style="height: 80%"></div>
-              <div class="chart-bar" style="height: 30%"></div>
-              <div class="chart-bar" style="height: 55%"></div>
-            </div>
+            <canvas id="cpuChart"></canvas>
           </div>
           
           <div class="chart-container">
             <h4>Pamięć RAM</h4>
-            <div class="chart-placeholder" id="memoryChart">
-              <div class="chart-bar" style="height: 70%"></div>
-              <div class="chart-bar" style="height: 65%"></div>
-              <div class="chart-bar" style="height: 75%"></div>
-              <div class="chart-bar" style="height: 60%"></div>
-              <div class="chart-bar" style="height: 80%"></div>
-            </div>
+            <canvas id="memoryChart"></canvas>
           </div>
           
           <div class="chart-container">
             <h4>Żądania/min</h4>
-            <div class="chart-placeholder" id="requestsChart">
-              <div class="chart-bar" style="height: 40%"></div>
-              <div class="chart-bar" style="height: 85%"></div>
-              <div class="chart-bar" style="height: 95%"></div>
-              <div class="chart-bar" style="height: 60%"></div>
-              <div class="chart-bar" style="height: 75%"></div>
-            </div>
+            <canvas id="requestsChart"></canvas>
           </div>
         </div>
       </div>
@@ -806,10 +788,70 @@ const metadata = {
       }, 5000);
 
       function updateCharts() {
-        const chartBars = document.querySelectorAll('.chart-bar');
-        chartBars.forEach(bar => {
-          const newHeight = Math.random() * 80 + 20;
-          bar.style.height = newHeight + '%';
+        const cpuChart = new Chart(document.getElementById('cpuChart'), {
+          type: 'bar',
+          data: {
+            labels: ['', '', '', '', ''],
+            datasets: [{
+              label: 'CPU Usage',
+              data: [60, 45, 80, 30, 55].map(() => Math.random() * 100),
+              backgroundColor: 'rgba(0, 217, 255, 0.5)',
+              borderColor: 'rgba(0, 217, 255, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100
+              }
+            }
+          }
+        });
+
+        const memoryChart = new Chart(document.getElementById('memoryChart'), {
+          type: 'bar',
+          data: {
+            labels: ['', '', '', '', ''],
+            datasets: [{
+              label: 'Memory Usage',
+              data: [70, 65, 75, 60, 80].map(() => Math.random() * 100),
+              backgroundColor: 'rgba(0, 217, 255, 0.5)',
+              borderColor: 'rgba(0, 217, 255, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100
+              }
+            }
+          }
+        });
+
+        const requestsChart = new Chart(document.getElementById('requestsChart'), {
+          type: 'line',
+          data: {
+            labels: ['', '', '', '', ''],
+            datasets: [{
+              label: 'Requests/min',
+              data: [40, 85, 95, 60, 75].map(() => Math.random() * 100),
+              backgroundColor: 'rgba(0, 217, 255, 0.5)',
+              borderColor: 'rgba(0, 217, 255, 1)',
+              borderWidth: 1,
+              tension: 0.4
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
         });
       }
     });
