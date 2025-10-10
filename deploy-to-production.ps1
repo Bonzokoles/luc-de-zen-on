@@ -55,6 +55,7 @@ if (-not (Test-Path $productionPath)) {
     Write-Host "   i uruchomić: git remote add origin https://github.com/Bonzokoles/mybonzo-production.git" -ForegroundColor Yellow
     
     cd Q:\mybonzo\luc-de-zen-on
+    return
 }
 
 # Synchronizuj pliki do production
