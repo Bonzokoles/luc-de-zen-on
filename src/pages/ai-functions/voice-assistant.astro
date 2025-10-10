@@ -1019,7 +1019,7 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
 
           if (result.success && result.audio_url) {
             await this.loadGeneratedAudio(result);
-            this.updateAudioStats(result);
+            this.updateAudioStatsResult(result);
             this.showAlert('Mowa została wygenerowana pomyślnie!', 'success');
           } else {
             throw new Error(result.error || 'Nieznany błąd podczas generacji mowy');
@@ -1178,7 +1178,7 @@ import MyBonzoLayout from '../../layouts/MyBonzoLayout.astro';
         }, 5000);
       }
 
-      updateAudioStats(result) {
+      updateAudioStatsResult(result) {
         const statsPanel = document.getElementById('audioStats');
         if (statsPanel && result.voice_info) {
           document.getElementById('statDuration').textContent = `${result.duration}s`;

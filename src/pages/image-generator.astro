@@ -256,12 +256,62 @@ const pageMetadata = {
             </div>
           </div>
 
-          <!-- Source Image Upload (for Photo2Photo) -->
-          <div id="sourceImageSection" class="mb-5 hidden">
-            <label class="block text-sm font-medium mb-2 text-primary-foreground">📸 Obraz Źródłowy (Photo2Photo)</label>
-            <input type="file" id="sourceImageFile" accept="image/*" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
-            <div id="sourcePreview" class="mt-2 hidden">
-              <img id="sourceImg" class="max-w-full max-h-32 rounded" alt="Source image">
+          <!-- Image Display Canvas & Upload Section -->
+          <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Generated Image Canvas -->
+            <div class="bg-gray-900/50 border border-edge rounded-lg p-4">
+              <h4 class="text-sm font-medium mb-3 text-primary-foreground">🖼️ Podgląd Obrazu</h4>
+              <div class="relative">
+                <canvas 
+                  id="imageCanvas" 
+                  width="512" 
+                  height="512"
+                  class="w-full max-w-md mx-auto border border-gray-600 rounded-lg bg-gray-800"
+                  style="max-height: 400px;"
+                ></canvas>
+                <div id="canvasPlaceholder" class="absolute inset-0 flex items-center justify-center text-gray-400 text-sm">
+                  Obraz pojawi się tutaj
+                </div>
+              </div>
+              <div class="mt-3 text-xs text-gray-400 text-center">
+                <span id="imageInfo">Rozmiar: - | Model: - | Czas: -</span>
+              </div>
+            </div>
+
+            <!-- Source Image Upload (for Photo2Photo, Photo2Video, Photo2Speak) -->
+            <div class="bg-gray-900/50 border border-edge rounded-lg p-4">
+              <h4 class="text-sm font-medium mb-3 text-primary-foreground">� Upload Obrazu</h4>
+              <div id="uploadArea" class="border-2 border-dashed border-gray-600 rounded-lg p-6 text-center hover:border-cyan-400 transition-colors cursor-pointer">
+                <div id="uploadPlaceholder">
+                  <div class="text-4xl mb-2">📸</div>
+                  <p class="text-gray-400 mb-2">Przeciągnij obraz tutaj lub kliknij aby wybrać</p>
+                  <p class="text-xs text-gray-500">PNG, JPG, WebP - max 10MB</p>
+                  <input type="file" id="sourceImageFile" accept="image/*" class="hidden">
+                </div>
+                <div id="uploadPreview" class="hidden">
+                  <img id="sourceImg" class="max-w-full max-h-48 mx-auto rounded-lg mb-2" alt="Source image">
+                  <div class="flex gap-2 justify-center">
+                    <button onclick="clearSourceImage()" class="text-red-400 hover:text-red-300 text-sm">🗑️ Usuń</button>
+                    <button onclick="useAsPrompt()" class="text-blue-400 hover:text-blue-300 text-sm">🔍 Analizuj</button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Function Selector for Uploaded Image -->
+              <div id="imageProcessingOptions" class="mt-4 hidden">
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">🔧 Co chcesz zrobić z obrazem?</label>
+                <div class="grid grid-cols-1 gap-2">
+                  <button onclick="processImage('PHOTO_2_PHOTO')" class="bg-blue-600/80 hover:bg-blue-600 text-white py-2 px-4 rounded text-sm">
+                    📸 PHOTO_2_PHOTO - Zmień styl/edytuj obraz
+                  </button>
+                  <button onclick="processImage('PHOTO_2_VIDEO')" class="bg-purple-600/80 hover:bg-purple-600 text-white py-2 px-4 rounded text-sm">
+                    🎬 PHOTO_2_VIDEO - Animuj obraz (5s video)
+                  </button>
+                  <button onclick="processImage('PHOTO_2_SPEAK')" class="bg-green-600/80 hover:bg-green-600 text-white py-2 px-4 rounded text-sm">
+                    🗣️ PHOTO_2_SPEAK - Ożyw portret (mówienie)
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -313,33 +363,35 @@ const pageMetadata = {
           >
           </div>
 
-          <!-- Result -->
-          <div id="resultSection" class="hidden mt-5">
-            <h3 class="text-xl font-semibold mb-3 text-primary-foreground">
-              Wygenerowany obraz
-            </h3>
-            <div
-              class="border border-edge rounded-lg p-3"
-              style="background: rgba(0,0,0,0.5);"
-            >
-              <img
-                id="generatedImage"
-                class="w-full rounded mb-3"
-                alt="Wygenerowany obraz"
-              />
-              <div class="flex gap-2 flex-wrap">
-                <button
-                  class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="downloadImage()">💾 Pobierz</button
-                >
-                <button
-                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="shareImage()">📤 Udostępnij</button
-                >
-                <button
-                  class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm"
-                  onclick="generateVariation()">🔄 Wariacja</button
-                >
+          <!-- Processing Result -->
+          <div id="processingResultSection" class="hidden mt-5 bg-gray-900/50 border border-edge rounded-lg p-4">
+            <h3 class="text-xl font-semibold mb-3 text-primary-foreground">🎯 Wynik Przetwarzania</h3>
+            <div id="processingResult">
+              <!-- Dynamic content based on processing type -->
+              <div id="imageResult" class="hidden">
+                <img id="processedImage" class="w-full max-w-md mx-auto rounded-lg mb-3" alt="Processed image">
+              </div>
+              <div id="videoResult" class="hidden">
+                <video id="processedVideo" class="w-full max-w-md mx-auto rounded-lg mb-3" controls>
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+              <div id="speakResult" class="hidden">
+                <img id="speakingImage" class="w-full max-w-md mx-auto rounded-lg mb-3" alt="Speaking portrait">
+                <audio id="speakingAudio" class="w-full mb-3" controls>
+                  Your browser does not support the audio tag.
+                </audio>
+              </div>
+              <div class="flex gap-2 flex-wrap justify-center">
+                <button id="downloadProcessed" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">
+                  💾 Pobierz Wynik
+                </button>
+                <button id="shareProcessed" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
+                  📤 Udostępnij
+                </button>
+                <button id="processAnother" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded text-sm">
+                  🔄 Przetwórz Ponownie
+                </button>
               </div>
             </div>
           </div>
@@ -1617,6 +1669,232 @@ const pageMetadata = {
     var nsfwBlurToggle = document.getElementById("nsfwBlur");
     if (nsfwBlurToggle) {
       nsfwBlurToggle.onchange = toggleNSFWBlur;
+    }
+    
+    // Setup canvas and file upload
+    setupCanvas();
+    setupFileUpload();
+    
+    // Canvas and Image Processing Functions
+    function setupCanvas() {
+      var canvas = document.getElementById('imageCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      
+      // Clear canvas with dark background
+      ctx.fillStyle = '#1f2937';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Add placeholder text
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '16px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Obraz pojawi się tutaj', canvas.width/2, canvas.height/2);
+    }
+
+    function displayImageOnCanvas(imageUrl) {
+      var canvas = document.getElementById('imageCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var img = new Image();
+      
+      img.onload = function() {
+        // Calculate dimensions to fit canvas while maintaining aspect ratio
+        var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+        var newWidth = img.width * scale;
+        var newHeight = img.height * scale;
+        var x = (canvas.width - newWidth) / 2;
+        var y = (canvas.height - newHeight) / 2;
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#1f2937';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw image
+        ctx.drawImage(img, x, y, newWidth, newHeight);
+        
+        // Update image info
+        var info = document.getElementById('imageInfo');
+        if (info) {
+          info.textContent = `Rozmiar: ${img.width}x${img.height} | Model: ${document.getElementById('imageModel').value} | Status: OK`;
+        }
+      };
+      
+      img.src = imageUrl;
+    }
+
+    // File Upload Functions
+    function setupFileUpload() {
+      var uploadArea = document.getElementById('uploadArea');
+      var fileInput = document.getElementById('sourceImageFile');
+      
+      if (!uploadArea || !fileInput) return;
+      
+      // Click to upload
+      uploadArea.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      // Drag and drop
+      uploadArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        uploadArea.classList.add('border-cyan-400');
+      });
+      
+      uploadArea.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('border-cyan-400');
+      });
+      
+      uploadArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        uploadArea.classList.remove('border-cyan-400');
+        var files = e.dataTransfer.files;
+        if (files.length > 0) {
+          handleFileUpload(files[0]);
+        }
+      });
+      
+      // File input change
+      fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+          handleFileUpload(this.files[0]);
+        }
+      });
+    }
+
+    function handleFileUpload(file) {
+      // Validate file
+      if (!file.type.startsWith('image/')) {
+        alert('Proszę wybrać plik obrazu!');
+        return;
+      }
+      
+      if (file.size > 10 * 1024 * 1024) { // 10MB
+        alert('Plik jest za duży! Maksymalny rozmiar: 10MB');
+        return;
+      }
+      
+      // Show preview
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var sourceImg = document.getElementById('sourceImg');
+        var uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        var uploadPreview = document.getElementById('uploadPreview');
+        var processingOptions = document.getElementById('imageProcessingOptions');
+        
+        if (sourceImg) sourceImg.src = e.target.result;
+        if (uploadPlaceholder) uploadPlaceholder.classList.add('hidden');
+        if (uploadPreview) uploadPreview.classList.remove('hidden');
+        if (processingOptions) processingOptions.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Global functions for HTML onclick events
+    window.clearSourceImage = function() {
+      var uploadPlaceholder = document.getElementById('uploadPlaceholder');
+      var uploadPreview = document.getElementById('uploadPreview');
+      var processingOptions = document.getElementById('imageProcessingOptions');
+      var fileInput = document.getElementById('sourceImageFile');
+      
+      if (uploadPlaceholder) uploadPlaceholder.classList.remove('hidden');
+      if (uploadPreview) uploadPreview.classList.add('hidden');
+      if (processingOptions) processingOptions.classList.add('hidden');
+      if (fileInput) fileInput.value = '';
+    };
+
+    window.useAsPrompt = function() {
+      // Use AI to analyze the image and generate a prompt
+      var sourceImg = document.getElementById('sourceImg');
+      if (sourceImg && sourceImg.src) {
+        alert('Funkcja analizy obrazu zostanie wkrótce dodana!');
+      }
+    };
+
+    // Image Processing Functions
+    window.processImage = async function(processType) {
+      var fileInput = document.getElementById('sourceImageFile');
+      if (!fileInput.files.length) {
+        alert('Proszę najpierw wgrać obraz!');
+        return;
+      }
+      
+      var loadingEl = document.getElementById('loading');
+      var errorBox = document.getElementById('errorBox');
+      var resultSection = document.getElementById('processingResultSection');
+      
+      try {
+        if (loadingEl) loadingEl.classList.remove('hidden');
+        if (errorBox) errorBox.classList.add('hidden');
+        
+        var formData = new FormData();
+        formData.append('sourceImage', fileInput.files[0]);
+        formData.append('processType', processType);
+        formData.append('prompt', document.getElementById('imagePrompt').value);
+        
+        var response = await fetch('/api/image-processing', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+        
+        var result = await response.json();
+        
+        if (result.success) {
+          displayProcessingResult(result, processType);
+          if (resultSection) resultSection.classList.remove('hidden');
+        } else {
+          throw new Error(result.error || 'Processing failed');
+        }
+        
+      } catch (error) {
+        console.error('Processing error:', error);
+        if (errorBox) {
+          errorBox.textContent = error.message;
+          errorBox.classList.remove('hidden');
+        }
+      } finally {
+        if (loadingEl) loadingEl.classList.add('hidden');
+      }
+    };
+
+    function displayProcessingResult(result, processType) {
+      var imageResult = document.getElementById('imageResult');
+      var videoResult = document.getElementById('videoResult');
+      var speakResult = document.getElementById('speakResult');
+      
+      // Hide all result types
+      if (imageResult) imageResult.classList.add('hidden');
+      if (videoResult) videoResult.classList.add('hidden');
+      if (speakResult) speakResult.classList.add('hidden');
+      
+      switch (processType) {
+        case 'PHOTO_2_PHOTO':
+          if (result.imageUrl && imageResult) {
+            document.getElementById('processedImage').src = result.imageUrl;
+            imageResult.classList.remove('hidden');
+            displayImageOnCanvas(result.imageUrl);
+          }
+          break;
+        case 'PHOTO_2_VIDEO':
+          if (result.videoUrl && videoResult) {
+            document.getElementById('processedVideo').src = result.videoUrl;
+            videoResult.classList.remove('hidden');
+          }
+          break;
+        case 'PHOTO_2_SPEAK':
+          if (result.imageUrl && result.audioUrl && speakResult) {
+            document.getElementById('speakingImage').src = result.imageUrl;
+            document.getElementById('speakingAudio').src = result.audioUrl;
+            speakResult.classList.remove('hidden');
+          }
+          break;
+      }
     }
   });
 </script>

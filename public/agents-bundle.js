@@ -102,7 +102,7 @@ var AgentsBundle = (function () {
             super({
                 id: 'gemini_pro_agent',
                 name: 'Gemini Pro',
-                model: 'gemini-pro',
+                model: config.model || 'gemini-pro',
                 category: 'core',
                 icon: '🤖',
                 color: '#4285f4',
@@ -150,6 +150,12 @@ var AgentsBundle = (function () {
                 throw error;
             }
         }
+        async generateCode(prompt, language) {
+            throw new Error("Method not implemented.");
+        }
+        async analyzeImage(imageData, prompt) {
+            throw new Error("Method not implemented.");
+        }
         async analyzeCode(code, language = 'typescript') {
             const prompt = `Przeanalizuj następujący kod ${language} i podaj szczegółową ocenę:
 
@@ -179,7 +185,7 @@ Oceń:
                 id: 'gemini_vision_agent',
                 name: 'Gemini Vision',
                 model: 'gemini-pro-vision',
-                category: 'vision',
+                category: 'specialized',
                 icon: '👁️',
                 color: '#ff6b35',
                 priority: 'HIGH',
@@ -188,6 +194,12 @@ Oceń:
             });
             this.config = config;
             this.apiEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';
+        }
+        async chat(message, context) {
+            throw new Error("Method not implemented.");
+        }
+        async generateCode(prompt, language) {
+            throw new Error("Method not implemented.");
         }
         async analyzeImage(imageData, prompt = "Opisz co widzisz na tym obrazie") {
             try {
@@ -248,7 +260,7 @@ Oceń:
                 id: 'code_bison_agent',
                 name: 'Code Bison',
                 model: 'code-bison',
-                category: 'development',
+                category: 'specialized',
                 icon: '💻',
                 color: '#00d4aa',
                 priority: 'HIGH',
@@ -257,6 +269,12 @@ Oceń:
             });
             this.config = config;
             this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`;
+        }
+        async chat(message, context) {
+            return this.generateCode(message);
+        }
+        async analyzeImage(imageData, prompt) {
+            throw new Error("Method not implemented.");
         }
         async generateCode(description, language = 'typescript') {
             try {
@@ -382,7 +400,7 @@ Provide:
                 id: 'text_bison_agent',
                 name: 'Text Bison',
                 model: 'text-bison',
-                category: 'content',
+                category: 'creative',
                 icon: '📝',
                 color: '#8b5cf6',
                 priority: 'MEDIUM',
@@ -428,6 +446,15 @@ Provide:
                 throw error;
             }
         }
+        async chat(message, context) {
+            return this.generateText(message);
+        }
+        async generateCode(prompt, language) {
+            throw new Error("Method not implemented.");
+        }
+        async analyzeImage(imageData, prompt) {
+            throw new Error("Method not implemented.");
+        }
         async summarize(text) {
             const prompt = `Podsumuj następujący tekst w sposób zwięzły i treściwy:
 
@@ -452,13 +479,26 @@ Tłumaczenie:`;
                 id: 'business_assistant_agent',
                 name: 'Business Assistant',
                 model: 'business-assistant',
-                category: 'business',
+                category: 'productivity',
                 icon: '💼',
                 color: '#1f2937',
                 priority: 'HIGH',
                 description: 'Comprehensive business operations and management assistant',
                 capabilities: ['Task Management', 'Meeting Planning', 'Document Generation', 'Email Drafting', 'Project Planning']
             });
+        }
+        async chat(message, context) {
+            this.updateStatus('processing');
+            // In a real scenario, this would call an AI model
+            const response = `Response for: ${message}`;
+            this.updateStatus('ready');
+            return response;
+        }
+        async generateCode(prompt, language) {
+            throw new Error("Method not implemented.");
+        }
+        async analyzeImage(imageData, prompt) {
+            throw new Error("Method not implemented.");
         }
         async createMeetingAgenda(topic, duration, participants) {
             try {
@@ -476,7 +516,7 @@ Agenda powinna zawierać:
 - Zasoby potrzebne do spotkania
 
 Proszę stwórz agendę w formacie JSON z polami: title, purpose, agendaItems (tablica obiektów z punktami), actions, resources`;
-                const response = await this.generateResponse(prompt);
+                const response = await this.chat(prompt);
                 return response;
             }
             catch (error) {
@@ -499,7 +539,7 @@ Email powinien zawierać:
 - Główną treść wiadomości
 - Zakończenie z podpisem
 - Styl odpowiedni dla kontekstu biznesowego`;
-                const response = await this.generateResponse(prompt);
+                const response = await this.chat(prompt);
                 return response;
             }
             catch (error) {
@@ -525,7 +565,7 @@ Raport powinien zawierać:
 - Analizę wydatków i przychodów
 - Wskazówki dotyczące poprawy wyników
 - Prognozę na następny okres`;
-                const response = await this.generateResponse(prompt);
+                const response = await this.chat(prompt);
                 return response;
             }
             catch (error) {
@@ -548,7 +588,7 @@ Plan powinien zawierać:
 - Kanały promocji
 - Harmonogram działań
 - Krytyczne punkty do uwagi`;
-                const response = await this.generateResponse(prompt);
+                const response = await this.chat(prompt);
                 return response;
             }
             catch (error) {
@@ -569,7 +609,7 @@ Proszę stworzyć:
 - Priorytetyzację zadań
 - Proponowane kroki działania
 - Harmonogram realizacji`;
-                const response = await this.generateResponse(prompt);
+                const response = await this.chat(prompt);
                 return response;
             }
             catch (error) {

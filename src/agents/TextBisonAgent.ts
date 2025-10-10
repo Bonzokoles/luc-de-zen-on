@@ -1,16 +1,22 @@
 
 import { BaseAgent } from './BaseAgent';
 
+export interface TextBisonConfig {
+  apiKey: string;
+  projectId: string;
+  location?: string;
+}
+
 export class TextBisonAgent extends BaseAgent {
-  private config: any;
+  protected config: TextBisonConfig;
   private apiEndpoint: string;
 
-  constructor(config: any) {
+  constructor(config: TextBisonConfig) {
     super({
       id: 'text_bison_agent',
       name: 'Text Bison',
       model: 'text-bison',
-      category: 'content',
+      category: 'creative',
       icon: '📝',
       color: '#8b5cf6',
       priority: 'MEDIUM',
@@ -49,7 +55,7 @@ export class TextBisonAgent extends BaseAgent {
         throw new Error(`Text Bison API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { predictions: { content: string }[] } = await response.json();
       const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować tekstu';
       
       this.updateStatus('ready');
@@ -61,6 +67,18 @@ export class TextBisonAgent extends BaseAgent {
       console.error('📝 Text Bison error:', error);
       throw error;
     }
+  }
+
+  async chat(message: string, context?: any): Promise<string> {
+    return this.generateText(message);
+  }
+
+  async generateCode(prompt: string, language?: string): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
+
+  async analyzeImage(imageData: string | File, prompt?: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   async summarize(text: string): Promise<string> {

@@ -8,7 +8,7 @@ export interface GeminiVisionConfig {
 }
 
 export class GeminiVisionAgent extends BaseAgent {
-  private config: GeminiVisionConfig;
+  protected config: GeminiVisionConfig;
   private apiEndpoint: string;
 
   constructor(config: GeminiVisionConfig) {
@@ -16,7 +16,7 @@ export class GeminiVisionAgent extends BaseAgent {
       id: 'gemini_vision_agent',
       name: 'Gemini Vision',
       model: 'gemini-pro-vision',
-      category: 'vision',
+      category: 'specialized',
       icon: '👁️',
       color: '#ff6b35',
       priority: 'HIGH',
@@ -26,6 +26,14 @@ export class GeminiVisionAgent extends BaseAgent {
 
     this.config = config;
     this.apiEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';
+  }
+
+  async chat(message: string, context?: any): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
+
+  async generateCode(prompt: string, language?: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   async analyzeImage(imageData: string, prompt: string = "Opisz co widzisz na tym obrazie"): Promise<string> {
@@ -62,7 +70,7 @@ export class GeminiVisionAgent extends BaseAgent {
         throw new Error(`Gemini Vision API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { candidates: { content: { parts: { text: string }[] } }[] } = await response.json();
       const result = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Nie udało się przeanalizować obrazu';
       
       this.updateStatus('ready');

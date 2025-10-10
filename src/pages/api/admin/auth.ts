@@ -1,10 +1,14 @@
 import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
+interface AuthPayload {
+  password: string;
+}
+
 export const OPTIONS = createOPTIONSHandler(['POST']);
 
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
-        const body = await request.json();
+        const body = await request.json() as AuthPayload;
         const { password } = body;
         
         if (!password) {

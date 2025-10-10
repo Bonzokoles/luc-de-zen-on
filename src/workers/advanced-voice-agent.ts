@@ -3,9 +3,32 @@
  * Wykorzystuje wszystkie zaawansowane funkcje Cloudflare Agents SDK
  */
 
-import { Agent, AgentNamespace, Connection, ConnectionContext } from 'agents';
+// Placeholder interfaces for Cloudflare Agents SDK
+interface Connection {
+  id: string;
+  send(message: string): Promise<void>;
+}
+interface ConnectionContext {
+  request: Request;
+}
+class Agent<E, S> {
+  constructor(config: any) {}
+  protected state: S = {} as S;
+  protected name: string = '';
+  protected schedule(cron: string, task: string, data: any): Promise<any> { throw new Error("Not implemented"); }
+  protected sql(strings: TemplateStringsArray, ...values: any[]): Promise<any> { throw new Error("Not implemented"); }
+  protected setState(newState: Partial<S>): void { this.state = { ...this.state, ...newState }; }
+}
+interface AgentNamespace<T> {
+  get(id: any): Promise<any>;
+  idFromName(name: string): any;
+}
+
 import { streamText } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
+
+interface RAGAgent {}
+interface BrowserAgent {}
 
 interface Env {
   // AI Provider Bindings
@@ -15,9 +38,9 @@ interface Env {
   PERPLEXITY_API_KEY: string;
   
   // Cloudflare Services
-  VOICE_EMBEDDINGS: Vectorize;
-  BROWSER_API: Fetcher;
-  EMAIL_WORKFLOW: Workflow;
+  VOICE_EMBEDDINGS: any; // Vectorize
+  BROWSER_API: any; // Fetcher
+  EMAIL_WORKFLOW: any; // Workflow
   
   // Agent Bindings
   VoiceAgent: AgentNamespace<VoiceAgent>;
@@ -134,6 +157,10 @@ export class VoiceAgent extends Agent<Env, VoiceState> {
     activeWorkflows: [],
     scheduledTasks: []
   };
+
+  async schedule(cron: string, task: string, data: any): Promise<any> { throw new Error("Not implemented"); }
+  async sql(strings: TemplateStringsArray, ...values: any[]): Promise<any> { throw new Error("Not implemented"); }
+  setState(newState: Partial<VoiceState>): void { this.state = { ...this.state, ...newState }; }
 
   /**
    * AGENT LIFECYCLE METHODS

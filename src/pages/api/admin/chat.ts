@@ -1,5 +1,12 @@
 import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
+interface ChatPayload {
+  message: string;
+  model: string;
+  mode?: string;
+  history?: any[];
+}
+
 // Admin AI system prompts for different modes
 const ADMIN_SYSTEM_PROMPTS = {
     general: `Jesteś zaawansowanym asystentem AI dla administratorów systemu MyBonzo. 
@@ -128,7 +135,7 @@ export const OPTIONS = createOPTIONSHandler(['POST']);
 
 export const POST = async ({ request, locals }: { request: Request; locals: any }) => {
     try {
-        const { message, model, mode, history } = await request.json();
+        const { message, model, mode, history }: ChatPayload = await request.json();
 
         if (!message || !model) {
             return createErrorResponse('Brak wymaganych parametrów: message, model', 400);

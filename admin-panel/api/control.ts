@@ -1,6 +1,35 @@
 import type { APIRoute } from 'astro';
 import { createSuccessResponse, createErrorResponse, addCORSHeaders } from '@/utils/corsUtils';
 
+// Define interfaces for strong typing
+interface HealthStatus {
+  healthy: boolean;
+  responseTime: number;
+  statusCode: number;
+  timestamp: string;
+  services: {
+    api: string;
+    database: string;
+    cdn: string;
+    workers: string;
+  };
+}
+
+interface HealthChecks {
+  production: HealthStatus;
+  staging: HealthStatus;
+}
+
+// Define the type for the POST request body to ensure type safety.
+interface AdminActionPayload {
+  action: string;
+  environment?: string;
+  type?: string;
+  reason?: string;
+  version?: string;
+  skipTests?: boolean;
+}
+
 // Admin API - Comprehensive control endpoints
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
@@ -23,7 +52,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       default:
         return createErrorResponse('Invalid action parameter', 400);
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Admin API GET error:', error);
     return createErrorResponse('Internal server error', 500);
   }
@@ -31,11 +60,13 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body = await request.json() as AdminActionPayload;
     const { action, environment, type, reason, version } = body;
+    
     
     switch (action) {
       case 'deploy':
+        if (!environment) return createErrorResponse('Missing environment parameter', 400);
         return await handleDeploy(environment, body, locals);
         
       case 'dev-server':
@@ -45,9 +76,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
         return await handleBuild(locals);
         
       case 'backup':
+        if (!type || !reason) return createErrorResponse('Missing type or reason parameter', 400);
         return await createBackup(type, reason, locals);
         
       case 'rollback':
+        if (!version || !reason) return createErrorResponse('Missing version or reason parameter', 400);
         return await performRollback(version, reason, locals);
         
       case 'security-scan':
@@ -71,7 +104,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       default:
         return createErrorResponse('Invalid action', 400);
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Admin API POST error:', error);
     return createErrorResponse('Internal server error', 500);
   }
@@ -104,7 +137,7 @@ async function getSystemStatus(locals: any) {
     };
     
     return createSuccessResponse(status);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse('Failed to get system status', 500);
   }
 }
@@ -126,7 +159,7 @@ async function getGitStatus(locals: any) {
     };
     
     return createSuccessResponse(gitStatus);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse('Failed to get Git status', 500);
   }
 }
@@ -159,7 +192,7 @@ async function getBackupList(locals: any) {
     ];
     
     return createSuccessResponse({ backups });
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse('Failed to get backup list', 500);
   }
 }
@@ -200,7 +233,7 @@ async function handleDeploy(environment: string, body: any, locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Deployment failed: ${error.message}`, 500);
   }
 }
@@ -233,7 +266,7 @@ async function handleDevServer(body: any, locals: any) {
     } else {
       return createErrorResponse('Invalid dev server action', 400);
     }
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Dev server operation failed: ${error.message}`, 500);
   }
 }
@@ -256,7 +289,7 @@ async function handleBuild(locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Build failed: ${error.message}`, 500);
   }
 }
@@ -284,7 +317,7 @@ async function createBackup(type: string, reason: string, locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Backup creation failed: ${error.message}`, 500);
   }
 }
@@ -314,7 +347,7 @@ async function performRollback(version: string, reason: string, locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Rollback failed: ${error.message}`, 500);
   }
 }
@@ -347,7 +380,7 @@ async function runSecurityScan(locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Security scan failed: ${error.message}`, 500);
   }
 }
@@ -373,7 +406,7 @@ async function validateCode(locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Code validation failed: ${error.message}`, 500);
   }
 }
@@ -401,7 +434,7 @@ async function runPreCommitChecks(locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Pre-commit checks failed: ${error.message}`, 500);
   }
 }
@@ -439,14 +472,14 @@ async function handleMonitoring(body: any, locals: any) {
     } else {
       return createErrorResponse('Invalid monitoring action', 400);
     }
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Monitoring operation failed: ${error.message}`, 500);
   }
 }
 
 async function performHealthCheck(locals: any, environment?: string) {
   try {
-    const checks = {
+    const checks: HealthChecks = {
       production: {
         healthy: true,
         responseTime: 245,
@@ -473,12 +506,12 @@ async function performHealthCheck(locals: any, environment?: string) {
       }
     };
     
-    if (environment && checks[environment]) {
-      return createSuccessResponse(checks[environment]);
+    if (environment && environment in checks) {
+      return createSuccessResponse(checks[environment as keyof HealthChecks]);
     } else {
       return createSuccessResponse(checks);
     }
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Health check failed: ${error.message}`, 500);
   }
 }
@@ -512,7 +545,7 @@ async function setupGitHooks(locals: any) {
     };
     
     return createSuccessResponse(result);
-  } catch (error) {
+  } catch (error: any) {
     return createErrorResponse(`Git hooks setup failed: ${error.message}`, 500);
   }
 }

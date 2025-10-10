@@ -1,5 +1,13 @@
 import type { APIRoute } from 'astro';
 
+interface AlertPayload {
+  title: string;
+  message: string;
+  type?: 'info' | 'warning' | 'critical';
+  component?: string;
+  severity?: 'info' | 'warning' | 'critical';
+}
+
 export const GET: APIRoute = async ({ request }) => {
   // CORS headers
   const headers = {
@@ -173,7 +181,7 @@ export const POST: APIRoute = async ({ request }) => {
   };
 
   try {
-    const body = await request.json();
+    const body = await request.json() as AlertPayload;
     const { title, message, type = 'info', component, severity = 'info' } = body;
 
     if (!title || !message) {

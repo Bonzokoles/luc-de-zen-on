@@ -1,4 +1,12 @@
 // API endpoint dla logów systemu MyBonzo Admin
+
+interface LogPayload {
+  level?: string;
+  message: string;
+  component?: string;
+  userId?: string;
+}
+
 export async function GET() {
   const logs = [
     { 
@@ -62,7 +70,7 @@ export async function GET() {
 
 export async function POST({ request }: { request: Request }) {
   try {
-    const logData = await request.json();
+    const logData: LogPayload = await request.json();
     
     // Symulacja dodania nowego loga
     const newLog = {

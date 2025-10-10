@@ -13,6 +13,7 @@ export interface AgentConfig {
   color: string;
   priority: 'HIGH' | 'MEDIUM' | 'LOW';
   description?: string;
+  apiEndpoint?: string;
 }
 
 export interface PerformanceMetrics {

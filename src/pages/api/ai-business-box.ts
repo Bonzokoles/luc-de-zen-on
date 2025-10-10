@@ -344,7 +344,7 @@ export async function POST({
           }
         );
 
-      case "ai_chat":
+      case "sql_analysis":
         if (!apiKey) {
           return new Response(
             JSON.stringify({

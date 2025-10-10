@@ -1,4 +1,33 @@
 // API endpoint: Real-time monitoring data for admin panel
+
+// Interfaces for Cloudflare API responses
+interface R2Bucket {
+  name: string;
+  creation_date: string;
+}
+
+interface R2Response {
+  result: R2Bucket[];
+}
+
+interface AnalyticsData {
+  result?: {
+    bandwidth?: number;
+    requests?: number;
+    errors?: number;
+  };
+}
+
+interface WorkerScript {
+  id: string;
+  created_on: string;
+  modified_on: string;
+}
+
+interface WorkersResponse {
+  result: WorkerScript[];
+}
+
 export async function GET({ request }: { request: Request }) {
   // Authorization check
   const auth = request.headers.get('authorization') || '';
@@ -74,7 +103,7 @@ async function getRealSystemMetrics() {
         });
         
         if (r2Response.ok) {
-          const r2Data = await r2Response.json();
+          const r2Data: R2Response = await r2Response.json();
           const buckets = r2Data.result || [];
           metrics.diskUsage = Math.min(95, buckets.length * 12 + 20); // Calculate disk usage based on buckets
           metrics.memoryUsage = Math.min(80, buckets.length * 8 + 15); // Estimate memory based on storage
@@ -93,7 +122,7 @@ async function getRealSystemMetrics() {
         });
         
         if (analyticsResponse.ok) {
-          const analyticsData = await analyticsResponse.json();
+          const analyticsData: AnalyticsData = await analyticsResponse.json();
           const bandwidth = analyticsData.result?.bandwidth || 0;
           metrics.networkIO = parseFloat((bandwidth / 1000000).toFixed(1)); // Convert to MB/s
           metrics.activeConnections = Math.floor(bandwidth / 10000) || 167; // Estimate connections
@@ -142,7 +171,7 @@ async function getRealWorkerMetrics() {
         });
         
         if (workersResponse.ok) {
-          const workersData = await workersResponse.json();
+          const workersData: WorkersResponse = await workersResponse.json();
           const realWorkers = workersData.result || [];
           
           if (realWorkers.length > 0) {
@@ -202,7 +231,7 @@ async function getRealPerformanceData() {
         });
         
         if (analyticsResponse.ok) {
-          const analyticsData = await analyticsResponse.json();
+          const analyticsData: AnalyticsData = await analyticsResponse.json();
           const requests = analyticsData.result?.requests || 0;
           const errors = analyticsData.result?.errors || 0;
           

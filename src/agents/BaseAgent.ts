@@ -12,6 +12,7 @@ export interface AgentConfig {
   priority: 'HIGH' | 'MEDIUM' | 'LOW';
   description: string;
   capabilities: string[];
+  apiEndpoint?: string;
 }
 
 export interface AgentHistory {

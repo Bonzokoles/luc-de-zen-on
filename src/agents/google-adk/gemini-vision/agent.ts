@@ -185,7 +185,7 @@ export class GeminiVisionAgent extends BaseGoogleADKAgent {
         throw new Error(`Gemini Vision API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { objects: any[]; description: string; colors: string[]; text: string[]; faces: any[]; quality: 'niska' | 'średnia' | 'wysoka' } = await response.json();
       
       return {
         objects_detected: data.objects || [],
@@ -222,7 +222,7 @@ export class GeminiVisionAgent extends BaseGoogleADKAgent {
       output += '\n';
     }
     
-    if (result.faces_count > 0) {
+    if (result.faces_count && result.faces_count > 0) {
       output += `👥 **Liczba wykrytych twarzy:** ${result.faces_count}\n\n`;
     }
     
@@ -249,7 +249,7 @@ export class GeminiVisionAgent extends BaseGoogleADKAgent {
         throw new Error(`OCR API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { text: string; confidence: number; language: string; regions: any[] } = await response.json();
       
       return {
         extracted_text: data.text || '',

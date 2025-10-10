@@ -16,7 +16,7 @@ export class GeminiProAgent extends BaseAgent {
     super({
       id: 'gemini_pro_agent',
       name: 'Gemini Pro',
-      model: 'gemini-pro',
+      model: config.model || 'gemini-pro',
       category: 'core',
       icon: '🤖',
       color: '#4285f4',
@@ -57,7 +57,7 @@ export class GeminiProAgent extends BaseAgent {
         throw new Error(`Gemini API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { candidates: { content: { parts: { text: string }[] } }[] } = await response.json();
       const result = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Brak odpowiedzi';
       
       this.updateStatus('ready');
@@ -69,6 +69,14 @@ export class GeminiProAgent extends BaseAgent {
       console.error('🤖 Gemini Pro error:', error);
       throw error;
     }
+  }
+
+  async generateCode(prompt: string, language?: string): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
+
+  async analyzeImage(imageData: string | File, prompt?: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   async analyzeCode(code: string, language: string = 'typescript'): Promise<string> {

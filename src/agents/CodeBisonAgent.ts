@@ -8,7 +8,7 @@ export interface CodeBisonConfig {
 }
 
 export class CodeBisonAgent extends BaseAgent {
-  private config: CodeBisonConfig;
+  protected config: CodeBisonConfig;
   private apiEndpoint: string;
 
   constructor(config: CodeBisonConfig) {
@@ -16,7 +16,7 @@ export class CodeBisonAgent extends BaseAgent {
       id: 'code_bison_agent',
       name: 'Code Bison',
       model: 'code-bison',
-      category: 'development',
+      category: 'specialized',
       icon: '💻',
       color: '#00d4aa',
       priority: 'HIGH',
@@ -26,6 +26,14 @@ export class CodeBisonAgent extends BaseAgent {
 
     this.config = config;
     this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`;
+  }
+
+  async chat(message: string, context?: any): Promise<string> {
+    return this.generateCode(message);
+  }
+
+  async analyzeImage(imageData: string | File, prompt?: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   async generateCode(description: string, language: string = 'typescript'): Promise<string> {
@@ -62,7 +70,7 @@ Wymagania:
         throw new Error(`Code Bison API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { predictions: { content: string }[] } = await response.json();
       const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować kodu';
       
       this.updateStatus('ready');

@@ -208,7 +208,7 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
         throw new Error(`Code generation API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { code: string; explanation: string; suggestions: string[] } = await response.json();
       return {
         code: data.code || 'Nie udało się wygenerować kodu',
         language: language,
@@ -246,7 +246,7 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
         throw new Error(`Code analysis API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: CodeAnalysisResult = await response.json();
       return {
         language: codeBlock.language,
         lines_count: codeBlock.code.split('\n').length,
@@ -290,9 +290,9 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
         throw new Error(`Code review API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { overall_rating: string; issues: string[]; suggestions: string[]; security_score: number; performance_score: number; maintainability_score: number; } = await response.json();
       return {
-        overall_rating: data.rating || 'średnia',
+        overall_rating: data.overall_rating || 'średnia',
         issues: data.issues || [],
         suggestions: data.suggestions || [],
         security_score: data.security_score || 75,
@@ -330,11 +330,11 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
         throw new Error(`Code explanation API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { explanation: string; step_by_step: string[]; key_concepts: string[] } = await response.json();
       return {
         explanation: data.explanation || 'Nie udało się wyjaśnić kodu',
-        step_by_step: data.steps || [],
-        key_concepts: data.concepts || []
+        step_by_step: data.step_by_step || [],
+        key_concepts: data.key_concepts || []
       };
 
     } catch (error) {
@@ -356,7 +356,7 @@ export class CodeBisonAgent extends BaseGoogleADKAgent {
         throw new Error(`General query API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { response: string } = await response.json();
       return {
         response: data.response || 'Nie mogę odpowiedzieć na to pytanie'
       };

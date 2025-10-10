@@ -7,13 +7,29 @@ export class BusinessAssistantAgent extends BaseAgent {
       id: 'business_assistant_agent',
       name: 'Business Assistant',
       model: 'business-assistant',
-      category: 'business',
+      category: 'productivity',
       icon: '💼',
       color: '#1f2937',
       priority: 'HIGH',
       description: 'Comprehensive business operations and management assistant',
       capabilities: ['Task Management', 'Meeting Planning', 'Document Generation', 'Email Drafting', 'Project Planning']
     });
+  }
+
+  async chat(message: string, context?: any): Promise<string> {
+    this.updateStatus('processing');
+    // In a real scenario, this would call an AI model
+    const response = `Response for: ${message}`;
+    this.updateStatus('ready');
+    return response;
+  }
+
+  async generateCode(prompt: string, language?: string): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
+
+  async analyzeImage(imageData: string | File, prompt?: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   async createMeetingAgenda(topic: string, duration: number, participants: string[]): Promise<string> {
@@ -34,7 +50,7 @@ Agenda powinna zawierać:
 
 Proszę stwórz agendę w formacie JSON z polami: title, purpose, agendaItems (tablica obiektów z punktami), actions, resources`;
 
-      const response = await this.generateResponse(prompt);
+      const response = await this.chat(prompt);
       return response;
     } catch (error) {
       this.updateStatus('error');
@@ -59,7 +75,7 @@ Email powinien zawierać:
 - Zakończenie z podpisem
 - Styl odpowiedni dla kontekstu biznesowego`;
 
-      const response = await this.generateResponse(prompt);
+      const response = await this.chat(prompt);
       return response;
     } catch (error) {
       this.updateStatus('error');
@@ -88,7 +104,7 @@ Raport powinien zawierać:
 - Wskazówki dotyczące poprawy wyników
 - Prognozę na następny okres`;
 
-      const response = await this.generateResponse(prompt);
+      const response = await this.chat(prompt);
       return response;
     } catch (error) {
       this.updateStatus('error');
@@ -113,7 +129,7 @@ Plan powinien zawierać:
 - Harmonogram działań
 - Krytyczne punkty do uwagi`;
 
-      const response = await this.generateResponse(prompt);
+      const response = await this.chat(prompt);
       return response;
     } catch (error) {
       this.updateStatus('error');
@@ -136,7 +152,7 @@ Proszę stworzyć:
 - Proponowane kroki działania
 - Harmonogram realizacji`;
 
-      const response = await this.generateResponse(prompt);
+      const response = await this.chat(prompt);
       return response;
     } catch (error) {
       this.updateStatus('error');

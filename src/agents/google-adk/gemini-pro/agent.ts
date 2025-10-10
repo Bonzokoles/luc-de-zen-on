@@ -92,7 +92,7 @@ export class GeminiProAgent extends BaseGoogleADKAgent {
         throw new Error(`Gemini Pro API error: ${response.status}`);
       }
 
-      const data = await response.json();
+      const data: { candidates: { content: { parts: { text: string }[] } }[], usageMetadata?: { totalTokenCount: number } } = await response.json();
       const assistantMessage = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Przepraszam, nie mogę przetworzyć tej wiadomości.';
 
       // Add assistant response to conversation context

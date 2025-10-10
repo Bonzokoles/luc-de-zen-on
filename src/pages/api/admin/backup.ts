@@ -1,6 +1,11 @@
 import type { APIRoute } from 'astro';
 import { createSuccessResponse, createErrorResponse, createOPTIONSHandler } from '@/utils/corsUtils';
 
+interface BackupPayload {
+  action: string;
+  reason?: string;
+}
+
 export const OPTIONS = createOPTIONSHandler(['GET', 'POST']);
 
 // Prosta pamięć w procesie dev; w produkcji użyj KV (env.SESSION lub dedykowane)
@@ -30,7 +35,7 @@ export const POST: APIRoute = async ({ request }) => {
       return createErrorResponse('Unauthorized', 401);
     }
 
-    const { action, reason } = await request.json();
+    const { action, reason }: BackupPayload = await request.json();
     if (action !== 'create') {
       return createErrorResponse('Invalid action', 400);
     }

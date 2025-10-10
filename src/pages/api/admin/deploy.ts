@@ -1,5 +1,11 @@
 import type { APIRoute } from 'astro';
 
+interface DeployPayload {
+  environment: string;
+  version: string;
+  branch?: string;
+}
+
 export const GET: APIRoute = async ({ request }) => {
   // CORS headers
   const headers = {
@@ -117,7 +123,7 @@ export const POST: APIRoute = async ({ request }) => {
   };
 
   try {
-    const body = await request.json();
+    const body: DeployPayload = await request.json();
     const { environment, version, branch = 'main' } = body;
 
     if (!environment || !version) {
