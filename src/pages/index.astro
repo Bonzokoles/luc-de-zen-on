@@ -1030,7 +1030,13 @@ import {
     if (login === "HAOS77") {
       loginContainer.classList.add("hidden");
       dashboardButtons.classList.remove("hidden");
-      console.log("Login successful, showing dashboard buttons");
+      console.log("Admin login successful, showing dashboard buttons");
+    } else if (login === "ZENON2015AI") {
+      loginContainer.classList.add("hidden");
+      // Pokazuj funkcje AI dla użytkowników
+      const aiSections = document.querySelectorAll('.ai-functions-section');
+      aiSections.forEach(section => section.classList.remove('hidden'));
+      console.log("User login successful, showing AI functions");
     } else {
       console.log("Invalid login");
       loginInput.style.borderColor = "#ef4444";

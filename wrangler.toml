@@ -61,39 +61,144 @@ KAGGLE_KEY = ""
 # HUGGINGFACE_API_KEY = "hf_..." # dla Playground v2 obrazy
 # TAVILY_API_KEY = "tvly-..." # dla AI-powered web search
 
-# Optimized KV Storage with TTL
+# Optimized KV Storage - Complete Configuration
 [[kv_namespaces]]
 id = "77d84c01758a4064be011acc35b2c344"
 binding = "SESSION"
 preview_id = "77d84c01758a4064be011acc35b2c344"
 
-# Additional KV for caching
 [[kv_namespaces]]
-id = "mybonzo-cache-kv"
+id = "a55f59fbe9534a28b7aa5e6af3ca112b"
 binding = "CACHE_KV"
-preview_id = "mybonzo-cache-kv"
+preview_id = "a55f59fbe9534a28b7aa5e6af3ca112b"
 
-# R2 Storage with optimized settings
+[[kv_namespaces]]
+id = "dd99e89fa60f4ad6a3cc662a583d5298"
+binding = "ANALYTICS"
+preview_id = "dd99e89fa60f4ad6a3cc662a583d5298"
+
+[[kv_namespaces]]
+id = "269af92daf2a4baaa80b34afd5aad15e"
+binding = "EDGE_CACHE"
+preview_id = "269af92daf2a4baaa80b34afd5aad15e"
+
+[[kv_namespaces]]
+id = "f60142d5f86e46e29168cb094eeb92de"
+binding = "AI_MODELS_CACHE"
+preview_id = "f60142d5f86e46e29168cb094eeb92de"
+
+[[kv_namespaces]]
+id = "6e7d56f0c13e4859b6d071b8b508fce6"
+binding = "AGENTS"
+preview_id = "6e7d56f0c13e4859b6d071b8b508fce6"
+
+[[kv_namespaces]]
+id = "c11e3b427d2a406882fe82ccb9fb765c"
+binding = "RATE_LIMITS"
+preview_id = "c11e3b427d2a406882fe82ccb9fb765c"
+
+[[kv_namespaces]]
+id = "44c458f95c544837bafc586295e21310"
+binding = "SECURITY_LOGS"
+preview_id = "44c458f95c544837bafc586295e21310"
+
+[[kv_namespaces]]
+id = "23e11c0a4015498d9e199c529cbf3133"
+binding = "KNOWLEDGE_BASE"
+preview_id = "23e11c0a4015498d9e199c529cbf3133"
+
+# ==============================================================================
+# D1 DATABASES
+# ==============================================================================
+
+[[d1_databases]]
+binding = "MYBONZO_ANALYTICS"
+database_name = "mybonzo-analytics"
+database_id = "5d83cdc3-e897-4af2-b647-27352297430b"
+
+[[d1_databases]]
+binding = "VIBESDK_DB"
+database_name = "vibesdk-db-bonzo"
+database_id = "f23f5462-f531-4737-be0d-84c73704d63f"
+
+# ==============================================================================
+# R2 STORAGE - Complete Configuration
+# ==============================================================================
 [[r2_buckets]]
 bucket_name = "mybonzo-temp-storage"
-binding = "mybonzo_temp_storage"
+binding = "TEMP_STORAGE"
 preview_bucket_name = "mybonzo-temp-storage"
 
-# Additional R2 for assets
 [[r2_buckets]]
 bucket_name = "mybonzo-assets"
 binding = "ASSETS_BUCKET"
 preview_bucket_name = "mybonzo-assets"
 
+[[r2_buckets]]
+bucket_name = "mybonzo-ai-models"
+binding = "AI_MODELS_BUCKET"
+preview_bucket_name = "mybonzo-ai-models"
+
+[[r2_buckets]]
+bucket_name = "mybonzo-storage"
+binding = "MAIN_STORAGE"
+preview_bucket_name = "mybonzo-storage"
+
+[[r2_buckets]]
+bucket_name = "mybonzo-uploads"
+binding = "UPLOADS_BUCKET"
+preview_bucket_name = "mybonzo-uploads"
+
+[[r2_buckets]]
+bucket_name = "mybonzo-cache"
+binding = "CACHE_BUCKET"
+preview_bucket_name = "mybonzo-cache"
+
+[[r2_buckets]]
+bucket_name = "mybonzo-backups"
+binding = "BACKUPS_BUCKET"
+preview_bucket_name = "mybonzo-backups"
+
+[[r2_buckets]]
+bucket_name = "mybonzo-logs"
+binding = "LOGS_BUCKET"
+preview_bucket_name = "mybonzo-logs"
+
 # AI Binding with optimized settings
 [ai]
 binding = "AI"
 
-# D1 Database for persistent storage
+# Durable Objects - Real-time features
+[[durable_objects.bindings]]
+name = "CHAT_ROOMS"
+class_name = "ChatRoom"
+script_name = "luc-de-zen-on"
+
+[[durable_objects.bindings]]
+name = "USER_SESSIONS"
+class_name = "UserSession"
+script_name = "luc-de-zen-on"
+
+[[durable_objects.bindings]]
+name = "AI_WORKERS"
+class_name = "AIWorker"
+script_name = "luc-de-zen-on"
+
+[[durable_objects.bindings]]
+name = "ANALYTICS_COLLECTOR"
+class_name = "AnalyticsCollector"
+script_name = "luc-de-zen-on"
+
+# D1 Databases - Complete Configuration
 [[d1_databases]]
 binding = "DB_MAIN"
-database_name = "mybonzo-main-db"
-database_id = "mybonzo-main-db"
+database_name = "mybonzo-analytics"
+database_id = "5d83cdc3-e897-4af2-b647-27352297430b"
+
+[[d1_databases]]
+binding = "DB_VIBESDK"
+database_name = "vibesdk-db-bonzo"
+database_id = "f23f5462-f531-4737-be0d-84c73704d63f"
 
 # Production Environment - Optimized for www.mybonzo.com
 [env.production]
@@ -153,24 +258,49 @@ id = "77d84c01758a4064be011acc35b2c344"
 binding = "SESSION"
 
 [[env.production.kv_namespaces]]
-id = "mybonzo-cache-kv"
+id = "a55f59fbe9534a28b7aa5e6af3ca112b"
 binding = "CACHE_KV"
+
+[[env.production.kv_namespaces]]
+id = "dd99e89fa60f4ad6a3cc662a583d5298"
+binding = "ANALYTICS"
+
+[[env.production.kv_namespaces]]
+id = "269af92daf2a4baaa80b34afd5aad15e"
+binding = "EDGE_CACHE"
+
+[[env.production.kv_namespaces]]
+id = "f60142d5f86e46e29168cb094eeb92de"
+binding = "AI_MODELS_CACHE"
 
 [[env.production.r2_buckets]]
 bucket_name = "mybonzo-temp-storage"
-binding = "mybonzo_temp_storage"
+binding = "TEMP_STORAGE"
 
 [[env.production.r2_buckets]]
 bucket_name = "mybonzo-assets"
 binding = "ASSETS_BUCKET"
+
+[[env.production.r2_buckets]]
+bucket_name = "mybonzo-ai-models"
+binding = "AI_MODELS_BUCKET"
+
+[[env.production.r2_buckets]]
+bucket_name = "mybonzo-storage"
+binding = "MAIN_STORAGE"
 
 [env.production.ai]
 binding = "AI"
 
 [[env.production.d1_databases]]
 binding = "DB_MAIN"
-database_name = "mybonzo-main-db"
-database_id = "mybonzo-main-db"
+database_name = "mybonzo-analytics"
+database_id = "5d83cdc3-e897-4af2-b647-27352297430b"
+
+[[env.production.d1_databases]]
+binding = "DB_VIBESDK"
+database_name = "vibesdk-db-bonzo"
+database_id = "f23f5462-f531-4737-be0d-84c73704d63f"
 
 # Development Environment - Fast iterations
 [env.development]

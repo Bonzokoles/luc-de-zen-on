@@ -14,10 +14,24 @@ const PUBLIC_PATHS = [
   "/api/translate",
   "/api/magic-prompt",
   "/api/generate-image",
+  "/api/generate-marketing-content",
+  "/api/personalized-recommendations",
+  "/api/customer-automation",
+  "/api/activity-monitoring",
   "/api/duckdb",
   "/api/paypal",
   "/api/huggingface",
   "/api/memory-server",
+  "/api/bigquery",
+  "/api/tavi",
+  "/api/tavily",
+  "/api/kaggle",
+  "/api/deepseek-search",
+  "/api/bielik-chat",
+  "/api/polaczek-chat",
+  "/api/mybonzo-chat",
+  "/api/test-connections",
+  "/api/test-secrets",
 ];
 
 // Middleware do weryfikacji tokenów i ustawiania kontekstu klienta
@@ -43,6 +57,31 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   const token = authHeader.split(" ")[1];
+
+  // Sprawdź hasła bezpośrednie
+  if (token === "HAOS77") {
+    // Hasło admina - pełny dostęp
+    (context.locals as any).auth = {
+      userId: "admin",
+      clientId: "admin",
+      email: "admin@mybonzo.com",
+      role: "admin",
+      access: "full",
+    };
+    return next();
+  }
+
+  if (token === "ZENON2015AI") {
+    // Hasło użytkownika - pełny dostęp do funkcji AI
+    (context.locals as any).auth = {
+      userId: "user",
+      clientId: "user",
+      email: "user@mybonzo.com",
+      role: "user",
+      access: "full",
+    };
+    return next();
+  }
 
   try {
     // UWAGA: To jest symulacja weryfikacji JWT. W produkcji użyj biblioteki `jose` do weryfikacji podpisu.
