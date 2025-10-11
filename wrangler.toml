@@ -91,7 +91,7 @@ binding = "AI"
 
 # D1 Database for persistent storage
 [[d1_databases]]
-binding = "DB"
+binding = "DB_MAIN"
 database_name = "mybonzo-main-db"
 database_id = "mybonzo-main-db"
 
@@ -168,7 +168,7 @@ binding = "ASSETS_BUCKET"
 binding = "AI"
 
 [[env.production.d1_databases]]
-binding = "DB"
+binding = "DB_MAIN"
 database_name = "mybonzo-main-db"
 database_id = "mybonzo-main-db"
 

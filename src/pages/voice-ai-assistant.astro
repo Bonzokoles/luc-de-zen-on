@@ -153,6 +153,29 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     </div>
   </div>
 
+  <style>
+    .setting-select,
+    .setting-textarea {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--edge);
+      color: var(--primary-foreground);
+      padding: 0.5rem;
+      border-radius: 0.375rem;
+      width: 100%;
+    }
+    
+    .setting-select:focus,
+    .setting-textarea:focus {
+      border-color: #00ffff;
+      outline: none;
+    }
+    
+    .setting-range {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+
   <script>
     // Voice AI Assistant - Enhanced with full STT/TTS functionality
     let recognition = null;

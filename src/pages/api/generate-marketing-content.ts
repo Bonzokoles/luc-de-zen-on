@@ -1,50 +1,67 @@
-import type { APIRoute } from 'astro';
 
-// Helper to get secrets from Cloudflare environment
-function getEnv(locals: App.Locals): Record<string, any> {
-  return import.meta.env.DEV ? process.env : locals?.runtime?.env || {};
+import type { APIRoute } from "astro";
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from "../../utils/corsUtils";
+
+// Definicja typów dla przychodzącego żądania
+interface GenerateRequest {
+  prompt: string;
+  contentType: string;
 }
 
+// Mapa typów treści na szczegółowe instrukcje dla AI
+const contentInstructions = {
+  "post na social media": "Napisz krótki, angażujący post na social media (Facebook/Instagram). Użyj emoji i hashtagów.",
+  "e-mail marketingowy": "Stwórz profesjonalny e-mail marketingowy z wyraźnym wezwaniem do działania (Call to Action).",
+  "opis produktu": "Wygeneruj perswazyjny i szczegółowy opis produktu, który zachęci do zakupu.",
+  "artykuł na blog": "Napisz dobrze ustrukturyzowany artykuł na blog (minimum 3 akapity) z interesującym tytułem.",
+  "treść reklamowa": "Stwórz krótką, chwytliwą treść reklamową dla kampanii Google Ads lub Facebook Ads.",
+  "newsletter": "Napisz treść do newslettera informującego o nowościach lub promocjach.",
+};
+
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = getEnv(locals);
-  const aiBinding = env.AI;
-
-  if (!aiBinding) {
-    return new Response(JSON.stringify({ success: false, error: 'AI binding is not configured.' }), { status: 500 });
-  }
-
   try {
-    const body = await request.json();
+    // Bezpieczny dostęp do środowiska Cloudflare
+    const env = (locals as any)?.runtime?.env;
+    if (!env || !env.AI) {
+      return createErrorResponse("Środowisko AI nie jest dostępne.", 503);
+    }
+
+    const body = (await request.json()) as GenerateRequest;
     const { prompt, contentType } = body;
 
     if (!prompt || !contentType) {
-      return new Response(JSON.stringify({ success: false, error: 'Prompt and contentType are required.' }), { status: 400 });
+      return createErrorResponse("Parametry 'prompt' i 'contentType' są wymagane.", 400);
     }
 
-    const systemPrompt = `You are an expert Polish marketing content generator. Your task is to create a compelling and professional piece of content based on the user's topic and the specified content type. The response should be in Polish and ready to be published.
+    // Wybór instrukcji dla AI
+    const instruction = contentInstructions[contentType] || "Napisz profesjonalną treść marketingową.";
 
-    Content Type: ${contentType}
-    Topic: ${prompt}`;
+    // Stworzenie systemowego promptu dla modelu AI
+    const systemPrompt = `Jesteś światowej klasy ekspertem od marketingu i copywritingu posługującym się biegle językiem polskim. Twoim zadaniem jest tworzenie angażujących i skutecznych treści. ${instruction}`;
 
-    const aiResponse = await aiBinding.run('@cf/google/gemma-2-9b-it', {
-        messages: [
-            { role: 'system', content: systemPrompt }
-        ],
-        max_tokens: 1500,
+    // Wywołanie modelu AI (Llama 3.1 jest dobrym wyborem do tego zadania)
+    const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Temat: "${prompt}"` },
+      ],
+      max_tokens: 1024, // Zwiększony limit dla dłuższych form jak artykuły
+      temperature: 0.7, // Optymalna kreatywność
     });
 
-    return new Response(JSON.stringify({
-      success: true,
-      text: aiResponse.response || "AI model did not return a response."
-    }), {
-      headers: { 'Content-Type': 'application/json' }
+    const generatedText = aiResponse.response || "AI nie wygenerowało odpowiedzi.";
+
+    return createSuccessResponse({
+      text: generatedText,
+      modelUsed: "@cf/meta/llama-3.1-8b-instruct",
     });
 
   } catch (error) {
-    console.error("Marketing Content API Error:", error);
-    return new Response(JSON.stringify({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed to generate content.'
-    }), { status: 500 });
+    console.error("Błąd w /api/generate-marketing-content:", error);
+    const errorMessage = error instanceof Error ? error.message : "Nieznany błąd serwera.";
+    return createErrorResponse(errorMessage, 500);
   }
 };

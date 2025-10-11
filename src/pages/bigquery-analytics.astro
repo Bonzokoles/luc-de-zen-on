@@ -525,11 +525,11 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           </div>
         `;
 
-        historyItem.onclick = (e) => {
+        historyItem.addEventListener('click', (e) => {
           if (e.target.tagName !== "BUTTON") {
             document.getElementById("sqlQuery").value = item.fullQuery;
           }
-        };
+        });
 
         historyList.appendChild(historyItem);
       });

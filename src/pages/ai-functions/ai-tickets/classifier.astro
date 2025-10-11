@@ -1,0 +1,135 @@
+
+---
+import MyBonzoLayout from "../../../layouts/MyBonzoLayout.astro";
+import DecorativeLines from "../../../components/DecorativeLines.astro";
+---
+
+<MyBonzoLayout siteTitle="AI Ticket Classifier | KAROL LISSON">
+  <DecorativeLines />
+
+  <main class="min-h-svh relative z-10">
+    <div class="fixed inset-0 bg-[#0a0a0a]">
+      <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
+      <div class="cyber-grid absolute inset-0"></div>
+    </div>
+
+    <section class="relative z-20 border-b border-[#333333] pt-20">
+      <div class="max-w-6xl mx-auto px-4 py-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-mono">
+          AI Ticket Classifier
+        </h1>
+        <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+          Automatyczna kategoryzacja i priorytetyzacja zgłoszeń supportowych
+        </p>
+        <div class="flex gap-4 mt-8">
+          <a href="../" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"> ← AI Tickets</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative z-20 py-12">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+          <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Input Form -->
+            <div>
+              <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6">Nowe Zgłoszenie</h3>
+              <div class="space-y-4">
+                <div>
+                  <label for="ticket-description" class="block text-sm font-medium text-gray-300 mb-2">Opis Problemu:</label>
+                  <textarea id="ticket-description" rows="8" class="w-full p-2 bg-[#0a0a0a] border border-[#333333] text-white rounded-sm focus:border-[#00ffff]" placeholder="Np. Użytkownik nie może zresetować hasła. Przycisk resetowania nie działa..."></textarea>
+                </div>
+                <button id="classify-btn" class="w-full bg-[#00ffff] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase">Klasyfikuj Zgłoszenie</button>
+              </div>
+            </div>
+
+            <!-- Classification Result -->
+            <div>
+              <h3 class="text-[#ff6699] font-mono text-xl uppercase tracking-wide mb-6">Wynik Klasyfikacji AI</h3>
+              <div id="result-container" class="space-y-4">
+                <p class="text-gray-500">Wprowadź opis zgłoszenia i kliknij "Klasyfikuj", aby zobaczyć wynik.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <style>
+    .cyber-grid { background-image: linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
+    .result-item { border-left: 4px solid; padding-left: 1rem; }
+    .p-critical { border-color: #ff3333; }
+    .p-high { border-color: #ff6699; }
+    .p-medium { border-color: #ffaa00; }
+    .p-low { border-color: #00ffff; }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const classifyBtn = document.getElementById('classify-btn');
+      const descriptionInput = document.getElementById('ticket-description') as HTMLTextAreaElement;
+      const resultContainer = document.getElementById('result-container');
+
+      const priorityClasses = {
+          'Krytyczny': 'p-critical',
+          'Wysoki': 'p-high',
+          'Średni': 'p-medium',
+          'Niski': 'p-low'
+      };
+
+      classifyBtn.addEventListener('click', async () => {
+        const description = descriptionInput.value.trim();
+        if (!description) {
+          alert('Opis zgłoszenia nie może być pusty.');
+          return;
+        }
+
+        // Set loading state
+        resultContainer.innerHTML = '<p class="text-cyan-400">🤖 Klasyfikuję zgłoszenie...</p>';
+        classifyBtn.disabled = true;
+        (classifyBtn.firstChild as Text).data = 'Analizuję...';
+
+        try {
+          const response = await fetch('/api/ticket-classifier', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ description })
+          });
+
+          if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error || `Błąd serwera: ${response.status}`);
+          }
+
+          const data = await response.json();
+          if (data.success) {
+            const { priority, category, suggested_assignee } = data.data.classification;
+            resultContainer.innerHTML = `
+              <div class="result-item ${priorityClasses[priority] || 'p-low'}">
+                <p class="text-xs text-gray-400">Priorytet</p>
+                <p class="text-lg font-bold">${priority}</p>
+              </div>
+              <div class="result-item border-l-gray-500">
+                <p class="text-xs text-gray-400">Kategoria</p>
+                <p class="text-lg font-bold">${category}</p>
+              </div>
+              <div class="result-item border-l-gray-500">
+                <p class="text-xs text-gray-400">Sugerowany Zespół</p>
+                <p class="text-lg font-bold">${suggested_assignee}</p>
+              </div>
+            `;
+          } else {
+            throw new Error(data.error || 'Nie udało się sklasyfikować zgłoszenia.');
+          }
+
+        } catch (err) {
+          resultContainer.innerHTML = `<p class="text-red-500">Wystąpił błąd: ${err.message}</p>`;
+        } finally {
+          classifyBtn.disabled = false;
+          (classifyBtn.firstChild as Text).data = 'Klasyfikuj Zgłoszenie';
+        }
+      });
+    });
+  </script>
+</MyBonzoLayout>

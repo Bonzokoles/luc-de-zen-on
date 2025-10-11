@@ -43,8 +43,8 @@ export default {
           ...requestData.messages
         ];
 
-        // Use Cloudflare AI with Polish optimization
-        const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+        // Use Cloudflare AI with the correct Bielik model from Hugging Face
+        const response = await env.AI.run('@hf/speakleash/bielik-7b-instruct-v0.1', {
           messages: bielikMessages,
           max_tokens: requestData.max_tokens || 512,
           temperature: requestData.temperature || 0.7,
@@ -53,8 +53,8 @@ export default {
         return new Response(JSON.stringify({
           success: true,
           response: response.response || 'Nie udało się wygenerować odpowiedzi.',
-          model: 'bielik-llama-3.1',
-          provider: 'cloudflare-ai',
+          model: 'speakleash/bielik-7b-instruct-v0.1',
+          provider: 'huggingface-via-cloudflare',
           language: 'pl',
           assistant: 'bielik'
         }), {

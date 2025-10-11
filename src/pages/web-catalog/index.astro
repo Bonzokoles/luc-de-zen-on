@@ -18,7 +18,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
       <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="flex items-center justify-between mb-8">
           <div>
-            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-mono">
               Web Catalog Manager
             </h1>
             <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
@@ -37,26 +37,26 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
         <div class="flex gap-4 mb-8">
           <a
             href="/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"
           >
             ← Powrót do głównej
           </a>
           <a
             href="/web-catalog-manager.html"
             target="_blank"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"
           >
             PEŁNY MANAGER
           </a>
           <button
             id="refreshCatalog"
-            class="px-4 py-2 bg-[#ff6699] text-[#0a0a0a] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm font-bold"
+            class="px-4 py-2 bg-[#ff6699] text-[#0a0a0a] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm font-bold"
           >
             ODŚWIEŻ KATALOG
           </button>
           <button
             id="exportData"
-            class="px-4 py-2 bg-[#00ffff] text-[#0a0a0a] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm font-bold"
+            class="px-4 py-2 bg-[#00ffff] text-[#0a0a0a] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm font-bold"
           >
             EXPORT
           </button>
@@ -67,7 +67,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
     <!-- API Connections Status -->
     <section class="relative z-20 py-8 border-b border-[#333333]">
       <div class="max-w-6xl mx-auto px-4">
-        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+        <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6">
           🔌 API Connections Status
         </h3>
         
@@ -118,7 +118,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
           <!-- Catalog Controls -->
           <div class="lg:col-span-1">
             <div class="bg-[#111111] border border-[#333333] p-6 rounded-sm mb-6">
-              <h3 class="text-[#ff6699] font-['Neuropol'] text-xl uppercase tracking-wide mb-4">
+              <h3 class="text-[#ff6699] font-mono text-xl uppercase tracking-wide mb-4">
                 🎛️ Catalog Controls
               </h3>
               
@@ -165,7 +165,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
                 <button 
                   id="generateCatalog"
-                  class="w-full bg-[#00ffff] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide"
+                  class="w-full bg-[#00ffff] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide"
                 >
                   Generate AI Catalog
                 </button>
@@ -174,7 +174,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
 
             <!-- Quick Stats -->
             <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">📊 Quick Stats</h4>
+              <h4 class="text-[#ff6699] font-mono text-sm uppercase mb-3">📊 Quick Stats</h4>
               <div class="space-y-2 text-xs">
                 <div class="flex justify-between">
                   <span class="text-[#a0a0a0]">Total Products:</span>
@@ -200,7 +200,7 @@ import DecorativeLines from "../../components/DecorativeLines.astro";
           <div class="lg:col-span-2">
             <div class="bg-[#111111] border border-[#333333] p-6 rounded-sm">
               <div class="flex justify-between items-center mb-4">
-                <h3 class="text-[#ff6699] font-['Neuropol'] text-xl uppercase tracking-wide">
+                <h3 class="text-[#ff6699] font-mono text-xl uppercase tracking-wide">
                   📚 Catalog Preview
                 </h3>
                 <div class="flex gap-2">

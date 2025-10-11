@@ -3,54 +3,62 @@
  * Provides Polish AI support for Cloudflare Workers development
  */
 
-import { createOPTIONSHandler, createSuccessResponse, createErrorResponse } from '@/utils/corsUtils';
+import {
+  createOPTIONSHandler,
+  createSuccessResponse,
+  createErrorResponse,
+} from "@/utils/corsUtils";
 
 // CORS support
-export const OPTIONS = createOPTIONSHandler(['POST', 'GET']);
+export const OPTIONS = createOPTIONSHandler(["POST", "GET"]);
 
 export async function GET({ request }) {
   return createSuccessResponse({
-    message: 'MyBonzo Chat is active and ready for POST requests.',
-    status: 'ok'
+    message: "MyBonzo Chat is active and ready for POST requests.",
+    status: "ok",
   });
 }
 
 export async function POST({ request, locals }) {
   try {
-    const { prompt, context, language = 'pl' } = await request.json();
-    
+    const { prompt, context, language = "pl" } = await request.json();
+
     if (!prompt) {
-      return createErrorResponse('Prompt is required');
+      return createErrorResponse("Prompt is required");
     }
-    
+
     // MyBonzo Assistant processing
-    const response = await processMyBonzoRequest(prompt, context, language, locals);
-    
+    const response = await processMyBonzoRequest(
+      prompt,
+      context,
+      language,
+      locals
+    );
+
     return createSuccessResponse({
       response,
-      model: 'MyBonzo Assistant v1.0',
+      model: "MyBonzo Assistant v1.0",
       language,
-      specialization: ['cloudflare-workers', 'polish-language', 'ai-agents'],
-      timestamp: new Date().toISOString()
+      specialization: ["cloudflare-workers", "polish-language", "ai-agents"],
+      timestamp: new Date().toISOString(),
     });
-    
   } catch (error) {
-    console.error('MyBonzo Chat error:', error);
+    console.error("MyBonzo Chat error:", error);
     return createErrorResponse(`MyBonzo Assistant error: ${error.message}`);
   }
 }
 
 async function processMyBonzoRequest(prompt, context, language, locals) {
   const promptLower = prompt.toLowerCase();
-  
+
   // Check if we have Cloudflare AI available
   const env = locals?.runtime?.env;
-  
+
   // Enhanced responses using AI if available
   if (env?.AI) {
     return await generateEnhancedResponse(prompt, context, language, env);
   }
-  
+
   // Fallback to pattern-based responses
   return await generatePatternResponse(prompt, context, language);
 }
@@ -73,33 +81,35 @@ STYL ODPOWIEDZI:
 - Zawsze uwzględniaj best practices
 - Wspieraj polskich deweloperów
 
-KONTEKST: ${context || 'Brak dodatkowego kontekstu'}
+KONTEKST: ${context || "Brak dodatkowego kontekstu"}
 
 Odpowiedz w języku polskim na pytanie użytkownika, uwzględniając Twoje specjalizacje.`;
 
   try {
-    const aiResponse = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+    const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
       messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: prompt }
+        { role: "system", content: systemPrompt },
+        { role: "user", content: prompt },
       ],
       max_tokens: 1024,
-      temperature: 0.7
+      temperature: 0.7,
     });
-    
-    return aiResponse.response || await generatePatternResponse(prompt, context, language);
-    
+
+    return (
+      aiResponse.response ||
+      (await generatePatternResponse(prompt, context, language))
+    );
   } catch (error) {
-    console.error('AI generation failed, using patterns:', error);
+    console.error("AI generation failed, using patterns:", error);
     return await generatePatternResponse(prompt, context, language);
   }
 }
 
 async function generatePatternResponse(prompt, context, language) {
   const promptLower = prompt.toLowerCase();
-  
+
   // Cloudflare Workers
-  if (promptLower.includes('worker') || promptLower.includes('cloudflare')) {
+  if (promptLower.includes("worker") || promptLower.includes("cloudflare")) {
     return `🔧 **Cloudflare Worker - MyBonzo Assistant**
 
 Aby utworzyć Cloudflare Worker:
@@ -129,9 +139,9 @@ npx wrangler deploy
 
 💡 **MyBonzo Tip:** Używaj TypeScript dla lepszej kontroli typów!`;
   }
-  
+
   // AI Agents
-  if (promptLower.includes('agent') || promptLower.includes('ai')) {
+  if (promptLower.includes("agent") || promptLower.includes("ai")) {
     return `🤖 **AI Agent - MyBonzo Assistant**
 
 Konfiguracja AI Agent:
@@ -165,9 +175,9 @@ export async function POST({ request, locals }) {
 
 🎯 **MyBonzo Features:** Native Polish support + Cloudflare integration!`;
   }
-  
+
   // API Development
-  if (promptLower.includes('api') || promptLower.includes('endpoint')) {
+  if (promptLower.includes("api") || promptLower.includes("endpoint")) {
     return `🌐 **API Development - MyBonzo Assistant**
 
 Tworzenie API endpoints:
@@ -195,7 +205,7 @@ export const OPTIONS = createOPTIONSHandler(['POST', 'GET']);
 
 🔗 **MyBonzo Integration:** Ready for Cloudflare ecosystem!`;
   }
-  
+
   // General response
   return `👋 **MyBonzo Assistant**
 
@@ -218,5 +228,7 @@ Cześć! Jestem MyBonzo Assistant - Twój polski AI specjalista.
 
 Podaj więcej szczegółów, a pomogę Ci rozwiązać problem! 💪
 
-**Kontekst:** ${context || 'Brak kontekstu - podaj więcej informacji dla lepszej pomocy'}`;
+**Kontekst:** ${
+    context || "Brak kontekstu - podaj więcej informacji dla lepszej pomocy"
+  }`;
 }

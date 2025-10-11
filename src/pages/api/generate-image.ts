@@ -206,10 +206,24 @@ export const GET: APIRoute = async () => {
 };
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  // Sprawdzenie, czy środowisko Cloudflare jest dostępne
-  const runtime = (locals as any)?.runtime;
-  if (!runtime?.env?.AI) {
-    console.error("Cloudflare environment or AI binding not available");
+  // Defensive coding - sprawdzenie dostępności środowiska
+  const env = locals.runtime?.env;
+  if (!env) {
+    console.error("Runtime environment not available");
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: "Environment not available",
+      }),
+      {
+        status: 503,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+
+  if (!env.AI) {
+    console.error("Cloudflare AI binding not available");
     return createErrorResponse(
       "AI service is not configured on the server.",
       500
@@ -247,16 +261,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Check if it's an external model
     if (model && Object.keys(EXTERNAL_MODELS).includes(model)) {
-      return await handleExternalModel(
-        model,
-        prompt,
-        runtime.env,
-        enhancementData
-      );
+      return await handleExternalModel(model, prompt, env, enhancementData);
     }
 
     const selectedModel = selectModel(model);
-    const ai = runtime.env.AI;
+    const ai = env.AI;
     const inputs = buildAIInputs({ prompt, width, height, steps }, prompt);
 
     // Wywołanie modelu do generowania obrazów w Cloudflare AI

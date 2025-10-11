@@ -43,6 +43,24 @@
         return "Jesteś w wyszukiwarce Tavily. Możesz wyszukać informacje w internecie, np. 'jakie są najnowsze wiadomości o AI'.";
       case "Voice AI Assistant | MyBonzo Platform":
         return "Jesteś w panelu konfiguracji asystenta głosowego. Możesz zarządzać ustawieniami głosu.";
+      case "Generator Treści Marketingowych":
+        return "Jesteś w generatorze treści. Podaj temat i rodzaj tekstu (np. post na social media), a AI stworzy dla Ciebie profesjonalny materiał marketingowy.";
+      case "Spersonalizowane Rekomendacje AI":
+        return "Jesteś w silniku rekomendacji. Wybierz profil użytkownika z listy, a AI dynamicznie zaproponuje najlepiej dopasowane produkty lub usługi.";
+      case "Automatyzacja Obsługi Klienta":
+        return "Jesteś w module automatyzacji obsługi klienta. Możesz tu kwalifikować leady, generować automatyczne odpowiedzi lub zarządzać integracją z CRM.";
+      case "Monitorowanie Aktywności AI":
+        return "To jest dynamiczny dashboard monitorujący aktywność systemu w czasie rzeczywistym. Nowe zdarzenia pojawiają się automatycznie co kilka sekund.";
+      case "Inteligentny Kalendarz AI":
+        return "Jesteś w inteligentnym kalendarzu. System automatycznie analizuje Twój harmonogram i generuje kontekstowe przypomnienia, aby zoptymalizować Twój dzień.";
+      case "Dynamiczny Generator FAQ":
+        return "To jest generator FAQ. Wklej dowolny tekst źródłowy (np. dokumentację), a AI wygeneruje na jego podstawie listę pytań i odpowiedzi.";
+      case "Rekomendacje Edukacyjne AI":
+        return "Wybierz swój poziom zaawansowania i zainteresowania, a AI zarekomenduje Ci spersonalizowaną ścieżkę rozwoju i listę dopasowanych kursów.";
+      case "System Ticketów AI":
+        return "To jest strona główna systemu ticketów. Przejdź do modułu \'Klasyfikator\', aby przetestować automatyczną kategoryzację i priorytetyzację zgłoszeń.";
+      case "Interaktywne Quizy AI":
+        return "Wpisz dowolny temat, a AI wygeneruje dla Ciebie interaktywny quiz składający się z 5 pytań, abyś mógł sprawdzić swoją wiedzę.";
       default:
         return "Witaj w asystencie MyBonzo! Jak mogę Ci pomóc?";
     }

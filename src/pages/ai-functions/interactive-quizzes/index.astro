@@ -7,272 +7,29 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
   <DecorativeLines />
 
   <main class="min-h-svh relative z-10">
-    <!-- Background Grid Pattern -->
     <div class="fixed inset-0 bg-[#0a0a0a]">
       <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/20 via-black to-black"></div>
       <div class="cyber-grid absolute inset-0"></div>
     </div>
 
-    <!-- Header Section -->
     <section class="relative z-20 border-b border-[#333333] pt-20">
       <div class="max-w-6xl mx-auto px-4 py-8">
-        <div class="flex items-center justify-between mb-8">
-          <div>
-            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
-              Interactive Quizzes AI
-            </h1>
-            <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
-              Inteligentne quizy adaptujące się do poziomu użytkownika w czasie rzeczywistym
-            </p>
-          </div>
-          <div class="text-right text-sm text-[#a0a0a0] font-mono">
-            <div class="mb-1">
-              STATUS: <span class="text-[#00ffff]">ADAPTIVE</span>
-            </div>
-            <div>QUIZZES: <span class="text-[#ff6699] animate-pulse">1,247 active</span></div>
-          </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="flex gap-4 mb-8">
-          <a
-            href="/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            ← Powrót do głównej
-          </a>
-          <a
-            href="/zaawansowane-funkcje-ai"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            Wszystkie funkcje AI
-          </a>
-          <a
-            href="./builder/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            BUILDER
-          </a>
-          <a
-            href="./library/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            BIBLIOTEKA
-          </a>
-          <a
-            href="./analytics/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
-          >
-            ANALYTICS
-          </a>
+        <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-mono">
+          Interactive Quizzes AI
+        </h1>
+        <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
+          Inteligentne quizy adaptujące się do poziomu użytkownika w czasie rzeczywistym
+        </p>
+        <div class="flex gap-4 mt-8">
+            <a href="/" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"> ← Powrót do głównej </a>
         </div>
       </div>
     </section>
 
-    <!-- Feature Overview -->
     <section class="relative z-20 py-12">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-6 mb-12">
-          <!-- Quiz Builder Card -->
-          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">AI Builder</h3>
-              <div class="text-2xl text-[#ff6699]">🔧</div>
-            </div>
-            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
-              Kreator inteligentnych quizów z AI
-            </p>
-            <div class="text-sm text-[#00ffff] mb-4">
-              • Auto question generation<br>
-              • Adaptive difficulty<br>
-              • Multi-format support
-            </div>
-            <a href="./builder/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
-              STWÓRZ QUIZ
-            </a>
-          </div>
-
-          <!-- Quiz Library Card -->
-          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Biblioteka</h3>
-              <div class="text-2xl text-[#ff6699]">📚</div>
-            </div>
-            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
-              Kolekcja gotowych quizów i szablonów
-            </p>
-            <div class="text-sm text-[#00ffff] mb-4">
-              • 500+ ready quizzes<br>
-              • Topic categories<br>
-              • Difficulty levels
-            </div>
-            <a href="./library/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
-              PRZEGLĄDAJ
-            </a>
-          </div>
-
-          <!-- Analytics Card -->
-          <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm hover:border-[#00ffff] transition-all duration-300 group">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide">Analytics</h3>
-              <div class="text-2xl text-[#ff6699]">📊</div>
-            </div>
-            <p class="text-[#a0a0a0] mb-4 font-['Kenyan_Coffee']">
-              Zaawansowane analizy wyników
-            </p>
-            <div class="text-sm text-[#00ffff] mb-4">
-              • Performance tracking<br>
-              • Learning insights<br>
-              • Engagement metrics
-            </div>
-            <a href="./analytics/" class="inline-block bg-[#00ffff] text-[#0a0a0a] px-4 py-2 text-sm font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide">
-              ANALIZUJ
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Live Quiz Demo -->
-    <section class="relative z-20 py-8 border-t border-[#333333]">
-      <div class="max-w-6xl mx-auto px-4">
-        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
-          🎮 Live Quiz Demo - Testowe AI
-        </h3>
-        
-        <div class="grid lg:grid-cols-3 gap-6">
-          <!-- Quiz Interface -->
-          <div class="lg:col-span-2 bg-[#111111] border border-[#333333] p-6 rounded-sm">
-            <div class="mb-6">
-              <div class="flex justify-between items-center mb-4">
-                <h4 class="text-[#ff6699] font-['Neuropol'] text-lg uppercase">Pytanie 3/10</h4>
-                <div class="text-[#00ffff] text-sm">Difficulty: Medium</div>
-              </div>
-              
-              <div class="bg-[#0a0a0a] border border-[#333333] p-4 rounded-sm mb-6">
-                <h5 class="text-[#e0e0e0] text-lg mb-4">
-                  Które z poniższych stwierdzeń najlepiej opisuje działanie machine learning?
-                </h5>
-                
-                <div class="space-y-3">
-                  <label class="flex items-center p-3 bg-[#1a1a1a] border border-[#333333] hover:border-[#00ffff] transition-all duration-300 cursor-pointer">
-                    <input type="radio" name="quiz" class="sr-only" />
-                    <div class="w-4 h-4 border-2 border-[#333333] rounded-full mr-3 flex-shrink-0"></div>
-                    <span class="text-[#e0e0e0]">AI uczy się poprzez analizę dużych zbiorów danych</span>
-                  </label>
-                  
-                  <label class="flex items-center p-3 bg-[#1a1a1a] border border-[#333333] hover:border-[#00ffff] transition-all duration-300 cursor-pointer">
-                    <input type="radio" name="quiz" class="sr-only" />
-                    <div class="w-4 h-4 border-2 border-[#333333] rounded-full mr-3 flex-shrink-0"></div>
-                    <span class="text-[#e0e0e0]">Programista pisze wszystkie możliwe scenariusze</span>
-                  </label>
-                  
-                  <label class="flex items-center p-3 bg-[#1a1a1a] border border-[#333333] hover:border-[#00ffff] transition-all duration-300 cursor-pointer">
-                    <input type="radio" name="quiz" class="sr-only" />
-                    <div class="w-4 h-4 border-2 border-[#333333] rounded-full mr-3 flex-shrink-0"></div>
-                    <span class="text-[#e0e0e0]">Komputer kopiuje ludzkie myślenie dokładnie</span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="flex justify-between">
-                <button class="bg-[#333333] text-[#e0e0e0] px-6 py-2 font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase text-sm">
-                  Poprzednie
-                </button>
-                <button class="bg-[#00ffff] text-[#0a0a0a] px-6 py-2 font-bold hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase text-sm">
-                  Następne
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quiz Stats -->
-          <div class="space-y-6">
-            <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">📊 Twoje Wyniki</h4>
-              <div class="space-y-3">
-                <div class="flex justify-between">
-                  <span class="text-[#a0a0a0] text-sm">Poprawne odpowiedzi:</span>
-                  <span class="text-[#00ffff] font-bold">2/2</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#a0a0a0] text-sm">Accuracy rate:</span>
-                  <span class="text-[#00ff00] font-bold">100%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#a0a0a0] text-sm">Avg time/question:</span>
-                  <span class="text-[#00ffff] font-bold">45s</span>
-                </div>
-                <div class="flex justify-between">
-                  <span class="text-[#a0a0a0] text-sm">Current level:</span>
-                  <span class="text-[#ff6699] font-bold">Intermediate</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">🧠 AI Insights</h4>
-              <div class="space-y-2">
-                <div class="text-[#00ffff] text-xs">
-                  ✓ Strong conceptual understanding
-                </div>
-                <div class="text-[#ffaa00] text-xs">
-                  ⚠️ Consider reviewing: algorithms
-                </div>
-                <div class="text-[#00ff00] text-xs">
-                  💡 Ready for advanced topics
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-3">🏆 Progress</h4>
-              <div class="space-y-2">
-                <div class="flex justify-between text-xs">
-                  <span class="text-[#a0a0a0]">Overall Progress</span>
-                  <span class="text-[#00ffff]">30%</span>
-                </div>
-                <div class="w-full bg-[#333333] h-2 rounded">
-                  <div class="bg-gradient-to-r from-[#00ffff] to-[#ff6699] h-2 rounded" style="width: 30%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Popular Quizzes -->
-    <section class="relative z-20 py-8 border-t border-[#333333]">
-      <div class="max-w-6xl mx-auto px-4">
-        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
-          Popularne Quizy
-        </h3>
-        
-        <div class="grid md:grid-cols-4 gap-4">
-          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
-            <div class="text-[#ff6699] text-sm font-bold mb-2">JavaScript Fundamentals</div>
-            <div class="text-[#a0a0a0] text-xs mb-2">25 questions • Beginner</div>
-            <div class="text-[#00ffff] text-xs">4.8★ • 2,847 attempts</div>
-          </div>
-          
-          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
-            <div class="text-[#ff6699] text-sm font-bold mb-2">Machine Learning Basics</div>
-            <div class="text-[#a0a0a0] text-xs mb-2">30 questions • Intermediate</div>
-            <div class="text-[#00ffff] text-xs">4.6★ • 1,432 attempts</div>
-          </div>
-          
-          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
-            <div class="text-[#ff6699] text-sm font-bold mb-2">Cloud Architecture</div>
-            <div class="text-[#a0a0a0] text-xs mb-2">20 questions • Advanced</div>
-            <div class="text-[#00ffff] text-xs">4.7★ • 987 attempts</div>
-          </div>
-          
-          <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
-            <div class="text-[#ff6699] text-sm font-bold mb-2">Cybersecurity Essentials</div>
-            <div class="text-[#a0a0a0] text-xs mb-2">35 questions • Intermediate</div>
-            <div class="text-[#00ffff] text-xs">4.9★ • 3,124 attempts</div>
-          </div>
+      <div class="max-w-2xl mx-auto px-4">
+        <div id="quiz-container" class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
+          <!-- Quiz content will be rendered here by JavaScript -->
         </div>
       </div>
     </section>
@@ -280,11 +37,207 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
   </main>
 
   <style>
-    .cyber-grid {
-      background-image: 
-        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
+    .cyber-grid { background-image: linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
+    .option-label { transition: all 0.3s ease; }
+    .option-label.selected { border-color: #00ffff; box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); }
+    .option-label.correct { background-color: rgba(0, 255, 0, 0.1); border-color: #00ff00; }
+    .option-label.incorrect { background-color: rgba(255, 0, 0, 0.1); border-color: #ff3333; }
+    button:disabled { cursor: not-allowed; opacity: 0.6; }
   </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      class QuizApp {
+      constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.sessionId = null;
+        this.currentQuestion = null;
+        this.totalQuestions = 0;
+        this.questionNumber = 0;
+        this.score = 0;
+        this.renderStartScreen();
+      }
+
+      renderStartScreen() {
+        this.container.innerHTML = `
+          <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6">Rozpocznij Nowy Quiz</h3>
+          <div class="space-y-4">
+            <div>
+              <label for="quiz-topic" class="block text-sm font-medium text-gray-300 mb-2">Wpisz temat quizu:</label>
+              <input type="text" id="quiz-topic" class="w-full p-2 bg-[#0a0a0a] border border-[#333333] text-white rounded-sm" placeholder="Np. JavaScript, Historia Polski, Kosmos">
+            </div>
+            <button id="start-quiz-btn" class="w-full bg-[#00ffff] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase">Start</button>
+          </div>
+        `;
+        document.getElementById('start-quiz-btn').addEventListener('click', () => this.startQuiz());
+      }
+
+      async startQuiz() {
+        const topicInput = document.getElementById('quiz-topic') as HTMLInputElement;
+        const topic = topicInput.value.trim();
+        if (!topic) {
+          alert('Proszę podać temat quizu.');
+          return;
+        }
+
+        this.showLoading('Generowanie quizu...');
+
+        try {
+          const response = await this.callApi({ action: 'start_quiz', topic });
+          this.sessionId = response.sessionId;
+          this.totalQuestions = response.totalQuestions;
+          this.questionNumber = 1;
+          this.score = 0;
+          this.currentQuestion = response.question;
+          this.renderQuestion();
+        } catch (error) {
+          this.showError(error.message);
+        }
+      }
+
+      renderQuestion() {
+        const optionsHtml = Object.entries(this.currentQuestion.options).map(([key, value]) => `
+          <label class="option-label flex items-center p-3 bg-[#0a0a0a] border border-[#333333] hover:border-[#00ffff] transition-all duration-300 cursor-pointer">
+            <input type="radio" name="quiz-option" value="${key}" class="sr-only">
+            <div class="w-4 h-4 border-2 border-[#333333] rounded-full mr-3 flex-shrink-0"></div>
+            <span class="text-[#e0e0e0]">${value}</span>
+          </label>
+        `).join('');
+
+        this.container.innerHTML = `
+          <div class="flex justify-between items-center mb-4">
+            <h4 class="text-[#ff6699] font-mono text-lg uppercase">Pytanie ${this.questionNumber}/${this.totalQuestions}</h4>
+          </div>
+          <div class="bg-[#0a0a0a] border border-[#333333] p-4 rounded-sm mb-6">
+            <h5 class="text-[#e0e0e0] text-lg mb-4">${this.currentQuestion.question}</h5>
+            <div id="options-container" class="space-y-3">${optionsHtml}</div>
+          </div>
+          <div id="feedback-container" class="mb-4"></div>
+          <button id="submit-answer-btn" class="w-full bg-[#00ffff] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase">Zatwierdź Odpowiedź</button>
+        `;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.addEventListener('change', e => {
+            document.querySelectorAll('.option-label').forEach(label => label.classList.remove('selected'));
+            const selectedLabel = (e.target as HTMLElement).closest('.option-label');
+            if (selectedLabel) selectedLabel.classList.add('selected');
+        });
+
+        document.getElementById('submit-answer-btn').addEventListener('click', () => this.submitAnswer());
+      }
+
+      async submitAnswer() {
+        const selectedOption = document.querySelector('input[name="quiz-option"]:checked') as HTMLInputElement;
+        if (!selectedOption) {
+          alert('Proszę wybrać odpowiedź.');
+          return;
+        }
+
+        this.showLoading('Sprawdzanie odpowiedzi...', false);
+
+        try {
+            const response = await this.callApi({ action: 'submit_answer', sessionId: this.sessionId, answer: selectedOption.value });
+            
+            this.showFeedback(response, selectedOption.value);
+
+            if (response.nextQuestion) {
+                this.currentQuestion = response.nextQuestion;
+                this.questionNumber++;
+                setTimeout(() => this.renderQuestion(), 2000); // Wait 2s before showing next question
+            } else {
+                this.renderFinalScore(response.finalScore, response.totalQuestions);
+            }
+        } catch (error) {
+            this.showError(error.message);
+        }
+      }
+
+      showFeedback(result, selectedValue) {
+          const feedbackContainer = document.getElementById('feedback-container');
+          document.querySelectorAll('.option-label').forEach(label => {
+              const radio = label.querySelector('input') as HTMLInputElement;
+              if (radio.value === result.correctAnswer) label.classList.add('correct');
+              else if (radio.value === selectedValue) label.classList.add('incorrect');
+          });
+
+          const feedbackMessage = result.isCorrect ? 
+            `<div class="p-3 bg-green-900/30 text-green-300 border border-green-500/50 rounded-sm"><strong>Dobrze!</strong> ${result.explanation}</div>` :
+            `<div class="p-3 bg-red-900/30 text-red-300 border border-red-500/50 rounded-sm"><strong>Źle.</strong> Poprawna odpowiedź to ${result.correctAnswer}. ${result.explanation}</div>`;
+          
+          feedbackContainer.innerHTML = feedbackMessage;
+          document.getElementById('submit-answer-btn').style.display = 'none';
+      }
+
+      renderFinalScore(score, total) {
+          this.container.innerHTML = `
+            <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6 text-center">Quiz Zakończony!</h3>
+            <div class="text-center">
+                <p class="text-lg text-white">Twój wynik:</p>
+                <p class="text-6xl font-bold text-cyan-400 my-4">${score} / ${total}</p>
+                <p class="text-gray-400">${score/total > 0.7 ? 'Świetna robota!' : 'Warto jeszcze poćwiczyć.'}</p>
+                <button id="restart-quiz-btn" class="mt-8 w-full bg-[#ff6699] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase">Zagraj Ponownie</button>
+            </div>
+          `;
+          document.getElementById('restart-quiz-btn').addEventListener('click', () => this.renderStartScreen());
+      }
+
+      showLoading(message, full = true) {
+        if (full) {
+            this.container.innerHTML = `<p class="text-cyan-400 text-center py-10">${message}</p>`;
+        } else {
+            const btn = document.getElementById('submit-answer-btn');
+            if(btn) {
+                btn.disabled = true;
+                (btn.firstChild as Text).data = 'Sprawdzam...';
+            }
+        }
+      }
+
+      showError(message) {
+        this.container.innerHTML = `<div class="text-red-500 text-center py-10"><h4>Wystąpił błąd</h4><p>${message}</p><button id="restart-quiz-btn" class="mt-8 w-full bg-[#ff6699] text-[#0a0a0a] py-3 font-bold hover:brightness-125 transition-all duration-300 font-mono uppercase">Spróbuj Ponownie</button></div>`;
+        document.getElementById('restart-quiz-btn').addEventListener('click', () => this.renderStartScreen());
+      }
+
+      async callApi(body) {
+        const response = await fetch('/api/quiz-engine', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!response.ok) {
+          const errData = await response.json();
+          throw new Error(errData.error || `Błąd serwera: ${response.status}`);
+        }
+        const data = await response.json();
+        if (!data.success) {
+          throw new Error(data.error || 'Nieznany błąd API');
+        }
+        return data.data;
+      }
+      }
+
+      new QuizApp('quiz-container');
+    });
+  </script>
+
+  <!-- POLACZEK_T Floating Assistant -->
+  <div class="fixed bottom-5 right-5 z-50">
+    <button id="polaczekBtn" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm">🤖 POLACZEK_T</button>
+    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
+      <AiHelpAssistant client:load pageTitle="Interaktywne Quizy AI" />
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const polaczekBtn = document.getElementById('polaczekBtn');
+      const polaczekWidget = document.getElementById('polaczekWidget');
+
+      if (polaczekBtn && polaczekWidget) {
+        polaczekBtn.addEventListener('click', () => {
+          polaczekWidget.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
 </MyBonzoLayout>

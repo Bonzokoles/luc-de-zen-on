@@ -1,84 +1,74 @@
-import type { APIRoute } from 'astro';
 
-// Helper to get secrets from Cloudflare environment
-function getEnv(locals: App.Locals): Record<string, any> {
-  return import.meta.env.DEV ? process.env : locals?.runtime?.env || {};
-}
+import type { APIRoute } from "astro";
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from "../../utils/corsUtils";
+
+// --- Symulowana Baza Danych ---
+const courseCatalog = [
+  { id: 'js_adv', name: 'Advanced JavaScript Patterns', category: 'Frontend', level: 'advanced', description: 'Głębokie zanurzenie w zaawansowane wzorce projektowe i techniki w JavaScript.' },
+  { id: 'ml_fun', name: 'Machine Learning Fundamentals', category: 'AI', level: 'beginner', description: 'Podstawy uczenia maszynowego, od regresji po proste sieci neuronowe.' },
+  { id: 'k8s_mastery', name: 'Kubernetes Mastery', category: 'DevOps', level: 'advanced', description: 'Kompletny kurs orkiestracji kontenerów dla profesjonalistów.' },
+  { id: 'react_basics', name: 'React for Beginners', category: 'Frontend', level: 'beginner', description: 'Zbuduj swoją pierwszą interaktywną aplikację w React.' },
+  { id: 'python_ds', name: 'Data Science with Python', category: 'AI', level: 'intermediate', description: 'Praktyczne wykorzystanie bibliotek Pandas, NumPy i Scikit-learn.' },
+  { id: 'node_backend', name: 'Node.js Backend Development', category: 'Backend', level: 'intermediate', description: 'Tworzenie wydajnych i skalowalnych aplikacji serwerowych w Node.js.' },
+  { id: 'css_grid', name: 'CSS Grid & Flexbox', category: 'Frontend', level: 'beginner', description: 'Opanuj nowoczesne techniki layoutu w CSS.' },
+  { id: 'prompt_eng', name: 'AI Prompt Engineering', category: 'AI', level: 'intermediate', description: 'Naucz się tworzyć efektywne prompty dla modeli językowych.' },
+];
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const env = getEnv(locals);
-    const aiBinding = env.AI;
-
-    if (!aiBinding) {
-      throw new Error('AI binding is not configured in your environment.');
+    const env = (locals as any)?.runtime?.env;
+    if (!env || !env.AI) {
+      return createErrorResponse("Środowisko AI nie jest dostępne.", 503);
     }
 
-    const { userProfile } = await request.json();
-    
-    if (!userProfile) {
-      return new Response(JSON.stringify({ error: 'User profile is required' }), { status: 400 });
+    const { skillLevel, interests } = await request.json();
+
+    if (!skillLevel || !interests || !Array.isArray(interests) || interests.length === 0) {
+      return createErrorResponse("Poziom umiejętności i zainteresowania są wymagane.", 400);
     }
 
-    // The detailed prompt generation logic is preserved from the original file
-    const prompt = `Na podstawie profilu użytkownika, wygeneruj spersonalizowane rekomendacje kursów i materiałów edukacyjnych.
+    const systemPrompt = `
+      Jesteś doradcą edukacyjnym AI. Twoim zadaniem jest zarekomendowanie 3 kursów z poniższego katalogu, które najlepiej pasują do profilu użytkownika.
+      Dla każdej rekomendacji podaj krótki (jedno zdanie) powód, dlaczego ten kurs jest dobrym wyborem.
 
-    Profil użytkownika: ${JSON.stringify(userProfile, null, 2)}
+      PROFIL UŻYTKOWNIKA:
+      - Poziom zaawansowania: ${skillLevel}
+      - Zainteresowania: ${interests.join(', ')}
 
-    Uwzględnij:
-    - Obecny poziom umiejętności
-    - Zainteresowania i cele zawodowe
-    - Dostępny czas na naukę
-    - Preferowany styl uczenia się
-    - Budżet (jeśli podany)
+      KATALOG KURSÓW (id, nazwa, kategoria, poziom, opis):
+      ${courseCatalog.map(c => `- ${c.id}, ${c.name}, ${c.category}, ${c.level}, ${c.description}`).join('\n')}
 
-    Format odpowiedzi (użyj Markdown):
-    🎯 **REKOMENDOWANE KURSY:**
-    1. **[Nazwa kursu]** - [Dostawca] - [Czas trwania] - [Poziom]
-       *💡 Dlaczego:* [szczegółowe uzasadnienie, dlaczego ten kurs pasuje do profilu]
-       *🔗 Link:* [link lub "sprawdź na platformie X"]
+      Zwróć odpowiedź w formacie JSON, jako obiekt z kluczem "recommendations", który zawiera tablicę 3 obiektów. Każdy obiekt musi mieć klucze: "courseId" i "reason".
+      Przykład: { "recommendations": [{"courseId": "js_adv", "reason": "To idealny następny krok..."}] }
+      Nie dodawaj żadnych dodatkowych opisów ani wstępów, tylko czysty obiekt JSON.
+    `;
 
-    📚 **MATERIAŁY UZUPEŁNIAJĄCE:**
-    - **[Książka/Artykuł/Podcast]:** [Tytuł] - [Krótki opis, dlaczego warto]
-
-    ⏰ **SUGEROWANY PLAN NAUKI:**
-    - **[Tydzień 1-2]:** [Konkretne zadania lub moduły do przerobienia]
-    - **[Tydzień 3-4]:** [Następne kroki]
-
-    💰 **OPCJE BUDŻETOWE:**
-    - **[Darmowa Alternatywa]:** [Nazwa darmowego kursu/materiału i gdzie go znaleźć]`;
-
-    const systemPrompt = 'Jesteś ekspertem edukacyjnym i mentorem AI. Twoim zadaniem jest tworzenie praktycznych, wysoce spersonalizowanych i motywujących planów rozwoju. Generuj konkretne, użyteczne rekomendacje w języku polskim.';
-
-    const aiResponse = await aiBinding.run('@cf/google/gemma-2-9b-it', {
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: prompt }
-        ],
-        max_tokens: 2048,
-        temperature: 0.7
+    const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
+      messages: [{ role: "system", content: systemPrompt }],
+      response_format: { type: "json_object" },
     });
 
-    const recommendations = aiResponse.response || "AI model did not return a response.";
+    const cleanedResponse = aiResponse.response.replace(/```json\n|\n```/g, '');
+    const result = JSON.parse(cleanedResponse);
 
-    return new Response(JSON.stringify({
-      recommendations,
-      userProfile,
-      timestamp: new Date().toISOString(),
-      status: 'success'
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    if (!result.recommendations || !Array.isArray(result.recommendations)) {
+      return createErrorResponse("AI zwróciło nieprawidłowy format danych.", 500);
+    }
+
+    // Połącz wyniki AI z pełnymi danymi kursów
+    const populatedRecommendations = result.recommendations.map(rec => {
+        const course = courseCatalog.find(c => c.id === rec.courseId);
+        return course ? { ...course, reason: rec.reason } : null;
+    }).filter(Boolean);
+
+    return createSuccessResponse({ recommendations: populatedRecommendations });
 
   } catch (error) {
-    console.error('Education recommendations error:', error);
-    return new Response(JSON.stringify({
-      error: 'Internal server error',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error("Błąd w /api/education-recommendations:", error);
+    const errorMessage = error instanceof Error ? error.message : "Nieznany błąd serwera.";
+    return createErrorResponse(errorMessage, 500);
   }
 };

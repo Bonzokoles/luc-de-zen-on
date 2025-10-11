@@ -1,0 +1,76 @@
+
+---
+import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
+---
+
+<MyBonzoLayout siteTitle="Login - MyBonzo AI Platform">
+  <main class="min-h-screen flex items-center justify-center bg-gray-900 text-white p-4">
+    <div class="w-full max-w-md p-8 space-y-6 bg-gray-800 rounded-lg shadow-lg border border-cyan-500/30">
+      <h1 class="text-3xl font-bold text-center text-cyan-400">Zaloguj się</h1>
+      <p class="text-center text-gray-400">Uzyskaj dostęp do swojej platformy AI.</p>
+      
+      <div id="error-message" class="hidden p-3 bg-red-900/30 border border-red-500/50 rounded-lg text-red-300"></div>
+
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label for="email" class="block mb-2 text-sm font-medium text-gray-300">Adres e-mail</label>
+          <input type="email" id="email" name="email" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none" placeholder="ty@example.com" required>
+        </div>
+        <div>
+          <label for="password" class="block mb-2 text-sm font-medium text-gray-300">Hasło</label>
+          <input type="password" id="password" name="password" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:border-cyan-500 focus:outline-none" placeholder="••••••••" required>
+        </div>
+        <button type="submit" id="submit-btn" class="w-full px-5 py-3 text-base font-medium text-center text-white bg-cyan-600 rounded-lg hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-500/50 disabled:opacity-50">Zaloguj się</button>
+      </form>
+
+       <div class="text-sm text-center text-gray-400">
+        Nie masz konta? <a href="/contact" class="font-medium text-cyan-400 hover:underline">Skontaktuj się z nami</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('login-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMessage = document.getElementById('error-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMessage.classList.add('hidden');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Logowanie...';
+
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const password = (document.getElementById('password') as HTMLInputElement).value;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || 'Logowanie nie powiodło się.');
+        }
+
+        // Store the token and redirect
+        if (data.data.token) {
+          localStorage.setItem('mcp_jwt_token', data.data.token);
+          // Redirect to the main page after successful login
+          window.location.href = '/';
+        } else {
+            throw new Error('Nie otrzymano tokena sesji.');
+        }
+
+      } catch (err) {
+        errorMessage.textContent = err.message;
+        errorMessage.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Zaloguj się';
+      }
+    });
+  </script>
+</MyBonzoLayout>

@@ -19,7 +19,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
       <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="flex items-center justify-between mb-8">
           <div>
-            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-['Neuropol']">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#00ffff] mb-2 uppercase tracking-wider font-mono">
               Generator FAQ AI
             </h1>
             <p class="text-[#a0a0a0] text-lg font-['Kenyan_Coffee']">
@@ -38,19 +38,19 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
         <div class="flex gap-4 mb-8">
           <a
             href="../"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"
           >
             ← Dynamic FAQ
           </a>
           <a
             href="../knowledge-base/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"
           >
             Baza Wiedzy
           </a>
           <a
             href="../management/"
-            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-['Neuropol'] uppercase tracking-wide text-sm"
+            class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#e0e0e0] hover:text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm"
           >
             Zarządzanie
           </a>
@@ -65,7 +65,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
           <!-- Input Panel -->
           <div class="lg:col-span-2">
             <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
-              <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+              <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6">
                 🤖 Generator FAQ
               </h3>
               
@@ -77,7 +77,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
           <div class="space-y-6">
             <!-- Model Settings -->
             <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">⚙️ Ustawienia Modelu</h4>
+              <h4 class="text-[#ff6699] font-mono text-sm uppercase mb-4">⚙️ Ustawienia Modelu</h4>
               
               <div class="space-y-4">
                 <div>
@@ -119,7 +119,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
 
             <!-- Quick Categories -->
             <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">🏷️ Szybkie Kategorie</h4>
+              <h4 class="text-[#ff6699] font-mono text-sm uppercase mb-4">🏷️ Szybkie Kategorie</h4>
               
               <div class="grid grid-cols-2 gap-2">
                 <button class="bg-[#0a0a0a] border border-[#333333] text-[#e0e0e0] p-2 text-xs hover:border-[#00ffff] hover:text-[#00ffff] transition-all duration-300">
@@ -145,7 +145,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
 
             <!-- Generation Stats -->
             <div class="bg-gradient-to-br from-[#1a1a1a] to-[#111111] border border-[#333333] p-6 rounded-sm">
-              <h4 class="text-[#ff6699] font-['Neuropol'] text-sm uppercase mb-4">📊 Statystyki</h4>
+              <h4 class="text-[#ff6699] font-mono text-sm uppercase mb-4">📊 Statystyki</h4>
               
               <div class="space-y-3">
                 <div class="flex justify-between text-sm">
@@ -174,7 +174,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
     <!-- Recent Generations -->
     <section class="relative z-20 py-8 border-t border-[#333333]">
       <div class="max-w-6xl mx-auto px-4">
-        <h3 class="text-[#00ffff] font-['Neuropol'] text-xl uppercase tracking-wide mb-6">
+        <h3 class="text-[#00ffff] font-mono text-xl uppercase tracking-wide mb-6">
           Ostatnio Wygenerowane FAQ
         </h3>
         
@@ -183,7 +183,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
           <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
             <div class="flex justify-between items-start mb-3">
               <div class="flex-1">
-                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                <h4 class="text-[#00ffff] font-mono text-sm uppercase mb-2">
                   Q: Jak długo trwa implementacja systemu AI?
                 </h4>
                 <p class="text-[#e0e0e0] text-sm leading-relaxed">
@@ -209,7 +209,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
           <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
             <div class="flex justify-between items-start mb-3">
               <div class="flex-1">
-                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                <h4 class="text-[#00ffff] font-mono text-sm uppercase mb-2">
                   Q: Jakie są koszty utrzymania systemów AI?
                 </h4>
                 <p class="text-[#e0e0e0] text-sm leading-relaxed">
@@ -235,7 +235,7 @@ import FAQGeneratorWidget from "../../../components/FAQGeneratorWidget.svelte";
           <div class="bg-[#111111] border border-[#333333] p-4 rounded-sm hover:border-[#00ffff] transition-all duration-300">
             <div class="flex justify-between items-start mb-3">
               <div class="flex-1">
-                <h4 class="text-[#00ffff] font-['Neuropol'] text-sm uppercase mb-2">
+                <h4 class="text-[#00ffff] font-mono text-sm uppercase mb-2">
                   Q: Czy AI może integrować się z istniejącymi systemami CRM?
                 </h4>
                 <p class="text-[#e0e0e0] text-sm leading-relaxed">

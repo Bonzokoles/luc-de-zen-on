@@ -49,7 +49,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 <label for="searchType" class="block text-lg font-semibold mb-3 text-primary-foreground">
                   Typ wyszukiwania:
                 </label>
-                <select id="searchType" class="w-full p-3 bg-black/40 border border-edge rounded text-primary-foreground">
+                <select id="searchType" class="w-full p-3 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5)">
                   <option value="datasets">Zbiory danych</option>
                   <option value="competitions">Konkursy</option>
                   <option value="kernels">Kernels/Notebooks</option>
@@ -66,7 +66,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
               <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <div>
                   <label class="block text-sm font-medium mb-2 text-primary-foreground">Kategoria:</label>
-                  <select id="category" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                  <select id="category" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5)">
                     <option value="">Wszystkie</option>
                     <option value="computer-science">Informatyka</option>
                     <option value="health">Zdrowie</option>
@@ -78,7 +78,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-2 text-primary-foreground">Rozmiar:</label>
-                  <select id="fileSize" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                  <select id="fileSize" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5)">
                     <option value="">Dowolny</option>
                     <option value="small">< 100 MB</option>
                     <option value="medium">100 MB - 1 GB</option>
@@ -88,7 +88,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-2 text-primary-foreground">Format:</label>
-                  <select id="fileType" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                  <select id="fileType" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5)">
                     <option value="">Wszystkie</option>
                     <option value="csv">CSV</option>
                     <option value="json">JSON</option>
@@ -99,7 +99,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </div>
                 <div>
                   <label class="block text-sm font-medium mb-2 text-primary-foreground">Sortuj:</label>
-                  <select id="sortBy" class="w-full p-2 bg-black/40 border border-edge rounded text-primary-foreground">
+                  <select id="sortBy" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5)">
                     <option value="relevance">Trafność</option>
                     <option value="newest">Najnowsze</option>
                     <option value="votes">Głosy</option>
@@ -305,7 +305,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       results.forEach((dataset) => {
         const card = document.createElement("div");
         card.className = "dataset-card";
-        card.onclick = () => openDataset(dataset.url);
+        card.addEventListener('click', () => openDataset(dataset.url));
 
         const isFavorite = favorites.some((fav) => fav.id === dataset.id);
 
@@ -344,7 +344,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       results.forEach((competition) => {
         const card = document.createElement("div");
         card.className = "dataset-card";
-        card.onclick = () => openDataset(competition.url);
+        card.addEventListener('click', () => openDataset(competition.url));
 
         card.innerHTML = `
           <div class="dataset-title">🏆 ${competition.title}</div>
@@ -374,7 +374,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       results.forEach((kernel) => {
         const card = document.createElement("div");
         card.className = "dataset-card";
-        card.onclick = () => openDataset(kernel.url);
+        card.addEventListener('click', () => openDataset(kernel.url));
 
         card.innerHTML = `
           <div class="dataset-title">📓 ${kernel.title}</div>
