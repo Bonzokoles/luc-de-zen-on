@@ -4,7 +4,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
 <BackroomInterface siteTitle="BigQuery Analytics | AI Workers">
-  <div class="fixed inset-0 bg-[#0f1419]">
+  <div class="fixed inset-0 bg-[#0f1419] -z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
   </div>
 
@@ -144,7 +144,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery('SELECT * FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE name = \'Mary\' ORDER BY year DESC LIMIT 10')"
+              data-query="SELECT * FROM `bigquery-public-data.usa_names.usa_1910_2013` WHERE name = 'Mary' ORDER BY year DESC LIMIT 10"
             >
               <div class="font-semibold text-cyan-400">
                 👶 Najpopularniejsze imiona w USA
@@ -155,7 +155,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery('SELECT DISTINCT author, title FROM `bigquery-public-data.hacker_news.full` WHERE type = \'story\' AND score > 1000 ORDER BY score DESC LIMIT 10')"
+              data-query="SELECT DISTINCT author, title FROM `bigquery-public-data.hacker_news.full` WHERE type = 'story' AND score > 1000 ORDER BY score DESC LIMIT 10"
             >
               <div class="font-semibold text-cyan-400">
                 📰 Popularne artykuły na Hacker News
@@ -166,7 +166,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery('SELECT * FROM `bigquery-public-data.github_repos.languages` ORDER BY bytes DESC LIMIT 10')"
+              data-query="SELECT * FROM `bigquery-public-data.github_repos.languages` ORDER BY bytes DESC LIMIT 10"
             >
               <div class="font-semibold text-cyan-400">
                 💻 Najpopularniejsze języki na GitHub
@@ -177,7 +177,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
             </button>
             <button
               class="quick-query-btn text-left"
-              onclick="setQuery('SELECT * FROM `bigquery-public-data.london_bicycles.cycle_stations` WHERE name LIKE \'%Hyde Park%\' LIMIT 10')"
+              data-query="SELECT * FROM `bigquery-public-data.london_bicycles.cycle_stations` WHERE name LIKE '%Hyde Park%' LIMIT 10"
             >
               <div class="font-semibold text-cyan-400">
                 🚲 Stacje rowerowe w Londynie
@@ -295,6 +295,11 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       const resultsSection = document.getElementById("resultsSection");
       const resultsContent = document.getElementById("resultsContent");
       const resultsInfo = document.getElementById("resultsInfo");
+
+      if (!resultsContent || !resultsInfo) {
+        console.error("Required elements not found:", { resultsContent, resultsInfo });
+        return;
+      }
 
       resultsInfo.textContent = `${metadata.rowCount} wierszy, ${metadata.columnCount} kolumn, czas: ${metadata.executionTime}s`;
 
@@ -516,7 +521,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
               <p class="text-primary-foreground text-sm font-medium">${item.query}</p>
               <p class="text-gray-400 text-xs">${date} ${time} • ${item.metadata.rowCount} wierszy</p>
             </div>
-            <button onclick="deleteFromHistory(${item.id})" class="text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
+            <button data-delete-id="${item.id}" class="delete-history-btn text-red-400 hover:text-red-300 text-xs ml-2">✕</button>
           </div>
         `;
 
@@ -608,6 +613,26 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
               console.log('Unknown action:', action);
           }
         });
+      });
+
+      // Add event listeners for quick query buttons
+      document.querySelectorAll('[data-query]').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const query = this.getAttribute('data-query');
+          setQuery(query);
+        });
+      });
+
+      // Add event listeners for delete history buttons
+      document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-history-btn')) {
+          e.preventDefault();
+          const deleteId = e.target.getAttribute('data-delete-id');
+          if (deleteId) {
+            deleteFromHistory(parseInt(deleteId));
+          }
+        }
       });
 
       // Load quick query if available

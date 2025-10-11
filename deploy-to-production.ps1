@@ -64,7 +64,7 @@ Write-Host "🔄 Synchronizing to production repo..." -ForegroundColor Yellow
 # Lista plików do synchronizacji (pomiń node_modules, .git, itp.)
 $excludePatterns = @(
     ".git",
-    "node_modules",
+    "node_modules", 
     ".astro",
     "dist",
     ".env*",

@@ -18,7 +18,7 @@ pattern = "mybonzo.com"
 custom_domain = true
 
 # Workers KV Limits
-kv_namespaces = []
+# kv_namespaces defined in environment sections
 
 # Cloudflare D1 Database for global sales data
 [[d1_databases]]

@@ -194,7 +194,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    if (!env?.TAVILY_API_KEY) {
+    if (!env?.tavily_api_key) {
       return new Response(
         JSON.stringify({
           success: false,
@@ -316,7 +316,7 @@ const EXAMPLE_SEARCHES = {
 };
 
 async function performTavilySearch(env: any, query: string, options: any) {
-  const tavilyApiKey = env.TAVILY_API_KEY;
+  const tavilyApiKey = env.tavily_api_key;
 
   if (!tavilyApiKey) {
     // Return example data when API key is not configured
@@ -466,7 +466,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    if (!env?.TAVILY_API_KEY) {
+    if (!env?.tavily_api_key) {
       return new Response(
         JSON.stringify({
           success: false,

@@ -14,6 +14,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const body: DataCollectionRequest = await request.json();
     const { action = 'start' } = body;
     const env = locals.runtime?.env;
+    
+    if (!env) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: 'Environment not available' 
+      }), { 
+        status: 503,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
 
     switch (action) {
       case 'start':

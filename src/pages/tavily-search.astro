@@ -4,7 +4,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
 <BackroomInterface siteTitle="Tavily Search | AI Workers">
-  <div class="fixed inset-0 bg-[#0f1419]">
+  <div class="fixed inset-0 bg-[#0f1419] -z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
   </div>
 
@@ -180,13 +180,22 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
   </div>
 
   <script>
-    let searchHistory = JSON.parse(
-      localStorage.getItem("tavilySearchHistory") || "[]"
-    );
-    let searchStats = JSON.parse(
-      localStorage.getItem("tavilySearchStats") ||
-        "{ totalSearches: 0, totalResults: 0, totalTime: 0, domains: {} }"
-    );
+    let searchHistory = [];
+    let searchStats = { totalSearches: 0, totalResults: 0, totalTime: 0, domains: {} };
+    
+    try {
+      searchHistory = JSON.parse(localStorage.getItem("tavilySearchHistory") || "[]");
+    } catch (e) {
+      console.warn("Błąd parsowania historii wyszukiwań, resetuje do []");
+      localStorage.removeItem("tavilySearchHistory");
+    }
+    
+    try {
+      searchStats = JSON.parse(localStorage.getItem("tavilySearchStats") || '{"totalSearches": 0, "totalResults": 0, "totalTime": 0, "domains": {}}');
+    } catch (e) {
+      console.warn("Błąd parsowania statystyk wyszukiwań, resetuje do domyślnych");
+      localStorage.removeItem("tavilySearchStats");
+    }
     let currentResults = [];
     let searchStartTime = null;
 
@@ -516,9 +525,13 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 
       const name = prompt("Nazwa wyszukiwania:");
       if (name) {
-        const savedSearches = JSON.parse(
-          localStorage.getItem("savedTavilySearches") || "[]"
-        );
+        let savedSearches = [];
+        try {
+          savedSearches = JSON.parse(localStorage.getItem("savedTavilySearches") || "[]");
+        } catch (e) {
+          console.warn("Błąd parsowania zapisanych wyszukiwań, resetuje do []");
+          localStorage.removeItem("savedTavilySearches");
+        }
         savedSearches.push({
           id: Date.now(),
           name,
@@ -579,6 +592,18 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       document.getElementById("resultsSection").classList.add("hidden");
       document.getElementById("summarySection").classList.add("hidden");
       currentResults = [];
+      
+      // Wyczyść localStorage w przypadku błędów
+      try {
+        localStorage.removeItem("tavilySearchHistory");
+        localStorage.removeItem("tavilySearchStats");
+        localStorage.removeItem("savedTavilySearches");
+        searchHistory = [];
+        searchStats = { totalSearches: 0, totalResults: 0, totalTime: 0, domains: {} };
+        console.log("localStorage wyczyszczony");
+      } catch (e) {
+        console.warn("Błąd czyszczenia localStorage:", e);
+      }
     }
 
     function addToSearchHistory(query, resultCount, searchTime) {

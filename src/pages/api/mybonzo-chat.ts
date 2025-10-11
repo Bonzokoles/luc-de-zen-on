@@ -154,7 +154,11 @@ await env.AGENTS.put('mybonzo', JSON.stringify(myAgent));
 3. **API Integration:**
 \`\`\`typescript
 export async function POST({ request, locals }) {
-  const agent = await locals.runtime.env.AGENTS.get('mybonzo');
+  const env = locals.runtime?.env;
+  if (!env?.AGENTS) {
+    return new Response(JSON.stringify({ error: 'Agents service not available' }), { status: 503 });
+  }
+  const agent = await env.AGENTS.get('mybonzo');
   return new Response(JSON.stringify({ agent }));
 }
 \`\`\`

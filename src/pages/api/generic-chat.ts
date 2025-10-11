@@ -11,7 +11,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
-    const ai = locals.runtime.env.AI;
+    // Defensive coding: Check if runtime environment is available
+    const env = locals.runtime?.env;
+    if (!env?.AI) {
+      return new Response(JSON.stringify({ 
+        error: 'AI service not available',
+        success: false 
+      }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    const ai = env.AI;
 
     const messages = [
         { role: 'system', content: system_prompt },

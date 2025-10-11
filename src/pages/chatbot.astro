@@ -4,7 +4,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
 <BackroomInterface siteTitle="AI Chatbot | AI Workers">
-  <div class="fixed inset-0 bg-[#0f1419]">
+  <div class="fixed inset-0 bg-[#0f1419] -z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
   </div>
 
@@ -114,7 +114,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           <div class="chat-input border-t border-edge p-4">
             <div class="flex gap-3">
               <textarea id="messageInput" rows="2" placeholder="Napisz swoją wiadomość..." class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none" style="background: rgba(0, 0, 0, 0.5);" onkeypress="handleKeyPress(event)"></textarea>
-              <button id="sendButton" onclick="sendMessage()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50">
+              <button id="sendButton" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50">
                 Wyślij
               </button>
             </div>
@@ -677,6 +677,12 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       updateHistoryDisplay();
       updateModelInfo();
       updateSystemPrompt();
+
+      // Setup send button event listener
+      const sendButton = document.getElementById("sendButton");
+      if (sendButton) {
+        sendButton.addEventListener("click", sendMessage);
+      }
       
       // Initialize Voice AI if supported
       if (typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition)) {

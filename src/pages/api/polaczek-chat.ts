@@ -325,7 +325,12 @@ export const POST = async ({
       language = "pl",
       context,
     } = body;
+    
+    // Defensive coding: Check if runtime environment is available
     const env: any = locals.runtime?.env;
+    if (!env) {
+      return createErrorResponse('Environment not available', 503);
+    }
 
     // Accept both "prompt" and "message" for compatibility
     const userInput = prompt || message;

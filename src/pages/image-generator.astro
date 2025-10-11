@@ -4,7 +4,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
 <BackroomInterface siteTitle="Generator Obrazów | AI Workers">
-  <div class="fixed inset-0 bg-[#0f1419]">
+  <div class="fixed inset-0 bg-[#0f1419] -z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
   </div>
 
@@ -476,16 +476,136 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       }
     }
 
+    // Missing functions implementation
+    function generateRandomPrompt() {
+      const randomPrompts = [
+        "A futuristic city at sunset, cyberpunk style, neon lights",
+        "A magical forest with glowing mushrooms, fantasy art",
+        "A cat wearing a space helmet, digital art, cute",
+        "An ancient temple in the mountains, atmospheric lighting",
+        "A steampunk airship flying through clouds, detailed",
+        "A dragon sleeping on a pile of gold, fantasy painting",
+        "A robot gardening flowers, whimsical digital art",
+        "A lighthouse during a storm, dramatic lighting"
+      ];
+      const randomPrompt = randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+      const promptEl = document.getElementById("imagePrompt");
+      if (promptEl) {
+        promptEl.value = randomPrompt;
+      }
+    }
+
+    function saveCurrentPreset() {
+      const preset = {
+        model: document.getElementById("imageModel")?.value || "",
+        style: document.getElementById("imageStyle")?.value || "",
+        size: document.getElementById("imageSize")?.value || "",
+        steps: document.getElementById("imageSteps")?.value || ""
+      };
+      localStorage.setItem("imageGeneratorPreset", JSON.stringify(preset));
+      alert("Preset zapisany!");
+    }
+
+    function updateGenerationType() {
+      const type = document.getElementById("generationType")?.value;
+      const generateBtn = document.getElementById("generateBtnText");
+      if (generateBtn) {
+        switch(type) {
+          case "video": generateBtn.textContent = "Generuj Wideo"; break;
+          case "3d": generateBtn.textContent = "Generuj Model 3D"; break;
+          case "photo2photo": generateBtn.textContent = "Przekształć Zdjęcie"; break;
+          default: generateBtn.textContent = "Generuj Obraz"; break;
+        }
+      }
+    }
+
+    function updateHistoryDisplay() {
+      try {
+        const history = JSON.parse(localStorage.getItem("imageHistory") || "[]");
+        const historyContainer = document.getElementById("historyContainer");
+        if (historyContainer && history.length > 0) {
+          historyContainer.innerHTML = history.slice(0, 5).map(item => 
+            `<div class="history-item">
+              <img src="${item.imageUrl}" alt="Generated" style="width: 100px; height: 100px; object-fit: cover;">
+              <p>${item.prompt.substring(0, 50)}...</p>
+            </div>`
+          ).join("");
+        }
+      } catch (e) {
+        console.log("History display error:", e);
+      }
+    }
+
+    function updateGlobalStats() {
+      try {
+        const history = JSON.parse(localStorage.getItem("imageHistory") || "[]");
+        const countEl = document.querySelector('[data-stat="generated-count"]');
+        const savedEl = document.querySelector('[data-stat="saved-count"]');
+        
+        if (countEl) countEl.textContent = history.length;
+        if (savedEl) savedEl.textContent = history.filter(item => item.saved).length;
+      } catch (e) {
+        console.log("Stats update error:", e);
+      }
+    }
+
+    function updateGenerationUI() {
+      const type = document.getElementById("generationType")?.value;
+      const generateBtn = document.getElementById("generateBtn");
+      const sourceImageSection = document.getElementById("sourceImageSection");
+      
+      if (generateBtn) {
+        switch(type) {
+          case "video": generateBtn.textContent = "🎬 Generuj Wideo"; break;
+          case "3d": generateBtn.textContent = "🎲 Generuj Model 3D"; break;
+          case "photo2photo": generateBtn.textContent = "📸 Przekształć Zdjęcie"; break;
+          default: generateBtn.textContent = "✨ Generuj Obraz"; break;
+        }
+      }
+      
+      // Show/hide source image upload for photo2photo
+      if (sourceImageSection) {
+        sourceImageSection.style.display = (type === "photo2photo") ? "block" : "none";
+      }
+    }
+
+    function handleSourceImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById("sourceImagePreview");
+          if (preview) {
+            preview.src = e.target.result;
+            preview.style.display = "block";
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function toggleNSFWBlur() {
+      const toggle = document.getElementById("nsfwBlur");
+      const images = document.querySelectorAll(".generated-image");
+      images.forEach(img => {
+        if (toggle.checked) {
+          img.style.filter = "blur(10px)";
+        } else {
+          img.style.filter = "none";
+        }
+      });
+    }
+
     // Initialize
     document.addEventListener("DOMContentLoaded", function () {
       updateHistoryDisplay();
       updateGlobalStats();
       updateGenerationUI();
       
-      // Replace standard generate function with enhanced version
+      // Setup generate button
       var generateBtn = document.getElementById("generateBtn");
       if (generateBtn) {
-        generateBtn.onclick = enhancedGenerateImage;
+        generateBtn.onclick = generateImage;
       }
       
       // Setup generation type change handler

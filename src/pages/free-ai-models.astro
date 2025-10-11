@@ -18,7 +18,7 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
     <!-- Provider Selection -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
       <div class="provider-card bg-gradient-to-br from-purple-800 to-pink-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
-           onclick="selectProvider('together', 'image')">
+           data-provider="together" data-type="image">
         <div class="text-center">
           <div class="text-3xl mb-3">⚡</div>
           <h3 class="text-xl font-bold mb-2">Together AI</h3>
@@ -28,7 +28,7 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
       </div>
 
       <div class="provider-card bg-gradient-to-br from-blue-800 to-cyan-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
-           onclick="selectProvider('stability', 'image')">
+           data-provider="stability" data-type="image">
         <div class="text-center">
           <div class="text-3xl mb-3">🎯</div>
           <h3 class="text-xl font-bold mb-2">Stability AI</h3>
@@ -38,7 +38,7 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
       </div>
 
       <div class="provider-card bg-gradient-to-br from-green-800 to-emerald-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
-           onclick="selectProvider('huggingface', 'image')">
+           data-provider="huggingface" data-type="image">
         <div class="text-center">
           <div class="text-3xl mb-3">🤗</div>
           <h3 class="text-xl font-bold mb-2">HuggingFace</h3>
@@ -48,7 +48,7 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
       </div>
 
       <div class="provider-card bg-gradient-to-br from-red-800 to-orange-700 p-6 rounded-xl cursor-pointer transition-all hover:scale-105" 
-           onclick="selectProvider('openai', 'video')">
+           data-provider="openai" data-type="video">
         <div class="text-center">
           <div class="text-3xl mb-3">🎬</div>
           <h3 class="text-xl font-bold mb-2">OpenAI Sora</h3>
@@ -79,16 +79,16 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
           <div>
             <label class="block text-sm font-medium mb-3">Styl obrazu:</label>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <button onclick="selectStyle('realistic')" class="style-btn bg-blue-600/50 p-3 rounded-lg transition-all hover:bg-blue-600">
+              <button data-style="realistic" class="style-btn bg-blue-600/50 p-3 rounded-lg transition-all hover:bg-blue-600">
                 Fotorealistyczny
               </button>
-              <button onclick="selectStyle('artistic')" class="style-btn bg-purple-600/50 p-3 rounded-lg transition-all hover:bg-purple-600">
+              <button data-style="artistic" class="style-btn bg-purple-600/50 p-3 rounded-lg transition-all hover:bg-purple-600">
                 Artystyczny
               </button>
-              <button onclick="selectStyle('cartoon')" class="style-btn bg-green-600/50 p-3 rounded-lg transition-all hover:bg-green-600">
+              <button data-style="cartoon" class="style-btn bg-green-600/50 p-3 rounded-lg transition-all hover:bg-green-600">
                 Kreskówka
               </button>
-              <button onclick="selectStyle('cinematic')" class="style-btn bg-red-600/50 p-3 rounded-lg transition-all hover:bg-red-600">
+              <button data-style="cinematic" class="style-btn bg-red-600/50 p-3 rounded-lg transition-all hover:bg-red-600">
                 Filmowy
               </button>
             </div>
@@ -96,7 +96,7 @@ description: "Generuj obrazy i filmy AI za darmo z Together AI, Stability AI, Hu
 
           <!-- Generate Button -->
           <div class="text-center">
-            <button id="generate-btn" onclick="generateContent()" 
+            <button id="generate-btn"
                     class="bg-gradient-to-r from-pink-500 to-violet-500 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
               🎨 Generuj za darmo
             </button>
@@ -152,7 +152,7 @@ function selectProvider(provider, type) {
     card.classList.remove('ring-4', 'ring-pink-400');
   });
   
-  event.target.closest('.provider-card').classList.add('ring-4', 'ring-pink-400');
+  document.querySelector(`[data-provider="${provider}"]`).classList.add('ring-4', 'ring-pink-400');
   
   const providerNames = {
     'together': 'Together AI (FLUX.1 Schnell)',
@@ -181,7 +181,7 @@ function selectStyle(style) {
     btn.classList.remove('ring-2', 'ring-white');
   });
   
-  event.target.classList.add('ring-2', 'ring-white');
+  document.querySelector(`[data-style="${style}"]`).classList.add('ring-2', 'ring-white');
 }
 
 async function generateContent() {
@@ -321,6 +321,26 @@ function openFullscreen(img) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+  // Add event listeners for provider cards
+  document.querySelectorAll('.provider-card').forEach(card => {
+    card.addEventListener('click', function() {
+      const provider = this.dataset.provider;
+      const type = this.dataset.type;
+      selectProvider(provider, type);
+    });
+  });
+
+  // Add event listeners for style buttons
+  document.querySelectorAll('.style-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const style = this.dataset.style;
+      selectStyle(style);
+    });
+  });
+
+  // Add event listener for generate button
+  document.getElementById('generate-btn').addEventListener('click', generateContent);
+
   // Select first style by default
   document.querySelector('.style-btn').classList.add('ring-2', 'ring-white');
   

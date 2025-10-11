@@ -21,7 +21,14 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
       language?: 'pl' | 'en' | 'auto';
       usePolaczek?: boolean;
     };
-    const env = locals.runtime.env;
+    
+    // Defensive coding: Check if runtime environment is available
+    const env = locals.runtime?.env;
+    if (!env) {
+      return createErrorResponse('Environment not available', 503, {
+        answer: 'Przepraszam, środowisko systemowe jest obecnie niedostępne.'
+      });
+    }
 
     if (!env.AI) {
       return createErrorResponse('Cloudflare AI nie jest dostępny', 500, {

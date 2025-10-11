@@ -287,7 +287,7 @@ import {
         class="right-btn"
         id="musicPlayerBtn"
       >
-        <MusicalNoteIcon className="w-6 h-6 inline mr-2" /> MUSIC PLAYER
+        🎵 MUSIC PLAYER
       </button>
       <div id="musicPlayerWidget" class="floating-widget hidden">
         <BackgroundMusicPlayerSimple client:load />
@@ -301,7 +301,7 @@ import {
         id="polaczekBtn"
         title="AI Assistant do wyjaśniania funkcji na stronie"
       >
-        <CpuChipIcon className="w-6 h-6 inline mr-2" /> AI ASSISTANT
+        🤖 AI ASSISTANT
       </button>
       <div id="polaczekWidget" class="floating-widget hidden">
         <AiHelpAssistant client:load pageTitle="Strona Główna" />
@@ -2326,6 +2326,26 @@ import {
 </style>
 
 <script>
+  // Floating Widget Toggle Function
+  function toggleWidget(widgetId) {
+    const widget = document.getElementById(widgetId);
+    if (widget) {
+      const isHidden = widget.classList.contains('hidden');
+      
+      // Hide all other widgets first
+      const allWidgets = document.querySelectorAll('.floating-widget');
+      allWidgets.forEach(w => w.classList.add('hidden'));
+      
+      // Toggle current widget
+      if (isHidden) {
+        widget.classList.remove('hidden');
+      }
+    }
+  }
+
+  // Make function globally available
+  window.toggleWidget = toggleWidget;
+
   // MyBlog AI Launch Function
   function launchMyBlogAI() {
     window.open('/myblogai', '_blank');
