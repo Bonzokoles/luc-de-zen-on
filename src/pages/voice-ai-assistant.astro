@@ -4,7 +4,7 @@ import BackroomInterface from '@/layouts/BackroomInterface.astro';
 import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 ---
 
-<BackroomInterface siteTitle="Voice AI Assistant | MyBonzo Platform">
+<BackroomInterface siteTitle="Voice AI Assistant | AI Workers">
   <div class="fixed inset-0 bg-[#0f1419] -z-10">
     <div class="absolute inset-0 bg-gradient-to-br from-cyan-900/15 via-[#0f1419] to-[#0f1419]"></div>
   </div>
@@ -20,14 +20,22 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     <div class="backroom-container">
       <div class="function-container">
         <h2 class="text-2xl font-semibold text-primary mb-5">🎤 Voice AI Assistant</h2>
-        <div class="voice-controls-grid">
+        <div class="text-sm text-gray-400 mb-4">
+          <p><b>Uwaga:</b> Do korzystania z tej funkcji wymagane jest posiadanie mikrofonu oraz uprawnień przeglądarki do nagrywania dźwięku. Funkcje syntezy mowy wykorzystują Google Cloud Text-to-Speech API.</p>
+        </div>
+        <div class="grid gap-6">
           <!-- Speech-to-Text Settings -->
-          <div class="control-card">
-            <h3 class="control-title">🎙️ Speech-to-Text (STT)</h3>
-            <div class="control-content">
+          <div class="border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);">
+            <div class="border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">🎙️ Speech-to-Text (STT)</span>
+              </div>
+            </div>
+            <div class="p-4">
               <div class="setting-item">
-                <label>Język rozpoznawania:</label>
-                <select id="stt-language" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Język rozpoznawania:</label>
+                <select id="stt-language" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="pl-PL">🇵🇱 Polski</option>
                   <option value="en-US">🇺🇸 Angielski</option>
                   <option value="de-DE">🇩🇪 Niemiecki</option>
@@ -36,30 +44,39 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div class="setting-item">
-                <label>Tryb nagrywania:</label>
-                <select id="recording-mode" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Tryb nagrywania:</label>
+                <select id="recording-mode" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="continuous">Ciągły</option>
                   <option value="single">Pojedyncze komendy</option>
                   <option value="push-to-talk">Push-to-Talk</option>
                 </select>
               </div>
               <div class="setting-item">
-                <label>Czułość mikrofonu:</label>
-                <input type="range" id="mic-sensitivity" min="0" max="100" value="70" class="setting-range">
-                <span id="mic-value">70%</span>
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Czułość mikrofonu:</label>
+                <div class="flex items-center gap-3">
+                  <input type="range" id="mic-sensitivity" min="0" max="100" value="70" class="flex-1 slider" style="background: rgba(0, 0, 0, 0.5);">
+                  <span id="mic-value" class="text-primary-foreground font-mono text-sm">70%</span>
+                </div>
               </div>
-              <button id="start-recording" class="control-btn primary">🎤 Rozpocznij nagrywanie</button>
-              <button id="stop-recording" class="control-btn secondary" disabled>⏹️ Zatrzymaj</button>
+              <div class="flex gap-2 mt-4">
+                <button id="start-recording" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-medium">🎤 Rozpocznij nagrywanie</button>
+                <button id="stop-recording" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded font-medium" disabled>⏹️ Zatrzymaj</button>
+              </div>
             </div>
           </div>
 
           <!-- Text-to-Speech Settings -->
-          <div class="control-card">
-            <h3 class="control-title">🔊 Text-to-Speech (TTS)</h3>
-            <div class="control-content">
+          <div class="border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);">
+            <div class="border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">🔊 Text-to-Speech (TTS)</span>
+              </div>
+            </div>
+            <div class="p-4">
               <div class="setting-item">
-                <label>Głos:</label>
-                <select id="tts-voice" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Głos:</label>
+                <select id="tts-voice" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="pl-zofia">Zofia (Premium) 🇵🇱</option>
                   <option value="pl-marek">Marek (Premium) 🇵🇱</option>
                   <option value="pl-ewa">Ewa 🇵🇱</option>
@@ -69,18 +86,22 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div class="setting-item">
-                <label>Prędkość mowy:</label>
-                <input type="range" id="speech-speed" min="0.5" max="2.0" step="0.1" value="1.0" class="setting-range">
-                <span id="speed-value">1.0x</span>
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Prędkość mowy:</label>
+                <div class="flex items-center gap-3">
+                  <input type="range" id="speech-speed" min="0.5" max="2.0" step="0.1" value="1.0" class="flex-1 slider" style="background: rgba(0, 0, 0, 0.5);">
+                  <span id="speed-value" class="text-primary-foreground font-mono text-sm">1.0x</span>
+                </div>
               </div>
               <div class="setting-item">
-                <label>Wysokość głosu:</label>
-                <input type="range" id="speech-pitch" min="0.5" max="2.0" step="0.1" value="1.0" class="setting-range">
-                <span id="pitch-value">1.0</span>
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Wysokość głosu:</label>
+                <div class="flex items-center gap-3">
+                  <input type="range" id="speech-pitch" min="0.5" max="2.0" step="0.1" value="1.0" class="flex-1 slider" style="background: rgba(0, 0, 0, 0.5);">
+                  <span id="pitch-value" class="text-primary-foreground font-mono text-sm">1.0</span>
+                </div>
               </div>
               <div class="setting-item">
-                <label>Ton emocjonalny:</label>
-                <select id="emotional-tone" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Ton emocjonalny:</label>
+                <select id="emotional-tone" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="neutral">Neutralny</option>
                   <option value="friendly">Przyjazny</option>
                   <option value="professional">Profesjonalny</option>
@@ -89,20 +110,28 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div class="setting-item">
-                <textarea id="tts-text" placeholder="Wpisz tekst do syntezy..." class="setting-textarea"></textarea>
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Tekst do syntezy:</label>
+                <textarea id="tts-text" placeholder="Wpisz tekst do syntezy..." class="w-full p-4 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none" style="background: rgba(0, 0, 0, 0.5);" rows="4"></textarea>
               </div>
-              <button id="start-synthesis" class="control-btn primary">🔊 Syntezuj mowę</button>
-              <button id="play-audio" class="control-btn secondary" disabled>▶️ Odtwórz</button>
+              <div class="flex gap-2 mt-4">
+                <button id="start-synthesis" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium">🔊 Syntezuj mowę</button>
+                <button id="play-audio" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-medium" disabled>▶️ Odtwórz</button>
+              </div>
             </div>
           </div>
 
           <!-- Voice Commands & AI Models -->
-          <div class="control-card">
-            <h3 class="control-title">⚡ Voice Commands & AI</h3>
-            <div class="control-content">
+          <div class="border border-edge rounded-lg mt-8" style="background: rgba(0, 0, 0, 0.5);">
+            <div class="border-b border-edge p-4 flex items-center justify-between" style="background: rgba(0, 0, 0, 0.3);">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                <span class="text-primary-foreground font-semibold">⚡ Voice Commands & AI</span>
+              </div>
+            </div>
+            <div class="p-4">
               <div class="setting-item">
-                <label>Model AI:</label>
-                <select id="ai-model" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Model AI:</label>
+                <select id="ai-model" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="gemini-pro">Gemini Pro ✨</option>
                   <option value="gemini-vision">Gemini Vision 👁️</option>
                   <option value="code-bison">Code Bison 💻</option>
@@ -112,8 +141,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div class="setting-item">
-                <label>Tryb Voice AI:</label>
-                <select id="voice-mode" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Tryb Voice AI:</label>
+                <select id="voice-mode" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="passive">Pasywny (nasłuchiwanie)</option>
                   <option value="active">Aktywny (instruktor)</option>
                   <option value="faq">FAQ/Tutorial</option>
@@ -121,22 +150,24 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div class="setting-item">
-                <label>Tryb przetwarzania:</label>
-                <select id="processing-mode" class="setting-select">
+                <label class="block text-sm font-medium text-primary-foreground mb-2">Tryb przetwarzania:</label>
+                <select id="processing-mode" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="realtime">Czas rzeczywisty</option>
                   <option value="batch">Wsadowy</option>
                   <option value="background">W tle</option>
                 </select>
               </div>
               <div class="setting-item">
-                <label>Auto-odpowiedzi:</label>
-                <input type="checkbox" id="auto-responses" checked> 
-                <span>Automatyczne odpowiedzi głosowe</span>
+                <label class="flex items-center gap-2 text-primary-foreground">
+                  <input type="checkbox" id="auto-responses" checked class="rounded"> 
+                  <span>Automatyczne odpowiedzi głosowe</span>
+                </label>
               </div>
               <div class="setting-item">
-                <label>Wizualizacja audio:</label>
-                <input type="checkbox" id="audio-visualization" checked>
-                <span>Pokaż wizualizację dźwięku</span>
+                <label class="flex items-center gap-2 text-primary-foreground">
+                  <input type="checkbox" id="audio-visualization" checked class="rounded">
+                  <span>Pokaż wizualizację dźwięku</span>
+                </label>
               </div>
             </div>
           </div>
@@ -154,25 +185,32 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
   </div>
 
   <style>
-    .setting-select,
-    .setting-textarea {
+    .slider {
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
       background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--edge);
-      color: var(--primary-foreground);
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      width: 100%;
-    }
-    
-    .setting-select:focus,
-    .setting-textarea:focus {
-      border-color: #00ffff;
       outline: none;
+      border: 1px solid var(--edge);
     }
     
-    .setting-range {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
+    .slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00ffff;
+      cursor: pointer;
+      border: 2px solid #000;
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00ffff;
+      cursor: pointer;
+      border: 2px solid #000;
     }
   </style>
 

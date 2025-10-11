@@ -19,26 +19,26 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     <div class="backroom-container">
       <div class="function-container">
         <h2 class="text-2xl font-semibold text-primary mb-5">🎨 Generator Obrazów</h2>
-        <div class="global-stats-grid mb-8">
-          <div class="stat-card">
-            <div class="stat-icon">🎨</div>
-            <div class="stat-value" id="totalGenerated">0</div>
-            <div class="stat-label">Wygenerowanych obrazów</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="border border-edge rounded-lg p-4 text-center" style="background: rgba(0,0,0,0.5);">
+            <div class="text-2xl mb-2">🎨</div>
+            <div class="text-xl font-bold text-primary-foreground" id="totalGenerated">0</div>
+            <div class="text-sm text-gray-400">Wygenerowanych obrazów</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <div class="stat-value" id="avgTime">-</div>
-            <div class="stat-label">Średni czas generacji</div>
+          <div class="border border-edge rounded-lg p-4 text-center" style="background: rgba(0,0,0,0.5);">
+            <div class="text-2xl mb-2">⚡</div>
+            <div class="text-xl font-bold text-primary-foreground" id="avgTime">-</div>
+            <div class="text-sm text-gray-400">Średni czas generacji</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon">🤖</div>
-            <div class="stat-value" id="activeModel">Flux-1</div>
-            <div class="stat-label">Aktywny model</div>
+          <div class="border border-edge rounded-lg p-4 text-center" style="background: rgba(0,0,0,0.5);">
+            <div class="text-2xl mb-2">🤖</div>
+            <div class="text-xl font-bold text-primary-foreground" id="activeModel">Flux-1</div>
+            <div class="text-sm text-gray-400">Aktywny model</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon">💾</div>
-            <div class="stat-value" id="savedImages">0</div>
-            <div class="stat-label">Zapisane obrazy</div>
+          <div class="border border-edge rounded-lg p-4 text-center" style="background: rgba(0,0,0,0.5);">
+            <div class="text-2xl mb-2">💾</div>
+            <div class="text-xl font-bold text-primary-foreground" id="savedImages">0</div>
+            <div class="text-sm text-gray-400">Zapisane obrazy</div>
           </div>
         </div>
 
@@ -70,7 +70,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-5">
             <div>
               <label class="block text-sm font-medium mb-2 text-primary-foreground">Model</label>
-              <select id="imageModel" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);">
+              <select id="imageModel" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0,0,0,0.5);" onchange="updateActiveModel()">
                 <!-- Cloudflare Models -->
                 <optgroup label="🔥 Cloudflare AI">
                   <option value="@cf/stabilityai/stable-diffusion-xl-base-1.0">Stable Diffusion XL</option>
@@ -506,6 +506,49 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       alert("Preset zapisany!");
     }
 
+    function updateActiveModel() {
+      const modelSelect = document.getElementById("imageModel");
+      const activeModelDisplay = document.getElementById("activeModel");
+      
+      if (modelSelect && activeModelDisplay) {
+        const selectedModel = modelSelect.value;
+        let displayName = selectedModel;
+        
+        // Skróć nazwę modelu dla lepszego wyświetlania
+        if (selectedModel.includes('flux-1-schnell')) displayName = 'Flux-1';
+        else if (selectedModel.includes('stable-diffusion-xl')) displayName = 'SD XL';
+        else if (selectedModel.includes('dreamshaper')) displayName = 'DreamShaper';
+        else if (selectedModel.includes('flux-1.1-pro')) displayName = 'FLUX 1.1';
+        else if (selectedModel.includes('sora-turbo')) displayName = 'Sora';
+        
+        activeModelDisplay.textContent = displayName;
+      }
+    }
+
+    function loadSavedPreset() {
+      try {
+        const savedPreset = localStorage.getItem("imageGeneratorPreset");
+        if (savedPreset) {
+          const preset = JSON.parse(savedPreset);
+          
+          const modelEl = document.getElementById("imageModel");
+          const styleEl = document.getElementById("imageStyle");
+          const sizeEl = document.getElementById("imageSize");
+          const stepsEl = document.getElementById("imageSteps");
+          
+          if (preset.model && modelEl) modelEl.value = preset.model;
+          if (preset.style && styleEl) styleEl.value = preset.style;
+          if (preset.size && sizeEl) sizeEl.value = preset.size;
+          if (preset.steps && stepsEl) stepsEl.value = preset.steps;
+          
+          // Aktualizuj wyświetlanie aktywnego modelu
+          updateActiveModel();
+        }
+      } catch (e) {
+        console.log("Błąd ładowania presetu:", e);
+      }
+    }
+
     function updateGenerationType() {
       const type = document.getElementById("generationType")?.value;
       const generateBtn = document.getElementById("generateBtnText");
@@ -601,6 +644,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       updateHistoryDisplay();
       updateGlobalStats();
       updateGenerationUI();
+      loadSavedPreset(); // Ładowanie zapisanego presetu
+      updateActiveModel(); // Inicjalna aktualizacja nazwy modelu
       
       // Setup generate button
       var generateBtn = document.getElementById("generateBtn");
@@ -639,4 +684,22 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       polaczekWidget.classList.toggle('hidden');
     });
   </script>
+
+  <style>
+    .prompt-template {
+      @apply px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded transition-colors;
+    }
+    
+    .action-btn {
+      @apply w-full px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded font-semibold transition-colors flex items-center justify-center gap-2;
+    }
+    
+    .action-btn-secondary {
+      @apply w-full px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded font-semibold transition-colors flex items-center justify-center gap-2;
+    }
+    
+    .action-btn:disabled {
+      @apply bg-gray-500 cursor-not-allowed;
+    }
+  </style>
 </BackroomInterface>
