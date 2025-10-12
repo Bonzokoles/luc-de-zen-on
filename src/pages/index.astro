@@ -363,14 +363,20 @@ import {
           <div class="panel-content">
             <input
               type="text"
-              id="dashboardLogin"
-              maxlength="16"
-              placeholder="Podaj login"
+              id="dashboardUser"
+              placeholder="Użytkownik (admin/user)"
+              style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #333; background: rgba(0,0,0,0.7); color: white; border-radius: 4px;"
+            />
+            <input
+              type="password"
+              id="dashboardPassword"
+              placeholder="Hasło"
               style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #333; background: rgba(0,0,0,0.7); color: white; border-radius: 4px;"
             />
             <button onclick="checkDashboardLogin()" style="width: 100%; padding: 8px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
               Zaloguj się
             </button>
+            <p id="loginError" class="text-red-500 text-sm mt-2"></p>
           </div>
         </div>
     </div>
@@ -531,13 +537,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button 
-        data-action="toggleWidget"
-        data-widget="voiceAgentWidget"
-        class="right-btn"
-        id="voiceAgentBtn"
-        title="Agent 01 - Voice Command Agent"
-      >
+      <button data-agent="1" class="right-btn" id="voiceAgentBtn" title="Agent 01 - Voice Command Agent">
         🎤 AGENT 01 - VOICE
       </button>
       <div id="voiceAgentWidget" class="floating-widget hidden">
@@ -554,7 +554,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="musicAgentWidget" class="right-btn" id="musicAgentBtn" title="Agent 02 - Music Control Agent">
+      <button data-agent="2" class="right-btn" id="musicAgentBtn" title="Agent 02 - Music Control Agent">
         🎵 AGENT 02 - MUSIC
       </button>
       <div id="musicAgentWidget" class="floating-widget hidden">
@@ -571,7 +571,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="systemAgentWidget" class="right-btn" id="systemAgentBtn" title="Agent 03 - System Monitor Agent">
+      <button data-agent="3" class="right-btn" id="systemAgentBtn" title="Agent 03 - System Monitor Agent">
         🤖 AGENT 03 - SYSTEM
       </button>
       <div id="systemAgentWidget" class="floating-widget hidden">
@@ -588,7 +588,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="crawlerAgentWidget" class="right-btn" id="crawlerAgentBtn" title="Agent 04 - Web Crawler Agent">
+      <button data-agent="4" class="right-btn" id="crawlerAgentBtn" title="Agent 04 - Web Crawler Agent">
         🕷️ AGENT 04 - CRAWLER
       </button>
       <div id="crawlerAgentWidget" class="floating-widget hidden">
@@ -605,7 +605,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="emailAgentWidget" class="right-btn" id="emailAgentBtn" title="Agent 05 - Email Manager Agent">
+      <button data-agent="5" class="right-btn" id="emailAgentBtn" title="Agent 05 - Email Manager Agent">
         📧 AGENT 05 - EMAIL
       </button>
       <div id="emailAgentWidget" class="floating-widget hidden">
@@ -622,7 +622,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="databaseAgentWidget" class="right-btn" id="databaseAgentBtn" title="Agent 06 - Database Query Agent">
+      <button data-agent="6" class="right-btn" id="databaseAgentBtn" title="Agent 06 - Database Query Agent">
         🗃️ AGENT 06 - DATABASE
       </button>
       <div id="databaseAgentWidget" class="floating-widget hidden">
@@ -639,7 +639,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="contentAgentWidget" class="right-btn" id="contentAgentBtn" title="Agent 07 - Content Creator Agent">
+      <button data-agent="7" class="right-btn" id="contentAgentBtn" title="Agent 07 - Content Creator Agent">
         ✍️ AGENT 07 - CONTENT
       </button>
       <div id="contentAgentWidget" class="floating-widget hidden">
@@ -656,7 +656,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="securityAgentWidget" class="right-btn" id="securityAgentBtn" title="Agent 08 - Security Guard Agent">
+      <button data-agent="8" class="right-btn" id="securityAgentBtn" title="Agent 08 - Security Guard Agent">
         🛡️ AGENT 08 - SECURITY
       </button>
       <div id="securityAgentWidget" class="floating-widget hidden">
@@ -674,7 +674,7 @@ import {
 
     <!-- Agent 09 Dyrektor Widget -->
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="agent09DyrektorWidget" class="right-btn" id="agent09DyrektorBtn" title="Agent 09 - Dyrektor Biznesowy">
+      <button data-agent="9" class="right-btn" id="agent09DyrektorBtn" title="Agent 09 - Dyrektor Biznesowy">
         <BriefcaseIcon className="w-6 h-6 inline mr-2" /> AGENT 09 - DYREKTOR
       </button>
       <div id="agent09DyrektorWidget" class="floating-widget hidden">
@@ -691,7 +691,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="analyticsAgentWidget" class="right-btn" id="analyticsAgentBtn" title="Agent 10 - Analytics Prophet Agent">
+      <button data-agent="10" class="right-btn" id="analyticsAgentBtn" title="Agent 10 - Analytics Prophet Agent">
         📊 AGENT 10 - ANALYTICS
       </button>
       <div id="analyticsAgentWidget" class="floating-widget hidden">
@@ -708,7 +708,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="fileAgentWidget" class="right-btn" id="fileAgentBtn" title="File Manager Agent - Zarządzanie plikami">
+      <button data-agent="file" class="right-btn" id="fileAgentBtn" title="File Manager Agent - Zarządzanie plikami">
         🗂️ FILE MANAGER
       </button>
       <div id="fileAgentWidget" class="floating-widget hidden">
@@ -725,7 +725,7 @@ import {
     </div>
 
     <div class="floating-widget-container">
-      <button data-action="toggleWidget" data-widget="marketingAgentWidget" class="right-btn" id="marketingAgentBtn" title="Marketing Maestro Agent - Marketing AI">
+      <button data-agent="marketing" class="right-btn" id="marketingAgentBtn" title="Marketing Maestro Agent - Marketing AI">
         🎯 MARKETING AGENT
       </button>
       <div id="marketingAgentWidget" class="floating-widget hidden">
@@ -785,20 +785,42 @@ import {
 
 <!-- JavaScript Functions -->
 <script>
+  import {
+    openImageGenerator,
+    openChatbot,
+    openBigQuery,
+    openKaggle,
+    openTavily,
+    testButtonFunction,
+    runAllAPITests,
+    openAPITestConsole,
+    openCloudflareWorkers,
+    checkAllStatus,
+    launchFlowise,
+    launchActivepieces,
+    openFunction
+  } from '../scripts/main-page.ts';
+
   // Google ADK Manager - dynamically imported
   let adkManager: any = null;
   let initializeADK: any = null;
   let sendMessageToADK: any = null;
   
-  // Initialize window properties
-  (window as any).apiTests = (window as any).apiTests || {};
-  (window as any).openImageGenerator =
-    (window as any).openImageGenerator || function () {};
-  (window as any).openChatbot = (window as any).openChatbot || function () {};
-  (window as any).openBigQuery = (window as any).openBigQuery || function () {};
-  (window as any).openKaggle = (window as any).openKaggle || function () {};
-  (window as any).openTavily = (window as any).openTavily || function () {};
-  
+  // Assign imported functions to window object
+  (window as any).openImageGenerator = openImageGenerator;
+  (window as any).openChatbot = openChatbot;
+  (window as any).openBigQuery = openBigQuery;
+  (window as any).openKaggle = openKaggle;
+  (window as any).openTavily = openTavily;
+  (window as any).testButtonFunction = testButtonFunction;
+  (window as any).runAllAPITests = runAllAPITests;
+  (window as any).openAPITestConsole = openAPITestConsole;
+  (window as any).openCloudflareWorkers = openCloudflareWorkers;
+  (window as any).checkAllStatus = checkAllStatus;
+  (window as any).launchFlowise = launchFlowise;
+  (window as any).launchActivepieces = launchActivepieces;
+  (window as any).openFunction = openFunction;
+
   // Google ADK Agent initialization flag
   let adkInitialized = false;
 
@@ -819,894 +841,78 @@ import {
       console.error('❌ Failed to load Google ADK Manager:', error);
     }
   }
-  (window as any).testButtonFunction =
-    (window as any).testButtonFunction || function () {};
-  (window as any).checkDashboardLogin =
-    (window as any).checkDashboardLogin || function () {};
 
-  // Init when page loads
-  window.addEventListener("DOMContentLoaded", async () => {
-    console.log("Loading API test functions...");
-    try {
-      const module = await import("../utils/apiTests.ts");
-      window.apiTests = module;
-      console.log(
-        "API Tests module loaded, available functions:",
-        Object.keys(module)
-      );
-    } catch (error) {
-      console.log("Failed to load API tests:", error);
-    }
-  });
+  (window as any).checkDashboardLogin = async function () {
+    const userInput = document.getElementById("dashboardUser") as HTMLInputElement;
+    const passwordInput = document.getElementById("dashboardPassword") as HTMLInputElement;
+    const loginWidget = document.getElementById("loginWidget");
+    const loginError = document.getElementById("loginError") as HTMLParagraphElement;
 
-  // Worker Functions
-  function openImageGenerator() {
-    console.log("openImageGenerator() called");
-    const promptElement = document.getElementById(
-      "imagePrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("Image prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickPrompt", prompt);
-      console.log("Prompt saved in localStorage");
-    }
-    console.log("Opening /image-generator");
-    window.open("/image-generator", "_blank");
-  }
+    if (!userInput || !passwordInput || !loginWidget || !loginError) return;
 
-  function openChatbot() {
-    console.log("💬 openChatbot() wywołana");
-    const promptElement = document.getElementById(
-      "chatPrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("Chat prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickChatPrompt", prompt);
-      console.log("Prompt saved in localStorage");
-    }
-    console.log("Opening /chatbot");
-    window.open("/chatbot", "_blank");
-  }
-
-  function openBigQuery() {
-    console.log("📊 openBigQuery() wywołana");
-    const promptElement = document.getElementById(
-      "bigqueryPrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("BigQuery prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickSQLQuery", prompt);
-      console.log("SQL Query saved in localStorage");
-    }
-    console.log("Opening /bigquery-analytics");
-    window.open("/bigquery-analytics", "_blank");
-  }
-
-  function openKaggle() {
-    console.log("🔍 openKaggle() wywołana");
-    const promptElement = document.getElementById(
-      "kagglePrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("Kaggle prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickKaggleSearch", prompt);
-      console.log("Kaggle search saved in localStorage");
-    }
-    console.log("Opening /kaggle-datasets");
-    window.open("/kaggle-datasets", "_blank");
-  }
-
-  function openTavily() {
-    console.log("🌐 openTavily() wywołana");
-    const promptElement = document.getElementById(
-      "tavilyPrompt"
-    ) as HTMLInputElement;
-    const prompt = promptElement ? promptElement.value.trim() : "";
-    console.log("Tavily prompt:", prompt);
-    if (prompt) {
-      localStorage.setItem("quickTavilySearch", prompt);
-      console.log("Tavily search saved in localStorage");
-    }
-    console.log("Opening /tavily-search");
-    window.open("/tavily-search", "_blank");
-  }
-
-  // Test function without popup (to test if buttons respond)
-  function testButtonFunction(buttonType: string) {
-    console.log(`🧪 TEST: Przycisk ${buttonType} został kliknięty!`);
-    alert(`Test udany! Przycisk ${buttonType} działa.`);
-    return false; // Prevent actual navigation
-  }
-
-  // API Testing Functions
-  async function runAllAPITests() {
-    console.log("Rozpoczynam testy wszystkich API...");
-
-    if (window.apiTests && window.apiTests.testAllAPIs) {
-      try {
-        await window.apiTests.testAllAPIs();
-        console.log("All API tests completed");
-      } catch (error) {
-        console.log("Error during API tests:", error);
-      }
-    } else {
-      console.log(
-        "⏳ API tests nie są jeszcze załadowane, próbuję ponownie..."
-      );
-      setTimeout(runAllAPITests, 1000);
-    }
-  }
-
-  function openAPITestConsole() {
-    console.log("Opening API test console...");
-    console.log("Available API tests:");
-    console.log("- window.apiTests.testChatAPI()")
-    console.log("- window.apiTests.testImageGeneration()")
-    console.log("- window.apiTests.testAIBot()")
-    console.log("- window.apiTests.testAllAPIs()")
-
-    if (window.apiTests) {
-      console.log(
-        "API Tests module loaded, available functions:",
-        Object.keys(window.apiTests)
-      );
-    } else {
-      console.log("API Tests module not loaded yet");
-    }
-  }
-
-  // Cloudflare Workers Integration
-  function openCloudflareWorkers() {
-    // Check if workers dashboard is available
-    const cloudflareUrl = "https://dash.cloudflare.com/";
-    window.open(cloudflareUrl, "_blank");
-  }
-
-  // Status Check Function
-  async function checkAllStatus() {
-    const statusElement = document.getElementById("overallStatus");
-    if (!statusElement) return;
-
-    const statusDot = statusElement.querySelector(".status-dot");
-    const statusText = statusElement.querySelector("span:last-child");
-
-    if (!statusDot || !statusText) return;
-
-    statusText.textContent = "Sprawdzanie...";
-    statusDot.className = "status-dot";
+    const login = userInput.value.trim();
+    const password = passwordInput.value.trim();
+    loginError.textContent = ''; // Clear previous errors
 
     try {
-      const apis = [
-        "/api/generate-image",
-        "/api/chat",
-        "/api/bigquery",
-        "/api/kaggle",
-        "/api/tavi",
-      ];
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ login, password })
+      });
 
-      const results = await Promise.allSettled(
-        apis.map((api) => fetch(api).then((res) => ({ api, ok: res.ok })))
-      );
+      const data = await response.json();
 
-      const onlineCount = results.filter(
-        (result) => result.status === "fulfilled" && result.value.ok
-      ).length;
+      if (data.success) {
+        loginWidget.classList.add("hidden");
+        console.log(`${data.role} login successful`);
 
-      const totalCount = apis.length;
+        if (data.role === 'admin') {
+          const dashboardButtons = document.getElementById("dashboardButtons");
+          if (dashboardButtons) {
+            dashboardButtons.classList.remove("hidden");
+          }
+        } else if (data.role === 'user') {
+          const aiSections = document.querySelectorAll('.ai-functions-section');
+          aiSections.forEach(section => section.classList.remove('hidden'));
+        }
 
-      if (onlineCount === totalCount) {
-        statusDot.className = "status-dot online";
-        statusText.textContent = `Wszystkie online (${onlineCount}/${totalCount})`;
-      } else if (onlineCount > 0) {
-        statusDot.className = "status-dot";
-        statusText.textContent = `Częściowo online (${onlineCount}/${totalCount})`;
       } else {
-        statusDot.className = "status-dot offline";
-        statusText.textContent = `Offline (${onlineCount}/${totalCount})`;
+        loginError.textContent = data.message || 'Invalid credentials';
+        passwordInput.style.borderColor = "#ef4444";
+        setTimeout(() => {
+          passwordInput.style.borderColor = "";
+        }, 2000);
       }
     } catch (error) {
-      statusDot.className = "status-dot offline";
-      statusText.textContent = "Błąd sprawdzania";
+      console.error('Login API error:', error);
+      loginError.textContent = 'An error occurred during login.';
     }
   }
 
-  // Dashboard Login Function
-  function checkDashboardLogin() {
-    const loginInput = document.getElementById(
-      "dashboardLogin"
-    ) as HTMLInputElement;
-    const loginContainer = document.getElementById("loginContainer");
-    const dashboardButtons = document.getElementById("dashboardButtons");
-
-    if (!loginInput || !loginContainer || !dashboardButtons) return;
-
-    const login = loginInput.value.trim();
-    console.log("Checking login:", login);
-
-    if (login === "HAOS77") {
-      loginContainer.classList.add("hidden");
-      dashboardButtons.classList.remove("hidden");
-      console.log("Admin login successful, showing dashboard buttons");
-    } else if (login === "ZENON2015AI") {
-      loginContainer.classList.add("hidden");
-      // Pokazuj funkcje AI dla użytkowników
-      const aiSections = document.querySelectorAll('.ai-functions-section');
-      aiSections.forEach(section => section.classList.remove('hidden'));
-      console.log("User login successful, showing AI functions");
-    } else {
-      console.log("Invalid login");
-      loginInput.style.borderColor = "#ef4444";
-      setTimeout(() => {
-        loginInput.style.borderColor = "";
-      }, 2000);
-    }
-  }
-
-  // Flowise AI Functions
-  async function launchFlowise() {
-    window.location.href = '/flowise-ai';
-  }
-
-  // Activepieces AI Launch Function
-  function launchActivepieces() {
-    window.location.href = '/activepieces-ai';
-  }
-
-  // Open Function for 9 AI Functions - DEBUGOWANIE
-  function openFunction(functionName: string) {
-    console.log(`🎯 KLIKNIĘTO KAFELEK! Otwieranie funkcji: ${functionName}`);
-    alert(`DEBUGOWANIE: Kliknięto w funkcję: ${functionName}`);
-
-    const functionRoutes: { [key: string]: string } = {
-      rekomendacje: "/ai-functions/personalized-recommendations",
-      "obsługa-klienta": "/ai-functions/customer-automation",
-      monitorowanie: "/ai-functions/activity-monitoring",
-      przypomnienia: "/ai-functions/reminders-calendar",
-      "faq-generator": "/ai-functions/dynamic-faq",
-      edukacja: "/ai-functions/education-recommendations",
-      tickety: "/ai-functions/ai-tickets",
-      quizy: "/ai-functions/interactive-quizzes",
-      marketing: "/ai-functions/marketing-content",
-      "voice-assistant": "/ai-functions/voice-assistant",
-      "content-generator": "/ai-functions/content-generator",
-      "analytics-dashboard": "/ai-functions/analytics-dashboard",
-    };
-
-    const route = functionRoutes[functionName];
-    if (route) {
-      console.log(`Przekierowanie do: ${route}`);
-      window.open(route, "_blank");
-    } else {
-      console.error(`Nieznana funkcja: ${functionName}`);
-      alert(
-        `Funkcja "${functionName}" jest w trakcie implementacji. Spróbuj ponownie później.`
-      );
-    }
-  }
-
-  // Auto-check status on load and add Enter key handlers
   document.addEventListener("DOMContentLoaded", function () {
     console.log("🚀 DOM załadowany, inicjalizacja funkcji");
 
-    // Test dostępności funkcji openFunction
-    console.log("🧪 Test funkcji openFunction:", typeof openFunction);
-    console.log("🧪 Test window.openFunction:", typeof window.openFunction);
-
-    // Dodaj funkcję do window scope
-    (window as any).openFunction = openFunction;
-    console.log("✅ openFunction dodana do window scope");
-
-    // Dodaj event listenery bezpośrednio do kafelków
-    const featureTiles = document.querySelectorAll(
-      ".feature-tile[data-function]"
-    );
-    console.log(`🎯 Znaleziono ${featureTiles.length} kafelków funkcji`);
-
-    featureTiles.forEach((tile, index) => {
-      const functionName = tile.getAttribute("data-function-name");
-      console.log(`🔗 Tile ${index}: ${functionName}`);
-
-      tile.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(`🎯 BEZPOŚREDNI KLIK na tile: ${functionName}`);
-        if (functionName) {
-          openFunction(functionName);
-        }
-      });
-      
-      console.log(`✅ Event listener dodany do tile: ${functionName}`);
-    });
-
-    // Test czy wszystkie funkcje są dostępne
-    console.log("🧪 Test dostępności funkcji:");
-    console.log("- openImageGenerator:", typeof openImageGenerator);
-    console.log("- openChatbot:", typeof openChatbot);
-    console.log("- openBigQuery:", typeof openBigQuery);
-    console.log("- openKaggle:", typeof openKaggle);
-    console.log("- openTavily:", typeof openTavily);
-
-    // Test czy wszystkie elementy input istnieją
-    console.log("🧪 Test dostępności elementów input:");
-    console.log("- imagePrompt:", document.getElementById("imagePrompt"));
-    console.log("- chatPrompt:", document.getElementById("chatPrompt"));
-    console.log("- bigqueryPrompt:", document.getElementById("bigqueryPrompt"));
-    console.log("- kagglePrompt:", document.getElementById("kagglePrompt"));
-    console.log("- tavilyPrompt:", document.getElementById("tavilyPrompt"));
-
-    // Add quick prompt handlers
-    document.querySelectorAll(".quick-prompt").forEach((input) => {
-      const inputElement = input;
-      inputElement.addEventListener("keydown", function (e) {
-        // Use type assertion to bypass TypeScript strict typing
-        if ((e as any).code === "Enter" || (e as any).key === "Enter") {
-          const type = inputElement.id.replace("Prompt", "");
-          if (type === "image") openImageGenerator();
-          else if (type === "chat") openChatbot();
-          else if (type === "bigquery") openBigQuery();
-          else if (type === "kaggle") openKaggle();
-          else if (type === "tavily") openTavily();
-        }
-      });
-    });
-
     // Add Enter key handler for dashboard login
-    const dashboardLoginInput = document.getElementById("dashboardLogin");
-    if (dashboardLoginInput) {
-      dashboardLoginInput.addEventListener("keydown", function (e) {
+    const userInput = document.getElementById("dashboardUser");
+    const passwordInput = document.getElementById("dashboardPassword");
+    if (userInput) {
+      userInput.addEventListener("keydown", function (e) {
         if ((e as any).key === "Enter") {
-          checkDashboardLogin();
+          (window as any).checkDashboardLogin();
         }
       });
     }
-
-    // Clear any cached component states on page load
-    console.log("🧹 Clearing component cache and resetting state...");
-    
-    // Only clear if not already working
-    const componentsWorking = localStorage.getItem('components-working') === 'true';
-    
-    if (!componentsWorking) {
-      console.log("🧹 Components not working, clearing cache...");
-      // Clear potentially cached component states
-      delete window.MUSIC;
-      delete window.POLACZEK;
-      
-      // Clear any stale connection data
-      sessionStorage.removeItem('polaczek-status');
-      sessionStorage.removeItem('music-status');
-    } else {
-      console.log("✅ Components were working, preserving state...");
+    if (passwordInput) {
+      passwordInput.addEventListener("keydown", function (e) {
+        if ((e as any).key === "Enter") {
+          (window as any).checkDashboardLogin();
+        }
+      });
     }
-    
-    // Force fresh initialization
-    localStorage.setItem('components-initialized', 'false');
-    
-    // Add page load event to detect when all components should be ready
-    let componentCheckAttempts = 0;
-    const maxComponentChecks = 50; // 5 seconds
-    
-    const forceComponentRefresh = () => {
-      componentCheckAttempts++;
-      console.log(`🔍 Component check attempt ${componentCheckAttempts}/${maxComponentChecks}`);
-      
-      const musicReady = window.MUSIC && typeof window.MUSIC.ensureLoaded === 'function';
-      const polaczekReady = window.POLACZEK && typeof window.POLACZEK.openAssistant === 'function';
-      
-      console.log(`🎵 Music ready: ${musicReady}, 🤖 POLACZEK ready: ${polaczekReady}`);
-      
-      if (musicReady && polaczekReady) {
-        console.log("✅ All components are ready!");
-        localStorage.setItem('components-initialized', 'true');
-        localStorage.setItem('components-working', 'true');
-        return;
-      }
-      
-      if (componentCheckAttempts < maxComponentChecks) {
-        setTimeout(forceComponentRefresh, 100);
-      } else {
-        console.warn("❌ Components not all ready after 5 seconds, but continuing without forced reload");
-        localStorage.setItem('components-initialized', 'partial');
-        // DO NOT force reload - let user manually refresh if needed
-      }
-    };
-    
-    // Check status on load
-    checkAllStatus();
-
-    // Start component monitoring
-    setTimeout(forceComponentRefresh, 500);
-
-    // Initialize components after page load
-    setTimeout(() => {
-      console.log("🔄 Auto-initializing components after page load...");
-      waitForMusicAPI();
-      waitForPolaczekAPI();
-    }, 1000); // Wait 1 second for components to load
-
-    // Make functions globally available for debugging
-    window.openImageGenerator = openImageGenerator;
-    window.openChatbot = openChatbot;
-    window.openBigQuery = openBigQuery;
-    window.openKaggle = openKaggle;
-    window.openTavily = openTavily;
-    window.testButtonFunction = testButtonFunction;
-    (window as any).checkDashboardLogin = checkDashboardLogin;
-    (window as any).openFunction = openFunction;
-    (window as any).toggleMusicPlayer = toggleMusicPlayer;
-    (window as any).toggleGeminiPro = toggleGeminiPro;
-    (window as any).toggleGeminiVision = toggleGeminiVision;
-    (window as any).toggleCodeBison = toggleCodeBison;
-    (window as any).toggleTextBison = toggleTextBison;
-    (window as any).togglePolaczekAssistant = togglePolaczekAssistant;
-    (window as any).toggleAgent09Dyrektor = toggleAgent09Dyrektor;
-    (window as any).toggleVoiceAssistant = toggleVoiceAssistant;
-    (window as any).toggleGlobalVoice = toggleGlobalVoice;
-    (window as any).emergencyStopAll = emergencyStopAll;
-    (window as any).resetSystem = resetSystem;
-    (window as any).testAllFunctions = testAllFunctions;
-    (window as any).debugVoiceStatus = debugVoiceStatus;
-    (window as any).openMainChat = openMainChat;
-    (window as any).openRefresh = openRefresh;
-    (window as any).openFolder = openFolder;
-    (window as any).openClose = openClose;
-    (window as any).checkAllStatus = checkAllStatus;
-    (window as any).runAllAPITests = runAllAPITests;
-    (window as any).openAPITestConsole = openAPITestConsole;
-    (window as any).resetComponents = resetComponents;
-    (window as any).hardResetComponents = hardResetComponents;
-
-    console.log("All functions assigned to window object");
-    console.log("🔧 Debug functions available:");
-    console.log("- resetComponents() - soft reset");
-    console.log("- hardResetComponents() - hard reset with page reload");
-    console.log("- checkAllStatus() - check API status");
-    console.log("- Check localStorage.getItem('components-working') for component status");
   });
-
-  // New Toggle Functions with Button Scaling - ONLY manual clicks allowed
-  function toggleMusicPlayer(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Music Player");
-      return;
-    }
-    
-    console.log("🎵 Toggling Music Player (manual click)");
-    const btn = document.getElementById("musicPlayerBtn");
-    const widget = document.getElementById("musicPlayerWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-      
-      // Ensure music player is initialized after showing widget
-      if (!widget.classList.contains("hidden")) {
-        // Give Svelte component time to mount
-        setTimeout(() => {
-          console.log("🎵 Widget shown, checking Music API...");
-          if (window.MUSIC && window.MUSIC.ensureLoaded) {
-            console.log("🎵 Music API available, calling ensureLoaded...");
-            try {
-              window.MUSIC.ensureLoaded();
-            } catch (e) {
-              console.warn("Music ensureLoaded failed:", e);
-            }
-          } else {
-            console.log("🎵 Music API not available, waiting for initialization...");
-            waitForMusicAPI();
-          }
-        }, 500); // Wait 500ms for component to mount
-      }
-      
-      console.log("Music Player widget toggled");
-    }
-  }
-
-  function togglePolaczekAssistant(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for AI Assistant");
-      return;
-    }
-    
-    console.log("🤖 Toggling AI Assistant (manual click)");
-    const btn = document.getElementById("polaczekBtn");
-    const widget = document.getElementById("polaczekWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-      
-      // Ensure AI assistant is initialized after showing widget
-      if (!widget.classList.contains("hidden")) {
-        // Give Svelte component time to mount
-        setTimeout(() => {
-          console.log("🤖 Widget shown, checking POLACZEK API...");
-          if (window.POLACZEK && window.POLACZEK.openAssistant) {
-            console.log("🤖 POLACZEK API available, opening assistant...");
-            try {
-              window.POLACZEK.openAssistant();
-              // Also trigger reconnection if needed
-              if (window.POLACZEK.forceReconnect) {
-                window.POLACZEK.forceReconnect();
-              }
-            } catch (e) {
-              console.warn("POLACZEK openAssistant failed:", e);
-            }
-          } else {
-            console.log("🤖 POLACZEK API not available, waiting for initialization...");
-            waitForPolaczekAPI();
-          }
-        }, 500); // Wait 500ms for component to mount
-      }
-      
-      console.log("AI Assistant widget toggled");
-    }
-  }
-
-
-
-  // Wait for components to initialize their APIs
-  function waitForMusicAPI() {
-    console.log("🎵 Waiting for Music API...");
-    let attempts = 0;
-    const maxAttempts = 100; // 10 seconds max (increased)
-    
-    const checkAPI = () => {
-      attempts++;
-      console.log(`🎵 Music API check attempt ${attempts}/${maxAttempts}`);
-      
-      if (window.MUSIC && window.MUSIC.ensureLoaded) {
-        console.log("🎵 Music API ready! Initializing...");
-        try {
-          window.MUSIC.ensureLoaded();
-          sessionStorage.setItem('music-status', 'ready');
-          localStorage.setItem('components-working', 'true');
-          console.log("🎵 Music player initialized successfully!");
-        } catch (e) {
-          console.warn("Music ensureLoaded failed:", e);
-          sessionStorage.setItem('music-status', 'error');
-        }
-      } else if (attempts < maxAttempts) {
-        console.log("🎵 Music API not ready yet, retrying...");
-        setTimeout(checkAPI, 100);
-      } else {
-        console.error("🎵 Music API not ready after 10 seconds - component may not be loaded");
-        sessionStorage.setItem('music-status', 'timeout');
-        // Try to force reload the component by showing debug info
-        console.log("🎵 Debug info:");
-        console.log("- window.MUSIC exists:", !!window.MUSIC);
-        console.log("- window.MUSIC.ensureLoaded exists:", !!(window.MUSIC && window.MUSIC.ensureLoaded));
-        console.log("- Music widget element exists:", !!document.getElementById("musicPlayerWidget"));
-        
-        // NO AUTOMATIC RELOAD - let user decide
-        console.log("🎵 Use resetComponents() or hardResetComponents() in console if needed");
-      }
-    };
-    
-    checkAPI();
-  }
-
-  function waitForPolaczekAPI() {
-    console.log("🤖 Waiting for POLACZEK API...");
-    let attempts = 0;
-    const maxAttempts = 100; // 10 seconds max (increased)
-    
-    const checkAPI = () => {
-      attempts++;
-      console.log(`🤖 POLACZEK API check attempt ${attempts}/${maxAttempts}`);
-      
-      if (window.POLACZEK && window.POLACZEK.openAssistant) {
-        console.log("🤖 POLACZEK API ready! Connecting...");
-        try {
-          // Force connection check
-          if (window.POLACZEK.getStatus) {
-            const currentStatus = window.POLACZEK.getStatus();
-            console.log("🤖 Current POLACZEK status:", currentStatus);
-            
-            if (currentStatus === "disconnected") {
-              console.log("🤖 Triggering reconnection...");
-              window.dispatchEvent(new CustomEvent("polaczek-reconnect"));
-            }
-          }
-          sessionStorage.setItem('polaczek-status', 'ready');
-          localStorage.setItem('components-working', 'true');
-          console.log("🤖 POLACZEK assistant initialized successfully!");
-        } catch (e) {
-          console.warn("POLACZEK initialization failed:", e);
-          sessionStorage.setItem('polaczek-status', 'error');
-        }
-      } else if (attempts < maxAttempts) {
-        console.log("🤖 POLACZEK API not ready yet, retrying...");
-        setTimeout(checkAPI, 100);
-      } else {
-        console.error("🤖 POLACZEK API not ready after 10 seconds - component may not be loaded");
-        sessionStorage.setItem('polaczek-status', 'timeout');
-        // Try to force reload the component by showing debug info
-        console.log("🤖 Debug info:");
-        console.log("- window.POLACZEK exists:", !!window.POLACZEK);
-        console.log("- window.POLACZEK.openAssistant exists:", !!(window.POLACZEK && window.POLACZEK.openAssistant));
-        console.log("- POLACZEK widget element exists:", !!document.getElementById("polaczekWidget"));
-        
-        // NO AUTOMATIC RELOAD - let user decide
-        console.log("🤖 Use resetComponents() or hardResetComponents() in console if needed");
-      }
-    };
-    
-    checkAPI();
-  }
-
-  function waitForGoogleVoiceAPI() {
-    console.log("🎤 Waiting for Google Voice API...");
-    let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
-    
-    const checkAPI = () => {
-      attempts++;
-      console.log(`🎤 Google Voice API check attempt ${attempts}/${maxAttempts}`);
-      
-      if (window.GOOGLE_VOICE && window.GOOGLE_VOICE.isSupported) {
-        console.log("🎤 Google Voice API ready! Checking support...");
-        try {
-          const isSupported = window.GOOGLE_VOICE.isSupported();
-          console.log("🎤 Speech recognition supported:", isSupported);
-          sessionStorage.setItem('google-voice-status', isSupported ? 'ready' : 'not-supported');
-          localStorage.setItem('components-working', 'true');
-          console.log("🎤 Google Voice initialized successfully!");
-        } catch (e) {
-          console.warn("Google Voice initialization failed:", e);
-          sessionStorage.setItem('google-voice-status', 'error');
-        }
-      } else if (attempts < maxAttempts) {
-        console.log("🎤 Google Voice API not ready yet, retrying...");
-        setTimeout(checkAPI, 100);
-      } else {
-        console.error("🎤 Google Voice API not ready after 5 seconds - component may not be loaded");
-        sessionStorage.setItem('google-voice-status', 'timeout');
-        // Try to force reload the component by showing debug info
-        console.log("🎤 Debug info:");
-        console.log("- window.GOOGLE_VOICE exists:", !!window.GOOGLE_VOICE);
-        console.log("- window.GOOGLE_VOICE.isSupported exists:", !!(window.GOOGLE_VOICE && window.GOOGLE_VOICE.isSupported));
-        console.log("- Google Voice widget element exists:", !!document.getElementById("googleVoiceWidget"));
-        
-        // NO AUTOMATIC RELOAD - let user decide
-        console.log("🎤 Use resetComponents() or hardResetComponents() in console if needed");
-      }
-    };
-    
-    checkAPI();
-  }
-
-  // Manual component reset function
-  function resetComponents() {
-    console.log("🔄 Manually resetting all components...");
-    
-    // Clear all cached states
-    delete window.MUSIC;
-    delete window.POLACZEK;
-    delete window.GOOGLE_VOICE;
-    sessionStorage.clear();
-    localStorage.setItem('components-initialized', 'false');
-    localStorage.setItem('components-working', 'false');
-    
-    // Re-initialize
-    setTimeout(() => {
-      console.log("🔄 Re-initializing components...");
-      waitForMusicAPI();
-      waitForPolaczekAPI();
-      waitForGoogleVoiceAPI();
-    }, 500);
-    
-    console.log("🔄 Component reset completed!");
-  }
-
-  // Hard reset with page reload
-  function hardResetComponents() {
-    console.log("💣 Hard resetting - clearing everything and reloading page...");
-    
-    // Clear everything
-    localStorage.clear();
-    sessionStorage.clear();
-    
-    // Clear component globals
-    delete window.MUSIC;
-    delete window.POLACZEK;
-    
-    // Force reload
-    window.location.reload(true);
-  }
-
-  // Google Agent Functions - Enhanced with ADK integration
-  async function toggleGeminiPro(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Gemini Pro");
-      return;
-    }
-    
-    console.log("✨ Toggling Gemini Pro (manual click)");
-    
-    // Initialize ADK if not done yet
-    if (!adkInitialized) {
-      await initGoogleADK();
-    }
-    
-    const btn = document.getElementById("geminiProBtn");
-    const widget = document.getElementById("geminiProWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-      
-      // Activate Gemini Pro Agent via ADK
-      if (!widget.classList.contains("hidden") && adkManager) {
-        adkManager.setActiveAgent('gemini_pro_001');
-        console.log("✨ Gemini Pro Agent activated via ADK");
-        
-        // Send welcome message via voice
-        if (adkManager.speak) {
-          const welcomeMessage = "Gemini Pro Agent aktywowany. Gotowy do pracy!";
-          await adkManager.speak(welcomeMessage);
-        }
-      }
-    }
-  }
-
-  async function toggleGeminiVision(manualClick = true) {
-    if (!manualClick) {
-      console.log("👁️ Auto-activation blocked for Gemini Vision");
-      return;
-    }
-    
-    console.log("👁️ Toggling Gemini Vision (manual click)");
-    const btn = document.getElementById("geminiVisionBtn");
-    const widget = document.getElementById("geminiVisionWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleCodeBison(manualClick = true) {
-    if (!manualClick) {
-      console.log("💻 Auto-activation blocked for Code Bison");
-      return;
-    }
-    
-    console.log("💻 Toggling Code Bison (manual click)");
-    const btn = document.getElementById("codeBisonBtn");
-    const widget = document.getElementById("codeBisonWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleTextBison(manualClick = true) {
-    if (!manualClick) {
-      console.log("📝 Auto-activation blocked for Text Bison");
-      return;
-    }
-    
-    console.log("📝 Toggling Text Bison (manual click)");
-    const btn = document.getElementById("textBisonBtn");
-    const widget = document.getElementById("textBisonWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  function toggleAgent09Dyrektor(manualClick = true) {
-    if (!manualClick) {
-      console.log("🚫 Auto-activation blocked for Agent 09 Dyrektor");
-      return;
-    }
-    
-    console.log("💼 Toggling Agent 09 Dyrektor (manual click)");
-    const btn = document.getElementById("agent09DyrektorBtn");
-    const widget = document.getElementById("agent09DyrektorWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-    }
-  }
-
-  // Voice Assistant Widget Toggle
-  function toggleVoiceAssistant() {
-    console.log("🎙️ Toggling Voice Assistant widget");
-    const btn = document.getElementById("voiceAssistantBtn");
-    const widget = document.getElementById("voiceAssistantWidget");
-
-    if (btn && widget) {
-      // Button scaling effect
-      btn.style.transform = "scale(1.1) translateY(-2px)";
-      setTimeout(() => {
-        btn.style.transform = "";
-      }, 200);
-
-      // Toggle widget visibility
-      widget.classList.toggle("hidden");
-    }
-  }
-
-
-
-  // Main Chat, Refresh, Folder, Close Functions
-  function openMainChat() {
-    console.log('💬 Opening Enhanced Main Chat...');
-    if (window.mainChatAgentFunctions) {
-      window.mainChatAgentFunctions.openMainChat();
-    } else {
-      // Initialize if not already done
-      window.mainChatAgentFunctions = new MainChatAgentFunctions();
-      window.mainChatAgentFunctions.bindToRightPanel();
-      window.mainChatAgentFunctions.openMainChat();
-    }
-  }
-
-  function openRefresh() {
-    window.location.reload();
-  }
-
-  function openFolder() {
-    // This is a security risk and generally not possible from a browser
-    alert("Ze względów bezpieczeństwa, otwieranie lokalnych folderów jest niemożliwe.");
-  }
-
-  function openClose() {
-    // This will close the current tab/window
-    window.close();
-  }
-
 </script>
 
 <!-- BigQuery API Integration Script -->
@@ -3000,3 +2206,6 @@ import {
     }
   };
 </script>
+
+<!-- Load MyBonzo Floating Buttons REAL Implementation -->
+<script is:inline src="/scripts/floating-buttons-real.js"></script>

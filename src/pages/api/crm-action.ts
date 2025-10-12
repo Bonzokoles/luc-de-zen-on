@@ -1,13 +1,24 @@
-
 import type { APIRoute } from "astro";
 import {
   createSuccessResponse,
   createErrorResponse,
 } from "../../utils/corsUtils";
 
+interface CrmIntegration {
+  id: string;
+  name: string;
+  status: string;
+  description: string;
+  features: Record<string, string>;
+}
+
+interface CrmIntegrations {
+  [key: string]: CrmIntegration;
+}
+
 // UWAGA: W prawdziwej aplikacji ten stan byłby przechowywany w bazie danych (np. D1 lub KV).
 // Na potrzeby tej symulacji, stan jest przechowywany w pamięci i resetuje się przy każdym restarcie workera.
-let crmIntegrations = {
+let crmIntegrations: CrmIntegrations = {
   hubspot: {
     id: "hubspot",
     name: "HubSpot",
@@ -38,6 +49,11 @@ let crmIntegrations = {
   },
 };
 
+interface RequestBody {
+    crmId?: string;
+    action?: string;
+}
+
 // Endpoint do pobierania statusu (przeniesiony z crm-status.ts dla spójności stanu)
 export const GET: APIRoute = async () => {
   try {
@@ -62,7 +78,7 @@ export const GET: APIRoute = async () => {
 // Endpoint do zmiany statusu
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { crmId, action } = await request.json();
+    const { crmId, action }: RequestBody = await request.json();
 
     if (!crmId || !action) {
       return createErrorResponse("Brak crmId lub action.", 400);

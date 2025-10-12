@@ -1,0 +1,91 @@
+<!-- mybonzo-architecture.xml -->
+<mxfile host="app.diagrams.net">
+  <diagram name="MyBonzo Architecture">
+    <mxGraphModel>
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Frontend Components -->
+        <mxCell id="frontend-layer" value="Frontend (Astro, React, Svelte)" style="swimlane;fontStyle=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="800" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="index-astro" value="index.astro" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="frontend-layer">
+          <mxGeometry x="40" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="admin-dashboard" value="AdminDashboard.tsx" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="frontend-layer">
+          <mxGeometry x="200" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="floating-buttons" value="floating-buttons-real.js" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="frontend-layer">
+          <mxGeometry x="360" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="music-player" value="MusicPlayerD1Complete.js" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="frontend-layer">
+          <mxGeometry x="520" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- API Layer -->
+        <mxCell id="api-layer" value="API Layer (Astro)" style="swimlane;fontStyle=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="800" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="polaczek-api" value="/api/polaczek-chat" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="api-layer">
+          <mxGeometry x="40" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="voice-api" value="/api/voice/*" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="api-layer">
+          <mxGeometry x="200" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="music-api" value="/api/music/*" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="api-layer">
+          <mxGeometry x="360" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="admin-api" value="/api/admin/*" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="api-layer">
+          <mxGeometry x="520" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Backend / Cloudflare Services -->
+        <mxCell id="backend-layer" value="Backend (Cloudflare)" style="swimlane;fontStyle=1;startSize=30;" vertex="1" parent="1">
+          <mxGeometry x="40" y="720" width="800" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="d1-database" value="D1 Database (mybonzo-app-db)" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="backend-layer">
+          <mxGeometry x="40" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="r2-storage" value="R2 Storage" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="backend-layer">
+          <mxGeometry x="200" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="workers-ai" value="Workers AI" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="backend-layer">
+          <mxGeometry x="360" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="voice-worker" value="Voice AI Worker" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="backend-layer">
+          <mxGeometry x="520" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Connections -->
+        <mxCell id="edge-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="index-astro" target="floating-buttons">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="floating-buttons" target="polaczek-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="floating-buttons" target="voice-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="floating-buttons" target="music-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="admin-dashboard" target="admin-api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="music-api" target="d1-database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="polaczek-api" target="workers-ai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="voice-api" target="voice-worker">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="admin-api" target="d1-database">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

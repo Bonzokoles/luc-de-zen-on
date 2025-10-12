@@ -1,6 +1,12 @@
 import type { APIRoute } from 'astro';
 import { createOPTIONSHandler, createErrorResponse, createSuccessResponse } from '../../utils/corsUtils';
 
+interface RequestBody {
+  message?: string;
+  temperature?: number;
+  language?: string;
+}
+
 // Google Code Bison endpoint for programming assistance
 export const GET: APIRoute = async () => {
   return createSuccessResponse({
@@ -16,7 +22,7 @@ export const OPTIONS = createOPTIONSHandler(['GET', 'POST', 'OPTIONS']);
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body: RequestBody = await request.json();
     const { message, temperature = 0.2, language = 'pl' } = body;
 
     if (!message?.trim()) {

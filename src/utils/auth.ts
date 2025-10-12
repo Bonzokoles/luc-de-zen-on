@@ -21,6 +21,7 @@ export const AUTH_CONFIG: AuthConfig = {
     secretKey: 'MYBONZO_SECRET_2025', // Should be environment variable in production
     tokenExpiry: 3600000, // 1 hour
     roles: {
+        superadmin: ['*'],
         admin: ['read', 'write', 'delete', 'manage_users', 'system_control'],
         moderator: ['read', 'write', 'manage_content'],
         viewer: ['read']
@@ -29,6 +30,7 @@ export const AUTH_CONFIG: AuthConfig = {
 
 // User database (in production, use proper database)
 const USERS_DB: Record<string, { password: string; role: AdminUser['role'] }> = {
+    'superadmin': { password: 'HAOS77ZENON', role: 'superadmin' },
     'admin': { password: 'HAOS77', role: 'admin' },
     'moderator': { password: 'MOD2025', role: 'moderator' },
     'viewer': { password: 'VIEW2025', role: 'viewer' }

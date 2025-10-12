@@ -1,64 +1,55 @@
-import type { APIRoute } from "astro";
-import {
-  createSuccessResponse,
-  createErrorResponse,
-} from "../../../utils/corsUtils";
+import type { APIRoute } from 'astro';
+
+interface RequestBody {
+  login?: string;
+  password?: string;
+}
+
+// TODO: Implement proper session management (e.g., with JWTs in httpOnly cookies)
+// For now, this returns a simple success/failure response.
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  try {
-    const env = (locals as any)?.runtime?.env;
-    if (!env || !env.DB) {
-      return createErrorResponse("Baza danych D1 nie jest dostępna.", 503);
-    }
+  const body: RequestBody = await request.json();
+  const { login, password } = body;
 
-    const requestData = (await request.json()) as {
-      email?: string;
-      password?: string;
-    };
-    const { email, password } = requestData;
+  if (!login || !password) {
+    return new Response(
+      JSON.stringify({ success: false, message: 'Missing login or password' }),
+      { status: 400 }
+    );
+  }
 
-    if (!email || !password) {
-      return createErrorResponse("E-mail i hasło są wymagane.", 400);
-    }
+  // Safely get secrets from the environment (e.g., Cloudflare Pages secrets)
+  const adminPassword = locals.runtime.env.ADMIN_PASSWORD;
+  const userPassword = locals.runtime.env.USER_PASSWORD;
 
-    // 1. Znajdź użytkownika w bazie danych
-    const user = await env.DB.prepare("SELECT * FROM Users WHERE email = ?")
-      .bind(email)
-      .first();
+  // Hardcoded fallback for local development if .dev.vars is not set up
+  const fallbackAdminPass = 'HAOS77';
+  const fallbackUserPass = 'ZENON2015AI';
 
-    if (!user) {
-      return createErrorResponse("Nieprawidłowy e-mail lub hasło.", 401);
-    }
+  const effectiveAdminPassword = adminPassword || fallbackAdminPass;
+  const effectiveUserPassword = userPassword || fallbackUserPass;
 
-    // 2. Sprawdź hasło
-    // UWAGA: To jest symulacja weryfikacji hasła. W produkcji należy użyć `bcrypt.compare()`.
-    const simulatedHash = `hashed_${password}`;
-    if (user.password_hash !== simulatedHash) {
-      return createErrorResponse("Nieprawidłowy e-mail lub hasło.", 401);
-    }
+  let role: 'admin' | 'user' | null = null;
+  let success = false;
 
-    // 3. Wygeneruj symulowany token JWT
-    // UWAGA: To nie jest bezpieczny, podpisany token JWT. W produkcji użyj biblioteki `jose` lub podobnej.
-    const payload = {
-      userId: user.id,
-      clientId: user.client_id,
-      email: user.email,
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 8, // Token ważny 8 godzin
-    };
+  if (login === 'admin' && password === effectiveAdminPassword) {
+    success = true;
+    role = 'admin';
+  } else if (login === 'user' && password === effectiveUserPassword) {
+    success = true;
+    role = 'user';
+  }
 
-    const header = { alg: "NONE", typ: "JWT" };
-    const simulatedToken = `${btoa(JSON.stringify(header))}.${btoa(
-      JSON.stringify(payload)
-    )}.`;
-
-    return createSuccessResponse({
-      message: "Logowanie pomyślne!",
-      token: simulatedToken,
-    });
-  } catch (error) {
-    console.error("Błąd w /api/auth/login:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Nieznany błąd serwera.";
-    return createErrorResponse(errorMessage, 500);
+  if (success) {
+    return new Response(
+      JSON.stringify({ success: true, role }), 
+      { status: 200 }
+    );
+  } else {
+    return new Response(
+      JSON.stringify({ success: false, message: 'Invalid credentials' }),
+      { status: 401 }
+    );
   }
 };

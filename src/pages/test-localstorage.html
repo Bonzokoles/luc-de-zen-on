@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBonzo - Test localStorage</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #1a1a1a;
+        color: #ffffff;
+      }
+      .test-section {
+        background: #2a2a2a;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+        border: 1px solid #444;
+      }
+      button {
+        background: #007acc;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button:hover {
+        background: #005a9e;
+      }
+      pre {
+        background: #333;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
+      .result {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+        background: #004400;
+        border: 1px solid #006600;
+      }
+      .error {
+        background: #440000;
+        border: 1px solid #660000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎵 MyBonzo - Test localStorage Functions</h1>
+
+    <div class="test-section">
+      <h2>Test Music Player Settings</h2>
+      <button onclick="testSaveSettings()">Save Test Settings</button>
+      <button onclick="testLoadSettings()">Load Settings</button>
+      <button onclick="testClearSettings()">Clear Settings</button>
+      <div id="settingsResult"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test Music Player Playlist</h2>
+      <button onclick="testSavePlaylist()">Save Test Playlist</button>
+      <button onclick="testLoadPlaylist()">Load Playlist</button>
+      <button onclick="testClearPlaylist()">Clear Playlist</button>
+      <div id="playlistResult"></div>
+    </div>
+
+    <div class="test-section">
+      <h2>Test Floating Buttons Integration</h2>
+      <button onclick="testFloatingButtons()">Load Floating Buttons</button>
+      <div id="floatingButtonsResult"></div>
+    </div>
+
+    <script>
+      // localStorage test functions from floating-buttons-real.js
+      function saveMusicPlayerSettings(settings) {
+        try {
+          const settingsData = {
+            volume: settings.volume || 0.5,
+            repeat: settings.repeat || false,
+            shuffle: settings.shuffle || false,
+            quality: settings.quality || "high",
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(
+            "mybonzo_music_settings",
+            JSON.stringify(settingsData)
+          );
+          return true;
+        } catch (error) {
+          console.error("Error saving music settings:", error);
+          return false;
+        }
+      }
+
+      function loadMusicPlayerSettings() {
+        try {
+          const stored = localStorage.getItem("mybonzo_music_settings");
+          if (!stored) {
+            return {
+              volume: 0.5,
+              repeat: false,
+              shuffle: false,
+              quality: "high",
+            };
+          }
+          return JSON.parse(stored);
+        } catch (error) {
+          console.error("Error loading music settings:", error);
+          return {
+            volume: 0.5,
+            repeat: false,
+            shuffle: false,
+            quality: "high",
+          };
+        }
+      }
+
+      function saveMusicPlayerPlaylist(playlist) {
+        try {
+          const playlistData = {
+            tracks: playlist.tracks || [],
+            currentIndex: playlist.currentIndex || 0,
+            name: playlist.name || "My Playlist",
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(
+            "mybonzo_music_playlist",
+            JSON.stringify(playlistData)
+          );
+          return true;
+        } catch (error) {
+          console.error("Error saving playlist:", error);
+          return false;
+        }
+      }
+
+      function loadMusicPlayerPlaylist() {
+        try {
+          const stored = localStorage.getItem("mybonzo_music_playlist");
+          if (!stored) {
+            return {
+              tracks: [],
+              currentIndex: 0,
+              name: "My Playlist",
+            };
+          }
+          return JSON.parse(stored);
+        } catch (error) {
+          console.error("Error loading playlist:", error);
+          return {
+            tracks: [],
+            currentIndex: 0,
+            name: "My Playlist",
+          };
+        }
+      }
+
+      // Test functions
+      function testSaveSettings() {
+        const testSettings = {
+          volume: 0.8,
+          repeat: true,
+          shuffle: false,
+          quality: "ultra",
+        };
+
+        const success = saveMusicPlayerSettings(testSettings);
+        document.getElementById("settingsResult").innerHTML = success
+          ? '<div class="result">✅ Settings saved successfully!</div>'
+          : '<div class="result error">❌ Failed to save settings</div>';
+      }
+
+      function testLoadSettings() {
+        const settings = loadMusicPlayerSettings();
+        document.getElementById("settingsResult").innerHTML = `
+                <div class="result">✅ Settings loaded:</div>
+                <pre>${JSON.stringify(settings, null, 2)}</pre>
+            `;
+      }
+
+      function testClearSettings() {
+        localStorage.removeItem("mybonzo_music_settings");
+        document.getElementById("settingsResult").innerHTML =
+          '<div class="result">🗑️ Settings cleared</div>';
+      }
+
+      function testSavePlaylist() {
+        const testPlaylist = {
+          name: "Test Playlist 2025",
+          tracks: [
+            {
+              id: 1,
+              title: "Test Song 1",
+              artist: "Test Artist",
+              duration: 210,
+            },
+            {
+              id: 2,
+              title: "Test Song 2",
+              artist: "Another Artist",
+              duration: 185,
+            },
+            {
+              id: 3,
+              title: "Test Song 3",
+              artist: "Third Artist",
+              duration: 240,
+            },
+          ],
+          currentIndex: 1,
+        };
+
+        const success = saveMusicPlayerPlaylist(testPlaylist);
+        document.getElementById("playlistResult").innerHTML = success
+          ? '<div class="result">✅ Playlist saved successfully!</div>'
+          : '<div class="result error">❌ Failed to save playlist</div>';
+      }
+
+      function testLoadPlaylist() {
+        const playlist = loadMusicPlayerPlaylist();
+        document.getElementById("playlistResult").innerHTML = `
+                <div class="result">✅ Playlist loaded:</div>
+                <pre>${JSON.stringify(playlist, null, 2)}</pre>
+            `;
+      }
+
+      function testClearPlaylist() {
+        localStorage.removeItem("mybonzo_music_playlist");
+        document.getElementById("playlistResult").innerHTML =
+          '<div class="result">🗑️ Playlist cleared</div>';
+      }
+
+      function testFloatingButtons() {
+        const script = document.createElement("script");
+        script.src = "/floating-buttons-real.js";
+        script.onload = function () {
+          document.getElementById("floatingButtonsResult").innerHTML = `
+                    <div class="result">✅ Floating buttons script loaded successfully!</div>
+                    <p>Check if floating buttons appear on the page.</p>
+                `;
+        };
+        script.onerror = function () {
+          document.getElementById("floatingButtonsResult").innerHTML =
+            '<div class="result error">❌ Failed to load floating buttons script</div>';
+        };
+        document.head.appendChild(script);
+      }
+
+      // Auto-load test on page load
+      window.addEventListener("load", function () {
+        document.getElementById("settingsResult").innerHTML =
+          '<div class="result">Ready to test localStorage functions...</div>';
+        document.getElementById("playlistResult").innerHTML =
+          '<div class="result">Ready to test playlist functions...</div>';
+        document.getElementById("floatingButtonsResult").innerHTML =
+          '<div class="result">Ready to test floating buttons...</div>';
+      });
+    </script>
+  </body>
+</html>

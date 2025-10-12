@@ -5,6 +5,13 @@
 
 export const prerender = false;
 
+interface RequestBody {
+  prompt?: string;
+  sessionId?: string;
+  orchestrate?: boolean;
+  functions?: string[];
+}
+
 export async function POST({ request }: { request: Request }): Promise<Response> {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -13,7 +20,7 @@ export async function POST({ request }: { request: Request }): Promise<Response>
   };
 
   try {
-    const { prompt, sessionId, orchestrate, functions } = await request.json();
+    const { prompt, sessionId, orchestrate, functions }: RequestBody = await request.json();
 
     if (!prompt && !orchestrate) {
       return new Response(
@@ -119,7 +126,7 @@ export async function OPTIONS(): Promise<Response> {
 }
 
 // Handle AI orchestration requests
-async function handleOrchestration(functions: string[], corsHeaders: Record<string, string>) {
+async function handleOrchestration(functions: string[] | undefined, corsHeaders: Record<string, string>) {
   const orchestrationResult = {
     orchestrated: true,
     activatedFunctions: functions || [
@@ -153,7 +160,7 @@ async function handleOrchestration(functions: string[], corsHeaders: Record<stri
 }
 
 // Process Bielik AI request with orchestration
-async function processBielikRequest(prompt: string, sessionId: string): Promise<string> {
+async function processBielikRequest(prompt: string | undefined, sessionId: string | undefined): Promise<string> {
   // Enhanced Bielik prompt with orchestration capabilities
   const systemMessage = `Jesteś BIELIK - główny orkiestrator AI systemu MyBonzo. 
 

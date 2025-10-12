@@ -1,9 +1,19 @@
 import type { APIRoute } from "astro";
 
+interface RequestBody {
+  query?: string;
+  agents?: string[];
+  translate?: boolean;
+  orchestrate?: boolean;
+  dateRange?: string;
+  fileType?: string;
+  siteSearch?: string;
+}
+
 // Enhanced search API with POLACZEK Agents orchestration
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body: RequestBody = await request.json();
     const { query, agents = [], translate = false, orchestrate = false, dateRange, fileType, siteSearch } = body;
 
     if (!query?.trim()) {

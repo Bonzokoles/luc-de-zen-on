@@ -407,15 +407,19 @@ class VoiceAIWorker {
     }
 
     try {
-      // Example OpenAI Whisper API call
+      const formData = this.createFormData(audioData, language);
       const response = await fetch('https://api.openai.com/v1/audio/transcriptions', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${this.aiServices.openai}`,
-          'Content-Type': 'multipart/form-data'
         },
-        body: this.createFormData(audioData, language)
+        body: formData
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`OpenAI API error: ${errorData.error.message}`);
+      }
 
       const result = await response.json();
 
@@ -429,16 +433,7 @@ class VoiceAIWorker {
       };
     } catch (error) {
       console.error('OpenAI Transcription Error:', error);
-      
-      // Fallback to mock for development
-      return {
-        success: true,
-        transcript: 'Mock transcription from OpenAI Whisper (fallback)',
-        confidence: 88,
-        language,
-        provider: 'openai_mock',
-        processingTime: 200
-      };
+      throw error;
     }
   }
 
@@ -468,15 +463,42 @@ class VoiceAIWorker {
       throw new Error('ElevenLabs API key not configured');
     }
 
-    // Mock implementation - replace with actual ElevenLabs API call
-    return {
-      success: true,
-      audioUrl: 'https://mock-elevenlabs-audio.com/speech.mp3',
-      voice: voice || 'rachel',
-      speed,
-      provider: 'elevenlabs',
-      quality: 'premium'
-    };
+    try {
+      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice || 'rachel'}` , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'xi-api-key': this.aiServices.elevenlabs
+        },
+        body: JSON.stringify({
+          text: text,
+          voice_settings: {
+            stability: 0.75,
+            similarity_boost: 0.8
+          }
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`ElevenLabs API error: ${errorData.detail.message}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      return {
+        success: true,
+        audioUrl: audioUrl,
+        voice: voice || 'rachel',
+        speed,
+        provider: 'elevenlabs',
+        quality: 'premium'
+      };
+    } catch (error) {
+      console.error('ElevenLabs Synthesis Error:', error);
+      throw error;
+    }
   }
 
   async synthesizeWithGoogle(text, language, voice, speed, pitch) {
@@ -567,58 +589,62 @@ class VoiceAIWorker {
   }
 
   async processVoiceCommand(command, language, context) {
-    // Enhanced command processing with AI integration
-    const commandPatterns = {
-      'pl-PL': {
-        'otwórz polaczek': { action: 'open_polaczek', confidence: 95 },
-        'uruchom webmaster': { action: 'open_webmaster', confidence: 92 },
-        'wygeneruj obraz': { action: 'generate_image', confidence: 88 },
-        'włącz muzykę': { action: 'play_music', confidence: 94 },
-        'sprawdź status': { action: 'system_status', confidence: 91 }
-      },
-      'en-US': {
-        'open polaczek': { action: 'open_polaczek', confidence: 95 },
-        'launch webmaster': { action: 'open_webmaster', confidence: 92 },
-        'generate image': { action: 'generate_image', confidence: 88 },
-        'play music': { action: 'play_music', confidence: 94 },
-        'check status': { action: 'system_status', confidence: 91 }
-      }
-    };
-
-    const languagePatterns = commandPatterns[language] || commandPatterns['en-US'];
-    
-    for (const [pattern, result] of Object.entries(languagePatterns)) {
-      if (command.toLowerCase().includes(pattern)) {
-        return {
-          success: true,
-          recognized: true,
-          command: {
-            intent: result.action,
-            confidence: result.confidence,
-            language
-          },
-          execution: {
-            executed: true,
-            action: result.action,
-            message: `Executing command: ${result.action}`
-          }
-        };
-      }
+    if (!this.env.AI) {
+      throw new Error('AI binding not configured');
     }
 
-    return {
-      success: true,
-      recognized: false,
-      command: {
-        intent: 'unknown',
-        confidence: 0,
-        language
-      },
-      execution: {
-        executed: false,
-        message: 'Command not recognized'
-      }
-    };
+    try {
+      const systemPrompt = `You are a voice command processing AI for the MyBonzo platform.
+Your task is to understand the user's command and respond with a JSON object containing the action to be performed and any relevant parameters.
+
+The available actions are: open_polaczek, open_webmaster, generate_image, play_music, system_status.
+
+Example:
+User: "otwórz polaczek"
+AI: {"action": "open_polaczek"}
+
+User: "wygeneruj obraz psa"
+AI: {"action": "generate_image", "prompt": "pies"}
+
+User: "włącz muzykę"
+AI: {"action": "play_music"}
+`;
+
+      const messages = [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: command },
+      ];
+
+      const aiResponse = await this.env.AI.run('@cf/qwen/qwen1.5-7b-chat-awq', {
+        messages,
+        temperature: 0.2,
+      });
+
+      const responseJson = JSON.parse(aiResponse.response);
+
+      return {
+        success: true,
+        recognized: true,
+        command: {
+          intent: responseJson.action,
+          confidence: 90,
+          language,
+          parameters: responseJson
+        },
+        execution: {
+          executed: true,
+          action: responseJson.action,
+          message: `Executing command: ${responseJson.action}`
+        }
+      };
+    } catch (error) {
+      console.error('AI Command Processing Error:', error);
+      return {
+        success: false,
+        recognized: false,
+        error: 'Failed to process command with AI'
+      };
+    }
   }
 
   async processAudioChunk(audioChunk) {

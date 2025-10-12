@@ -4,6 +4,13 @@ import {
   createSuccessResponse,
 } from "../../utils/corsUtils";
 
+interface PolaczekResponse {
+  data?: {
+    answer?: string;
+  };
+  answer?: string;
+}
+
 export const GET = async () => {
   return createSuccessResponse({
     message: "Chat API is running",
@@ -64,7 +71,7 @@ export const POST = async ({
         );
 
         if (polaczekResponse.ok) {
-          const polaczekData = await polaczekResponse.json();
+          const polaczekData: PolaczekResponse = await polaczekResponse.json();
           return createSuccessResponse({
             answer: polaczekData.data?.answer || polaczekData.answer,
             modelUsed: "polaczek-assistant",

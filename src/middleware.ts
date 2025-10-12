@@ -23,6 +23,11 @@ const PUBLIC_PATHS = [
   "/api/huggingface",
   "/api/memory-server",
   "/api/bigquery",
+  "/api/voice/process",
+  "/api/music/library",
+  "/api/music/log-play",
+  "/api/music/upload",
+  "/api/test/simple",
   "/api/tavi",
   "/api/tavily",
   "/api/kaggle",
@@ -32,6 +37,10 @@ const PUBLIC_PATHS = [
   "/api/mybonzo-chat",
   "/api/test-connections",
   "/api/test-secrets",
+  "/api/admin/db-schema",
+  "/api/admin/get-token",
+  "/api/admin/debug",
+  "/api/admin/setup-database",
 ];
 
 // Middleware do weryfikacji tokenów i ustawiania kontekstu klienta

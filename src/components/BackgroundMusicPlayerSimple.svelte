@@ -108,13 +108,33 @@
 
   function loadDemoTracks() {
     playlist = [
+      // MyBonzo Official Playlist - Local MP3 Files
+      { name: "Dido - White Flag", url: "/music/01 Dido - White Flag.Mp3" },
+      { name: "Personal Jesus", url: "/music/01. Personal Jesus.mp3" },
+      { name: "Miuosh - Neony", url: "/music/02 - Miuosh - Neony.mp3" },
+      { name: "Nieznajomy", url: "/music/03. Nieznajomy.mp3" },
+      { name: "Świernalis - Blizny", url: "/music/044._Swiernalis_-_Blizny.mp3" },
+      { name: "Depeche Mode - Tora! Tora! Tora!", url: "/music/08 - Depeche Mode - Tora! Tora! Tora!.mp3" },
+      { name: "The Man Who Sold The World", url: "/music/08 - The Man Who Sold The World.mp3" },
+      { name: "David Bowie - Life On Mars", url: "/music/bowie Life On Mars.mp3" },
+      { name: "Daria Zawiałow & Igor Walaszek - Długość dźwieku samotności", url: "/music/Daria Zawiałow & Igor Walaszek - Długość dźwieku samotności.mp3" },
+      { name: "Daria Zawiałow - Jeszcze w zielone gramy", url: "/music/Daria Zawiałow - Jeszcze w zielone gramy (Bonus Track).mp3" },
+      { name: "Gutek - Nikt tak pięknie", url: "/music/gutek - nikt tak pieknie.mp3" },
+      { name: "Kilka westchnień", url: "/music/Kilka westchnień.mp3" },
+      { name: "Marcin Rozynek - Silacz", url: "/music/Marcin Rozynek - Silacz.mp3" },
+      { name: "Massive Attack - Antistar", url: "/music/Massive Attack - Antistar.mp3" },
+      { name: "Metallica - For Whom The Bell", url: "/music/Metalica-Fo Whom The Bell.MP3" },
+    ];
+    updateTrackInfo();
+  }
+
+  function loadCodePenTracks() {
+    // Backup playlist from CodePen
+    playlist = [
       { name: "MERKABA", url: "https://assets.codepen.io/7558/Merkaba.mp3" },
       { name: "DHAMIKA", url: "https://assets.codepen.io/7558/Dhamika.mp3" },
       { name: "VACANT", url: "https://assets.codepen.io/7558/Vacant.mp3" },
-      {
-        name: "LXSTNGHT",
-        url: "https://assets.codepen.io/7558/lxstnght-back_1.mp3",
-      },
+      { name: "LXSTNGHT", url: "https://assets.codepen.io/7558/lxstnght-back_1.mp3" },
     ];
     updateTrackInfo();
   }
@@ -430,7 +450,10 @@
               📁 Folder
             </button>
             <button class="action-btn-inline" on:click={loadDemoTracks}
-              >🎵 Demo</button
+              >🎵 MyBonzo</button
+            >
+            <button class="action-btn-inline" on:click={loadCodePenTracks}
+              >🌐 Demo</button
             >
           </div>
         </div>

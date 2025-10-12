@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { AuthService, type AdminUser, AUTH_STORAGE_KEYS } from '../../utils/auth';
+import PolaczekDyrektorPanel from './PolaczekDyrektorPanel.svelte';
+import ConfigurationManager from './ConfigurationManager.svelte';
+import WorkersStatusDashboard from './WorkersStatusDashboard.tsx';
+import MCPServersPanel from './MCPServersPanel.tsx';
+import TicketsTable from './TicketsTable.tsx';
+import UsersTable from './UsersTable.tsx';
 
 // MyBonzo Admin Dashboard - Enhanced Security React Component
 export default function AdminDashboard() {
@@ -320,6 +326,23 @@ function AdminDashboardContent({ user, onLogout }: { user: AdminUser | null; onL
         <TrafficChart />
         <BackupManager />
         <WorkersStatusDashboard />
+        <MCPServersPanel />
+        {user?.role === 'superadmin' && (
+          <>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <PolaczekDyrektorPanel />
+            </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <ConfigurationManager />
+            </div>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <UsersTable />
+            </div>
+          </>
+        )}
+        <div style={{ gridColumn: '1 / -1' }}>
+          <TicketsTable />
+        </div>
       </div>
 
       {/* Logout Button */}
@@ -359,7 +382,7 @@ function PanelStats() {
     const fetchStats = async () => {
       try {
         const response = await fetch('/api/admin/stats', {
-          headers: { 'Authorization': 'Bearer HAOS77' }
+          headers: { 'Authorization': `Bearer ${localStorage.getItem(AUTH_STORAGE_KEYS.TOKEN)}` }
         });
         if (response.ok) {
           const data = await response.json();
@@ -441,7 +464,7 @@ function StatusBox() {
     const fetchStatus = async () => {
       try {
         const response = await fetch('/api/admin/status', {
-          headers: { 'Authorization': 'Bearer HAOS77' }
+          headers: { 'Authorization': `Bearer ${localStorage.getItem(AUTH_STORAGE_KEYS.TOKEN)}` }
         });
         if (response.ok) {
           const data = await response.json();
@@ -521,7 +544,7 @@ function TrafficChart() {
     const fetchAnalytics = async () => {
       try {
         const response = await fetch('/api/admin/analytics', {
-          headers: { 'Authorization': 'Bearer HAOS77' }
+          headers: { 'Authorization': `Bearer ${localStorage.getItem(AUTH_STORAGE_KEYS.TOKEN)}` }
         });
         if (response.ok) {
           const data = await response.json();
@@ -599,7 +622,7 @@ function WorkersStatusDashboard() {
     setLoading(true);
     try {
       const response = await fetch('/api/admin/workers-status', {
-        headers: { 'Authorization': 'Bearer HAOS77' }
+        headers: { 'Authorization': `Bearer ${localStorage.getItem(AUTH_STORAGE_KEYS.TOKEN)}` }
       });
       if (response.ok) {
         const data = await response.json();
