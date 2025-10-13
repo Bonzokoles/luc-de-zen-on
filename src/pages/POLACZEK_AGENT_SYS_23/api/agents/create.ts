@@ -5,7 +5,12 @@ import { addAgentToList } from "./list";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const agentData = await request.json();
+    const agentData = (await request.json()) as {
+      name?: string;
+      type?: string;
+      description?: string;
+      [key: string]: any;
+    };
 
     // Validate required fields
     const { name, type, description } = agentData;

@@ -60,7 +60,9 @@ async function handleExternalModel(
           throw new Error(`Together API error: ${togetherResponse.status}`);
         }
 
-        const togetherData = await togetherResponse.json();
+        const togetherData = (await togetherResponse.json()) as {
+          data?: { b64_json?: string }[];
+        };
         const imageBase64 = togetherData.data?.[0]?.b64_json;
 
         if (!imageBase64) {
@@ -132,7 +134,9 @@ async function handleExternalModel(
           throw new Error(`Stability AI error: ${stabilityResponse.status}`);
         }
 
-        const stabilityData = await stabilityResponse.json();
+        const stabilityData = (await stabilityResponse.json()) as {
+          artifacts?: { base64?: string }[];
+        };
         const stabilityImage = stabilityData.artifacts?.[0]?.base64;
 
         if (!stabilityImage) {
@@ -231,7 +235,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      prompt?: string;
+      model?: string;
+      style?: string;
+      width?: number;
+      height?: number;
+      steps?: number;
+      enhancePrompt?: boolean;
+      enhanceOptions?: Record<string, any>;
+    };
     const {
       prompt: rawPrompt,
       model,
@@ -269,7 +282,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const inputs = buildAIInputs({ prompt, width, height, steps }, prompt);
 
     // Wywołanie modelu do generowania obrazów w Cloudflare AI
-    const response = await ai.run(selectedModel, inputs);
+    const response = await (ai as any).run(selectedModel, inputs);
 
     // Odpowiedź z obrazem jest bezpośrednio strumieniem danych binarnych
     return new Response(response, {

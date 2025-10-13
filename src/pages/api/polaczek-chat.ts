@@ -2,7 +2,7 @@ import {
   createSuccessResponse,
   createErrorResponse,
   createOPTIONSHandler,
-} from "../../utils/corsUtils.ts";
+} from "../../utils/corsUtils";
 import { PolaczekKnowledgeBase } from "../../utils/polaczekKnowledge.js";
 import { findRelevantDocs } from "../../utils/documentationIndex.js";
 
@@ -143,7 +143,7 @@ function getContextualResponse(userQuery: string): string {
     queryLower.includes("image")
   ) {
     context = `🎨 **Generator obrazów AI MyBonzo**\n\n`;
-    context += `MyBonzo oferuje zaawansowany generator obrazów AI używający modelu Flux-1 Schnell. `;
+    context += `MyBonzo oferuje zaawansowany generator obrazów AI używający modelu Flux-1 Schnell. `; 
     context += `Możesz generować obrazy z tekstu w różnych stylach i rozmiarach (512-1024px).\n\n`;
     context += `• Strona: ${MyBonzoKnowledge.site.url}/image-generator\n`;
     context += `• API: ${MyBonzoKnowledge.services["AI Image Generator"].api}\n`;
@@ -157,7 +157,7 @@ function getContextualResponse(userQuery: string): string {
     queryLower.includes("sql")
   ) {
     context = `📊 **BigQuery Analytics MyBonzo**\n\n`;
-    context += `MyBonzo oferuje zaawansowaną analizę danych przez BigQuery Analytics. `;
+    context += `MyBonzo oferuje zaawansowaną analizę danych przez BigQuery Analytics. `; 
     context += `Możesz wykonywać zapytania SQL i analizować dane z Google Cloud.\n\n`;
     context += `• Strona: ${MyBonzoKnowledge.site.url}/bigquery-analytics\n`;
     context += `• API: ${MyBonzoKnowledge.services["BigQuery Analytics"].api}`;
@@ -167,7 +167,7 @@ function getContextualResponse(userQuery: string): string {
     queryLower.includes("dane")
   ) {
     context = `🏆 **Kaggle Integration MyBonzo**\n\n`;
-    context += `MyBonzo ma integrację z Kaggle do wyszukiwania zbiorów danych i śledzenia konkursy ML. `;
+    context += `MyBonzo ma integrację z Kaggle do wyszukiwania zbiorów danych i śledzenia konkursy ML. `; 
     context += `Znajdź najlepsze datasety dla swoich projektów.\n\n`;
     context += `• Strona: ${MyBonzoKnowledge.site.url}/kaggle-datasets\n`;
     context += `• API: ${MyBonzoKnowledge.services["Kaggle Datasets"].api}`;
@@ -311,7 +311,7 @@ ${context}
 export const POST = async ({
   request,
   locals,
-}: {
+}: { 
   request: Request;
   locals: any;
 }) => {

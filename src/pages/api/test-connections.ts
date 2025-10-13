@@ -68,8 +68,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
         );
 
         if (deepseekResponse.ok) {
-          const data = await deepseekResponse.json();
-          const response = data.choices[0]?.message?.content || "No response";
+          const data = (await deepseekResponse.json()) as {
+            choices?: { message?: { content?: string } }[];
+          };
+          const response = data.choices?.[0]?.message?.content || "No response";
           results.deepseek =
             response.toLowerCase().includes("successful") ||
             response.toLowerCase().includes("deepseek");
@@ -100,7 +102,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         );
 
         if (kaggleResponse.ok) {
-          const data = await kaggleResponse.json();
+          const data = (await kaggleResponse.json()) as { datasets?: any[] };
           results.kaggle = true;
           results.kaggleResponse = `Found ${
             data.datasets?.length || 0
@@ -136,7 +138,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         });
 
         if (tavilyResponse.ok) {
-          const data = await tavilyResponse.json();
+          const data = (await tavilyResponse.json()) as { results?: any[] };
           results.tavily = true;
           results.tavilyResponse = `Found ${data.results?.length || 0} results`;
         } else {

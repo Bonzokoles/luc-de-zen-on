@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { AuthService, type AdminUser, AUTH_STORAGE_KEYS } from '../../utils/auth';
-import PolaczekDyrektorPanel from './PolaczekDyrektorPanel.svelte';
-import ConfigurationManager from './ConfigurationManager.svelte';
-import WorkersStatusDashboard from './WorkersStatusDashboard.tsx';
-import MCPServersPanel from './MCPServersPanel.tsx';
-import TicketsTable from './TicketsTable.tsx';
-import UsersTable from './UsersTable.tsx';
+// import PolaczekDyrektorPanel from './PolaczekDyrektorPanel.svelte';
+// import ConfigurationManager from './ConfigurationManager.svelte';
+import WorkersStatusDashboard from './WorkersStatusDashboard';
+import MCPServersPanel from './MCPServersPanel';
+import TicketsTable from './TicketsTable';
+import UsersTable from './UsersTable';
 
 // MyBonzo Admin Dashboard - Enhanced Security React Component
 export default function AdminDashboard() {
@@ -329,12 +329,12 @@ function AdminDashboardContent({ user, onLogout }: { user: AdminUser | null; onL
         <MCPServersPanel />
         {user?.role === 'superadmin' && (
           <>
-            <div style={{ gridColumn: '1 / -1' }}>
+            {/* <div style={{ gridColumn: '1 / -1' }}>
               <PolaczekDyrektorPanel />
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
               <ConfigurationManager />
-            </div>
+            </div> */}
             <div style={{ gridColumn: '1 / -1' }}>
               <UsersTable />
             </div>
@@ -386,7 +386,7 @@ function PanelStats() {
         });
         if (response.ok) {
           const data = await response.json();
-          setStats(data);
+          setStats(data as any);
         }
       } catch (err) {
         console.error('Error fetching stats:', err);
@@ -468,7 +468,7 @@ function StatusBox() {
         });
         if (response.ok) {
           const data = await response.json();
-          setStatus(data);
+          setStatus(data as any);
         }
       } catch (err) {
         console.error('Error fetching status:', err);
@@ -548,7 +548,7 @@ function TrafficChart() {
         });
         if (response.ok) {
           const data = await response.json();
-          setAnalytics(data);
+          setAnalytics(data as any);
         }
       } catch (error) {
         console.error('Error fetching analytics:', error);
@@ -626,7 +626,7 @@ function WorkersStatusDashboard() {
       });
       if (response.ok) {
         const data = await response.json();
-        setWorkers(data.workers || []);
+        setWorkers((data as any).workers || []);
         setLastRefresh(new Date().toLocaleTimeString());
       }
     } catch (error) {
@@ -723,7 +723,7 @@ function BackupManager() {
       });
       if (response.ok) {
         const data = await response.json();
-        setBackups(data.backups || []);
+        setBackups((data as any).backups || []);
         setLastRefresh(new Date().toLocaleTimeString());
       }
     } catch (error) {

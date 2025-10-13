@@ -1,28 +1,17 @@
+import { BaseAgent, type AgentConfig } from './BaseAgent';
 
-import { BaseAgent } from './BaseAgent';
-
-export interface TextBisonConfig {
+export interface TextBisonAgentConfig extends AgentConfig {
   apiKey: string;
   projectId: string;
   location?: string;
 }
 
 export class TextBisonAgent extends BaseAgent {
-  protected config: TextBisonConfig;
+  protected config: TextBisonAgentConfig;
   private apiEndpoint: string;
 
-  constructor(config: TextBisonConfig) {
-    super({
-      id: 'text_bison_agent',
-      name: 'Text Bison',
-      model: 'text-bison',
-      category: 'creative',
-      icon: '📝',
-      color: '#8b5cf6',
-      priority: 'MEDIUM',
-      description: 'Advanced text generation and content creation',
-      capabilities: ['Text Generation', 'Summarization', 'Translation', 'Content Writing', 'Editing']
-    });
+  constructor(config: TextBisonAgentConfig) {
+    super(config);
 
     this.config = config;
     this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/text-bison:predict`;
@@ -82,21 +71,17 @@ export class TextBisonAgent extends BaseAgent {
   }
 
   async summarize(text: string): Promise<string> {
-    const prompt = `Podsumuj następujący tekst w sposób zwięzły i treściwy:
-
-${text}
-
-Podsumowanie:`;
+    const prompt = 'Podsumuj następujący tekst w sposób zwięzły i treściwy:\n\n' +
+      text + '\n\n' +
+      'Podsumowanie:';
     
     return this.generateText(prompt, 256);
   }
 
   async translate(text: string, targetLanguage: string = 'polski'): Promise<string> {
-    const prompt = `Przetłumacz następujący tekst na język ${targetLanguage}:
-
-${text}
-
-Tłumaczenie:`;
+    const prompt = 'Przetłumacz następujący tekst na język ' + targetLanguage + ':\n\n' +
+      text + '\n\n' +
+      'Tłumaczenie:';
     
     return this.generateText(prompt, 512);
   }

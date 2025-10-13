@@ -14,7 +14,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const { trackId, timestamp, duration, completed } = await request.json();
+    const { trackId, timestamp, duration, completed } =
+      (await request.json()) as {
+        trackId?: string;
+        timestamp?: number;
+        duration?: number;
+        completed?: boolean;
+      };
 
     if (!trackId) {
       return new Response(
@@ -70,7 +76,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || "Failed to log play",
+        error: (error as Error).message || "Failed to log play",
       }),
       { status: 500 }
     );

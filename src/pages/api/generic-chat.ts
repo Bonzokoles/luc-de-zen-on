@@ -2,7 +2,11 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      user_message?: string;
+      system_prompt?: string;
+      model?: string;
+    };
     const { user_message, system_prompt, model } = body;
 
     if (!user_message || !system_prompt || !model) {
@@ -42,7 +46,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       messages,
     };
 
-    const response = await ai.run(model, inputs);
+    const response = await (ai as any).run(model, inputs);
 
     // In a real-world scenario, you might want to stream the response.
     // For simplicity here, we return the full response at once.

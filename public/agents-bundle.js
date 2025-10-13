@@ -99,17 +99,7 @@ var AgentsBundle = (function () {
         config;
         apiEndpoint;
         constructor(config) {
-            super({
-                id: 'gemini_pro_agent',
-                name: 'Gemini Pro',
-                model: config.model || 'gemini-pro',
-                category: 'core',
-                icon: '🤖',
-                color: '#4285f4',
-                priority: 'HIGH',
-                description: 'Advanced conversational AI with reasoning capabilities',
-                capabilities: ['Chat', 'Reasoning', 'Analysis', 'Code Review', 'Writing']
-            });
+            super(config);
             this.config = config;
             this.apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${config.model || 'gemini-pro'}:generateContent`;
         }
@@ -157,22 +147,20 @@ var AgentsBundle = (function () {
             throw new Error("Method not implemented.");
         }
         async analyzeCode(code, language = 'typescript') {
-            const prompt = `Przeanalizuj następujący kod ${language} i podaj szczegółową ocenę:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Oceń:
-1. Jakość kodu
-2. Potencjalne problemy
-3. Sugestie ulepszeń
-4. Bezpieczeństwo
-5. Wydajność`;
+            const prompt = 'Przeanalizuj następujący kod ' + language + ' i podaj szczegółową ocenę:\n\n' +
+                '```' + language + '\n' +
+                code + '\n' +
+                '```' + '\n\n' +
+                'Oceń:\n' +
+                '1. Jakość kodu\n' +
+                '2. Potencjalne problemy\n' +
+                '3. Sugestie ulepszeń\n' +
+                '4. Bezpieczeństwo\n' +
+                '5. Wydajność';
             return this.chat(prompt);
         }
         async generateText(prompt, style = 'professional') {
-            const styledPrompt = `Napisz tekst w stylu ${style} na temat: ${prompt}`;
+            const styledPrompt = 'Napisz tekst w stylu ' + style + ' na temat: ' + prompt;
             return this.chat(styledPrompt);
         }
     }
@@ -181,17 +169,7 @@ Oceń:
         config;
         apiEndpoint;
         constructor(config) {
-            super({
-                id: 'gemini_vision_agent',
-                name: 'Gemini Vision',
-                model: 'gemini-pro-vision',
-                category: 'specialized',
-                icon: '👁️',
-                color: '#ff6b35',
-                priority: 'HIGH',
-                description: 'Advanced image analysis and visual understanding',
-                capabilities: ['Image Analysis', 'OCR', 'Visual Q&A', 'Object Detection', 'Scene Understanding']
-            });
+            super(config);
             this.config = config;
             this.apiEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';
         }
@@ -256,17 +234,7 @@ Oceń:
         config;
         apiEndpoint;
         constructor(config) {
-            super({
-                id: 'code_bison_agent',
-                name: 'Code Bison',
-                model: 'code-bison',
-                category: 'specialized',
-                icon: '💻',
-                color: '#00d4aa',
-                priority: 'HIGH',
-                description: 'Advanced code generation and programming assistance',
-                capabilities: ['Code Generation', 'Code Review', 'Debugging', 'Refactoring', 'Documentation']
-            });
+            super(config);
             this.config = config;
             this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`;
         }
@@ -279,13 +247,7 @@ Oceń:
         async generateCode(description, language = 'typescript') {
             try {
                 this.updateStatus('processing');
-                const prompt = `Wygeneruj kod w języku ${language} na podstawie opisu: ${description}
-      
-Wymagania:
-- Kod powinien być czytelny i dobrze skomentowany
-- Użyj najlepszych praktyk dla ${language}
-- Dodaj obsługę błędów gdzie to konieczne
-- Kod powinien być gotowy do użycia`;
+                const prompt = "Wygeneruj kod w języku " + language + " na podstawie opisu: " + description + "\n      \n\nWymagania:\n- Kod powinien być czytelny i dobrze skomentowany\n- Użyj najlepszych praktyk dla " + language + "\n- Dodaj obsługę błędów gdzie to konieczne\n- Kod powinien być gotowy do użycia";
                 const response = await fetch(this.apiEndpoint, {
                     method: 'POST',
                     headers: {
@@ -319,75 +281,64 @@ Wymagania:
             }
         }
         async reviewCode(code, language = 'typescript') {
-            const prompt = `Przejrzyj następujący kod ${language} i podaj szczegółową analizę:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Sprawdź:
-- Jakość kodu i czytelność
-- Potencjalne błędy i problemy
-- Sugestie optymalizacji
-- Zgodność z najlepszymi praktykami
-- Bezpieczeństwo kodu`;
+            const prompt = "Przejrzyj następujący kod " + language + " i podaj szczegółową analizę:\n\n" +
+                "```" + language + "\n" +
+                code + "\n" +
+                "```" + "\n\n" +
+                "Sprawdź:\n" +
+                "- Jakość kodu i czytelność\n" +
+                "- Potencjalne błędy i problemy\n" +
+                "- Sugestie optymalizacji\n" +
+                "- Zgodność z najlepszymi praktykami\n" +
+                "- Bezpieczeństwo kodu";
             return this.generateCode(prompt, language);
         }
         async debugCode(code, error, language = 'typescript') {
-            const prompt = `Pomóż debugować kod ${language}:
-
-Kod:
-\`\`\`${language}
-${code}
-\`\`\`
-
-Błąd: ${error}
-
-Znajdź przyczynę błędu i zaproponuj poprawkę.`;
+            const prompt = "Pomóż debugować kod " + language + ":\n\n" +
+                "Kod:\n" +
+                "```" + language + "\n" +
+                code + "\n" +
+                "```" + "\n\n" +
+                "Błąd: " + error + "\n\n" +
+                "Znajdź przyczynę błędu i zaproponuj poprawkę.";
             return this.generateCode(prompt, language);
         }
         async refactorCode(code, language = 'typescript') {
-            const prompt = `Refactor this ${language} code to improve:
-- Readability
-- Performance
-- Maintainability
-- Best practices
-
-Original code:
-\`\`\`${language}
-${code}
-\`\`\`
-
-Provide the refactored version with explanations of changes:`;
+            const prompt = "Refactor this " + language + " code to improve:\n" +
+                "- Readability\n" +
+                "- Performance\n" +
+                "- Maintainability\n" +
+                "- Best practices\n\n" +
+                "Original code:\n" +
+                "```" + language + "\n" +
+                code + "\n" +
+                "```" + "\n\n" +
+                "Provide the refactored version with explanations of changes:";
             return this.generateCode(prompt, language);
         }
         async generateDocumentation(code, language = 'typescript') {
-            const prompt = `Generate comprehensive documentation for this ${language} code:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Include:
-- Function/class descriptions
-- Parameter explanations
-- Return value descriptions
-- Usage examples
-- JSDoc/TSDoc format`;
+            const prompt = "Generate comprehensive documentation for this " + language + " code:\n\n" +
+                "```" + language + "\n" +
+                code + "\n" +
+                "```" + "\n\n" +
+                "Include:\n" +
+                "- Function/class descriptions\n" +
+                "- Parameter explanations\n" +
+                "- Return value descriptions\n" +
+                "- Usage examples\n" +
+                "- JSDoc/TSDoc format";
             return this.generateCode(prompt, language);
         }
         async explainCode(code, language = 'typescript') {
-            const prompt = `Explain this ${language} code in detail:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Provide:
-- Step-by-step explanation
-- Purpose of each part
-- How it works
-- Potential improvements`;
+            const prompt = "Explain this " + language + " code in detail:\n\n" +
+                "```" + language + "\n" +
+                code + "\n" +
+                "```" + "\n\n" +
+                "Provide:\n" +
+                "- Step-by-step explanation\n" +
+                "- Purpose of each part\n" +
+                "- How it works\n" +
+                "- Potential improvements";
             return this.generateCode(prompt, language);
         }
     }
@@ -396,17 +347,7 @@ Provide:
         config;
         apiEndpoint;
         constructor(config) {
-            super({
-                id: 'text_bison_agent',
-                name: 'Text Bison',
-                model: 'text-bison',
-                category: 'creative',
-                icon: '📝',
-                color: '#8b5cf6',
-                priority: 'MEDIUM',
-                description: 'Advanced text generation and content creation',
-                capabilities: ['Text Generation', 'Summarization', 'Translation', 'Content Writing', 'Editing']
-            });
+            super(config);
             this.config = config;
             this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/text-bison:predict`;
         }
@@ -456,19 +397,15 @@ Provide:
             throw new Error("Method not implemented.");
         }
         async summarize(text) {
-            const prompt = `Podsumuj następujący tekst w sposób zwięzły i treściwy:
-
-${text}
-
-Podsumowanie:`;
+            const prompt = 'Podsumuj następujący tekst w sposób zwięzły i treściwy:\n\n' +
+                text + '\n\n' +
+                'Podsumowanie:';
             return this.generateText(prompt, 256);
         }
         async translate(text, targetLanguage = 'polski') {
-            const prompt = `Przetłumacz następujący tekst na język ${targetLanguage}:
-
-${text}
-
-Tłumaczenie:`;
+            const prompt = 'Przetłumacz następujący tekst na język ' + targetLanguage + ':\n\n' +
+                text + '\n\n' +
+                'Tłumaczenie:';
             return this.generateText(prompt, 512);
         }
     }

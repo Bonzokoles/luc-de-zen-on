@@ -2,4 +2,4 @@
 export {
   POST,
   GET,
-} from "../../../components/agents/modules/agent-08-polaczek-master/api.ts";
+} from "../../../components/agents/modules/agent-08-polaczek-master/api";

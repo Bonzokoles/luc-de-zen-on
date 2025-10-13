@@ -1,28 +1,17 @@
+import { BaseAgent, type AgentConfig } from './BaseAgent';
 
-import { BaseAgent } from './BaseAgent';
-
-export interface CodeBisonConfig {
+export interface CodeBisonAgentConfig extends AgentConfig {
   apiKey: string;
   projectId: string;
   location?: string;
 }
 
 export class CodeBisonAgent extends BaseAgent {
-  protected config: CodeBisonConfig;
+  protected config: CodeBisonAgentConfig;
   private apiEndpoint: string;
 
-  constructor(config: CodeBisonConfig) {
-    super({
-      id: 'code_bison_agent',
-      name: 'Code Bison',
-      model: 'code-bison',
-      category: 'specialized',
-      icon: '💻',
-      color: '#00d4aa',
-      priority: 'HIGH',
-      description: 'Advanced code generation and programming assistance',
-      capabilities: ['Code Generation', 'Code Review', 'Debugging', 'Refactoring', 'Documentation']
-    });
+  constructor(config: CodeBisonAgentConfig) {
+    super(config);
 
     this.config = config;
     this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`;
@@ -40,13 +29,7 @@ export class CodeBisonAgent extends BaseAgent {
     try {
       this.updateStatus('processing');
       
-      const prompt = `Wygeneruj kod w języku ${language} na podstawie opisu: ${description}
-      
-Wymagania:
-- Kod powinien być czytelny i dobrze skomentowany
-- Użyj najlepszych praktyk dla ${language}
-- Dodaj obsługę błędów gdzie to konieczne
-- Kod powinien być gotowy do użycia`;
+      const prompt = "Wygeneruj kod w języku " + language + " na podstawie opisu: " + description + "\n      \n\nWymagania:\n- Kod powinien być czytelny i dobrze skomentowany\n- Użyj najlepszych praktyk dla " + language + "\n- Dodaj obsługę błędów gdzie to konieczne\n- Kod powinien być gotowy do użycia";
 
       const response = await fetch(this.apiEndpoint, {
         method: 'POST',
@@ -85,83 +68,72 @@ Wymagania:
   }
 
   async reviewCode(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Przejrzyj następujący kod ${language} i podaj szczegółową analizę:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Sprawdź:
-- Jakość kodu i czytelność
-- Potencjalne błędy i problemy
-- Sugestie optymalizacji
-- Zgodność z najlepszymi praktykami
-- Bezpieczeństwo kodu`;
+    const prompt = "Przejrzyj następujący kod " + language + " i podaj szczegółową analizę:\n\n" +
+      "```" + language + "\n" +
+      code + "\n" +
+      "```" + "\n\n" +
+      "Sprawdź:\n" +
+      "- Jakość kodu i czytelność\n" +
+      "- Potencjalne błędy i problemy\n" +
+      "- Sugestie optymalizacji\n" +
+      "- Zgodność z najlepszymi praktykami\n" +
+      "- Bezpieczeństwo kodu";
 
     return this.generateCode(prompt, language);
   }
 
   async debugCode(code: string, error: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Pomóż debugować kod ${language}:
-
-Kod:
-\`\`\`${language}
-${code}
-\`\`\`
-
-Błąd: ${error}
-
-Znajdź przyczynę błędu i zaproponuj poprawkę.`;
+    const prompt = "Pomóż debugować kod " + language + ":\n\n" +
+      "Kod:\n" +
+      "```" + language + "\n" +
+      code + "\n" +
+      "```" + "\n\n" +
+      "Błąd: " + error + "\n\n" +
+      "Znajdź przyczynę błędu i zaproponuj poprawkę.";
 
     return this.generateCode(prompt, language);
   }
 
   async refactorCode(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Refactor this ${language} code to improve:
-- Readability
-- Performance
-- Maintainability
-- Best practices
-
-Original code:
-\`\`\`${language}
-${code}
-\`\`\`
-
-Provide the refactored version with explanations of changes:`;
+    const prompt = "Refactor this " + language + " code to improve:\n" +
+      "- Readability\n" +
+      "- Performance\n" +
+      "- Maintainability\n" +
+      "- Best practices\n\n" +
+      "Original code:\n" +
+      "```" + language + "\n" +
+      code + "\n" +
+      "```" + "\n\n" +
+      "Provide the refactored version with explanations of changes:";
 
     return this.generateCode(prompt, language);
   }
 
   async generateDocumentation(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Generate comprehensive documentation for this ${language} code:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Include:
-- Function/class descriptions
-- Parameter explanations
-- Return value descriptions
-- Usage examples
-- JSDoc/TSDoc format`;
+    const prompt = "Generate comprehensive documentation for this " + language + " code:\n\n" +
+      "```" + language + "\n" +
+      code + "\n" +
+      "```" + "\n\n" +
+      "Include:\n" +
+      "- Function/class descriptions\n" +
+      "- Parameter explanations\n" +
+      "- Return value descriptions\n" +
+      "- Usage examples\n" +
+      "- JSDoc/TSDoc format";
 
     return this.generateCode(prompt, language);
   }
 
   async explainCode(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Explain this ${language} code in detail:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Provide:
-- Step-by-step explanation
-- Purpose of each part
-- How it works
-- Potential improvements`;
+    const prompt = "Explain this " + language + " code in detail:\n\n" +
+      "```" + language + "\n" +
+      code + "\n" +
+      "```" + "\n\n" +
+      "Provide:\n" +
+      "- Step-by-step explanation\n" +
+      "- Purpose of each part\n" +
+      "- How it works\n" +
+      "- Potential improvements";
 
     return this.generateCode(prompt, language);
   }

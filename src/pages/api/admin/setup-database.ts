@@ -201,9 +201,10 @@ export const POST: APIRoute = async ({ locals }) => {
 
     return new Response(JSON.stringify({ success: true, message: "Database schema created successfully." }));
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     return new Response(JSON.stringify({
       success: false,
-      error: error.message,
+      error: errorMessage,
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }

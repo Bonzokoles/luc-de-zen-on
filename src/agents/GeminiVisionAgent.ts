@@ -1,28 +1,17 @@
+import { BaseAgent, type AgentConfig } from './BaseAgent';
 
-import { BaseAgent } from './BaseAgent';
-
-export interface GeminiVisionConfig {
+export interface GeminiVisionAgentConfig extends AgentConfig {
   apiKey: string;
   projectId: string;
   location?: string;
 }
 
 export class GeminiVisionAgent extends BaseAgent {
-  protected config: GeminiVisionConfig;
+  protected config: GeminiVisionAgentConfig;
   private apiEndpoint: string;
 
-  constructor(config: GeminiVisionConfig) {
-    super({
-      id: 'gemini_vision_agent',
-      name: 'Gemini Vision',
-      model: 'gemini-pro-vision',
-      category: 'specialized',
-      icon: '👁️',
-      color: '#ff6b35',
-      priority: 'HIGH',
-      description: 'Advanced image analysis and visual understanding',
-      capabilities: ['Image Analysis', 'OCR', 'Visual Q&A', 'Object Detection', 'Scene Understanding']
-    });
+  constructor(config: GeminiVisionAgentConfig) {
+    super(config);
 
     this.config = config;
     this.apiEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';

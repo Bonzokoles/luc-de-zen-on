@@ -41,7 +41,7 @@ async function performTavilySearch(env: any, query: string) {
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
     return data;
   } catch (error) {
     console.error("Tavily API error:", error);
@@ -159,16 +159,17 @@ export const GET: APIRoute = async ({ url, locals }) => {
 
     try {
       // Try Tavily API first
-      searchData = await performTavilySearch(env, query);
+      searchData = (await performTavilySearch(env, query)) as any;
 
       return new Response(
         JSON.stringify({
           status: "success",
           method: "tavily",
           query: query,
-          answer: searchData.answer || `Wyniki wyszukiwania dla: ${query}`,
+          answer:
+            (searchData as any).answer || `Wyniki wyszukiwania dla: ${query}`,
           results:
-            searchData.results?.map((result: any) => ({
+            (searchData as any).results?.map((result: any) => ({
               title: result.title,
               url: result.url,
               content: result.content,
@@ -218,8 +219,8 @@ export const GET: APIRoute = async ({ url, locals }) => {
       },
       extra: {
         query: query,
-        userAgent: request.headers.get("user-agent"),
-        ip: request.headers.get("cf-connecting-ip"),
+        userAgent: "N/A",
+        ip: "N/A",
       },
     });
 

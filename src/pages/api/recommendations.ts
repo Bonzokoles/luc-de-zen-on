@@ -119,7 +119,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 
   // Sprawdź, czy użytkownik istnieje
-  const userProfile = userProfiles[userId];
+  const userProfile = userProfiles[userId as keyof typeof userProfiles];
   if (!userProfile) {
     return createErrorResponse("Użytkownik nie znaleziony", 404);
   }
@@ -155,7 +155,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
 
     // Przetwarzanie odpowiedzi AI
-    let recommendations = [];
+    let recommendations: any[] = [];
     if (aiResponse.response) {
       try {
         // Llama może zwrócić JSON wewnątrz bloku kodu markdown

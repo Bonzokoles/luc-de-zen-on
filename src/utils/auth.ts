@@ -2,7 +2,7 @@
 export interface AdminUser {
     id: string;
     username: string;
-    role: 'admin' | 'moderator' | 'viewer';
+    role: 'admin' | 'moderator' | 'viewer' | 'superadmin';
     permissions: string[];
 }
 
@@ -10,6 +10,8 @@ export interface AuthConfig {
     secretKey: string;
     tokenExpiry: number; // in milliseconds
     roles: {
+        [key: string]: string[];
+        superadmin: string[];
         admin: string[];
         moderator: string[];
         viewer: string[];

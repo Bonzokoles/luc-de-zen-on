@@ -12,16 +12,30 @@ import {
 // CORS support
 export const OPTIONS = createOPTIONSHandler(["POST", "GET"]);
 
-export async function GET({ request }) {
+export async function GET({ request }: { request: Request }) {
   return createSuccessResponse({
     message: "MyBonzo Chat is active and ready for POST requests.",
     status: "ok",
   });
 }
 
-export async function POST({ request, locals }) {
+export async function POST({
+  request,
+  locals,
+}: {
+  request: Request;
+  locals: any;
+}) {
   try {
-    const { prompt, context, language = "pl" } = await request.json();
+    const {
+      prompt,
+      context,
+      language = "pl",
+    } = (await request.json()) as {
+      prompt?: string;
+      context?: string;
+      language?: string;
+    };
 
     if (!prompt) {
       return createErrorResponse("Prompt is required");
@@ -30,7 +44,7 @@ export async function POST({ request, locals }) {
     // MyBonzo Assistant processing
     const response = await processMyBonzoRequest(
       prompt,
-      context,
+      context || "",
       language,
       locals
     );
@@ -44,11 +58,18 @@ export async function POST({ request, locals }) {
     });
   } catch (error) {
     console.error("MyBonzo Chat error:", error);
-    return createErrorResponse(`MyBonzo Assistant error: ${error.message}`);
+    return createErrorResponse(
+      `MyBonzo Assistant error: ${(error as Error).message}`
+    );
   }
 }
 
-async function processMyBonzoRequest(prompt, context, language, locals) {
+async function processMyBonzoRequest(
+  prompt: string,
+  context: string,
+  language: string,
+  locals: any
+) {
   const promptLower = prompt.toLowerCase();
 
   // Check if we have Cloudflare AI available
@@ -63,7 +84,12 @@ async function processMyBonzoRequest(prompt, context, language, locals) {
   return await generatePatternResponse(prompt, context, language);
 }
 
-async function generateEnhancedResponse(prompt, context, language, env) {
+async function generateEnhancedResponse(
+  prompt: string,
+  context: string,
+  language: string,
+  env: any
+) {
   const systemPrompt = `Jesteś MyBonzo Assistant - polski specjalista od Cloudflare Workers i AI Agents.
 
 SPECJALIZACJE:
@@ -105,7 +131,11 @@ Odpowiedz w języku polskim na pytanie użytkownika, uwzględniając Twoje specj
   }
 }
 
-async function generatePatternResponse(prompt, context, language) {
+async function generatePatternResponse(
+  prompt: string,
+  context: string,
+  language: string
+) {
   const promptLower = prompt.toLowerCase();
 
   // Cloudflare Workers

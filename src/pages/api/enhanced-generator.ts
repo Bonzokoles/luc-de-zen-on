@@ -8,7 +8,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     console.log("runtime available:", !!runtimeForDebug);
     console.log("runtime.env available:", !!runtimeForDebug?.env);
     console.log("runtime.env.AI available:", !!runtimeForDebug?.env?.AI);
-    console.log("runtime.env keys:", runtimeForDebug?.env ? Object.keys(runtimeForDebug.env) : "env is not available");
+    console.log(
+      "runtime.env keys:",
+      runtimeForDebug?.env
+        ? Object.keys(runtimeForDebug.env)
+        : "env is not available"
+    );
 
     const body = (await request.json()) as {
       prompt: string;
@@ -72,9 +77,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
           }
         );
 
-        const translateResult = await translateResponse.json();
+        const translateResult = (await translateResponse.json()) as {
+          success?: boolean;
+          translated_text?: string;
+        };
         if (translateResult.success) {
-          finalPrompt = translateResult.translated_text;
+          finalPrompt = translateResult.translated_text!;
           translationUsed = true;
         }
       } catch (error) {
@@ -226,7 +234,7 @@ Enhanced prompt:`;
     };
 
     const modelInfo =
-      AI_MODELS[model] ||
+      AI_MODELS[model as keyof typeof AI_MODELS] ||
       AI_MODELS["@cf/stabilityai/stable-diffusion-xl-base-1.0"];
 
     try {
@@ -262,7 +270,7 @@ Enhanced prompt:`;
             AI,
             model,
             enhancedPrompt,
-            source_image,
+            source_image || "",
             result
           );
           break;
@@ -272,7 +280,7 @@ Enhanced prompt:`;
       }
     } catch (generationError) {
       console.error("Generation error:", generationError);
-      result.generation_error = generationError.message;
+      result.generation_error = (generationError as Error).message;
       result.fallback_used = true;
 
       // Fallback - generate mock result
@@ -293,7 +301,7 @@ Enhanced prompt:`;
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Błąd generatora AI: " + error.message,
+        error: "Błąd generatora AI: " + (error as Error).message,
         timestamp: new Date().toISOString(),
       }),
       {
@@ -370,7 +378,7 @@ async function generateImage(
     );
 
     if (response.ok) {
-      const data = await response.json();
+      const data = (await response.json()) as { data: { url: string }[] };
       result.content = {
         image_url: data.data[0].url,
         download_url: data.data[0].url,
@@ -413,7 +421,7 @@ async function generateVideo(
   );
 
   if (response.ok) {
-    const data = await response.json();
+    const data = (await response.json()) as { data: { url: string }[] };
     result.content = {
       video_url: data.data[0].url,
       duration: 5,

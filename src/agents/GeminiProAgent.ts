@@ -1,29 +1,18 @@
+import { BaseAgent, type AgentConfig } from './BaseAgent';
 
-import { BaseAgent } from './BaseAgent';
-
-export interface GeminiProConfig {
+export interface GeminiProAgentConfig extends AgentConfig {
   apiKey: string;
   projectId: string;
   location?: string;
-  model?: string;
+  model: string;
 }
 
 export class GeminiProAgent extends BaseAgent {
-  private config: GeminiProConfig;
+  protected config: GeminiProAgentConfig;
   private apiEndpoint: string;
 
-  constructor(config: GeminiProConfig) {
-    super({
-      id: 'gemini_pro_agent',
-      name: 'Gemini Pro',
-      model: config.model || 'gemini-pro',
-      category: 'core',
-      icon: '🤖',
-      color: '#4285f4',
-      priority: 'HIGH',
-      description: 'Advanced conversational AI with reasoning capabilities',
-      capabilities: ['Chat', 'Reasoning', 'Analysis', 'Code Review', 'Writing']
-    });
+  constructor(config: GeminiProAgentConfig) {
+    super(config);
 
     this.config = config;
     this.apiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${config.model || 'gemini-pro'}:generateContent`;
@@ -80,24 +69,22 @@ export class GeminiProAgent extends BaseAgent {
   }
 
   async analyzeCode(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = `Przeanalizuj następujący kod ${language} i podaj szczegółową ocenę:
-
-\`\`\`${language}
-${code}
-\`\`\`
-
-Oceń:
-1. Jakość kodu
-2. Potencjalne problemy
-3. Sugestie ulepszeń
-4. Bezpieczeństwo
-5. Wydajność`;
+    const prompt = 'Przeanalizuj następujący kod ' + language + ' i podaj szczegółową ocenę:\n\n' +
+      '```' + language + '\n' +
+      code + '\n' +
+      '```' + '\n\n' +
+      'Oceń:\n' +
+      '1. Jakość kodu\n' +
+      '2. Potencjalne problemy\n' + 
+      '3. Sugestie ulepszeń\n' +
+      '4. Bezpieczeństwo\n' +
+      '5. Wydajność';
 
     return this.chat(prompt);
   }
 
   async generateText(prompt: string, style: string = 'professional'): Promise<string> {
-    const styledPrompt = `Napisz tekst w stylu ${style} na temat: ${prompt}`;
+    const styledPrompt = 'Napisz tekst w stylu ' + style + ' na temat: ' + prompt;
     return this.chat(styledPrompt);
   }
 }

@@ -14,7 +14,15 @@ interface RequestBody {
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body: RequestBody = await request.json();
-    const { query, agents = [], translate = false, orchestrate = false, dateRange, fileType, siteSearch } = body;
+    const {
+      query,
+      agents = [],
+      translate = false,
+      orchestrate = false,
+      dateRange,
+      fileType,
+      siteSearch,
+    } = body;
 
     if (!query?.trim()) {
       return new Response(
@@ -85,7 +93,7 @@ Odpowiedz w języku polskim, konkretnie i praktycznie.`;
       } catch (error) {
         results.orchestration = {
           agent: "POLACZEK_D",
-          error: "Błąd orchestracji: " + error.message,
+          error: "Błąd orchestracji: " + (error as Error).message,
           status: "failed",
         };
       }
@@ -114,7 +122,10 @@ Odpowiedz w języku polskim, konkretnie i praktycznie.`;
         });
 
         if (tavilyResponse.ok) {
-          const tavilyData = await tavilyResponse.json();
+          const tavilyData = (await tavilyResponse.json()) as {
+            results?: any[];
+            answer?: string;
+          };
           results.search_results = tavilyData.results || [];
           results.tavily_answer = tavilyData.answer || null;
         }
@@ -138,7 +149,7 @@ Odpowiedz w języku polskim, konkretnie i praktycznie.`;
         ];
       }
     } catch (error) {
-      results.search_error = "Błąd wyszukiwania: " + error.message;
+      results.search_error = "Błąd wyszukiwania: " + (error as Error).message;
     }
 
     // Step 3: POLACZEK_B Knowledge Management
@@ -180,7 +191,7 @@ Format odpowiedzi: strukturalny, polski, praktyczny.`;
       } catch (error) {
         results.knowledge_analysis = {
           agent: "POLACZEK_B",
-          error: "Błąd analizy: " + error.message,
+          error: "Błąd analizy: " + (error as Error).message,
           status: "failed",
         };
       }
@@ -238,7 +249,7 @@ Zachowaj znaczenie i kontekst. Podaj płynne, naturalne tłumaczenie.`;
       } catch (error) {
         results.translation = {
           agent: "POLACZEK_T",
-          error: "Błąd tłumaczenia: " + error.message,
+          error: "Błąd tłumaczenia: " + (error as Error).message,
           status: "failed",
         };
       }
@@ -286,7 +297,7 @@ Format: zwięzły, polski, praktyczny.`;
       } catch (error) {
         results.workflow_summary = {
           agent: "POLACZEK_M1",
-          error: "Błąd workflow: " + error.message,
+          error: "Błąd workflow: " + (error as Error).message,
           status: "failed",
         };
       }
@@ -334,7 +345,7 @@ Styl: profesjonalny, polski, wartościowy dla użytkownika.`;
         };
       } catch (error) {
         results.ai_enhancement = {
-          error: "Błąd wzbogacania AI: " + error.message,
+          error: "Błąd wzbogacania AI: " + (error as Error).message,
         };
       }
     }
@@ -348,7 +359,7 @@ Styl: profesjonalny, polski, wartościowy dla użytkownika.`;
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Błąd systemu agentów: " + error.message,
+        error: "Błąd systemu agentów: " + (error as Error).message,
         timestamp: new Date().toISOString(),
       }),
       {

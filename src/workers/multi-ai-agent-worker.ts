@@ -6,11 +6,11 @@
 export interface Env {
   // Durable Object bindings
   MULTI_AI_AGENT: DurableObjectNamespace;
-  
+
   // KV namespaces
   AI_AGENTS: KVNamespace;
   SESSION: KVNamespace;
-  
+
   // API Keys
   OPENAI_API_KEY: string;
   ANTHROPIC_API_KEY: string;
@@ -19,7 +19,7 @@ export interface Env {
   GOOGLE_AI_STUDIO_API_KEY: string;
   HUGGINGFACE_API_KEY: string;
   ELEVENLABS_API_KEY: string;
-  
+
   // AI Gateway Config
   AI_GATEWAY_ACCOUNT_ID: string;
   AI_GATEWAY_ID: string;
@@ -29,7 +29,7 @@ interface AgentState {
   conversations: Array<{
     id: string;
     messages: Array<{
-      role: 'user' | 'assistant' | 'system';
+      role: "user" | "assistant" | "system";
       content: string;
       timestamp: number;
       provider?: string;
@@ -70,9 +70,9 @@ export class MultiAIAgent {
     this.agentState = {
       conversations: [],
       preferences: {
-        defaultProvider: 'openai',
-        defaultModel: 'gpt-4o-mini',
-        language: 'pl',
+        defaultProvider: "openai",
+        defaultModel: "gpt-4o-mini",
+        language: "pl",
         maxTokens: 1000,
         temperature: 0.7,
       },
@@ -95,99 +95,132 @@ export class MultiAIAgent {
     const path = url.pathname;
 
     // CORS handling
-    if (request.method === 'OPTIONS') {
+    if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
       });
     }
 
     try {
       switch (path) {
-        case '/status':
+        case "/status":
           return this.handleStatus();
-        
-        case '/chat':
-          if (request.method === 'POST') {
+
+        case "/chat":
+          if (request.method === "POST") {
             return await this.handleChat(request);
           }
           break;
-          
-        case '/conversations':
-          if (request.method === 'GET') {
+
+        case "/conversations":
+          if (request.method === "GET") {
             return this.handleGetConversations();
           }
           break;
-          
-        case '/preferences':
-          if (request.method === 'GET') {
+
+        case "/preferences":
+          if (request.method === "GET") {
             return this.handleGetPreferences();
-          } else if (request.method === 'PUT') {
+          } else if (request.method === "PUT") {
             return await this.handleUpdatePreferences(request);
           }
           break;
-          
-        case '/usage':
+
+        case "/usage":
           return this.handleGetUsage();
-          
+
         default:
-          return new Response(JSON.stringify({
-            error: 'Not found',
-            availableEndpoints: ['/status', '/chat', '/conversations', '/preferences', '/usage']
-          }), {
-            status: 404,
-            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-          });
+          return new Response(
+            JSON.stringify({
+              error: "Not found",
+              availableEndpoints: [
+                "/status",
+                "/chat",
+                "/conversations",
+                "/preferences",
+                "/usage",
+              ],
+            }),
+            {
+              status: 404,
+              headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+              },
+            }
+          );
       }
     } catch (error) {
-      console.error('Request handling error:', error);
-      return new Response(JSON.stringify({
-        error: 'Internal server error',
-        message: error instanceof Error ? error.message : 'Unknown error'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      });
+      console.error("Request handling error:", error);
+      return new Response(
+        JSON.stringify({
+          error: "Internal server error",
+          message: error instanceof Error ? error.message : "Unknown error",
+        }),
+        {
+          status: 500,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
     }
 
-    return new Response('Method not allowed', { status: 405 });
+    return new Response("Method not allowed", { status: 405 });
   }
 
   private async loadState() {
-    const stored = await this.state.storage.get<AgentState>('agentState');
+    const stored = await this.state.storage.get<AgentState>("agentState");
     if (stored) {
       this.agentState = stored;
     }
   }
 
   private async saveState() {
-    await this.state.storage.put('agentState', this.agentState);
+    await this.state.storage.put("agentState", this.agentState);
   }
 
   // HTTP Handlers
   private handleStatus(): Response {
-    return new Response(JSON.stringify({
-      status: 'active',
-      conversations: this.agentState.conversations.length,
-      totalRequests: this.agentState.usage.totalRequests,
-      preferences: this.agentState.preferences,
-      timestamp: Date.now(),
-    }), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+    return new Response(
+      JSON.stringify({
+        status: "active",
+        conversations: this.agentState.conversations.length,
+        totalRequests: this.agentState.usage.totalRequests,
+        preferences: this.agentState.preferences,
+        timestamp: Date.now(),
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   }
 
   private async handleChat(request: Request): Promise<Response> {
-    const { message, provider, model, conversationId } = await request.json();
-    
+    const requestBody = (await request.json()) as {
+      message?: string;
+      provider?: string;
+      model?: string;
+      conversationId?: string;
+    };
+    const { message, provider, model, conversationId } = requestBody;
+
     if (!message) {
-      return new Response(JSON.stringify({ error: 'Message is required' }), {
+      return new Response(JSON.stringify({ error: "Message is required" }), {
         status: 400,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     }
 
@@ -201,28 +234,40 @@ export class MultiAIAgent {
     await this.saveState();
 
     return new Response(JSON.stringify(response), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
   private handleGetConversations(): Response {
-    return new Response(JSON.stringify({
-      conversations: this.agentState.conversations,
-      total: this.agentState.conversations.length,
-    }), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    });
+    return new Response(
+      JSON.stringify({
+        conversations: this.agentState.conversations,
+        total: this.agentState.conversations.length,
+      }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
   }
 
   private handleGetPreferences(): Response {
     return new Response(JSON.stringify(this.agentState.preferences), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
   private async handleUpdatePreferences(request: Request): Promise<Response> {
-    const updates = await request.json();
-    
+    const updates = (await request.json()) as Record<string, any>;
+
     this.agentState.preferences = {
       ...this.agentState.preferences,
       ...updates,
@@ -231,13 +276,19 @@ export class MultiAIAgent {
     await this.saveState();
 
     return new Response(JSON.stringify(this.agentState.preferences), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
   private handleGetUsage(): Response {
     return new Response(JSON.stringify(this.agentState.usage), {
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -250,8 +301,8 @@ export class MultiAIAgent {
   ) {
     try {
       // Find or create conversation
-      let conversation = conversationId 
-        ? this.agentState.conversations.find(c => c.id === conversationId)
+      let conversation = conversationId
+        ? this.agentState.conversations.find((c) => c.id === conversationId)
         : undefined;
 
       if (!conversation) {
@@ -268,17 +319,21 @@ export class MultiAIAgent {
 
       // Add user message
       conversation.messages.push({
-        role: 'user',
+        role: "user",
         content: message,
         timestamp: Date.now(),
       });
 
       // Call AI provider
-      const aiResponse = await this.callAIProvider(provider, model, conversation.messages);
+      const aiResponse = await this.callAIProvider(
+        provider,
+        model,
+        conversation.messages
+      );
 
       // Add AI response
       conversation.messages.push({
-        role: 'assistant',
+        role: "assistant",
         content: aiResponse.content,
         timestamp: Date.now(),
         provider,
@@ -294,7 +349,9 @@ export class MultiAIAgent {
           ...this.agentState.usage.providerUsage,
           [provider]: (this.agentState.usage.providerUsage[provider] || 0) + 1,
         },
-        tokensUsed: this.agentState.usage.tokensUsed + (aiResponse.usage?.total_tokens || 0),
+        tokensUsed:
+          this.agentState.usage.tokensUsed +
+          (aiResponse.usage?.total_tokens || 0),
       };
 
       return {
@@ -305,12 +362,11 @@ export class MultiAIAgent {
         usage: aiResponse.usage,
         timestamp: Date.now(),
       };
-
     } catch (error) {
-      console.error('AI processing error:', error);
+      console.error("AI processing error:", error);
       return {
-        error: 'AI processing failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
+        error: "AI processing failed",
+        message: error instanceof Error ? error.message : "Unknown error",
         provider,
         model,
         timestamp: Date.now(),
@@ -318,13 +374,17 @@ export class MultiAIAgent {
     }
   }
 
-  private async callAIProvider(provider: string, model: string, messages: any[]) {
+  private async callAIProvider(
+    provider: string,
+    model: string,
+    messages: any[]
+  ) {
     // Use multi-AI worker endpoint
     const workerUrl = `https://multi-ai-worker-production.yourname.workers.dev`;
-    
+
     const response = await fetch(workerUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         provider,
         model,
@@ -338,14 +398,18 @@ export class MultiAIAgent {
       throw new Error(`AI provider error: ${response.status}`);
     }
 
-    const data = await response.json();
-    
+    const data = (await response.json()) as {
+      error?: string;
+      response?: string;
+      usage?: any;
+    };
+
     if (data.error) {
       throw new Error(data.error);
     }
 
     return {
-      content: data.response,
+      content: data.response || "",
       usage: data.usage,
     };
   }
@@ -360,12 +424,12 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // Extract agent ID from URL
     const url = new URL(request.url);
-    const agentId = url.searchParams.get('agentId') || 'default';
-    
+    const agentId = url.searchParams.get("agentId") || "default";
+
     // Get Durable Object instance
     const id = env.MULTI_AI_AGENT.idFromName(agentId);
     const agent = env.MULTI_AI_AGENT.get(id);
-    
+
     // Forward request to Durable Object
     return agent.fetch(request);
   },

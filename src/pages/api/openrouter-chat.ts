@@ -2,7 +2,11 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      message?: string;
+      model?: string;
+      systemPrompt?: string;
+    };
     const {
       message,
       model,
@@ -96,11 +100,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as {
+      choices?: { message?: { content?: string } }[];
+      usage?: any;
+    };
 
     return new Response(
       JSON.stringify({
-        response: data.choices[0]?.message?.content || "Brak odpowiedzi",
+        response: data.choices?.[0]?.message?.content || "Brak odpowiedzi",
         model: model,
         usage: data.usage,
       }),
@@ -114,7 +121,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(
       JSON.stringify({
         error: "Błąd serwera podczas komunikacji z OpenRouter",
-        details: error.message,
+        details: (error as Error).message,
       }),
       {
         status: 500,

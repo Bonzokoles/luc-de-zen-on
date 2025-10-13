@@ -256,7 +256,17 @@ export const OPTIONS = createOPTIONSHandler(["GET", "POST", "OPTIONS"]);
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      prompt?: string;
+      model?: string;
+      role?: string;
+      temperature?: number;
+      system?: string;
+      language?: string;
+      orchestration?: string;
+      function_call?: string;
+      context?: any[];
+    };
     const {
       prompt,
       model = "llama-3-1-8b",
@@ -282,17 +292,33 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Get role profile
-    const roleProfile = ROLE_PROFILES[role] || ROLE_PROFILES.assistant;
+    const roleProfile =
+      ROLE_PROFILES[role as keyof typeof ROLE_PROFILES] ||
+      ROLE_PROFILES.assistant;
 
     // Determine model and provider
     let selectedModel;
     let useOpenRouter = false;
 
-    if (ENHANCED_AI_MODELS.openrouter[model]) {
-      selectedModel = ENHANCED_AI_MODELS.openrouter[model];
+    if (
+      ENHANCED_AI_MODELS.openrouter[
+        model as keyof typeof ENHANCED_AI_MODELS.openrouter
+      ]
+    ) {
+      selectedModel =
+        ENHANCED_AI_MODELS.openrouter[
+          model as keyof typeof ENHANCED_AI_MODELS.openrouter
+        ];
       useOpenRouter = true;
-    } else if (ENHANCED_AI_MODELS.cloudflare[model]) {
-      selectedModel = ENHANCED_AI_MODELS.cloudflare[model];
+    } else if (
+      ENHANCED_AI_MODELS.cloudflare[
+        model as keyof typeof ENHANCED_AI_MODELS.cloudflare
+      ]
+    ) {
+      selectedModel =
+        ENHANCED_AI_MODELS.cloudflare[
+          model as keyof typeof ENHANCED_AI_MODELS.cloudflare
+        ];
     } else {
       // Default to Cloudflare Llama
       selectedModel = ENHANCED_AI_MODELS.cloudflare["llama-3-1-8b"];
@@ -302,12 +328,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const systemPrompt = system || roleProfile.systemPrompt;
 
     // Handle orchestration
-    if (orchestration && ORCHESTRATION_TEMPLATES[orchestration]) {
+    if (
+      orchestration &&
+      ORCHESTRATION_TEMPLATES[
+        orchestration as keyof typeof ORCHESTRATION_TEMPLATES
+      ]
+    ) {
       return await handleOrchestration(
         orchestration,
         prompt,
         env,
-        ORCHESTRATION_TEMPLATES[orchestration]
+        ORCHESTRATION_TEMPLATES[
+          orchestration as keyof typeof ORCHESTRATION_TEMPLATES
+        ]
       );
     }
 
@@ -348,14 +381,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
 
       if (openRouterResponse.ok) {
-        const data = await openRouterResponse.json();
+        const data = (await openRouterResponse.json()) as {
+          choices: { message: { content: string } }[];
+        };
         response = data.choices[0].message.content;
       } else {
         throw new Error("OpenRouter API error");
       }
     } else if (env.AI) {
       // Use Cloudflare Workers AI
-      const aiResponse = await env.AI.run(selectedModel.model, {
+      const aiResponse = await (env.AI as any).run(selectedModel.model, {
         messages,
         temperature: temperature || roleProfile.temperature,
         max_tokens: roleProfile.maxTokens,
@@ -376,7 +411,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   } catch (error) {
     console.error("Enhanced Chat API Error:", error);
     return createErrorResponse("Błąd podczas generowania odpowiedzi", 500, {
-      error: error.message,
+      error: (error as Error).message,
     });
   }
 };
@@ -391,7 +426,7 @@ async function handleOrchestration(
   const results = [];
 
   for (const step of template.steps) {
-    const roleProfile = ROLE_PROFILES[step.agent];
+    const roleProfile = ROLE_PROFILES[step.agent as keyof typeof ROLE_PROFILES];
     const prompt = step.prompt
       .replace("{topic}", topic)
       .replace("{problem}", topic);
@@ -452,8 +487,8 @@ async function handleFunctionCall(
     },
   };
 
-  if (functions[functionName]) {
-    const result = await functions[functionName]();
+  if (functions[functionName as keyof typeof functions]) {
+    const result = await functions[functionName as keyof typeof functions]();
     return createSuccessResponse(result);
   } else {
     return createErrorResponse(`Unknown function: ${functionName}`, 400);

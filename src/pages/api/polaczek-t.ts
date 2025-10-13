@@ -3,7 +3,11 @@ import type { APIRoute } from "astro";
 // POLACZEK_T - Enhanced Translation Agent
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const body = await request.json();
+    const body = (await request.json()) as {
+      text?: string;
+      source?: string;
+      target?: string;
+    };
     const { text = "", source = "auto", target = "pl" } = body;
 
     if (!text.trim()) {
@@ -158,7 +162,7 @@ Podaj tylko przetłumaczony tekst bez dodatkowych komentarzy.`;
     return new Response(
       JSON.stringify({
         success: false,
-        error: "Błąd agenta tłumaczącego: " + error.message,
+        error: "Błąd agenta tłumaczącego: " + (error as Error).message,
         agent: "POLACZEK_T",
         timestamp: new Date().toISOString(),
       }),

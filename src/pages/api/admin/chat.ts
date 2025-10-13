@@ -130,6 +130,13 @@ BEST PRACTICES:
 Fokusuj się na niezawodności, skalowalności i minimal downtime.`
 };
 
+interface PolaczekResponse {
+    data?: {
+        answer?: string;
+    };
+    answer?: string;
+}
+
 // CORS handler
 export const OPTIONS = createOPTIONSHandler(['POST']);
 
@@ -160,7 +167,7 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
                 });
 
                 if (polaczekResponse.ok) {
-                    const polaczekData = await polaczekResponse.json();
+                    const polaczekData = await polaczekResponse.json() as PolaczekResponse;
                     return createSuccessResponse({
                         response: polaczekData.data?.answer || polaczekData.answer,
                         model: 'polaczek-assistant',
