@@ -41,6 +41,11 @@ const PUBLIC_PATHS = [
   "/api/admin/get-token",
   "/api/admin/debug",
   "/api/admin/setup-database",
+  "/api/auth/status",
+  "/api/workers/status",
+  "/api/polaczek-agents",
+  "/api/recommendations",
+  "/api/activity-stream",
 ];
 
 // Middleware do weryfikacji tokenów i ustawiania kontekstu klienta

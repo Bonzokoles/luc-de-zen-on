@@ -196,8 +196,8 @@ export class PolishWorkersAPI {
   
   static getPracownik(imie: string) {
     for (const kategoria of Object.values(POLISH_WORKERS_TEAM)) {
-      if (kategoria[imie]) {
-        return kategoria[imie];
+      if ((kategoria as any)[imie]) {
+        return (kategoria as any)[imie];
       }
     }
     return null;
@@ -249,15 +249,15 @@ export class PolishWorkersAPI {
   }
   
   static getMostUsedTechnologies(workers: any[]) {
-    const tech_count = {};
+    const tech_count: any = {};
     workers.forEach(worker => {
-      worker.jezyki.forEach(tech => {
+      worker.jezyki.forEach((tech: any) => {
         tech_count[tech] = (tech_count[tech] || 0) + 1;
       });
     });
     
     return Object.entries(tech_count)
-      .sort(([,a], [,b]) => b - a)
+      .sort(([,a], [,b]) => (b as any) - (a as any))
       .slice(0, 10)
       .map(([tech, count]) => ({ technologia: tech, liczba_pracownikow: count }));
   }

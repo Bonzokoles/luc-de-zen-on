@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const body = await request.json();
+    const body = (await request.json()) as any;
     const { prompt, style = "default" } = body ?? {};
 
     if (!prompt || typeof prompt !== "string" || prompt.trim().length === 0) {
@@ -64,7 +64,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw new Error(`HuggingFace API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
     let enhancedPrompt = data[0]?.generated_text || prompt;
 
     // Clean up the generated text
@@ -99,8 +99,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   } catch (error) {
     console.error("Magic Prompt API error:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Prompt enhancement failed";
+    const errorMessage = (error as any).message || "Prompt enhancement failed";
     return createErrorResponse(errorMessage, 500);
   }
 };

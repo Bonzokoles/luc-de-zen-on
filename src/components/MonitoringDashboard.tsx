@@ -3,379 +3,400 @@
  * React component for displaying system health and error logs
  */
 
-import React, { useState, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import React, { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 
 interface ErrorReport {
-    name: string;
-    message: string;
-    type: string;
-    severity: string;
-    timestamp: string;
-    userAgent?: string;
-    url?: string;
-    userId?: string;
-    context?: Record<string, any>;
-    stackTrace: string;
-    serverTimestamp?: string;
-    ip?: string;
+  name: string;
+  message: string;
+  type: string;
+  severity: string;
+  timestamp: string;
+  userAgent?: string;
+  url?: string;
+  userId?: string;
+  context?: Record<string, any>;
+  stackTrace: string;
+  serverTimestamp?: string;
+  ip?: string;
 }
 
 interface HealthCheck {
-    name: string;
-    status: 'healthy' | 'warning' | 'critical';
-    lastCheck: string;
-    responseTime: number;
-    details?: Record<string, any>;
-    error?: string;
+  name: string;
+  status: "healthy" | "warning" | "critical";
+  lastCheck: string;
+  responseTime: number;
+  details?: Record<string, any>;
+  error?: string;
 }
 
 interface HealthData {
-    status: 'healthy' | 'warning' | 'critical';
-    timestamp: string;
-    uptime: number;
-    version: string;
-    services: HealthCheck[];
-    performance?: {
-        averageResponseTime: number;
-        requestCount: number;
-        errorRate: number;
-    };
-    memoryUsage?: {
-        used: number;
-        total: number;
-        percentage: number;
-    };
+  status: "healthy" | "warning" | "critical";
+  timestamp: string;
+  uptime: number;
+  version: string;
+  services: HealthCheck[];
+  performance?: {
+    averageResponseTime: number;
+    requestCount: number;
+    errorRate: number;
+  };
+  memoryUsage?: {
+    used: number;
+    total: number;
+    percentage: number;
+  };
 }
 
 interface ErrorData {
-    errors: ErrorReport[];
-    summary: {
-        total: number;
-        filtered: number;
-        byType: Record<string, number>;
-        bySeverity: Record<string, number>;
-        last24Hours: number;
-    };
+  errors: ErrorReport[];
+  summary: {
+    total: number;
+    filtered: number;
+    byType: Record<string, number>;
+    bySeverity: Record<string, number>;
+    last24Hours: number;
+  };
 }
 
 const MonitoringDashboard: React.FC = () => {
-    const [healthData, setHealthData] = useState<HealthData | null>(null);
-    const [errorData, setErrorData] = useState<ErrorData | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [autoRefresh, setAutoRefresh] = useState(true);
-    const [selectedTab, setSelectedTab] = useState<'health' | 'errors'>('health');
+  const [healthData, setHealthData] = useState<HealthData | null>(null);
+  const [errorData, setErrorData] = useState<ErrorData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  const [selectedTab, setSelectedTab] = useState<"health" | "errors">("health");
 
-    // Fetch health data
-    const fetchHealthData = async () => {
-        try {
-            const response = await fetch('/api/health?detailed=true');
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const data = await response.json();
-            setHealthData(data);
-        } catch (err) {
-            console.error('Failed to fetch health data:', err);
-            setError('Failed to load health data');
-        }
-    };
-
-    // Fetch error data
-    const fetchErrorData = async () => {
-        try {
-            const response = await fetch('/api/errors?limit=50');
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const data = await response.json();
-            setErrorData(data);
-        } catch (err) {
-            console.error('Failed to fetch error data:', err);
-            setError('Failed to load error data');
-        }
-    };
-
-    // Load data
-    const loadData = async () => {
-        setLoading(true);
-        setError(null);
-
-        try {
-            await Promise.all([fetchHealthData(), fetchErrorData()]);
-        } catch (err) {
-            console.error('Failed to load dashboard data:', err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    // Clear all errors
-    const clearErrors = async () => {
-        try {
-            const response = await fetch('/api/errors?action=clear', {
-                method: 'DELETE'
-            });
-            if (response.ok) {
-                await fetchErrorData(); // Refresh data
-            }
-        } catch (err) {
-            console.error('Failed to clear errors:', err);
-        }
-    };
-
-    // Auto-refresh effect
-    useEffect(() => {
-        loadData();
-
-        if (autoRefresh) {
-            const interval = setInterval(loadData, 30000); // 30 seconds
-            return () => clearInterval(interval);
-        }
-    }, [autoRefresh]);
-
-    // Status badge component
-    const StatusBadge: React.FC<{ status: string; children: ReactNode }> = ({ status, children }) => (
-        <span className={`status-badge status-${status}`}>
-            {children}
-        </span>
-    );
-
-    // Format uptime
-    const formatUptime = (ms: number) => {
-        const seconds = Math.floor(ms / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-
-        if (days > 0) return `${days}d ${hours % 24}h`;
-        if (hours > 0) return `${hours}h ${minutes % 60}m`;
-        if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
-        return `${seconds}s`;
-    };
-
-    // Format timestamp
-    const formatTimestamp = (timestamp: string) => {
-        return new Date(timestamp).toLocaleString();
-    };
-
-    if (loading) {
-        return (
-            <div className="dashboard-loading">
-                <div className="loading-spinner"></div>
-                <p>Loading monitoring data...</p>
-            </div>
-        );
+  // Fetch health data
+  const fetchHealthData = async () => {
+    try {
+      const response = await fetch("/api/health?detailed=true");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = (await response.json()) as any;
+      setHealthData(data);
+    } catch (err) {
+      console.error("Failed to fetch health data:", err);
+      setError("Failed to load health data");
     }
+  };
 
+  // Fetch error data
+  const fetchErrorData = async () => {
+    try {
+      const response = await fetch("/api/errors?limit=50");
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = (await response.json()) as any;
+      setErrorData(data);
+    } catch (err) {
+      console.error("Failed to fetch error data:", err);
+      setError("Failed to load error data");
+    }
+  };
+
+  // Load data
+  const loadData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await Promise.all([fetchHealthData(), fetchErrorData()]);
+    } catch (err) {
+      console.error("Failed to load dashboard data:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Clear all errors
+  const clearErrors = async () => {
+    try {
+      const response = await fetch("/api/errors?action=clear", {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        await fetchErrorData(); // Refresh data
+      }
+    } catch (err) {
+      console.error("Failed to clear errors:", err);
+    }
+  };
+
+  // Auto-refresh effect
+  useEffect(() => {
+    loadData();
+
+    if (autoRefresh) {
+      const interval = setInterval(loadData, 30000); // 30 seconds
+      return () => clearInterval(interval);
+    }
+  }, [autoRefresh]);
+
+  // Status badge component
+  const StatusBadge: React.FC<{ status: string; children: ReactNode }> = ({
+    status,
+    children,
+  }) => <span className={`status-badge status-${status}`}>{children}</span>;
+
+  // Format uptime
+  const formatUptime = (ms: number) => {
+    const seconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) return `${days}d ${hours % 24}h`;
+    if (hours > 0) return `${hours}h ${minutes % 60}m`;
+    if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
+    return `${seconds}s`;
+  };
+
+  // Format timestamp
+  const formatTimestamp = (timestamp: string) => {
+    return new Date(timestamp).toLocaleString();
+  };
+
+  if (loading) {
     return (
-        <div className="monitoring-dashboard">
-            <div className="dashboard-header">
-                <h1>System Monitoring Dashboard</h1>
-                <div className="dashboard-controls">
-                    <label className="auto-refresh-toggle">
-                        <input
-                            type="checkbox"
-                            checked={autoRefresh}
-                            onChange={(e) => setAutoRefresh(e.target.checked)}
-                        />
-                        Auto-refresh (30s)
-                    </label>
-                    <button onClick={loadData} className="refresh-btn">
-                        🔄 Refresh
-                    </button>
-                </div>
+      <div className="dashboard-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading monitoring data...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="monitoring-dashboard">
+      <div className="dashboard-header">
+        <h1>System Monitoring Dashboard</h1>
+        <div className="dashboard-controls">
+          <label className="auto-refresh-toggle">
+            <input
+              type="checkbox"
+              checked={autoRefresh}
+              onChange={(e) => setAutoRefresh(e.target.checked)}
+            />
+            Auto-refresh (30s)
+          </label>
+          <button onClick={loadData} className="refresh-btn">
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+
+      {error && <div className="dashboard-error">⚠️ {error}</div>}
+
+      <div className="dashboard-tabs">
+        <button
+          className={`tab-btn ${selectedTab === "health" ? "active" : ""}`}
+          onClick={() => setSelectedTab("health")}
+        >
+          System Health
+        </button>
+        <button
+          className={`tab-btn ${selectedTab === "errors" ? "active" : ""}`}
+          onClick={() => setSelectedTab("errors")}
+        >
+          Error Logs
+          {(errorData?.summary.last24Hours || 0) > 0 && (
+            <span className="error-count">
+              {errorData?.summary.last24Hours}
+            </span>
+          )}
+        </button>
+      </div>
+
+      {selectedTab === "health" && healthData && (
+        <div className="health-panel">
+          <div className="health-overview">
+            <div className="health-card">
+              <h3>Overall Status</h3>
+              <StatusBadge status={healthData.status}>
+                {healthData.status.toUpperCase()}
+              </StatusBadge>
             </div>
 
-            {error && (
-                <div className="dashboard-error">
-                    ⚠️ {error}
-                </div>
-            )}
-
-            <div className="dashboard-tabs">
-                <button
-                    className={`tab-btn ${selectedTab === 'health' ? 'active' : ''}`}
-                    onClick={() => setSelectedTab('health')}
-                >
-                    System Health
-                </button>
-                <button
-                    className={`tab-btn ${selectedTab === 'errors' ? 'active' : ''}`}
-                    onClick={() => setSelectedTab('errors')}
-                >
-                    Error Logs
-                    {(errorData?.summary.last24Hours || 0) > 0 && (
-                        <span className="error-count">{errorData?.summary.last24Hours}</span>
-                    )}
-                </button>
+            <div className="health-card">
+              <h3>Uptime</h3>
+              <div className="metric-value">
+                {formatUptime(healthData.uptime)}
+              </div>
             </div>
 
-            {selectedTab === 'health' && healthData && (
-                <div className="health-panel">
-                    <div className="health-overview">
-                        <div className="health-card">
-                            <h3>Overall Status</h3>
-                            <StatusBadge status={healthData.status}>
-                                {healthData.status.toUpperCase()}
-                            </StatusBadge>
-                        </div>
+            <div className="health-card">
+              <h3>Version</h3>
+              <div className="metric-value">{healthData.version}</div>
+            </div>
 
-                        <div className="health-card">
-                            <h3>Uptime</h3>
-                            <div className="metric-value">{formatUptime(healthData.uptime)}</div>
-                        </div>
-
-                        <div className="health-card">
-                            <h3>Version</h3>
-                            <div className="metric-value">{healthData.version}</div>
-                        </div>
-
-                        {healthData.performance && (
-                            <div className="health-card">
-                                <h3>Performance</h3>
-                                <div className="metric-value">
-                                    {healthData.performance.averageResponseTime.toFixed(1)}ms avg
-                                </div>
-                                <div className="metric-detail">
-                                    {healthData.performance.requestCount} requests
-                                    {healthData.performance.errorRate > 0 && (
-                                        <span className="error-rate">
-                                            • {healthData.performance.errorRate.toFixed(1)}% errors
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {healthData.memoryUsage && (
-                            <div className="health-card">
-                                <h3>Memory</h3>
-                                <div className="metric-value">
-                                    {healthData.memoryUsage.percentage.toFixed(1)}%
-                                </div>
-                                <div className="metric-detail">
-                                    {healthData.memoryUsage.used.toFixed(1)}MB / {healthData.memoryUsage.total.toFixed(1)}MB
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="services-grid">
-                        {healthData.services.map((service) => (
-                            <div key={service.name} className="service-card">
-                                <div className="service-header">
-                                    <h4>{service.name}</h4>
-                                    <StatusBadge status={service.status}>
-                                        {service.status}
-                                    </StatusBadge>
-                                </div>
-                                <div className="service-metrics">
-                                    <div className="metric">
-                                        <span className="metric-label">Response Time:</span>
-                                        <span className="metric-value">{service.responseTime.toFixed(1)}ms</span>
-                                    </div>
-                                    <div className="metric">
-                                        <span className="metric-label">Last Check:</span>
-                                        <span className="metric-value">{formatTimestamp(service.lastCheck)}</span>
-                                    </div>
-                                </div>
-                                {service.error && (
-                                    <div className="service-error">
-                                        ❌ {service.error}
-                                    </div>
-                                )}
-                                {service.details && (
-                                    <details className="service-details">
-                                        <summary>Details</summary>
-                                        <pre>{JSON.stringify(service.details, null, 2)}</pre>
-                                    </details>
-                                )}
-                            </div>
-                        ))}
-                    </div>
+            {healthData.performance && (
+              <div className="health-card">
+                <h3>Performance</h3>
+                <div className="metric-value">
+                  {healthData.performance.averageResponseTime.toFixed(1)}ms avg
                 </div>
+                <div className="metric-detail">
+                  {healthData.performance.requestCount} requests
+                  {healthData.performance.errorRate > 0 && (
+                    <span className="error-rate">
+                      • {healthData.performance.errorRate.toFixed(1)}% errors
+                    </span>
+                  )}
+                </div>
+              </div>
             )}
 
-            {selectedTab === 'errors' && errorData && (
-                <div className="errors-panel">
-                    <div className="errors-header">
-                        <div className="errors-summary">
-                            <h3>Error Summary</h3>
-                            <div className="summary-stats">
-                                <div className="stat">
-                                    <span className="stat-label">Total:</span>
-                                    <span className="stat-value">{errorData.summary.total}</span>
-                                </div>
-                                <div className="stat">
-                                    <span className="stat-label">Last 24h:</span>
-                                    <span className="stat-value">{errorData.summary.last24Hours}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button onClick={clearErrors} className="clear-errors-btn">
-                            🗑️ Clear All
-                        </button>
-                    </div>
-
-                    <div className="error-type-summary">
-                        <div className="type-breakdown">
-                            <h4>By Type</h4>
-                            {Object.entries(errorData.summary.byType).map(([type, count]) => (
-                                <div key={type} className="type-count">
-                                    <span className="type-name">{type}:</span>
-                                    <span className="type-value">{count}</span>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="severity-breakdown">
-                            <h4>By Severity</h4>
-                            {Object.entries(errorData.summary.bySeverity).map(([severity, count]) => (
-                                <div key={severity} className="severity-count">
-                                    <StatusBadge status={severity === 'critical' || severity === 'high' ? 'critical' :
-                                        severity === 'medium' ? 'warning' : 'healthy'}>
-                                        {severity}: {count}
-                                    </StatusBadge>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="errors-list">
-                        {errorData.errors.map((error, index) => (
-                            <div key={index} className="error-item">
-                                <div className="error-header">
-                                    <div className="error-title">
-                                        <StatusBadge status={
-                                            error.severity === 'critical' || error.severity === 'high' ? 'critical' :
-                                                error.severity === 'medium' ? 'warning' : 'healthy'
-                                        }>
-                                            {error.severity}
-                                        </StatusBadge>
-                                        <span className="error-type">{error.type}</span>
-                                        <span className="error-timestamp">{formatTimestamp(error.timestamp)}</span>
-                                    </div>
-                                </div>
-                                <div className="error-message">{error.message}</div>
-                                {error.url && (
-                                    <div className="error-url">
-                                        <span className="error-label">URL:</span> {error.url}
-                                    </div>
-                                )}
-                                {error.context && (
-                                    <details className="error-context">
-                                        <summary>Context</summary>
-                                        <pre>{JSON.stringify(error.context, null, 2)}</pre>
-                                    </details>
-                                )}
-                                <details className="error-stack">
-                                    <summary>Stack Trace</summary>
-                                    <pre>{error.stackTrace}</pre>
-                                </details>
-                            </div>
-                        ))}
-                    </div>
+            {healthData.memoryUsage && (
+              <div className="health-card">
+                <h3>Memory</h3>
+                <div className="metric-value">
+                  {healthData.memoryUsage.percentage.toFixed(1)}%
                 </div>
+                <div className="metric-detail">
+                  {healthData.memoryUsage.used.toFixed(1)}MB /{" "}
+                  {healthData.memoryUsage.total.toFixed(1)}MB
+                </div>
+              </div>
             )}
+          </div>
 
-            <style>{`
+          <div className="services-grid">
+            {healthData.services.map((service) => (
+              <div key={service.name} className="service-card">
+                <div className="service-header">
+                  <h4>{service.name}</h4>
+                  <StatusBadge status={service.status}>
+                    {service.status}
+                  </StatusBadge>
+                </div>
+                <div className="service-metrics">
+                  <div className="metric">
+                    <span className="metric-label">Response Time:</span>
+                    <span className="metric-value">
+                      {service.responseTime.toFixed(1)}ms
+                    </span>
+                  </div>
+                  <div className="metric">
+                    <span className="metric-label">Last Check:</span>
+                    <span className="metric-value">
+                      {formatTimestamp(service.lastCheck)}
+                    </span>
+                  </div>
+                </div>
+                {service.error && (
+                  <div className="service-error">❌ {service.error}</div>
+                )}
+                {service.details && (
+                  <details className="service-details">
+                    <summary>Details</summary>
+                    <pre>{JSON.stringify(service.details, null, 2)}</pre>
+                  </details>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {selectedTab === "errors" && errorData && (
+        <div className="errors-panel">
+          <div className="errors-header">
+            <div className="errors-summary">
+              <h3>Error Summary</h3>
+              <div className="summary-stats">
+                <div className="stat">
+                  <span className="stat-label">Total:</span>
+                  <span className="stat-value">{errorData.summary.total}</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Last 24h:</span>
+                  <span className="stat-value">
+                    {errorData.summary.last24Hours}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button onClick={clearErrors} className="clear-errors-btn">
+              🗑️ Clear All
+            </button>
+          </div>
+
+          <div className="error-type-summary">
+            <div className="type-breakdown">
+              <h4>By Type</h4>
+              {Object.entries(errorData.summary.byType).map(([type, count]) => (
+                <div key={type} className="type-count">
+                  <span className="type-name">{type}:</span>
+                  <span className="type-value">{count}</span>
+                </div>
+              ))}
+            </div>
+            <div className="severity-breakdown">
+              <h4>By Severity</h4>
+              {Object.entries(errorData.summary.bySeverity).map(
+                ([severity, count]) => (
+                  <div key={severity} className="severity-count">
+                    <StatusBadge
+                      status={
+                        severity === "critical" || severity === "high"
+                          ? "critical"
+                          : severity === "medium"
+                          ? "warning"
+                          : "healthy"
+                      }
+                    >
+                      {severity}: {count}
+                    </StatusBadge>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="errors-list">
+            {errorData.errors.map((error, index) => (
+              <div key={index} className="error-item">
+                <div className="error-header">
+                  <div className="error-title">
+                    <StatusBadge
+                      status={
+                        error.severity === "critical" ||
+                        error.severity === "high"
+                          ? "critical"
+                          : error.severity === "medium"
+                          ? "warning"
+                          : "healthy"
+                      }
+                    >
+                      {error.severity}
+                    </StatusBadge>
+                    <span className="error-type">{error.type}</span>
+                    <span className="error-timestamp">
+                      {formatTimestamp(error.timestamp)}
+                    </span>
+                  </div>
+                </div>
+                <div className="error-message">{error.message}</div>
+                {error.url && (
+                  <div className="error-url">
+                    <span className="error-label">URL:</span> {error.url}
+                  </div>
+                )}
+                {error.context && (
+                  <details className="error-context">
+                    <summary>Context</summary>
+                    <pre>{JSON.stringify(error.context, null, 2)}</pre>
+                  </details>
+                )}
+                <details className="error-stack">
+                  <summary>Stack Trace</summary>
+                  <pre>{error.stackTrace}</pre>
+                </details>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <style>{`
         .monitoring-dashboard {
           max-width: 1200px;
           margin: 0 auto;
@@ -737,8 +758,8 @@ const MonitoringDashboard: React.FC = () => {
           word-break: break-word;
         }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default MonitoringDashboard;

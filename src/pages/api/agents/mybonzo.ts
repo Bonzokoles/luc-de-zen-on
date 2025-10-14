@@ -7,7 +7,7 @@ export const POST = async ({ request, locals, url }: { request: Request; locals:
     try {
         // Check environment and available bindings
         const env = locals.runtime?.env;
-        const body = await request.json();
+        const body = await request.json() as any;
 
         // For now, use mock responses since MYBONZO_AGENT binding is not configured
         // In production, this would connect to the actual MyBonzo agent

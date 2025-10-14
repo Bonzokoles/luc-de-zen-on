@@ -29,7 +29,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const body = await request.json();
+    const body = (await request.json()) as any;
     const { text, from = "pl", to = "en" } = body ?? {};
 
     if (!text || typeof text !== "string" || text.trim().length === 0) {
@@ -70,7 +70,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       throw new Error(`DeepSeek API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
     const translatedText = data.choices?.[0]?.message?.content?.trim();
 
     if (!translatedText) {
@@ -86,8 +86,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
   } catch (error) {
     console.error("Translation API error:", error);
-    const errorMessage =
-      error instanceof Error ? error.message : "Translation failed";
+    const errorMessage = (error as any).message || "Translation failed";
     return createErrorResponse(errorMessage, 500);
   }
 };

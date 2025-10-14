@@ -217,14 +217,14 @@ export async function POST({
               "Brak odpowiedzi z modelu CF";
 
             // DeepSeek API fallback
-          } else if (deepseekApiKey) {
+          } else if (apiKey) {
             const deepseekResponse = await fetch(
               "https://api.deepseek.com/v1/chat/completions",
               {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${deepseekApiKey}`,
+                  Authorization: `Bearer ${apiKey}`,
                 },
                 body: JSON.stringify({
                   model: "deepseek-chat",

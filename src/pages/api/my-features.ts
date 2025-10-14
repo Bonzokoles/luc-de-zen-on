@@ -1,4 +1,3 @@
-
 import type { APIRoute } from "astro";
 import {
   createSuccessResponse,
@@ -23,23 +22,27 @@ export const GET: APIRoute = async ({ locals }) => {
     // Pobierz wszystkie funkcje dostępne dla danego klienta
     const { results } = await env.DB.prepare(
       "SELECT feature_id FROM ClientFeatures WHERE client_id = ? AND is_enabled = 1"
-    ).bind(clientId).all();
+    )
+      .bind(clientId)
+      .all();
 
-    const enabledFeatures = results ? results.map((row) => row.feature_id) : [];
+    const enabledFeatures = results
+      ? results.map((row: any) => row.feature_id)
+      : [];
 
     // Pobierz informacje o kliencie
-    const client = await env.DB.prepare(
-        "SELECT name FROM Clients WHERE id = ?"
-    ).bind(clientId).first();
+    const client = await env.DB.prepare("SELECT name FROM Clients WHERE id = ?")
+      .bind(clientId)
+      .first();
 
     return createSuccessResponse({
-        clientName: client?.name || 'Nieznany Klient',
-        enabledFeatures: enabledFeatures,
+      clientName: client?.name || "Nieznany Klient",
+      enabledFeatures: enabledFeatures,
     });
-
   } catch (error) {
     console.error("Błąd w /api/my-features:", error);
-    const errorMessage = error instanceof Error ? error.message : "Nieznany błąd serwera.";
+    const errorMessage =
+      error instanceof Error ? error.message : "Nieznany błąd serwera.";
     return createErrorResponse(errorMessage, 500);
   }
 };

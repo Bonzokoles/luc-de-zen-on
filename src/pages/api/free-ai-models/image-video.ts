@@ -24,7 +24,7 @@ export async function POST({
       provider,
       type = "image",
       style = "realistic",
-    } = await request.json();
+    } = (await request.json()) as any;
 
     if (!prompt) {
       return new Response(JSON.stringify({ error: "Prompt jest wymagany" }), {
@@ -106,7 +106,7 @@ export async function POST({
     console.error("Free AI Models API Error:", error);
     return new Response(
       JSON.stringify({
-        error: error.message || "Błąd generowania AI",
+        error: (error as any).message || "Błąd generowania AI",
       }),
       {
         status: 500,
@@ -146,7 +146,7 @@ async function generateWithTogether(
     throw new Error(`Together AI error: ${error}`);
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as any;
   return {
     image_url: data.data[0].url,
     model: "FLUX.1-schnell-Free",
@@ -189,7 +189,7 @@ async function generateWithStability(
     throw new Error(`Stability AI error: ${error}`);
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as any;
   return {
     image_url: `data:image/png;base64,${data.artifacts[0].base64}`,
     model: "SDXL-1.0",
@@ -260,7 +260,7 @@ async function generateVideoWithSora(prompt: string, apiKey: string) {
     throw new Error(`OpenAI Sora error: ${error}`);
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as any;
   return {
     video_url: data.data[0].url,
     model: "sora-turbo",

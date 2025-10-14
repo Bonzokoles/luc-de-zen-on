@@ -9,7 +9,7 @@ export interface Env {
 
 interface CloudflareRequest {
   messages: Array<{
-    role: 'system' | 'user' | 'assistant';
+    role: "system" | "user" | "assistant";
     content: string;
   }>;
   max_tokens?: number;
@@ -39,59 +39,63 @@ interface DeepSeekResponse {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     // Handle CORS
-    if (request.method === 'OPTIONS') {
+    if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
         },
       });
     }
 
-    if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405 });
+    if (request.method !== "POST") {
+      return new Response("Method not allowed", { status: 405 });
     }
 
     try {
       const requestData: CloudflareRequest = await request.json();
-      
+
       // Use Cloudflare AI instead of external API
-      const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
-        messages: requestData.messages,
-        max_tokens: requestData.max_tokens || 512,
-        temperature: requestData.temperature || 0.7,
-      });
+      const response = await env.AI.run(
+        "@cf/meta/llama-3.1-8b-instruct" as any,
+        {
+          messages: requestData.messages,
+          max_tokens: requestData.max_tokens || 512,
+          temperature: requestData.temperature || 0.7,
+        }
+      );
 
       return new Response(
         JSON.stringify({
           success: true,
-          response: response.response || 'Nie udało się wygenerować odpowiedzi.',
-          model: 'llama-3.1-8b-instruct',
-          provider: 'cloudflare-ai'
+          response:
+            (response as any).response ||
+            "Nie udało się wygenerować odpowiedzi.",
+          model: "llama-3.1-8b-instruct",
+          provider: "cloudflare-ai",
         }),
         {
           status: 200,
           headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
-
     } catch (error) {
-      console.error('Cloudflare AI error:', error);
+      console.error("Cloudflare AI error:", error);
       return new Response(
-        JSON.stringify({ 
-          error: 'Cloudflare AI error',
-          details: error instanceof Error ? error.message : 'Unknown error'
+        JSON.stringify({
+          error: "Cloudflare AI error",
+          details: error instanceof Error ? error.message : "Unknown error",
         }),
         {
           status: 500,
           headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );

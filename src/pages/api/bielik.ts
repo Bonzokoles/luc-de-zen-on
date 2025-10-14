@@ -12,22 +12,27 @@ interface RequestBody {
   functions?: string[];
 }
 
-export async function POST({ request }: { request: Request }): Promise<Response> {
+export async function POST({
+  request,
+}: {
+  request: Request;
+}): Promise<Response> {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
   try {
-    const { prompt, sessionId, orchestrate, functions }: RequestBody = await request.json();
+    const { prompt, sessionId, orchestrate, functions }: RequestBody =
+      await request.json();
 
     if (!prompt && !orchestrate) {
       return new Response(
-        JSON.stringify({ error: 'Prompt or orchestrate command is required' }),
-        { 
-          status: 400, 
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        JSON.stringify({ error: "Prompt or orchestrate command is required" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
         }
       );
     }
@@ -44,32 +49,37 @@ export async function POST({ request }: { request: Request }): Promise<Response>
       JSON.stringify({
         success: true,
         answer: bielikResponse,
-        source: 'bielik-orchestrator',
+        source: "bielik-orchestrator",
         sessionId: sessionId,
         timestamp: new Date().toISOString(),
-        orchestrator: 'active',
+        orchestrator: "active",
         connectedModels: [
-          'OpenAI GPT', 'Anthropic Claude', 'DeepSeek', 'Perplexity', 
-          'Google AI Studio', 'HuggingFace', 'ElevenLabs', 'Voice AI'
-        ]
+          "OpenAI GPT",
+          "Anthropic Claude",
+          "DeepSeek",
+          "Perplexity",
+          "Google AI Studio",
+          "HuggingFace",
+          "ElevenLabs",
+          "Voice AI",
+        ],
       }),
-      { 
-        status: 200, 
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
-
   } catch (error: any) {
-    console.error('Bielik API Error:', error);
+    console.error("Bielik API Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: 'Bielik orchestrator error', 
-        details: error?.message || 'Unknown error',
-        fallback: true
+      JSON.stringify({
+        error: "Bielik orchestrator error",
+        details: error?.message || "Unknown error",
+        fallback: true,
       }),
-      { 
-        status: 500, 
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   }
@@ -77,39 +87,39 @@ export async function POST({ request }: { request: Request }): Promise<Response>
 
 export async function GET(): Promise<Response> {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
   return new Response(
     JSON.stringify({
-      status: 'online',
-      service: 'bielik-orchestrator',
-      version: '2.0.0',
+      status: "online",
+      service: "bielik-orchestrator",
+      version: "2.0.0",
       capabilities: [
-        'Polish Language AI',
-        'Multi-Model Orchestration', 
-        'Dashboard Integration',
-        'HuggingFace Connection',
-        'Real-time Chat',
-        'Function Coordination'
+        "Polish Language AI",
+        "Multi-Model Orchestration",
+        "Dashboard Integration",
+        "HuggingFace Connection",
+        "Real-time Chat",
+        "Function Coordination",
       ],
       connectedModels: {
-        'OpenAI': 'active',
-        'Anthropic': 'active', 
-        'DeepSeek': 'active',
-        'Perplexity': 'active',
-        'Google AI': 'active',
-        'HuggingFace': 'active',
-        'ElevenLabs': 'active',
-        'Voice AI': 'active'
+        OpenAI: "active",
+        Anthropic: "active",
+        DeepSeek: "active",
+        Perplexity: "active",
+        "Google AI": "active",
+        HuggingFace: "active",
+        ElevenLabs: "active",
+        "Voice AI": "active",
       },
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }),
-    { 
-      status: 200, 
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
     }
   );
 }
@@ -118,49 +128,52 @@ export async function OPTIONS(): Promise<Response> {
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 }
 
 // Handle AI orchestration requests
-async function handleOrchestration(functions: string[] | undefined, corsHeaders: Record<string, string>) {
+async function handleOrchestration(
+  functions: string[] | undefined,
+  corsHeaders: Record<string, string>
+) {
   const orchestrationResult = {
     orchestrated: true,
     activatedFunctions: functions || [
-      'personalized-recommendations',
-      'customer-automation', 
-      'activity-monitoring',
-      'reminders-calendar',
-      'dynamic-faq',
-      'education-recommendations',
-      'ai-tickets',
-      'interactive-quizzes',
-      'marketing-content'
+      "personalized-recommendations",
+      "customer-automation",
+      "activity-monitoring",
+      "reminders-calendar",
+      "dynamic-faq",
+      "education-recommendations",
+      "ai-tickets",
+      "interactive-quizzes",
+      "marketing-content",
     ],
-    status: 'All AI functions activated and coordinated',
-    bielikStatus: 'orchestrating',
+    status: "All AI functions activated and coordinated",
+    bielikStatus: "orchestrating",
     connectedSystems: {
-      'HuggingFace Hub': 'connected',
-      'Cloudflare Workers': 'active',
-      'Dashboard Elements': 'synchronized',
-      'Main Chatbox': 'integrated'
-    }
+      "HuggingFace Hub": "connected",
+      "Cloudflare Workers": "active",
+      "Dashboard Elements": "synchronized",
+      "Main Chatbox": "integrated",
+    },
   };
 
-  return new Response(
-    JSON.stringify(orchestrationResult),
-    { 
-      status: 200, 
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
-    }
-  );
+  return new Response(JSON.stringify(orchestrationResult), {
+    status: 200,
+    headers: { "Content-Type": "application/json", ...corsHeaders },
+  });
 }
 
 // Process Bielik AI request with orchestration
-async function processBielikRequest(prompt: string | undefined, sessionId: string | undefined): Promise<string> {
+async function processBielikRequest(
+  prompt: string | undefined,
+  sessionId: string | undefined
+): Promise<string> {
   // Enhanced Bielik prompt with orchestration capabilities
   const systemMessage = `Jesteś BIELIK - główny orkiestrator AI systemu MyBonzo. 
 
@@ -179,35 +192,35 @@ Odpowiedz jako BIELIK - główny orkiestrator, wskazując które moduły AI akty
 
   try {
     // Try to call Bielik worker
-    const workerUrl = 'https://bielik-worker.mybonzo.workers.dev/';
-    
+    const workerUrl = "https://bielik-worker.mybonzo.workers.dev/";
+
     const response = await fetch(workerUrl, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         messages: [
           {
-            role: 'system',
-            content: systemMessage
+            role: "system",
+            content: systemMessage,
           },
           {
-            role: 'user', 
-            content: prompt
-          }
+            role: "user",
+            content: prompt,
+          },
         ],
         max_tokens: 1000,
-        temperature: 0.7
-      })
+        temperature: 0.7,
+      }),
     });
 
     if (response.ok) {
-      const data = await response.json();
-      return data.response || 'Brak odpowiedzi z orkiestratora BIELIK.';
+      const data = (await response.json()) as any;
+      return data.response || "Brak odpowiedzi z orkiestratora BIELIK.";
     }
   } catch (error) {
-    console.error('Bielik worker error:', error);
+    console.error("Bielik worker error:", error);
   }
 
   // Fallback response if worker is not available
@@ -230,5 +243,5 @@ Koordinuję następujące systemy:
 System gotowy do pracy. Wszystkie moduły online i zsynchronizowane.
 
 Sesja: ${sessionId}
-Timestamp: ${new Date().toLocaleString('pl-PL')}`;
+Timestamp: ${new Date().toLocaleString("pl-PL")}`;
 }

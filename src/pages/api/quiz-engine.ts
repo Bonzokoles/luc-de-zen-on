@@ -1,4 +1,3 @@
-
 import type { APIRoute } from "astro";
 import {
   createSuccessResponse,
@@ -10,7 +9,7 @@ import {
 const quizSessions = new Map<string, any>();
 
 interface QuizRequest {
-  action: 'start_quiz' | 'submit_answer';
+  action: "start_quiz" | "submit_answer";
   topic?: string;
   sessionId?: string;
   answer?: string;
@@ -45,19 +44,35 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const body = (await request.json()) as QuizRequest;
 
     switch (body.action) {
-      case 'start_quiz': {
-        if (!body.topic) return createErrorResponse("Temat jest wymagany, aby rozpocząć quiz.", 400);
+      case "start_quiz": {
+        if (!body.topic)
+          return createErrorResponse(
+            "Temat jest wymagany, aby rozpocząć quiz.",
+            400
+          );
 
         const aiResponse = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-          messages: [{ role: "system", content: generateQuizPrompt(body.topic) }],
+          messages: [
+            { role: "system", content: generateQuizPrompt(body.topic) },
+          ],
           response_format: { type: "json_object" },
         });
 
-        const cleanedResponse = aiResponse.response.replace(/```json\n|\n```/g, '');
+        const cleanedResponse = aiResponse.response.replace(
+          /```json\n|\n```/g,
+          ""
+        );
         const result = JSON.parse(cleanedResponse);
 
-        if (!result.quiz || !Array.isArray(result.quiz) || result.quiz.length === 0) {
-          return createErrorResponse("AI nie wygenerowało poprawnego quizu.", 500);
+        if (
+          !result.quiz ||
+          !Array.isArray(result.quiz) ||
+          result.quiz.length === 0
+        ) {
+          return createErrorResponse(
+            "AI nie wygenerowało poprawnego quizu.",
+            500
+          );
         }
 
         const sessionId = `quiz_${Date.now()}`;
@@ -80,7 +95,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         });
       }
 
-      case 'submit_answer': {
+      case "submit_answer": {
         if (!body.sessionId || !body.answer) {
           return createErrorResponse("sessionId i answer są wymagane.", 400);
         }
@@ -97,7 +112,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
           session.score++;
         }
 
-        const response = {
+        const response: any = {
           isCorrect,
           correctAnswer: currentQuestion.correctAnswer,
           explanation: currentQuestion.explanation,
@@ -106,7 +121,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
         session.currentQuestionIndex++;
 
         if (session.currentQuestionIndex < session.questions.length) {
-          const nextQuestion = { ...session.questions[session.currentQuestionIndex] };
+          const nextQuestion = {
+            ...session.questions[session.currentQuestionIndex],
+          };
           delete nextQuestion.correctAnswer;
           delete nextQuestion.explanation;
           response.nextQuestion = nextQuestion;
@@ -122,10 +139,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       default:
         return createErrorResponse("Nieznana akcja.", 400);
     }
-
   } catch (error) {
     console.error("Błąd w /api/quiz-engine:", error);
-    const errorMessage = error instanceof Error ? error.message : "Nieznany błąd serwera.";
+    const errorMessage =
+      error instanceof Error ? error.message : "Nieznany błąd serwera.";
     return createErrorResponse(errorMessage, 500);
   }
 };

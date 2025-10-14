@@ -5,24 +5,25 @@
 
 export const prerender = false;
 
-export async function POST({ request }: { request: Request }): Promise<Response> {
+export async function POST({
+  request,
+}: {
+  request: Request;
+}): Promise<Response> {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
   try {
-    const { prompt, sessionId } = await request.json();
+    const { prompt, sessionId } = (await request.json()) as any;
 
     if (!prompt) {
-      return new Response(
-        JSON.stringify({ error: 'Prompt is required' }),
-        { 
-          status: 400, 
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
-        }
-      );
+      return new Response(JSON.stringify({ error: "Prompt is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
     // Polish optimized system message for Llama
@@ -33,39 +34,42 @@ export async function POST({ request }: { request: Request }): Promise<Response>
     // Try to call Cloudflare AI Gateway first
     try {
       // Call to Cloudflare AI (free tier)
-      const aiResponse = await callCloudflareAI('@cf/meta/llama-3.1-8b-instruct', polishSystemMessage, prompt);
-      
+      const aiResponse = await callCloudflareAI(
+        "@cf/meta/llama-3.1-8b-instruct",
+        polishSystemMessage,
+        prompt
+      );
+
       return new Response(
         JSON.stringify({
           success: true,
           answer: aiResponse,
-          source: 'llama-3.1-8b-polish',
-          model: 'Meta Llama 3.1 8B',
+          source: "llama-3.1-8b-polish",
+          model: "Meta Llama 3.1 8B",
           sessionId: sessionId,
           timestamp: new Date().toISOString(),
-          provider: 'cloudflare-ai'
+          provider: "cloudflare-ai",
         }),
-        { 
-          status: 200, 
-          headers: { 'Content-Type': 'application/json', ...corsHeaders }
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
         }
       );
     } catch (error) {
-      console.error('Llama API error:', error);
+      console.error("Llama API error:", error);
       // Fallback response
       return getFallbackResponse(prompt, sessionId, corsHeaders);
     }
-
   } catch (error: any) {
-    console.error('Llama Polish API Error:', error);
+    console.error("Llama Polish API Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: 'Llama Polish API error', 
-        details: error?.message || 'Unknown error'
+      JSON.stringify({
+        error: "Llama Polish API error",
+        details: error?.message || "Unknown error",
       }),
-      { 
-        status: 500, 
-        headers: { 'Content-Type': 'application/json', ...corsHeaders }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
   }
@@ -73,25 +77,30 @@ export async function POST({ request }: { request: Request }): Promise<Response>
 
 export async function GET(): Promise<Response> {
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
   return new Response(
     JSON.stringify({
-      status: 'online',
-      service: 'llama-3.1-8b-polish',
-      version: '1.0.0',
-      model: 'Meta Llama 3.1 8B',
-      language: 'Polish',
-      provider: 'Cloudflare AI',
-      capabilities: ['Polish Language', 'Text Generation', 'Conversation', 'Code Understanding'],
-      timestamp: new Date().toISOString()
+      status: "online",
+      service: "llama-3.1-8b-polish",
+      version: "1.0.0",
+      model: "Meta Llama 3.1 8B",
+      language: "Polish",
+      provider: "Cloudflare AI",
+      capabilities: [
+        "Polish Language",
+        "Text Generation",
+        "Conversation",
+        "Code Understanding",
+      ],
+      timestamp: new Date().toISOString(),
     }),
-    { 
-      status: 200, 
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
     }
   );
 }
@@ -100,15 +109,19 @@ export async function OPTIONS(): Promise<Response> {
   return new Response(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     },
   });
 }
 
 // Helper function to call Cloudflare AI
-async function callCloudflareAI(model: string, systemMessage: string, prompt: string): Promise<string> {
+async function callCloudflareAI(
+  model: string,
+  systemMessage: string,
+  prompt: string
+): Promise<string> {
   // This would normally call Cloudflare AI Gateway
   // For now, return a simulated Polish response
   return `🦙 Llama 3.1 8B (Polski)
@@ -132,7 +145,11 @@ Status: Online`;
 }
 
 // Fallback response if API is not available
-function getFallbackResponse(prompt: string, sessionId: string, corsHeaders: Record<string, string>): Response {
+function getFallbackResponse(
+  prompt: string,
+  sessionId: string,
+  corsHeaders: Record<string, string>
+): Response {
   return new Response(
     JSON.stringify({
       success: true,
@@ -145,14 +162,14 @@ This is a fallback response from the Llama 3.1 8B Polish endpoint.
 Please check Cloudflare AI configuration.
 
 Session: ${sessionId}`,
-      source: 'llama-fallback',
+      source: "llama-fallback",
       fallback: true,
       sessionId: sessionId,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     }),
-    { 
-      status: 200, 
-      headers: { 'Content-Type': 'application/json', ...corsHeaders }
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
     }
   );
 }

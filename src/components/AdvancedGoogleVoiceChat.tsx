@@ -1,33 +1,33 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import './AdvancedGoogleVoiceChat.css';
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import "./AdvancedGoogleVoiceChat.css";
 
 interface AdvancedGoogleVoiceChatProps {
   className?: string;
 }
 
 interface Message {
-  type: 'user' | 'assistant' | 'system';
+  type: "user" | "assistant" | "system";
   text: string;
   timestamp: Date;
   audioUrl?: string;
   confidence?: number;
 }
 
-const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({ 
-  className = '' 
+const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
+  className = "",
 }) => {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [currentMessage, setCurrentMessage] = useState('');
+  const [currentMessage, setCurrentMessage] = useState("");
   const [conversationHistory, setConversationHistory] = useState<Message[]>([]);
   const [audioLevel, setAudioLevel] = useState(0);
-  const [language, setLanguage] = useState('pl-PL');
+  const [language, setLanguage] = useState("pl-PL");
   const [voiceSettings, setVoiceSettings] = useState({
     rate: 1,
     pitch: 1,
     volume: 0.8,
-    voice: 'pl-PL-Wavenet-A'
+    voice: "pl-PL-Wavenet-A",
   });
 
   const recognitionRef = useRef<any>(null);
@@ -40,29 +40,39 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
   const initializeGoogleSpeechAPI = useCallback(async () => {
     try {
       // Initialize Google Cloud Speech API
-      const response = await fetch('/api/google-cloud/initialize-speech', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ language })
+      const response = await fetch("/api/google-cloud/initialize-speech", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ language }),
       });
-      
+
       if (response.ok) {
         setIsConnected(true);
-        addMessage('system', 'Google Cloud Speech API połączony pomyślnie', new Date());
+        addMessage(
+          "system",
+          "Google Cloud Speech API połączony pomyślnie",
+          new Date()
+        );
       }
     } catch (error) {
-      console.error('Błąd inicjalizacji Google Speech API:', error);
-      addMessage('system', 'Używam lokalny Speech Recognition jako fallback', new Date());
+      console.error("Błąd inicjalizacji Google Speech API:", error);
+      addMessage(
+        "system",
+        "Używam lokalny Speech Recognition jako fallback",
+        new Date()
+      );
       initializeLocalSpeechRecognition();
     }
   }, [language]);
 
   // Local Speech Recognition fallback
   const initializeLocalSpeechRecognition = () => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition =
+        (window as any).webkitSpeechRecognition ||
+        (window as any).SpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
-      
+
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
       recognitionRef.current.lang = language;
@@ -70,12 +80,12 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
 
       recognitionRef.current.onstart = () => {
         setIsListening(true);
-        addMessage('system', 'Słucham...', new Date());
+        addMessage("system", "Słucham...", new Date());
       };
 
       recognitionRef.current.onresult = (event: any) => {
-        let finalTranscript = '';
-        let interimTranscript = '';
+        let finalTranscript = "";
+        let interimTranscript = "";
 
         for (let i = event.resultIndex; i < event.results.length; i++) {
           const result = event.results[i];
@@ -87,12 +97,19 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         }
 
         setCurrentMessage(interimTranscript);
-        
+
         if (finalTranscript) {
-          const confidence = event.results[event.resultIndex]?.[0]?.confidence || 0;
-          addMessage('user', finalTranscript, new Date(), undefined, confidence);
+          const confidence =
+            event.results[event.resultIndex]?.[0]?.confidence || 0;
+          addMessage(
+            "user",
+            finalTranscript,
+            new Date(),
+            undefined,
+            confidence
+          );
           handleUserInput(finalTranscript);
-          setCurrentMessage('');
+          setCurrentMessage("");
         }
       };
 
@@ -101,9 +118,13 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
       };
 
       recognitionRef.current.onerror = (event: any) => {
-        console.error('Speech Recognition Error:', event.error);
+        console.error("Speech Recognition Error:", event.error);
         setIsListening(false);
-        addMessage('system', `Błąd rozpoznawania mowy: ${event.error}`, new Date());
+        addMessage(
+          "system",
+          `Błąd rozpoznawania mowy: ${event.error}`,
+          new Date()
+        );
       };
     }
   };
@@ -113,31 +134,32 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       streamRef.current = stream;
-      
+
       audioContextRef.current = new AudioContext();
       const source = audioContextRef.current.createMediaStreamSource(stream);
       analyzerRef.current = audioContextRef.current.createAnalyser();
-      
+
       analyzerRef.current.fftSize = 256;
       source.connect(analyzerRef.current);
-      
+
       const dataArray = new Uint8Array(analyzerRef.current.frequencyBinCount);
-      
+
       const updateAudioLevel = () => {
         if (analyzerRef.current) {
           analyzerRef.current.getByteFrequencyData(dataArray);
-          const average = dataArray.reduce((sum, value) => sum + value) / dataArray.length;
+          const average =
+            dataArray.reduce((sum, value) => sum + value) / dataArray.length;
           setAudioLevel(average);
-          
+
           if (isListening) {
             requestAnimationFrame(updateAudioLevel);
           }
         }
       };
-      
+
       updateAudioLevel();
     } catch (error) {
-      console.error('Błąd dostępu do mikrofonu:', error);
+      console.error("Błąd dostępu do mikrofonu:", error);
     }
   };
 
@@ -145,32 +167,32 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
   const speakWithGoogleTTS = async (text: string) => {
     try {
       setIsSpeaking(true);
-      
-      const response = await fetch('/api/google-cloud/text-to-speech', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+
+      const response = await fetch("/api/google-cloud/text-to-speech", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           text,
           voice: voiceSettings.voice,
           audioConfig: {
-            audioEncoding: 'MP3',
+            audioEncoding: "MP3",
             speakingRate: voiceSettings.rate,
             pitch: voiceSettings.pitch,
-            volumeGainDb: voiceSettings.volume * 20 - 20
-          }
-        })
+            volumeGainDb: voiceSettings.volume * 20 - 20,
+          },
+        }),
       });
 
       if (response.ok) {
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
-        
+
         const audio = new Audio(audioUrl);
         audio.onended = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
         };
-        
+
         await audio.play();
         return audioUrl;
       } else {
@@ -178,7 +200,7 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         return speakWithWebAPI(text);
       }
     } catch (error) {
-      console.error('Google TTS Error:', error);
+      console.error("Google TTS Error:", error);
       return speakWithWebAPI(text);
     }
   };
@@ -186,19 +208,19 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
   // Web Speech API fallback
   const speakWithWebAPI = (text: string): Promise<string | undefined> => {
     return new Promise((resolve) => {
-      if ('speechSynthesis' in window) {
+      if ("speechSynthesis" in window) {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = language;
         utterance.rate = voiceSettings.rate;
         utterance.pitch = voiceSettings.pitch;
         utterance.volume = voiceSettings.volume;
-        
+
         utterance.onstart = () => setIsSpeaking(true);
         utterance.onend = () => {
           setIsSpeaking(false);
           resolve(undefined);
         };
-        
+
         speechSynthesis.speak(utterance);
         synthRef.current = utterance;
       } else {
@@ -212,32 +234,32 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
   const handleUserInput = async (input: string) => {
     try {
       // Send to enhanced AI with Google Cloud integration
-      const response = await fetch('/api/ai/advanced-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/ai/advanced-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: input,
           history: conversationHistory,
           language,
-          context: 'mybonzo-platform',
-          features: ['speech', 'sentiment', 'translation']
-        })
+          context: "mybonzo-platform",
+          features: ["speech", "sentiment", "translation"],
+        }),
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const data = (await response.json()) as any;
         const aiResponse = data.response;
-        
-        addMessage('assistant', aiResponse, new Date());
-        
+
+        addMessage("assistant", aiResponse, new Date());
+
         // Speak the response
         const audioUrl = await speakWithGoogleTTS(aiResponse);
-        
+
         // Update the message with audio URL if available
         if (audioUrl) {
-          setConversationHistory(prev => 
-            prev.map(msg => 
-              msg.text === aiResponse && msg.type === 'assistant' 
+          setConversationHistory((prev) =>
+            prev.map((msg) =>
+              msg.text === aiResponse && msg.type === "assistant"
                 ? { ...msg, audioUrl }
                 : msg
             )
@@ -245,16 +267,23 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         }
       }
     } catch (error) {
-      console.error('AI Response Error:', error);
-      const fallbackResponse = "Przepraszam, wystąpił problem z połączeniem. Spróbuj ponownie.";
-      addMessage('assistant', fallbackResponse, new Date());
+      console.error("AI Response Error:", error);
+      const fallbackResponse =
+        "Przepraszam, wystąpił problem z połączeniem. Spróbuj ponownie.";
+      addMessage("assistant", fallbackResponse, new Date());
       speakWithWebAPI(fallbackResponse);
     }
   };
 
-  const addMessage = (type: Message['type'], text: string, timestamp: Date, audioUrl?: string, confidence?: number) => {
+  const addMessage = (
+    type: Message["type"],
+    text: string,
+    timestamp: Date,
+    audioUrl?: string,
+    confidence?: number
+  ) => {
     const message: Message = { type, text, timestamp, audioUrl, confidence };
-    setConversationHistory(prev => [...prev, message]);
+    setConversationHistory((prev) => [...prev, message]);
   };
 
   const startListening = () => {
@@ -269,7 +298,7 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
       recognitionRef.current.stop();
     }
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current.getTracks().forEach((track) => track.stop());
     }
   };
 
@@ -282,14 +311,14 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
 
   const clearConversation = () => {
     setConversationHistory([]);
-    addMessage('system', 'Konwersacja wyczyszczona', new Date());
+    addMessage("system", "Konwersacja wyczyszczona", new Date());
   };
 
   // Initialize on mount
   useEffect(() => {
     initializeGoogleSpeechAPI();
     initializeLocalSpeechRecognition();
-    
+
     return () => {
       stopListening();
       stopSpeaking();
@@ -297,9 +326,9 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
   }, [initializeGoogleSpeechAPI]);
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('pl-PL', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    return date.toLocaleTimeString("pl-PL", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -310,14 +339,18 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         <div className="header-info">
           <h3>🎤 Advanced Google Voice Chat</h3>
           <div className="connection-status">
-            <span className={`status-dot ${isConnected ? 'connected' : 'disconnected'}`}></span>
-            {isConnected ? 'Google Cloud AI' : 'Local API'}
+            <span
+              className={`status-dot ${
+                isConnected ? "connected" : "disconnected"
+              }`}
+            ></span>
+            {isConnected ? "Google Cloud AI" : "Local API"}
           </div>
         </div>
-        
+
         <div className="voice-controls">
-          <select 
-            value={language} 
+          <select
+            value={language}
             onChange={(e) => setLanguage(e.target.value)}
             className="language-select"
             title="Wybór języka dla rozpoznawania mowy"
@@ -328,7 +361,7 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
             <option value="es-ES">Español</option>
             <option value="fr-FR">Français</option>
           </select>
-          
+
           <button onClick={clearConversation} className="clear-btn">
             🗑️ Wyczyść
           </button>
@@ -339,12 +372,14 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
       {isListening && (
         <div className="audio-level-container">
           <div className="audio-level-bar">
-            <div 
+            <div
               className="audio-level-fill"
               data-level={Math.round((audioLevel / 255) * 100)}
             ></div>
           </div>
-          <span className="audio-level-text">Poziom audio: {Math.round(audioLevel)}</span>
+          <span className="audio-level-text">
+            Poziom audio: {Math.round(audioLevel)}
+          </span>
         </div>
       )}
 
@@ -362,10 +397,20 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
           <div key={index} className={`message message-${message.type}`}>
             <div className="message-header">
               <span className="message-sender">
-                {message.type === 'user' ? '👤' : message.type === 'assistant' ? '🤖' : '⚙️'}
-                {message.type === 'user' ? 'Ty' : message.type === 'assistant' ? 'AI Assistant' : 'System'}
+                {message.type === "user"
+                  ? "👤"
+                  : message.type === "assistant"
+                  ? "🤖"
+                  : "⚙️"}
+                {message.type === "user"
+                  ? "Ty"
+                  : message.type === "assistant"
+                  ? "AI Assistant"
+                  : "System"}
               </span>
-              <span className="message-time">{formatTime(message.timestamp)}</span>
+              <span className="message-time">
+                {formatTime(message.timestamp)}
+              </span>
               {message.confidence && (
                 <span className="confidence-score">
                   ✓{Math.round(message.confidence * 100)}%
@@ -386,23 +431,27 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
 
       {/* Voice Controls */}
       <div className="voice-control-panel">
-        <button 
-          className={`voice-btn primary ${isListening ? 'listening' : ''}`}
+        <button
+          className={`voice-btn primary ${isListening ? "listening" : ""}`}
           onClick={isListening ? stopListening : startListening}
           disabled={isSpeaking}
         >
-          {isListening ? '⏹️ Zatrzymaj' : '🎤 Mów'}
+          {isListening ? "⏹️ Zatrzymaj" : "🎤 Mów"}
         </button>
-        
+
         {isSpeaking && (
           <button className="voice-btn secondary" onClick={stopSpeaking}>
             🔇 Przerwij mówienie
           </button>
         )}
-        
+
         <div className="status-indicators">
-          {isListening && <span className="status-indicator listening">🎤 Słucham</span>}
-          {isSpeaking && <span className="status-indicator speaking">🔊 Mówię</span>}
+          {isListening && (
+            <span className="status-indicator listening">🎤 Słucham</span>
+          )}
+          {isSpeaking && (
+            <span className="status-indicator speaking">🔊 Mówię</span>
+          )}
         </div>
       </div>
 
@@ -412,41 +461,56 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
         <div className="settings-grid">
           <div className="setting-group">
             <label>Szybkość: {voiceSettings.rate}</label>
-            <input 
-              type="range" 
-              min="0.5" 
-              max="2" 
-              step="0.1" 
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
               value={voiceSettings.rate}
-              onChange={(e) => setVoiceSettings(prev => ({...prev, rate: parseFloat(e.target.value)}))}
+              onChange={(e) =>
+                setVoiceSettings((prev) => ({
+                  ...prev,
+                  rate: parseFloat(e.target.value),
+                }))
+              }
               title="Kontrola szybkości mowy"
               aria-label="Szybkość mowy"
             />
           </div>
-          
+
           <div className="setting-group">
             <label>Wysokość: {voiceSettings.pitch}</label>
-            <input 
-              type="range" 
-              min="0.5" 
-              max="2" 
-              step="0.1" 
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
               value={voiceSettings.pitch}
-              onChange={(e) => setVoiceSettings(prev => ({...prev, pitch: parseFloat(e.target.value)}))}
+              onChange={(e) =>
+                setVoiceSettings((prev) => ({
+                  ...prev,
+                  pitch: parseFloat(e.target.value),
+                }))
+              }
               title="Kontrola wysokości głosu"
               aria-label="Wysokość głosu"
             />
           </div>
-          
+
           <div className="setting-group">
             <label>Głośność: {Math.round(voiceSettings.volume * 100)}%</label>
-            <input 
-              type="range" 
-              min="0" 
-              max="1" 
-              step="0.1" 
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
               value={voiceSettings.volume}
-              onChange={(e) => setVoiceSettings(prev => ({...prev, volume: parseFloat(e.target.value)}))}
+              onChange={(e) =>
+                setVoiceSettings((prev) => ({
+                  ...prev,
+                  volume: parseFloat(e.target.value),
+                }))
+              }
               title="Kontrola głośności mowy"
               aria-label="Głośność mowy"
             />

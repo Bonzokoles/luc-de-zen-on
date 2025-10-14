@@ -5,7 +5,7 @@
 
 interface DeepSeekKaggleRequest {
   messages: Array<{
-    role: 'system' | 'user' | 'assistant';
+    role: "system" | "user" | "assistant";
     content: string;
   }>;
   dataset_ref?: string;
@@ -17,7 +17,7 @@ interface DeepSeekKaggleRequest {
 }
 
 interface KaggleDataContext {
-  type: 'dataset' | 'competition' | 'search';
+  type: "dataset" | "competition" | "search";
   data: any;
   summary: string;
 }
@@ -28,103 +28,119 @@ export default {
     const corsHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
     };
 
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 200,
-        headers: corsHeaders
+        headers: corsHeaders,
       });
     }
 
     if (request.method === "POST") {
       try {
         const requestData: DeepSeekKaggleRequest = await request.json();
-        const { 
-          messages, 
-          dataset_ref, 
-          competition_id, 
-          search_query, 
-          use_kaggle = false 
+        const {
+          messages,
+          dataset_ref,
+          competition_id,
+          search_query,
+          use_kaggle = false,
         } = requestData;
 
         let kaggleContext: KaggleDataContext | null = null;
-        
+
         // Pobierz dane z Kaggle jeśli wymagane
         if (use_kaggle) {
           try {
             if (dataset_ref) {
               // Pobierz szczegóły datasetu
-              const datasetResponse = await fetch(`${env.KAGGLE_API_BASE_URL}/datasets/${dataset_ref}`, {
-                headers: {
-                  "Authorization": `Bearer ${env.KAGGLE_API_TOKEN}`,
-                  "Content-Type": "application/json"
+              const datasetResponse = await fetch(
+                `${env.KAGGLE_API_BASE_URL}/datasets/${dataset_ref}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${env.KAGGLE_API_TOKEN}`,
+                    "Content-Type": "application/json",
+                  },
                 }
-              });
-              
+              );
+
               if (datasetResponse.ok) {
-                const datasetData = await datasetResponse.json();
+                const datasetData = (await datasetResponse.json()) as any;
                 kaggleContext = {
-                  type: 'dataset',
+                  type: "dataset",
                   data: datasetData,
-                  summary: `Dataset: ${datasetData.title || dataset_ref}\n` +
-                          `Rozmiar: ${datasetData.size || 'N/A'}\n` +
-                          `Tagi: ${datasetData.tags?.join(', ') || 'Brak'}\n` +
-                          `URL: ${datasetData.url || 'N/A'}`
+                  summary:
+                    `Dataset: ${datasetData.title || dataset_ref}\n` +
+                    `Rozmiar: ${datasetData.size || "N/A"}\n` +
+                    `Tagi: ${datasetData.tags?.join(", ") || "Brak"}\n` +
+                    `URL: ${datasetData.url || "N/A"}`,
                 };
               }
             } else if (competition_id) {
               // Pobierz szczegóły konkursu
-              const compResponse = await fetch(`${env.KAGGLE_API_BASE_URL}/competitions/${competition_id}`, {
-                headers: {
-                  "Authorization": `Bearer ${env.KAGGLE_API_TOKEN}`,
-                  "Content-Type": "application/json"
+              const compResponse = await fetch(
+                `${env.KAGGLE_API_BASE_URL}/competitions/${competition_id}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${env.KAGGLE_API_TOKEN}`,
+                    "Content-Type": "application/json",
+                  },
                 }
-              });
-              
+              );
+
               if (compResponse.ok) {
-                const compData = await compResponse.json();
+                const compData = (await compResponse.json()) as any;
                 kaggleContext = {
-                  type: 'competition',
+                  type: "competition",
                   data: compData,
-                  summary: `Konkurencja: ${compData.title || competition_id}\n` +
-                          `Nagroda: ${compData.reward || 'N/A'}\n` +
-                          `Deadline: ${compData.deadline || 'N/A'}\n` +
-                          `Kategoria: ${compData.category || 'N/A'}\n` +
-                          `Opis: ${compData.description || 'Brak opisu'}`
+                  summary:
+                    `Konkurencja: ${compData.title || competition_id}\n` +
+                    `Nagroda: ${compData.reward || "N/A"}\n` +
+                    `Deadline: ${compData.deadline || "N/A"}\n` +
+                    `Kategoria: ${compData.category || "N/A"}\n` +
+                    `Opis: ${compData.description || "Brak opisu"}`,
                 };
               }
             } else if (search_query) {
               // Wyszukaj datasety
-              const searchResponse = await fetch(`${env.KAGGLE_API_BASE_URL}/datasets/search?q=${encodeURIComponent(search_query)}`, {
-                headers: {
-                  "Authorization": `Bearer ${env.KAGGLE_API_TOKEN}`,
-                  "Content-Type": "application/json"
+              const searchResponse = await fetch(
+                `${
+                  env.KAGGLE_API_BASE_URL
+                }/datasets/search?q=${encodeURIComponent(search_query)}`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${env.KAGGLE_API_TOKEN}`,
+                    "Content-Type": "application/json",
+                  },
                 }
-              });
-              
+              );
+
               if (searchResponse.ok) {
-                const searchData = await searchResponse.json();
+                const searchData = (await searchResponse.json()) as any;
                 const topResults = searchData.datasets?.slice(0, 5) || [];
                 kaggleContext = {
-                  type: 'search',
+                  type: "search",
                   data: searchData,
-                  summary: `Wyszukiwanie: "${search_query}"\n` +
-                          `Znaleziono: ${searchData.total_count || 0} datasetów\n` +
-                          `Top 5 wyników:\n` +
-                          topResults.map((d: any, i: number) => 
-                            `${i+1}. ${d.title} (${d.ref})`
-                          ).join('\n')
+                  summary:
+                    `Wyszukiwanie: "${search_query}"\n` +
+                    `Znaleziono: ${searchData.total_count || 0} datasetów\n` +
+                    `Top 5 wyników:\n` +
+                    topResults
+                      .map(
+                        (d: any, i: number) => `${i + 1}. ${d.title} (${d.ref})`
+                      )
+                      .join("\n"),
                 };
               }
             }
           } catch (kaggleError) {
             console.error("Kaggle API error:", kaggleError);
             kaggleContext = {
-              type: 'search',
+              type: "search",
               data: null,
-              summary: "Błąd połączenia z Kaggle API"
+              summary: "Błąd połączenia z Kaggle API",
             };
           }
         }
@@ -143,10 +159,14 @@ export default {
             - Sugerujesz strategie dla konkurencji Kaggle
             
             KONTEKST KAGGLE:
-            ${kaggleContext ? `Masz dostęp do danych z Kaggle:
+            ${
+              kaggleContext
+                ? `Masz dostęp do danych z Kaggle:
             ${kaggleContext.summary}
             
-            Analizuj te dane i dostarczaj praktyczne wnioski.` : 'Brak danych z Kaggle w tym zapytaniu.'}
+            Analizuj te dane i dostarczaj praktyczne wnioski.`
+                : "Brak danych z Kaggle w tym zapytaniu."
+            }
             
             SYSTEM ZENON:
             - Jesteś częścią większego systemu AI
@@ -157,9 +177,9 @@ export default {
             - Szczegółowy ale zrozumiały
             - Praktyczne rekomendacje
             - Przykłady i przypadki użycia
-            - Wskazówki techniczne`
+            - Wskazówki techniczne`,
           },
-          ...messages
+          ...messages,
         ];
 
         // Dodaj kontekst Kaggle do ostatniej wiadomości jeśli istnieje
@@ -181,10 +201,14 @@ export default {
             - Suggest strategies for Kaggle competitions
             
             KAGGLE CONTEXT:
-            ${kaggleContext ? `You have access to Kaggle data:
+            ${
+              kaggleContext
+                ? `You have access to Kaggle data:
             ${kaggleContext.summary}
             
-            Analyze this data and provide practical insights.` : 'No Kaggle data in this query.'}
+            Analyze this data and provide practical insights.`
+                : "No Kaggle data in this query."
+            }
             
             ZENON SYSTEM:
             - You are part of a larger AI system
@@ -197,31 +221,35 @@ export default {
             - Examples and use cases
             - Technical guidance
             
-            IMPORTANT: Respond in English, as your response will be translated to Polish.`
+            IMPORTANT: Respond in English, as your response will be translated to Polish.`,
           },
-          ...messages.map(msg => ({
+          ...messages.map((msg) => ({
             role: msg.role,
-            content: msg.content
-          }))
+            content: msg.content,
+          })),
         ];
 
         // Najpierw wygeneruj odpowiedź po angielsku (lepszy model)
-        const aiResponse = await env.AI.run("@hf/thebloke/llama-2-13b-chat-awq", {
-          messages: englishMessages,
-          max_tokens: requestData.max_tokens || 1024,
-          temperature: requestData.temperature || 0.7
-        });
+        const aiResponse = await env.AI.run(
+          "@hf/thebloke/llama-2-13b-chat-awq",
+          {
+            messages: englishMessages,
+            max_tokens: requestData.max_tokens || 1024,
+            temperature: requestData.temperature || 0.7,
+          }
+        );
 
         // Potem przetłumacz na polski
-        let finalResponse = aiResponse.response || "Failed to generate response.";
-        
+        let finalResponse =
+          aiResponse.response || "Failed to generate response.";
+
         try {
           const translationResponse = await env.AI.run("@cf/meta/m2m100-1.2b", {
             text: finalResponse,
             source_lang: "english",
-            target_lang: "polish"
+            target_lang: "polish",
           });
-          
+
           if (translationResponse.translated_text) {
             finalResponse = translationResponse.translated_text;
           }
@@ -230,87 +258,99 @@ export default {
           // Jeśli tłumaczenie się nie uda, zostaw angielską wersję
         }
 
-        return new Response(JSON.stringify({
-          success: true,
-          response: finalResponse,
-          model: "llama-2-13b-chat-awq + m2m100-translation",
-          provider: "cloudflare-ai",
-          language: "pl",
-          assistant: "deepseek-kaggle-zenon",
-          kaggle_used: use_kaggle,
-          kaggle_context: kaggleContext?.type || null,
-          context_summary: kaggleContext?.summary || null,
-          system: "ZENON",
-          specialization: "Kaggle ML/AI Data Analysis",
-          translation_used: true,
-          rate_limit: "300 requests/min"
-        }), {
-          status: 200,
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
+        return new Response(
+          JSON.stringify({
+            success: true,
+            response: finalResponse,
+            model: "llama-2-13b-chat-awq + m2m100-translation",
+            provider: "cloudflare-ai",
+            language: "pl",
+            assistant: "deepseek-kaggle-zenon",
+            kaggle_used: use_kaggle,
+            kaggle_context: kaggleContext?.type || null,
+            context_summary: kaggleContext?.summary || null,
+            system: "ZENON",
+            specialization: "Kaggle ML/AI Data Analysis",
+            translation_used: true,
+            rate_limit: "300 requests/min",
+          }),
+          {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json",
+              ...corsHeaders,
+            },
           }
-        });
-
+        );
       } catch (error) {
         console.error("DeepSeek Kaggle ZENON error:", error);
-        return new Response(JSON.stringify({
-          error: "DeepSeek Kaggle ZENON error",
-          details: (error as Error)?.message || "Unknown error",
-          system: "ZENON"
-        }), {
-          status: 500,
-          headers: {
-            "Content-Type": "application/json",
-            ...corsHeaders
+        return new Response(
+          JSON.stringify({
+            error: "DeepSeek Kaggle ZENON error",
+            details: (error as Error)?.message || "Unknown error",
+            system: "ZENON",
+          }),
+          {
+            status: 500,
+            headers: {
+              "Content-Type": "application/json",
+              ...corsHeaders,
+            },
           }
-        });
+        );
       }
     }
 
     // GET endpoint - informacje o asystencie
     if (request.method === "GET") {
-      return new Response(JSON.stringify({
-        name: "DeepSeek Kaggle Dataset Assistant ZENON",
-        model: "llama-2-13b-chat-awq + m2m100-translation",
-        features: [
-          "Kaggle datasets integration", 
-          "Competition analysis", 
-          "Polish language", 
-          "ML/AI data science expertise",
-          "Advanced statistical analysis",
-          "Dataset recommendations"
-        ],
-        status: "ready",
-        rate_limit: "300 requests/min",
-        system: "ZENON",
-        version: "1.0.0",
-        description: "Zaawansowany asystent analizy danych Kaggle z dużym modelem językowym",
-        kaggle_capabilities: [
-          "Dataset search and analysis",
-          "Competition insights", 
-          "ML strategy recommendations",
-          "Data quality assessment",
-          "Feature engineering suggestions"
-        ]
-      }), {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json",
-          ...corsHeaders
+      return new Response(
+        JSON.stringify({
+          name: "DeepSeek Kaggle Dataset Assistant ZENON",
+          model: "llama-2-13b-chat-awq + m2m100-translation",
+          features: [
+            "Kaggle datasets integration",
+            "Competition analysis",
+            "Polish language",
+            "ML/AI data science expertise",
+            "Advanced statistical analysis",
+            "Dataset recommendations",
+          ],
+          status: "ready",
+          rate_limit: "300 requests/min",
+          system: "ZENON",
+          version: "1.0.0",
+          description:
+            "Zaawansowany asystent analizy danych Kaggle z dużym modelem językowym",
+          kaggle_capabilities: [
+            "Dataset search and analysis",
+            "Competition insights",
+            "ML strategy recommendations",
+            "Data quality assessment",
+            "Feature engineering suggestions",
+          ],
+        }),
+        {
+          status: 200,
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders,
+          },
         }
-      });
+      );
     }
 
-    return new Response(JSON.stringify({
-      error: "Method not allowed",
-      system: "ZENON"
-    }), {
-      status: 405,
-      headers: {
-        "Content-Type": "application/json",
-        ...corsHeaders
+    return new Response(
+      JSON.stringify({
+        error: "Method not allowed",
+        system: "ZENON",
+      }),
+      {
+        status: 405,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
       }
-    });
-  }
+    );
+  },
 };

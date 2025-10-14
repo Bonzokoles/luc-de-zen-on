@@ -9,7 +9,12 @@ export const GET: APIRoute = async ({ locals }) => {
       timestamp: new Date().toISOString(),
       configuration: {
         tavily_api_key: env.TAVILY_API_KEY ? "✅ Configured" : "❌ Missing",
-        key_snippet: env.TAVILY_API_KEY ? `${env.TAVILY_API_KEY.substring(0, 4)}...${env.TAVILY_API_KEY.substring(env.TAVILY_API_KEY.length - 4)}` : "N/A",
+        key_snippet: env.TAVILY_API_KEY
+          ? `${env.TAVILY_API_KEY.substring(
+              0,
+              4
+            )}...${env.TAVILY_API_KEY.substring(env.TAVILY_API_KEY.length - 4)}`
+          : "N/A",
         ai_binding: env.AI ? "✅ Available" : "❌ Missing",
       },
       endpoints: {
@@ -39,7 +44,7 @@ export const GET: APIRoute = async ({ locals }) => {
           }),
         });
         if (response.ok) {
-          const data = await response.json();
+          const data = (await response.json()) as any;
           testData.configuration.tavily_api_key = "✅ Working - API responds";
           (testData as any).test_result = {
             status: "success",
@@ -55,7 +60,7 @@ export const GET: APIRoute = async ({ locals }) => {
       } catch (error) {
         (testData as any).test_result = {
           status: "error",
-          error: error instanceof Error ? error.message : "Connection failed",
+          error: (error as any).message || "Connection failed",
         };
       }
     }
@@ -68,7 +73,7 @@ export const GET: APIRoute = async ({ locals }) => {
       JSON.stringify({
         service: "Tavily API Test",
         status: "error",
-        error: error instanceof Error ? error.message : "Test failed",
+        error: (error as any).message || "Test failed",
       }),
       {
         status: 500,
@@ -80,7 +85,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { query } = await request.json();
+    const { query } = (await request.json()) as any;
 
     if (!query) {
       return new Response(
@@ -132,7 +137,7 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error(`Tavily API error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as any;
 
     return new Response(
       JSON.stringify({
@@ -151,8 +156,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error:
-          error instanceof Error ? error.message : "Unknown error occurred",
+        error: (error as any).message || "Unknown error occurred",
       }),
       {
         status: 500,
