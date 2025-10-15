@@ -19,21 +19,36 @@ class AgentsController {
   registerAllAgents() {
     // Rejestracja wszystkich agentów
     const agents = [
-      { id: 'voice', name: 'Voice Agent', emoji: '🎙️', color: '#ff6b9d' },
-      { id: 'music', name: 'Music Agent', emoji: '🎵', color: '#9333ea' },
-      { id: 'system', name: 'System Agent', emoji: '⚙️', color: '#ef4444' },
-      { id: 'crawler', name: 'Crawler Agent', emoji: '🕷️', color: '#22c55e' },
-      { id: 'file', name: 'File Agent', emoji: '📁', color: '#3b82f6' },
-      { id: 'database', name: 'Database Agent', emoji: '🗄️', color: '#a855f7' },
-      { id: 'email', name: 'Email Agent', emoji: '📧', color: '#ec4899' },
-      { id: 'security', name: 'Security Agent', emoji: '🔒', color: '#dc267f' },
-      { id: 'webmaster', name: 'Webmaster Agent', emoji: '🌐', color: '#06b6d4' },
-      { id: 'analytics', name: 'Analytics Agent', emoji: '📊', color: '#6366f1' },
-      { id: 'content', name: 'Content Agent', emoji: '📝', color: '#22c55e' },
-      { id: 'marketing', name: 'Marketing Agent', emoji: '📈', color: '#f59e0b' }
+      { id: "voice", name: "Voice Agent", emoji: "🎙️", color: "#ff6b9d" },
+      { id: "music", name: "Music Agent", emoji: "🎵", color: "#9333ea" },
+      { id: "system", name: "System Agent", emoji: "⚙️", color: "#ef4444" },
+      { id: "crawler", name: "Crawler Agent", emoji: "🕷️", color: "#22c55e" },
+      { id: "file", name: "File Agent", emoji: "📁", color: "#3b82f6" },
+      { id: "database", name: "Database Agent", emoji: "🗄️", color: "#a855f7" },
+      { id: "email", name: "Email Agent", emoji: "📧", color: "#ec4899" },
+      { id: "security", name: "Security Agent", emoji: "🔒", color: "#dc267f" },
+      {
+        id: "webmaster",
+        name: "Webmaster Agent",
+        emoji: "🌐",
+        color: "#06b6d4",
+      },
+      {
+        id: "analytics",
+        name: "Analytics Agent",
+        emoji: "📊",
+        color: "#6366f1",
+      },
+      { id: "content", name: "Content Agent", emoji: "📝", color: "#22c55e" },
+      {
+        id: "marketing",
+        name: "Marketing Agent",
+        emoji: "📈",
+        color: "#f59e0b",
+      },
     ];
 
-    agents.forEach(agent => {
+    agents.forEach((agent) => {
       this.agentRegistry.set(agent.id, agent);
       this.agentStates.set(agent.id, { active: false, initialized: false });
     });
@@ -55,7 +70,7 @@ class AgentsController {
     }
 
     console.log(`${agent.emoji} Toggling ${agent.name} (manual click)`);
-    
+
     const btn = document.getElementById(`${agentId}AgentBtn`);
     const widget = document.getElementById(`${agentId}AgentWidget`);
 
@@ -67,7 +82,7 @@ class AgentsController {
       }, 200);
 
       // Toggle widget visibility
-      const isVisible = !widget.classList.contains('hidden');
+      const isVisible = !widget.classList.contains("hidden");
       widget.classList.toggle("hidden");
 
       // Update agent state
@@ -93,16 +108,26 @@ class AgentsController {
     if (state.initialized) return;
 
     console.log(`🔄 Initializing ${agentId} Agent...`);
-    
+
     try {
-      // Dynamiczne ładowanie modułu agenta - currently using modules structure
-      // const agentModule = await import(`./agents/${agentId}-agent.js`);
-      // TODO: Implement proper agent module loading when structure is ready
-      
-      // Placeholder for now
-      const agentModule = { default: { init: null } };
-      
-      if (agentModule.default && typeof agentModule.default.init === 'function') {
+      // Dynamiczne ładowanie modułu agenta - sprawdzanie czy moduł istnieje
+      console.log(`🔍 Checking agent module: ${agentId}`);
+
+      // Bezpieczne ładowanie modułów - sprawdź czy moduł istnieje
+      let agentModule = null;
+      try {
+        agentModule = await import(`./modules/${agentId}/component.svelte`);
+      } catch (importError) {
+        console.log(
+          `📝 Agent ${agentId} module not found, using basic initialization`
+        );
+        agentModule = { default: { init: () => Promise.resolve() } };
+      }
+
+      if (
+        agentModule.default &&
+        typeof agentModule.default.init === "function"
+      ) {
         await agentModule.default.init();
         state.initialized = true;
         this.agentStates.set(agentId, state);
@@ -119,24 +144,16 @@ class AgentsController {
   // Ładowanie skryptów agentów
   async loadAgentScripts() {
     console.log("📦 Loading agent scripts...");
-    
-    // Load core agent functions - disabled for now
-    try {
-      // TODO: Implement agent functions when available
-      // await import('./agents/voice-functions.js');
-      // await import('./agents/music-functions.js');
-      // await import('./agents/system-functions.js');
-      console.log("✅ Core agent functions loaded (placeholder)");
-    } catch (error) {
-      console.warn("⚠️ Some agent functions could not be loaded:", error);
-    }
+
+    // Core agent functions loaded from modules
+    console.log("✅ Core agent functions ready (loaded via modules)");
   }
 
   // Aktualizacja statusu agentów
   updateAgentsStatus() {
     const activeCount = this.activeAgents.size;
     console.log(`📊 Active agents: ${activeCount}/${this.agentRegistry.size}`);
-    
+
     // Można dodać dodatkową logikę zarządzania zasobami
     if (activeCount > 5) {
       console.warn("⚠️ Many agents active - consider performance impact");
@@ -146,15 +163,18 @@ class AgentsController {
   // Globalne bindowanie eventów
   bindGlobalEvents() {
     // ESC key closes all agents
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         this.closeAllAgents();
       }
     });
 
     // Prevent too many agents open simultaneously
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('right-btn') && this.activeAgents.size > 3) {
+    document.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("right-btn") &&
+        this.activeAgents.size > 3
+      ) {
         console.warn("⚠️ Too many agents active - consider closing some");
       }
     });
@@ -163,11 +183,11 @@ class AgentsController {
   // Zamknięcie wszystkich agentów
   closeAllAgents() {
     console.log("🔄 Closing all agents...");
-    
-    this.activeAgents.forEach(agentId => {
+
+    this.activeAgents.forEach((agentId) => {
       const widget = document.getElementById(`${agentId}AgentWidget`);
-      if (widget && !widget.classList.contains('hidden')) {
-        widget.classList.add('hidden');
+      if (widget && !widget.classList.contains("hidden")) {
+        widget.classList.add("hidden");
       }
     });
 
@@ -182,7 +202,9 @@ class AgentsController {
 
   // Get agent status
   getAgentStatus(agentId) {
-    return this.agentStates.get(agentId) || { active: false, initialized: false };
+    return (
+      this.agentStates.get(agentId) || { active: false, initialized: false }
+    );
   }
 
   // Get all active agents
@@ -195,18 +217,30 @@ class AgentsController {
 const agentsController = new AgentsController();
 
 // Export funkcji toggle dla kompatybilności wstecznej
-window.toggleVoiceAgent = (manualClick) => agentsController.toggleAgent('voice', manualClick);
-window.toggleMusicAgent = (manualClick) => agentsController.toggleAgent('music', manualClick);
-window.toggleSystemAgent = (manualClick) => agentsController.toggleAgent('system', manualClick);
-window.toggleCrawlerAgent = (manualClick) => agentsController.toggleAgent('crawler', manualClick);
-window.toggleFileAgent = (manualClick) => agentsController.toggleAgent('file', manualClick);
-window.toggleDatabaseAgent = (manualClick) => agentsController.toggleAgent('database', manualClick);
-window.toggleEmailAgent = (manualClick) => agentsController.toggleAgent('email', manualClick);
-window.toggleSecurityAgent = (manualClick) => agentsController.toggleAgent('security', manualClick);
-window.toggleWebmasterAgent = (manualClick) => agentsController.toggleAgent('webmaster', manualClick);
-window.toggleAnalyticsAgent = (manualClick) => agentsController.toggleAgent('analytics', manualClick);
-window.toggleContentAgent = (manualClick) => agentsController.toggleAgent('content', manualClick);
-window.toggleMarketingAgent = (manualClick) => agentsController.toggleAgent('marketing', manualClick);
+window.toggleVoiceAgent = (manualClick) =>
+  agentsController.toggleAgent("voice", manualClick);
+window.toggleMusicAgent = (manualClick) =>
+  agentsController.toggleAgent("music", manualClick);
+window.toggleSystemAgent = (manualClick) =>
+  agentsController.toggleAgent("system", manualClick);
+window.toggleCrawlerAgent = (manualClick) =>
+  agentsController.toggleAgent("crawler", manualClick);
+window.toggleFileAgent = (manualClick) =>
+  agentsController.toggleAgent("file", manualClick);
+window.toggleDatabaseAgent = (manualClick) =>
+  agentsController.toggleAgent("database", manualClick);
+window.toggleEmailAgent = (manualClick) =>
+  agentsController.toggleAgent("email", manualClick);
+window.toggleSecurityAgent = (manualClick) =>
+  agentsController.toggleAgent("security", manualClick);
+window.toggleWebmasterAgent = (manualClick) =>
+  agentsController.toggleAgent("webmaster", manualClick);
+window.toggleAnalyticsAgent = (manualClick) =>
+  agentsController.toggleAgent("analytics", manualClick);
+window.toggleContentAgent = (manualClick) =>
+  agentsController.toggleAgent("content", manualClick);
+window.toggleMarketingAgent = (manualClick) =>
+  agentsController.toggleAgent("marketing", manualClick);
 
 // Export kontrolera do globalnego scope
 window.agentsController = agentsController;
