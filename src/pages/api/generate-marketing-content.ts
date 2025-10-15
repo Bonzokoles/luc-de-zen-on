@@ -12,7 +12,7 @@ interface GenerateRequest {
 }
 
 // Mapa typów treści na szczegółowe instrukcje dla AI
-const contentInstructions = {
+const contentInstructions: { [key: string]: string; } = {
   "post na social media": "Napisz krótki, angażujący post na social media (Facebook/Instagram). Użyj emoji i hashtagów.",
   "e-mail marketingowy": "Stwórz profesjonalny e-mail marketingowy z wyraźnym wezwaniem do działania (Call to Action).",
   "opis produktu": "Wygeneruj perswazyjny i szczegółowy opis produktu, który zachęci do zakupu.",

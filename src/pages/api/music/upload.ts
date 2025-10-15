@@ -95,7 +95,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || "Failed to upload track",
+        error: (error as any).message || "Failed to upload track",
       }),
       { status: 500 }
     );

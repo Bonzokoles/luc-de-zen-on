@@ -25,10 +25,28 @@ const agentConfigs = {
 };
 
 export const POST: APIRoute = async ({ params, request, locals }) => {
+  interface TaskRequest {
+    task: string;
+  }
+
+  interface Env {
+    AI: {
+      run(model: string, options: any): Promise<{ response: string }>;
+    };
+    AI_AGENTS: KVNamespace;
+  }
+
+  interface AgentStats {
+    messagesCount: number;
+    imagesGenerated: number;
+    tasksCompleted: number;
+    lastActivity: string | null;
+  }
+
   try {
     const { agentId } = params;
-    const { task } = (await request.json()) as any;
-    const env = (locals as any).runtime?.env;
+    const { task } = await request.json() as TaskRequest;
+    const env = (locals as any).runtime?.env as Env;
 
     if (!agentId || !task) {
       return createErrorResponse("Missing agentId or task", 400);
@@ -39,7 +57,6 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       return createErrorResponse("Agent not found", 404);
     }
 
-    // Sprawdź czy agent może wykonywać zadania
     const taskCapabilities = [
       "tasks",
       "local-tasks",
@@ -58,7 +75,6 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       return createErrorResponse("AI service not available", 503);
     }
 
-    // Przygotuj prompt dla wykonania zadania
     const systemPrompt = `Jesteś ${agentConfig.name}. Wykonaj następujące zadanie dokładnie i zwróć konkretny wynik. Jeśli zadanie wymaga obliczeń, wykonaj je. Jeśli wymaga analizy, przeprowadź ją. Zwróć praktyczny, użyteczny wynik.`;
 
     const messages = [
@@ -66,19 +82,17 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       { role: "user", content: `Zadanie do wykonania: ${task}` },
     ];
 
-    // Wywołaj AI do wykonania zadania
-    const response = await env?.AI?.run(agentConfig.model, {
+    const response = await env.AI.run(agentConfig.model, {
       messages,
       max_tokens: 1024,
       temperature: 0.3, // Niższa temperatura dla bardziej precyzyjnych zadań
     });
 
-    // Zapisz statystyki
     try {
       const statsKey = `agent_stats_${agentId}`;
-      const stats = await env?.AI_AGENTS?.get(statsKey);
-      const currentStats = stats
-        ? JSON.parse(stats)
+      const statsJson = await env.AI_AGENTS.get(statsKey);
+      const currentStats: AgentStats = statsJson
+        ? JSON.parse(statsJson)
         : {
             messagesCount: 0,
             imagesGenerated: 0,
@@ -89,7 +103,7 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       currentStats.tasksCompleted += 1;
       currentStats.lastActivity = new Date().toISOString();
 
-      await env?.AI_AGENTS?.put(statsKey, JSON.stringify(currentStats));
+      await env.AI_AGENTS.put(statsKey, JSON.stringify(currentStats));
     } catch (statsError) {
       console.warn("Could not update stats:", statsError);
     }

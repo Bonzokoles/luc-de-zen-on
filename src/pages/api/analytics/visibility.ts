@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // }
 
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const domain = body.domain;
 
     if (!domain || typeof domain !== 'string') {

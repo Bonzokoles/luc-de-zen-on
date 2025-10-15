@@ -247,7 +247,10 @@ const AdvancedGoogleVoiceChat: React.FC<AdvancedGoogleVoiceChatProps> = ({
       });
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        interface AdvancedChatResponse {
+          response: string;
+        }
+        const data = await response.json() as AdvancedChatResponse;
         const aiResponse = data.response;
 
         addMessage("assistant", aiResponse, new Date());

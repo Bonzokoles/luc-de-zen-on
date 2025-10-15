@@ -1,45 +1,12 @@
 // Agent-08-Polaczek-Master Configuration
-
-// Environment validation
-function validateEnvironment() {
-  const requiredKeys = ["DEEPSEEK_API_KEY"];
-  const missing = requiredKeys.filter(
-    (key) => !process.env[key] && !import.meta.env[key]
-  );
-
-  if (missing.length > 0) {
-    console.warn(`⚠️ Missing environment variables: ${missing.join(", ")}`);
-    console.warn("Some features may not work properly.");
-  }
-  return missing.length === 0;
-}
-
-// Model configuration from environment with fallbacks
-const getModelConfig = () => ({
-  primary:
-    import.meta.env.PUBLIC_PRIMARY_MODEL ||
-    process.env.PRIMARY_MODEL ||
-    "deepseek-r1",
-  local:
-    import.meta.env.PUBLIC_LOCAL_MODEL ||
-    process.env.LOCAL_MODEL ||
-    "qwen2.5:3b",
-  backup:
-    import.meta.env.PUBLIC_BACKUP_MODEL ||
-    process.env.BACKUP_MODEL ||
-    "gemma2:2b",
-  translation:
-    import.meta.env.PUBLIC_TRANSLATION_MODEL ||
-    process.env.TRANSLATION_MODEL ||
-    "deepseek-r1",
-});
-
 export const POLACZEK_CONFIG = {
-  // Validate environment on startup
-  isConfigValid: validateEnvironment(),
-
   // Model hierarchy for Polish AI tasks
-  models: getModelConfig(),
+  models: {
+    primary: "deepseek-r1", // Main reasoning model (MyBonzo existing)
+    local: "qwen2.5:3b", // Local Ollama model for privacy
+    backup: "gemma2:2b", // Cloudflare Workers fallback
+    translation: "deepseek-r1", // Best for Polish language tasks
+  },
 
   // Agent registry and roles
   agents: {

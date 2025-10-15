@@ -13,7 +13,7 @@ const voiceAIInterfaceInstance = new VoiceAIInterface();
 export function openVoiceAIPopup() {
   console.log("🎤 Opening Voice AI Communication Popup");
   if (typeof window.openWorkerPopup === 'function') {
-    const prompt = document.getElementById("voiceAiPrompt")?.value || "";
+    const prompt = (document.getElementById("voiceAiPrompt") as HTMLInputElement)?.value || "";
     window.openWorkerPopup("voice-ai", "https://mybonzo.com/api/polaczek/voice-ai", "Voice AI Assistant");
   } else {
     console.warn("Worker popup functions not yet loaded, trying direct Voice AI interface");

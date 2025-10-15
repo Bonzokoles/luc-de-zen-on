@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+interface Ticket {
+  id: string | number;
+  subject: string;
+  status: string;
+}
+
+interface TicketsApiResponse {
+  tickets: Ticket[];
+}
+
 export default function TicketsTable() {
-  const [tickets, setTickets] = useState<any[]>([]);
+  const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -9,7 +19,7 @@ export default function TicketsTable() {
       try {
         const response = await fetch("/api/admin/tickets");
         if (response.ok) {
-          const data = (await response.json()) as any;
+          const data = await response.json() as TicketsApiResponse;
           setTickets(data.tickets || []);
         }
       } catch (err) {
@@ -89,7 +99,7 @@ export default function TicketsTable() {
           </tr>
         </thead>
         <tbody>
-          {tickets.map((ticket) => (
+          {tickets.map((ticket: Ticket) => (
             <tr key={ticket.id}>
               <td style={{ border: "1px solid #333", padding: "8px" }}>
                 {ticket.id}

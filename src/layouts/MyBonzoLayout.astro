@@ -73,7 +73,7 @@ const pageKey = Astro.url.pathname;
   <head>
     <!-- Global Metadata -->
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="manifest" href="/manifest.json" />
@@ -348,12 +348,16 @@ const pageKey = Astro.url.pathname;
     
     <!-- FloatingButtonsManager - Floating Buttons System -->
     <script type="module">
+      import { floatingButtons } from '/src/utils/FloatingButtonsManager.ts';
+      
       // Initialize floating buttons after page load
       window.addEventListener('DOMContentLoaded', () => {
         console.log('🚀 Initializing Floating Buttons...');
         
-        // DISABLED: Floating buttons moved to right panel
-        console.log('✅ Floating buttons disabled - using right panel instead');
+        // Render all floating buttons
+        floatingButtons.renderAll();
+        
+        console.log('✅ Floating Buttons initialized successfully');
       });
     </script>
     
@@ -385,7 +389,6 @@ const pageKey = Astro.url.pathname;
         }
       }, 30000);
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
   <body>
@@ -398,24 +401,275 @@ const pageKey = Astro.url.pathname;
     </div>
     <div class="compact-header">
       <nav style="position: fixed; top: 0; left: 0; width: 100%; z-index: 20; background: rgba(13, 13, 13, 0.8); backdrop-filter: blur(16px); padding: 1rem;">
-        <div style="display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
+        <div style="display: flex; align-items: center; gap: 2rem;">
           <a href="/" style="display: flex; align-items: center; gap: 0.5rem;">
             <img src="/favicon.svg" alt={siteTitle} width="24" height="24" />
             <span style="color: white; font-weight: bold;">{siteTitle}</span>
-          </a>
-          <a href="/dodatki" style="display: flex; align-items: center; gap: 0.5rem; color: #1be1ff; text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #1be1ff/30; border-radius: 6px; background: rgba(27, 225, 255, 0.1); transition: all 0.3s ease;">
-            <span style="font-size: 1.2em;">🔧</span>
-            <span style="font-weight: 600;">Dodatki</span>
           </a>
         </div>
       </nav>
     </div>
     <!-- Page content -->
-    <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1" style="padding-top: 120px;">
+    <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
       <slot />
     </main>
 
+
+
+    <!-- MCP Modal -->
+    <div id="mcpModal" class="mcp-modal" onclick="closeMCPModal()">
+      <div class="mcp-modal-content" onclick="event.stopPropagation()">
+        <div class="mcp-modal-header">
+          <h3 id="mcpModalTitle">MCP Service</h3>
+          <button class="mcp-close-btn" onclick="closeMCPModal()">×</button>
+        </div>
+        <div class="mcp-modal-body">
+          <div id="mcpModalDescription"></div>
+          <div class="mcp-code-section">
+            <h4>🔧 Przykład użycia:</h4>
+            <pre id="mcpModalCode"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+
+
+      /* MCP Modal - Style identyczny z login-box */
+      .mcp-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(10px);
+      }
+
+      .mcp-modal.active {
+        display: flex;
+      }
+
+      .mcp-modal-content {
+        background: rgba(0, 0, 0, 0.6);
+        border: 2px solid #8b0000;
+        border-radius: 0px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+        min-width: 500px;
+        max-width: 90vw;
+        max-height: 80vh;
+        overflow-y: auto;
+        color: #00e7ff;
+      }
+
+      .mcp-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #8b0000;
+      }
+
+      .mcp-modal-header h3 {
+        color: #00e7ff;
+        font-size: 1.5rem;
+        text-shadow: 0 0 10px rgba(0, 231, 255, 0.5);
+        margin: 0;
+      }
+
+      .mcp-close-btn {
+        background: linear-gradient(45deg, #ff4757, #c23616);
+        border: none;
+        border-radius: 0px;
+        padding: 0.5rem 0.75rem;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+      }
+
+      .mcp-close-btn:hover {
+        background: linear-gradient(45deg, #dc143c, #8b0000);
+        transform: translateY(-2px);
+      }
+
+      .mcp-modal-body {
+        color: #00e7ff;
+      }
+
+      .mcp-modal-body h4 {
+        color: #ffd700;
+        margin: 1.5rem 0 0.5rem 0;
+        font-size: 1.1rem;
+      }
+
+      .mcp-modal-body p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .mcp-code-section {
+        margin-top: 1.5rem;
+      }
+
+      .mcp-code-section pre {
+        background: rgba(0, 0, 0, 0.8);
+        border: 1px solid #333;
+        border-radius: 4px;
+        padding: 1rem;
+        color: #00ff00;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        margin-top: 0.5rem;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .mcp-floating-buttons {
+          left: 10px;
+          top: 10px;
+        }
+
+        .mcp-btn {
+          min-width: 240px;
+          padding: 10px 20px;
+          font-size: 1rem;
+        }
+
+        .mcp-modal-content {
+          min-width: 300px;
+          padding: 1.5rem;
+        }
+      }
+    </style>
+
     <script>
+      // MCP Modal Functions
+      window.openMCPModal = function (mcpType) {
+        const modal = document.getElementById("mcpModal");
+        const title = document.getElementById("mcpModalTitle");
+        const description = document.getElementById("mcpModalDescription");
+        const code = document.getElementById("mcpModalCode");
+
+        const mcpData = {
+          duckdb: {
+            title: "🗄️ DuckDB MCP Server",
+            description: `
+              <p><strong>DuckDB</strong> to zaawansowana baza danych analityczna w pamięci.</p>
+              <p>🔹 <strong>Funkcje:</strong> SQL queries, analityka danych, zarządzanie tabelami</p>
+              <p>🔹 <strong>Endpoint:</strong> <code>/api/mcp/duckdb</code></p>
+              <p>🔹 <strong>Status:</strong> <span style="color: #00ff00">Połączony</span></p>
+            `,
+            code: `// Przykład zapytania DuckDB MCP
+fetch('/api/mcp/duckdb', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    operation: 'query',
+    query: 'SELECT * FROM users LIMIT 5'
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));`,
+          },
+          paypal: {
+            title: "💳 PayPal MCP Server",
+            description: `
+              <p><strong>PayPal MCP</strong> do zarządzania płatnościami i fakturami.</p>
+              <p>🔹 <strong>Funkcje:</strong> Tworzenie faktur, historia transakcji, płatności</p>
+              <p>🔹 <strong>Endpoint:</strong> <code>/api/mcp/paypal</code></p>
+              <p>🔹 <strong>Status:</strong> <span style="color: #ff9900">Wymaga konfiguracji</span></p>
+            `,
+            code: `// Przykład tworzenia faktury PayPal
+fetch('/api/mcp/paypal', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    operation: 'create_invoice',
+    amount: '100.00',
+    currency: 'USD',
+    business_email: 'your@email.com'
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));`,
+          },
+          huggingface: {
+            title: "🤗 HuggingFace MCP Server",
+            description: `
+              <p><strong>HuggingFace MCP</strong> do dostępu do modeli AI i zasobów.</p>
+              <p>🔹 <strong>Funkcje:</strong> Modele AI, datasety, publikacje, aplikacje</p>
+              <p>🔹 <strong>Endpoint:</strong> <code>/api/mcp/huggingface</code></p>
+              <p>🔹 <strong>Status:</strong> <span style="color: #00ff00">Połączony</span></p>
+            `,
+            code: `// Przykład wyszukiwania modeli HuggingFace
+fetch('/api/mcp/huggingface', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    operation: 'search_models',
+    query: 'text-generation',
+    limit: 5
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));`,
+          },
+          memory: {
+            title: "🧠 Memory MCP Server",
+            description: `
+              <p><strong>Memory MCP</strong> to system grafu wiedzy do przechowywania kontekstu.</p>
+              <p>🔹 <strong>Funkcje:</strong> Encje, relacje, wyszukiwanie, graf wiedzy</p>
+              <p>🔹 <strong>Endpoint:</strong> <code>/api/mcp/memory</code></p>
+              <p>🔹 <strong>Status:</strong> <span style="color: #00ff00">Połączony</span></p>
+            `,
+            code: `// Przykład tworzenia encji Memory
+fetch('/api/mcp/memory', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    operation: 'create_entity',
+    entity_name: 'AI Technology',
+    entity_type: 'concept',
+    observations: ['Emerging field', 'Transformative impact']
+  })
+})
+.then(res => res.json())
+.then(data => console.log(data));`,
+          },
+        };
+
+        const data = mcpData[mcpType];
+        if (data) {
+          title.textContent = data.title;
+          description.innerHTML = data.description;
+          code.textContent = data.code;
+          modal.classList.add("active");
+        }
+      };
+
+      window.closeMCPModal = function () {
+        const modal = document.getElementById("mcpModal");
+        modal.classList.remove("active");
+      };
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeMCPModal();
+        }
+      });
 
       // Performance optimizations
       (async function initPerformanceOptimizations() {

@@ -265,236 +265,159 @@ export class VertexAIAgent extends BaseGoogleADKAgent {
     return "general";
   }
 
-  private async makePrediction(message: string): Promise<PredictionResult> {
+  private async makeAPIRequest<T>(endpoint: string, body: object): Promise<T> {
     try {
-      const modelName = this.extractModelFromMessage(message) || "gemini-pro";
-      const prompt = this.extractPromptFromMessage(message);
-
-      const requestBody: VertexAIRequest = {
-        modelName: modelName,
-        prompt: prompt,
-        parameters: {
-          temperature: 0.7,
-          maxTokens: 1000,
-          topP: 0.95,
-          topK: 40,
-        },
-      };
-
-      const response = await fetch(`${this.vertexEndpoint}/predict`, {
+      const response = await fetch(`${this.vertexEndpoint}${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
-        throw new Error(`Vertex AI prediction error: ${response.status}`);
+        const errorData = await response.json().catch(() => null);
+        const errorMessage = (errorData as any)?.error?.message || `Vertex AI API error: ${response.status}`;
+        throw new Error(errorMessage);
       }
 
-      const data = (await response.json()) as any;
-      return {
-        predictions: data.predictions || [],
-        metadata: {
-          model: modelName,
-          version: data.model_version || "1.0",
-          latency: data.latency || 0,
-          tokens_used: data.tokens_used || 0,
-        },
-      };
+      return await response.json() as T;
     } catch (error) {
       throw new Error(
-        `Błąd przewidywania Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
+        `Błąd wywołania API Vertex AI: ${error instanceof Error ? error.message : "Nieznany błąd"}`
       );
     }
+  }
+
+  private async makePrediction(message: string): Promise<PredictionResult> {
+    const modelName = this.extractModelFromMessage(message) || "gemini-pro";
+    const prompt = this.extractPromptFromMessage(message);
+
+    const requestBody: VertexAIRequest = {
+      modelName: modelName,
+      prompt: prompt,
+      parameters: {
+        temperature: 0.7,
+        maxTokens: 1000,
+        topP: 0.95,
+        topK: 40,
+      },
+    };
+
+    const data = await this.makeAPIRequest<Partial<PredictionResult>>("/predict", requestBody);
+    return {
+      predictions: data.predictions || [],
+      metadata: {
+        model: modelName,
+        version: data.metadata?.version || "1.0",
+        latency: data.metadata?.latency || 0,
+        tokens_used: data.metadata?.tokens_used || 0,
+      },
+    };
   }
 
   private async chatWithModel(message: string): Promise<any> {
-    try {
-      const modelName = this.extractModelFromMessage(message) || "chat-bison";
-      const chatMessage = this.extractPromptFromMessage(message);
+    const modelName = this.extractModelFromMessage(message) || "chat-bison";
+    const chatMessage = this.extractPromptFromMessage(message);
 
-      const requestBody = {
-        model: modelName,
-        messages: [
-          {
-            role: "user",
-            content: chatMessage,
-          },
-        ],
-        parameters: {
-          temperature: 0.7,
-          maxTokens: 2000,
+    const requestBody = {
+      model: modelName,
+      messages: [
+        {
+          role: "user",
+          content: chatMessage,
         },
-      };
+      ],
+      parameters: {
+        temperature: 0.7,
+        maxTokens: 2000,
+      },
+    };
 
-      const response = await fetch(`${this.vertexEndpoint}/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI chat error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        response: data.response || "Nie otrzymano odpowiedzi z modelu",
-        model: modelName,
-        tokens: data.tokens_used || 0,
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd czatu Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
-    }
+    const data = await this.makeAPIRequest<{ response?: string; tokens_used?: number }>("/chat", requestBody);
+    return {
+      response: data.response || "Nie otrzymano odpowiedzi z modelu",
+      model: modelName,
+      tokens: data.tokens_used || 0,
+    };
   }
 
   private async generateCode(message: string): Promise<any> {
-    try {
-      const codePrompt = this.extractPromptFromMessage(message);
-      const language = this.extractLanguageFromMessage(message);
+    const codePrompt = this.extractPromptFromMessage(message);
+    const language = this.extractLanguageFromMessage(message);
 
-      const requestBody = {
-        model: "code-bison",
-        prompt: codePrompt,
-        language: language,
-        parameters: {
-          temperature: 0.2,
-          maxTokens: 2000,
-        },
-      };
+    const requestBody = {
+      model: "code-bison",
+      prompt: codePrompt,
+      language: language,
+      parameters: {
+        temperature: 0.2,
+        maxTokens: 2000,
+      },
+    };
 
-      const response = await fetch(`${this.vertexEndpoint}/generate-code`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI code generation error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        code: data.code || "// Nie udało się wygenerować kodu",
-        language: language,
-        explanation: data.explanation || "",
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd generowania kodu Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
-    }
+    const data = await this.makeAPIRequest<{ code?: string; explanation?: string }>("/generate-code", requestBody);
+    return {
+      code: data.code || "// Nie udało się wygenerować kodu",
+      language: language,
+      explanation: data.explanation || "",
+    };
   }
 
   private async analyzeImage(message: string): Promise<any> {
-    try {
-      const imageUrl = this.extractImageFromMessage(message);
-      if (!imageUrl) {
-        throw new Error("Nie znaleziono obrazu do analizy");
-      }
-
-      const requestBody = {
-        model: "gemini-pro-vision",
-        image_url: imageUrl,
-        prompt: "Przeanalizuj ten obraz i opisz co widzisz",
-      };
-
-      const response = await fetch(`${this.vertexEndpoint}/vision`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI vision error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        description: data.description || "Nie udało się przeanalizować obrazu",
-        objects: data.objects || [],
-        text: data.text || "",
-        confidence: data.confidence || 0,
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd analizy obrazu Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const imageUrl = this.extractImageFromMessage(message);
+    if (!imageUrl) {
+      throw new Error("Nie znaleziono obrazu do analizy");
     }
+
+    const requestBody = {
+      model: "gemini-pro-vision",
+      image_url: imageUrl,
+      prompt: "Przeanalizuj ten obraz i opisz co widzisz",
+    };
+
+    const data = await this.makeAPIRequest<{ description?: string; objects?: any[]; text?: string; confidence?: number }>("/vision", requestBody);
+    return {
+      description: data.description || "Nie udało się przeanalizować obrazu",
+      objects: data.objects || [],
+      text: data.text || "",
+      confidence: data.confidence || 0,
+    };
   }
 
   private async deployModel(message: string): Promise<any> {
-    try {
-      const modelName = this.extractModelFromMessage(message);
-      if (!modelName) {
-        throw new Error("Nie określono modelu do wdrożenia");
-      }
-
-      const requestBody = {
-        model: modelName,
-        deployment_name: `${modelName}-deployment-${Date.now()}`,
-        machine_type: "n1-standard-4",
-        min_replicas: 1,
-        max_replicas: 3,
-      };
-
-      const response = await fetch(`${this.vertexEndpoint}/deploy`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI deployment error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-
-      // Add to deployed models
-      const newDeployment: ModelDeployment = {
-        id: data.deployment_id,
-        name: requestBody.deployment_name,
-        model: modelName,
-        status: "deploying",
-        endpoint: data.endpoint_url || "",
-        region: this.region,
-      };
-
-      this.deployedModels.push(newDeployment);
-
-      return {
-        deployment_id: data.deployment_id,
-        endpoint: data.endpoint_url,
-        status: "deploying",
-        estimated_time: "5-10 minut",
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd wdrażania modelu Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const modelName = this.extractModelFromMessage(message);
+    if (!modelName) {
+      throw new Error("Nie określono modelu do wdrożenia");
     }
+
+    const requestBody = {
+      model: modelName,
+      deployment_name: `${modelName}-deployment-${Date.now()}`,
+      machine_type: "n1-standard-4",
+      min_replicas: 1,
+      max_replicas: 3,
+    };
+
+    const data = await this.makeAPIRequest<{ deployment_id: string; endpoint_url: string }>("/deploy", requestBody);
+
+    const newDeployment: ModelDeployment = {
+      id: data.deployment_id,
+      name: requestBody.deployment_name,
+      model: modelName,
+      status: "deploying",
+      endpoint: data.endpoint_url || "",
+      region: this.region,
+    };
+
+    this.deployedModels.push(newDeployment);
+
+    return {
+      deployment_id: data.deployment_id,
+      endpoint: data.endpoint_url,
+      status: "deploying",
+      estimated_time: "5-10 minut",
+    };
   }
 
   private async listAvailableModels(): Promise<any> {
@@ -507,84 +430,41 @@ export class VertexAIAgent extends BaseGoogleADKAgent {
   }
 
   private async batchPredict(message: string): Promise<any> {
-    try {
-      const modelName = this.extractModelFromMessage(message) || "gemini-pro";
-      const inputData = this.extractBatchDataFromMessage(message);
+    const modelName = this.extractModelFromMessage(message) || "gemini-pro";
+    const inputData = this.extractBatchDataFromMessage(message);
 
-      const requestBody = {
-        model: modelName,
-        instances: inputData,
-        batch_size: 10,
-      };
+    const requestBody = {
+      model: modelName,
+      instances: inputData,
+      batch_size: 10,
+    };
 
-      const response = await fetch(`${this.vertexEndpoint}/batch-predict`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI batch prediction error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        job_id: data.job_id,
-        status: "running",
-        total_instances: inputData.length,
-        estimated_completion: data.estimated_completion || "10-30 minut",
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd batch prediction Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
-    }
+    const data = await this.makeAPIRequest<{ job_id: string; estimated_completion: string }>("/batch-predict", requestBody);
+    return {
+      job_id: data.job_id,
+      status: "running",
+      total_instances: inputData.length,
+      estimated_completion: data.estimated_completion || "10-30 minut",
+    };
   }
 
   private async handleGeneralQuery(message: string): Promise<any> {
-    try {
-      const response = await fetch(`${this.vertexEndpoint}/general`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: message }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Vertex AI general query error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        response: data.response || "Nie mogę odpowiedzieć na to pytanie",
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd zapytania Vertex AI: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
-    }
+    const data = await this.makeAPIRequest<{ response: string }>("/general", { query: message });
+    return {
+      response: data.response || "Nie mogę odpowiedzieć na to pytanie",
+    };
   }
 
   private async refreshDeployedModels(): Promise<void> {
     try {
-      const response = await fetch(`${this.vertexEndpoint}/deployments`, {
+      const data = await fetch(`${this.vertexEndpoint}/deployments`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-      });
-
-      if (response.ok) {
-        const data = (await response.json()) as any;
-        this.deployedModels = data.deployments || [];
-      }
+      }).then(res => res.json());
+      
+      this.deployedModels = (data as any).deployments || [];
     } catch (error) {
       console.warn("Could not refresh deployed models:", error);
     }

@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 
+interface MCPServer {
+  name: string;
+  status: "online" | "offline" | "error";
+}
+
+interface MCPStatusResponse {
+  servers: MCPServer[];
+}
+
 export default function MCPServersPanel() {
-  const [servers, setServers] = useState<any[]>([]);
+  const [servers, setServers] = useState<MCPServer[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -9,7 +18,7 @@ export default function MCPServersPanel() {
       try {
         const response = await fetch("/api/admin/mcp-status");
         if (response.ok) {
-          const data = (await response.json()) as any;
+          const data = await response.json() as MCPStatusResponse;
           setServers(data.servers || []);
         }
       } catch (err) {
@@ -55,7 +64,7 @@ export default function MCPServersPanel() {
             No MCP servers data
           </div>
         ) : (
-          servers.map((server: any, index: number) => (
+          servers.map((server: MCPServer, index: number) => (
             <div
               key={index}
               style={{

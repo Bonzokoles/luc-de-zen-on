@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { language = 'pl-PL' } = await request.json();
+    const { language = 'pl-PL' } = (await request.json()) as any;
 
     // Simulate Google Cloud Speech API initialization
     // In production, this would initialize the actual Google Cloud Speech client

@@ -34,7 +34,12 @@ export default function IntegratedChatbot() {
         }),
       });
 
-      const data = (await response.json()) as any;
+      interface ChatApiResponse {
+        answer: string;
+        via?: string;
+        modelUsed?: string;
+      }
+      const data = await response.json() as ChatApiResponse;
 
       setMessages((prev) => [
         ...prev,

@@ -14,12 +14,24 @@ export function getAgentsStatus() {
 }
 
 // Funkcja do dodawania nowego agenta
-export function addAgent(agentData: any) {
+export interface AgentData {
+  id?: string;
+  type: string;
+  created_at?: string | number;
+  [key: string]: any;
+}
+export function addAgent(agentData: AgentData) {
   const newAgent = {
     ...agentData,
     id:
       agentData.id ||
       `POLACZEK_${agentData.type}${Math.floor(Math.random() * 100)}`,
+    name: agentData.name || "Unnamed Agent",
+    role: agentData.role || "Agent",
+    goal: agentData.goal || "No goal specified",
+    capabilities: agentData.capabilities || [],
+    tools: agentData.tools || [],
+    dependencies: agentData.dependencies || [],
     status: "idle",
     performance_metrics: {
       avg_response_time: "N/A",
@@ -27,12 +39,12 @@ export function addAgent(agentData: any) {
       error_rate: "0%",
     },
   };
-  agents.push(newAgent);
+  agents.push(newAgent as any);
   return newAgent;
 }
 
 // Funkcja do aktualizacji statusu agenta
-export function updateAgentStatus(id: any, status: any) {
+export function updateAgentStatus(id: string, status: string) {
   const agent = agents.find((a) => a.id === id);
   if (agent) {
     agent.status = status;
@@ -42,7 +54,7 @@ export function updateAgentStatus(id: any, status: any) {
 }
 
 // Funkcja do usuwania agenta
-export function removeAgent(id: any) {
+export function removeAgent(id: string) {
   const index = agents.findIndex((a) => a.id === id);
   if (index !== -1) {
     const removedAgent = agents.splice(index, 1);

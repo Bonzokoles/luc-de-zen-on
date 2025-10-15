@@ -389,19 +389,73 @@ async function handlePolaczekTavily(request, env, headers) {
 
 // AI Quiz Generator Handler - Cloud Run Integration
 async function handlePolaczekQuiz(request, env, headers) {
+  const url = new URL(request.url);
+  const path = url.pathname;
+
+  // Direct ElevenLabs TTS integration for the /speech endpoint
+  if (path === '/api/polaczek/quiz/speech') {
+    try {
+      const body = await request.json();
+      const textToSpeak = body.text;
+
+      // Use user-provided voice ID or default to the first one
+      const voiceId = body.voiceId || 'g8ZOdhoD9R6eYKPTjKbE'; 
+      const validVoiceIds = ['g8ZOdhoD9R6eYKPTjKbE', 'IRHApOXLvnW57QJPQH2P'];
+
+      if (!validVoiceIds.includes(voiceId)) {
+          return new Response(JSON.stringify({ error: 'Invalid voiceId provided.' }), { status: 400, headers });
+      }
+
+      if (!textToSpeak) {
+        return new Response(JSON.stringify({ error: 'Text to speak is required.' }), { status: 400, headers });
+      }
+
+      const apiKey = env.ELEVENLABS_API_KEY;
+      if (!apiKey) {
+        return new Response(JSON.stringify({ error: 'ElevenLabs API key is not configured.' }), { status: 500, headers });
+      }
+
+      const elevenLabsUrl = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
+      const elevenLabsResponse = await fetch(elevenLabsUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'xi-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          text: textToSpeak,
+          model_id: 'eleven_multilingual_v2',
+        }),
+      });
+
+      if (!elevenLabsResponse.ok) {
+        const errorBody = await elevenLabsResponse.text();
+        console.error(`ElevenLabs API error: ${errorBody}`);
+        return new Response(JSON.stringify({ error: 'Failed to generate speech from ElevenLabs.' }), { status: 502, headers });
+      }
+
+      // Stream the audio back to the client
+      return new Response(elevenLabsResponse.body, {
+        headers: {
+          ...headers,
+          'Content-Type': 'audio/mpeg',
+        },
+      });
+
+    } catch (error) {
+      console.error('POLACZEK Speech Error:', error);
+      return new Response(JSON.stringify({ error: 'Failed to process speech request.' }), { status: 500, headers });
+    }
+  }
+
+  // Fallback to existing Cloud Run proxy for other /quiz endpoints
   try {
-    // Cloud Run Quiz Service URL
     const QUIZ_SERVICE_URL = 'https://polaczek-quiz-967195112364.europe-west1.run.app';
-    const url = new URL(request.url);
-    const path = url.pathname;
-    
-    // Build target URL
     let targetUrl = QUIZ_SERVICE_URL + path;
     if (url.search) {
       targetUrl += url.search;
     }
     
-    // Forward request to Cloud Run Quiz service
     const proxyRequest = new Request(targetUrl, {
       method: request.method,
       headers: {
@@ -413,7 +467,6 @@ async function handlePolaczekQuiz(request, env, headers) {
 
     console.log(`🎯 POLACZEK Quiz Proxy: ${request.method} to ${targetUrl}`);
     
-    // Call Cloud Run service
     const response = await fetch(proxyRequest);
     const data = await response.text();
     
@@ -432,7 +485,6 @@ async function handlePolaczekQuiz(request, env, headers) {
   } catch (error) {
     console.error('POLACZEK Quiz Error:', error);
     
-    // Fallback - return basic quiz info if Cloud Run fails
     const fallback = {
       quiz_generator: {
         status: "Service temporarily unavailable",

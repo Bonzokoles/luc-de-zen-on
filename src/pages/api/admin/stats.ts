@@ -54,13 +54,19 @@ export async function GET({ request }: { request: Request }) {
 }
 
 // Funkcje pobierania prawdziwych danych z Cloudflare APIs
+
+interface CfAnalyticsSummaryResponse {
+  result?: {
+    requests?: number;
+  };
+}
+
 async function getRealVisitorStats() {
   try {
     const accountId = "7f490d58a478c6baccb0ae01ea1d87c3"; // Stolarnia.ams account
     const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
     if (apiToken) {
-      // Pobieranie danych z Cloudflare Analytics API
       const response = await fetch(
         `https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics/reports/http_requests_summary`,
         {
@@ -72,7 +78,7 @@ async function getRealVisitorStats() {
       );
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        const data = await response.json() as CfAnalyticsSummaryResponse;
         const requests = data.result?.requests || 0;
         return {
           total: Math.floor(requests * 0.7), // Estimate visitors from requests
@@ -81,12 +87,15 @@ async function getRealVisitorStats() {
       }
     }
 
-    // Fallback to reasonable estimates
     return { total: 1247, active: 42 };
   } catch (error) {
     console.warn("Failed to fetch visitor stats:", error);
     return { total: 1247, active: 42 };
   }
+}
+
+interface CfWorkersScriptsResponse {
+  result?: any[];
 }
 
 async function getRealQueryStats() {
@@ -95,7 +104,6 @@ async function getRealQueryStats() {
     const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
     if (apiToken) {
-      // Pobieranie statystyk Workers AI z Cloudflare API
       const response = await fetch(
         `https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts`,
         {
@@ -107,7 +115,7 @@ async function getRealQueryStats() {
       );
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        const data = await response.json() as CfWorkersScriptsResponse;
         const scriptsCount = data.result?.length || 0;
         return { total: scriptsCount * 450 }; // Estimate queries based on active scripts
       }
@@ -120,6 +128,16 @@ async function getRealQueryStats() {
   }
 }
 
+interface CfR2BucketsResponse {
+    result?: any[];
+}
+
+interface CfAnalyticsDashboardResponse {
+    result?: {
+        bandwidth?: number;
+    };
+}
+
 async function getRealSystemMetrics() {
   try {
     const accountId = "7f490d58a478c6baccb0ae01ea1d87c3";
@@ -129,7 +147,6 @@ async function getRealSystemMetrics() {
     let bandwidthUsed = 92.7;
 
     if (apiToken) {
-      // Pobieranie R2 storage usage
       try {
         const r2Response = await fetch(
           `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets`,
@@ -142,7 +159,7 @@ async function getRealSystemMetrics() {
         );
 
         if (r2Response.ok) {
-          const r2Data = (await r2Response.json()) as any;
+          const r2Data = await r2Response.json() as CfR2BucketsResponse;
           const buckets = r2Data.result || [];
           r2StorageUsed = buckets.length * 6.2; // Estimate based on bucket count
         }
@@ -150,7 +167,6 @@ async function getRealSystemMetrics() {
         console.warn("R2 API call failed:", e);
       }
 
-      // Pobieranie bandwidth z Analytics API
       try {
         const analyticsResponse = await fetch(
           `https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics/dashboard`,
@@ -163,7 +179,7 @@ async function getRealSystemMetrics() {
         );
 
         if (analyticsResponse.ok) {
-          const analyticsData = (await analyticsResponse.json()) as any;
+          const analyticsData = await analyticsResponse.json() as CfAnalyticsDashboardResponse;
           bandwidthUsed =
             (analyticsData.result?.bandwidth || 92700000) / 1000000; // Convert to GB
         }
@@ -205,7 +221,6 @@ async function getRealAPIMetrics() {
     const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
     if (apiToken) {
-      // Pobieranie Workers metrics
       const response = await fetch(
         `https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts`,
         {
@@ -217,7 +232,7 @@ async function getRealAPIMetrics() {
       );
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        const data = await response.json() as CfWorkersScriptsResponse;
         const scriptsCount = data.result?.length || 0;
         return {
           totalRequests: scriptsCount * 1580, // Estimate based on active workers

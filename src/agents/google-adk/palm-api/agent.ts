@@ -598,36 +598,39 @@ export class PaLMAPIAgent extends BaseGoogleADKAgent {
         });
 
         if (!response.ok) {
+          const errorData = await response.json().catch(() => ({ message: response.statusText }));
           throw new Error(
-            `PaLM API error: ${response.status} - ${response.statusText}`
+            `PaLM API error: ${response.status} - ${(errorData as any)?.error?.message || response.statusText}`
           );
         }
 
-        const data = (await response.json()) as any;
+        const data: any = await response.json();
 
         // Check for API-level errors
         if (data.error) {
-          throw new Error(`PaLM API error: ${data.error.message}`);
+            throw new Error(`PaLM API error: ${data.error.message}`);
         }
 
         // Check for content filters
         if (data.filters && data.filters.length > 0) {
-          console.warn("Content filtered:", data.filters);
+          console.warn("Content filtered:", data.filters[0].reason);
         }
 
         return data;
-      } catch (error) {
+      } catch (error: unknown) {
         lastError = error as Error;
+        
+        const errorMessage = (error as any)?.response?.data?.error?.message || (error as Error).message;
 
         // If it's a rate limit error, wait before retrying
-        if (error instanceof Error && error.message.includes("429")) {
+        if (error instanceof Error && errorMessage.includes("429")) {
           const waitTime = Math.pow(2, attempt) * 1000; // Exponential backoff
           await new Promise((resolve) => setTimeout(resolve, waitTime));
           continue;
         }
 
-        // For other errors, don't retry
-        throw error;
+        // For other errors, rethrow with a more informative message
+        throw new Error(`PaLM API request failed: ${errorMessage}`);
       }
     }
 

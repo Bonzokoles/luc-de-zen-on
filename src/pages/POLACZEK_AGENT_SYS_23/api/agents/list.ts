@@ -114,7 +114,7 @@ export const GET: APIRoute = async ({ request }) => {
 
 export const POST: APIRoute = async ({ request }) => {
     try {
-        const body = await request.json();
+        const body: any = await request.json();
         
         if (body.action === 'refresh') {
             // Simulate refreshing agent statuses

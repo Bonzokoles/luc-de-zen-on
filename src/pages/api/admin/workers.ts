@@ -9,11 +9,23 @@ export async function GET({ request }: { request: Request }) {
     });
   }
 
+  interface CfWorkerScript {
+    id: string;
+    created_on: string;
+    modified_on: string;
+    usage_model?: any;
+    routes?: any[];
+  }
+
+  interface CfWorkersApiResponse {
+    result: CfWorkerScript[];
+  }
+
   try {
     const accountId = "7f490d58a478c6baccb0ae01ea1d87c3";
     const apiToken = process.env.CLOUDFLARE_API_TOKEN;
 
-    let workers = [];
+    let workers: CfWorkerScript[] = [];
 
     if (apiToken) {
       const response = await fetch(
@@ -27,19 +39,19 @@ export async function GET({ request }: { request: Request }) {
       );
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        const data = await response.json() as CfWorkersApiResponse;
         workers = data.result || [];
       }
     }
 
     return json({
-      workers: workers.map((worker: any) => ({
+      workers: workers.map((worker: CfWorkerScript) => ({
         id: worker.id,
         name: worker.id,
         status: worker.modified_on ? "active" : "inactive",
         created: worker.created_on,
         modified: worker.modified_on,
-        usage: worker.usage || {},
+        usage: worker.usage_model || {},
         routes: worker.routes || [],
       })),
       total: workers.length,
@@ -63,9 +75,15 @@ export async function POST({ request }: { request: Request }) {
     });
   }
 
+  interface WorkerActionRequest {
+    action: "create" | "update" | "delete" | "deploy" | "addRoute";
+    workerName: string;
+    workerCode?: string;
+    route?: string;
+  }
+
   try {
-    const body = (await request.json()) as any;
-    const { action, workerName, workerCode, route } = body;
+    const { action, workerName, workerCode, route } = await request.json() as WorkerActionRequest;
 
     const accountId = "7f490d58a478c6baccb0ae01ea1d87c3";
     const apiToken = process.env.CLOUDFLARE_API_TOKEN;
@@ -76,10 +94,10 @@ export async function POST({ request }: { request: Request }) {
 
     switch (action) {
       case "create":
-        return await createWorker(accountId, apiToken, workerName, workerCode);
+        return await createWorker(accountId, apiToken, workerName, workerCode || "");
 
       case "update":
-        return await updateWorker(accountId, apiToken, workerName, workerCode);
+        return await updateWorker(accountId, apiToken, workerName, workerCode || "");
 
       case "delete":
         return await deleteWorker(accountId, apiToken, workerName);
@@ -88,7 +106,7 @@ export async function POST({ request }: { request: Request }) {
         return await deployWorker(accountId, apiToken, workerName);
 
       case "addRoute":
-        return await addWorkerRoute(accountId, apiToken, workerName, route);
+        return await addWorkerRoute(accountId, apiToken, workerName, route || "");
 
       default:
         return json({ error: "Invalid action" }, { status: 400 });
@@ -99,6 +117,10 @@ export async function POST({ request }: { request: Request }) {
       status: 500,
     });
   }
+}
+
+interface CfWorkerUpdateResponse {
+  result: any; // Define more specifically if the shape is known
 }
 
 async function createWorker(
@@ -131,7 +153,7 @@ async function createWorker(
     );
 
     if (response.ok) {
-      const data = (await response.json()) as any;
+      const data = await response.json() as CfWorkerUpdateResponse;
       return json({
         success: true,
         message: `Worker ${workerName} created successfully`,
@@ -178,7 +200,7 @@ async function updateWorker(
     );
 
     if (response.ok) {
-      const data = (await response.json()) as any;
+      const data = await response.json() as CfWorkerUpdateResponse;
       return json({
         success: true,
         message: `Worker ${workerName} updated successfully`,

@@ -2,19 +2,17 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "baseUrl": ".",
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
-    "strict": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@scripts/*": ["src/scripts/*"],
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"]
+      "@/*": ["src/*"]
     },
-    "types": ["@cloudflare/workers-types", "node"]
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "allowJs": true
   },
-  "include": ["src/**/*", ".astro/types.d.ts"],
-  "exclude": ["node_modules", "dist", ".wrangler"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro",
+    "worker-configuration.d.ts"
+  ]
 }

@@ -33,7 +33,6 @@ export default function TransformersVoiceAI({
           "Xenova/speecht5_tts",
           {
             quantized: false,
-            dtype: "fp32",
           }
         );
 

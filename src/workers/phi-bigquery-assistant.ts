@@ -54,7 +54,7 @@ export default {
             });
             
             if (bigqueryResponse.ok) {
-              const data = await bigqueryResponse.json();
+              const data: any = await bigqueryResponse.json();
               contextData = `\n\nDane z BigQuery:\n${JSON.stringify(data.rows, null, 2)}`;
             }
           } catch (bigqueryError) {

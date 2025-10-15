@@ -42,5 +42,5 @@ if (typeof MessagePort === 'undefined') {
     }
     
     close() {}
-  };
+  } as any;
 }

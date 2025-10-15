@@ -111,11 +111,12 @@ const PromptEnhancer: React.FC<PromptEnhancerProps> = ({
         }),
       });
 
-      const data = (await response.json()) as any;
-
       if (!response.ok) {
-        throw new Error(data.error || "Enhancement failed");
+        const errorData = await response.json() as { error?: string };
+        throw new Error(errorData.error || "Enhancement failed");
       }
+
+      const data = await response.json() as EnhancementResult;
 
       setResult(data);
       if (onEnhance) {

@@ -4,6 +4,7 @@ interface AgentData {
   status?: string;
   config?: any;
   system_prompt?: string;
+  created_at?: string | number;
 }
 
 export default {

@@ -1,9 +1,17 @@
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  // Check for authorization (placeholder)
-  // In a real app, you'd verify a JWT or session cookie.
-  const isAuthenticated = true; // Replace with real auth check
+  interface CreateAgentRequest {
+    name: string;
+    prompt: string;
+    model: string;
+  }
+
+  interface Env {
+    KNOWLEDGE_BASE: KVNamespace;
+  }
+
+  const isAuthenticated = true; 
 
   if (!isAuthenticated) {
     return new Response(JSON.stringify({ error: "Brak autoryzacji" }), {
@@ -12,8 +20,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const body = (await request.json()) as any;
-    const { name, prompt, model } = body;
+    const { name, prompt, model } = await request.json() as CreateAgentRequest;
 
     if (!name || !prompt || !model) {
       return new Response(
@@ -26,14 +33,16 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Access the KV store via Astro's locals
-    const kv = (locals as any).runtime?.env?.KNOWLEDGE_BASE;
+    const env = (locals as any).runtime?.env as Env;
+    const kv = env?.KNOWLEDGE_BASE;
 
-    // The key for the agent in the KV store
+    if (!kv) {
+        return new Response(JSON.stringify({ error: "KNOWLEDGE_BASE not configured" }), { status: 500 });
+    }
+
     const agentKey = `agent:${name.replace(/\s+/g, "-").toLowerCase()}`;
 
-    // Check if agent already exists
-    const existingAgent = await kv?.get(agentKey);
+    const existingAgent = await kv.get(agentKey);
     if (existingAgent) {
       return new Response(
         JSON.stringify({ error: `Agent o nazwie \"${name}\" już istnieje.` }),
@@ -50,8 +59,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       createdAt: new Date().toISOString(),
     };
 
-    // Save the agent configuration to the KV store
-    await kv?.put(agentKey, JSON.stringify(agentConfig));
+    await kv.put(agentKey, JSON.stringify(agentConfig));
 
     return new Response(JSON.stringify({ success: true, agentKey }), {
       status: 201,

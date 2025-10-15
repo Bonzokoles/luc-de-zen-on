@@ -42,6 +42,13 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
                 </select>
               </div>
               <div>
+                <label class="block text-sm font-medium mb-2 text-primary-foreground">Głos ElevenLabs:</label>
+                <select id="elevenLabsVoice" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                  <option value="g8ZOdhoD9R6eYKPTjKbE">Głos Męski</option>
+                  <option value="IRHApOXLvnW57QJPQH2P">Głos Żeński</option>
+                </select>
+              </div>
+              <div>
                 <label class="block text-sm font-medium mb-2 text-primary-foreground">Tryb nagrywania:</label>
                 <select id="voiceMode" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
                   <option value="continuous">Ciągły</option>
@@ -61,6 +68,56 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
               <div class="text-cyan-400 font-medium">🎤 Gotowy do nagrywania</div>
               <div class="text-sm text-gray-400 mt-1">Kliknij przycisk Voice lub powiedz "Słucham"</div>
             </div>
+          </div>
+        </div>
+
+        <!-- AI Settings -->
+        <div class="ai-settings-panel mb-8 border border-edge rounded-lg p-6" style="background: rgba(0, 0, 0, 0.5);">
+          <h3 class="text-xl font-semibold text-primary-foreground mb-4">⚙️ Ustawienia AI</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label for="aiModel" class="block text-sm font-medium mb-2 text-primary-foreground">Model AI</label>
+              <select id="aiModel" onchange="updateModelInfo()" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                <option value="@cf/google/gemma-3-12b-it">Google Gemma 3</option>
+                <option value="@cf/meta/llama-3.1-8b-instruct">Meta Llama 3.1</option>
+                <option value="@cf/qwen/qwen2.5-7b-instruct">Qwen 2.5</option>
+                <option value="@cf/microsoft/phi-2">Microsoft Phi-2</option>
+                <option value="polaczek">POLACZEK</option>
+                <option value="bielik">Bielik</option>
+                <option value="gpt-4">OpenAI GPT-4</option>
+                <option value="claude">Anthropic Claude</option>
+                <option value="gemini-pro">Google Gemini Pro</option>
+              </select>
+            </div>
+            <div>
+              <label for="aiRole" class="block text-sm font-medium mb-2 text-primary-foreground">Rola AI</label>
+              <select id="aiRole" onchange="updateSystemPrompt()" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                <option value="assistant">Asystent</option>
+                <option value="programmer">Programista</option>
+                <option value="writer">Pisarz</option>
+                <option value="analyst">Analityk</option>
+                <option value="teacher">Nauczyciel</option>
+                <option value="business">Doradca Biznesowy</option>
+                <option value="creative">Kreator</option>
+                <option value="translator">Tłumacz</option>
+              </select>
+            </div>
+            <div>
+              <label for="temperature" class="block text-sm font-medium mb-2 text-primary-foreground">Temperatura: <span id="tempValue">0.7</span></label>
+              <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7" class="w-full" oninput="document.getElementById('tempValue').textContent = this.value">
+            </div>
+            <div>
+              <label for="language" class="block text-sm font-medium mb-2 text-primary-foreground">Język Odpowiedzi</label>
+              <select id="language" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
+                <option value="pl">Polski</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </div>
+          <div id="modelInfo" class="mt-4"></div>
+          <div class="mt-4">
+            <button onclick="toggleSystemPrompt()" class="text-sm text-cyan-400 hover:underline">Pokaż/Ukryj System Prompt</button>
+            <div id="systemPromptPreview" class="hidden mt-2 p-2 bg-gray-800/50 border border-edge rounded text-xs text-gray-300 whitespace-pre-wrap"></div>
           </div>
         </div>
 
@@ -114,7 +171,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           <div class="chat-input border-t border-edge p-4">
             <div class="flex gap-3">
               <textarea id="messageInput" rows="2" placeholder="Napisz swoją wiadomość..." class="flex-1 p-3 border border-edge rounded-lg text-primary-foreground placeholder-gray-400 focus:border-cyan-400 focus:outline-none resize-none" style="background: rgba(0, 0, 0, 0.5);" onkeypress="handleKeyPress(event)"></textarea>
-              <button id="sendButton" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50">
+              <button id="sendButton" onclick="sendMessage()" class="bg-cyan-600 hover:bg-cyan-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50">
                 Wyślij
               </button>
             </div>
@@ -293,17 +350,40 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       }
     }
 
-    function speakResponse(text) {
-      if (speechSynthesis && isVoiceEnabled) {
-        // Cancel any ongoing speech
-        speechSynthesis.cancel();
+    async function speakResponse(text) {
+      if (!isVoiceEnabled) return;
+
+      console.log("🔊 Synthesizing speech with ElevenLabs...");
+      const voiceId = (document.getElementById('elevenLabsVoice') as HTMLSelectElement)?.value || 'g8ZOdhoD9R6eYKPTjKbE';
+      
+      try {
+        const response = await fetch("/api/polaczek/quiz/speech", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: text,
+            voiceId: voiceId,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`ElevenLabs API error: ${response.statusText}`);
+        }
+
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
         
+        audio.onended = () => {
+          URL.revokeObjectURL(audioUrl);
+        };
+
+      } catch (error) {
+        console.error("❌ ElevenLabs TTS Error, falling back to browser synthesis:", error);
+        // Fallback to browser TTS if our backend fails
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = document.getElementById('voiceLanguage').value || 'pl-PL';
-        utterance.rate = 0.9;
-        utterance.pitch = 1.0;
-        utterance.volume = 0.8;
-        
+        utterance.lang = (document.getElementById('voiceLanguage') as HTMLSelectElement)?.value || 'pl-PL';
         speechSynthesis.speak(utterance);
       }
     }

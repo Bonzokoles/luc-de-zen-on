@@ -167,7 +167,7 @@ export const POST = async ({ request, locals }: { request: Request; locals: any 
                 });
 
                 if (polaczekResponse.ok) {
-                    const polaczekData = await polaczekResponse.json() as PolaczekResponse;
+                    const polaczekData: PolaczekResponse = await polaczekResponse.json();
                     return createSuccessResponse({
                         response: polaczekData.data?.answer || polaczekData.answer,
                         model: 'polaczek-assistant',

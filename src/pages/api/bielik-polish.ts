@@ -101,8 +101,9 @@ export async function OPTIONS(): Promise<Response> {
 // Bielik configuration based on GATEWAY documentation
 const BIELIK_CONFIG = {
   accountId: "7f490d58a478c6baccb0ae01ea1d87c3",
-  gatewayName: "bielik_gateway", 
-  model: "speakleash/Bielik-11B-v2.2-Instruct",  get gatewayUrl() {
+  gatewayName: "bielik_gateway",
+  model: "speakleash/Bielik-11B-v2.2-Instruct",
+  get gatewayUrl() {
     return `https://gateway.ai.cloudflare.com/v1/${this.accountId}/${this.gatewayName}`;
   },
 
@@ -131,7 +132,9 @@ async function callBielikThroughGateway(
     {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${locals?.runtime?.env?.HF_API_TOKEN || process.env.HF_API_TOKEN}`,
+        Authorization: `Bearer ${
+          locals?.runtime?.env?.HF_API_TOKEN || process.env.HF_API_TOKEN
+        }`,
         "Content-Type": "application/json",
         "cf-aig-metadata": JSON.stringify({
           endpoint: "voice-assistant",

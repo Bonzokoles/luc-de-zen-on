@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ locals }) => {
     if (!db) throw new Error("Baza danych D1 jest niedostępna.");
 
     const { results } = await db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-    const tableNames = (results as TableInfo[]).map(row => row.name);
+    const tableNames = (results as TableInfo[]).map((row: TableInfo) => row.name);
 
     return new Response(JSON.stringify({
       success: true,

@@ -26,9 +26,20 @@ const agentConfigs = {
 };
 
 export const GET: APIRoute = async ({ params, locals }) => {
+  interface Env {
+    AI_AGENTS: KVNamespace;
+  }
+
+  interface AgentStats {
+    messagesCount: number;
+    imagesGenerated: number;
+    tasksCompleted: number;
+    lastActivity: string | null;
+  }
+
   try {
     const { agentId } = params;
-    const env = locals.runtime.env;
+    const env = (locals as any).runtime.env as Env;
 
     if (!agentId) {
       return createErrorResponse("Missing agentId", 400);
@@ -39,8 +50,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
       return createErrorResponse("Agent not found", 404);
     }
 
-    // Pobierz statystyki z KV
-    let stats = { messagesCount: 0, imagesGenerated: 0, tasksCompleted: 0, lastActivity: null };
+    let stats: AgentStats = { messagesCount: 0, imagesGenerated: 0, tasksCompleted: 0, lastActivity: null };
     
     try {
       const statsKey = `agent_stats_${agentId}`;

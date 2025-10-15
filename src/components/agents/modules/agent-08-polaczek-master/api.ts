@@ -7,51 +7,8 @@ import {
   type OrchestrationResult,
 } from "./config";
 
-// Authorization middleware
-async function validateRequest(
-  request: Request
-): Promise<{ isValid: boolean; error?: string }> {
-  const authHeader = request.headers.get("Authorization");
-  const apiKey = request.headers.get("X-API-Key");
-  const userAgent = request.headers.get("User-Agent");
-
-  // Rate limiting check (basic implementation)
-  const clientIP = request.headers.get("CF-Connecting-IP") || "unknown";
-
-  // Allow requests from same domain or with valid API key
-  if (apiKey && apiKey.startsWith("mb_")) {
-    return { isValid: true };
-  }
-
-  if (userAgent && userAgent.includes("mybonzo.com")) {
-    return { isValid: true };
-  }
-
-  // For now, allow all requests but log suspicious activity
-  if (!authHeader && !apiKey) {
-    console.warn(`⚠️ Unauthorized request attempt from ${clientIP}`);
-  }
-
-  return { isValid: true }; // Temporarily permissive during development
-}
-
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    // Validate request authorization
-    const authCheck = await validateRequest(request);
-    if (!authCheck.isValid) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          error: authCheck.error || "Unauthorized access",
-        }),
-        {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
     const req: OrchestrationRequest = await request.json();
 
     // Get runtime environment (Cloudflare Pages)
@@ -71,13 +28,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    // Initialize orchestrator with validation
-    if (!POLACZEK_CONFIG.isConfigValid) {
-      console.warn(
-        "⚠️ Configuration validation failed, proceeding with fallbacks"
-      );
-    }
-
+    // Initialize orchestrator
     const orchestrator = new PolaczekOrchestrator(env);
 
     // Execute orchestration
@@ -85,10 +36,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        "X-Response-Time": `${Date.now()}ms`,
-      },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
     console.error("Polaczek orchestration error:", error);
@@ -223,134 +171,43 @@ class PolaczekOrchestrator {
       return request.preferredAgent;
     }
 
-    // Enhanced agent selection with NLP-like scoring
+    // Smart agent selection based on task and capabilities
     const task = request.task.toLowerCase();
-    const agentScores = new Map<AgentType, number>();
 
-    // Define keyword weights for better matching
-    const keywordMap = {
-      POLACZEK_T: {
-        keywords: [
-          "tłumacz",
-          "translate",
-          "polski",
-          "english",
-          "language",
-          "język",
-          "content",
-          "treść",
-        ],
-        weight: 1.0,
-      },
-      POLACZEK_B: {
-        keywords: [
-          "biblioteka",
-          "dokumentacja",
-          "wyszukaj",
-          "search",
-          "knowledge",
-          "wiedza",
-          "archiwum",
-          "znajdź",
-        ],
-        weight: 1.0,
-      },
-      POLACZEK_M1: {
-        keywords: [
-          "zadanie",
-          "task",
-          "koordynu",
-          "manage",
-          "workflow",
-          "proces",
-          "zarządzaj",
-          "organizuj",
-        ],
-        weight: 1.0,
-      },
-      POLACZEK_D1: {
-        keywords: [
-          "interfejs",
-          "ui",
-          "dashboard",
-          "panel",
-          "widok",
-          "display",
-          "pokazuj",
-          "visualiz",
-        ],
-        weight: 1.0,
-      },
-      POLACZEK_D: {
-        keywords: [
-          "złożon",
-          "complex",
-          "orkiestr",
-          "plan",
-          "strategi",
-          "decide",
-          "wybierz",
-          "główny",
-        ],
-        weight: 1.2, // Slightly higher weight for orchestration
-      },
-    };
-
-    // Calculate scores for each agent
-    for (const [agentId, config] of Object.entries(keywordMap)) {
-      let score = 0;
-
-      // Keyword matching with fuzzy logic
-      for (const keyword of config.keywords) {
-        if (task.includes(keyword)) {
-          score += config.weight;
-        }
-        // Partial matching for better flexibility
-        if (task.includes(keyword.slice(0, -1))) {
-          score += config.weight * 0.5;
-        }
-      }
-
-      // Consider agent availability and performance
-      const agent = this.agents.get(agentId as AgentType);
-      if (agent) {
-        // Boost score based on agent performance
-        score *= agent.performance.successRate / 100;
-
-        // Reduce score if agent was recently used (load balancing)
-        const timeSinceLastUse =
-          Date.now() - new Date(agent.lastUsed).getTime();
-        if (timeSinceLastUse < 30000) {
-          // Less than 30 seconds
-          score *= 0.8;
-        }
-      }
-
-      agentScores.set(agentId as AgentType, score);
+    if (
+      task.includes("tłumacz") ||
+      task.includes("translate") ||
+      task.includes("polski")
+    ) {
+      return "POLACZEK_T";
     }
 
-    // Find agent with highest score
-    let bestAgent: AgentType = "POLACZEK_D";
-    let bestScore = 0;
-
-    for (const [agentId, score] of agentScores.entries()) {
-      if (score > bestScore) {
-        bestScore = score;
-        bestAgent = agentId;
-      }
+    if (
+      task.includes("biblioteka") ||
+      task.includes("dokumentacja") ||
+      task.includes("wyszukaj")
+    ) {
+      return "POLACZEK_B";
     }
 
-    // Fallback to Director if no clear winner or very low scores
-    if (bestScore < 0.5) {
-      return "POLACZEK_D";
+    if (
+      task.includes("zadanie") ||
+      task.includes("task") ||
+      task.includes("koordynu")
+    ) {
+      return "POLACZEK_M1";
     }
 
-    console.log(
-      `🎯 Selected agent ${bestAgent} with score ${bestScore.toFixed(
-        2
-      )} for task: "${request.task}"`
-    );
-    return bestAgent;
+    if (
+      task.includes("interfejs") ||
+      task.includes("ui") ||
+      task.includes("dashboard")
+    ) {
+      return "POLACZEK_D1";
+    }
+
+    // Default to Director for complex orchestration
+    return "POLACZEK_D";
   }
 
   private async executeTask(
@@ -417,59 +274,9 @@ Priorytet: ${request.priority}`;
     systemPrompt: string,
     userPrompt: string
   ): Promise<any> {
-    try {
-      console.log(`🤖 Calling local model ${model} via Ollama...`);
-
-      const ollamaUrl = "http://localhost:11434/api/generate";
-      const payload = {
-        model: model,
-        prompt: `${systemPrompt}\n\nUser: ${userPrompt}\nAssistant:`,
-        stream: false,
-        options: {
-          temperature: 0.7,
-          top_p: 0.9,
-          num_predict: 2048,
-        },
-      };
-
-      const response = await fetch(ollamaUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-        // Add timeout for local requests
-        signal: AbortSignal.timeout(30000),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Ollama API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as { response?: string };
-
-      if (!data.response) {
-        throw new Error("No response from Ollama model");
-      }
-
-      console.log(`✅ Local model ${model} responded successfully`);
-      return data.response;
-    } catch (error) {
-      console.error(`❌ Local model ${model} error:`, error);
-
-      // Fallback response when Ollama is unavailable
-      if (error instanceof TypeError && error.message.includes("fetch")) {
-        console.log(`🔄 Ollama unavailable, using fallback for ${model}`);
-        return `[${model} - Tryb offline] Przetwarzam zadanie: "${userPrompt.substring(
-          0,
-          100
-        )}..." - Model lokalny obecnie niedostępny, używam trybu awaryjnego.`;
-      }
-
-      const errorMessage =
-        error instanceof Error ? error.message : "Unknown error";
-      return `[${model} - Błąd] Nie udało się przetworzyć zadania: ${errorMessage}`;
-    }
+    // Placeholder for local Ollama integration
+    // TODO: Implement Ollama API calls
+    return `[${model}] Przetwarzam: ${userPrompt.substring(0, 100)}...`;
   }
 
   private updateAgentMetrics(

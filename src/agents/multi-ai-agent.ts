@@ -5,6 +5,16 @@
 
 import { Agent } from "./agent";
 
+// Define missing types for WebSocket connections
+interface Connection {
+  id: string;
+  send(data: string): void;
+}
+
+interface ConnectionContext {
+  // Context properties would be defined here if used
+}
+
 export interface Env {
   // Bindings from wrangler.toml
   AI: any; // Cloudflare Workers AI
@@ -184,14 +194,14 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
   }
 
   // Handle WebSocket connections
-  async onConnect(connection: any, ctx: any) {
+  async onConnect(connection: Connection, ctx: ConnectionContext) {
     console.log("Client connected:", connection.id);
 
     // Send welcome message with agent status
     connection.send(
       JSON.stringify({
         type: "welcome",
-        agentId: (this as any).id,
+        agentId: 'multi-ai-agent',
         state: {
           conversations: this.state.conversations.length,
           totalRequests: this.state.usage.totalRequests,
@@ -204,15 +214,15 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
 
   // Handle WebSocket messages
   async onMessage(
-    connection: any,
+    connection: Connection,
     message: string | ArrayBuffer | ArrayBufferView
   ) {
     try {
-      const data = JSON.parse(message.toString());
+      const data: { type: string; [key: string]: any } = JSON.parse(message.toString());
 
       switch (data.type) {
         case "chat":
-          await this.handleWebSocketChat(connection, data);
+          await this.handleWebSocketChat(connection, data as unknown as { message: string, provider?: string, model?: string, conversationId?: string });
           break;
 
         case "get_conversations":
@@ -226,7 +236,7 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
           break;
 
         case "switch_provider":
-          await this.handleSwitchProvider(connection, data);
+          await this.handleSwitchProvider(connection, data as unknown as { provider: string, model?: string });
           break;
 
         case "ping":
@@ -257,13 +267,13 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
   }
 
   // Handle WebSocket errors
-  async onError(connection: any, error: Error) {
+  async onError(connection: Connection, error: Error) {
     console.error(`WebSocket connection error:`, error);
   }
 
   // Handle WebSocket close
   async onClose(
-    connection: any,
+    connection: Connection,
     code: number,
     reason: string,
     wasClean: boolean
@@ -281,7 +291,7 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
     return new Response(
       JSON.stringify({
         status: "active",
-        agentId: (this as any).id,
+        agentId: 'multi-ai-agent',
         uptime: Date.now() - this.state.userProfile.createdAt,
         conversations: this.state.conversations.length,
         totalRequests: this.state.usage.totalRequests,
@@ -298,8 +308,13 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
   }
 
   private async handleChat(request: Request): Promise<Response> {
-    const { message, provider, model, conversationId } =
-      (await request.json()) as any;
+    interface ChatRequest {
+        message: string;
+        provider?: string;
+        model?: string;
+        conversationId?: string;
+    }
+    const { message, provider, model, conversationId } = await request.json<ChatRequest>();
 
     if (!message) {
       return new Response(JSON.stringify({ error: "Message is required" }), {
@@ -351,7 +366,7 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
   }
 
   private async handleUpdatePreferences(request: Request): Promise<Response> {
-    const updates = (await request.json()) as any;
+    const updates = await request.json<Partial<AgentState["preferences"]>>();
 
     this.setState({
       ...this.state,
@@ -379,7 +394,7 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
   }
 
   // WebSocket Handlers
-  private async handleWebSocketChat(connection: any, data: any) {
+  private async handleWebSocketChat(connection: Connection, data: { message: string, provider?: string, model?: string, conversationId?: string }) {
     const response = await this.processAIRequest(
       data.message,
       data.provider || this.state.preferences.defaultProvider,
@@ -396,7 +411,7 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
     );
   }
 
-  private async handleSwitchProvider(connection: any, data: any) {
+  private async handleSwitchProvider(connection: Connection, data: { provider: string, model?: string }) {
     this.setState({
       ...this.state,
       preferences: {
@@ -521,10 +536,17 @@ export class MultiAIAgent extends Agent<Env, AgentState> {
     });
 
     if (!response.ok) {
-      throw new Error(`AI provider error: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`AI provider error: ${response.status} - ${errorText}`);
     }
 
-    const data = (await response.json()) as any;
+    interface AIResponse {
+        response: string;
+        usage: { total_tokens: number };
+        error?: string;
+    }
+
+    const data = await response.json<AIResponse>();
 
     if (data.error) {
       throw new Error(data.error);

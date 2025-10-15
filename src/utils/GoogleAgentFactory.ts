@@ -97,11 +97,12 @@ Status: Browser Mock - gotowy do integracji z Gemini Vision API`;
    * Tworzy agenta Code Bison (browser mock)
    */
   async createCodeBisonAgent(): Promise<GoogleAgent> {
+    const capabilities = ['code-generation', 'code-review', 'debugging', 'refactoring'];
     return {
       id: 'code_bison_agent',
       name: 'Code Bison Agent',
       type: 'google-code-bison',
-      capabilities: ['code-generation', 'code-review', 'debugging', 'refactoring'],
+      capabilities: capabilities,
       
       async generateCode(prompt: string, language: string = 'typescript'): Promise<string> {
         try {
@@ -143,7 +144,7 @@ class MockClass:
 `}
 
 /* Status: Browser Mock - w produkcji połączyć z Code Bison API
-   Capabilities: ${this.capabilities?.join(', ')}
+   Capabilities: ${capabilities.join(', ')}
 */`;
 
           return mockCode;

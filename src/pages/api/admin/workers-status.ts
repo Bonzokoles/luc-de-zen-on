@@ -255,8 +255,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return createErrorResponse("Unauthorized access", 401);
     }
 
-    const body = (await request.json()) as any;
-    const { action, workerName } = body;
+    interface WorkerActionRequest {
+      action: 'test' | 'restart';
+      workerName?: string;
+    }
+    const { action, workerName } = await request.json() as WorkerActionRequest;
 
     if (action === "test" && workerName) {
       // Test specific worker

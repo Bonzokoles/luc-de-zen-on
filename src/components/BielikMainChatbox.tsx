@@ -97,7 +97,11 @@ export default function BielikMainChatbox({
       });
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        interface BielikStatusResponse {
+          connectedModels: Record<string, any>;
+          version: string;
+        }
+        const data = await response.json() as BielikStatusResponse;
         setIsConnected(true);
         setBielikStatus("active");
 
@@ -172,7 +176,14 @@ export default function BielikMainChatbox({
         }),
       });
 
-      const data = (await response.json()) as any;
+      interface ChatApiResponse {
+        success: boolean;
+        answer: string;
+        connectedModels?: string[];
+        source: string;
+        error?: string;
+      }
+      const data = await response.json() as ChatApiResponse;
 
       if (response.ok && data.success) {
         const assistantMessage: Message = {

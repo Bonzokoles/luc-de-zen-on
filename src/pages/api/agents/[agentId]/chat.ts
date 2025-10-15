@@ -34,10 +34,26 @@ const agentConfigs = {
 };
 
 export const POST: APIRoute = async ({ params, request, locals }) => {
+  interface ChatRequest {
+    message: string;
+  }
+
+  interface Env {
+    AI: {
+      run(model: string, options: any): Promise<{ response: string }>;
+    };
+    AI_AGENTS: KVNamespace;
+  }
+
+  interface AgentStats {
+      messagesCount: number;
+      lastActivity: string | null;
+  }
+
   try {
     const { agentId } = params;
-    const { message } = (await request.json()) as any;
-    const env = (locals as any).runtime?.env;
+    const { message } = await request.json() as ChatRequest;
+    const env = (locals as any).runtime?.env as Env;
 
     if (!agentId || !message) {
       return createErrorResponse("Missing agentId or message", 400);
@@ -48,7 +64,6 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       return createErrorResponse("Agent not found", 404);
     }
 
-    // Sprawdź czy agent ma możliwość chatu
     if (!agentConfig.capabilities.includes("chat")) {
       return createErrorResponse("Agent does not support chat", 400);
     }
@@ -57,31 +72,28 @@ export const POST: APIRoute = async ({ params, request, locals }) => {
       return createErrorResponse("AI service not available", 503);
     }
 
-    // Przygotuj wiadomości dla AI
     const messages = [
       { role: "system", content: agentConfig.systemPrompt },
       { role: "user", content: message },
     ];
 
-    // Wywołaj Cloudflare Workers AI
-    const response = await env?.AI?.run(agentConfig.model, {
+    const response = await env.AI.run(agentConfig.model, {
       messages,
       max_tokens: 512,
       temperature: 0.7,
     });
 
-    // Zapisz statystyki do KV (opcjonalnie)
     try {
       const statsKey = `agent_stats_${agentId}`;
-      const stats = await env?.AI_AGENTS?.get(statsKey);
-      const currentStats = stats
-        ? JSON.parse(stats)
+      const statsJson = await env.AI_AGENTS.get(statsKey);
+      const currentStats: AgentStats = statsJson
+        ? JSON.parse(statsJson)
         : { messagesCount: 0, lastActivity: null };
 
       currentStats.messagesCount += 1;
       currentStats.lastActivity = new Date().toISOString();
 
-      await env?.AI_AGENTS?.put(statsKey, JSON.stringify(currentStats));
+      await env.AI_AGENTS.put(statsKey, JSON.stringify(currentStats));
     } catch (statsError) {
       console.warn("Could not update stats:", statsError);
     }

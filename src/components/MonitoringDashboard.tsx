@@ -72,7 +72,7 @@ const MonitoringDashboard: React.FC = () => {
     try {
       const response = await fetch("/api/health?detailed=true");
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = (await response.json()) as any;
+      const data = (await response.json()) as HealthData;
       setHealthData(data);
     } catch (err) {
       console.error("Failed to fetch health data:", err);
@@ -85,7 +85,7 @@ const MonitoringDashboard: React.FC = () => {
     try {
       const response = await fetch("/api/errors?limit=50");
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = (await response.json()) as any;
+      const data = (await response.json()) as ErrorData;
       setErrorData(data);
     } catch (err) {
       console.error("Failed to fetch error data:", err);

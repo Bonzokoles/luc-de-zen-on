@@ -256,281 +256,159 @@ export class TextBisonAgent extends BaseGoogleADKAgent {
     return "general";
   }
 
-  private async generateText(prompt: string): Promise<any> {
+  private async makeAPIRequest<T>(endpoint: string, body: object): Promise<T> {
     try {
-      // Extract parameters from prompt
-      const style = this.extractStyleFromPrompt(prompt);
-      const format = this.extractFormatFromPrompt(prompt);
-
-      const requestBody: TextGenerationRequest = {
-        prompt: prompt,
-        maxLength: 2000,
-        temperature: 0.7,
-        style: style,
-        format: format,
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/generate`, {
+      const response = await fetch(`${this.apiEndpoint}${endpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
-        throw new Error(`Text generation API error: ${response.status}`);
+        const errorData = await response.json().catch(() => null);
+        const errorMessage = (errorData as any)?.message || `API error: ${response.status}`;
+        throw new Error(errorMessage);
       }
 
-      const data = (await response.json()) as any;
-      return {
-        text: data.text || "Nie udało się wygenerować tekstu",
-        wordCount: data.text ? data.text.split(" ").length : 0,
-        style: style,
-        format: format,
-      };
+      return await response.json() as T;
     } catch (error) {
       throw new Error(
-        `Błąd generowania tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
+        `Błąd wywołania API Text Bison: ${error instanceof Error ? error.message : "Nieznany błąd"}`
       );
     }
+  }
+
+  private async generateText(prompt: string): Promise<any> {
+    const style = this.extractStyleFromPrompt(prompt);
+    const format = this.extractFormatFromPrompt(prompt);
+
+    const requestBody: TextGenerationRequest = {
+      prompt: prompt,
+      maxLength: 2000,
+      temperature: 0.7,
+      style: style,
+      format: format,
+    };
+
+    const data = await this.makeAPIRequest<{ text?: string }>("/generate", requestBody);
+    return {
+      text: data.text || "Nie udało się wygenerować tekstu",
+      wordCount: data.text ? data.text.split(" ").length : 0,
+      style: style,
+      format: format,
+    };
   }
 
   private async analyzeText(message: string): Promise<TextAnalysisResult> {
-    try {
-      const textToAnalyze = this.extractTextFromMessage(message);
-      if (!textToAnalyze) {
-        throw new Error("Nie znaleziono tekstu do analizy w wiadomości");
-      }
-
-      const requestBody = {
-        text: textToAnalyze,
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/analyze`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Text analysis API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        word_count: textToAnalyze.split(" ").length,
-        char_count: textToAnalyze.length,
-        sentiment: data.sentiment || "neutralny",
-        positive_indicators: data.positive_indicators || 0,
-        negative_indicators: data.negative_indicators || 0,
-        readability_score: data.readability_score || 50,
-        keywords: data.keywords || [],
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd analizy tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const textToAnalyze = this.extractTextFromMessage(message);
+    if (!textToAnalyze) {
+      throw new Error("Nie znaleziono tekstu do analizy w wiadomości");
     }
+
+    const data = await this.makeAPIRequest<Partial<TextAnalysisResult>>("/analyze", { text: textToAnalyze });
+    return {
+      word_count: textToAnalyze.split(" ").length,
+      char_count: textToAnalyze.length,
+      sentiment: data.sentiment || "neutralny",
+      positive_indicators: data.positive_indicators || 0,
+      negative_indicators: data.negative_indicators || 0,
+      readability_score: data.readability_score || 50,
+      keywords: data.keywords || [],
+    };
   }
 
   private async summarizeText(message: string): Promise<any> {
-    try {
-      const textToSummarize = this.extractTextFromMessage(message);
-      if (!textToSummarize) {
-        throw new Error("Nie znaleziono tekstu do podsumowania w wiadomości");
-      }
-
-      const requestBody: TextSummaryRequest = {
-        text: textToSummarize,
-        maxLength: Math.max(100, Math.floor(textToSummarize.length / 4)),
-        style: "detailed",
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/summarize`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Text summarization API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        summary: data.summary || "Nie udało się podsumować tekstu",
-        originalLength: textToSummarize.length,
-        summaryLength: data.summary ? data.summary.length : 0,
-        compressionRatio: data.summary
-          ? ((data.summary.length / textToSummarize.length) * 100).toFixed(1)
-          : 0,
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd podsumowania tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const textToSummarize = this.extractTextFromMessage(message);
+    if (!textToSummarize) {
+      throw new Error("Nie znaleziono tekstu do podsumowania w wiadomości");
     }
+
+    const requestBody: TextSummaryRequest = {
+      text: textToSummarize,
+      maxLength: Math.max(100, Math.floor(textToSummarize.length / 4)),
+      style: "detailed",
+    };
+
+    const data = await this.makeAPIRequest<{ summary?: string }>("/summarize", requestBody);
+    return {
+      summary: data.summary || "Nie udało się podsumować tekstu",
+      originalLength: textToSummarize.length,
+      summaryLength: data.summary ? data.summary.length : 0,
+      compressionRatio: data.summary
+        ? ((data.summary.length / textToSummarize.length) * 100).toFixed(1)
+        : "0",
+    };
   }
 
   private async translateText(message: string): Promise<any> {
-    try {
-      const textToTranslate = this.extractTextFromMessage(message);
-      if (!textToTranslate) {
-        throw new Error("Nie znaleziono tekstu do tłumaczenia w wiadomości");
-      }
-
-      // Extract target language from message
-      const targetLanguage = this.extractTargetLanguage(message);
-
-      const requestBody: TextTranslationRequest = {
-        text: textToTranslate,
-        fromLanguage: "auto",
-        toLanguage: targetLanguage,
-        preserveFormatting: true,
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/translate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Translation API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        translatedText:
-          data.translatedText || "Nie udało się przetłumaczyć tekstu",
-        fromLanguage: data.detectedLanguage || "nieznany",
-        toLanguage: targetLanguage,
-        confidence: data.confidence || 0.9,
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd tłumaczenia tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const textToTranslate = this.extractTextFromMessage(message);
+    if (!textToTranslate) {
+      throw new Error("Nie znaleziono tekstu do tłumaczenia w wiadomości");
     }
+
+    const targetLanguage = this.extractTargetLanguage(message);
+
+    const requestBody: TextTranslationRequest = {
+      text: textToTranslate,
+      fromLanguage: "auto",
+      toLanguage: targetLanguage,
+      preserveFormatting: true,
+    };
+
+    const data = await this.makeAPIRequest<{ translatedText?: string; detectedLanguage?: string; confidence?: number }>("/translate", requestBody);
+    return {
+      translatedText:
+        data.translatedText || "Nie udało się przetłumaczyć tekstu",
+      fromLanguage: data.detectedLanguage || "nieznany",
+      toLanguage: targetLanguage,
+      confidence: data.confidence || 0.9,
+    };
   }
 
   private async improveText(message: string): Promise<any> {
-    try {
-      const textToImprove = this.extractTextFromMessage(message);
-      if (!textToImprove) {
-        throw new Error("Nie znaleziono tekstu do poprawy w wiadomości");
-      }
-
-      const requestBody = {
-        text: textToImprove,
-        improvementType: "grammar_and_style",
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/improve`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Text improvement API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        improvedText: data.improvedText || textToImprove,
-        corrections: data.corrections || [],
-        suggestions: data.suggestions || [],
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd poprawy tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const textToImprove = this.extractTextFromMessage(message);
+    if (!textToImprove) {
+      throw new Error("Nie znaleziono tekstu do poprawy w wiadomości");
     }
+
+    const requestBody = {
+      text: textToImprove,
+      improvementType: "grammar_and_style",
+    };
+
+    const data = await this.makeAPIRequest<{ improvedText?: string; corrections?: any[]; suggestions?: any[] }>("/improve", requestBody);
+    return {
+      improvedText: data.improvedText || textToImprove,
+      corrections: data.corrections || [],
+      suggestions: data.suggestions || [],
+    };
   }
 
   private async rewriteText(message: string): Promise<any> {
-    try {
-      const textToRewrite = this.extractTextFromMessage(message);
-      if (!textToRewrite) {
-        throw new Error("Nie znaleziono tekstu do przepisania w wiadomości");
-      }
-
-      const requestBody = {
-        text: textToRewrite,
-        style: this.extractStyleFromPrompt(message),
-      };
-
-      const response = await fetch(`${this.apiEndpoint}/rewrite`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Text rewriting API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        rewrittenText: data.rewrittenText || textToRewrite,
-        style: requestBody.style,
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd przepisania tekstu: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
+    const textToRewrite = this.extractTextFromMessage(message);
+    if (!textToRewrite) {
+      throw new Error("Nie znaleziono tekstu do przepisania w wiadomości");
     }
+
+    const requestBody = {
+      text: textToRewrite,
+      style: this.extractStyleFromPrompt(message),
+    };
+
+    const data = await this.makeAPIRequest<{ rewrittenText?: string }>("/rewrite", requestBody);
+    return {
+      rewrittenText: data.rewrittenText || textToRewrite,
+      style: requestBody.style,
+    };
   }
 
   private async handleGeneralQuery(message: string): Promise<any> {
-    try {
-      const response = await fetch(`${this.apiEndpoint}/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`General query API error: ${response.status}`);
-      }
-
-      const data = (await response.json()) as any;
-      return {
-        response: data.response || "Nie mogę odpowiedzieć na to pytanie",
-      };
-    } catch (error) {
-      throw new Error(
-        `Błąd przetwarzania zapytania: ${
-          error instanceof Error ? error.message : "Nieznany błąd"
-        }`
-      );
-    }
+    const data = await this.makeAPIRequest<{ response?: string }>("/chat", { message });
+    return {
+      response: data.response || "Nie mogę odpowiedzieć na to pytanie",
+    };
   }
 
   private extractTextFromMessage(message: string): string | null {

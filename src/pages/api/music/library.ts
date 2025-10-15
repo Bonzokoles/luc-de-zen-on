@@ -71,7 +71,7 @@ export const GET: APIRoute = async ({ locals }) => {
     return new Response(
       JSON.stringify({
         success: false,
-        error: error.message || "Failed to load music library",
+        error: (error as any).message || "Failed to load music library",
       }),
       { status: 500 }
     );

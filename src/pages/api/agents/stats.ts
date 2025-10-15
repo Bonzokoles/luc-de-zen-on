@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ locals }) => {
     for (const agentId of agentIds) {
       try {
         const statsKey = `agent_stats_${agentId}`;
-        const stats = await env.AI_AGENTS?.get(statsKey);
+        const stats = await (env.AI_AGENTS as any)?.get(statsKey);
         if (stats) {
           const agentStats = JSON.parse(stats);
           totalMessages += agentStats.messagesCount || 0;

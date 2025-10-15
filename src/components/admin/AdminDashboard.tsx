@@ -6,7 +6,7 @@ import {
 } from "../../utils/auth";
 // import PolaczekDyrektorPanel from './PolaczekDyrektorPanel.svelte';
 // import ConfigurationManager from './ConfigurationManager.svelte';
-import WorkersStatusDashboard from "./WorkersStatusDashboard";
+import WorkersStatusDashboardComponent from "./WorkersStatusDashboard";
 import MCPServersPanel from "./MCPServersPanel";
 import TicketsTable from "./TicketsTable";
 import UsersTable from "./UsersTable";
@@ -365,7 +365,7 @@ function AdminDashboardContent({
         <StatusBox />
         <TrafficChart />
         <BackupManager />
-        <WorkersStatusDashboard />
+        <WorkersStatusDashboardComponent />
         <MCPServersPanel />
         {user?.role === "superadmin" && (
           <>
@@ -410,8 +410,17 @@ function AdminDashboardContent({
 }
 
 // PanelStats Component
+interface StatsData {
+  visitors: number;
+  queries: number;
+  uptime: string;
+  responseTime: number;
+  storage: number;
+  bandwidth: number;
+}
+
 function PanelStats() {
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<StatsData>({
     visitors: 0,
     queries: 0,
     uptime: "0:00:00",
@@ -432,8 +441,8 @@ function PanelStats() {
           },
         });
         if (response.ok) {
-          const data = await response.json();
-          setStats(data as any);
+          const data = await response.json() as StatsData;
+          setStats(data);
         }
       } catch (err) {
         console.error("Error fetching stats:", err);
@@ -509,11 +518,19 @@ function StatCard({ label, value }: { label: string; value: string }) {
 }
 
 // StatusBox Component
+interface ServiceStatus {
+    name: string;
+    status: 'online' | 'degraded' | 'offline';
+    responseTime?: number;
+}
+
+interface SystemStatus {
+    services: ServiceStatus[];
+    system: any; // Define system properties if known
+}
+
 function StatusBox() {
-  const [status, setStatus] = useState<{ services: any[]; system: any }>({
-    services: [],
-    system: {},
-  });
+  const [status, setStatus] = useState<SystemStatus>({ services: [], system: {} });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -527,8 +544,8 @@ function StatusBox() {
           },
         });
         if (response.ok) {
-          const data = await response.json();
-          setStatus(data as any);
+          const data = await response.json() as SystemStatus;
+          setStatus(data);
         }
       } catch (err) {
         console.error("Error fetching status:", err);
@@ -574,7 +591,7 @@ function StatusBox() {
             No services data
           </div>
         ) : (
-          status.services.map((service: any, index: number) => (
+          status.services.map((service: ServiceStatus, index: number) => (
             <div
               key={index}
               style={{
@@ -609,8 +626,15 @@ function StatusBox() {
 }
 
 // TrafficChart Component
+interface TrafficData {
+    realTimeUsers: number;
+    totalSessions: number;
+    bounceRate: number;
+    avgSessionDuration: number;
+}
+
 function TrafficChart() {
-  const [analytics, setAnalytics] = useState<any>(null);
+  const [analytics, setAnalytics] = useState<TrafficData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -624,8 +648,8 @@ function TrafficChart() {
           },
         });
         if (response.ok) {
-          const data = await response.json();
-          setAnalytics(data as any);
+          const data = await response.json() as TrafficData;
+          setAnalytics(data);
         }
       } catch (error) {
         console.error("Error fetching analytics:", error);
@@ -686,7 +710,7 @@ function TrafficChart() {
           marginBottom: "20px",
         }}
       >
-        <StatCard label="REAL-TIME USERS" value={analytics.realTimeUsers} />
+        <StatCard label="REAL-TIME USERS" value={analytics.realTimeUsers.toString()} />
         <StatCard
           label="TOTAL SESSIONS"
           value={analytics.totalSessions.toLocaleString()}

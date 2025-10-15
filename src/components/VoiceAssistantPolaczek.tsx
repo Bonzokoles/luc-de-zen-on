@@ -12,9 +12,15 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [currentMessage, setCurrentMessage] = useState("");
   const [isActive, setIsActive] = useState(false);
-  const [conversationHistory, setConversationHistory] = useState<
+  const [conversationHistory, setConversationHistory] = useState< 
     Array<{ type: "user" | "assistant"; text: string }>
   >([]);
+  
+  const [selectedVoice, setSelectedVoice] = useState('g8ZOdhoD9R6eYKPTjKbE');
+  const availableVoices = {
+    'Głos Męski': 'g8ZOdhoD9R6eYKPTjKbE',
+    'Głos Żeński': 'IRHApOXLvnW57QJPQH2P'
+  };
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const recognitionRef = useRef<any>(null);
@@ -32,8 +38,8 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
 
   const initializeSpeechRecognition = () => {
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-      const SpeechRecognition =
-        (window as any).webkitSpeechRecognition ||
+      const SpeechRecognition = 
+        (window as any).webkitSpeechRecognition || 
         (window as any).SpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
       recognitionRef.current.continuous = false;
@@ -85,7 +91,11 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
       });
 
       if (response.ok) {
-        const data = (await response.json()) as any;
+        interface ChatApiResponse {
+          message?: string;
+          response?: string;
+        }
+        const data = (await response.json()) as ChatApiResponse;
         const aiResponse =
           data.message ||
           data.response ||
@@ -97,44 +107,9 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
         ]);
         speakText(aiResponse);
       } else {
-        // Fallback to predefined responses
-        let fallbackResponse = bonzoResponses[0];
-
-        if (
-          input.toLowerCase().includes("bigquery") ||
-          input.toLowerCase().includes("dane")
-        ) {
-          fallbackResponse = bonzoResponses[1];
-        } else if (
-          input.toLowerCase().includes("funkcje") ||
-          input.toLowerCase().includes("możliwości")
-        ) {
-          fallbackResponse = bonzoResponses[2];
-        } else if (
-          input.toLowerCase().includes("język") ||
-          input.toLowerCase().includes("tłumaczenie")
-        ) {
-          fallbackResponse = bonzoResponses[3];
-        } else if (
-          input.toLowerCase().includes("muzyka") ||
-          input.toLowerCase().includes("wizualizator")
-        ) {
-          fallbackResponse = bonzoResponses[4];
-        } else if (
-          input.toLowerCase().includes("architektura") ||
-          input.toLowerCase().includes("technologia")
-        ) {
-          fallbackResponse = bonzoResponses[5];
-        } else if (
-          input.toLowerCase().includes("polaczek") ||
-          input.toLowerCase().includes("api")
-        ) {
-          fallbackResponse = bonzoResponses[6];
-        } else {
-          fallbackResponse =
-            bonzoResponses[Math.floor(Math.random() * bonzoResponses.length)];
-        }
-
+        // Fallback to a specific error message
+        const fallbackResponse = "Coś jest nie tak z głównym połączeniem, usterka wkrótce zostanie naprawiona";
+        
         setConversationHistory((prev) => [
           ...prev,
           { type: "assistant", text: fallbackResponse },
@@ -169,6 +144,7 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
         body: JSON.stringify({
           text: text,
           language: "pl",
+          voiceId: selectedVoice,
         }),
       });
 
@@ -270,7 +246,7 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
           onClick={toggleAssistant}
           className={`
             relative w-20 h-20 rounded-full border-2 transition-all duration-300
-            ${
+            ${ 
               isActive
                 ? "bg-blue-500/20 border-blue-400 shadow-lg shadow-blue-500/30"
                 : "bg-gray-700/20 border-gray-500 hover:border-gray-400"
@@ -309,6 +285,23 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
           )}
         </button>
 
+        {/* Voice Selection Dropdown */}
+        {isActive && (
+          <div className="voice-selector-wrapper mt-4">
+            <select
+              value={selectedVoice}
+              onChange={(e) => setSelectedVoice(e.target.value)}
+              className="voice-selector bg-gray-800/50 border border-gray-600 rounded px-3 py-1 text-xs text-gray-300"
+            >
+              {Object.entries(availableVoices).map(([name, id]) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+
         {/* Voice Input Button */}
         {isActive && (
           <button
@@ -316,7 +309,7 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
             disabled={isListening || isSpeaking}
             className={`
               px-6 py-2 rounded-full text-sm font-medium transition-all duration-200
-              ${
+              ${ 
                 isListening
                   ? "bg-red-500/20 border border-red-400 text-red-300"
                   : "bg-blue-500/20 border border-blue-400 text-blue-300 hover:bg-blue-500/30"
@@ -353,7 +346,7 @@ const VoiceAssistantPolaczek: React.FC<VoiceAssistantPolaczekProps> = ({
                 key={index}
                 className={`
                   text-xs p-2 rounded border
-                  ${
+                  ${ 
                     msg.type === "user"
                       ? "bg-green-900/20 border-green-600/50 text-green-300 ml-4"
                       : "bg-blue-900/20 border-blue-600/50 text-blue-300 mr-4"

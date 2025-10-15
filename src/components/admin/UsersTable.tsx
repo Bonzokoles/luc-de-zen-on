@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 
+interface User {
+  id: string | number;
+  username: string;
+  role: string;
+}
+
+interface UsersApiResponse {
+  users: User[];
+}
+
 export default function UsersTable() {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -9,7 +19,7 @@ export default function UsersTable() {
       try {
         const response = await fetch("/api/admin/users");
         if (response.ok) {
-          const data = (await response.json()) as any;
+          const data = await response.json() as UsersApiResponse;
           setUsers(data.users || []);
         }
       } catch (err) {
@@ -89,7 +99,7 @@ export default function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users.map((user: User) => (
             <tr key={user.id}>
               <td style={{ border: "1px solid #333", padding: "8px" }}>
                 {user.id}

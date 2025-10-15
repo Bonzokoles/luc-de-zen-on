@@ -4,6 +4,7 @@ import {
   addAgent,
   updateAgentStatus,
   removeAgent,
+  type AgentData,
 } from "../../lib/api";
 
 export const GET: APIRoute = ({ params, request }) => {
@@ -17,7 +18,7 @@ export const GET: APIRoute = ({ params, request }) => {
 };
 
 export const POST: APIRoute = async ({ request }) => {
-  const agentData = await request.json();
+  const agentData = (await request.json()) as AgentData;
   const newAgent = addAgent(agentData);
   return new Response(JSON.stringify(newAgent), {
     status: 201,

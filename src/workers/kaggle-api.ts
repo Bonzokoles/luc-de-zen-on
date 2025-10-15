@@ -185,7 +185,7 @@ export default {
               ]
             });
 
-            response.aiInsights = {
+            (response as any).aiInsights = {
               recommendations: aiResponse.response || 'Great selection of results for your query!',
               suggestedTags: ['machine-learning', 'data-science', 'python', 'analytics']
             };
