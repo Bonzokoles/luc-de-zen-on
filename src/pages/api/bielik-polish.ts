@@ -98,26 +98,6 @@ export async function OPTIONS(): Promise<Response> {
   });
 }
 
-// Bielik configuration based on GATEWAY documentation
-const BIELIK_CONFIG = {
-  accountId: "7f490d58a478c6baccb0ae01ea1d87c3",
-  gatewayName: "bielik_gateway",
-  model: "speakleash/Bielik-11B-v2.2-Instruct",
-  get gatewayUrl() {
-    return `https://gateway.ai.cloudflare.com/v1/${this.accountId}/${this.gatewayName}`;
-  },
-
-  // Voice assistant parameters
-  voiceParams: {
-    max_new_tokens: 512,
-    temperature: 0.7,
-    top_p: 0.95,
-    top_k: 50,
-    repetition_penalty: 1.1,
-    do_sample: true,
-    return_full_text: false,
-  },
-};
 
 // Call Bielik through Cloudflare AI Gateway
 async function callBielikThroughGateway(
@@ -125,6 +105,26 @@ async function callBielikThroughGateway(
   prompt: string,
   locals?: any
 ): Promise<string> {
+  const BIELIK_CONFIG = {
+    accountId: locals?.runtime?.env?.CLOUDFLARE_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID || "",
+    gatewayName: "bielik_gateway",
+    model: "speakleash/Bielik-11B-v2.2-Instruct",
+    get gatewayUrl() {
+      return `https://gateway.ai.cloudflare.com/v1/${this.accountId}/${this.gatewayName}`;
+    },
+  
+    // Voice assistant parameters
+    voiceParams: {
+      max_new_tokens: 512,
+      temperature: 0.7,
+      top_p: 0.95,
+      top_k: 50,
+      repetition_penalty: 1.1,
+      do_sample: true,
+      return_full_text: false,
+    },
+  };
+
   const fullPrompt = `${systemMessage}\n\nUser: ${prompt}\nAssistant:`;
 
   const response = await fetch(

@@ -78,15 +78,12 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
             <div>
               <label for="aiModel" class="block text-sm font-medium mb-2 text-primary-foreground">Model AI</label>
               <select id="aiModel" onchange="updateModelInfo()" class="w-full p-2 border border-edge rounded text-primary-foreground" style="background: rgba(0, 0, 0, 0.5);">
-                <option value="@cf/google/gemma-3-12b-it">Google Gemma 3</option>
-                <option value="@cf/meta/llama-3.1-8b-instruct">Meta Llama 3.1</option>
-                <option value="@cf/qwen/qwen2.5-7b-instruct">Qwen 2.5</option>
-                <option value="@cf/microsoft/phi-2">Microsoft Phi-2</option>
-                <option value="polaczek">POLACZEK</option>
-                <option value="bielik">Bielik</option>
-                <option value="gpt-4">OpenAI GPT-4</option>
-                <option value="claude">Anthropic Claude</option>
-                <option value="gemini-pro">Google Gemini Pro</option>
+                <option value="bielik" selected>Bielik (PL)</option>
+                <option value="polaczek">POLACZEK (PL)</option>
+                <option value="qwen">Qwen (PL)</option>
+                <option value="gemma">Gemma</option>
+                <option value="fast">Fast</option>
+                <option value="advanced">Advanced</option>
               </select>
             </div>
             <div>
@@ -187,13 +184,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     </div>
   </section>
 
-  <!-- POLACZEK_T Floating Assistant -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
-    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
-      <AiHelpAssistant client:load pageTitle="AI Chatbot | AI Workers" />
-    </div>
-  </div>
+
 
   <script>
     let chatHistory = JSON.parse(localStorage.getItem("chatHistory") || "[]");
@@ -232,7 +223,22 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       "gemini-pro": "Google Gemini Pro - zaawansowany model multimodalny (wymaga API key)."
     };
 
+    function cleanupVoiceAI() {
+      if (recognition) {
+        recognition.stop();
+        recognition.onresult = null;
+        recognition.onerror = null;
+        recognition.onend = null;
+        recognition = null;
+      }
+      if (speechSynthesis && speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+    }
+
     function initializeVoiceAI() {
+      cleanupVoiceAI(); // Clean up previous instances
+
       if (typeof window !== 'undefined') {
         SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         speechSynthesis = window.speechSynthesis;
@@ -343,15 +349,26 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 
     function toggleSystemPrompt() {
       const previewEl = document.getElementById('systemPromptPreview');
-      previewEl.classList.toggle('hidden');
-      
-      if (!previewEl.classList.contains('hidden')) {
-        previewEl.textContent = currentSystemPrompt;
+      console.log('Toggling system prompt. Element found:', previewEl);
+      if (previewEl) {
+        previewEl.classList.toggle('hidden');
+        
+        if (!previewEl.classList.contains('hidden')) {
+          console.log('Current system prompt:', currentSystemPrompt);
+          previewEl.textContent = currentSystemPrompt;
+        }
+      } else {
+        console.error('System prompt preview element not found!');
       }
     }
 
     async function speakResponse(text) {
       if (!isVoiceEnabled) return;
+
+      // Stop any currently speaking utterance before starting a new one
+      if (speechSynthesis && speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
 
       console.log("🔊 Synthesizing speech with ElevenLabs...");
       const voiceId = (document.getElementById('elevenLabsVoice') as HTMLSelectElement)?.value || 'g8ZOdhoD9R6eYKPTjKbE';
@@ -406,7 +423,14 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       sendMessage();
     }
 
+    let isRequestInProgress = false;
+
     async function sendMessage() {
+      if (isRequestInProgress) {
+        console.log("Request in progress. Please wait.");
+        return;
+      }
+
       console.log("🚀 sendMessage() wywołana");
       const messageInput = document.getElementById("messageInput");
       const message = messageInput.value.trim();
@@ -425,7 +449,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       addMessage(message, "user");
       messageInput.value = "";
 
-      // Disable input
+      // Disable input and set state
+      isRequestInProgress = true;
       sendButton.disabled = true;
       sendButton.textContent = "Wysyłanie...";
       typingIndicator.classList.remove("hidden");
@@ -450,7 +475,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
         };
         console.log("📤 Wysyłanie żądania do /api/chat:", requestData);
 
-        const response = await fetch("/api/chat", {
+        const response = await fetch("/api/polaczek-chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(requestData),
@@ -494,7 +519,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           true
         );
       } finally {
-        // Re-enable input
+        // Re-enable input and reset state
+        isRequestInProgress = false;
         console.log("🔓 Odblokowanie przycisku");
         sendButton.disabled = false;
         sendButton.textContent = "Wyślij";
@@ -578,8 +604,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     }
 
     function clearChat() {
-      if (confirm("Czy na pewno chcesz wyczyścić czat?")) {
-        const chatMessages = document.getElementById("chatMessages");
+      const chatMessages = document.getElementById("chatMessages");
+      if (chatMessages) {
         chatMessages.innerHTML = `
           <div class="message assistant-message">
             <div class="message-content bg-cyan-600/20 border border-cyan-400/30 rounded-lg p-3">
@@ -594,8 +620,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
             </div>
           </div>
         `;
-        currentChatId = null;
       }
+      currentChatId = null;
     }
 
     function exportChat() {
@@ -606,32 +632,39 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
       messages.forEach((message) => {
         const header = message.querySelector(".message-header");
         const text = message.querySelector(".message-text");
-        const user = header.textContent.includes("Ty")
-          ? "Użytkownik"
-          : "AI Assistant";
-        chatText += `${user}: ${text.textContent}\n\n`;
+        if (header && text) {
+            const user = header.textContent.includes("Ty")
+            ? "Użytkownik"
+            : "AI Assistant";
+            chatText += `${user}: ${text.textContent.trim()}\n\n`;
+        }
       });
 
-      const blob = new Blob([chatText], { type: "text/plain" });
+      const blob = new Blob([chatText], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
+      a.style.display = "none";
       a.href = url;
       a.download = `czat_ai_${new Date().toISOString().split("T")[0]}.txt`;
+      document.body.appendChild(a);
       a.click();
       URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     }
 
     function saveChatToHistory(userMessage, aiResponse) {
+      const MAX_HISTORY_SIZE = 50; // Limit number of conversations
+
       const chatItem = {
         id: currentChatId || Date.now(),
         timestamp: new Date().toISOString(),
-        messages: [
-          { type: "user", content: userMessage },
-          { type: "assistant", content: aiResponse },
-        ],
+        model: document.getElementById("aiModel").value,
+        messages: [],
       };
 
       if (!currentChatId) {
+        chatItem.messages.push({ role: "user", content: userMessage });
+        chatItem.messages.push({ role: "assistant", content: aiResponse });
         currentChatId = chatItem.id;
         chatHistory.unshift(chatItem);
       } else {
@@ -639,21 +672,41 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
           (chat) => chat.id === currentChatId
         );
         if (existingChat) {
-          existingChat.messages.push(...chatItem.messages);
+          existingChat.messages.push({ role: "user", content: userMessage });
+          existingChat.messages.push({ role: "assistant", content: aiResponse });
+        } else {
+            // This case should ideally not happen if logic is correct
+            chatItem.messages.push({ role: "user", content: userMessage });
+            chatItem.messages.push({ role: "assistant", content: aiResponse });
+            currentChatId = chatItem.id;
+            chatHistory.unshift(chatItem);
         }
       }
 
-      // Keep only last 10 chats
-      if (chatHistory.length > 10) {
-        chatHistory = chatHistory.slice(0, 10);
+      // Enforce history size limit
+      if (chatHistory.length > MAX_HISTORY_SIZE) {
+        chatHistory = chatHistory.slice(0, MAX_HISTORY_SIZE);
       }
 
-      localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+      try {
+        localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+      } catch (error) {
+        console.error("LocalStorage quota exceeded, trimming history:", error);
+        // If quota is exceeded, trim the history and try again
+        chatHistory = chatHistory.slice(0, Math.floor(MAX_HISTORY_SIZE / 2));
+        try {
+          localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+        } catch (finalError) {
+          console.error("Failed to save even trimmed history:", finalError);
+        }
+      }
       updateHistoryDisplay();
     }
 
     function updateHistoryDisplay() {
       const historyList = document.getElementById("chatHistoryList");
+      if (!historyList) return; // Guard clause to prevent crash
+
       historyList.innerHTML = "";
 
       chatHistory.forEach((chat) => {
@@ -751,12 +804,12 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
 
     // Initialize
     document.addEventListener("DOMContentLoaded", () => {
-      console.log("🚀 Chatbot DOM załadowany");
+      console.log("🚀 Chatbot DOM załadowany - WERSJA DEBUG");
       
-      // Initialize all systems
-      updateHistoryDisplay();
-      updateModelInfo();
-      updateSystemPrompt();
+      // Initialize all systems - COMMENTED OUT FOR DEBUGGING
+      // updateHistoryDisplay();
+      // updateModelInfo();
+      // updateSystemPrompt();
 
       // Setup send button event listener
       const sendButton = document.getElementById("sendButton");
@@ -769,8 +822,8 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
         console.log("🎤 Voice AI dostępny");
       }
 
-      // Test API connectivity
-      testAPI();
+      // Test API connectivity - COMMENTED OUT FOR DEBUGGING
+      // testAPI();
 
       // Load quick prompt if available
       const quickPrompt = localStorage.getItem("quickChatPrompt");

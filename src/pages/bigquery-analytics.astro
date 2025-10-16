@@ -192,13 +192,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     </div>
   </section>
 
-  <!-- POLACZEK_T Floating Assistant -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
-    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
-      <AiHelpAssistant client:load pageTitle="BigQuery Analytics | AI Workers" />
-    </div>
-  </div>
+
 
   <script>
     let queryHistory = JSON.parse(

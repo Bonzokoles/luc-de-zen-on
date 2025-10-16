@@ -41,6 +41,17 @@ const PUBLIC_PATHS = [
   "/api/admin/get-token",
   "/api/admin/debug",
   "/api/admin/setup-database",
+  "/api/debug-env",
+  "/api/image-generator/generate",
+  "/api/image-generator/history",
+  "/api/image-generator/styles",
+  "/api/generate-image",
+  "/api/enhanced-generator",
+  "/api/voice/synthesis",
+  "/api/voice/recognition",
+  "/api/generate-hf",
+  "/api/bielik-polish",
+  "/api/polaczek/quiz/speech",
 ];
 
 // Middleware do weryfikacji tokenów i ustawiania kontekstu klienta

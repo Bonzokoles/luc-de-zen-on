@@ -11,12 +11,25 @@ import {
   buildAIInputs,
 } from "../../utils/imageGeneration";
 
+
+// Mapping for Hugging Face models from the example repository
+const HF_MODEL_MAP = {
+  realistic_vision: "SG161222/Realistic_Vision_V5.1_noVAE",
+  dreamshaper: "Lykon/DreamShaper-v7",
+  sdxl: "stabilityai/stable-diffusion-xl-base-1.0",
+  deliberate: "XpucT/Deliberate",
+  anything_v5: "stabilityai/stable-diffusion-2-1",
+  protogen: "darkstorm2150/Protogen_x5.8",
+  flux_dev: "black-forest-labs/FLUX.1-dev",
+  hf_playground: "playgroundai/playground-v2.5-1024px-aesthetic", // Kept for compatibility
+};
+
 // Extended models including external providers
 const EXTERNAL_MODELS = {
   together_flux: "Together AI - FLUX.1-schnell",
-  hf_playground: "HuggingFace - Playground v2.5",
   stability_sdxl: "Stability AI - SDXL",
   openai_sora: "OpenAI - Sora (Video)",
+  ...Object.fromEntries(Object.keys(HF_MODEL_MAP).map(k => [k, `HuggingFace - ${k}`])),
 };
 
 const ALL_MODELS = [...ALLOWED_IMAGE_MODELS, ...Object.keys(EXTERNAL_MODELS)];
@@ -34,6 +47,43 @@ async function handleExternalModel(
   };
 
   try {
+    // Handle Hugging Face models dynamically
+    if (HF_MODEL_MAP[model as keyof typeof HF_MODEL_MAP]) {
+        const hfModelPath = HF_MODEL_MAP[model as keyof typeof HF_MODEL_MAP];
+        const hfResponse = await fetch(
+            `https://api-inference.huggingface.co/models/${hfModelPath}`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${env.HF_API_TOKEN}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                inputs: prompt,
+                options: { wait_for_model: true },
+              }),
+            }
+          );
+  
+          if (!hfResponse.ok) {
+            throw new Error(`HuggingFace API error: ${hfResponse.status} - ${await hfResponse.text()}`);
+          }
+  
+          const hfImageBuffer = await hfResponse.arrayBuffer();
+          const hfBase64 = Buffer.from(hfImageBuffer).toString("base64");
+  
+          return new Response(
+            JSON.stringify({
+              success: true,
+              image: `data:image/png;base64,${hfBase64}`,
+              provider: "HuggingFace",
+              model: model,
+            }),
+            { headers }
+          );
+    }
+
+    // Handle other external models
     switch (model) {
       case "together_flux":
         const togetherResponse = await fetch(
@@ -74,38 +124,6 @@ async function handleExternalModel(
             success: true,
             image: `data:image/png;base64,${imageBase64}`,
             provider: "Together AI",
-          }),
-          { headers }
-        );
-
-      case "hf_playground":
-        const hfResponse = await fetch(
-          "https://api-inference.huggingface.co/models/playgroundai/playground-v2.5-1024px-aesthetic",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${env.HUGGINGFACE_API_KEY}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              inputs: prompt,
-              options: { wait_for_model: true },
-            }),
-          }
-        );
-
-        if (!hfResponse.ok) {
-          throw new Error(`HuggingFace API error: ${hfResponse.status}`);
-        }
-
-        const hfImageBuffer = await hfResponse.arrayBuffer();
-        const hfBase64 = Buffer.from(hfImageBuffer).toString("base64");
-
-        return new Response(
-          JSON.stringify({
-            success: true,
-            image: `data:image/png;base64,${hfBase64}`,
-            provider: "HuggingFace",
           }),
           { headers }
         );
@@ -189,6 +207,7 @@ export const GET: APIRoute = async () => {
     description:
       "Send POST with { prompt, model?, style?, width?, height?, steps?, enhancePrompt?, enhanceOptions? }",
     supportedModels: ALL_MODELS,
+    cloudflareModels: ALLOWED_IMAGE_MODELS,
     externalModels: EXTERNAL_MODELS,
     enhancementFeatures: {
       enhancePrompt:
@@ -210,28 +229,11 @@ export const GET: APIRoute = async () => {
 };
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  // Defensive coding - sprawdzenie dostępności środowiska
+  // Defensive coding - check for environment availability
   const env = locals.runtime?.env;
   if (!env) {
     console.error("Runtime environment not available");
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: "Environment not available",
-      }),
-      {
-        status: 503,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-  }
-
-  if (!env.AI) {
-    console.error("Cloudflare AI binding not available");
-    return createErrorResponse(
-      "AI service is not configured on the server.",
-      500
-    );
+    return createErrorResponse("Environment not available", 503);
   }
 
   try {
@@ -256,11 +258,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       enhanceOptions = {},
     } = body ?? {};
 
-    if (
-      !rawPrompt ||
-      typeof rawPrompt !== "string" ||
-      rawPrompt.trim().length < 3
-    ) {
+    if (!rawPrompt || typeof rawPrompt !== "string" || rawPrompt.trim().length < 3) {
       return createErrorResponse("A valid prompt is required.", 400);
     }
 
@@ -272,19 +270,22 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
     const prompt = finalPrompt;
 
-    // Check if it's an external model
+    // Prioritize external models if specified
     if (model && Object.keys(EXTERNAL_MODELS).includes(model)) {
       return await handleExternalModel(model, prompt, env, enhancementData);
     }
 
+    // Default to Cloudflare AI if no specific external model is requested
+    if (!env.AI) {
+        return createErrorResponse("Cloudflare AI service is not configured on the server.", 500);
+    }
+    
     const selectedModel = selectModel(model);
     const ai = env.AI;
     const inputs = buildAIInputs({ prompt, width, height, steps }, prompt);
 
-    // Wywołanie modelu do generowania obrazów w Cloudflare AI
     const response = await (ai as any).run(selectedModel, inputs);
 
-    // Odpowiedź z obrazem jest bezpośrednio strumieniem danych binarnych
     return new Response(response, {
       headers: {
         "Content-Type": "image/png",

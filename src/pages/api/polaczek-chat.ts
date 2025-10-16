@@ -370,6 +370,9 @@ export const POST = async ({
         case "advanced":
           modelId = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"; // Most advanced
           break;
+        case "bielik":
+          modelId = "@cf/qwen/qwen1.5-7b-chat-awq"; // Best Polish model
+          break;
         case "polaczek":
         default:
           modelId = "@cf/qwen/qwen1.5-7b-chat-awq"; // Default to Polish-friendly Qwen

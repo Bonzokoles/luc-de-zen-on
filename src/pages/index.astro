@@ -521,20 +521,7 @@ import {
       </div>
     </div>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="toggleWidget"
-        data-widget="polaczekWidget"
-        class="right-btn"
-        id="polaczekBtn"
-        title="AI Assistant do wyjaśniania funkcji na stronie"
-      >
-        🤖 AI ASSISTANT
-      </button>
-      <div id="polaczekWidget" class="floating-widget hidden">
-        <AiHelpAssistant client:load pageTitle="Strona Główna" />
-      </div>
-    </div>
+
 
     <div class="floating-widget-container">
       <button data-agent="1" class="right-btn" id="voiceAgentBtn" title="Agent 01 - Voice Command Agent">
@@ -1961,7 +1948,15 @@ import {
         <div style="flex: 1; display: flex; flex-direction: column; padding: 0;">
           <div style="padding: 15px 15px 10px 15px;">
             <div style="margin-bottom: 15px; padding: 10px; background: rgba(27, 225, 255, 0.1); border-radius: 4px;">
-              <span style="color: #1be1ff; font-weight: bold;">💬 CHAT HUB</span>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #1be1ff; font-weight: bold;">💬 CHAT HUB</span>
+                <select id="chatModelSelector" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #1be1ff; color: white; border-radius: 4px; padding: 4px 8px; font-size: 12px;">
+                  <option value="qwen">Qwen (PL)</option>
+                  <option value="gemma">Gemma</option>
+                  <option value="fast">Fast</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
               <div style="font-size: 12px; color: #ccc; margin-top: 5px;">Centralny system komunikacji</div>
             </div>
             
@@ -2024,11 +2019,13 @@ import {
     async sendToMainChat() {
       const input = document.getElementById('chatInput');
       const messagesContainer = document.getElementById('chatMessages');
+      const modelSelector = document.getElementById('chatModelSelector');
       
-      if (!input || !input.value.trim()) return;
+      if (!input || !input.value.trim() || !modelSelector) return;
       
       const message = input.value.trim();
-      console.log('📤 Sending chat message:', message);
+      const selectedModel = modelSelector.value;
+      console.log(`📤 Sending chat message: '${message}' using model: '${selectedModel}'`);
       
       // Add user message
       this.addMessage('user', message);
@@ -2040,7 +2037,7 @@ import {
       this.addMessage('system', '⏳ POLACZEK pisze...');
       
       try {
-        // Call POLACZEK API with Poznań dialect
+        // Call POLACZEK API with selected model
         const response = await fetch('/api/polaczek-chat', {
           method: 'POST',
           headers: {
@@ -2048,7 +2045,7 @@ import {
           },
           body: JSON.stringify({
             message: message,
-            model: 'qwen',
+            model: selectedModel,
             language: 'pl'
           })
         });
@@ -2064,7 +2061,7 @@ import {
         
         // Add POLACZEK response
         const aiResponse = data.response || data.answer || 'Przepraszam, wystąpił problem z odpowiedzią.';
-        this.addMessage('assistant', `🤖 POLACZEK: ${aiResponse}`);
+        this.addMessage('assistant', `🤖 POLACZEK (${selectedModel}): ${aiResponse}`);
         
       } catch (error) {
         // Remove typing indicator

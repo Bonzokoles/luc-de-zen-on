@@ -47,6 +47,7 @@ import {
 } from '@heroicons/react/24/outline';
 // Dock components for UI controls
 import RightDock from "../components/RightDock.astro";
+import FooterAssistant from "../components/layout/FooterAssistant.astro";
 
 // Simple navigation model; adjust as needed
 const menuItems = [
@@ -412,6 +413,7 @@ const pageKey = Astro.url.pathname;
     <!-- Page content -->
     <main id="main-content" class="min-h-svh cyberpunk-grid" tabindex="-1">
       <slot />
+      <FooterAssistant />
     </main>
 
 
