@@ -159,6 +159,38 @@ export class MySecretsAPI {
     return await this.getSecret("GROQ_API_KEY");
   }
 
+  async getGoogleCredentials(): Promise<string | null> {
+    return await this.getSecret("GOOGLE_APPLICATION_CREDENTIALS");
+  }
+
+  async getGoogleProjectId(): Promise<string | null> {
+    return await this.getSecret("GOOGLE_CLOUD_PROJECT_ID");
+  }
+
+  async getKaggleUsername(): Promise<string | null> {
+    return await this.getSecret("KAGGLE_USERNAME");
+  }
+
+  async getKaggleKey(): Promise<string | null> {
+    return await this.getSecret("KAGGLE_KEY");
+  }
+
+  async getTavilyKey(): Promise<string | null> {
+    return await this.getSecret("TAVILY_API_KEY");
+  }
+
+  async getCloudflareAccountId(): Promise<string | null> {
+    return await this.getSecret("CLOUDFLARE_ACCOUNT_ID");
+  }
+
+  async getAzureKey(): Promise<string | null> {
+    return await this.getSecret("AZURE_API_KEY");
+  }
+
+  async getAzureEndpoint(): Promise<string | null> {
+    return await this.getSecret("AZURE_ENDPOINT");
+  }
+
   /**
    * BATCH LOADING - POBIERANIE WIELU SEKRETÓW JEDNOCZEŚNIE
    */
@@ -187,12 +219,20 @@ export class MySecretsAPI {
       "HF_API_TOKEN",
       "GOOGLE_AI_STUDIO_API_KEY",
       "GOOGLE_AI_API_KEY",
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "GOOGLE_CLOUD_PROJECT_ID",
       "COHERE_API_KEY",
       "MISTRAL_API_KEY",
       "PERPLEXITY_API_KEY",
       "GROQ_API_KEY",
       "DEEPSEEK_API_KEY",
       "OPENROUTER_API_KEY",
+      "KAGGLE_USERNAME",
+      "KAGGLE_KEY",
+      "TAVILY_API_KEY",
+      "CLOUDFLARE_ACCOUNT_ID",
+      "AZURE_API_KEY",
+      "AZURE_ENDPOINT",
     ];
 
     return await this.getMultipleSecrets(providerKeys);
@@ -211,12 +251,17 @@ export class MySecretsAPI {
       { name: "Anthropic", key: "ANTHROPIC_API_KEY" },
       { name: "HuggingFace", key: "HUGGINGFACE_API_KEY" },
       { name: "Google AI", key: "GOOGLE_AI_STUDIO_API_KEY" },
+      { name: "Google Cloud", key: "GOOGLE_APPLICATION_CREDENTIALS" },
       { name: "Cohere", key: "COHERE_API_KEY" },
       { name: "Mistral", key: "MISTRAL_API_KEY" },
       { name: "Perplexity", key: "PERPLEXITY_API_KEY" },
       { name: "Groq", key: "GROQ_API_KEY" },
       { name: "DeepSeek", key: "DEEPSEEK_API_KEY" },
       { name: "OpenRouter", key: "OPENROUTER_API_KEY" },
+      { name: "Kaggle", key: "KAGGLE_KEY" },
+      { name: "Tavily", key: "TAVILY_API_KEY" },
+      { name: "Cloudflare", key: "CLOUDFLARE_ACCOUNT_ID" },
+      { name: "Azure", key: "AZURE_API_KEY" },
     ];
 
     for (const provider of providers) {
@@ -414,6 +459,8 @@ export async function getProviderKey(
       return await secretsAPI.getHuggingFaceKey();
     case "google":
       return await secretsAPI.getGoogleAIKey();
+    case "googlecloud":
+      return await secretsAPI.getGoogleCredentials();
     case "cohere":
       return await secretsAPI.getCoherKey();
     case "mistral":
@@ -426,6 +473,14 @@ export async function getProviderKey(
       return await secretsAPI.getSecret("DEEPSEEK_API_KEY");
     case "openrouter":
       return await secretsAPI.getSecret("OPENROUTER_API_KEY");
+    case "kaggle":
+      return await secretsAPI.getKaggleKey();
+    case "tavily":
+      return await secretsAPI.getTavilyKey();
+    case "cloudflare":
+      return await secretsAPI.getCloudflareAccountId();
+    case "azure":
+      return await secretsAPI.getAzureKey();
     default:
       return await secretsAPI.getSecret(provider);
   }

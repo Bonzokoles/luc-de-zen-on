@@ -128,6 +128,19 @@ class MyBonzoFloatingButtons {
       }
     }
 
+    // 🔗 MAPOWANIE AGENT 91 (VOICE) → AGENT 01
+    const agent91Btn = document.querySelector(`[data-agent="91"]`);
+    if (agent91Btn) {
+      agent91Btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const agent = this.agents.get("1"); // Agent 91 = Agent 01 (Voice)
+        if (agent) {
+          console.log(`🎯 Activating Agent 91→01 (Voice): ${agent.name}`);
+          agent.handler();
+        }
+      });
+    }
+
     // Bind special agents (file, marketing)
     const fileBtn = document.querySelector(`[data-agent="file"]`);
     if (fileBtn) {
@@ -575,8 +588,40 @@ class MyBonzoFloatingButtons {
       "currentTrack"
     ).textContent = `${track.title} - ${track.artist}`;
 
+    // 🔌 POŁĄCZENIE Z WIZUALIZATORAMI AUDIO
+    this.connectToVisualizers(musicPlayer.audio);
+
     // Log play to D1
     this.logPlayToD1(track.id);
+  }
+
+  // 🎵 POŁĄCZENIE AGENTA 02 Z WIZUALIZATORAMI
+  connectToVisualizers(audioElement) {
+    try {
+      // Połączenie z CYBER_MUSIC (EN)
+      if (window.CYBER_MUSIC && window.CYBER_MUSIC.connectAudio) {
+        console.log("🔗 Łączę Agent 02 z CYBER_MUSIC...");
+        window.CYBER_MUSIC.connectAudio(audioElement);
+      } else if (window.CYBER_MUSIC) {
+        // Fallback - uruchom wizualizator gdy zaczyna grać muzyka
+        console.log("🎵 Aktywuję CYBER_MUSIC wizualizator...");
+        window.CYBER_MUSIC.play();
+      }
+
+      // Połączenie z CYBER_MUSIC_PL (PL)
+      if (window.CYBER_MUSIC_PL && window.CYBER_MUSIC_PL.podlaczAudio) {
+        console.log("🔗 Łączę Agent 02 z CYBER_MUSIC_PL...");
+        window.CYBER_MUSIC_PL.podlaczAudio(audioElement);
+      } else if (window.CYBER_MUSIC_PL) {
+        // Fallback - uruchom wizualizator gdy zaczyna grać muzyka
+        console.log("🎵 Aktywuję CYBER_MUSIC_PL wizualizator...");
+        window.CYBER_MUSIC_PL.graj();
+      }
+
+      console.log("✅ Agent 02 (Music) połączony z wizualizatorami");
+    } catch (error) {
+      console.warn("⚠️ Błąd połączenia z wizualizatorami:", error);
+    }
   }
 
   async logPlayToD1(trackId) {

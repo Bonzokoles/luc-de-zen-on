@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }),
         {
           status: 400,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json; charset=utf-8" },
         }
       );
     }
@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }),
         {
           status: 500,
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json; charset=utf-8" },
         }
       );
     }
@@ -135,7 +135,7 @@ Wymagania:
       {
         status: 200,
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf-8",
           "Cache-Control": "no-cache",
         },
       }
@@ -151,7 +151,7 @@ Wymagania:
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json; charset=utf-8" },
       }
     );
   }
