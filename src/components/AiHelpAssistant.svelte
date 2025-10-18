@@ -424,7 +424,9 @@
     backdrop-filter: blur(15px);
     min-width: 480px;
     max-width: 520px;
-    height: 26rem;
+    max-height: 16vh; /* MAKSYMALNIE 1/6 ekranu */
+    min-height: 200px; /* Minimalna funkcjonalność */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -434,7 +436,7 @@
       inset 0 1px 0 rgba(27, 225, 255, 0.1);
     transition: all 0.3s ease;
     position: relative;
-    z-index: 1000;
+    z-index: 34; /* Było: 1000 */
   }
   .assistant-header {
     display: flex;
@@ -490,7 +492,7 @@
   .assistant-input {
     flex: 1;
     padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.3);
+    background: #000;
     color: #fff;
     border: 1px solid #1be1ff;
     border-radius: 0;

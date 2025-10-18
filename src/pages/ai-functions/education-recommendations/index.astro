@@ -155,24 +155,5 @@ import DecorativeLines from "../../../components/DecorativeLines.astro";
     });
   </script>
 
-  <!-- POLACZEK_T Floating Assistant -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="polaczekBtn" class="px-4 py-2 bg-[#111111] border border-[#333333] text-[#00ffff] hover:brightness-125 transition-all duration-300 font-mono uppercase tracking-wide text-sm">🤖 POLACZEK_T</button>
-    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
-      <AiHelpAssistant client:load pageTitle="Rekomendacje Edukacyjne AI" />
-    </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const polaczekBtn = document.getElementById('polaczekBtn');
-      const polaczekWidget = document.getElementById('polaczekWidget');
-
-      if (polaczekBtn && polaczekWidget) {
-        polaczekBtn.addEventListener('click', () => {
-          polaczekWidget.classList.toggle('hidden');
-        });
-      }
-    });
-  </script>
 </MyBonzoLayout>

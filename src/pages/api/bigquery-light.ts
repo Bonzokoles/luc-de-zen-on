@@ -1,4 +1,7 @@
 import type { APIRoute } from 'astro';
+import { GoogleAuth } from 'google-auth-library';
+import fs from 'fs/promises';
+import path from 'path';
 
 // Type definitions for the BigQuery REST API response
 interface BigQueryError {
@@ -19,17 +22,37 @@ interface BigQueryResponse {
   error?: BigQueryError;
 }
 
-export const POST: APIRoute = async ({ request, locals }) => {
-  // Using 'any' to bypass a potentially incorrect TS error about 'runtime' not existing on 'Locals'
-  const env = (locals as any).runtime?.env;
+async function getGcpCredentials() {
+  try {
+    const keyFilePath = path.resolve('docs/JSON_KEY/zenon-project-467918-5a0e85e4b6d1.json');
+    const keyFileContent = await fs.readFile(keyFilePath, 'utf-8');
+    const credentials = JSON.parse(keyFileContent);
 
-  const GCP_PROJECT_ID = env?.GCP_PROJECT_ID;
-  const GCP_ACCESS_TOKEN = env?.GCP_ACCESS_TOKEN;
+    const auth = new GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/bigquery'],
+    });
 
-  if (!GCP_PROJECT_ID || !GCP_ACCESS_TOKEN) {
+    const client = await auth.getClient();
+    const accessToken = await client.getAccessToken();
+
+    return {
+      projectId: credentials.project_id,
+      accessToken: accessToken?.token,
+    };
+  } catch (error) {
+    console.error('Failed to get GCP credentials:', error);
+    return { projectId: null, accessToken: null };
+  }
+}
+
+export const POST: APIRoute = async ({ request }) => {
+  const { projectId, accessToken } = await getGcpCredentials();
+
+  if (!projectId || !accessToken) {
     return new Response(JSON.stringify({ 
       success: false, 
-      error: "Google Cloud credentials (GCP_PROJECT_ID, GCP_ACCESS_TOKEN) are not configured in environment secrets."
+      error: "Google Cloud credentials could not be loaded."
     }), { status: 500 });
   }
 
@@ -41,10 +64,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       return new Response(JSON.stringify({ success: false, error: "Query is missing from request body." }), { status: 400 });
     }
 
-    const response = await fetch(`https://bigquery.googleapis.com/bigquery/v2/projects/${GCP_PROJECT_ID}/queries`, {
+    const response = await fetch(`https://bigquery.googleapis.com/bigquery/v2/projects/${projectId}/queries`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GCP_ACCESS_TOKEN}`,
+        'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

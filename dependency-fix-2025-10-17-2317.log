@@ -1,0 +1,22 @@
+﻿2025-10-17 23:17:39 - Rozpoczynam napraw zalenoci projektu MyBonzo
+2025-10-17 23:17:39 - Znaleziono package.json - kontynuuj
+2025-10-17 23:17:39 -  Utworzono backup package.json
+2025-10-17 23:17:39 -  Utworzono backup pnpm-lock.yaml
+2025-10-17 23:17:39 -  Utworzono backup package-lock.json
+2025-10-17 23:17:39 - Usuwam cache: .astro
+2025-10-17 23:17:39 - Usuwam cache: node_modules/.vite
+2025-10-17 23:17:39 - Usuwam cache: node_modules/.cache
+2025-10-17 23:17:39 - Usuwam cache: dist
+2025-10-17 23:17:39 - Czyszcz PNPM store...
+2025-10-17 23:17:45 -  PNPM store wyczyszczony
+2025-10-17 23:17:45 - Czyszcz NPM cache...
+2025-10-17 23:17:52 -  NPM cache wyczyszczony
+2025-10-17 23:17:52 - Znaleziono PNPM - uywam jako domylny
+2025-10-17 23:17:52 - Instaluj zalenoci uywajc pnpm...
+2025-10-17 23:17:55 -  Zalenoci zainstalowane pomylnie
+2025-10-17 23:17:55 - Sprawdzam list zainstalowanych pakietw...
+2025-10-17 23:17:56 -  Lista zalenoci sprawdzona
+2025-10-17 23:17:56 - Testuj kompilacj projektu...
+2025-10-17 23:18:42 -  Projekt kompiluje si poprawnie
+2025-10-17 23:18:42 -  Skopiowano .env.example do .env
+2025-10-17 23:18:42 - Skrypt naprawy zalenoci zakoczony pomylnie

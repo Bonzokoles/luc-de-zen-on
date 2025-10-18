@@ -175,13 +175,7 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     </div>
   </section>
 
-  <!-- POLACZEK_T Floating Assistant -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
-    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
-      <AiHelpAssistant client:load pageTitle="AI Browser - POLACZEK Agents System" />
-    </div>
-  </div>
+
 
   <script>
     let activeAgents = ['POLACZEK_D', 'POLACZEK_T', 'POLACZEK_M1'];
@@ -424,12 +418,6 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     console.log('🤖 AI Browser with POLACZEK Agents System initialized');
     console.log('Active agents:', activeAgents);
 
-    // POLACZEK_T Assistant
-    const polaczekBtn = document.getElementById('polaczekBtn');
-    const polaczekWidget = document.getElementById('polaczekWidget');
 
-    polaczekBtn.addEventListener('click', () => {
-      polaczekWidget.classList.toggle('hidden');
-    });
   </script>
 </BackroomInterface>

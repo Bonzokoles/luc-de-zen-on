@@ -7,7 +7,7 @@ compatibility_flags = [ "nodejs_compat" ]
 [vars]
 NODE_ENV = "production"
 PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
-PUBLIC_SITE_URL = "https://www.mybonzo.com"
+PUBLIC_SITE_URL = "https://d5923d38.luc-de-zen-on.pages.dev"
 
 [[kv_namespaces]]
 id = "77d84c01758a4064be011acc35b2c344"

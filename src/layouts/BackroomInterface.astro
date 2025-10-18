@@ -1,9 +1,8 @@
 ---
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import FooterAssistant from "../components/layout/FooterAssistant.astro";
-import FooterAssistant from "../components/layout/FooterAssistant.astro";
+import AiHelpAssistant from '../components/AiHelpAssistant.svelte';
 
 interface Props {
   siteTitle?: string;
@@ -25,6 +24,27 @@ const { siteTitle = "", siteDescription = "" } = Astro.props;
     <main class="min-h-svh pt-24">
       <slot />
     </main>
-  </body>
+    <FooterAssistant />
+
+    <!-- POLACZEK_T Floating Assistant -->
+    <div class="fixed bottom-3 right-3 z-35 max-w-xs">
+        <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
+        <div id="polaczekWidget" class="hidden absolute bottom-12 right-0 w-96 max-h-[16vh] min-h-[200px] overflow-y-auto bg-surface border border-edge rounded-lg shadow-lg">
+            <AiHelpAssistant client:load pageTitle={siteTitle} />
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const polaczekBtn = document.getElementById('polaczekBtn');
+        const polaczekWidget = document.getElementById('polaczekWidget');
+  
+        if (polaczekBtn && polaczekWidget) {
+          polaczekBtn.addEventListener('click', () => {
+            polaczekWidget.classList.toggle('hidden');
+          });
+        }
+      });
+    </script>
   </body>
 </html>

@@ -39,53 +39,5 @@ import AiHelpAssistant from '@/components/AiHelpAssistant.svelte';
     </div>
   </section>
 
-  <!-- POLACZEK_T Floating Assistant -->
-  <div class="fixed bottom-5 right-5 z-50">
-    <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
-    <div id="polaczekWidget" class="hidden absolute bottom-16 right-0 w-96 bg-surface border border-edge rounded-lg shadow-lg">
-      <AiHelpAssistant client:load pageTitle="Flowise AI | AI Workers" />
-    </div>
-  </div>
 
-  <script>
-    const runWorkflowBtn = document.getElementById('run-workflow-btn');
-    const workflowSelect = document.getElementById('workflow-select');
-    const flowiseInput = document.getElementById('flowise-input');
-    const flowiseOutput = document.getElementById('flowise-output');
-
-    runWorkflowBtn.addEventListener('click', async () => {
-      const workflowId = workflowSelect.value;
-      const prompt = flowiseInput.value;
-
-      if (!prompt) {
-        alert('Wprowadź dane do przetworzenia.');
-        return;
-      }
-
-      flowiseOutput.innerHTML = '<p>Przetwarzanie...</p>';
-
-      try {
-        const response = await fetch('/api/flowise', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            workflowId: workflowId,
-            prompt: prompt,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          flowiseOutput.innerHTML = `<pre>${JSON.stringify(data.text, null, 2)}</pre>`;
-        } else {
-          flowiseOutput.innerHTML = `<p class="text-red-500">Błąd: ${data.error}</p>`;
-        }
-      } catch (error) {
-        flowiseOutput.innerHTML = `<p class="text-red-500">Błąd: ${error.message}</p>`;
-      }
-    });
-  </script>
 </BackroomInterface>

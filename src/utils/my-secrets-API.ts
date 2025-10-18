@@ -184,7 +184,9 @@ export class MySecretsAPI {
             'COHERE_API_KEY',
             'MISTRAL_API_KEY',
             'PERPLEXITY_API_KEY',
-            'GROQ_API_KEY'
+            'GROQ_API_KEY',
+            'DEEPSEEK_API_KEY',
+            'OPENROUTER_API_KEY'
         ];
 
         return await this.getMultipleSecrets(providerKeys);
@@ -204,7 +206,9 @@ export class MySecretsAPI {
             { name: 'Cohere', key: 'COHERE_API_KEY' },
             { name: 'Mistral', key: 'MISTRAL_API_KEY' },
             { name: 'Perplexity', key: 'PERPLEXITY_API_KEY' },
-            { name: 'Groq', key: 'GROQ_API_KEY' }
+            { name: 'Groq', key: 'GROQ_API_KEY' },
+            { name: 'DeepSeek', key: 'DEEPSEEK_API_KEY' },
+            { name: 'OpenRouter', key: 'OPENROUTER_API_KEY' }
         ];
 
         for (const provider of providers) {
@@ -399,6 +403,10 @@ export async function getProviderKey(env: any, provider: string): Promise<string
             return await secretsAPI.getPerplexityKey();
         case 'groq':
             return await secretsAPI.getGroqKey();
+        case 'deepseek':
+            return await secretsAPI.getSecret('DEEPSEEK_API_KEY');
+        case 'openrouter':
+            return await secretsAPI.getSecret('OPENROUTER_API_KEY');
         default:
             return await secretsAPI.getSecret(provider);
     }

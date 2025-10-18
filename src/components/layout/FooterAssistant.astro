@@ -1,17 +1,10 @@
 ---
 // src/components/layout/FooterAssistant.astro
+import MainChatWidget from '../MainChatWidget.svelte';
 ---
 <section class="border-t border-edge mt-16">
     <div class="max-w-6xl mx-auto px-4 py-8">
-        <div class="flex flex-row justify-center gap-8 m-auto py-16 text-center items-center">
-            <div class="hover:brightness-125 duration-200 text-cyan-400 text-lg italic">
-                "MyBonzo to platforma, która łączy zaawansowane technologie AI z prostotą użytkowania, tworząc narzędzia przyszłości dostępne już dziś."
-                <div class="text-cyan-300 text-right mt-2 text-sm not-italic">— Karol Lisson</div>
-            </div>
-            <div class="group w-28 p-2 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-70">
-                <span class="group-hover:hidden">100% HANDMADE</span>
-                <span class="hidden group-hover:inline">0% AI</span>
-            </div>
-        </div>
+        <MainChatWidget client:load />
     </div>
 </section>
+
