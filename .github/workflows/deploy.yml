@@ -34,7 +34,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: mybonzo-worker
+          projectName: luc-de-zen-on
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
