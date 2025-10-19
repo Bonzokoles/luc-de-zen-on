@@ -17,8 +17,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -27,7 +27,7 @@ jobs:
         run: npm run build
         env:
           # Zwiększ limity pamięci dla dużego build
-          NODE_OPTIONS: '--max-old-space-size=8192'
+          NODE_OPTIONS: "--max-old-space-size=8192"
 
       - name: Deploy to Cloudflare Pages (Production Account)
         uses: cloudflare/pages-action@v1
