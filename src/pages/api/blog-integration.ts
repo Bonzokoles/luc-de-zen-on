@@ -4,7 +4,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json();
     console.log("📝 Blog Integration API called with:", data);
-    
+
     // Simulate blog post creation
     const blogPostData = {
       key: data.key,
@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Here you would normally call the blog-integration.cjs script
     // For now, we'll simulate the response
     console.log("📝 Creating blog post:", blogPostData);
-    
+
     // Simulate success response
     const response = {
       success: true,
@@ -42,7 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   } catch (error) {
     console.error("❌ Blog Integration error:", error);
-    
+
     return new Response(
       JSON.stringify({
         success: false,

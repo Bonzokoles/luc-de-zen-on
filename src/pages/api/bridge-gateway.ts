@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request }) => {
       timestamp?: string;
     };
     console.log("🌉 AI Bridge Gateway sync called with:", syncData);
-    
+
     // Simulate bridge gateway processing
     const gatewayResponse = {
       timestamp: new Date().toISOString(),
@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
     };
 
     console.log("🌉 Bridge Gateway processed:", gatewayResponse);
-    
+
     return new Response(
       JSON.stringify({
         success: true,
@@ -59,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
     );
   } catch (error) {
     console.error("❌ Bridge Gateway error:", error);
-    
+
     return new Response(
       JSON.stringify({
         success: false,

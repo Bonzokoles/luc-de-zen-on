@@ -1,7 +1,7 @@
 // Database Query API - Integracja z D1 Database
 // Endpoint: /api/database-query
 
-export async function POST({ request, locals }) { 
+export async function POST({ request, locals }) {
   try {
     const {
       action,

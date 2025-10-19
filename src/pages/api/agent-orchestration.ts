@@ -1,7 +1,7 @@
 // Agent Orchestration API - Centralne zarządzanie agentami
 // Endpoint: /api/agent-orchestration
 
-export async function POST({ request, locals }) { 
+export async function POST({ request, locals }) {
   try {
     const { action, agentId, payload, ...params } = await request.json();
     const db = locals.runtime.env.AGENTS_DB;

@@ -1,7 +1,7 @@
 // Music Assistant API - Integracja z D1 Database
 // Endpoint: /api/music-control
 
-export async function POST({ request, locals }) { 
+export async function POST({ request, locals }) {
   try {
     const { action, ...params } = await request.json();
     const db = locals.runtime.env.AGENTS_DB;

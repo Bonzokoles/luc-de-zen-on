@@ -1,7 +1,7 @@
 // Voice Commands API - Integracja z D1 Database
 // Endpoint: /api/voice-commands
 
-export async function POST({ request, locals }) { 
+export async function POST({ request, locals }) {
   try {
     const {
       action,
