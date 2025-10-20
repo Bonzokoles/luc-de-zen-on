@@ -851,39 +851,7 @@ title: "🚀 MyBonzo MEGA PRO ADMIN - POLSKIE FRONTY ZNAKÓW"
       } catch (error) {
         addToConsole(`❌ [CHARTS] Błąd inicjalizacji wykresów: ${error.message}`, 'error');
       }
-    }
-      charts.musicAnalytics = new Chart(musicCtx, {
-        type: 'radar',
-        data: {
-          labels: ['Główna Biblioteka', 'Biblioteka R1', 'Polska Cyberpunk'],
-          datasets: [{
-            label: 'Popularność',
-            data: [85, 92, 78],
-            borderColor: '#00d9ff',
-            backgroundColor: 'rgba(0, 217, 255, 0.2)',
-            pointBackgroundColor: '#00d9ff'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            r: {
-              beginAtZero: true,
-              max: 100,
-              grid: { color: 'rgba(0, 217, 255, 0.3)' },
-              pointLabels: { color: '#00d9ff' },
-              ticks: { color: '#00d9ff' }
-            }
-          },
-          plugins: {
-            legend: { labels: { color: '#00d9ff' } }
-          }
-        }
-      });
-    }
-
-    function updateSystemMetrics() {
+    }    function updateSystemMetrics() {
       // Update real-time system metrics
       const uptime = (Math.random() * 0.2 + 99.8).toFixed(1);
       const memory = Math.floor(Math.random() * 20) + 60;
