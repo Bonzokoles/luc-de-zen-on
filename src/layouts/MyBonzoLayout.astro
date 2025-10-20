@@ -705,17 +705,22 @@ fetch('/api/mcp/memory', {
 
         // Intersection observer for lazy loading
         const lazyObserver = new IntersectionObserver((entries) => {
-          entries.forEach(async (entry) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const className = entry.target.className.split(' ')[0];
               const loader = lazyComponentsConfig[`.${className}`];
               if (loader) {
-                try {
-                  await loader();
-                  lazyObserver.unobserve(entry.target);
-                } catch (error) {
-                  console.warn('Failed to lazy load component:', error);
-                }
+                // Handle async loading without creating unhandled promise rejection
+                (async () => {
+                  try {
+                    await loader();
+                    lazyObserver.unobserve(entry.target);
+                  } catch (error) {
+                    console.warn('Failed to lazy load component:', error);
+                  }
+                })().catch(error => {
+                  console.warn('Lazy loading error:', error);
+                });
               }
             }
           });

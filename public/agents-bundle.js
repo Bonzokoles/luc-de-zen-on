@@ -1057,6 +1057,7 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
             { name: 'businessAssistant', class: BusinessAssistantAgent }
           ];
 
+          // Initialize agents sequentially to prevent promise rejection issues
           for (const agentType of agentTypes) {
             try {
               const agent = new agentType.class(config);
@@ -1070,6 +1071,7 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
               console.log(`✅ Agent ${agentType.name} - zainicjalizowany globalnie`);
             } catch (error) {
               console.warn(`⚠️ Błąd inicjalizacji ${agentType.name}:`, error);
+              // Continue with other agents even if one fails
             }
           }
 
@@ -1254,32 +1256,41 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
       async autoStart() {
         console.log(`⏰ Auto-start agentów za ${this.autoStartDelay}ms...`);
         
-        setTimeout(async () => {
-          console.log('🚀 Rozpoczynam automatyczne uruchamianie agentów...');
-          
-          // Initialize globalThis and local systems
-          const globalSuccess = await this.initializeGlobal();
-          const localSuccess = this.initializeLocal();
-          
-          if (globalSuccess && localSuccess) {
-            console.log('🎉 Wszystkie agenci gotowi do pracy!');
-            
-            // Expose globalThis API
-            if (typeof window !== 'undefined') {
-              window.MyBonzoAgents = this;
-              window.AGENTS_READY = true;
+        setTimeout(() => {
+          // Wrap async operations to handle promise rejections
+          (async () => {
+            try {
+              console.log('🚀 Rozpoczynam automatyczne uruchamianie agentów...');
               
-              // Dispatch custom event
-              window.dispatchEvent(new CustomEvent('mybonzo:agents:ready', {
-                detail: { 
-                  agents: this.getAllAgents(),
-                  system: this
+              // Initialize globalThis and local systems
+              const globalSuccess = await this.initializeGlobal();
+              const localSuccess = this.initializeLocal();
+              
+              if (globalSuccess && localSuccess) {
+                console.log('🎉 Wszystkie agenci gotowi do pracy!');
+                
+                // Expose globalThis API
+                if (typeof window !== 'undefined') {
+                  window.MyBonzoAgents = this;
+                  window.AGENTS_READY = true;
+                  
+                  // Dispatch custom event
+                  window.dispatchEvent(new CustomEvent('mybonzo:agents:ready', {
+                    detail: { 
+                      agents: this.getAllAgents(),
+                      system: this
+                    }
+                  }));
                 }
-              }));
+              } else {
+                console.warn('⚠️ Nie wszystkie systemy agentów zostały zainicjalizowane poprawnie');
+              }
+            } catch (error) {
+              console.error('❌ Błąd podczas auto-start agentów:', error);
             }
-          } else {
-            console.warn('⚠️ Nie wszystkie systemy agentów zostały zainicjalizowane poprawnie');
-          }
+          })().catch(error => {
+            console.error('❌ Nieobsłużony błąd auto-start:', error);
+          });
         }, this.autoStartDelay);
       }
 
@@ -1317,16 +1328,28 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
     if (typeof document !== 'undefined') {
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-          myBonzoAgentsSystem.autoStart();
+          try {
+            myBonzoAgentsSystem.autoStart();
+          } catch (error) {
+            console.error('❌ Błąd podczas DOMContentLoaded autoStart:', error);
+          }
         });
       } else {
         // DOM already loaded
-        myBonzoAgentsSystem.autoStart();
+        try {
+          myBonzoAgentsSystem.autoStart();
+        } catch (error) {
+          console.error('❌ Błąd podczas bezpośredniego autoStart:', error);
+        }
       }
     } else if (typeof window !== 'undefined') {
       // Fallback for window-only environments
       window.addEventListener('load', () => {
-        myBonzoAgentsSystem.autoStart();
+        try {
+          myBonzoAgentsSystem.autoStart();
+        } catch (error) {
+          console.error('❌ Błąd podczas window.load autoStart:', error);
+        }
       });
     }
 
