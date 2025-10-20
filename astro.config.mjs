@@ -5,7 +5,7 @@ import svelte from "@astrojs/svelte";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  site: "https://luc-de-zen-on.pages.dev",
+  site: "https://www.mybonzo.com",
   output: "server",
   experimental: {
     preserveScriptOrder: true,
