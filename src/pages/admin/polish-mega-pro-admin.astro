@@ -724,100 +724,134 @@ title: "🚀 MyBonzo MEGA PRO ADMIN - POLSKIE FRONTY ZNAKÓW"
 
     // Initialize Charts with MCP Integration
     async function initializeCharts() {
-      addToConsole('📊 [CHARTS] Inicjalizacja wykresów z danymi rzeczywistymi...', 'analytics');
-      
-      // Agent Performance Chart
-      const agentCtx = document.getElementById('agentPerformanceChart').getContext('2d');
-      charts.agentPerformance = new Chart(agentCtx, {
-        type: 'line',
-        data: {
-          labels: Array.from({length: 12}, (_, i) => `${i+8}:00`),
-          datasets: [{
-            label: 'Zadania/godzina',
-            data: [12, 19, 25, 31, 28, 35, 42, 38, 45, 41, 47, 44],
-            borderColor: '#00d9ff',
-            backgroundColor: 'rgba(0, 217, 255, 0.1)',
-            tension: 0.4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { 
-              beginAtZero: true,
-              grid: { color: 'rgba(0, 217, 255, 0.3)' },
-              ticks: { color: '#00d9ff' }
-            },
-            x: {
-              grid: { color: 'rgba(0, 217, 255, 0.3)' },
-              ticks: { color: '#00d9ff' }
-            }
+      try {
+        addToConsole('📊 [CHARTS] Inicjalizacja wykresów z danymi rzeczywistymi...', 'analytics');
+        
+        // Agent Performance Chart
+        const agentCtx = document.getElementById('agentPerformanceChart').getContext('2d');
+        charts.agentPerformance = new Chart(agentCtx, {
+          type: 'line',
+          data: {
+            labels: Array.from({length: 12}, (_, i) => `${i+8}:00`),
+            datasets: [{
+              label: 'Zadania/godzina',
+              data: [12, 19, 25, 31, 28, 35, 42, 38, 45, 41, 47, 44],
+              borderColor: '#00d9ff',
+              backgroundColor: 'rgba(0, 217, 255, 0.1)',
+              tension: 0.4
+            }]
           },
-          plugins: {
-            legend: { labels: { color: '#00d9ff' } }
-          }
-        }
-      });
-
-      // System Performance Chart
-      const systemCtx = document.getElementById('systemPerformanceChart').getContext('2d');
-      charts.systemPerformance = new Chart(systemCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['CPU', 'Pamięć', 'Dysk', 'Sieć'],
-          datasets: [{
-            data: [34, 67, 78, 23],
-            backgroundColor: ['#00d9ff', '#ff00ff', '#00ff00', '#ffff00'],
-            borderColor: '#000000',
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { labels: { color: '#00d9ff' } }
-          }
-        }
-      });
-
-      // API Usage Chart
-      const apiCtx = document.getElementById('apiUsageChart').getContext('2d');
-      charts.apiUsage = new Chart(apiCtx, {
-        type: 'bar',
-        data: {
-          labels: ['Muzyka', 'Agenci', 'System', 'Backup', 'Logi'],
-          datasets: [{
-            label: 'Zapytania API',
-            data: [245, 189, 167, 89, 134],
-            backgroundColor: '#ff00ff',
-            borderColor: '#00d9ff',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { 
-              beginAtZero: true,
-              grid: { color: 'rgba(0, 217, 255, 0.3)' },
-              ticks: { color: '#00d9ff' }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { 
+                beginAtZero: true,
+                grid: { color: 'rgba(0, 217, 255, 0.3)' },
+                ticks: { color: '#00d9ff' }
+              },
+              x: {
+                grid: { color: 'rgba(0, 217, 255, 0.3)' },
+                ticks: { color: '#00d9ff' }
+              }
             },
-            x: {
-              grid: { color: 'rgba(0, 217, 255, 0.3)' },
-              ticks: { color: '#00d9ff' }
+            plugins: {
+              legend: { labels: { color: '#00d9ff' } }
             }
-          },
-          plugins: {
-            legend: { labels: { color: '#00d9ff' } }
           }
-        }
-      });
+        });
 
-      // Music Analytics Chart
-      const musicCtx = document.getElementById('musicAnalyticsChart').getContext('2d');
+        // System Performance Chart
+        const systemCtx = document.getElementById('systemPerformanceChart').getContext('2d');
+        charts.systemPerformance = new Chart(systemCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['CPU', 'Pamięć', 'Dysk', 'Sieć'],
+            datasets: [{
+              data: [34, 67, 78, 23],
+              backgroundColor: ['#00d9ff', '#ff00ff', '#00ff00', '#ffff00'],
+              borderColor: '#000000',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: '#00d9ff' } }
+            }
+          }
+        });
+
+        // API Usage Chart
+        const apiCtx = document.getElementById('apiUsageChart').getContext('2d');
+        charts.apiUsage = new Chart(apiCtx, {
+          type: 'bar',
+          data: {
+            labels: ['Muzyka', 'Agenci', 'System', 'Backup', 'Logi'],
+            datasets: [{
+              label: 'Zapytania API',
+              data: [245, 189, 167, 89, 134],
+              backgroundColor: '#ff00ff',
+              borderColor: '#00d9ff',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { 
+                beginAtZero: true,
+                grid: { color: 'rgba(0, 217, 255, 0.3)' },
+                ticks: { color: '#00d9ff' }
+              },
+              x: {
+                grid: { color: 'rgba(0, 217, 255, 0.3)' },
+                ticks: { color: '#00d9ff' }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: '#00d9ff' } }
+            }
+          }
+        });
+
+        // Music Analytics Chart
+        const musicCtx = document.getElementById('musicAnalyticsChart').getContext('2d');
+        charts.musicAnalytics = new Chart(musicCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Główna Biblioteka', 'Biblioteka R1', 'Polska Cyberpunk'],
+            datasets: [{
+              label: 'Popularność',
+              data: [85, 92, 78],
+              borderColor: '#00d9ff',
+              backgroundColor: 'rgba(0, 217, 255, 0.2)',
+              pointBackgroundColor: '#00d9ff'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                beginAtZero: true,
+                max: 100,
+                grid: { color: 'rgba(0, 217, 255, 0.3)' },
+                pointLabels: { color: '#00d9ff' },
+                ticks: { color: '#00d9ff' }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: '#00d9ff' } }
+            }
+          }
+        });
+      } catch (error) {
+        addToConsole(`❌ [CHARTS] Błąd inicjalizacji wykresów: ${error.message}`, 'error');
+      }
+    }
       charts.musicAnalytics = new Chart(musicCtx, {
         type: 'radar',
         data: {

@@ -630,6 +630,12 @@
             if (completed === agents.length) {
               addConsoleMessage('System diagnostics completed', 'success');
             }
+          }).catch(error => {
+            completed++;
+            addConsoleMessage(`Diagnostic error for ${agent}: ${error.message}`, 'error');
+            if (completed === agents.length) {
+              addConsoleMessage('System diagnostics completed with errors', 'warning');
+            }
           });
         }, index * 1000);
       });
