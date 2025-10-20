@@ -5,19 +5,12 @@ import svelte from "@astrojs/svelte";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  site: "https://www.mybonzo.com",
-  output: "server",
+  site: "https://bonzokoles.github.io",
+  base: "/luc-de-zen-on",
+  output: "static",
   experimental: {
     preserveScriptOrder: true,
   },
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-    routes: {
-      strategy: "auto",
-    },
-  }),
 
   // Cache control dla lepszego deploymentu
   server: {
