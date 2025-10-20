@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
-// Using the same knowledge base as POLACZEK for consistency
-import { PolaczekKnowledgeBase } from "../../../utils/polaczekKnowledge.js";
+// Temporary fix: disable knowledge base import for build
+// import { PolaczekKnowledgeBase } from "../../../utils/polaczekKnowledge";
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
@@ -30,9 +30,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Build a comprehensive system prompt
-    const knowledgeContext = (PolaczekKnowledgeBase as any).getContext
-      ? (PolaczekKnowledgeBase as any).getContext(text)
-      : "Brak kontekstu";
+    const knowledgeContext =
+      "System knowledge base temporarily disabled for build compatibility";
     const systemPrompt = `Jesteś POLACZEK, zaawansowanym asystentem AI dla platformy MyBonzo.
     Twoim zadaniem jest przetwarzanie komend głosowych i odpowiadanie na nie po polsku.
     Masz dostęp do następujących informacji o systemie:
