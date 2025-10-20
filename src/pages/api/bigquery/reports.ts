@@ -23,7 +23,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // Pre-built report queries
     const reportType = url.searchParams.get('type') || 'daily_stats';
-    const reportData = await generateBigQueryReport(env, reportType);
+    const reportData = await generateBigQueryReport(env, reportType).catch(error => {
+      console.error('Report generation error:', error);
+      throw error;
+    });
     
     return new Response(JSON.stringify({
       success: true,
@@ -37,6 +40,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
 
   } catch (error) {
+    console.error('BigQuery Reports Error:', error);
     return new Response(JSON.stringify({
       success: false,
       service: 'BigQuery Reports',
@@ -48,7 +52,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 };
 
-async function generateBigQueryReport(env: any, reportType: string) {
+async function generateBigQueryReport(env: any, reportType: string): Promise<any> {
   // Mock report data based on type
   switch (reportType) {
     case 'daily_stats':
