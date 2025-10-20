@@ -5,12 +5,19 @@ import svelte from "@astrojs/svelte";
 import cloudflare from "@astrojs/cloudflare";
 
 export default defineConfig({
-  site: "https://bonzokoles.github.io",
-  base: "/luc-de-zen-on",
-  output: "static",
+  site: "https://luc-de-zen-on.pages.dev",
+  output: "server",
   experimental: {
     preserveScriptOrder: true,
   },
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+    routes: {
+      strategy: "auto",
+    },
+  }),
 
   // Cache control dla lepszego deploymentu
   server: {
