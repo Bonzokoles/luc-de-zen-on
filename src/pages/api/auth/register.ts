@@ -87,7 +87,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     await env.DB.batch(batch).catch((error: Error) => {
       console.error("Features batch error:", error);
       // Nie rzucamy błędu, bo user i client już są utworzeni
-      console.warn("Funkcje nie zostały dodane, ale rejestracja przebiegła pomyślnie");
+      console.warn(
+        "Funkcje nie zostały dodane, ale rejestracja przebiegła pomyślnie"
+      );
     });
 
     return createSuccessResponse({
