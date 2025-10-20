@@ -38,6 +38,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: luc-de-zen-on
           directory: dist
+          wranglerVersion: '3'
 
       - name: Keep-alive ping
         run: |
