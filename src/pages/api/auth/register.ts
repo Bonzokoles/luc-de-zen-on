@@ -34,7 +34,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       "INSERT INTO Clients (id, name, created_at) VALUES (?, ?, ?)"
     )
       .bind(clientId, clientName, new Date().toISOString())
-      .run();
+      .run()
+      .catch((error: Error) => {
+        console.error("Client insert error:", error);
+        throw error;
+      });
 
     if (!clientInsertResult.success) {
       return createErrorResponse("Nie udało się utworzyć klienta.", 500);
@@ -50,7 +54,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
       "INSERT INTO Users (id, email, password_hash, client_id) VALUES (?, ?, ?, ?)"
     )
       .bind(userId, userEmail, passwordHash, clientId)
-      .run();
+      .run()
+      .catch(async (error: Error) => {
+        console.error("User insert error:", error);
+        // Rollback - usuń utworzonego klienta
+        try {
+          await env.DB.prepare("DELETE FROM Clients WHERE id = ?")
+            .bind(clientId)
+            .run();
+        } catch (rollbackError) {
+          console.error("Rollback error:", rollbackError);
+        }
+        throw error;
+      });
 
     if (!userInsertResult.success) {
       // W razie błędu można by usunąć stworzonego wcześniej klienta (rollback)
@@ -68,7 +84,11 @@ export const POST: APIRoute = async ({ request, locals }) => {
       "INSERT INTO ClientFeatures (client_id, feature_id, is_enabled) VALUES (?, ?, 1)"
     );
     const batch = features.map((feature) => stmt.bind(clientId, feature));
-    await env.DB.batch(batch);
+    await env.DB.batch(batch).catch((error: Error) => {
+      console.error("Features batch error:", error);
+      // Nie rzucamy błędu, bo user i client już są utworzeni
+      console.warn("Funkcje nie zostały dodane, ale rejestracja przebiegła pomyślnie");
+    });
 
     return createSuccessResponse({
       message: "Klient i użytkownik zostali pomyślnie utworzeni.",
