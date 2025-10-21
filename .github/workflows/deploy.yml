@@ -30,9 +30,15 @@ jobs:
 
       - name: Build
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ASTRO_BUILD: "true"
           CI: "true"
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FLOWISE_API_TOKEN: ${{ secrets.FLOWISE_API_TOKEN }}
         run: npm run build
 
       - name: Deploy to Cloudflare Pages

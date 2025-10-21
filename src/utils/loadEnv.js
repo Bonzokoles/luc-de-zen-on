@@ -34,9 +34,7 @@ export const API_KEYS = {
     ? process.env.ANTHROPIC_API_KEY || ""
     : "",
 
-  DEEPSEEK_API_KEY: isNodeEnvironment
-    ? process.env.DEEPSEEK_API_KEY || ""
-    : "",
+  DEEPSEEK_API_KEY: isNodeEnvironment ? process.env.DEEPSEEK_API_KEY || "" : "",
 
   PERPLEXITY_API_KEY: isNodeEnvironment
     ? process.env.PERPLEXITY_API_KEY || ""
@@ -75,7 +73,14 @@ export const API_KEYS = {
 export function validateRequiredKeys() {
   const required = ["OPENAI_API_KEY"];
   const missing = [];
-  const alternatives = ["ANTHROPIC_API_KEY", "DEEPSEEK_API_KEY", "PERPLEXITY_API_KEY", "OPENROUTER_API_KEY", "GEMINI_API_KEY", "GROQ_API_KEY"];
+  const alternatives = [
+    "ANTHROPIC_API_KEY",
+    "DEEPSEEK_API_KEY",
+    "PERPLEXITY_API_KEY",
+    "OPENROUTER_API_KEY",
+    "GEMINI_API_KEY",
+    "GROQ_API_KEY",
+  ];
 
   required.forEach((key) => {
     if (!API_KEYS[key]) {
@@ -133,13 +138,13 @@ export function getApiKey(keyName) {
 // Funkcja do pobierania dostępnego klucza AI (z fallback)
 export function getAvailableAIKey() {
   const aiKeys = [
-    { name: 'OPENAI_API_KEY', key: API_KEYS.OPENAI_API_KEY },
-    { name: 'OPENROUTER_API_KEY', key: API_KEYS.OPENROUTER_API_KEY },
-    { name: 'ANTHROPIC_API_KEY', key: API_KEYS.ANTHROPIC_API_KEY },
-    { name: 'DEEPSEEK_API_KEY', key: API_KEYS.DEEPSEEK_API_KEY },
-    { name: 'PERPLEXITY_API_KEY', key: API_KEYS.PERPLEXITY_API_KEY },
-    { name: 'GEMINI_API_KEY', key: API_KEYS.GEMINI_API_KEY },
-    { name: 'GROQ_API_KEY', key: API_KEYS.GROQ_API_KEY }
+    { name: "OPENAI_API_KEY", key: API_KEYS.OPENAI_API_KEY },
+    { name: "OPENROUTER_API_KEY", key: API_KEYS.OPENROUTER_API_KEY },
+    { name: "ANTHROPIC_API_KEY", key: API_KEYS.ANTHROPIC_API_KEY },
+    { name: "DEEPSEEK_API_KEY", key: API_KEYS.DEEPSEEK_API_KEY },
+    { name: "PERPLEXITY_API_KEY", key: API_KEYS.PERPLEXITY_API_KEY },
+    { name: "GEMINI_API_KEY", key: API_KEYS.GEMINI_API_KEY },
+    { name: "GROQ_API_KEY", key: API_KEYS.GROQ_API_KEY },
   ];
 
   for (const aiKey of aiKeys) {
@@ -156,10 +161,10 @@ export function getAvailableAIKey() {
 
   if (isBuildEnvironment) {
     console.log(`ℹ️  Build environment: Brak kluczy AI, zwracam pusty`);
-    return { provider: 'NONE', key: '' };
+    return { provider: "NONE", key: "" };
   }
 
-  throw new Error('Brak dostępnych kluczy AI');
+  throw new Error("Brak dostępnych kluczy AI");
 }
 
 // Export dla kompatybilności wstecznej
