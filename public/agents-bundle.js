@@ -1016,9 +1016,9 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
         this.googleManager = null;
         this.googleFactory = null;
         this.localStorage = null;
-        
-        console.log('🤖 MyBonzo Agents System - Inicjalizacja...');
-        
+
+        console.log("🤖 MyBonzo Agents System - Inicjalizacja...");
+
         // Bind methods to preserve context
         this.initializeGlobal = this.initializeGlobal.bind(this);
         this.initializeLocal = this.initializeLocal.bind(this);
@@ -1032,29 +1032,29 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
 
       async initializeGlobal() {
         try {
-          console.log('🌍 Inicjalizacja globalnej instalacji agentów...');
-          
+          console.log("🌍 Inicjalizacja globalnej instalacji agentów...");
+
           // Initialize adapters
           this.adkAdapter = new ADKAdapter();
           this.googleManager = new GoogleAgentManager();
           this.googleFactory = new GoogleAgentFactory();
-          
+
           // Create globalThis agents with demo credentials
           const apiKey = "demo-key";
           const projectId = "mybonzo-project";
           const config = {
             apiKey,
             projectId,
-            location: "europe-west1"
+            location: "europe-west1",
           };
 
           // Initialize all agent types
           const agentTypes = [
-            { name: 'geminiPro', class: GeminiProAgent },
-            { name: 'geminiVision', class: GeminiVisionAgent }, 
-            { name: 'codeBison', class: CodeBisonAgent },
-            { name: 'textBison', class: TextBisonAgent },
-            { name: 'businessAssistant', class: BusinessAssistantAgent }
+            { name: "geminiPro", class: GeminiProAgent },
+            { name: "geminiVision", class: GeminiVisionAgent },
+            { name: "codeBison", class: CodeBisonAgent },
+            { name: "textBison", class: TextBisonAgent },
+            { name: "businessAssistant", class: BusinessAssistantAgent },
           ];
 
           // Initialize agents sequentially to prevent promise rejection issues
@@ -1063,12 +1063,14 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
               const agent = new agentType.class(config);
               this.agents.set(agentType.name, {
                 instance: agent,
-                status: 'ready',
+                status: "ready",
                 type: agentType.name,
                 config: config,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
               });
-              console.log(`✅ Agent ${agentType.name} - zainicjalizowany globalnie`);
+              console.log(
+                `✅ Agent ${agentType.name} - zainicjalizowany globalnie`
+              );
             } catch (error) {
               console.warn(`⚠️ Błąd inicjalizacji ${agentType.name}:`, error);
               // Continue with other agents even if one fails
@@ -1076,58 +1078,62 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
           }
 
           this.isInitialized = true;
-          console.log(`🎉 Globalna instalacja ukończona - ${this.agents.size} agentów gotowych`);
-          
+          console.log(
+            `🎉 Globalna instalacja ukończona - ${this.agents.size} agentów gotowych`
+          );
+
           return true;
         } catch (error) {
-          console.error('❌ Błąd globalnej inicjalizacji:', error);
+          console.error("❌ Błąd globalnej inicjalizacji:", error);
           return false;
         }
       }
 
       initializeLocal() {
         try {
-          console.log('💾 Inicjalizacja lokalnej instalacji agentów...');
-          
+          console.log("💾 Inicjalizacja lokalnej instalacji agentów...");
+
           // Setup localStorage
-          if (typeof window !== 'undefined' && window.localStorage) {
+          if (typeof window !== "undefined" && window.localStorage) {
             this.localStorage = window.localStorage;
-            
+
             // Load existing agents from local storage
             this.loadFromLocal();
-            
+
             // Setup periodic save
             setInterval(() => {
               this.saveToLocal();
             }, 30000); // Save every 30 seconds
-            
-            console.log('✅ Lokalna instalacja skonfigurowana');
+
+            console.log("✅ Lokalna instalacja skonfigurowana");
             return true;
           } else {
-            console.warn('⚠️ localStorage niedostępne');
+            console.warn("⚠️ localStorage niedostępne");
             return false;
           }
         } catch (error) {
-          console.error('❌ Błąd lokalnej inicjalizacji:', error);
+          console.error("❌ Błąd lokalnej inicjalizacji:", error);
           return false;
         }
       }
 
       saveToLocal() {
         if (!this.localStorage) return;
-        
+
         try {
-          const agentsData = Array.from(this.agents.entries()).map(([name, data]) => ({
-            name,
-            status: data.status,
-            type: data.type,
-            config: { ...data.config, apiKey: 'REDACTED' }, // Don't save sensitive data
-            createdAt: data.createdAt,
-            lastSaved: new Date().toISOString(),
-            version: '1.0.0',
-            sessionId: this.getSessionId()
-          }));
-          
+          const agentsData = Array.from(this.agents.entries()).map(
+            ([name, data]) => ({
+              name,
+              status: data.status,
+              type: data.type,
+              config: { ...data.config, apiKey: "REDACTED" }, // Don't save sensitive data
+              createdAt: data.createdAt,
+              lastSaved: new Date().toISOString(),
+              version: "1.0.0",
+              sessionId: this.getSessionId(),
+            })
+          );
+
           // Also save system metadata
           const systemData = {
             agentCount: this.agents.size,
@@ -1135,33 +1141,35 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
             browserInfo: {
               userAgent: navigator.userAgent,
               language: navigator.language,
-              platform: navigator.platform
+              platform: navigator.platform,
             },
             performance: {
               initTime: this.initTime || 0,
-              avgResponseTime: this.calculateAvgResponseTime()
-            }
+              avgResponseTime: this.calculateAvgResponseTime(),
+            },
           };
-          
-          this.localStorage.setItem('mybonzo_agents', JSON.stringify(agentsData));
-          this.localStorage.setItem('mybonzo_system', JSON.stringify(systemData));
-          console.log('💾 Agenci i metadane zapisane lokalnie');
+
+          this.localStorage.setItem("mybonzo_agents", JSON.stringify(agentsData));
+          this.localStorage.setItem("mybonzo_system", JSON.stringify(systemData));
+          console.log("💾 Agenci i metadane zapisane lokalnie");
         } catch (error) {
-          console.warn('⚠️ Błąd zapisu lokalnego:', error);
+          console.warn("⚠️ Błąd zapisu lokalnego:", error);
         }
       }
 
       loadFromLocal() {
         if (!this.localStorage) return;
-        
+
         try {
-          const savedAgents = this.localStorage.getItem('mybonzo_agents');
-          const savedSystem = this.localStorage.getItem('mybonzo_system');
-          
+          const savedAgents = this.localStorage.getItem("mybonzo_agents");
+          const savedSystem = this.localStorage.getItem("mybonzo_system");
+
           if (savedAgents) {
             const agentsData = JSON.parse(savedAgents);
-            console.log(`💾 Wczytano ${agentsData.length} agentów z lokalnego storage`);
-            
+            console.log(
+              `💾 Wczytano ${agentsData.length} agentów z lokalnego storage`
+            );
+
             // Restore agent preferences if available
             for (const agentData of agentsData) {
               if (this.agents.has(agentData.name)) {
@@ -1171,23 +1179,28 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
               }
             }
           }
-          
+
           if (savedSystem) {
             const systemData = JSON.parse(savedSystem);
-            console.log('💾 Wczytano metadane systemu:', systemData);
+            console.log("💾 Wczytano metadane systemu:", systemData);
             this.systemMetadata = systemData;
           }
-          
-          return { agents: savedAgents ? JSON.parse(savedAgents) : [], system: savedSystem ? JSON.parse(savedSystem) : null };
+
+          return {
+            agents: savedAgents ? JSON.parse(savedAgents) : [],
+            system: savedSystem ? JSON.parse(savedSystem) : null,
+          };
         } catch (error) {
-          console.warn('⚠️ Błąd odczytu lokalnego:', error);
+          console.warn("⚠️ Błąd odczytu lokalnego:", error);
           return { agents: [], system: null };
         }
       }
 
       getSessionId() {
         if (!this.sessionId) {
-          this.sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          this.sessionId = `session_${Date.now()}_${Math.random()
+        .toString(36)
+        .substr(2, 9)}`;
         }
         return this.sessionId;
       }
@@ -1199,9 +1212,9 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
 
       clearLocalData() {
         if (this.localStorage) {
-          this.localStorage.removeItem('mybonzo_agents');
-          this.localStorage.removeItem('mybonzo_system');
-          console.log('🗑️ Lokalne dane agentów wyczyszczone');
+          this.localStorage.removeItem("mybonzo_agents");
+          this.localStorage.removeItem("mybonzo_system");
+          console.log("🗑️ Lokalne dane agentów wyczyszczone");
         }
       }
 
@@ -1209,29 +1222,29 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
         const agentClasses = {
           geminiPro: GeminiProAgent,
           geminiVision: GeminiVisionAgent,
-          codeBison: CodeBisonAgent, 
+          codeBison: CodeBisonAgent,
           textBison: TextBisonAgent,
-          businessAssistant: BusinessAssistantAgent
+          businessAssistant: BusinessAssistantAgent,
         };
-        
+
         if (!agentClasses[type]) {
           throw new Error(`Nieznany typ agenta: ${type}`);
         }
-        
+
         const AgentClass = agentClasses[type];
         const agent = new AgentClass(config);
-        
+
         const agentData = {
           instance: agent,
-          status: 'ready',
+          status: "ready",
           type: type,
           config: config,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         };
-        
+
         this.agents.set(type, agentData);
         this.saveToLocal();
-        
+
         return agent;
       }
 
@@ -1247,7 +1260,7 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
             instance: data.instance,
             status: data.status,
             type: data.type,
-            createdAt: data.createdAt
+            createdAt: data.createdAt,
           };
         }
         return result;
@@ -1255,41 +1268,45 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
 
       async autoStart() {
         console.log(`⏰ Auto-start agentów za ${this.autoStartDelay}ms...`);
-        
+
         setTimeout(() => {
           // Wrap async operations to handle promise rejections
           (async () => {
             try {
-              console.log('🚀 Rozpoczynam automatyczne uruchamianie agentów...');
-              
+              console.log("🚀 Rozpoczynam automatyczne uruchamianie agentów...");
+
               // Initialize globalThis and local systems
               const globalSuccess = await this.initializeGlobal();
               const localSuccess = this.initializeLocal();
-              
+
               if (globalSuccess && localSuccess) {
-                console.log('🎉 Wszystkie agenci gotowi do pracy!');
-                
+                console.log("🎉 Wszystkie agenci gotowi do pracy!");
+
                 // Expose globalThis API
-                if (typeof window !== 'undefined') {
+                if (typeof window !== "undefined") {
                   window.MyBonzoAgents = this;
                   window.AGENTS_READY = true;
-                  
+
                   // Dispatch custom event
-                  window.dispatchEvent(new CustomEvent('mybonzo:agents:ready', {
-                    detail: { 
-                      agents: this.getAllAgents(),
-                      system: this
-                    }
-                  }));
+                  window.dispatchEvent(
+                    new CustomEvent("mybonzo:agents:ready", {
+                      detail: {
+                        agents: this.getAllAgents(),
+                        system: this,
+                      },
+                    })
+                  );
                 }
               } else {
-                console.warn('⚠️ Nie wszystkie systemy agentów zostały zainicjalizowane poprawnie');
+                console.warn(
+                  "⚠️ Nie wszystkie systemy agentów zostały zainicjalizowane poprawnie"
+                );
               }
             } catch (error) {
-              console.error('❌ Błąd podczas auto-start agentów:', error);
+              console.error("❌ Błąd podczas auto-start agentów:", error);
             }
-          })().catch(error => {
-            console.error('❌ Nieobsłużony błąd auto-start:', error);
+          })().catch((error) => {
+            console.error("❌ Nieobsłużony błąd auto-start:", error);
           });
         }, this.autoStartDelay);
       }
@@ -1300,8 +1317,15 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
         if (agent) {
           console.log(`🎯 Otwieranie agenta: ${type}`);
           // Trigger opening agent interface
-          if (window.GOOGLE_VOICE && window.GOOGLE_VOICE[`open${type.charAt(0).toUpperCase() + type.slice(1)}`]) {
-            window.GOOGLE_VOICE[`open${type.charAt(0).toUpperCase() + type.slice(1)}`]();
+          if (
+            window.GOOGLE_VOICE &&
+            window.GOOGLE_VOICE[
+              `open${type.charAt(0).toUpperCase() + type.slice(1)}`
+            ]
+          ) {
+            window.GOOGLE_VOICE[
+              `open${type.charAt(0).toUpperCase() + type.slice(1)}`
+            ]();
           }
           return agent;
         } else {
@@ -1316,7 +1340,7 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
           agentsCount: this.agents.size,
           autoStartDelay: this.autoStartDelay,
           hasLocalStorage: !!this.localStorage,
-          agents: this.getAllAgents()
+          agents: this.getAllAgents(),
         };
       }
     }
@@ -1324,14 +1348,14 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
     // Auto-initialize system when script loads
     const myBonzoAgentsSystem = new MyBonzoAgentsSystem();
 
-    // Start auto-initialization on DOM ready or immediately if DOM is already loaded  
-    if (typeof document !== 'undefined') {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
+    // Start auto-initialization on DOM ready or immediately if DOM is already loaded
+    if (typeof document !== "undefined") {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
           try {
             myBonzoAgentsSystem.autoStart();
           } catch (error) {
-            console.error('❌ Błąd podczas DOMContentLoaded autoStart:', error);
+            console.error("❌ Błąd podczas DOMContentLoaded autoStart:", error);
           }
         });
       } else {
@@ -1339,16 +1363,16 @@ Status: Browser Mock - w produkcji używaj Text Bison API dla rzeczywistego prze
         try {
           myBonzoAgentsSystem.autoStart();
         } catch (error) {
-          console.error('❌ Błąd podczas bezpośredniego autoStart:', error);
+          console.error("❌ Błąd podczas bezpośredniego autoStart:", error);
         }
       }
-    } else if (typeof window !== 'undefined') {
+    } else if (typeof window !== "undefined") {
       // Fallback for window-only environments
-      window.addEventListener('load', () => {
+      window.addEventListener("load", () => {
         try {
           myBonzoAgentsSystem.autoStart();
         } catch (error) {
-          console.error('❌ Błąd podczas window.load autoStart:', error);
+          console.error("❌ Błąd podczas window.load autoStart:", error);
         }
       });
     }
