@@ -48,9 +48,14 @@ export function validateRequiredKeys() {
     }
   });
   
-  if (missing.length > 0 && isNodeEnvironment) {
+  // W środowisku CI/build nie blokuj procesu
+  const isBuildEnvironment = process.env.CI || process.env.NODE_ENV === 'production' || process.env.ASTRO_BUILD;
+  
+  if (missing.length > 0 && isNodeEnvironment && !isBuildEnvironment) {
     console.warn(`⚠️  Brakuje kluczy API: ${missing.join(', ')}`);
     console.warn('Niektóre funkcje mogą nie działać poprawnie.');
+  } else if (missing.length > 0 && isBuildEnvironment) {
+    console.log(`ℹ️  Build environment: Pomijam sprawdzanie kluczy API`);
   }
   
   return missing.length === 0;
@@ -59,9 +64,17 @@ export function validateRequiredKeys() {
 // Funkcja do bezpiecznego pobierania kluczy
 export function getApiKey(keyName) {
   const key = API_KEYS[keyName];
-  if (!key) {
+  const isBuildEnvironment = process.env.CI || process.env.NODE_ENV === 'production' || process.env.ASTRO_BUILD;
+  
+  if (!key && !isBuildEnvironment) {
     throw new Error(`Klucz API '${keyName}' nie został skonfigurowany`);
   }
+  
+  if (!key && isBuildEnvironment) {
+    console.log(`ℹ️  Build environment: Brak klucza ${keyName}, zwracam pustą wartość`);
+    return '';
+  }
+  
   return key;
 }
 
