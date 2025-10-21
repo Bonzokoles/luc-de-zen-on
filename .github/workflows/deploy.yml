@@ -31,15 +31,8 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: luc-de-zen-on
-          directory: dist
-          wranglerVersion: "3"
-
-      - name: Keep-alive ping
+      - name: Build successful - manual deploy needed
         run: |
-          curl -f https://www.mybonzo.com || echo "Site ping failed, but continuing..."
+          echo "Build completed successfully!"
+          echo "Manual deployment required via wrangler or dashboard"
+          echo "Built files are in dist/ directory"
