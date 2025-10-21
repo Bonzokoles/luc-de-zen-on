@@ -54,9 +54,6 @@ export default defineConfig({
     },
     build: {
       rollupOptions: {
-        external: [
-          "virtual:astro-icon", // Dodaj to żeby naprawić błąd astro-icon
-        ],
         output: {
           manualChunks: {
             "vendor-react": ["react", "react-dom"],
