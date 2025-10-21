@@ -1,80 +1,96 @@
 /**
  * System automatycznego wczytywania kluczy API
  * Centralny punkt zarządzania konfiguracją środowiska
- * 
+ *
  * UWAGA: Ten moduł jest przeznaczony tylko do użycia serwerowego!
  * W przeglądarce zmienne środowiskowe nie są dostępne.
  */
 
 // Sprawdź czy działamy w środowisku Node.js
-const isNodeEnvironment = typeof process !== 'undefined' && process.env;
+const isNodeEnvironment = typeof process !== "undefined" && process.env;
 
 // Klucze API dla różnych platform
 export const API_KEYS = {
   // OpenAI dla generowania FAQ i AI funkcji
-  OPENAI_API_KEY: isNodeEnvironment ? (process.env.OPENAI_API_KEY || '') : '',
-  
+  OPENAI_API_KEY: isNodeEnvironment ? process.env.OPENAI_API_KEY || "" : "",
+
   // Flowise dla automatyzacji workflow
-  FLOWISE_API_TOKEN: isNodeEnvironment ? (process.env.FLOWISE_API_TOKEN || '') : '',
-  
+  FLOWISE_API_TOKEN: isNodeEnvironment
+    ? process.env.FLOWISE_API_TOKEN || ""
+    : "",
+
   // ActivePieces dla powiadomień i automatyzacji
-  ACTIVEPIECES_API_KEY: isNodeEnvironment ? (process.env.ACTIVEPIECES_API_KEY || '') : '',
-  
+  ACTIVEPIECES_API_KEY: isNodeEnvironment
+    ? process.env.ACTIVEPIECES_API_KEY || ""
+    : "",
+
   // Cloudflare dla Workers i deployment
-  CLOUDFLARE_API_TOKEN: isNodeEnvironment ? (process.env.CLOUDFLARE_API_TOKEN || '') : '',
-  CLOUDFLARE_ACCOUNT_ID: isNodeEnvironment ? (process.env.CLOUDFLARE_ACCOUNT_ID || '') : '',
-  
+  CLOUDFLARE_API_TOKEN: isNodeEnvironment
+    ? process.env.CLOUDFLARE_API_TOKEN || ""
+    : "",
+  CLOUDFLARE_ACCOUNT_ID: isNodeEnvironment
+    ? process.env.CLOUDFLARE_ACCOUNT_ID || ""
+    : "",
+
   // Inne integracje
-  GITHUB_TOKEN: isNodeEnvironment ? (process.env.GITHUB_TOKEN || '') : '',
-  WEBHOOK_SECRET: isNodeEnvironment ? (process.env.WEBHOOK_SECRET || '') : '',
-  
+  GITHUB_TOKEN: isNodeEnvironment ? process.env.GITHUB_TOKEN || "" : "",
+  WEBHOOK_SECRET: isNodeEnvironment ? process.env.WEBHOOK_SECRET || "" : "",
+
   // Email/SMS dla powiadomień
-  EMAIL_API_KEY: isNodeEnvironment ? (process.env.EMAIL_API_KEY || '') : '',
-  SMS_API_KEY: isNodeEnvironment ? (process.env.SMS_API_KEY || '') : '',
-  
+  EMAIL_API_KEY: isNodeEnvironment ? process.env.EMAIL_API_KEY || "" : "",
+  SMS_API_KEY: isNodeEnvironment ? process.env.SMS_API_KEY || "" : "",
+
   // Database i storage
-  DATABASE_URL: isNodeEnvironment ? (process.env.DATABASE_URL || '') : '',
-  STORAGE_API_KEY: isNodeEnvironment ? (process.env.STORAGE_API_KEY || '') : ''
+  DATABASE_URL: isNodeEnvironment ? process.env.DATABASE_URL || "" : "",
+  STORAGE_API_KEY: isNodeEnvironment ? process.env.STORAGE_API_KEY || "" : "",
 };
 
 // Sprawdzanie czy wymagane klucze są ustawione
 export function validateRequiredKeys() {
-  const required = ['OPENAI_API_KEY'];
+  const required = ["OPENAI_API_KEY"];
   const missing = [];
-  
-  required.forEach(key => {
+
+  required.forEach((key) => {
     if (!API_KEYS[key]) {
       missing.push(key);
     }
   });
-  
+
   // W środowisku CI/build nie blokuj procesu
-  const isBuildEnvironment = process.env.CI || process.env.NODE_ENV === 'production' || process.env.ASTRO_BUILD;
-  
+  const isBuildEnvironment =
+    process.env.CI ||
+    process.env.NODE_ENV === "production" ||
+    process.env.ASTRO_BUILD;
+
   if (missing.length > 0 && isNodeEnvironment && !isBuildEnvironment) {
-    console.warn(`⚠️  Brakuje kluczy API: ${missing.join(', ')}`);
-    console.warn('Niektóre funkcje mogą nie działać poprawnie.');
+    console.warn(`⚠️  Brakuje kluczy API: ${missing.join(", ")}`);
+    console.warn("Niektóre funkcje mogą nie działać poprawnie.");
   } else if (missing.length > 0 && isBuildEnvironment) {
     console.log(`ℹ️  Build environment: Pomijam sprawdzanie kluczy API`);
   }
-  
+
   return missing.length === 0;
 }
 
 // Funkcja do bezpiecznego pobierania kluczy
 export function getApiKey(keyName) {
   const key = API_KEYS[keyName];
-  const isBuildEnvironment = process.env.CI || process.env.NODE_ENV === 'production' || process.env.ASTRO_BUILD;
-  
+  const isBuildEnvironment =
+    process.env.CI ||
+    process.env.NODE_ENV === "production" ||
+    process.env.ASTRO_BUILD;
+
   if (!key && !isBuildEnvironment) {
     throw new Error(`Klucz API '${keyName}' nie został skonfigurowany`);
   }
-  
+
   if (!key && isBuildEnvironment) {
-    console.log(`ℹ️  Build environment: Brak klucza ${keyName}, zwracam pustą wartość`);
-    return '';
+    console.log(
+      `ℹ️  Build environment: Brak klucza ${keyName}, zwracam pustą wartość`
+    );
+    return "";
   }
-  
+
   return key;
 }
 
@@ -86,5 +102,5 @@ export const FLOWISE_API_TOKEN = API_KEYS.FLOWISE_API_TOKEN;
 // Inicjalizacja przy imporcie (tylko w środowisku Node.js)
 if (isNodeEnvironment) {
   validateRequiredKeys();
-  console.log('🔑 System zarządzania kluczami API załadowany');
+  console.log("🔑 System zarządzania kluczami API załadowany");
 }

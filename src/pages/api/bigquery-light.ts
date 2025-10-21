@@ -47,16 +47,16 @@ async function getGcpCredentials() {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const { projectId, accessToken } = await getGcpCredentials();
-
-  if (!projectId || !accessToken) {
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: "Google Cloud credentials could not be loaded."
-    }), { status: 500 });
-  }
-
   try {
+    const { projectId, accessToken } = await getGcpCredentials();
+
+    if (!projectId || !accessToken) {
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: "Google Cloud credentials could not be loaded."
+      }), { status: 500 });
+    }
+
     const body: { query?: string } = await request.json();
     const query = body.query;
 
