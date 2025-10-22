@@ -53,7 +53,7 @@ export const API_KEYS = {
     ? process.env.CLOUDFLARE_API_TOKEN || ""
     : "",
   CLOUDFLARE_ACCOUNT_ID: isNodeEnvironment
-    ? process.env.CLOUDFLARE_ACCOUNT_ID || "7f490d58a478c6baccb0ae01ea1d87c3"
+    ? process.env.CLOUDFLARE_ACCOUNT_ID || ""
     : "",
   CLOUDFLARE_ZONE_ID: isNodeEnvironment
     ? process.env.CLOUDFLARE_ZONE_ID || ""
@@ -85,6 +85,10 @@ export function validateRequiredKeys() {
     "GROQ_API_KEY",
   ];
 
+  // Opcjonalne klucze Cloudflare (dla deployment)
+  const cloudflareKeys = ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"];
+  const missingCloudflare = cloudflareKeys.filter(key => !API_KEYS[key]);
+
   required.forEach((key) => {
     if (!API_KEYS[key]) {
       missing.push(key);
@@ -111,6 +115,12 @@ export function validateRequiredKeys() {
     }
   } else if (missing.length > 0 && isBuildEnvironment) {
     console.log(`ℹ️  Build environment: Pomijam sprawdzanie kluczy API`);
+  }
+
+  // Informacja o brakujących kluczach Cloudflare
+  if (missingCloudflare.length > 0 && !isBuildEnvironment) {
+    console.warn(`⚠️  Brakuje kluczy Cloudflare: ${missingCloudflare.join(", ")}`);
+    console.warn("Deployment do Cloudflare może nie działać.");
   }
 
   return missing.length === 0 || hasAlternativeAI;
@@ -182,6 +192,11 @@ export const PERPLEXITY_API_KEY = API_KEYS.PERPLEXITY_API_KEY;
 export const OPENROUTER_API_KEY = API_KEYS.OPENROUTER_API_KEY;
 export const GEMINI_API_KEY = API_KEYS.GEMINI_API_KEY;
 export const GROQ_API_KEY = API_KEYS.GROQ_API_KEY;
+
+// Eksport kluczy Cloudflare
+export const CLOUDFLARE_API_TOKEN = API_KEYS.CLOUDFLARE_API_TOKEN;
+export const CLOUDFLARE_ACCOUNT_ID = API_KEYS.CLOUDFLARE_ACCOUNT_ID;
+export const CLOUDFLARE_ZONE_ID = API_KEYS.CLOUDFLARE_ZONE_ID;
 
 // Inicjalizacja przy imporcie (tylko w środowisku Node.js)
 if (isNodeEnvironment) {
