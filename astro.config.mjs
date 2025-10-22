@@ -16,7 +16,16 @@ export default defineConfig({
     },
     routes: {
       strategy: "exclude",
-      exclude: ["/_astro/*", "/assets/*", "/favicon.*", "/*.png", "/*.jpg", "/*.jpeg", "/*.svg", "/*.ico"],
+      exclude: [
+        "/_astro/*",
+        "/assets/*",
+        "/favicon.*",
+        "/*.png",
+        "/*.jpg",
+        "/*.jpeg",
+        "/*.svg",
+        "/*.ico",
+      ],
     },
   }),
 

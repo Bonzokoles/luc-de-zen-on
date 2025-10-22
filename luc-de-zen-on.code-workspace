@@ -1,0 +1,33 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "docs/WORKERS"
+	},
+	{
+		"path": "BRIDGE_CLOUD_APPS"
+	},
+	{
+		"path": "docs/do przywrucenia"
+	}
+],
+  "settings": {
+    "emmet.includeLanguages": {
+      "astro": "html"
+    },
+    "files.associations": {
+      "*.astro": "astro"
+    },
+    "github.copilot.enable": {
+      "*": true,
+      "yaml": false,
+      "plaintext": false,
+      "markdown": true,
+      "astro": true,
+      "typescript": true,
+      "javascript": true
+    }
+  }
+}
