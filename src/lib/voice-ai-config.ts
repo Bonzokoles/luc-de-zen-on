@@ -98,26 +98,26 @@ export class VoiceConfigurationManager {
     return {
       globalSettings: {
         defaultLanguage: 'pl-PL',
-        fallbackVoice: 'polish-neutral-default',
+        fallbackVoice: 'polish-professional-openai',
         enableSSML: true,
         maxTextLength: 4000,
         queueTimeout: 30000,
         retryAttempts: 3
       },
       profiles: [
-        // Polski głos profesjonalny (domyślny)
+        // Polski głos profesjonalny (OpenAI - używamy dostępnego klucza)
         {
-          id: 'polish-professional-male',
-          name: 'Polski Profesjonalny (Męski)',
+          id: 'polish-professional-openai',
+          name: 'Polski Profesjonalny (OpenAI)',
           language: 'pl-PL',
-          gender: 'male',
-          provider: 'elevenlabs',
-          voiceId: 'pNInz6obpgDQGcFmaJgB', // Adam voice
+          gender: 'female',
+          provider: 'openai',
+          voiceId: 'alloy',
           settings: {
             speed: 1.0,
             pitch: 0,
-            stability: 0.5,
-            clarity: 0.75,
+            stability: 0.8,
+            clarity: 0.9,
             volume: 0.8,
             emotionalRange: 0.3
           },
@@ -137,27 +137,27 @@ export class VoiceConfigurationManager {
         {
           id: 'polish-friendly-male',
           name: 'Polski Przyjazny (POLACZEK)',
-          language: 'pl-PL',
+          language: 'en-US',
           gender: 'male',
-          provider: 'elevenlabs',
-          voiceId: 'ErXwobaYiN019PkySvjV', // Antoni voice
+          provider: 'openai',
+          voiceId: 'echo',
           settings: {
-            speed: 1.1,
-            pitch: 2,
-            stability: 0.6,
-            clarity: 0.8,
+            speed: 1.0,
+            pitch: 0,
+            stability: 0.8,
+            clarity: 0.9,
             volume: 0.9,
             emotionalRange: 0.7
           },
           characteristics: {
-            personality: 'friendly',
-            accent: 'krakowski',
-            age: 'young',
-            tone: 'warm'
+            personality: 'professional',
+            accent: 'american neutral',
+            age: 'middle',
+            tone: 'neutral'
           },
           enabled: true,
           isDefault: false,
-          costPerCharacter: 0.0003,
+          costPerCharacter: 0.000015,
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString()
         },
@@ -305,9 +305,9 @@ export class VoiceConfigurationManager {
           model: 'tts-1'
         },
         polly: {
-          accessKeyId: import.meta.env.AWS_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID || '',
-          secretAccessKey: import.meta.env.AWS_SECRET_ACCESS_KEY || process.env.AWS_SECRET_ACCESS_KEY || '',
-          region: import.meta.env.AWS_REGION || process.env.AWS_REGION || 'us-east-1'
+          accessKeyId: '',
+          secretAccessKey: '',
+          region: 'us-east-1'
         }
       }
     };
