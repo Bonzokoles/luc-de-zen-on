@@ -53,7 +53,10 @@ export const API_KEYS = {
     ? process.env.CLOUDFLARE_API_TOKEN || ""
     : "",
   CLOUDFLARE_ACCOUNT_ID: isNodeEnvironment
-    ? process.env.CLOUDFLARE_ACCOUNT_ID || ""
+    ? process.env.CLOUDFLARE_ACCOUNT_ID || "7f490d58a478c6baccb0ae01ea1d87c3"
+    : "",
+  CLOUDFLARE_ZONE_ID: isNodeEnvironment
+    ? process.env.CLOUDFLARE_ZONE_ID || ""
     : "",
 
   // Inne integracje
