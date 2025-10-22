@@ -379,7 +379,7 @@ Stwórz najlepszą, spójną odpowiedź łączącą mocne strony każdej z nich.
     const response = await fetch('https://api-inference.huggingface.co/models/speakleash/Bielik-11B-v2.6-Instruct', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.HF_TOKEN}`,
+        'Authorization': `Bearer ${import.meta.env.HF_TOKEN || process.env.HF_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -484,7 +484,7 @@ Stwórz najlepszą, spójną odpowiedź łączącą mocne strony każdej z nich.
     const response = await fetch('https://api-inference.huggingface.co/models/speakleash/Bielik-Guard-0.1B-v1.0', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.HF_TOKEN}`,
+        'Authorization': `Bearer ${import.meta.env.HF_TOKEN || process.env.HF_TOKEN}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ inputs: task }),
