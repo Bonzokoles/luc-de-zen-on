@@ -1,4 +1,4 @@
-import { BaseAgent } from './BaseAgent'; import type { AgentConfig } from './BaseAgent';
+﻿import { BaseAgent, type AgentConfig } from './BaseAgent';
 
 export interface GeminiProAgentConfig extends AgentConfig {
   apiKey: string;
@@ -21,8 +21,8 @@ export class GeminiProAgent extends BaseAgent {
   async chat(message: string, context?: any): Promise<string> {
     try {
       this.updateStatus('processing');
-      
-      const response = await fetch(this.apiEndpoint + `?key=${this.config.apiKey}`, {
+
+      const response = await fetch(`${this.apiEndpoint}?key=${this.config.apiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,14 +48,14 @@ export class GeminiProAgent extends BaseAgent {
 
       const data: { candidates: { content: { parts: { text: string }[] } }[] } = await response.json();
       const result = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Brak odpowiedzi';
-      
+
       this.updateStatus('ready');
       this.addToHistory({ type: 'chat', input: message, output: result });
-      
+
       return result;
     } catch (error) {
       this.updateStatus('error');
-      console.error('🤖 Gemini Pro error:', error);
+      console.error(' Gemini Pro error:', error);
       throw error;
     }
   }
@@ -69,22 +69,24 @@ export class GeminiProAgent extends BaseAgent {
   }
 
   async analyzeCode(code: string, language: string = 'typescript'): Promise<string> {
-    const prompt = 'Przeanalizuj następujący kod ' + language + ' i podaj szczegółową ocenę:\n\n' +
-      '```' + language + '\n' +
-      code + '\n' +
-      '```' + '\n\n' +
-      'Oceń:\n' +
-      '1. Jakość kodu\n' +
-      '2. Potencjalne problemy\n' + 
-      '3. Sugestie ulepszeń\n' +
-      '4. Bezpieczeństwo\n' +
-      '5. Wydajność';
+    const prompt = `Przeanalizuj następujący kod ${language} i podaj szczegółową ocenę:
+
+\`\`\`${language}
+${code}
+\`\`\`
+
+Oceń:
+1. Jakość kodu
+2. Potencjalne problemy
+3. Sugestie ulepszeń
+4. Bezpieczeństwo
+5. Wydajność`;
 
     return this.chat(prompt);
   }
 
   async generateText(prompt: string, style: string = 'professional'): Promise<string> {
-    const styledPrompt = 'Napisz tekst w stylu ' + style + ' na temat: ' + prompt;
+    const styledPrompt = `Napisz tekst w stylu ${style} na temat: ${prompt}`;
     return this.chat(styledPrompt);
   }
 }
