@@ -46,10 +46,10 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: luc-de-zen-on
+          projectName: mybonzo-new
           directory: dist
           wranglerVersion: "3"
 
       - name: Keep-alive ping
         run: |
-          curl -f https://www.mybonzo.com || echo "Site ping failed, but continuing..."
+          curl -f https://mybonzo-new.pages.dev || echo "Site ping failed, but continuing..."
