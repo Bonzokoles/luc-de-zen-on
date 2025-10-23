@@ -1,4 +1,4 @@
-import { BaseAgent, type AgentConfig } from './BaseAgent';
+import { BaseAgent } from './BaseAgent'; import type { AgentConfig } from './BaseAgent';
 
 export interface TextBisonAgentConfig extends AgentConfig {
   apiKey: string;
