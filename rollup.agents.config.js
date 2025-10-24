@@ -1,7 +1,7 @@
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import terser from "@rollup/plugin-terser";
-// import typescript from "@rollup/plugin-typescript"; // Not needed for .js input
+import typescript from "@rollup/plugin-typescript"; // Needed for .ts imports
 import svelte from "rollup-plugin-svelte";
 import replace from "@rollup/plugin-replace";
 
@@ -45,7 +45,11 @@ export default {
       exportConditions: ["browser"],
     }),
     commonjs(),
-    // TypeScript plugin removed - not needed for .js input file
+    typescript({
+      declaration: false,
+      sourceMap: false,
+      noEmit: false,
+    }),
   ],
   external: [],
   treeshake: {

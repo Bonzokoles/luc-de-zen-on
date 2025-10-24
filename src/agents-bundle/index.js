@@ -1,14 +1,14 @@
 // MyBonzo Agents Bundle - Globalna i lokalna instalacja agentów
 // Automatyczne uruchamianie 3 sekundy po załadowaniu strony
 
-import { GeminiProAgent } from "../agents/GeminiProAgent.js";
-import { GeminiVisionAgent } from "../agents/GeminiVisionAgent.js";
-import { CodeBisonAgent } from "../agents/CodeBisonAgent.js";
-import { TextBisonAgent } from "../agents/TextBisonAgent.js";
-import { BusinessAssistantAgent } from "../agents/BusinessAssistantAgent.js";
-import { ADKAdapter } from "../utils/ADKAdapter.js";
-import { GoogleAgentManager } from "../utils/GoogleAgentManager.js";
-import { GoogleAgentFactory } from "../utils/GoogleAgentFactory.js";
+import { GeminiProAgent } from "../agents/GeminiProAgent.ts";
+import { GeminiVisionAgent } from "../agents/GeminiVisionAgent.ts";
+import { CodeBisonAgent } from "../agents/CodeBisonAgent.ts";
+import { TextBisonAgent } from "../agents/TextBisonAgent.ts";
+import { BusinessAssistantAgent } from "../agents/BusinessAssistantAgent.ts";
+import { ADKAdapter } from "../utils/ADKAdapter.ts";
+import { GoogleAgentManager } from "../utils/GoogleAgentManager.ts";
+import { GoogleAgentFactory } from "../utils/GoogleAgentFactory.ts";
 
 class MyBonzoAgentsSystem {
   constructor() {
