@@ -106,9 +106,9 @@ async function callBielikThroughGateway(
   locals?: any
 ): Promise<string> {
   const BIELIK_CONFIG = {
-    accountId: locals?.runtime?.env?.CLOUDFLARE_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID || "",
-    gatewayName: "bielik_gateway",
-    model: "speakleash/Bielik-11B-v2.2-Instruct",
+    accountId: locals?.runtime?.env?.CLOUDFLARE_ACCOUNT_ID || process.env.CLOUDFLARE_ACCOUNT_ID || "7c5dae5552338874e5053f2be85b1bc7",
+    gatewayName: locals?.runtime?.env?.AI_GATEWAY_NAME || process.env.AI_GATEWAY_NAME || "bielik_gateway",
+    model: locals?.runtime?.env?.BIELIK_MODEL || process.env.BIELIK_MODEL || "speakleash/Bielik-11B-v2.2-Instruct",
     get gatewayUrl() {
       return `https://gateway.ai.cloudflare.com/v1/${this.accountId}/${this.gatewayName}`;
     },

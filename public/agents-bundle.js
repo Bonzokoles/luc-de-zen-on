@@ -5,11 +5,10 @@ var AgentsBundle = (function () {
      * Base Agent Class - Common functionality for all AI agents
      */
     class BaseAgent {
-        config;
-        status = 'ready';
-        history = [];
-        lastActivity = Date.now();
         constructor(config) {
+            this.status = 'ready';
+            this.history = [];
+            this.lastActivity = Date.now();
             this.config = config;
             this.log(`Agent ${config.name} initialized`);
         }
@@ -96,8 +95,6 @@ var AgentsBundle = (function () {
     }
 
     class GeminiProAgent extends BaseAgent {
-        config;
-        apiEndpoint;
         constructor(config) {
             super(config);
             this.config = config;
@@ -168,8 +165,6 @@ Oceń:
     }
 
     class GeminiVisionAgent extends BaseAgent {
-        config;
-        apiEndpoint;
         constructor(config) {
             super(config);
             this.config = config;
@@ -233,8 +228,6 @@ Oceń:
     }
 
     class CodeBisonAgent extends BaseAgent {
-        config;
-        apiEndpoint;
         constructor(config) { super(config); this.config = config; this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`; }
         async chat(message, context) { return this.generateCode(message); }
         async analyzeImage(imageData, prompt) { throw new Error("Method not implemented."); }
@@ -264,8 +257,6 @@ Oceń:
     }
 
     class TextBisonAgent extends BaseAgent {
-        config;
-        apiEndpoint;
         constructor(config) { super(config); this.config = config; this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/text-bison:predict`; }
         async generateText(prompt, maxTokens = 512) { try {
             this.updateStatus('processing');
@@ -440,7 +431,6 @@ Proszę stworzyć:
     // Browser-compatible Google Agent Manager
     // Note: google-auth-library is not available in browser environment
     class GoogleAgentManager {
-        config;
         constructor(config) {
             this.config = config;
             console.log('🔧 GoogleAgentManager initialized for browser environment');
@@ -538,8 +528,8 @@ Proszę stworzyć:
     }
 
     class ADKAdapter {
-        googleManager = null;
         constructor(googleConfig) {
+            this.googleManager = null;
             if (googleConfig) {
                 this.googleManager = new GoogleAgentManager(googleConfig);
             }
@@ -682,7 +672,6 @@ Proszę stworzyć:
     // Browser-compatible Google Agent Factory
     // Zastąpiona implementacja dla środowiska przeglądarki
     class GoogleAgentFactory {
-        config;
         constructor(config) {
             this.config = config;
             console.log('🔧 GoogleAgentFactory initialized for browser environment');

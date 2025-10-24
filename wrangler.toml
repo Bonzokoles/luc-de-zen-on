@@ -8,6 +8,10 @@ compatibility_flags = [ "nodejs_compat" ]
 NODE_ENV = "development"
 PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
 PUBLIC_SITE_URL = "https://luc-de-zen-on.pages.dev"
+CLOUDFLARE_ACCOUNT_ID = "7c5dae5552338874e5053f2be85b1bc7"
+AI_GATEWAY_NAME = "bielik_gateway"
+HF_API_TOKEN = "hf_ZQxRtVwYuIoPmLkJnHgFdCbAzXcVbNm"
+BIELIK_MODEL = "speakleash/Bielik-11B-v2.2-Instruct"
 
 [[kv_namespaces]]
 id = "77d84c01758a4064be011acc35b2c344"
@@ -21,9 +25,13 @@ binding = "mybonzo_temp_storage"
 binding = "AI"
 
 [env.production.vars]
-NODE_ENV = "development"
+NODE_ENV = "production"
 PUBLIC_DEFAULT_MODEL = "@cf/google/gemma-3-12b-it"
 PUBLIC_SITE_URL = "https://luc-de-zen-on.pages.dev"
+CLOUDFLARE_ACCOUNT_ID = "7c5dae5552338874e5053f2be85b1bc7"
+AI_GATEWAY_NAME = "bielik_gateway"
+HF_API_TOKEN = "hf_ZQxRtVwYuIoPmLkJnHgFdCbAzXcVbNm"
+BIELIK_MODEL = "speakleash/Bielik-11B-v2.2-Instruct"
 
 [[env.production.kv_namespaces]]
 id = "77d84c01758a4064be011acc35b2c344"

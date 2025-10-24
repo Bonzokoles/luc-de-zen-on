@@ -332,5 +332,36 @@
             setTimeout(runAllTests, 1000);
         });
     </script>
+
+    <!-- API Loading Scripts -->
+    <script>
+        // Import BigQuery API functionality
+        import('../utils/bigQueryAPI.js').then(module => {
+            // Make BigQuery functions available globally
+            window.BigQueryAPI = module.BigQueryAPI;
+            window.BigQueryInterface = module.BigQueryInterface;
+            console.log('✅ BigQuery API loaded');
+        }).catch(err => console.warn('⚠️ BigQuery API load failed:', err));
+    </script>
+
+    <script>
+        // Import Kaggle API functionality  
+        import('../utils/kaggleAPI.js').then(module => {
+            // Make Kaggle functions available globally
+            window.KaggleAPI = module.KaggleAPI;
+            window.KaggleInterface = module.KaggleInterface;
+            console.log('✅ Kaggle API loaded');
+        }).catch(err => console.warn('⚠️ Kaggle API load failed:', err));
+    </script>
+
+    <script>
+        // Import Voice AI functionality
+        import('../utils/voiceAiAPI.js').then(module => {
+            // Make Voice AI functions available globally
+            window.VoiceAIAPI = module.VoiceAIAPI;
+            window.VoiceAIInterface = module.VoiceAIInterface;
+            console.log('✅ Voice AI API loaded');
+        }).catch(err => console.warn('⚠️ Voice AI API load failed:', err));
+    </script>
 </body>
 </html>
