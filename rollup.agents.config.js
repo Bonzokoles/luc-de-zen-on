@@ -46,10 +46,14 @@ export default {
     }),
     commonjs(),
     typescript({
+      tsconfig: false, // Don't use tsconfig.json
       declaration: false,
       sourceMap: false,
       noEmit: true,
       allowImportingTsExtensions: true,
+      target: "ES2020",
+      module: "ESNext",
+      moduleResolution: "node",
     }),
   ],
   external: [],
