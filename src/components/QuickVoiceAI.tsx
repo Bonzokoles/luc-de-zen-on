@@ -8,7 +8,7 @@ interface QuickVoiceAIProps {
 export default function QuickVoiceAI({ variant = 'compact' }: QuickVoiceAIProps) {
   return (
     <div className="quick-voice-ai">
-      <VoiceAvatarComponent />
+      <VoiceAvatarComponent variant="compact" />
     </div>
   );
 }
