@@ -57,6 +57,10 @@ export default {
         "src/utils/documentationIndex.js",
         "src/utils/loadEnv.js",
         "src/utils/polaczekKnowledge.js",
+        "src/utils/voiceAiAPI.js",
+        "src/agents/**/*", // Wyklucz cały folder agents
+        "src/lib/**/*.ts", // Wyklucz biblioteki TypeScript
+        "src/pages/**/*.ts", // Wyklucz strony TypeScript
       ],
     }),
   ],
