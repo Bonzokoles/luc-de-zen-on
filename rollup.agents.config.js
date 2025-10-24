@@ -51,7 +51,6 @@ export default {
       inlineSources: false,
       noEmit: true,
       allowImportingTsExtensions: false,
-      outDir: null,
       declarationMap: false,
       exclude: [
         "src/utils/documentationIndex.js",
