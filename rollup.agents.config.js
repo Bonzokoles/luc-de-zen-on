@@ -48,7 +48,8 @@ export default {
     typescript({
       declaration: false,
       sourceMap: false,
-      noEmit: false,
+      noEmit: true,
+      allowImportingTsExtensions: true,
     }),
   ],
   external: [],
