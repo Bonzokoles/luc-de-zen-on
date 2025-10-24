@@ -287,21 +287,21 @@ export class VoiceConfigurationManager {
       ],
       providers: {
         elevenlabs: {
-          apiKey: import.meta.env.ELEVENLABS_API_KEY || process.env.ELEVENLABS_API_KEY || '',
+          apiKey: process.env.ELEVENLABS_API_KEY || '',
           model: 'eleven_multilingual_v2',
           baseUrl: 'https://api.elevenlabs.io/v1'
         },
         azure: {
-          subscriptionKey: import.meta.env.AZURE_SPEECH_KEY || process.env.AZURE_SPEECH_KEY || '',
-          region: import.meta.env.AZURE_SPEECH_REGION || process.env.AZURE_SPEECH_REGION || 'westeurope',
-          endpoint: `https://${import.meta.env.AZURE_SPEECH_REGION || process.env.AZURE_SPEECH_REGION || 'westeurope'}.tts.speech.microsoft.com/`
+          subscriptionKey: process.env.AZURE_SPEECH_KEY || '',
+          region: process.env.AZURE_SPEECH_REGION || 'westeurope',
+          endpoint: `https://${process.env.AZURE_SPEECH_REGION || 'westeurope'}.tts.speech.microsoft.com/`
         },
         google: {
-          projectId: import.meta.env.GOOGLE_CLOUD_PROJECT || process.env.GOOGLE_CLOUD_PROJECT || '',
-          keyFile: import.meta.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.GOOGLE_APPLICATION_CREDENTIALS || ''
+          projectId: process.env.GOOGLE_CLOUD_PROJECT || '',
+          keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || ''
         },
         openai: {
-          apiKey: import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY || '',
+          apiKey: process.env.OPENAI_API_KEY || '',
           model: 'tts-1'
         },
         polly: {
