@@ -309,3 +309,6 @@ window.testBigQueryConnection = () => bigQueryInterface.testConnection();
 window.bigQueryQuickQuery = (type) => bigQueryInterface.quickQuery(type);
 
 console.log('✅ BigQuery API Integration loaded successfully');
+
+// ES6 Module exports for dynamic import compatibility
+export { BigQueryAPI, BigQueryInterface };

@@ -269,3 +269,6 @@ if (typeof module !== 'undefined' && module.exports) {
   window.VoiceAIAPI = VoiceAIAPI;
   window.VoiceAIInterface = VoiceAIInterface;
 }
+
+// ES6 Module exports for dynamic import compatibility
+export { VoiceAIAPI, VoiceAIInterface };

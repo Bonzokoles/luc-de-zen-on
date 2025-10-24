@@ -539,3 +539,6 @@ window.kaggleQuickSearch = (type) => kaggleInterface.quickSearch(type);
 window.browsePopularDatasets = () => kaggleInterface.browsePopularDatasets();
 
 console.log('✅ Kaggle API Integration loaded successfully');
+
+// ES6 Module exports for dynamic import compatibility
+export { KaggleAPI, KaggleInterface };
