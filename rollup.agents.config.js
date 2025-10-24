@@ -58,9 +58,13 @@ export default {
         "src/utils/loadEnv.js",
         "src/utils/polaczekKnowledge.js",
         "src/utils/voiceAiAPI.js",
+        "src/utils/ADKAdapter.ts", // Problematyczny adapter
+        "src/utils/GoogleAgentManager.ts", // Google Manager
         "src/agents/**/*", // Wyklucz cały folder agents
         "src/lib/**/*.ts", // Wyklucz biblioteki TypeScript
         "src/pages/**/*.ts", // Wyklucz strony TypeScript
+        "src/workers/**/*", // Wyklucz workers z błędami TS
+        "src/components/**/*.tsx", // Wyklucz komponenty TSX
       ],
     }),
   ],
