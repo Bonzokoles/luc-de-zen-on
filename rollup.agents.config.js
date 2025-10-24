@@ -60,11 +60,14 @@ export default {
         "src/utils/voiceAiAPI.js",
         "src/utils/ADKAdapter.ts", // Problematyczny adapter
         "src/utils/GoogleAgentManager.ts", // Google Manager
-        "src/agents/**/*", // Wyklucz cały folder agents
+        "src/utils/GoogleAgentFactory.ts", // Google Factory
         "src/lib/**/*.ts", // Wyklucz biblioteki TypeScript
         "src/pages/**/*.ts", // Wyklucz strony TypeScript
         "src/workers/**/*", // Wyklucz workers z błędami TS
         "src/components/**/*.tsx", // Wyklucz komponenty TSX
+        // Pozwól na agents, ale wykluczaj problematyczne
+        "src/agents/agent.ts", // Generic agent
+        "src/agents/multi-ai-agent.ts", // Multi agent
       ],
     }),
   ],
