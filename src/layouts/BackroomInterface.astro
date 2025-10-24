@@ -27,9 +27,9 @@ const { siteTitle = "", siteDescription = "" } = Astro.props;
     <FooterAssistant />
 
     <!-- POLACZEK_T Floating Assistant -->
-    <div class="fixed bottom-3 right-3 z-35 max-w-xs">
-        <button id="polaczekBtn" class="action-btn">🤖 POLACZEK_T</button>
-        <div id="polaczekWidget" class="hidden absolute bottom-12 right-0 w-96 max-h-[16vh] min-h-[200px] overflow-y-auto bg-surface border border-edge rounded-lg shadow-lg">
+    <div class="fixed bottom-3 right-3 z-[60] max-w-xs">
+        <button id="polaczekBtn" class="action-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg font-medium">🤖 POLACZEK_T</button>
+        <div id="polaczekWidget" class="hidden absolute bottom-12 right-0 w-96 max-h-[16vh] min-h-[200px] overflow-y-auto bg-gray-800 border border-gray-600 rounded-lg shadow-2xl">
             <AiHelpAssistant client:load pageTitle={siteTitle} />
         </div>
     </div>
