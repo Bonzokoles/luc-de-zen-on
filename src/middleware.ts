@@ -146,6 +146,7 @@ const PUBLIC_PATHS = [
   "/api/test",
   "/api/test-tavily",
   "/api/test-deepseek-kaggle",
+  "/api/mega-agent",
 ];
 
 // Middleware do weryfikacji tokenów i ustawiania kontekstu klienta

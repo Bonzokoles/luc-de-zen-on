@@ -106,7 +106,7 @@ var AgentsBundle = (function () {
         async chat(message, context) {
             try {
                 this.updateStatus('processing');
-                const response = await fetch(this.apiEndpoint + `?key=${this.config.apiKey}`, {
+                const response = await fetch(`${this.apiEndpoint}?key=${this.config.apiKey}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ var AgentsBundle = (function () {
             }
             catch (error) {
                 this.updateStatus('error');
-                console.error('🤖 Gemini Pro error:', error);
+                console.error(' Gemini Pro error:', error);
                 throw error;
             }
         }
@@ -147,20 +147,22 @@ var AgentsBundle = (function () {
             throw new Error("Method not implemented.");
         }
         async analyzeCode(code, language = 'typescript') {
-            const prompt = 'Przeanalizuj następujący kod ' + language + ' i podaj szczegółową ocenę:\n\n' +
-                '```' + language + '\n' +
-                code + '\n' +
-                '```' + '\n\n' +
-                'Oceń:\n' +
-                '1. Jakość kodu\n' +
-                '2. Potencjalne problemy\n' +
-                '3. Sugestie ulepszeń\n' +
-                '4. Bezpieczeństwo\n' +
-                '5. Wydajność';
+            const prompt = `Przeanalizuj następujący kod ${language} i podaj szczegółową ocenę:
+
+\`\`\`${language}
+${code}
+\`\`\`
+
+Oceń:
+1. Jakość kodu
+2. Potencjalne problemy
+3. Sugestie ulepszeń
+4. Bezpieczeństwo
+5. Wydajność`;
             return this.chat(prompt);
         }
         async generateText(prompt, style = 'professional') {
-            const styledPrompt = 'Napisz tekst w stylu ' + style + ' na temat: ' + prompt;
+            const styledPrompt = `Napisz tekst w stylu ${style} na temat: ${prompt}`;
             return this.chat(styledPrompt);
         }
     }
@@ -182,7 +184,7 @@ var AgentsBundle = (function () {
         async analyzeImage(imageData, prompt = "Opisz co widzisz na tym obrazie") {
             try {
                 this.updateStatus('processing');
-                const response = await fetch(this.apiEndpoint + `?key=${this.config.apiKey}`, {
+                const response = await fetch(`${this.apiEndpoint}?key=${this.config.apiKey}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -218,7 +220,7 @@ var AgentsBundle = (function () {
             }
             catch (error) {
                 this.updateStatus('error');
-                console.error('👁️ Gemini Vision error:', error);
+                console.error(' Gemini Vision error:', error);
                 throw error;
             }
         }
@@ -233,181 +235,60 @@ var AgentsBundle = (function () {
     class CodeBisonAgent extends BaseAgent {
         config;
         apiEndpoint;
-        constructor(config) {
-            super(config);
-            this.config = config;
-            this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`;
-        }
-        async chat(message, context) {
-            return this.generateCode(message);
-        }
-        async analyzeImage(imageData, prompt) {
-            throw new Error("Method not implemented.");
-        }
-        async generateCode(description, language = 'typescript') {
-            try {
-                this.updateStatus('processing');
-                const prompt = "Wygeneruj kod w języku " + language + " na podstawie opisu: " + description + "\n      \n\nWymagania:\n- Kod powinien być czytelny i dobrze skomentowany\n- Użyj najlepszych praktyk dla " + language + "\n- Dodaj obsługę błędów gdzie to konieczne\n- Kod powinien być gotowy do użycia";
-                const response = await fetch(this.apiEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.config.apiKey}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        instances: [{
-                                prefix: prompt
-                            }],
-                        parameters: {
-                            temperature: 0.2,
-                            maxOutputTokens: 1024,
-                            candidateCount: 1
-                        }
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error(`Code Bison API error: ${response.status}`);
-                }
-                const data = await response.json();
-                const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować kodu';
-                this.updateStatus('ready');
-                this.addToHistory({ type: 'code_generation', input: description, output: result });
-                return result;
+        constructor(config) { super(config); this.config = config; this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/code-bison:predict`; }
+        async chat(message, context) { return this.generateCode(message); }
+        async analyzeImage(imageData, prompt) { throw new Error("Method not implemented."); }
+        async generateCode(description, language = 'typescript') { try {
+            this.updateStatus('processing');
+            const prompt = "Wygeneruj kod w języku " + language + " na podstawie opisu: " + description + "\n      \n\nWymagania:\n- Kod powinien być czytelny i dobrze skomentowany\n- Użyj najlepszych praktyk dla " + language + "\n- Dodaj obsługę błędów gdzie to konieczne\n- Kod powinien być gotowy do użycia";
+            const response = await fetch(this.apiEndpoint, { method: 'POST', headers: { 'Authorization': `Bearer ${this.config.apiKey}`, 'Content-Type': 'application/json', }, body: JSON.stringify({ instances: [{ prefix: prompt }], parameters: { temperature: 0.2, maxOutputTokens: 1024, candidateCount: 1 } }) });
+            if (!response.ok) {
+                throw new Error(`Code Bison API error: ${response.status}`);
             }
-            catch (error) {
-                this.updateStatus('error');
-                console.error('💻 Code Bison error:', error);
-                throw error;
-            }
+            const data = await response.json();
+            const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować kodu';
+            this.updateStatus('ready');
+            this.addToHistory({ type: 'code_generation', input: description, output: result });
+            return result;
         }
-        async reviewCode(code, language = 'typescript') {
-            const prompt = "Przejrzyj następujący kod " + language + " i podaj szczegółową analizę:\n\n" +
-                "```" + language + "\n" +
-                code + "\n" +
-                "```" + "\n\n" +
-                "Sprawdź:\n" +
-                "- Jakość kodu i czytelność\n" +
-                "- Potencjalne błędy i problemy\n" +
-                "- Sugestie optymalizacji\n" +
-                "- Zgodność z najlepszymi praktykami\n" +
-                "- Bezpieczeństwo kodu";
-            return this.generateCode(prompt, language);
-        }
-        async debugCode(code, error, language = 'typescript') {
-            const prompt = "Pomóż debugować kod " + language + ":\n\n" +
-                "Kod:\n" +
-                "```" + language + "\n" +
-                code + "\n" +
-                "```" + "\n\n" +
-                "Błąd: " + error + "\n\n" +
-                "Znajdź przyczynę błędu i zaproponuj poprawkę.";
-            return this.generateCode(prompt, language);
-        }
-        async refactorCode(code, language = 'typescript') {
-            const prompt = "Refactor this " + language + " code to improve:\n" +
-                "- Readability\n" +
-                "- Performance\n" +
-                "- Maintainability\n" +
-                "- Best practices\n\n" +
-                "Original code:\n" +
-                "```" + language + "\n" +
-                code + "\n" +
-                "```" + "\n\n" +
-                "Provide the refactored version with explanations of changes:";
-            return this.generateCode(prompt, language);
-        }
-        async generateDocumentation(code, language = 'typescript') {
-            const prompt = "Generate comprehensive documentation for this " + language + " code:\n\n" +
-                "```" + language + "\n" +
-                code + "\n" +
-                "```" + "\n\n" +
-                "Include:\n" +
-                "- Function/class descriptions\n" +
-                "- Parameter explanations\n" +
-                "- Return value descriptions\n" +
-                "- Usage examples\n" +
-                "- JSDoc/TSDoc format";
-            return this.generateCode(prompt, language);
-        }
-        async explainCode(code, language = 'typescript') {
-            const prompt = "Explain this " + language + " code in detail:\n\n" +
-                "```" + language + "\n" +
-                code + "\n" +
-                "```" + "\n\n" +
-                "Provide:\n" +
-                "- Step-by-step explanation\n" +
-                "- Purpose of each part\n" +
-                "- How it works\n" +
-                "- Potential improvements";
-            return this.generateCode(prompt, language);
-        }
+        catch (error) {
+            this.updateStatus('error');
+            console.error('💻 Code Bison error:', error);
+            throw error;
+        } }
+        async reviewCode(code, language = 'typescript') { const prompt = "Przejrzyj następujący kod " + language + " i podaj szczegółową analizę:\n\n" + "```" + language + "\n" + code + "\n" + "```" + "\n\n" + "Sprawdź:\n" + "- Jakość kodu i czytelność\n" + "- Potencjalne błędy i problemy\n" + "- Sugestie optymalizacji\n" + "- Zgodność z najlepszymi praktykami\n" + "- Bezpieczeństwo kodu"; return this.generateCode(prompt, language); }
+        async debugCode(code, error, language = 'typescript') { const prompt = "Pomóż debugować kod " + language + ":\n\n" + "Kod:\n" + "```" + language + "\n" + code + "\n" + "```" + "\n\n" + "Błąd: " + error + "\n\n" + "Znajdź przyczynę błędu i zaproponuj poprawkę."; return this.generateCode(prompt, language); }
+        async refactorCode(code, language = 'typescript') { const prompt = "Refactor this " + language + " code to improve:\n" + "- Readability\n" + "- Performance\n" + "- Maintainability\n" + "- Best practices\n\n" + "Original code:\n" + "```" + language + "\n" + code + "\n" + "```" + "\n\n" + "Provide the refactored version with explanations of changes:"; return this.generateCode(prompt, language); }
+        async generateDocumentation(code, language = 'typescript') { const prompt = "Generate comprehensive documentation for this " + language + " code:\n\n" + "```" + language + "\n" + code + "\n" + "```" + "\n\n" + "Include:\n" + "- Function/class descriptions\n" + "- Parameter explanations\n" + "- Return value descriptions\n" + "- Usage examples\n" + "- JSDoc/TSDoc format"; return this.generateCode(prompt, language); }
+        async explainCode(code, language = 'typescript') { const prompt = "Explain this " + language + " code in detail:\n\n" + "```" + language + "\n" + code + "\n" + "```" + "\n\n" + "Provide:\n" + "- Step-by-step explanation\n" + "- Purpose of each part\n" + "- How it works\n" + "- Potential improvements"; return this.generateCode(prompt, language); }
     }
 
     class TextBisonAgent extends BaseAgent {
         config;
         apiEndpoint;
-        constructor(config) {
-            super(config);
-            this.config = config;
-            this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/text-bison:predict`;
-        }
-        async generateText(prompt, maxTokens = 512) {
-            try {
-                this.updateStatus('processing');
-                const response = await fetch(this.apiEndpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${this.config.apiKey}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        instances: [{
-                                prompt: prompt
-                            }],
-                        parameters: {
-                            temperature: 0.7,
-                            maxOutputTokens: maxTokens,
-                            topP: 0.8,
-                            topK: 40
-                        }
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error(`Text Bison API error: ${response.status}`);
-                }
-                const data = await response.json();
-                const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować tekstu';
-                this.updateStatus('ready');
-                this.addToHistory({ type: 'text_generation', input: prompt, output: result });
-                return result;
+        constructor(config) { super(config); this.config = config; this.apiEndpoint = `https://${config.location || 'us-central1'}-aiplatform.googleapis.com/v1/projects/${config.projectId}/locations/${config.location || 'us-central1'}/publishers/google/models/text-bison:predict`; }
+        async generateText(prompt, maxTokens = 512) { try {
+            this.updateStatus('processing');
+            const response = await fetch(this.apiEndpoint, { method: 'POST', headers: { 'Authorization': `Bearer ${this.config.apiKey}`, 'Content-Type': 'application/json', }, body: JSON.stringify({ instances: [{ prompt: prompt }], parameters: { temperature: 0.7, maxOutputTokens: maxTokens, topP: 0.8, topK: 40 } }) });
+            if (!response.ok) {
+                throw new Error(`Text Bison API error: ${response.status}`);
             }
-            catch (error) {
-                this.updateStatus('error');
-                console.error('📝 Text Bison error:', error);
-                throw error;
-            }
+            const data = await response.json();
+            const result = data.predictions?.[0]?.content || 'Nie udało się wygenerować tekstu';
+            this.updateStatus('ready');
+            this.addToHistory({ type: 'text_generation', input: prompt, output: result });
+            return result;
         }
-        async chat(message, context) {
-            return this.generateText(message);
-        }
-        async generateCode(prompt, language) {
-            throw new Error("Method not implemented.");
-        }
-        async analyzeImage(imageData, prompt) {
-            throw new Error("Method not implemented.");
-        }
-        async summarize(text) {
-            const prompt = 'Podsumuj następujący tekst w sposób zwięzły i treściwy:\n\n' +
-                text + '\n\n' +
-                'Podsumowanie:';
-            return this.generateText(prompt, 256);
-        }
-        async translate(text, targetLanguage = 'polski') {
-            const prompt = 'Przetłumacz następujący tekst na język ' + targetLanguage + ':\n\n' +
-                text + '\n\n' +
-                'Tłumaczenie:';
-            return this.generateText(prompt, 512);
-        }
+        catch (error) {
+            this.updateStatus('error');
+            console.error('📝 Text Bison error:', error);
+            throw error;
+        } }
+        async chat(message, context) { return this.generateText(message); }
+        async generateCode(prompt, language) { throw new Error("Method not implemented."); }
+        async analyzeImage(imageData, prompt) { throw new Error("Method not implemented."); }
+        async summarize(text) { const prompt = 'Podsumuj następujący tekst w sposób zwięzły i treściwy:\n\n' + text + '\n\n' + 'Podsumowanie:'; return this.generateText(prompt, 256); }
+        async translate(text, targetLanguage = 'polski') { const prompt = 'Przetłumacz następujący tekst na język ' + targetLanguage + ':\n\n' + text + '\n\n' + 'Tłumaczenie:'; return this.generateText(prompt, 512); }
     }
 
     class BusinessAssistantAgent extends BaseAgent {
