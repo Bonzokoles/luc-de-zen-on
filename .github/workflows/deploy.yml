@@ -78,12 +78,15 @@ jobs:
             MESSAGE="❌ Deployment failed for commit \`${COMMIT_SHORT}\`"
           fi
           
-          # Comment on PR if this is a pull request
-          # Note: To enable PR comments, add 'pull_request' to workflow triggers
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
-            gh pr comment ${{ github.event.pull_request.number }} --body "${MESSAGE}"
+          # Comment on PR if this is a pull request event
+          # Note: Currently workflow only triggers on push/schedule/workflow_dispatch
+          # To enable PR comments, add 'pull_request' or 'pull_request_target' to workflow triggers (lines 3-10)
+          if [ "${{ github.event_name }}" == "pull_request" ] && [ -n "${{ github.event.pull_request.number }}" ]; then
+            echo "Commenting on PR #${{ github.event.pull_request.number }}"
+            gh pr comment ${{ github.event.pull_request.number }} --body "${MESSAGE}" || echo "Failed to comment on PR"
+          else
+            echo "Deployment status: ${{ job.status }}"
+            echo "${MESSAGE}"
           fi
-          
-          echo "Deployment status: ${{ job.status }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

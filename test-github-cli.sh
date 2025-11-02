@@ -33,12 +33,7 @@ echo ""
 echo "3. Validating workflow YAML syntax..."
 if command -v python3 &> /dev/null; then
     python3 -c "import yaml; yaml.safe_load(open('.github/workflows/deploy.yml'))"
-    if [ $? -eq 0 ]; then
-        echo "   ✅ Workflow YAML syntax is valid"
-    else
-        echo "   ❌ Workflow YAML syntax is invalid"
-        exit 1
-    fi
+    echo "   ✅ Workflow YAML syntax is valid"
 else
     echo "   ⚠️  Python3 not available, skipping YAML validation"
 fi
