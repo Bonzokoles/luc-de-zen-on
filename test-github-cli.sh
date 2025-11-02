@@ -1,5 +1,6 @@
 #!/bin/bash
 # Test script to verify GitHub CLI is properly enabled
+set -e  # Exit on first error
 
 echo "🔍 Testing GitHub CLI setup..."
 echo ""
