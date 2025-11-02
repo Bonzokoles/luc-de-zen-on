@@ -5,11 +5,11 @@
 MyBonzo is a comprehensive AI-powered web application built with Astro, React, and Svelte, deployed on Cloudflare Pages. This is the **development repository** (`luc-de-zen-on`) for testing and experimentation before production deployment.
 
 **Key Information:**
-- **Framework**: Astro 5.x with SSR (Server-Side Rendering)
-- **UI Libraries**: React 18.x, Svelte 5.x, Tailwind CSS
+- **Framework**: Astro ^5.14.6 with SSR (Server-Side Rendering)
+- **UI Libraries**: React ^18.3.1, Svelte ^5.22.1, Tailwind CSS ^3.4.17
 - **Deployment**: Cloudflare Pages with Workers runtime
-- **Package Manager**: pnpm (preferred), npm (fallback)
-- **Languages**: TypeScript, JavaScript (ES Modules)
+- **Package Manager**: npm (used in scripts), pnpm also supported
+- **Languages**: TypeScript ^5.9.2, JavaScript (ES Modules)
 
 ## Project Structure
 
@@ -35,39 +35,39 @@ luc-de-zen-on/
 
 ### Prerequisites
 - Node.js 18+ or 20+
-- pnpm (recommended) or npm
+- npm (primary package manager) or pnpm
 - Cloudflare account (for deployment)
 
 ### Setup
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Start development server (includes agent build)
-pnpm dev
+npm run dev
 
 # Build for production
-pnpm build
+npm run build
 
 # Preview production build locally
-pnpm preview
+npm run preview
 ```
 
 ### Key Scripts
-- `pnpm dev` - Start development server with hot reload
-- `pnpm build` - Build agents and Astro project for production
-- `pnpm build:agents` - Build agent components separately
-- `pnpm check` - Type-check the entire project
-- `pnpm deploy` - Deploy to Cloudflare Pages using Wrangler
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build agents and Astro project for production
+- `npm run build:agents` - Build agent components separately
+- `npm run check` - Type-check and build the project
+- `npm run deploy` - Deploy to Cloudflare Pages using Wrangler
 
 ### Agent System
 The project uses a custom agent build system via Rollup:
 ```bash
 # Build agents (automatic with dev/build)
-pnpm build:agents
+npm run build:agents
 
 # Watch mode for agent development
-pnpm build:agents:watch
+npm run build:agents:watch
 ```
 
 ## Testing
@@ -75,12 +75,12 @@ pnpm build:agents:watch
 ### Available Tests
 ```bash
 # Test all components
-pnpm test:all
+npm run test:all
 
 # Test specific features
-pnpm test:images      # Image generation
-pnpm test:homepage    # Homepage audio features
-pnpm test:api-keys    # Validate API key configuration
+npm run test:images      # Image generation
+npm run test:homepage    # Homepage audio features
+npm run test:api-keys    # Validate API key configuration
 ```
 
 ### Running Tests
@@ -92,8 +92,9 @@ pnpm test:api-keys    # Validate API key configuration
 
 ### TypeScript
 - Use TypeScript for new files when possible
-- Strict mode is enabled (extends `astro/tsconfigs/strict`)
+- TypeScript ^5.9.2 with strict mode (extends `astro/tsconfigs/strict`)
 - Path alias: `@/*` maps to `src/*`
+- JSX configured for React (`"jsx": "react-jsx"`)
 
 ### Component Guidelines
 - **Astro components**: Use `.astro` extension for page-level components
@@ -162,12 +163,12 @@ wrangler pages deploy dist --project-name="luc-de-zen-on"
 
 ### Adding New Dependencies
 ```bash
-pnpm add <package-name>           # Production dependency
-pnpm add -D <package-name>        # Development dependency
+npm install <package-name>           # Production dependency
+npm install -D <package-name>        # Development dependency
 ```
 
 After adding dependencies:
-1. Run `pnpm build` to ensure compatibility
+1. Run `npm run build` to ensure compatibility
 2. Check if any Vite SSR externals need updating in `astro.config.mjs`
 3. Test on development environment before deploying
 
@@ -189,7 +190,7 @@ After adding dependencies:
 
 ### Build Issues
 - Clear `.astro` cache: `rm -rf .astro`
-- Reinstall dependencies: `rm -rf node_modules pnpm-lock.yaml && pnpm install`
+- Reinstall dependencies: `rm -rf node_modules package-lock.json && npm install`
 - Check for SSR compatibility of new packages
 
 ### Runtime Errors
@@ -199,9 +200,9 @@ After adding dependencies:
 - Test locally with `wrangler dev`
 
 ### Type Errors
-- Run `pnpm check` to see all type issues
-- Generate Cloudflare types: `pnpm cf-typegen`
-- Ensure TypeScript version is compatible (5.9.x)
+- Run `npm run check` to see all type issues
+- Generate Cloudflare types: `npm run cf-typegen` (runs `wrangler types`)
+- Ensure TypeScript version is compatible (^5.9.2)
 
 ## Important Notes
 
