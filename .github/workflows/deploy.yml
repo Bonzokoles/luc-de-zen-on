@@ -13,9 +13,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Cloudflare Pages
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup GitHub CLI
+        run: |
+          gh --version
+          echo "GitHub CLI is ready"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,3 +64,25 @@ jobs:
       - name: Keep-alive ping
         run: |
           curl -f https://luc-de-zen-on.pages.dev || echo "Site ping failed, but continuing..."
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          DEPLOYMENT_URL="https://luc-de-zen-on.pages.dev"
+          COMMIT_SHA="${{ github.sha }}"
+          COMMIT_SHORT="${COMMIT_SHA:0:7}"
+          
+          if [ "${{ job.status }}" == "success" ]; then
+            MESSAGE="✅ Deployment successful for commit \`${COMMIT_SHORT}\`\n\n🚀 Live at: ${DEPLOYMENT_URL}"
+          else
+            MESSAGE="❌ Deployment failed for commit \`${COMMIT_SHORT}\`"
+          fi
+          
+          # Comment on PR if this is a pull request
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body "${MESSAGE}"
+          fi
+          
+          echo "Deployment status: ${{ job.status }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
