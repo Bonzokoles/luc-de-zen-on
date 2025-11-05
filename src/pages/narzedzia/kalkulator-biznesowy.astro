@@ -1,37 +1,52 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import KalkulatorBiznesowy from '../../components/narzedzia/KalkulatorBiznesowy';
+import MainLayout from "../../layouts/MainLayout.astro";
+import KalkulatorBiznesowyComponent from "../../components/narzedzia/KalkulatorBiznesowy";
 ---
 
 <MainLayout title="Kalkulator Biznesowy">
   <div class="container mx-auto px-4 py-12">
-
     <!-- Breadcrumb -->
     <nav class="mb-8 text-sm">
       <a href="/" class="text-business-accent hover:underline">Strona główna</a>
       <span class="mx-2 text-business-text-dim">/</span>
-      <a href="/narzedzia" class="text-business-accent hover:underline">Narzędzia</a>
+      <a href="/narzedzia" class="text-business-accent hover:underline"
+        >Narzędzia</a
+      >
       <span class="mx-2 text-business-text-dim">/</span>
       <span class="text-business-text-dim">Kalkulator Biznesowy</span>
     </nav>
 
     <!-- Header -->
     <div class="text-center mb-12 fade-in">
-      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 text-white mb-6 shadow-glow">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 text-white mb-6 shadow-glow"
+      >
+        <svg
+          class="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          ></path>
         </svg>
       </div>
 
       <h1 class="text-4xl md:text-5xl font-bold mb-4">
-        <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+        <span
+          class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
+        >
           Kalkulator Biznesowy
         </span>
       </h1>
 
       <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
-        Wszystkie najważniejsze obliczenia biznesowe w jednym miejscu.
-        Marże, VAT, ROI, zyski - szybko i prosto!
+        Wszystkie najważniejsze obliczenia biznesowe w jednym miejscu. Marże,
+        VAT, ROI, zyski - szybko i prosto!
       </p>
     </div>
 
@@ -40,7 +55,9 @@ import KalkulatorBiznesowy from '../../components/narzedzia/KalkulatorBiznesowy'
       <div class="card text-center">
         <div class="text-3xl mb-2">📊</div>
         <div class="font-bold text-sm">Marża</div>
-        <div class="text-xs text-business-text-dim mt-1">Oblicz zysk i narzut</div>
+        <div class="text-xs text-business-text-dim mt-1">
+          Oblicz zysk i narzut
+        </div>
       </div>
       <div class="card text-center">
         <div class="text-3xl mb-2">🧾</div>
@@ -50,7 +67,9 @@ import KalkulatorBiznesowy from '../../components/narzedzia/KalkulatorBiznesowy'
       <div class="card text-center">
         <div class="text-3xl mb-2">💰</div>
         <div class="font-bold text-sm">ROI</div>
-        <div class="text-xs text-business-text-dim mt-1">Zwrot z inwestycji</div>
+        <div class="text-xs text-business-text-dim mt-1">
+          Zwrot z inwestycji
+        </div>
       </div>
       <div class="card text-center">
         <div class="text-3xl mb-2">📈</div>
@@ -60,7 +79,7 @@ import KalkulatorBiznesowy from '../../components/narzedzia/KalkulatorBiznesowy'
     </div>
 
     <!-- Komponent -->
-    <KalkulatorBiznesowy client:load />
+    <KalkulatorBiznesowyComponent client:load />
 
     <!-- Porady -->
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -89,6 +108,5 @@ import KalkulatorBiznesowy from '../../components/narzedzia/KalkulatorBiznesowy'
         </ul>
       </div>
     </div>
-
   </div>
 </MainLayout>

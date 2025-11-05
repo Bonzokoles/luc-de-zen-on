@@ -1,37 +1,52 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import OrganizerZadan from '../../components/narzedzia/OrganizerZadan';
+import MainLayout from "../../layouts/MainLayout.astro";
+import OrganizerZadanComponent from "../../components/narzedzia/OrganizerZadan";
 ---
 
 <MainLayout title="Organizer Zadań Biznesowych">
   <div class="container mx-auto px-4 py-12">
-
     <!-- Breadcrumb -->
     <nav class="mb-8 text-sm">
       <a href="/" class="text-business-accent hover:underline">Strona główna</a>
       <span class="mx-2 text-business-text-dim">/</span>
-      <a href="/narzedzia" class="text-business-accent hover:underline">Narzędzia</a>
+      <a href="/narzedzia" class="text-business-accent hover:underline"
+        >Narzędzia</a
+      >
       <span class="mx-2 text-business-text-dim">/</span>
       <span class="text-business-text-dim">Organizer Zadań</span>
     </nav>
 
     <!-- Header -->
     <div class="text-center mb-12 fade-in">
-      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 text-white mb-6 shadow-glow">
-        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 text-white mb-6 shadow-glow"
+      >
+        <svg
+          class="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+          ></path>
         </svg>
       </div>
 
       <h1 class="text-4xl md:text-5xl font-bold mb-4">
-        <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+        <span
+          class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
+        >
           Organizer Zadań Biznesowych
         </span>
       </h1>
 
       <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
-        Zarządzaj swoimi zadaniami jak profesjonalista.
-        Priorytety, terminy, filtrowanie - wszystko w jednym miejscu!
+        Zarządzaj swoimi zadaniami jak profesjonalista. Priorytety, terminy,
+        filtrowanie - wszystko w jednym miejscu!
       </p>
     </div>
 
@@ -40,12 +55,16 @@ import OrganizerZadan from '../../components/narzedzia/OrganizerZadan';
       <div class="card text-center">
         <div class="text-3xl mb-2">🎯</div>
         <div class="font-bold">Priorytety</div>
-        <div class="text-sm text-business-text-dim mt-1">Wysoki, średni, niski</div>
+        <div class="text-sm text-business-text-dim mt-1">
+          Wysoki, średni, niski
+        </div>
       </div>
       <div class="card text-center">
         <div class="text-3xl mb-2">📅</div>
         <div class="font-bold">Terminy</div>
-        <div class="text-sm text-business-text-dim mt-1">Nigdy nie zapomnij!</div>
+        <div class="text-sm text-business-text-dim mt-1">
+          Nigdy nie zapomnij!
+        </div>
       </div>
       <div class="card text-center">
         <div class="text-3xl mb-2">💾</div>
@@ -55,7 +74,6 @@ import OrganizerZadan from '../../components/narzedzia/OrganizerZadan';
     </div>
 
     <!-- Komponent -->
-    <OrganizerZadan client:load />
-
+    <OrganizerZadanComponent client:load />
   </div>
 </MainLayout>

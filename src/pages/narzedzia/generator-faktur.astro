@@ -1,6 +1,6 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import GeneratorFaktur from '../../components/narzedzia/GeneratorFaktur';
+import MainLayout from "../../layouts/MainLayout.astro";
+import GeneratorFakturComponent from "../../components/narzedzia/GeneratorFaktur";
 ---
 
 <MainLayout
@@ -8,6 +8,6 @@ import GeneratorFaktur from '../../components/narzedzia/GeneratorFaktur';
   description="Twórz profesjonalne faktury VAT zgodne z polskim prawem. Automatyczne obliczenia, eksport do PDF, gotowe szablony."
 >
   <div class="container-custom py-12">
-    <GeneratorFaktur client:load />
+    <GeneratorFakturComponent client:load />
   </div>
 </MainLayout>
