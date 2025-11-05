@@ -29,22 +29,26 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
     </section>
 
     <!-- Statystyki -->
-    <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
       <div class="card text-center">
-        <div class="text-4xl font-bold text-business-accent mb-2">7</div>
-        <div class="text-business-text-dim">Narzędzi Biznesowych</div>
+        <div class="text-4xl font-bold text-business-accent mb-2">9</div>
+        <div class="text-xs text-business-text-dim">Narzędzi Biznesowych</div>
       </div>
       <div class="card text-center">
         <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
-        <div class="text-business-text-dim">Po Polsku</div>
+        <div class="text-xs text-business-text-dim">Po Polsku</div>
       </div>
       <div class="card text-center">
         <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
-        <div class="text-business-text-dim">Wsparcie Gemini</div>
+        <div class="text-xs text-business-text-dim">Gemini 2.0 Flash</div>
       </div>
       <div class="card text-center">
-        <div class="text-4xl font-bold text-purple-400 mb-2">🤖</div>
-        <div class="text-business-text-dim">Asystent 24/7</div>
+        <div class="text-4xl font-bold text-pink-400 mb-2">👥</div>
+        <div class="text-xs text-business-text-dim">CRM</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-purple-400 mb-2">📊</div>
+        <div class="text-xs text-business-text-dim">Analityka</div>
       </div>
     </section>
 
@@ -79,6 +83,38 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- CRM - Zarządzanie Klientami -->
+        <a href="/crm-klienci" class="tool-card group border-2 border-pink-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-pink-600 to-rose-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">CRM - Zarządzanie Klientami</h3>
+          <p class="text-sm text-business-text-dim">
+            Baza klientów, historia kontaktów, segmentacja - pełen CRM
+          </p>
+        </a>
+
+        <!-- Analityka & Raporty -->
+        <a href="/analityka-raporty" class="tool-card group border-2 border-violet-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-violet-500/20 text-violet-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-violet-600 to-purple-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Analityka & Raporty</h3>
+          <p class="text-sm text-business-text-dim">
+            Dashboard z KPI, wykresami, trendami - przegląd biznesu
+          </p>
+        </a>
 
         <!-- Kreator Dokumentów -->
         <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30">
