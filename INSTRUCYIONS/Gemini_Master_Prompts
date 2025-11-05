@@ -1,0 +1,598 @@
+# 🎯 MASTER PROMPTS DLA GEMINI - GOTOWE DO SKOPIOWANIA
+
+## MAIN ORCHESTRATION PROMPT (Skopiuj do Gemini)
+
+```
+PROJEKT: PRZEBUDOWA APLIKACJI MYBONZO NA NAJNOWSZE NARZĘDZIA AI 2025
+
+TY JESTEŚ: Senior Full-Stack Software Architect z 20-letnim doświadczeniem, 
+specjalizujący się w AI-first aplikacjach, cloud infrastructure i automation.
+
+ZADANIE: Kompletna transformacja platformy MyBonzo z uproszczeniem, 
+wzmocnieniem i integracja najnowszych trendów AI dla 2025 roku.
+
+=== CZĘŚĆ 1: ARCHITEKTURA & DESIGN ===
+
+WYMAGANIA DESIGN:
+1. Zachowaj futurystyczną estetykę (gradient purpury #0f0c29 → #302b63 → #24243e)
+2. Ikonografia: minimalistyczna, z animacjami
+3. Layout: Single page, karty/moduły, pełna responsywność
+4. Animacje: Hover effects, scroll reveals, glow edges
+5. CTA buttons: Cyan (#00d4ff) dla primary, Magenta (#ff006e) dla secondary
+
+FUNKCJE (Nowe vs Stare):
+
+USUŃ - bo za zaawansowane:
+- BigQuery Analytics (zamień na DuckDB WASM)
+- Kaggle Datasets (usuń całkowicie)
+- Tavily AI Search (zintegruj w Biznes Bot)
+- MCP Servers (advanced feature, usuń z głównej strony)
+- Flowise/Activepieces (zamień na Automation Recipes)
+- Langchain standalone (używaj wewnętrznie)
+
+ZACHOWAJ & WZMOCNIJ:
+- Generator Obrazów → "Studio Kreatywne" (Flux + DALL-E 3 + SD3)
+- AI Chatbot → "Asystent AI" (Gemini 2.0 + role-based)
+- Voice Assistant → "Asystent Głosowy" (Google Speech + ElevenLabs)
+
+DODAJ NOWE:
+- Kreatywny Asystent (Content Generator z templates)
+- Panel Biznesu (Analytics uproszczone)
+- Biznes Bot (AI Orchestrator)
+- Analityk Danych (DuckDB + Natural Language)
+- Automatyzator (Pre-built recipes)
+
+=== CZĘŚĆ 2: TECH STACK (Production 2025) ===
+
+FRONTEND:
+- Next.js 15 + React 19 + TypeScript 5.6
+- Tailwind CSS + shadcn/ui
+- Zustand (state) + TanStack Query (data)
+- Framer Motion (animations)
+- Recharts / ECharts (charts)
+
+BACKEND:
+- Hono lub Express.js + TypeScript
+- Supabase (PostgreSQL)
+- Cloudflare Workers (compute)
+- Redis (cache)
+
+AI INTEGRATIONS:
+- Google Gemini 2.0 (chat, content, orchestration)
+- Replicate API (Flux image generation)
+- DALL-E 3 (fallback images)
+- Google Cloud Speech-to-Text (voice)
+- ElevenLabs (TTS Polish voices)
+- DuckDB WASM (data analytics w przeglądarce)
+
+DEPLOYMENT:
+- Frontend: Cloudflare Pages
+- Backend: Cloudflare Workers
+- Database: Supabase
+- CDN: Cloudflare
+- Monitoring: Sentry + LogRocket
+
+=== CZĘŚĆ 3: STRUKTURA REPOZYTORIUM ===
+
+mybonzo/
+├── frontend/                 # React app
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Home/          # Hero, Features, Pricing
+│   │   │   ├── Dashboard/     # Main app
+│   │   │   ├── Features/
+│   │   │   │   ├── ImageGenerator.tsx
+│   │   │   │   ├── ChatBot.tsx
+│   │   │   │   ├── VoiceAssistant.tsx
+│   │   │   │   ├── ContentCreator.tsx
+│   │   │   │   ├── DataAnalytics.tsx
+│   │   │   │   ├── BiznesBot.tsx
+│   │   │   │   ├── Automation.tsx
+│   │   ├── hooks/
+│   │   ├── stores/
+│   │   ├── services/
+│   │   ├── types/
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── backend/                  # Node.js API
+│   ├── src/
+│   │   ├── routes/
+│   │   │   ├── chat.ts
+│   │   │   ├── images.ts
+│   │   │   ├── content.ts
+│   │   │   ├── analytics.ts
+│   │   │   ├── voice.ts
+│   │   │   ├── automation.ts
+│   │   │   ├── auth.ts
+│   │   ├── services/
+│   │   │   ├── aiService.ts
+│   │   │   ├── imageService.ts
+│   │   │   ├── contentService.ts
+│   │   ├── middleware/
+│   │   ├── utils/
+│   │   └── index.ts
+│   ├── package.json
+│   └── wrangler.toml
+│
+├── database/
+│   ├── schema.sql
+│   ├── migrations/
+│   └── seeds/
+│
+├── docs/
+│   ├── API.md
+│   ├── SETUP.md
+│   ├── DEPLOYMENT.md
+│   └── ARCHITECTURE.md
+│
+└── .github/
+    └── workflows/
+        └── deploy.yml
+
+=== CZĘŚĆ 4: FEATURE SPECIFICATIONS ===
+
+1. STUDIO KREATYWNE (Image Generation)
+   - Input: Text prompt
+   - Models: Flux Pro (default), DALL-E 3 (fallback), SD 3 (speed)
+   - Presets: Social media, E-commerce, Marketing, Design
+   - Output: HD images, exportable formats
+   - Features: Edit, inpaint, gallery, favorites
+
+2. ASYSTENT AI (Chatbot)
+   - Models: Gemini 2.0 Flash
+   - Roles: Advisor, Analyst, Copywriter
+   - Features: Memory, streaming, export
+   - Integration: Access to other tools
+   - Language: Polish + English
+
+3. ASYSTENT GŁOSOWY
+   - STT: Google Cloud
+   - TTS: ElevenLabs Polish voices
+   - Features: Real-time transcription, voice commands
+   - Languages: Polish, English, German
+
+4. KREATYWNY ASYSTENT (Content)
+   - Templates: Blog, Social posts, Email, Product desc, Landing page
+   - Features: AI generation, SEO optimization, publishing
+   - Platforms: WordPress, Medium, LinkedIn, Instagram
+   - Languages: Multi-language support
+
+5. PANEL BIZNESU
+   - Metrics: Sales, traffic, conversions, KPIs
+   - Integrations: Google Analytics, Shopify, WooCommerce
+   - Features: Real-time, alerts, export
+   - Visualizations: Charts, trends, comparisons
+
+6. BIZNES BOT (Orchestrator)
+   - Function calling: All available tools
+   - Context understanding: Task decomposition
+   - Execution: Autonomous workflows
+   - Learning: Result feedback, adaptation
+
+7. ANALITYK DANYCH
+   - Upload: CSV, XLSX
+   - Processing: DuckDB WASM
+   - Query: Natural language
+   - Output: Charts, insights, recommendations
+
+8. AUTOMATYZATOR
+   - Templates: Email nurture, lead scoring, content distribution
+   - Triggers: Events, schedules, webhooks
+   - Actions: Send emails, publish content, run automations
+   - Monitoring: Status, logs, alerts
+
+=== CZĘŚĆ 5: AI IMPLEMENTATION ===
+
+GEMINI 2.0 CONFIGURATION:
+- Model: gemini-2.0-flash (fast, cheap, powerful)
+- Context window: 1 million tokens
+- Multimodal: Text, images, audio, video
+- Streaming: Enabled for chat
+- Temperature: 0.7 (default), 0.9 (creative), 0.2 (precise)
+
+SYSTEM PROMPTS:
+1. Business Advisor: "Jesteś doświadczonym doradcą biznesu dla polskich MŚP..."
+2. Content Expert: "Jesteś ekspertem w marketingu treści..."
+3. Data Analyst: "Jesteś analitykiem danych specjalizującym się..."
+
+IMAGE GENERATION FLOW:
+1. User enters prompt
+2. Enhance with Gemini suggestions (optional)
+3. Generate with Flux Pro
+4. If fails, fallback to DALL-E 3
+5. Store in database
+6. Display in gallery
+
+CHAT FLOW:
+1. User message
+2. Fetch conversation history (last 10 msgs)
+3. Send to Gemini with system prompt
+4. Stream response
+5. Save to database
+6. Track tokens
+
+=== CZĘŚĆ 6: DATABASE SCHEMA ===
+
+Główne tabele:
+- users (id, email, password_hash, plan, created_at)
+- conversations (id, user_id, title, messages[], created_at)
+- generations (id, user_id, prompt, image_url, model, created_at)
+- content (id, user_id, title, content, type, status, created_at)
+- automations (id, user_id, name, template, config, status, created_at)
+- usage_logs (id, user_id, feature, tokens_used, cost, created_at)
+
+=== CZĘŚĆ 7: DEPLOYMENT PIPELINE ===
+
+1. Developer pushes to GitHub
+2. GitHub Actions runs:
+   - npm install
+   - npm run lint
+   - npm run test
+   - npm run build
+3. Deploy to:
+   - Frontend: Cloudflare Pages
+   - Backend: Cloudflare Workers
+   - Database: Supabase migrations
+4. Monitoring: Sentry, LogRocket
+5. Notifications: Slack alerts
+
+=== CZĘŚĆ 8: DOSTAWA ===
+
+Przygotuj kompletne pakiety:
+
+1. FRONTEND PACKAGE:
+   - Pełny kod React (TypeScript)
+   - Komponenty dla każdej funkcji
+   - Tailwind CSS konfiguracja
+   - API integration layer
+   - Ready to build & deploy
+
+2. BACKEND PACKAGE:
+   - Express.js / Hono server
+   - Wszystkie routes (chat, images, content, etc)
+   - Database models & migrations
+   - Service layer z AI integracjami
+   - Authentication middleware
+   - Ready to deploy na Cloudflare
+
+3. DATABASE PACKAGE:
+   - SQL schema
+   - Migrations (Supabase compatible)
+   - Seeds dla demo data
+   - Indexes dla performance
+
+4. DEPLOYMENT PACKAGE:
+   - GitHub Actions workflow
+   - Docker files
+   - Wrangler config (Cloudflare)
+   - Environment templates
+   - Security guidelines
+
+5. DOKUMENTACJA:
+   - API specification
+   - Setup guide
+   - User guide
+   - Developer guide
+   - Deployment guide
+
+=== CZĘŚĆ 9: QUALITY STANDARDS ===
+
+- TypeScript everywhere (zero JavaScript)
+- 100% typed, no "any"
+- Comments on all functions
+- Error handling везде
+- Logging for debugging
+- Performance optimized
+- Mobile-first design
+- WCAG 2.1 AA accessibility
+- Security best practices
+- Rate limiting
+- Input validation
+
+=== CZĘŚĆ 10: TIMELINE ===
+
+- UI/UX Design: 5 days
+- Frontend Dev: 10 days
+- Backend Dev: 10 days
+- AI Integration: 7 days
+- Testing & QA: 5 days
+- Deployment: 2 days
+
+TOTAL: ~40 days (~2 months with 1 developer)
+
+=== INSTRUKCJE DOSTARCZENIA ===
+
+1. Wszystkie pliki w pojedynczym ZIP
+2. README z instrukcjami setup
+3. WSZYSTKO gotowe do natychmiastowego wdrażania
+4. Brak TODO lub placeholders
+5. Production-ready code
+6. Comprehensive comments
+7. Error handling везде
+
+=== START ===
+
+Zacznij od:
+1. Pełny kod frontendu (React, TypeScript, Tailwind)
+2. Pełny kod backendu (Node.js/Hono, TypeScript)
+3. Database schema (SQL)
+4. Integration layer z AI APIs
+5. Deployment configuration
+
+Każdy plik musi być KOMPLETNY i GOTOWY DO UŻYTKU.
+
+GO!
+```
+
+---
+
+## FEATURE-SPECIFIC PROMPTS
+
+### Prompt 1: Image Generator
+
+```
+Stwórz React komponent "ImageGenerator" z następującymi wymaganiami:
+
+FUNKCJONALNOŚĆ:
+1. Text input dla prompt
+2. Model selector (Flux Pro, DALL-E 3, Stable Diffusion)
+3. Style presets (Professional, Creative, Photorealistic, Animated)
+4. Aspect ratio selector (Square, Portrait, Landscape, Custom)
+5. Advanced options (steps, guidance, seed)
+
+UI/UX:
+- Input field z sugestiami z AI (hint text)
+- Loading state z animacją
+- Generated image display z zoom/pan
+- Quick actions: Download, Copy URL, Share, Add to favorites
+- Gallery view wszystkich generacji
+- History list z thumbnails
+
+BACKEND:
+1. POST /api/v1/generation/text-to-image
+   - Input: prompt, model, aspectRatio, options
+   - Output: imageUrl, id, metadata
+   
+2. Fallback logic:
+   - Try Flux Pro
+   - If fails, try DALL-E 3
+   - If fails, try Stable Diffusion
+   - If all fail, return error
+
+INTEGRACJE:
+- Replicate API dla Flux
+- OpenAI API dla DALL-E
+- Stability AI API dla SD
+- Error handling i retries
+
+STORAGE:
+- Save to database
+- Cache thumbnails
+- Keep history
+
+Kod musi być:
+- Production-ready
+- Fully typed (TypeScript)
+- With error handling
+- With loading states
+- With accessibility features
+- Mobile responsive
+- With proper styling (Tailwind)
+```
+
+### Prompt 2: Chatbot
+
+```
+Stwórz React hook "useChat" do komunikacji z AI chatbotem.
+
+WYMAGANIA:
+1. Real-time streaming responses
+2. Message history management
+3. System role selection (Advisor, Analyst, Copywriter)
+4. Conversation context (last 10 messages)
+5. Export capability (PDF, TXT)
+
+IMPLEMENTACJA:
+const { 
+  messages, 
+  input, 
+  sendMessage, 
+  isLoading, 
+  selectRole,
+  exportChat,
+  clearHistory 
+} = useChat(conversationId);
+
+BACKEND:
+1. POST /api/v1/chat/messages - Send message with streaming
+2. GET /api/v1/chat/conversations/{id} - Get history
+3. DELETE /api/v1/chat/conversations/{id} - Delete
+4. POST /api/v1/chat/conversations/{id}/export - Export
+
+AI CONFIGURATION:
+- Model: Gemini 2.0 Flash
+- System prompts dla każdej roli
+- Streaming enabled
+- Temperature: 0.7
+- Max tokens: 2048
+
+WEBSOCKET:
+- Real-time message delivery
+- Presence indicators
+- Typing indicators (optional)
+
+Code must be:
+- Hook pattern
+- Custom hooks for state
+- Error boundaries
+- Retry logic
+- Proper TypeScript
+```
+
+### Prompt 3: Content Generator
+
+```
+Stwórz system generowania treści z następującymi szablonami:
+
+SZABLONY:
+1. Blog Post (1500-2000 words)
+   - SEO-optimized title
+   - Metadata (keywords, description)
+   - Structure with headers
+   - Call-to-action
+
+2. Social Media Posts (per platform)
+   - Instagram (150-200 chars + hashtags)
+   - LinkedIn (150-300 chars, professional)
+   - Twitter (280 chars, witty)
+   - Facebook (200-300 chars)
+
+3. Email Marketing
+   - Subject line (3 variations)
+   - Body (benefits + CTA)
+   - Signature
+
+4. Product Description
+   - Features + Benefits
+   - Unique selling points
+   - CTA
+
+5. Landing Page Copy
+   - Headlines
+   - Subheadings
+   - Value propositions
+   - CTAs
+
+UI:
+1. Template selector
+2. Context input form
+3. Generated content display
+4. Edit in-place editor
+5. Publish options (WordPress, Medium, LinkedIn, etc)
+6. Calendar for scheduling
+
+BACKEND:
+POST /api/v1/content/generate
+- Input: template, context, language
+- Output: variations (3x), metadata, tokens used
+
+AI:
+- Gemini 2.0 with system prompts
+- Multi-language support (PL, EN, DE)
+- SEO optimization
+- Tone variations
+
+CODE:
+- React components
+- TypeScript
+- Form handling
+- API integration
+- Error states
+- Loading states
+```
+
+---
+
+## DEPLOYMENT CHECKLIST
+
+```
+PRE-DEPLOYMENT:
+☐ All TypeScript compiles with zero errors
+☐ All tests pass (Jest + Playwright)
+☐ Linting passes (ESLint)
+☐ No console errors or warnings
+☐ Performance optimized (Lighthouse 90+)
+☐ Security audit complete
+☐ API keys stored in Secrets
+☐ Database migrations tested
+☐ Error handling complete
+☐ Logging configured
+
+DEPLOYMENT:
+☐ Frontend to Cloudflare Pages
+☐ Backend to Cloudflare Workers
+☐ Database to Supabase
+☐ Environment variables set
+☐ DNS configured
+☐ SSL certificates active
+☐ CDN configured
+
+POST-DEPLOYMENT:
+☐ Smoke tests run
+☐ Monitoring active (Sentry)
+☐ Analytics tracking
+☐ Uptime monitoring
+☐ Alert rules configured
+☐ Health checks passing
+☐ All features tested
+☐ Performance baseline set
+
+DOCUMENTATION:
+☐ API docs complete
+☐ Setup guide complete
+☐ Deployment guide complete
+☐ Troubleshooting guide complete
+☐ Contributing guide complete
+```
+
+---
+
+## QUICK COPY-PASTE PROMPTS
+
+### For specific features - copy and paste directly to Gemini:
+
+```
+Feature: Data Analytics with DuckDB
+"Create a React component for data analysis that allows users to:
+1. Upload CSV files
+2. Ask questions in natural Polish language
+3. Get auto-generated charts
+4. Export results as PDF
+
+Use DuckDB WASM for in-browser processing. Integrate Gemini for natural language to SQL conversion. Make it beginner-friendly."
+```
+
+```
+Feature: Automation Templates
+"Create 5 pre-built automation templates that users can one-click activate:
+1. Email nurture sequence (5 emails over 7 days)
+2. Lead scoring system
+3. Social media distribution
+4. Customer feedback loop
+5. Sales pipeline automation
+
+Each should integrate with n8n or Zapier webhooks."
+```
+
+```
+Feature: Agentic AI
+"Implement a Biznes Bot that can:
+1. Understand complex business queries
+2. Decompose them into steps
+3. Execute multiple tools (image generation, content, analytics)
+4. Aggregate results
+5. Return actionable insights
+
+Use Gemini 2.0 with function calling."
+```
+
+---
+
+## FINAL NOTES FOR GEMINI
+
+Pamiętaj:
+- Production-ready code, NO COMMENTS ("//") - use docstrings instead
+- TypeScript everywhere
+- Error handling everywhere
+- Proper typing, no "any"
+- Mobile-first responsive
+- Accessible (WCAG 2.1)
+- Optimized performance
+- Security best practices
+- Comprehensive error messages
+- User-friendly UI/UX
+- Fast loading times
+- Smooth animations
+
+**Powodzenia! 🚀**
