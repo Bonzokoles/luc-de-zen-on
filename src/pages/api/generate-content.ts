@@ -1,169 +1,85 @@
-import type { APIRoute } from "astro";
+import type { APIRoute } from 'astro';
 
-/**
- * Content Generator API
- * Generates various types of content using Gemini AI
- */
-
-export const POST: APIRoute = async ({ request, locals }) => {
+export const POST: APIRoute = async ({ request }) => {
   try {
-    const { contentType, topic, length, tone, keywords } =
-      (await request.json()) as any;
+    const { contentType, description, tone, length } = await request.json();
 
-    if (!topic?.trim()) {
+    // Walidacja
+    if (!contentType || !description) {
       return new Response(
-        JSON.stringify({
-          success: false,
-          message: "Temat jest wymagany",
-        }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-        }
+        JSON.stringify({ error: 'Brak wymaganych danych' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Access environment - Cloudflare runtime
-    const env = import.meta.env.DEV
-      ? process.env
-      : (locals as any)?.runtime?.env || {};
-    const deepseekApiKey = env.DEEPSEEK_API_KEY;
+    // Pobranie klucza API
+    const apiKey = import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY;
 
-    if (!deepseekApiKey) {
+    if (!apiKey) {
       return new Response(
-        JSON.stringify({
-          success: false,
-          message: "Brak konfiguracji API (DEEPSEEK_API_KEY)",
-        }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-        }
+        JSON.stringify({ error: 'Brak klucza API. Skontaktuj się z administratorem.' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    // Build prompt based on content type and parameters
-    const lengthMap: Record<string, string> = {
-      short: "200-400 słów",
-      medium: "400-800 słów",
-      long: "800-1500 słów",
-    };
+    // Przygotowanie promptu
+    const systemPrompt = `Jesteś profesjonalnym copywriterem specjalizującym się w treściach marketingowych po polsku.
+Tworzysz angażujące, przekonujące i profesjonalne teksty dostosowane do potrzeb klienta.`;
 
-    const toneMap: Record<string, string> = {
-      professional: "profesjonalny i formalny",
-      casual: "swobodny i nieformalny",
-      friendly: "przyjazny i ciepły",
-      authoritative: "autorytatywny i eksperci",
-      creative: "kreatywny i nietypowy",
-    };
-
-    const contentTypeMap: Record<string, string> = {
-      article: "artykuł informacyjny",
-      description: "opis produktu lub usługi",
-      "blog-post": "post na blog",
-      "social-media": "post na social media",
-      email: "e-mail marketingowy",
-      "press-release": "komunikat prasowy",
-    };
-
-    let prompt = `Napisz ${
-      contentTypeMap[contentType] || "treść"
-    } na temat: "${topic}".
+    const userPrompt = `Utwórz ${contentType} o następującej tematyce: ${description}
 
 Wymagania:
-- Długość: ${lengthMap[length] || "400-800 słów"}
-- Ton: ${toneMap[tone] || "profesjonalny"}
-- Język: polski`;
+- Ton: ${tone || 'profesjonalny'}
+- Długość: ${length || 'średnia'}
+- Język: Polski
+- Format: Gotowy do użycia, bez dodatkowych wyjaśnień
 
-    if (keywords && keywords.length > 0) {
-      prompt += `\n- Słowa kluczowe do uwzględnienia: ${keywords.join(", ")}`;
-    }
+Pamiętaj:
+- Użyj chwytliwego nagłówka
+- Dodaj odpowiednie emotikony jeśli pasują
+- Tekst ma być atrakcyjny i zachęcający do działania
+- Dostosuj styl do polskiego rynku`;
 
-    prompt += `\n\nUtwórz wysokiej jakości treść, która jest angażująca, informatywna i odpowiada na potrzeby czytelnika. Używaj naturalnego języka polskiego.`;
-
-    // Call DeepSeek API
-    const response = await fetch("https://api.deepseek.com/chat/completions", {
-      method: "POST",
+    // Wywołanie OpenAI API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${deepseekApiKey}`,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "deepseek-chat",
+        model: 'gpt-3.5-turbo',
         messages: [
-          {
-            role: "system",
-            content:
-              "Jesteś ekspertem w tworzeniu różnorodnych treści marketingowych i edukacyjnych. Tworzysz wysokiej jakości treści w języku polskim, które są angażujące i profesjonalne.",
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt }
         ],
-        temperature: 0.7,
-        max_tokens: 2000,
-        stream: false,
-      }),
+        temperature: 0.8,
+        max_tokens: 800
+      })
     });
 
     if (!response.ok) {
-      throw new Error(`DeepSeek API error: ${response.status}`);
+      const error = await response.json();
+      console.error('OpenAI API Error:', error);
+      return new Response(
+        JSON.stringify({ error: 'Błąd generowania treści. Spróbuj ponownie.' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
-    const data = (await response.json()) as any;
-    const generatedContent = data.choices?.[0]?.message?.content;
-
-    if (!generatedContent) {
-      throw new Error("Brak odpowiedzi z API");
-    }
+    const data = await response.json();
+    const generatedContent = data.choices[0]?.message?.content || '';
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        content: generatedContent,
-        metadata: {
-          contentType,
-          topic,
-          length,
-          tone,
-          keywords,
-          wordCount: generatedContent.split(" ").length,
-          generatedAt: new Date().toISOString(),
-        },
-      }),
-      {
-        status: 200,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-          "Cache-Control": "no-cache",
-        },
-      }
+      JSON.stringify({ content: generatedContent }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
-  } catch (error) {
-    console.error("Content generation error:", error);
 
+  } catch (error) {
+    console.error('Error:', error);
     return new Response(
-      JSON.stringify({
-        success: false,
-        message:
-          (error as any).message || "Nieznany błąd podczas generowania treści",
-      }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json; charset=utf-8" },
-      }
+      JSON.stringify({ error: 'Wystąpił błąd. Spróbuj ponownie.' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
-};
-
-export const OPTIONS: APIRoute = async () => {
-  return new Response(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
 };

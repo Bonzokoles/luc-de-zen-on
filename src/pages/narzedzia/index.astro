@@ -1,0 +1,143 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const narzedzia = [
+  {
+    title: 'Asystent Biznesowy AI',
+    description: 'Twój osobisty doradca 24/7 - strategia, marketing, finanse, wszystko w jednym',
+    icon: '🤖',
+    href: '/asystent-ai',
+    category: 'AI Asystent',
+    color: 'from-indigo-600 to-purple-700',
+    featured: true
+  },
+  {
+    title: 'Generator Treści Marketingowych',
+    description: 'Twórz profesjonalne posty, opisy produktów i ogłoszenia w sekundach',
+    icon: '✍️',
+    href: '/narzedzia/generator-tresci',
+    category: 'Marketing',
+    color: 'from-blue-600 to-blue-700'
+  },
+  {
+    title: 'Kreator Dokumentów Prawnych',
+    description: 'Umowy, regulaminy, RODO, NDA - wszystko zgodnie z polskim prawem',
+    icon: '📝',
+    href: '/narzedzia/kreator-dokumentow',
+    category: 'Dokumenty',
+    color: 'from-cyan-600 to-cyan-700',
+    featured: true
+  },
+  {
+    title: 'Generator Faktur VAT',
+    description: 'Profesjonalne faktury VAT zgodne z polskim prawem - gotowe do druku',
+    icon: '🧾',
+    href: '/narzedzia/generator-faktur',
+    category: 'Finanse',
+    color: 'from-emerald-600 to-emerald-700',
+    featured: true
+  },
+  {
+    title: 'Asystent Email Biznesowy',
+    description: 'Pisz profesjonalne emaile z odpowiednią etykietą biznesową',
+    icon: '📧',
+    href: '/narzedzia/asystent-email',
+    category: 'Komunikacja',
+    color: 'from-purple-600 to-purple-700'
+  },
+  {
+    title: 'Organizer Zadań',
+    description: 'Zarządzaj zadaniami z priorytetami i terminami',
+    icon: '✅',
+    href: '/narzedzia/organizer-zadan',
+    category: 'Produktywność',
+    color: 'from-green-600 to-green-700'
+  },
+  {
+    title: 'Kalkulator Biznesowy',
+    description: 'Marże, VAT, ROI, zyski - wszystkie obliczenia w jednym miejscu',
+    icon: '🧮',
+    href: '/narzedzia/kalkulator-biznesowy',
+    category: 'Finanse',
+    color: 'from-orange-600 to-orange-700'
+  }
+];
+
+const categories = Array.from(new Set(narzedzia.map(n => n.category)));
+---
+
+<MainLayout title="Wszystkie Narzędzia">
+  <div class="container mx-auto px-4 py-12">
+
+    <!-- Header -->
+    <div class="text-center mb-12 fade-in">
+      <h1 class="text-5xl font-bold mb-4">
+        <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+          Wszystkie Narzędzia
+        </span>
+      </h1>
+      <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
+        Kompletny zestaw narzędzi AI dla Twojego biznesu.
+        Proste, efektywne, 100% po polsku.
+      </p>
+    </div>
+
+    <!-- Kategorie -->
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {categories.map(category => (
+        <button class="badge badge-info text-sm">
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <!-- Narzędzia Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {narzedzia.map(narzedzie => (
+        <a href={narzedzie.href} class="tool-card group">
+          <div class={`w-16 h-16 rounded-xl bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow`}>
+            {narzedzie.icon}
+          </div>
+
+          <div class="flex items-start justify-between mb-2">
+            <h3 class="text-xl font-bold flex-grow">
+              {narzedzie.title}
+            </h3>
+          </div>
+
+          <p class="text-sm text-business-text-dim mb-3">
+            {narzedzie.description}
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="badge badge-info text-xs">
+              {narzedzie.category}
+            </span>
+            <span class="text-business-accent text-sm group-hover:translate-x-1 transition-transform inline-block">
+              →
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700 text-center">
+      <h2 class="text-2xl font-bold mb-4">
+        Gotowy żeby zacząć?
+      </h2>
+      <p class="text-business-text-dim mb-6">
+        Wybierz narzędzie i odkryj jak AI może usprawnić Twój biznes!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/instrukcje" class="btn-primary">
+          📚 Przeczytaj Instrukcje
+        </a>
+        <a href="/" class="btn-secondary">
+          🏠 Strona Główna
+        </a>
+      </div>
+    </div>
+
+  </div>
+</MainLayout>

@@ -1,55 +1,43 @@
-import { fontFamily } from 'tailwindcss/defaultTheme';
-
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    './src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx,vue}',
-    '!./src/**/*.svelte',
-    '!./src/**/node_modules/**',
-    '!./dist/**'
-  ],
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
-        'cyber-dark': '#0a0a0a',
-        'cyber-surface': '#111111',
-        'cyber-text': '#e0e0e0',
-        'cyber-text-dim': '#a0a0a0',
-        'cyber-blue': '#00ffff',
-        'cyber-purple': '#8b00ff',
-        'cyber-purple-light': '#a333ff',
-        'cyber-green': '#00ff88',
-        'cyber-orange': '#ff8800',
-        'cyber-pink': '#ff0088',
-        'cyber-border': '#333333',
-        black: 'var(--black)',
-        white: 'var(--white)',
-        gray: {
-          50: 'var(--gray-50)',
-          100: 'var(--gray-100)', 
-          200: 'var(--gray-200)',
-          300: 'var(--gray-300)',
-          400: 'var(--gray-400)',
-          500: 'var(--gray-500)',
-          600: 'var(--gray-600)',
-          700: 'var(--gray-700)',
-          800: 'var(--gray-800)',
-          900: 'var(--gray-900)',
-          950: 'var(--gray-950)',
+        // Profesjonalne kolory biznesowe z cyberpunk akcentem
+        primary: {
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
         },
+        business: {
+          dark: '#0a0e27',
+          surface: '#131a3a',
+          border: '#1e2a52',
+          text: '#e8eaf0',
+          'text-dim': '#9ca3af',
+          accent: '#00d9ff',
+          'accent-soft': '#4ade80',
+          warning: '#fbbf24',
+          success: '#10b981'
+        }
       },
       fontFamily: {
-        sans: ['Rajdhani', ...fontFamily.sans],
-        mono: ['Source Code Pro', ...fontFamily.mono],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
       },
       boxShadow: {
-        'glow-blue': '0 0 8px rgba(0, 255, 255, 0.6), 0 0 12px rgba(0, 255, 255, 0.4)',
-        'glow-blue-strong': '0 0 12px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6)',
-      },
-      borderRadius: {
-        none: '0',
-      },
+        'glow': '0 0 20px rgba(0, 217, 255, 0.3)',
+        'glow-soft': '0 0 10px rgba(74, 222, 128, 0.2)',
+      }
     },
   },
   plugins: [],
-};
+}

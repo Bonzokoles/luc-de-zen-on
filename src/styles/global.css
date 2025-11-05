@@ -1,514 +1,36 @@
-/* Import Google Fonts first */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
-
-@tailwind base;
-@tailwind components; 
-@tailwind utilities;
-
-/* Local fonts: Neuropol for headings/uppercase, Kenyan Coffee for body */
-@font-face {
-  font-family: 'Neuropol';
-  src: url('/fonts/Neuropol.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Kenyan Coffee';
-  src: url('/fonts/Kenyan-Coffee-Rg-It.otf') format('opentype');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Bold weight for Kenyan Coffee */
-@font-face {
-  font-family: 'Kenyan Coffee';
-  src: url('/fonts/Kenyan-Coffee-Bd.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom theme configuration using @layer */
+/* Importuj czcionki Google */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
 @layer base {
-  :root {
-    /* MyBonzo cyberpunk color palette */
-    --cyber-dark: #0a0a0a;
-    --cyber-surface: #111111;
-    --cyber-text: #e0e0e0;
-    --cyber-text-dim: #a0a0a0;
-    --cyber-blue: #00ffff;
-    --cyber-border: #333333;
-    --cyber-grid: rgba(0, 255, 255, 0.1);
-    
-    /* Tailwind gray scale compatibility */
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    --gray-950: #030712;
-    
-    /* Basic colors compatibility */
-    --black: #000000;
-    --white: #ffffff;
+  * {
+    @apply border-business-border;
   }
-  
-  /* Base font configuration */
-  html {
-  font-family: 'Kenyan Coffee', 'Rajdhani', system-ui, sans-serif;
-  }
-  
+
   body {
-    background-color: black;
-    color: white;
-    margin: 0;
-    padding: 0;
+    @apply bg-business-dark text-business-text;
+    font-family: 'Inter', system-ui, sans-serif;
   }
 
-  /* Headings and prominent uppercase use Neuropol */
-  h1, h2, h3, h4, h5, h6,
-  .section-title,
-  .worker-title,
-  .widget-title,
-  .dashboard-title,
-  .additional-title {
-    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
-    letter-spacing: 0.06em;
-  }
-
-  /* Also prefer Neuropol on generic uppercase utility if present */
-  .uppercase, [class*="uppercase"] {
-    font-family: 'Neuropol', 'Rajdhani', system-ui, sans-serif;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    @apply text-business-text;
   }
 }
 
-/* Component layer for reusable patterns */
-@layer components {
-  /* Cyberpunk grid background */
-  .cyber-grid {
-    background: 
-      linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+/* Animacje */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-
-  /* Subtle circuit-trace overlay: multiple thin 1px lines, slightly blurred, ~80% opacity */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0; /* behind page content which uses z-index > 0 */
-    /* layered, slightly different grid sizes and angles for a 'random' traces feel */
-    background-image:
-      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
-      linear-gradient(15deg, rgba(255,255,255,0.05) 1px, transparent 1px),
-      linear-gradient(-20deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 120px 120px, 80px 80px, 220px 220px, 160px 160px;
-    mix-blend-mode: screen;
-    opacity: 0.8; /* overall requested transparency */
-    filter: blur(0.6px); /* soften edges so lines are not too sharp */
-    transform: translateZ(0); /* improve rendering on some browsers */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Glass effect components */
-  .glass-effect {
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Neon effects */
-  .neon-text {
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
-  }
-  
-  .neon-border {
-    box-shadow: 0 0 5px currentColor, inset 0 0 5px currentColor;
-  }
-  
-  /* Additional MyBonzo components */
-  .bg-primary {
-    background-color: var(--cyber-dark);
-  }
-  
-  .text-primary {
-    color: var(--cyber-text);
-  }
-}
-
-/* Subtle circuit-trace overlay (three horizontal bands so traces don't cross) */
-html::before,
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  z-index: -1; /* keep behind UI */
-  opacity: 0.9; /* user requested brighter (~80% then +40% -> heavy visibility) */
-  mix-blend-mode: screen;
-  filter: blur(0.6px);
-}
-
-/* Solid white frame & cross lines: left (1) and right (2) verticals; horizontal cuts top, middle and two at bottom.
-   Placed in html::after to avoid colliding with existing band layers. */
-html::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0; /* bring above page background so lines are visible */
-  /* Multiple gradients: three verticals + four horizontals */
-  background-image:
-    /* Left vertical (1px) */
-    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Right vertical 1 (1px offset 0) */
-    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Right vertical 2 (1px offset 24px) */
-    linear-gradient(to bottom, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Top horizontal */
-    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Middle horizontal */
-    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Bottom horizontal 1 */
-    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px),
-    /* Bottom horizontal 2 (24px above bottom) */
-    linear-gradient(90deg, rgba(255,255,255,1) 0 1px, transparent 1px);
-
-  background-size:
-    1px 100%, /* left vertical */
-    1px 100%, /* right vertical 1 */
-    1px 100%, /* right vertical 2 */
-    100% 1px, /* top horizontal */
-    100% 1px, /* middle horizontal */
-    100% 1px, /* bottom horizontal 1 */
-    100% 1px; /* bottom horizontal 2 */
-
-  background-position:
-    left 0 top 0,
-    right 0 top 0,
-    right 24px top 0,
-    left 0 top 0,
-    left 0 center,
-    left 0 bottom 0,
-    left 0 calc(100% - 24px);
-
-  opacity: 1; /* full opacity for maximum contrast */
-  mix-blend-mode: normal; /* ensure white stays white on dark backgrounds */
-  filter: none; /* sharp lines */
-}
-
-/* Top band: mostly horizontal and short vertical turns */
-html::before {
-  top: 0;
-  height: 33vh;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  background-image:
-    repeating-linear-gradient(90deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 28px),
-    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 40px);
-  background-size: auto;
-}
-
-/* Middle band: diagonal traces, variable spacing */
-body::before {
-  top: 33vh;
-  height: 34vh;
-  clip-path: polygon(0 33%, 100% 33%, 100% 67%, 0 67%);
-  background-image:
-    repeating-linear-gradient(45deg, rgba(6,182,212,0.2) 0 1px, transparent 1px 40px),
-    repeating-linear-gradient(60deg, rgba(6,182,212,0.14) 0 1px, transparent 1px 60px);
-}
-
-/* Bottom band: opposite diagonal / vertical accents */
-body::after {
-  top: 67vh;
-  height: 33vh;
-  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
-  background-image:
-    repeating-linear-gradient(-45deg, rgba(6,182,212,0.18) 0 1px, transparent 1px 36px),
-    repeating-linear-gradient(0deg, rgba(6,182,212,0.12) 0 1px, transparent 1px 48px);
-}
-
-/* Small responsive tweak so bands scale on short screens */
-@media (max-height: 600px) {
-  html::before { height: 34%; }
-  body::before { top: 34%; height: 33%; }
-  body::after { top: 67%; height: 33%; }
-}
-
-/* Utility classes */
-@layer utilities {
-  .writing-vertical {
-    writing-mode: vertical-lr;
-  }
-}
-
-/* AI Workers Section Styles - MyBonzo Theme */
-.ai-workers-section[data-astro-cid-my52qgmw] {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  margin: 2rem auto;
-  padding: 2rem;
-  max-width: 1200px;
-}
-
-.section-container[data-astro-cid-my52qgmw] {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-title[data-astro-cid-my52qgmw] {
-  color: #00d9ff;
-  font-size: 2.8rem; /* increased ~40% from 2rem */
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-family: Rajdhani, sans-serif;
-}
-
-.section-description[data-astro-cid-my52qgmw] {
-  color: #888;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.32rem; /* increased ~20% from 1.1rem */
-}
-
-.tags-section[data-astro-cid-my52qgmw] {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-.tag-btn[data-astro-cid-my52qgmw] {
-  background: rgba(0, 217, 255, 0.1);
-  border: 1px solid rgba(0, 217, 255, 0.4);
-  color: #00d9ff;
-  padding: 0.8rem 2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: Rajdhani, sans-serif;
-  flex: 1;
-  text-align: center;
-  min-width: 0;
-}
-
-.tag-btn[data-astro-cid-my52qgmw]:hover {
-  background: rgba(0, 217, 255, 0.2);
-  border-color: #00d9ff;
-  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
-}
-
-.tag-btn.multiline[data-astro-cid-my52qgmw] {
-  line-height: 1.2;
-  padding: 0.6rem 1.5rem;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.tag-btn.multiline[data-astro-cid-my52qgmw] span {
-  display: block;
-  font-size: 0.8rem;
-}
-
-.worker-features[data-astro-cid-my52qgmw] {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-}
-
-.feature-tag[data-astro-cid-my52qgmw] {
-  background: rgba(0, 217, 255, 0.1);
-  color: #00d9ff;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.workers-grid[data-astro-cid-my52qgmw] {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.worker-card[data-astro-cid-my52qgmw] {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.worker-card[data-astro-cid-my52qgmw]:hover {
-  border-color: #00d9ff;
-  box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-}
-
-.worker-title[data-astro-cid-my52qgmw] {
-  color: #00d9ff;
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: Rajdhani, sans-serif;
-}
-
-.worker-description[data-astro-cid-my52qgmw] {
-  color: #ccc;
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
-
-/* Quick Stats for Status Monitor */
-.quick-stats[data-astro-cid-my52qgmw] {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(0, 217, 255, 0.2);
-  border-radius: 8px;
-}
-
-.stat-item[data-astro-cid-my52qgmw] {
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.stat-number[data-astro-cid-my52qgmw] {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #00d9ff;
-  margin-bottom: 0.25rem;
-}
-
-.stat-number.success[data-astro-cid-my52qgmw] {
-  color: #22c55e;
-}
-
-.stat-label[data-astro-cid-my52qgmw] {
-  font-size: 0.8rem;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.worker-actions[data-astro-cid-my52qgmw] {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.quick-prompt[data-astro-cid-my52qgmw] {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  color: #fff;
-  padding: 0.75rem;
-  font-family: Rajdhani, sans-serif;
-  transition: border-color 0.3s;
-}
-
-.quick-prompt[data-astro-cid-my52qgmw]:focus {
-  outline: none;
-  border-color: #00d9ff;
-  box-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
-}
-
-.quick-prompt[data-astro-cid-my52qgmw]::placeholder {
-  color: #888;
-}
-
-.action-btn[data-astro-cid-my52qgmw] {
-  padding: 0.75rem 1.5rem;
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  background: rgba(0, 0, 0, 0.3);
-  color: #00d9ff;
-  cursor: pointer;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-  font-family: Rajdhani, sans-serif;
-  font-size: 0.9rem;
-}
-
-.action-btn[data-astro-cid-my52qgmw].primary {
-  background: rgba(0, 217, 255, 0.1);
-}
-
-.action-btn[data-astro-cid-my52qgmw]:hover {
-  background: rgba(0, 217, 255, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 217, 255, 0.3);
-}
-
-.action-btn[data-astro-cid-my52qgmw].secondary {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.status-indicator[data-astro-cid-my52qgmw] {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-.status-dot[data-astro-cid-my52qgmw] {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #888;
-  animation: pulse 2s infinite;
-}
-
-.status-dot[data-astro-cid-my52qgmw].online {
-  background: #4ade80;
-}
-
-.status-dot[data-astro-cid-my52qgmw].offline {
-  background: #ef4444;
 }
 
 @keyframes pulse {
@@ -516,320 +38,135 @@ body::after {
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.6;
   }
 }
 
-.additional-functions-section[data-astro-cid-my52qgmw] {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(0, 217, 255, 0.2);
-}
-
-.additional-title[data-astro-cid-my52qgmw] {
-  color: #00d9ff;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
-  margin-bottom: 2rem;
-  font-family: Rajdhani, sans-serif;
-}
-
-.additional-grid[data-astro-cid-my52qgmw] {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  max-width: 95%;
-  margin: 0 auto;
-}
-
-.additional-btn[data-astro-cid-my52qgmw] {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.3);
-  padding: 1.5rem;
-  color: #00d9ff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-}
-
-.additional-btn[data-astro-cid-my52qgmw]:hover {
-  border-color: #00d9ff;
-  background: rgba(0, 217, 255, 0.1);
-  box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-  transform: translateY(-2px);
-}
-
-.additional-icon[data-astro-cid-my52qgmw] {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-}
-
-.additional-btn[data-astro-cid-my52qgmw] h4[data-astro-cid-my52qgmw] {
-  color: #00d9ff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 0 0 0.5rem;
-  font-family: Rajdhani, sans-serif;
-}
-
-.additional-btn[data-astro-cid-my52qgmw] p[data-astro-cid-my52qgmw] {
-  color: #888;
-  font-size: 0.85rem;
-  margin: 0;
-  line-height: 1.3;
-}
-
-@media (max-width: 1024px) and (min-width: 769px) {
-  .workers-grid[data-astro-cid-my52qgmw] {
-    grid-template-columns: repeat(2, 1fr);
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
   }
 }
 
-@media (max-width: 768px) {
-  .workers-grid[data-astro-cid-my52qgmw] {
-    grid-template-columns: 1fr;
+/* Komponenty wielokrotnego użytku */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500
+           text-white font-medium rounded-lg
+           hover:from-primary-700 hover:to-primary-600
+           transition-all duration-300
+           shadow-lg hover:shadow-glow
+           focus:outline-none focus:ring-2 focus:ring-primary-400;
   }
-  
-  .worker-card[data-astro-cid-my52qgmw] {
-    padding: 1rem;
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-business-surface border border-business-border
+           text-business-text font-medium rounded-lg
+           hover:bg-business-border hover:border-business-accent
+           transition-all duration-300
+           focus:outline-none focus:ring-2 focus:ring-business-accent;
   }
-  
-  .additional-grid[data-astro-cid-my52qgmw] {
-    grid-template-columns: 1fr;
-    max-width: 100%;
+
+  .card {
+    @apply bg-business-surface border border-business-border rounded-xl p-6
+           shadow-lg hover:shadow-glow-soft transition-all duration-300;
   }
-  
-  .additional-btn[data-astro-cid-my52qgmw] {
-    min-height: 100px;
-    padding: 1rem;
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-business-dark border border-business-border
+           rounded-lg text-business-text placeholder-business-text-dim
+           focus:outline-none focus:border-business-accent focus:ring-2 focus:ring-business-accent/30
+           transition-all duration-200;
   }
-  
-  .tags-section[data-astro-cid-my52qgmw] {
-    flex-direction: column;
-    gap: 0.5rem;
+
+  .textarea-field {
+    @apply w-full px-4 py-3 bg-business-dark border border-business-border
+           rounded-lg text-business-text placeholder-business-text-dim
+           focus:outline-none focus:border-business-accent focus:ring-2 focus:ring-business-accent/30
+           transition-all duration-200
+           min-h-[120px] resize-y;
   }
-  
-  .tag-btn[data-astro-cid-my52qgmw] {
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
+
+  .tool-card {
+    @apply card hover:border-business-accent cursor-pointer
+           transform hover:-translate-y-1 transition-all duration-300;
   }
-}
 
-@media (max-width: 1024px) and (min-width: 769px) {
-  .additional-grid[data-astro-cid-my52qgmw] {
-    grid-template-columns: repeat(2, 1fr);
+  .loading-spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-business-accent;
   }
-}
 
-/* Workers Status & Store Styles */
-.workers-status-list[data-astro-cid-my52qgmw] {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin: 1rem 0;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.worker-status-item[data-astro-cid-my52qgmw] {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(0, 217, 255, 0.2);
-  border-radius: 8px;
-  padding: 1rem;
-  transition: all 0.3s ease;
-}
-
-.worker-status-item:hover[data-astro-cid-my52qgmw] {
-  border-color: rgba(0, 217, 255, 0.5);
-  background: rgba(0, 217, 255, 0.05);
-}
-
-.worker-status-header[data-astro-cid-my52qgmw] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.worker-name[data-astro-cid-my52qgmw] {
-  font-weight: 600;
-  color: #e0e0e0;
-  font-size: 0.95rem;
-}
-
-.status-badge[data-astro-cid-my52qgmw] {
-  padding: 0.2rem 0.6rem;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.status-badge.online[data-astro-cid-my52qgmw] {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.status-badge.limited[data-astro-cid-my52qgmw] {
-  background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.3);
-}
-
-.status-badge.offline[data-astro-cid-my52qgmw] {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-.worker-status-desc[data-astro-cid-my52qgmw] {
-  color: #a0a0a0;
-  font-size: 0.85rem;
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-}
-
-.tokens-info[data-astro-cid-my52qgmw] {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-
-.tokens-left[data-astro-cid-my52qgmw] {
-  font-size: 0.8rem;
-  color: #00d9ff;
-  font-weight: 500;
-}
-
-.tokens-left.warning[data-astro-cid-my52qgmw] {
-  color: #fbbf24;
-}
-
-.buy-tokens-btn[data-astro-cid-my52qgmw] {
-  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
-  border: none;
-  color: #000;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.buy-tokens-btn:hover[data-astro-cid-my52qgmw] {
-  background: linear-gradient(135deg, #0099cc 0%, #007799 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 217, 255, 0.3);
-}
-
-.buy-tokens-btn.premium[data-astro-cid-my52qgmw] {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-  color: #000;
-}
-
-.buy-tokens-btn.premium:hover[data-astro-cid-my52qgmw] {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  box-shadow: 0 4px 8px rgba(251, 191, 36, 0.3);
-}
-
-/* Responsive design for status cards */
-@media (max-width: 768px) {
-  .workers-status-list[data-astro-cid-my52qgmw] {
-    max-height: 300px;
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
   }
-  
-  .worker-status-item[data-astro-cid-my52qgmw] {
-    padding: 0.75rem;
+
+  .badge-success {
+    @apply badge bg-business-accent-soft/20 text-business-accent-soft border border-business-accent-soft/30;
   }
-  
-  .tokens-info[data-astro-cid-my52qgmw] {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+
+  .badge-warning {
+    @apply badge bg-business-warning/20 text-business-warning border border-business-warning/30;
   }
-  
-  .buy-tokens-btn[data-astro-cid-my52qgmw] {
-    align-self: stretch;
-    text-align: center;
+
+  .badge-info {
+    @apply badge bg-business-accent/20 text-business-accent border border-business-accent/30;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-6
+           bg-gradient-to-r from-business-accent to-business-accent-soft
+           bg-clip-text text-transparent;
+  }
+
+  .tool-icon {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center
+           bg-gradient-to-br from-primary-600 to-primary-700
+           text-white shadow-lg;
   }
 }
 
-/* Floating left nav (generic utility, if used elsewhere) */
-.floating-nav {
+/* Grid Background (subtelny) */
+body::before {
+  content: '';
   position: fixed;
-  top: 50%;
-  left: 1rem;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
 }
 
-.floating-nav-btn {
-  background-color: rgba(23, 26, 35, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 50px;
-  height: 120px;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  position: relative;
-  transform-origin: center center;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.floating-nav-btn:hover {
-  transform: scale(1.08);
-  background-color: rgba(30, 34, 46, 0.9);
-  border-color: #00aaff;
+::-webkit-scrollbar-track {
+  background: #0a0e27;
 }
 
-/* Global input, textarea, select styles for all AI Workers */
-input, 
-textarea, 
-select {
-  background: #ffffff !important;
-  color: #000000 !important;
-  border: 2px solid rgba(75, 85, 99, 0.5) !important;
-  border-radius: 8px !important;
-  padding: 0.75rem !important;
-  font-size: 0.875rem !important;
-  transition: all 0.2s ease !important;
-  outline: none !important;
+::-webkit-scrollbar-thumb {
+  background: #1e2a52;
+  border-radius: 5px;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #00d7ef !important;
-  box-shadow: 0 0 0 3px rgba(0, 215, 239, 0.2) !important;
-  background: #ffffff !important;
-  color: #000000 !important;
+::-webkit-scrollbar-thumb:hover {
+  background: #00d9ff;
 }
 
-input::placeholder,
-textarea::placeholder,
-select::placeholder {
-  color: #6b7280 !important;
+/* Animacje przy wczytywaniu */
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
