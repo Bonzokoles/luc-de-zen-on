@@ -55,16 +55,16 @@ const narzedzia = [
   },
   {
     title: 'Kalkulator Biznesowy',
-    description: 'MarĹĽe, VAT, ROI, zyski - wszystkie obliczenia w jednym miejscu',
-    icon: 'đź§®',
+    description: 'Marże, VAT, ROI, zyski - wszystkie obliczenia w jednym miejscu',
+    icon: '🧮',
     href: '/narzedzia/kalkulator-biznesowy',
     category: 'Finanse',
     color: 'from-orange-600 to-orange-700'
   },
   {
     title: 'SEO Analityka',
-    description: 'Analizuj konkurencjÄ™, slowa kluczowe i optymalizuj swojÄ… stronÄ™ dla wyszukiwarek',
-    icon: 'đź"Š',
+    description: 'Analizuj konkurencję, słowa kluczowe i optymalizuj swoją stronę dla wyszukiwarek',
+    icon: '📊',
     href: '/seo-analityka',
     category: 'Marketing',
     color: 'from-pink-600 to-pink-700',
@@ -72,17 +72,17 @@ const narzedzia = [
   },
   {
     title: 'Analityka i Raporty',
-    description: 'PrzeglÄ…daj dane biznesowe, generuj raporty i analizuj trendy',
-    icon: 'đź"ť',
+    description: 'Przeglądaj dane biznesowe, generuj raporty i analizuj trendy',
+    icon: '📈',
     href: '/analityka-raporty',
     category: 'Analityka',
     color: 'from-violet-600 to-violet-700',
     featured: true
   },
   {
-    title: 'CRM - ZarzÄ…dzanie Klientami',
-    description: 'ZarzÄ…dzaj kontaktami, Ĺ›ledĹş sprzedaĹĽ i buduj relacje z klientami',
-    icon: 'đź'Ą',
+    title: 'CRM - Zarządzanie Klientami',
+    description: 'Zarządzaj kontaktami, śledź sprzedaż i buduj relacje z klientami',
+    icon: '👥',
     href: '/crm-klienci',
     category: 'CRM',
     color: 'from-rose-600 to-rose-700',
@@ -94,25 +94,46 @@ const categories = Array.from(new Set(narzedzia.map(n => n.category)));
 ---
 
 <MainLayout title="Wszystkie Narzędzia">
-  <div class="container mx-auto px-4 py-12">
+  <div class="container mx-auto px-4 py-12 relative">
+
+    <!-- Logo w narożniku -->
+    <div class="absolute top-0 right-4">
+      <span class="text-business-accent font-bold text-sm tracking-wider">
+        ZENON_AI_Biznes_HUB
+      </span>
+    </div>
 
     <!-- Header -->
-    <div class="text-center mb-12 fade-in">
-      <h1 class="text-5xl font-bold mb-4">
-        <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
-          Wszystkie Narzędzia
-        </span>
-      </h1>
-      <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
-        Kompletny zestaw narzędzi AI dla Twojego biznesu.
-        Proste, efektywne, 100% po polsku.
-      </p>
+    <div class="text-center mb-12 fade-in relative">
+      <div class="flex items-center justify-center gap-8">
+        <!-- Ikona z przejrzystym tłem -->
+        <div class="relative">
+          <img
+            src="/apple-touch-icon.png"
+            alt="Zenon AI Logo"
+            class="w-32 h-32 object-contain opacity-30 hover:opacity-50 transition-opacity duration-300 animate-pulse-glow"
+          />
+        </div>
+
+        <!-- Teksty -->
+        <div class="text-left">
+          <h1 class="text-5xl font-bold mb-4">
+            <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+              NARZEDZIA_DLA_BIZNESU
+            </span>
+          </h1>
+          <p class="text-xl text-business-text-dim max-w-3xl">
+            Kompletny zestaw narzędzi AI dla Twojego biznesu.
+            Proste, efektywne, 100% po polsku.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Kategorie -->
     <div class="flex flex-wrap justify-center gap-3 mb-12">
       {categories.map(category => (
-        <button class="badge badge-info text-sm">
+        <button class="badge badge-info text-sm px-8 py-3 w-full sm:w-auto">
           {category}
         </button>
       ))}
@@ -122,7 +143,7 @@ const categories = Array.from(new Set(narzedzia.map(n => n.category)));
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
       {narzedzia.map(narzedzie => (
         <a href={narzedzie.href} class="tool-card group">
-          <div class={`w-16 h-16 rounded-xl bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow`}>
+          <div class={`w-16 h-16 rounded-none bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-[0_0_15px_rgba(0,217,255,0.3)] transition-shadow`}>
             {narzedzie.icon}
           </div>
 

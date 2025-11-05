@@ -18,9 +18,9 @@ export default {
           900: '#0c4a6e',
         },
         business: {
-          dark: '#0a0e27',
-          surface: '#131a3a',
-          border: '#1e2a52',
+          dark: '#000000',
+          surface: '#0a0a0a',
+          border: '#1a1a1a',
           text: '#e8eaf0',
           'text-dim': '#9ca3af',
           accent: '#00d9ff',
