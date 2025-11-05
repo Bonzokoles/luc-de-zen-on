@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "AI Biznes Start - Narzędzia AI dla początkujących przedsiębiorców"
+  description = "AI Biznes ERP - Zaawansowane narzędzia do zarządzania firmą"
 } = Astro.props;
 ---
 
@@ -18,7 +18,7 @@ const {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
-  <title>{title} | AI Biznes Start</title>
+  <title>{title} | AI Biznes ERP</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 </head>
 <body>
@@ -35,16 +35,17 @@ const {
               </svg>
             </div>
             <span class="text-xl font-bold bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
-              AI Biznes Start
+              AI Biznes ERP
             </span>
           </a>
 
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-6">
-            <a href="/" class="text-business-text hover:text-business-accent transition-colors">Strona Główna</a>
-            <a href="/narzedzia" class="text-business-text hover:text-business-accent transition-colors">Narzędzia</a>
-            <a href="/instrukcje" class="text-business-text hover:text-business-accent transition-colors">Instrukcje</a>
-            <a href="/kontakt" class="text-business-text hover:text-business-accent transition-colors">Kontakt</a>
+            <a href="/" class="text-business-text hover:text-business-accent transition-colors">Dashboard</a>
+            <a href="/magazyn" class="text-business-text hover:text-business-accent transition-colors">📦 Magazyn</a>
+            <a href="/projekty" class="text-business-text hover:text-business-accent transition-colors">💼 Projekty</a>
+            <a href="/finanse" class="text-business-text hover:text-business-accent transition-colors">💰 Finanse</a>
+            <a href="/konwerter" class="text-business-text hover:text-business-accent transition-colors">🔄 Konwerter</a>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -57,10 +58,11 @@ const {
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3">
-          <a href="/" class="block text-business-text hover:text-business-accent transition-colors py-2">Strona Główna</a>
-          <a href="/narzedzia" class="block text-business-text hover:text-business-accent transition-colors py-2">Narzędzia</a>
-          <a href="/instrukcje" class="block text-business-text hover:text-business-accent transition-colors py-2">Instrukcje</a>
-          <a href="/kontakt" class="block text-business-text hover:text-business-accent transition-colors py-2">Kontakt</a>
+          <a href="/" class="block text-business-text hover:text-business-accent transition-colors py-2">Dashboard</a>
+          <a href="/magazyn" class="block text-business-text hover:text-business-accent transition-colors py-2">📦 Magazyn</a>
+          <a href="/projekty" class="block text-business-text hover:text-business-accent transition-colors py-2">💼 Projekty</a>
+          <a href="/finanse" class="block text-business-text hover:text-business-accent transition-colors py-2">💰 Finanse</a>
+          <a href="/konwerter" class="block text-business-text hover:text-business-accent transition-colors py-2">🔄 Konwerter</a>
         </div>
       </nav>
     </header>
@@ -76,20 +78,21 @@ const {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- O Platformie -->
           <div>
-            <h3 class="text-lg font-bold mb-4 text-business-accent">AI Biznes Start</h3>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">AI Biznes ERP</h3>
             <p class="text-business-text-dim text-sm">
-              Twoje pierwsze kroki w świecie AI dla biznesu.
-              Proste, efektywne narzędzia w 100% po polsku.
+              Zaawansowane narzędzia do zarządzania firmą.
+              Magazyn, Projekty, Finanse, Konwerter - wszystko w jednym miejscu.
             </p>
           </div>
 
           <!-- Szybkie Linki -->
           <div>
-            <h3 class="text-lg font-bold mb-4 text-business-accent">Szybkie Linki</h3>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">Moduły</h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="/narzedzia" class="text-business-text-dim hover:text-business-accent transition-colors">Wszystkie Narzędzia</a></li>
-              <li><a href="/instrukcje" class="text-business-text-dim hover:text-business-accent transition-colors">Jak Zacząć</a></li>
-              <li><a href="/dokumentacja" class="text-business-text-dim hover:text-business-accent transition-colors">Dokumentacja</a></li>
+              <li><a href="/magazyn" class="text-business-text-dim hover:text-business-accent transition-colors">📦 Magazyn</a></li>
+              <li><a href="/projekty" class="text-business-text-dim hover:text-business-accent transition-colors">💼 Projekty</a></li>
+              <li><a href="/finanse" class="text-business-text-dim hover:text-business-accent transition-colors">💰 Finanse Pro</a></li>
+              <li><a href="/konwerter" class="text-business-text-dim hover:text-business-accent transition-colors">🔄 Konwerter</a></li>
             </ul>
           </div>
 
@@ -106,7 +109,7 @@ const {
         </div>
 
         <div class="border-t border-business-border mt-8 pt-6 text-center text-business-text-dim text-sm">
-          <p>&copy; {new Date().getFullYear()} AI Biznes Start. Wszystkie prawa zastrzeżone.</p>
+          <p>&copy; {new Date().getFullYear()} AI Biznes ERP. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>
     </footer>
