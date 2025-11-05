@@ -1,0 +1,13 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AsystentAI from '../components/AsystentAI';
+---
+
+<MainLayout
+  title="Asystent Biznesowy AI - AI Biznes Start"
+  description="Twój osobisty doradca biznesowy 24/7. Zadaj pytanie, otrzymaj ekspercką pomoc w prowadzeniu firmy."
+>
+  <div class="container-custom py-12">
+    <AsystentAI client:load />
+  </div>
+</MainLayout>

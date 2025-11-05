@@ -1,0 +1,312 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import NewsBiznesowe from '../components/NewsBiznesowe';
+import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
+---
+
+<MainLayout title="Strona Główna">
+  <div class="container mx-auto px-4 py-12">
+
+    <!-- Hero Section -->
+    <section class="text-center mb-16 fade-in">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">
+        <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
+          AI Biznes Start
+        </span>
+      </h1>
+      <p class="text-xl md:text-2xl text-business-text-dim mb-8 max-w-3xl mx-auto">
+        Twoje pierwsze kroki w świecie AI dla biznesu.<br/>
+        Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/narzedzia" class="btn-primary">
+          🚀 Zobacz Narzędzia
+        </a>
+        <a href="/instrukcje" class="btn-secondary">
+          📚 Jak Zacząć?
+        </a>
+      </div>
+    </section>
+
+    <!-- Statystyki -->
+    <section class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent mb-2">9</div>
+        <div class="text-xs text-business-text-dim">Narzędzi Biznesowych</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
+        <div class="text-xs text-business-text-dim">Po Polsku</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
+        <div class="text-xs text-business-text-dim">Gemini 2.0 Flash</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-pink-400 mb-2">👥</div>
+        <div class="text-xs text-business-text-dim">CRM</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-purple-400 mb-2">📊</div>
+        <div class="text-xs text-business-text-dim">Analityka</div>
+      </div>
+    </section>
+
+    <!-- Featured Tool -->
+    <section class="mb-12">
+      <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform">
+            🤖
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-full mb-2">
+              ⭐ NOWOŚĆ - Gemini AI
+            </div>
+            <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
+            <p class="text-lg text-gray-300">
+              Twój osobisty doradca 24/7 - zadaj pytanie o strategię, marketing, finanse, prawo biznesowe.
+              Odpowiedzi w czasie rzeczywistym powered by Gemini 2.0 Flash.
+            </p>
+          </div>
+          <div class="text-indigo-400 text-3xl group-hover:translate-x-2 transition-transform">
+            →
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Narzędzia - Podgląd -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🛠️ Dostępne Narzędzia
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- CRM - Zarządzanie Klientami -->
+        <a href="/crm-klienci" class="tool-card group border-2 border-pink-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-pink-500/20 text-pink-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-pink-600 to-rose-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">CRM - Zarządzanie Klientami</h3>
+          <p class="text-sm text-business-text-dim">
+            Baza klientów, historia kontaktów, segmentacja - pełen CRM
+          </p>
+        </a>
+
+        <!-- Analityka & Raporty -->
+        <a href="/analityka-raporty" class="tool-card group border-2 border-violet-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-violet-500/20 text-violet-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-violet-600 to-purple-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Analityka & Raporty</h3>
+          <p class="text-sm text-business-text-dim">
+            Dashboard z KPI, wykresami, trendami - przegląd biznesu
+          </p>
+        </a>
+
+        <!-- Kreator Dokumentów -->
+        <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-cyan-600 to-cyan-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kreator Dokumentów</h3>
+          <p class="text-sm text-business-text-dim">
+            Umowy, regulaminy, RODO, NDA - AI generuje zgodnie z prawem
+          </p>
+        </a>
+
+        <!-- Generator Faktur -->
+        <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-emerald-600 to-emerald-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Faktur VAT</h3>
+          <p class="text-sm text-business-text-dim">
+            Profesjonalne faktury z VAT - eksport do PDF, pełna polskość
+          </p>
+        </a>
+
+        <!-- Generator Treści -->
+        <a href="/narzedzia/generator-tresci" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-blue-600 to-blue-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Treści</h3>
+          <p class="text-sm text-business-text-dim">
+            Posty, opisy produktów, newslettery - AI w sekundę
+          </p>
+        </a>
+
+        <!-- Asystent Email -->
+        <a href="/narzedzia/asystent-email" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-purple-600 to-purple-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Email</h3>
+          <p class="text-sm text-business-text-dim">
+            Profesjonalne emaile biznesowe z etykietą
+          </p>
+        </a>
+
+        <!-- Organizer Zadań -->
+        <a href="/narzedzia/organizer-zadan" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-green-600 to-green-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Organizer Zadań</h3>
+          <p class="text-sm text-business-text-dim">
+            Zarządzaj zadaniami - priorytety, terminy, filtry
+          </p>
+        </a>
+
+        <!-- Kalkulator Biznesowy -->
+        <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-orange-600 to-orange-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kalkulator Biznesowy</h3>
+          <p class="text-sm text-business-text-dim">
+            Marże, VAT, ROI, zyski - wszystko w jednym
+          </p>
+        </a>
+
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/narzedzia" class="btn-primary">
+          Zobacz Wszystkie Narzędzia →
+        </a>
+      </div>
+    </section>
+
+    <!-- Jak to działa -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🎯 Jak to działa?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            1
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wybierz Narzędzie</h3>
+          <p class="text-business-text-dim">
+            Kliknij na narzędzie, które Cię interesuje. Każde ma jasny opis co robi.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            2
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wpisz co Potrzebujesz</h3>
+          <p class="text-business-text-dim">
+            Opisz zwykłymi słowami czego potrzebujesz. AI zrozumie i pomoże.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            3
+          </div>
+          <h3 class="text-xl font-bold mb-3">Gotowe!</h3>
+          <p class="text-business-text-dim">
+            AI wygeneruje dla Ciebie gotowe rozwiązanie. Kopiuj i używaj!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dla kogo -->
+    <section class="card mb-16">
+      <h2 class="text-2xl font-bold mb-6 text-center">
+        💼 Dla kogo jest ta platforma?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Początkujący Przedsiębiorcy</h3>
+            <p class="text-sm text-business-text-dim">Dopiero zaczynasz? Pomożemy Ci zautomatyzować pierwsze procesy.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Freelancerzy</h3>
+            <p class="text-sm text-business-text-dim">Oszczędzaj czas na administracji, skup się na pracy.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Małe Firmy</h3>
+            <p class="text-sm text-business-text-dim">Automatyzuj marketing, faktury, dokumenty - bez zatrudniania zespołu.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Osoby bez Wiedzy Technicznej</h3>
+            <p class="text-sm text-business-text-dim">Wszystko jest proste i intuicyjne. Nie potrzebujesz kursu AI!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsy i Media -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+      <NewsBiznesowe client:load />
+      <MusicPlayerVisualizer client:load />
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700">
+      <h2 class="text-3xl font-bold mb-4">
+        Gotowy żeby zacząć?
+      </h2>
+      <p class="text-business-text-dim mb-6 max-w-2xl mx-auto">
+        Nie czekaj! Wypróbuj nasze narzędzia już teraz - bez rejestracji, za darmo.
+      </p>
+      <a href="/narzedzia" class="btn-primary">
+        🚀 Rozpocznij Teraz
+      </a>
+    </section>
+
+  </div>
+</MainLayout>
