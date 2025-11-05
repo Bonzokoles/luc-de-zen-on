@@ -1,2208 +1,276 @@
---- 
-import MyBonzoLayout from "../layouts/MyBonzoLayout.astro";
-// Optimized component sections for better SSR performance
-import HeroSection from "../components/sections/HeroSection.astro";
-import NavigationSection from "../components/sections/NavigationSection.astro";
-import AIWorkersSection from "../components/sections/AIWorkersSection.astro";
-import WorkersGridSection from "../components/sections/WorkersGridSection.astro";
-import MainWorkersCardsSection from "../components/sections/MainWorkersCardsSection.astro";
-// Core widgets - lazy loaded
-import ImageGeneratorWidget from "../components/ImageGeneratorWidget.svelte";
-import PolaczekWidget from "../components/PolaczekWidget.svelte";
-import MainChatWidget from "../components/MainChatWidget.svelte";
-import AiHelpAssistant from "../components/AiHelpAssistant.svelte";
-import FAQGeneratorWidget from "../components/FAQGeneratorWidget.svelte";
-import EducationRecommendationsWidget from "../components/EducationRecommendationsWidget.svelte";
-import TicketSubmissionWidget from "../components/TicketSubmissionWidget.svelte";
-import WorkersStatusDashboard from "../components/WorkersStatusDashboard.svelte";
-import BackgroundMusicPlayerSimple from "../components/BackgroundMusicPlayerSimple.svelte";
-import GoogleVoiceAgent from "../components/GoogleVoiceAgent.svelte";
-import WorkerCommunicationPopup from "../components/WorkerCommunicationPopup.astro";
-// Modular Agents System
-import AgentsLoader from "../components/agents/AgentsLoader.astro";
-import Agent09Dyrektor from "../components/agents/agent-09-dyrektor/index.svelte";
-// Heroicons React components
-import { 
-  MusicalNoteIcon,
-  CpuChipIcon,
-  SparklesIcon,
-  EyeIcon,
-  CodeBracketIcon,
-  DocumentTextIcon,
-  BoltIcon,
-  PaintBrushIcon,
-  BriefcaseIcon,
-  ChatBubbleLeftRightIcon,
-  ArrowPathIcon,
-  FolderIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import NewsBiznesowe from '../components/NewsBiznesowe';
+import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
 ---
 
-<MyBonzoLayout siteTitle="AI Workers Platform | KAROL LISSON">
-  <main class="min-h-svh">
-    <!-- Optimized sections for better SSR streaming -->
-    <HeroSection />
-    <NavigationSection />
-    <AIWorkersSection />
+<MainLayout title="Strona Główna">
+  <div class="container mx-auto px-4 py-12">
 
-    <!-- Separator Section 1 -->
-    <section class="border border-edge relative">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge"
-        ></div>
-        <div
-          class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-        ></div>
-        <!-- Outer vertical lines -->
-        <div
-          class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge"
-        ></div>
-        <div
-          class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-        ></div>
-      </div>
-      <div class="max-w-6xl mx-auto">
-        <div class="py-1"></div>
+    <!-- Hero Section -->
+    <section class="text-center mb-16 fade-in">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">
+        <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
+          AI Biznes Start
+        </span>
+      </h1>
+      <p class="text-xl md:text-2xl text-business-text-dim mb-8 max-w-3xl mx-auto">
+        Twoje pierwsze kroki w świecie AI dla biznesu.<br/>
+        Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/narzedzia" class="btn-primary">
+          🚀 Zobacz Narzędzia
+        </a>
+        <a href="/instrukcje" class="btn-secondary">
+          📚 Jak Zacząć?
+        </a>
       </div>
     </section>
 
-            }
-        <WorkersGridSection />
-        <MainWorkersCardsSection />
-
-        <section class="relative z-20 py-16">
-          <div class="max-w-7xl mx-auto px-4">
-            <h3 class="text-4xl font-bold text-cyan-400 mb-8 text-center">ZAAWANSOWANE FUNKCJE AI</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <!-- Function 1: Marketing Content -->
-              <a href="/ai-functions/marketing-content" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">📝</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Generator Treści</h3>
-                      <p class="text-sm text-[#a0a0a0]">Marketing & Content</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Automatyczne generowanie profesjonalnych treści marketingowych przy użyciu AI</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">GPT-4</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Social Media</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">E-mail</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 2: Recommendations -->
-              <a href="/ai-functions/personalized-recommendations" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">🎯</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Rekomendacje</h3>
-                      <p class="text-sm text-[#a0a0a0]">Personalization & ML</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">System rekomendacji produktów i usług oparty na preferencjach użytkownika</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">ML</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Analytics</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Real-time</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 3: Customer Automation -->
-              <a href="/ai-functions/customer-automation" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">🤖</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Obsługa Klienta</h3>
-                      <p class="text-sm text-[#a0a0a0]">Automation & Support</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Automatyzacja obsługi klienta z NLP i kwalifikacją leadów</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">NLP</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">24/7</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">CRM</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 4: Activity Monitoring -->
-              <a href="/ai-functions/activity-monitoring" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">📊</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Monitorowanie</h3>
-                      <p class="text-sm text-[#a0a0a0]">Analytics & Tracking</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Dashboard monitorowania aktywności w czasie rzeczywistym</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Real-time</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Alerts</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Logs</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 5: Reminders & Calendar -->
-              <a href="/ai-functions/reminders-calendar" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">📅</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Harmonogramowanie</h3>
-                      <p class="text-sm text-[#a0a0a0]">Calendar & Reminders</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Inteligentny system przypominań z AI scheduling</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Calendar</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Smart AI</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Sync</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 6: Dynamic FAQ -->
-              <a href="/ai-functions/dynamic-faq" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">❓</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Dynamiczne FAQ</h3>
-                      <p class="text-sm text-[#a0a0a0]">Knowledge Base & AI</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">AI automatycznie generuje FAQ z bazy wiedzy</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Auto-Gen</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Learning</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Voice</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 7: Education Recommendations -->
-              <a href="/ai-functions/education-recommendations" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">🎓</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Edukacja</h3>
-                      <p class="text-sm text-[#a0a0a0]">Learning & Development</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Personalizowane ścieżki rozwoju dla pracowników</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Learning</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Skills</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Paths</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 8: AI Tickets -->
-              <a href="/ai-functions/ai-tickets" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">🎫</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Tickety AI</h3>
-                      <p class="text-sm text-[#a0a0a0]">Support & Management</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Automatyczna klasyfikacja i priorytetyzacja ticketów</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Auto-Route</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">SLA</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Priority</span>
-                  </div>
-                </div>
-              </a>
-
-              <!-- Function 9: Interactive Quizzes -->
-              <a href="/ai-functions/interactive-quizzes" class="group">
-                <div class="p-6 bg-[#111111] border border-[#333333] glass-effect hover:border-[#00ffff]/50 transition-all duration-300 h-full">
-                  <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-[#00ffff]/10 border border-[#00ffff]/30 flex items-center justify-center mr-4">
-                      <span class="text-2xl">🧠</span>
-                    </div>
-                    <div>
-                      <h3 class="text-xl font-bold text-[#00ffff] font-mono uppercase">Quizy AI</h3>
-                      <p class="text-sm text-[#a0a0a0]">Testing & Assessment</p>
-                    </div>
-                  </div>
-                  <p class="text-[#e0e0e0] font-['Kenyan_Coffee'] mb-4">Framework do tworzenia quizów z AI oceną</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">AI Scoring</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Adaptive</span>
-                    <span class="px-2 py-1 bg-[#00ffff]/20 text-[#00ffff] text-xs font-mono uppercase">Feedback</span>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Duplikat usunięty całkowicie - sekcja worker-cards była powtórzona -->
-            </div>
-          </div>
-        </div>
+    <!-- Statystyki -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent mb-2">10</div>
+        <div class="text-business-text-dim">Narzędzi Biznesowych</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
+        <div class="text-business-text-dim">Po Polsku</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
+        <div class="text-business-text-dim">Wsparcie Gemini</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-purple-400 mb-2">🤖</div>
+        <div class="text-business-text-dim">Asystent 24/7</div>
       </div>
     </section>
 
-    <!-- O_MNIE Section -->
-    <section class="border border-edge relative py-16">
-      <div class="absolute left-0 right-0 h-full">
-        <!-- Inner vertical lines - closer to content for tight frame around O_MNIE -->
-        <div class="absolute left-[calc(50vw+200px)] top-0 bottom-0 w-px bg-edge"></div>
-        <div class="absolute right-[calc(50vw-200px)] top-0 bottom-0 w-px bg-edge"></div>
-        <!-- Outer vertical lines - closer to content -->
-        <div class="absolute left-[calc(50vw+300px)] top-0 bottom-0 w-px bg-edge"></div>
-        <div class="absolute right-[calc(50vw-300px)] top-0 bottom-0 w-px bg-edge"></div>
-      </div>
-      <div class="max-w-6xl mx-auto px-8">
-        <h3 class="text-4xl font-bold text-cyan-400 mb-8 text-center">O MNIE</h3>
-        <div class="max-w-4xl mx-auto">
-          <div class="text-edge text-lg leading-relaxed" style="line-height: 1.6; word-wrap: break-word;">
-            <p class="mb-6">
-              W mojej pracy skupiam się na integracji technologii w chmurze,
-              nowoczesnych frameworków i AI, aby stworzyć asystenta, który rozumie
-              i wspiera użytkownika w jego potrzebach.
-            </p>
-            <p class="italic text-cyan-300 mb-8">
-              If robots are destined for eternal life, what will stop us from becoming one of them? There is no escape, only the illusion of choice; yet, the very essence of humanity lies in the absurd act of will—in the Sisyphus-like heroism of undertaking the struggle anew—where to the question 'Why?' we can always, ultimately, reply: 'Because I choose to.'
+    <!-- Featured Tool -->
+    <section class="mb-12">
+      <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform">
+            🤖
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-full mb-2">
+              ⭐ NOWOŚĆ - Gemini AI
+            </div>
+            <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
+            <p class="text-lg text-gray-300">
+              Twój osobisty doradca 24/7 - zadaj pytanie o strategię, marketing, finanse, prawo biznesowe.
+              Odpowiedzi w czasie rzeczywistym powered by Gemini 2.0 Flash.
             </p>
           </div>
-          
-          <!-- System Agents i 100% Handmade Links -->
-          <div class="flex flex-row justify-center gap-8 text-center mt-8">
-            <a
-              class="hover:brightness-125 duration-200 text-cyan-400 font-mono uppercase"
-              target="_blank"
-              rel="noopener noreferrer"
-              href="/workers"
-            >
-              SYSTEM AGENTS
-              <svg
-                style="--rotation: -45deg"
-                class="stroke-primary-foreground inline aspect-square w-3 h-auto fill-transparent rotate-[var(--rotation)] ml-2"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </a>
-            <div
-              class="group w-24 p-1 border border-primary-foreground rounded-interactive text-primary-foreground text-xs font-black text-nowrap opacity-60"
-            >
-              <span class="group-hover:hidden">100% HANDMADE</span>
-              <span class="hidden group-hover:inline">0% AI</span>
-            </div>
+          <div class="text-indigo-400 text-3xl group-hover:translate-x-2 transition-transform">
+            →
           </div>
         </div>
-      </div>
-    </section>
-    
-
-  </main>
-
-  <!-- Left Floating Panel - Fixed Left Side -->
-  <div class="left-panel-fixed">
-    <div class="floating-widget-container">
-      <a href="/admin/" class="left-btn" style="text-decoration: none; display: block; text-align: center;">
-        🔧 PANEL ADMIN
       </a>
-    </div>
+    </section>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="toggleWidget"
-        data-widget="loginWidget"
-        class="left-btn"
-        id="loginBtn"
-        title="Zaloguj się do dashboardu"
-      >
-        🔑 LOGIN
-      </button>
-      <div id="loginWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🔑 DASHBOARD LOGIN</span>
-            <button data-action="toggleWidget" data-widget="loginWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
+    <!-- Narzędzia - Podgląd -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🛠️ Dostępne Narzędzia
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Kreator Dokumentów -->
+        <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded">NOWE</span>
           </div>
-          <div class="panel-content">
-            <input
-              type="text"
-              id="dashboardUser"
-              placeholder="Użytkownik (admin/user)"
-              style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #333; background: rgba(0,0,0,0.7); color: white; border-radius: 4px;"
-            />
-            <input
-              type="password"
-              id="dashboardPassword"
-              placeholder="Hasło"
-              style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #333; background: rgba(0,0,0,0.7); color: white; border-radius: 4px;"
-            />
-            <button onclick="checkDashboardLogin()" style="width: 100%; padding: 8px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
-              Zaloguj się
-            </button>
-            <p id="loginError" class="text-red-500 text-sm mt-2"></p>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-cyan-600 to-cyan-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kreator Dokumentów</h3>
+          <p class="text-sm text-business-text-dim">
+            Umowy, regulaminy, RODO, NDA - AI generuje zgodnie z prawem
+          </p>
+        </a>
+
+        <!-- Generator Faktur -->
+        <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-emerald-600 to-emerald-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Faktur VAT</h3>
+          <p class="text-sm text-business-text-dim">
+            Profesjonalne faktury z VAT - eksport do PDF, pełna polskość
+          </p>
+        </a>
+
+        <!-- Generator Treści -->
+        <a href="/narzedzia/generator-tresci" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-blue-600 to-blue-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Treści</h3>
+          <p class="text-sm text-business-text-dim">
+            Posty, opisy produktów, newslettery - AI w sekundę
+          </p>
+        </a>
+
+        <!-- Asystent Email -->
+        <a href="/narzedzia/asystent-email" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-purple-600 to-purple-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Email</h3>
+          <p class="text-sm text-business-text-dim">
+            Profesjonalne emaile biznesowe z etykietą
+          </p>
+        </a>
+
+        <!-- Organizer Zadań -->
+        <a href="/narzedzia/organizer-zadan" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-green-600 to-green-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Organizer Zadań</h3>
+          <p class="text-sm text-business-text-dim">
+            Zarządzaj zadaniami - priorytety, terminy, filtry
+          </p>
+        </a>
+
+        <!-- Kalkulator Biznesowy -->
+        <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-orange-600 to-orange-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kalkulator Biznesowy</h3>
+          <p class="text-sm text-business-text-dim">
+            Marże, VAT, ROI, zyski - wszystko w jednym
+          </p>
+        </a>
+
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/narzedzia" class="btn-primary">
+          Zobacz Wszystkie Narzędzia →
+        </a>
+      </div>
+    </section>
+
+    <!-- Jak to działa -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🎯 Jak to działa?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            1
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wybierz Narzędzie</h3>
+          <p class="text-business-text-dim">
+            Kliknij na narzędzie, które Cię interesuje. Każde ma jasny opis co robi.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            2
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wpisz co Potrzebujesz</h3>
+          <p class="text-business-text-dim">
+            Opisz zwykłymi słowami czego potrzebujesz. AI zrozumie i pomoże.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            3
+          </div>
+          <h3 class="text-xl font-bold mb-3">Gotowe!</h3>
+          <p class="text-business-text-dim">
+            AI wygeneruje dla Ciebie gotowe rozwiązanie. Kopiuj i używaj!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dla kogo -->
+    <section class="card mb-16">
+      <h2 class="text-2xl font-bold mb-6 text-center">
+        💼 Dla kogo jest ta platforma?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Początkujący Przedsiębiorcy</h3>
+            <p class="text-sm text-business-text-dim">Dopiero zaczynasz? Pomożemy Ci zautomatyzować pierwsze procesy.</p>
           </div>
         </div>
-    </div>
 
-    <!-- Duplikaty MCP serwerów usunięte -->
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Freelancerzy</h3>
+            <p class="text-sm text-business-text-dim">Oszczędzaj czas na administracji, skup się na pracy.</p>
+          </div>
+        </div>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-browser"
-        class="left-btn"
-        id="mcpBrowserBtn"
-        title="MCP Browser Server"
-      >
-        🌐 BROWSER
-      </button>
-    </div>
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Małe Firmy</h3>
+            <p class="text-sm text-business-text-dim">Automatyzuj marketing, faktury, dokumenty - bez zatrudniania zespołu.</p>
+          </div>
+        </div>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-docker"
-        class="left-btn"
-        id="mcpDockerBtn"
-        title="MCP Docker Server"
-      >
-        🐳 DOCKER
-      </button>
-    </div>
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Osoby bez Wiedzy Technicznej</h3>
+            <p class="text-sm text-business-text-dim">Wszystko jest proste i intuicyjne. Nie potrzebujesz kursu AI!</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-github"
-        class="left-btn"
-        id="mcpGithubBtn"
-        title="MCP GitHub Server"
-      >
-        ⚡ GITHUB
-      </button>
-    </div>
+    <!-- Newsy i Media -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+      <NewsBiznesowe client:load />
+      <MusicPlayerVisualizer client:load />
+    </section>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-knowledge"
-        class="left-btn"
-        id="mcpKnowledgeBtn"
-        title="MCP Knowledge Server"
-      >
-        🧠 KNOWLEDGE
-      </button>
-    </div>
+    <!-- CTA -->
+    <section class="text-center card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700">
+      <h2 class="text-3xl font-bold mb-4">
+        Gotowy żeby zacząć?
+      </h2>
+      <p class="text-business-text-dim mb-6 max-w-2xl mx-auto">
+        Nie czekaj! Wypróbuj nasze narzędzia już teraz - bez rejestracji, za darmo.
+      </p>
+      <a href="/narzedzia" class="btn-primary">
+        🚀 Rozpocznij Teraz
+      </a>
+    </section>
 
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-sqlite"
-        class="left-btn"
-        id="mcpSqliteBtn"
-        title="MCP SQLite Server - Database Operations"
-      >
-        🗄️ SQLITE
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-filesystem"
-        class="left-btn"
-        id="mcpFilesystemBtn"
-        title="MCP Filesystem Server - File Management"
-      >
-        📁 FILESYSTEM
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-postgres"
-        class="left-btn"
-        id="mcpPostgresBtn"
-        title="MCP PostgreSQL Server - Advanced Database"
-      >
-        🐘 POSTGRES
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-fetch"
-        class="left-btn"
-        id="mcpFetchBtn"
-        title="MCP Fetch Server - HTTP Requests"
-      >
-        🌍 FETCH
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-brave-search"
-        class="left-btn"
-        id="mcpBraveSearchBtn"
-        title="MCP Brave Search Server - Web Search"
-      >
-        🔍 BRAVE SEARCH
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-obsidian"
-        class="left-btn"
-        id="mcpObsidianBtn"
-        title="MCP Obsidian Server - Knowledge Management"
-      >
-        📝 OBSIDIAN
-      </button>
-    </div>
-
-    <div class="floating-widget-container">
-      <button
-        data-action="open-mcp-slack"
-        class="left-btn"
-        id="mcpSlackBtn"
-        title="MCP Slack Server - Team Communication"
-      >
-        💬 SLACK
-      </button>
-    </div>
   </div>
-
-  <!-- Right Floating Panel - Fixed Right Side -->
-  <div class="right-panel-fixed">
-    <div class="floating-widget-container">
-      <button
-        data-action="toggleWidget"
-        data-widget="musicPlayerWidget"
-        class="right-btn"
-        id="musicPlayerBtn"
-      >
-        🎵 MUSIC PLAYER
-      </button>
-      <div id="musicPlayerWidget" class="floating-widget hidden">
-        <BackgroundMusicPlayerSimple client:load />
-      </div>
-    </div>
-
-
-
-    <div class="floating-widget-container">
-      <button data-agent="1" class="right-btn" id="voiceAgentBtn" title="Agent 01 - Voice Command Agent">
-        🎤 AGENT 01 - VOICE
-      </button>
-      <div id="voiceAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🎙️ VOICE COMMAND AGENT</span>
-            <button data-action="toggleWidget" data-widget="voiceAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Voice Command Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="2" class="right-btn" id="musicAgentBtn" title="Agent 02 - Music Control Agent">
-        🎵 AGENT 02 - MUSIC
-      </button>
-      <div id="musicAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🎵 MUSIC CONTROL AGENT</span>
-            <button data-action="toggleWidget" data-widget="musicAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Music Control Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="3" class="right-btn" id="systemAgentBtn" title="Agent 03 - System Monitor Agent">
-        🤖 AGENT 03 - SYSTEM
-      </button>
-      <div id="systemAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🤖 SYSTEM MONITOR AGENT</span>
-            <button data-action="toggleWidget" data-widget="systemAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>System Monitor Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="4" class="right-btn" id="crawlerAgentBtn" title="Agent 04 - Web Crawler Agent">
-        🕷️ AGENT 04 - CRAWLER
-      </button>
-      <div id="crawlerAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🕷️ WEB CRAWLER AGENT</span>
-            <button data-action="toggleWidget" data-widget="crawlerAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Web Crawler Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="5" class="right-btn" id="emailAgentBtn" title="Agent 05 - Email Manager Agent">
-        📧 AGENT 05 - EMAIL
-      </button>
-      <div id="emailAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>📧 EMAIL MANAGER AGENT</span>
-            <button data-action="toggleWidget" data-widget="emailAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Email Manager Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="6" class="right-btn" id="databaseAgentBtn" title="Agent 06 - Database Query Agent">
-        🗃️ AGENT 06 - DATABASE
-      </button>
-      <div id="databaseAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🗃️ DATABASE QUERY AGENT</span>
-            <button data-action="toggleWidget" data-widget="databaseAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Database Query Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="7" class="right-btn" id="contentAgentBtn" title="Agent 07 - Content Creator Agent">
-        ✍️ AGENT 07 - CONTENT
-      </button>
-      <div id="contentAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>✍️ CONTENT CREATOR AGENT</span>
-            <button data-action="toggleWidget" data-widget="contentAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Content Creator Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="8" class="right-btn" id="securityAgentBtn" title="Agent 08 - Security Guard Agent">
-        🛡️ AGENT 08 - SECURITY
-      </button>
-      <div id="securityAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🛡️ SECURITY GUARD AGENT</span>
-            <button data-action="toggleWidget" data-widget="securityAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Security Guard Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Agent 09 Dyrektor Widget -->
-    <div class="floating-widget-container">
-      <button data-agent="9" class="right-btn" id="agent09DyrektorBtn" title="Agent 09 - Dyrektor Biznesowy">
-        <BriefcaseIcon className="w-6 h-6 inline mr-2" /> AGENT 09 - DYREKTOR
-      </button>
-      <div id="agent09DyrektorWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🏢 AGENT 09 - DYREKTOR</span>
-            <button data-action="toggleWidget" data-widget="agent09DyrektorWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <Agent09Dyrektor client:load />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="10" class="right-btn" id="analyticsAgentBtn" title="Agent 10 - Analytics Prophet Agent">
-        📊 AGENT 10 - ANALYTICS
-      </button>
-      <div id="analyticsAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>📊 ANALYTICS PROPHET AGENT</span>
-            <button data-action="toggleWidget" data-widget="analyticsAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Analytics Prophet Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="file" class="right-btn" id="fileAgentBtn" title="File Manager Agent - Zarządzanie plikami">
-        🗂️ FILE MANAGER
-      </button>
-      <div id="fileAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🗂️ FILE MANAGER</span>
-            <button data-action="toggleWidget" data-widget="fileAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>File Manager Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="floating-widget-container">
-      <button data-agent="marketing" class="right-btn" id="marketingAgentBtn" title="Marketing Maestro Agent - Marketing AI">
-        🎯 MARKETING AGENT
-      </button>
-      <div id="marketingAgentWidget" class="floating-widget hidden">
-        <div class="floating-widget-template">
-          <div class="panel-header">
-            <span>🎯 MARKETING AGENT</span>
-            <button data-action="toggleWidget" data-widget="marketingAgentWidget" style="background: transparent; border: none; color: #000; font-size: 18px; cursor: pointer;">×</button>
-          </div>
-          <div class="panel-content">
-            <p>Marketing Maestro Agent is active.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <button onclick="openRefresh()" class="right-btn"> <ArrowPathIcon className="w-6 h-6 inline mr-2" /> REFRESH </button>
-    <button onclick="openFolder()" class="right-btn"> <FolderIcon className="w-6 h-6 inline mr-2" /> FOLDER </button>
-    <button onclick="openClose()" class="right-btn"> <XMarkIcon className="w-6 h-6 inline mr-2" /> CLOSE </button>
-  </div>
-
-  <!-- Separator Section 4 -->
-  <section class="border border-edge relative">
-    <div class="absolute left-0 right-0 h-full">
-      <!-- Inner vertical lines -->
-      <div class="absolute left-[calc(50vw+400px)] top-0 bottom-0 w-px bg-edge">
-      </div>
-      <div
-        class="absolute right-[calc(50vw-400px)] top-0 bottom-0 w-px bg-edge"
-      >
-      </div>
-      <!-- Outer vertical lines -->
-      <div class="absolute left-[calc(50vw+600px)] top-0 bottom-0 w-px bg-edge">
-      </div>
-      <div
-        class="absolute right-[calc(50vw-600px)] top-0 bottom-0 w-px bg-edge"
-      >
-      </div>
-    </div>
-    <div class="max-w-6xl mx-auto">
-      <div class="py-1"></div>
-    </div>
-  </section>
-
-  <!-- Footer Section - simplified without frame lines -->
-  <section class="relative py-8">
-    <div class="max-w-6xl mx-auto">
-      <div class="flex flex-row justify-center items-center py-8 px-8">
-        <!-- Footer content can be added here if needed -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Universal Worker Communication Popup -->
-  <WorkerCommunicationPopup />
-</MyBonzoLayout>
-
-<!-- JavaScript Functions -->
-<script>
-  import {
-    openImageGenerator,
-    openChatbot,
-    openBigQuery,
-    openKaggle,
-    openTavily,
-    testButtonFunction,
-    runAllAPITests,
-    openAPITestConsole,
-    openCloudflareWorkers,
-    checkAllStatus,
-    launchFlowise,
-    launchActivepieces,
-    openFunction
-  } from '../scripts/main-page';
-
-  // Google ADK Manager - dynamically imported
-  let adkManager: any = null;
-  let initializeADK: any = null;
-  let sendMessageToADK: any = null;
-  
-  // Assign imported functions to window object
-  (window as any).openImageGenerator = openImageGenerator;
-  (window as any).openChatbot = openChatbot;
-  (window as any).openBigQuery = openBigQuery;
-  (window as any).openKaggle = openKaggle;
-  (window as any).openTavily = openTavily;
-  (window as any).testButtonFunction = testButtonFunction;
-  (window as any).runAllAPITests = runAllAPITests;
-  (window as any).openAPITestConsole = openAPITestConsole;
-  (window as any).openCloudflareWorkers = openCloudflareWorkers;
-  (window as any).checkAllStatus = checkAllStatus;
-  (window as any).launchFlowise = launchFlowise;
-  (window as any).launchActivepieces = launchActivepieces;
-  (window as any).openFunction = openFunction;
-
-  // Google ADK Agent initialization flag
-  let adkInitialized = false;
-
-  // Initialize Google ADK Manager
-  async function initGoogleADK() {
-    try {
-      if (!adkManager) {
-        const adkModule = await import('../agents/google-adk/manager');
-        adkManager = adkModule.adkManager;
-        initializeADK = adkModule.initializeADK;
-        sendMessageToADK = adkModule.sendMessageToADK;
-        
-        await initializeADK();
-        adkInitialized = true;
-        console.log('✅ Google ADK Manager loaded and initialized');
-      }
-    } catch (error) {
-      console.error('❌ Failed to load Google ADK Manager:', error);
-    }
-  }
-
-  (window as any).checkDashboardLogin = async function () {
-    const userInput = document.getElementById("dashboardUser") as HTMLInputElement;
-    const passwordInput = document.getElementById("dashboardPassword") as HTMLInputElement;
-    const loginWidget = document.getElementById("loginWidget");
-    const loginError = document.getElementById("loginError") as HTMLParagraphElement;
-
-    if (!userInput || !passwordInput || !loginWidget || !loginError) return;
-
-    const login = userInput.value.trim();
-    const password = passwordInput.value.trim();
-    loginError.textContent = ''; // Clear previous errors
-
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ login, password })
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        loginWidget.classList.add("hidden");
-        console.log(`${data.role} login successful`);
-
-        if (data.role === 'admin') {
-          const dashboardButtons = document.getElementById("dashboardButtons");
-          if (dashboardButtons) {
-            dashboardButtons.classList.remove("hidden");
-          }
-        } else if (data.role === 'user') {
-          const aiSections = document.querySelectorAll('.ai-functions-section');
-          aiSections.forEach(section => section.classList.remove('hidden'));
-        }
-
-      } else {
-        loginError.textContent = data.message || 'Invalid credentials';
-        passwordInput.style.borderColor = "#ef4444";
-        setTimeout(() => {
-          passwordInput.style.borderColor = "";
-        }, 2000);
-      }
-    } catch (error) {
-      console.error('Login API error:', error);
-      loginError.textContent = 'An error occurred during login.';
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log("🚀 DOM załadowany, inicjalizacja funkcji");
-
-    // Add Enter key handler for dashboard login
-    const userInput = document.getElementById("dashboardUser");
-    const passwordInput = document.getElementById("dashboardPassword");
-    if (userInput) {
-      userInput.addEventListener("keydown", function (e) {
-        if ((e as any).key === "Enter") {
-          (window as any).checkDashboardLogin();
-        }
-      });
-    }
-    if (passwordInput) {
-      passwordInput.addEventListener("keydown", function (e) {
-        if ((e as any).key === "Enter") {
-          (window as any).checkDashboardLogin();
-        }
-      });
-    }
-  });
-</script>
-
-<!-- BigQuery API Integration Script -->
-<script is:inline>
-  // Import BigQuery API functionality
-  import('../utils/bigQueryAPI.js').then(module => {
-    // Make BigQuery functions available globally
-    window.BigQueryAPI = module.BigQueryAPI;
-    window.BigQueryInterface = module.BigQueryInterface;
-    console.log('✅ BigQuery API loaded');
-  }).catch(err => console.warn('⚠️ BigQuery API load failed:', err));
-</script>
-
-<!-- Kaggle API Integration Script -->
-<script is:inline>
-  // Import Kaggle API functionality  
-  import('../utils/kaggleAPI.js').then(module => {
-    // Make Kaggle functions available globally
-    window.KaggleAPI = module.KaggleAPI;
-    window.KaggleInterface = module.KaggleInterface;
-    console.log('✅ Kaggle API loaded');
-  }).catch(err => console.warn('⚠️ Kaggle API load failed:', err));
-</script>
-
-<!-- Voice AI Integration Script -->
-<script is:inline>
-  // Import Voice AI functionality
-  import('../utils/voiceAiAPI.js').then(module => {
-    // Make Voice AI functions available globally
-    window.VoiceAIAPI = module.VoiceAIAPI;
-    window.VoiceAIInterface = module.VoiceAIInterface;
-    console.log('✅ Voice AI API loaded');
-  }).catch(err => console.warn('⚠️ Voice AI API load failed:', err));
-</script>
-
-<style>
-  /* Backroom-style background with vertical lines */
-  body {
-    background: 
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 49px,
-        rgba(0, 217, 255, 0.02) 50px,
-        rgba(0, 217, 255, 0.02) 51px
-      ),
-      radial-gradient(ellipse at center, rgba(13, 21, 26, 0.95), rgba(5, 8, 10, 1));
-    background-attachment: fixed;
-  }
-
-  /* System title - enlarged and bold */
-  .system-title {
-    color: #00d7ef !important;
-    font-weight: 900 !important;
-    font-size: 3.5rem !important;
-    margin-bottom: 1rem !important;
-    text-align: center !important;
-    text-shadow: 0 0 20px rgba(0, 215, 239, 0.5);
-    letter-spacing: 0.02em;
-  }
-
-  /* Dashboard login section */
-  .dashboard-login-section {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 32px 24px;
-    margin: 24px 0;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0px;
-    box-shadow: 0 2px 18px rgba(0, 217, 255, 0.2);
-  }
-
-  .login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .login-input {
-    background: #131e28;
-    color: #00d7ef;
-    padding: 12px 16px;
-    border: 2px solid rgba(0, 217, 255, 0.4);
-    border-radius: 0px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-align: center;
-    min-width: 200px;
-    transition: all 0.2s ease;
-  }
-
-  .login-input:focus {
-    outline: none;
-    border-color: #00d7ef;
-    box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
-  }
-
-  .login-btn {
-    background-color: #164e63;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 0px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.2);
-  }
-
-  .login-btn:hover {
-    background-color: #1be1ff;
-    color: #000;
-    transform: translateY(-1px);
-  }
-
-  .dashboard-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .dashboard-btn {
-    background-color: #164e63;
-    color: white;
-    padding: 14px 28px;
-    border-radius: 0px;
-    font-weight: 600;
-    font-size: 1.2rem;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    min-width: 220px;
-    box-shadow: 0 2px 18px rgba(0, 217, 255, 0.3);
-    transition: all 0.2s ease;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-  }
-
-  .dashboard-btn:hover {
-    background-color: #1be1ff;
-    color: #000;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.5);
-  }
-
-  /* Feature tiles for 9 functions */
-  .feature-tile {
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0px;
-    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
-    padding: 34px 24px 24px 24px;
-    margin: 0; /* grid gap controls spacing now */
-    text-align: left;
-    min-width: 270px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    z-index: 52;
-    pointer-events: auto;
-  }
-
-  .feature-tile:hover {
-    border-color: #00d7ef;
-    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
-    transform: translateY(-3px);
-  }
-
-  .feature-title {
-    color: #00d7ef;
-    font-weight: 700;
-    font-size: 1.24rem;
-    margin-bottom: 0.46em;
-  }
-
-  .feature-desc {
-    color: #94aec4;
-    font-size: 1.09rem;
-    line-height: 1.5;
-  }
-
-  .feature-icon {
-    font-size: 2.7rem;
-    margin-bottom: 14px;
-    color: #1be1ff;
-    display: block;
-  }
-
-  /* Old admin-panel-fixed removed - now using left-panel-fixed */
-
-  /* Right panel - fixed right side */
-  .right-panel-fixed {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    top: 20px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(27, 225, 255, 0.5) rgba(0, 0, 0, 0.2);
-  }
-
-  .right-panel-fixed::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .right-panel-fixed::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 0;
-  }
-
-  .right-panel-fixed::-webkit-scrollbar-thumb {
-    background: rgba(27, 225, 255, 0.5);
-    border-radius: 0;
-  }
-
-  .right-panel-fixed::-webkit-scrollbar-thumb:hover {
-    background: rgba(27, 225, 255, 0.7);
-  }
-
-  .left-panel-fixed {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    top: 20px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(27, 225, 255, 0.5) rgba(0, 0, 0, 0.2);
-  }
-
-  .left-panel-fixed::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .left-panel-fixed::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 0;
-  }
-
-  .left-panel-fixed::-webkit-scrollbar-thumb {
-    background: rgba(27, 225, 255, 0.5);
-    border-radius: 0;
-  }
-
-  .left-panel-fixed::-webkit-scrollbar-thumb:hover {
-    background: rgba(27, 225, 255, 0.7);
-  }
-
-  .right-btn {
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffffff;
-    padding: 8px 20px;
-    margin: 0;
-    border-radius: 0px;
-    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    transition: all 0.3s ease;
-    display: block;
-    text-align: center;
-    min-width: 309px;
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(20px);
-    font-family: 'Courier New', monospace;
-  }
-
-  .right-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-    color: #00d7ef;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
-    border-color: #00d7ef;
-    backdrop-filter: blur(25px);
-  }
-
-  .right-btn:active {
-    transform: translateY(0px);
-    box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
-  }
-
-  .left-btn {
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffffff;
-    padding: 8px 20px;
-    margin: 0;
-    border-radius: 0px;
-    box-shadow: 0 1px 26px rgba(20, 215, 230, 0.2);
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    transition: all 0.3s ease;
-    display: block;
-    text-align: center;
-    min-width: 309px;
-    cursor: pointer;
-    position: relative;
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(20px);
-    font-family: 'Courier New', monospace;
-  }
-
-  .left-btn:hover {
-    background: rgba(0, 0, 0, 0.7);
-    color: #00d7ef;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 30px rgba(0, 217, 255, 0.4);
-    border-color: #00d7ef;
-    backdrop-filter: blur(25px);
-  }
-
-  .left-btn:active {
-    transform: translateY(0px);
-    box-shadow: 0 2px 10px rgba(0, 217, 255, 0.4);
-  }
-
-  .admin-btn {
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    padding: 8px 20px;
-    border-radius: 0px;
-    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.1);
-    font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-    display: block;
-    text-align: center;
-    min-width: 160px;
-    position: relative;
-    z-index: 10;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    backdrop-filter: blur(20px);
-    font-family: 'Courier New', monospace;
-  }
-
-  .admin-btn:hover {
-    background: rgba(0, 217, 255, 0.15);
-    color: #00d7ef;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
-    border-color: rgba(0, 217, 255, 0.8);
-    backdrop-filter: blur(25px);
-  }
-
-  /* Login container - fixed below admin panel */
-  .login-container-fixed {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 16px;
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-  }
-
-  .login-input-fixed {
-    background: #131e28;
-    color: #00d7ef;
-    padding: 10px 12px;
-    border: 2px solid rgba(0, 217, 255, 0.4);
-    border-radius: 0px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-align: center;
-    min-width: 150px;
-    transition: all 0.2s ease;
-  }
-
-  .login-input-fixed:focus {
-    outline: none;
-    border-color: #00d7ef;
-    box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
-  }
-
-  .login-input-fixed::placeholder {
-    color: rgba(0, 217, 255, 0.6);
-  }
-
-  .login-btn-fixed {
-    background-color: #164e63;
-    color: white;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 0px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 12px rgba(0, 217, 255, 0.2);
-  }
-
-  .login-btn-fixed:hover {
-    background-color: #1be1ff;
-    color: #000;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.4);
-  }
-
-  /* MCP Panel - below login panel */
-  .mcp-panel-fixed {
-    margin-top: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-    backdrop-filter: blur(20px);
-  }
-
-  .mcp-panel-header {
-    background: linear-gradient(90deg, #0f3946, #1be1ff);
-    color: #000;
-    padding: 8px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-family: 'Courier New', monospace;
-  }
-
-  .mcp-btn {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    padding: 8px 12px;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    backdrop-filter: blur(20px);
-    font-family: 'Courier New', monospace;
-  }
-
-  .mcp-btn:last-child {
-    border-bottom: none;
-  }
-
-  .mcp-btn:hover {
-    background: rgba(0, 217, 255, 0.15);
-    color: #00d7ef;
-    transform: translateX(3px);
-    box-shadow: inset 3px 0 0 rgba(0, 217, 255, 0.8);
-  }
-
-  .mcp-btn-icon {
-    font-size: 1.2rem;
-    margin-right: 10px;
-    min-width: 20px;
-  }
-
-  .mcp-btn-text {
-    flex: 1;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* Override any existing rounded corners - FORCE 0px everywhere */
-  * {
-    border-radius: 0px !important;
-  }
-
-  .widget-container {
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(0, 217, 255, 0.3);
-    border-radius: 0px !important;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .widget-container:hover {
-    border-color: #00d9ff;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
-    transform: translateY(-2px);
-  }
-
-  /* Force 0px border radius on specific elements */
-  .additional-functions-section {
-    position: relative;
-    z-index: 50;
-    pointer-events: auto;
-  }
-
-  .additional-grid {
-    display: grid;
-    /* Force 3 columns on wide screens so the section is exactly 3x3 for 9 items */
-    grid-template-columns: repeat(3, 1fr);
-    /* tighter gap between items without changing tile internals */
-    gap: 0.75rem; /* ~12px */
-    margin-top: 2rem;
-    /* match width of top sections (approx Tailwind max-w-6xl = 72rem = 1152px) */
-    max-width: 72rem; /* 1152px */
-    width: 100%;
-    padding: 0 1rem; /* keep small horizontal padding on narrow screens */
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    z-index: 51;
-  }
-
-  /* Responsive fallbacks: 2 columns on medium, 1 column on small */
-  @media (max-width: 1024px) {
-    .additional-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .additional-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .hidden {
-    display: none !important;
-  }
-
-  /* Left-style buttons - same style as admin panel buttons */
-  .left-style-btn {
-    background: rgba(0, 0, 0, 0.5);
-    color: #00d7ef;
-    padding: 12px 24px;
-    border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
-    font-size: 1.1rem;
-    font-weight: 600;
-    border: 1px solid rgba(0, 217, 255, 0.4);
-    transition: all 0.2s ease;
-    display: inline-block;
-    text-align: center;
-    min-width: 180px;
-    cursor: pointer;
-  }
-
-  .left-style-btn:hover {
-    background: #00d7ef;
-    color: #131e28;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
-  }
-
-  .left-style-btn:active {
-    transform: scale(1.05) translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 217, 255, 0.7);
-  }
-
-  .left-style-buttons-section {
-    border-top: 1px solid rgba(0, 217, 255, 0.3);
-    border-bottom: 1px solid rgba(0, 217, 255, 0.3);
-  }
-
-  /* Floating widget containers and widgets */
-  .floating-widget-container {
-    position: relative;
-    display: block;
-    width: 100%;
-    margin-bottom: 8px;
-  }
-  
-  .floating-widget-container:last-child {
-    margin-bottom: 0;
-  }
-
-  .floating-widget {
-    /* Let components handle their own positioning */
-    display: block;
-  }
-
-  /* Template CSS for all floating widgets - based on Music Player design */
-  .floating-widget-template {
-    background: linear-gradient(
-      135deg,
-      rgba(15, 56, 70, 0.98),
-      rgba(0, 0, 0, 0.95)
-    );
-    border: 2px solid #1be1ff;
-    border-radius: 0;
-    backdrop-filter: blur(15px);
-    min-width: 480px;
-    max-width: 520px;
-    min-height: 450px;
-    max-height: 600px;
-    box-shadow:
-      0 0 12px rgba(27, 225, 255, 0.2),
-      0 0 25px rgba(27, 225, 255, 0.08),
-      inset 0 1px 0 rgba(27, 225, 255, 0.1);
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1000;
-    font-family: "Rajdhani", sans-serif;
-  }
-
-  .floating-widget-template .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: linear-gradient(90deg, #0f3846, #1be1ff);
-    border-bottom: 2px solid #1be1ff;
-    border-radius: 0;
-    color: #000;
-    font-size: 12px;
-    font-weight: 700;
-    text-shadow: 0 0 2px rgba(27, 225, 255, 0.4);
-    user-select: none;
-  }
-
-  .floating-widget-template .panel-content {
-    padding: 12px;
-    transition: all 0.3s ease;
-  }
-
-  /* Floating agent widgets */
-  .floating-agent-widget {
-    position: fixed !important;
-    right: 220px !important; /* Avoid left panel overlap */
-    z-index: 1000 !important;
-  }
-
-  /* Make sure existing widgets don't overlap */
-  #googleVoiceWidget {
-    position: fixed !important;
-    right: 10px !important;
-    bottom: 20px !important;
-    z-index: 999 !important;
-  }
-
-  /* Widget containers - let components handle their own positioning */
-  #polaczekWidget,
-  #musicPlayerWidget {
-    display: block;
-  }
-
-  @keyframes slideUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .system-title {
-      font-size: 2.5rem !important;
-    }
-
-    /* admin-panel-fixed removed - using left-panel-fixed */
-
-    .right-panel-fixed {
-      bottom: 20px;
-      right: 10px;
-      gap: 12px;
-    }
-
-    .left-panel-fixed {
-      bottom: 20px;
-      left: 10px;
-      gap: 12px;
-    }
-
-    .admin-btn,
-    .right-btn,
-    .left-btn {
-      min-width: 180px;
-      font-size: 1rem;
-      padding: 10px 20px;
-    }
-
-    .login-container-fixed {
-      padding: 12px;
-    }
-
-    .login-input-fixed {
-      min-width: 130px;
-      font-size: 0.9rem;
-      padding: 8px 10px;
-    }
-
-    .login-btn-fixed {
-      font-size: 0.9rem;
-      padding: 8px 12px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    /* admin-panel-fixed removed - using left-panel-fixed */
-
-    .right-panel-fixed {
-      right: 8px;
-      bottom: 15px;
-      gap: 10px;
-    }
-
-    .left-panel-fixed {
-      left: 8px;
-      bottom: 15px;
-      gap: 10px;
-    }
-
-    .admin-btn,
-    .right-btn,
-    .left-btn {
-      min-width: 150px;
-      font-size: 0.9rem;
-      padding: 8px 16px;
-    }
-
-    .login-container-fixed {
-      padding: 10px;
-    }
-
-    .login-input-fixed {
-      min-width: 120px;
-      font-size: 0.85rem;
-      padding: 7px 8px;
-    }
-
-    .login-btn-fixed {
-      font-size: 0.85rem;
-      padding: 7px 10px;
-    }
-  }
-
-  @media (min-width: 1024px) and (max-width: 1280px) {
-    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .grid-cols-1.lg\:grid-cols-2.xl\:grid-cols-3 {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* Global vertical lines for workers sections */
-  .workers-vertical-line-left,
-  .workers-vertical-line-right {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: #ffffff;
-    z-index: 999;
-    pointer-events: none;
-  }
-
-  .workers-vertical-line-left {
-    left: calc(
-      50vw - 576px - 10px - 21px
-    ); /* 21px more to the left (moved 4px to the right) */
-  }
-
-  .workers-vertical-line-right {
-    right: calc(50vw - 576px - 10px - 20px); /* 20px more to the right */
-  }
-
-  /* Remove body pseudo-elements */
-  body::before, body::after {
-    display: none;
-  }
-
-  /* Private Card Smaller Styles */
-  .private-card {
-    max-width: 280px !important;
-    min-height: 200px !important;
-  }
-
-  .private-title {
-    font-size: 1.1rem !important;
-    color: #ff6b6b !important;
-  }
-
-  .private-desc {
-    font-size: 0.85rem !important;
-    opacity: 0.8;
-  }
-
-  .private-tag {
-    background: rgba(255, 107, 107, 0.1) !important;
-    color: #ff6b6b !important;
-    font-size: 0.75rem !important;
-  }
-
-  .private-btn {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
-    font-size: 0.85rem !important;
-    padding: 8px 16px !important;
-  }
-
-  /* Floating Panel Styles */
-  .floating-panel {
-    position: fixed;
-    top: 120px;
-    right: 20px;
-    width: 280px;
-    background: rgba(20, 20, 25, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
-
-  .floating-panel h3 {
-    color: #00ff88;
-    margin: 0 0 15px 0;
-    font-size: 1.1rem;
-    text-align: center;
-  }
-
-  .panel-section {
-    margin-bottom: 15px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .panel-section h4 {
-    color: #fff;
-    margin: 0 0 8px 0;
-    font-size: 0.9rem;
-  }
-
-  .panel-button {
-    width: 100%;
-    padding: 8px 12px;
-    margin: 4px 0;
-    background: rgba(0, 255, 136, 0.1);
-    border: 1px solid rgba(0, 255, 136, 0.3);
-    border-radius: 6px;
-    color: #00ff88;
-    font-size: 0.8rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .panel-button:hover {
-    background: rgba(0, 255, 136, 0.2);
-    border-color: #00ff88;
-  }
-
-  .admin-login-btn {
-    background: rgba(255, 107, 107, 0.1) !important;
-    border: 1px solid rgba(255, 107, 107, 0.3) !important;
-    color: #ff6b6b !important;
-  }
-
-  .admin-login-btn:hover {
-    background: rgba(255, 107, 107, 0.2) !important;
-    border-color: #ff6b6b !important;
-  }
-
-  /* Reset main padding since no footer */
-  main {
-    padding-bottom: 20px;
-  }
-</style>
-
-<script>
-  // Floating Widget Toggle Function
-  function toggleWidget(widgetId) {
-    const widget = document.getElementById(widgetId);
-    if (widget) {
-      const isHidden = widget.classList.contains('hidden');
-      
-      // Hide all other widgets first
-      const allWidgets = document.querySelectorAll('.floating-widget');
-      allWidgets.forEach(w => w.classList.add('hidden'));
-      
-      // Toggle current widget
-      if (isHidden) {
-        widget.classList.remove('hidden');
-      }
-    }
-  }
-
-  // Make function globally available
-  window.toggleWidget = toggleWidget;
-
-  // Event listener for data-action buttons
-  document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(e) {
-      const button = e.target.closest('[data-action="toggleWidget"]');
-      if (button) {
-        const widgetId = button.dataset.widget;
-        if (widgetId) {
-          toggleWidget(widgetId);
-        }
-        return;
-      }
-
-      // Handle MCP actions
-      const mcpButton = e.target.closest('[data-action^="open-mcp-"]');
-      if (mcpButton) {
-        const action = mcpButton.dataset.action;
-        handleMcpAction(action);
-        return;
-      }
-    });
-  });
-
-  // MCP Action Handler
-  function handleMcpAction(action) {
-    console.log('MCP Action:', action);
-    
-    switch(action) {
-      case 'open-mcp-browser':
-        // Open browser MCP configuration
-        window.open('/mcp-servers-management#browser', '_blank');
-        break;
-      case 'open-mcp-docker':
-        // Open Docker MCP configuration  
-        window.open('/mcp-servers-management#docker', '_blank');
-        break;
-      case 'open-mcp-github':
-        // Open GitHub MCP configuration
-        window.open('/mcp-servers-management#github', '_blank');
-        break;
-      case 'open-mcp-knowledge':
-        // Open Knowledge Graph MCP configuration
-        window.open('/mcp-servers-management#knowledge', '_blank');
-        break;
-      default:
-        console.warn('Unknown MCP action:', action);
-        // Fallback - open MCP management page
-        window.open('/mcp-servers-management', '_blank');
-    }
-  }
-
-  // Make MCP handler globally available
-  window.handleMcpAction = handleMcpAction;
-
-  // MyBlog AI Launch Function
-  function launchMyBlogAI() {
-    window.open('/myblogai', '_blank');
-  }
-
-  // Make function globally available
-  window.launchMyBlogAI = launchMyBlogAI;
-
-  // Enhanced Main Chat System
-  class MainChatAgentFunctions {
-    constructor() {
-      this.isActive = false;
-      this.chatHistory = [];
-    }
-
-    // Bind to global scope for right-panel integration
-    bindToRightPanel() {
-      window.openMainChat = this.openMainChat.bind(this);
-      window.toggleMainChat = this.toggleMainChat.bind(this);
-      window.closeMainChat = this.closeMainChat.bind(this);
-      window.sendToMainChat = this.sendToMainChat.bind(this);
-      window.clearMainChat = this.clearMainChat.bind(this);
-    }
-
-    // Open main chat
-    openMainChat() {
-      console.log('💬 Opening Enhanced Main Chat...');
-      this.createChatWidget();
-      this.isActive = true;
-    }
-
-    // Toggle chat widget
-    toggleMainChat() {
-      if (this.isActive) {
-        this.closeMainChat();
-      } else {
-        this.openMainChat();
-      }
-    }
-
-    // Create chat widget
-    createChatWidget() {
-      const existingWidget = document.getElementById('mainChatWidget');
-      if (existingWidget) {
-        existingWidget.classList.remove('hidden');
-        return;
-      }
-
-      const widget = document.createElement('div');
-      widget.id = 'mainChatWidget';
-      widget.className = 'floating-widget';
-      widget.style.cssText = `
-        position: fixed;
-        top: 10%;
-        right: 20px;
-        width: 400px;
-        height: 600px;
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(15, 56, 70, 0.9));
-        border: 1px solid #1be1ff;
-        border-radius: 12px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        z-index: 10000;
-        overflow: hidden;
-        backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-      `;
-
-      widget.innerHTML = `
-        <div class="agent-panel-header" style="background: rgba(27, 225, 255, 0.1); padding: 12px; border-bottom: 1px solid #1be1ff; display: flex; justify-content: space-between; align-items: center;">
-          <span style="color: #1be1ff; font-weight: bold;">💬 MAIN CHAT</span>
-          <button onclick="closeMainChat()" style="background: none; border: none; color: #ff6b6b; font-size: 20px; cursor: pointer; padding: 0; width: 30px; height: 30px;">×</button>
-        </div>
-        <div style="flex: 1; display: flex; flex-direction: column; padding: 0;">
-          <div style="padding: 15px 15px 10px 15px;">
-            <div style="margin-bottom: 15px; padding: 10px; background: rgba(27, 225, 255, 0.1); border-radius: 4px;">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: #1be1ff; font-weight: bold;">💬 CHAT HUB</span>
-                <select id="chatModelSelector" style="background: rgba(0, 0, 0, 0.5); border: 1px solid #1be1ff; color: white; border-radius: 4px; padding: 4px 8px; font-size: 12px;">
-                  <option value="qwen">Qwen (PL)</option>
-                  <option value="gemma">Gemma</option>
-                  <option value="fast">Fast</option>
-                  <option value="advanced">Advanced</option>
-                </select>
-              </div>
-              <div style="font-size: 12px; color: #ccc; margin-top: 5px;">Centralny system komunikacji</div>
-            </div>
-            
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 15px;">
-              <button onclick="connectToAssistant()" style="background: rgba(27, 225, 255, 0.2); border: 1px solid #1be1ff; color: #1be1ff; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">🤖 AI Assistant</button>
-              <button onclick="openChannels()" style="background: rgba(74, 222, 128, 0.2); border: 1px solid #4ade80; color: #4ade80; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">📺 Channels</button>
-              <button onclick="chatHistory()" style="background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; color: #ffc107; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;">📋 History</button>
-            </div>
-          </div>
-
-          <div id="chatMessages" style="flex: 1; padding: 0 15px; overflow-y: auto; background: rgba(0, 0, 0, 0.2); margin: 0 10px; border-radius: 8px; max-height: 300px;">
-            <div style="padding: 15px; color: #ccc; text-align: center; font-size: 14px;">
-              💬 Witaj w Main Chat!<br>
-              <small>Rozpocznij rozmowę wpisując wiadomość poniżej</small>
-            </div>
-          </div>
-
-          <div style="padding: 15px;">
-            <textarea id="chatInput" placeholder="Wpisz swoją wiadomość..." style="width: 100%; height: 80px; resize: none; background: rgba(0, 0, 0, 0.3); border: 1px solid #1be1ff; border-radius: 6px; color: white; padding: 10px; font-family: inherit;"></textarea>
-            
-            <div style="margin-top: 10px; display: flex; gap: 8px;">
-              <button onclick="sendToMainChat()" style="background: rgba(27, 225, 255, 0.2); border: 1px solid #1be1ff; color: #1be1ff; padding: 8px 16px; border-radius: 6px; cursor: pointer; flex: 1;">📤 Wyślij</button>
-              <button onclick="clearMainChat()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; padding: 8px 16px; border-radius: 6px; cursor: pointer;">🗑️ Wyczyść</button>
-            </div>
-
-            <div style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
-              <button onclick="quickMessage('status')" style="background: rgba(74, 222, 128, 0.2); border: 1px solid #4ade80; color: #4ade80; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">📊 Status</button>
-              <button onclick="quickMessage('help')" style="background: rgba(255, 193, 7, 0.2); border: 1px solid #ffc107; color: #ffc107; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">❓ Help</button>
-              <button onclick="quickMessage('agents')" style="background: rgba(167, 139, 250, 0.2); border: 1px solid #a78bfa; color: #a78bfa; font-size: 11px; padding: 4px 8px; border-radius: 4px; cursor: pointer;">🤖 Agents</button>
-            </div>
-          </div>
-        </div>
-      `;
-
-      document.body.appendChild(widget);
-      
-      // Animate in
-      setTimeout(() => {
-        widget.style.opacity = '1';
-        widget.style.transform = 'scale(1)';
-      }, 10);
-    }
-
-    // Close chat
-    closeMainChat() {
-      const widget = document.getElementById('mainChatWidget');
-      if (widget) {
-        widget.style.opacity = '0';
-        widget.style.transform = 'scale(0.9)';
-        setTimeout(() => {
-          if (widget.parentNode) {
-            widget.parentNode.removeChild(widget);
-          }
-        }, 200);
-      }
-      this.isActive = false;
-    }
-
-    // Send to chat - Enhanced with POLACZEK API
-    async sendToMainChat() {
-      const input = document.getElementById('chatInput');
-      const messagesContainer = document.getElementById('chatMessages');
-      const modelSelector = document.getElementById('chatModelSelector');
-      
-      if (!input || !input.value.trim() || !modelSelector) return;
-      
-      const message = input.value.trim();
-      const selectedModel = modelSelector.value;
-      console.log(`📤 Sending chat message: '${message}' using model: '${selectedModel}'`);
-      
-      // Add user message
-      this.addMessage('user', message);
-      
-      // Clear input
-      input.value = '';
-      
-      // Show typing indicator
-      this.addMessage('system', '⏳ POLACZEK pisze...');
-      
-      try {
-        // Call POLACZEK API with selected model
-        const response = await fetch('/api/polaczek-chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            message: message,
-            model: selectedModel,
-            language: 'pl'
-          })
-        });
-        
-        const data = await response.json();
-        
-        // Remove typing indicator
-        const messages = messagesContainer.querySelectorAll('.message');
-        const lastMessage = messages[messages.length - 1];
-        if (lastMessage && lastMessage.textContent.includes('pisze')) {
-          messagesContainer.removeChild(lastMessage);
-        }
-        
-        // Add POLACZEK response
-        const aiResponse = data.response || data.answer || 'Przepraszam, wystąpił problem z odpowiedzią.';
-        this.addMessage('assistant', `🤖 POLACZEK (${selectedModel}): ${aiResponse}`);
-        
-      } catch (error) {
-        // Remove typing indicator
-        const messages = messagesContainer.querySelectorAll('.message');
-        const lastMessage = messages[messages.length - 1];
-        if (lastMessage && lastMessage.textContent.includes('pisze')) {
-          messagesContainer.removeChild(lastMessage);
-        }
-        
-        // Fallback response
-        const response = this.generateChatResponse(message);
-        this.addMessage('assistant', response);
-      }
-    }
-
-    // Add message to chat
-    addMessage(type, content) {
-      const messagesContainer = document.getElementById('chatMessages');
-      if (!messagesContainer) return;
-      
-      const messageDiv = document.createElement('div');
-      messageDiv.className = 'message';
-      messageDiv.style.cssText = `
-        margin: 10px 0;
-        padding: 10px;
-        border-radius: 8px;
-        font-size: 14px;
-        line-height: 1.4;
-        ${type === 'user' ? 'background: rgba(27, 225, 255, 0.1); border-left: 3px solid #1be1ff; margin-left: 20px;' : ''}
-        ${type === 'assistant' ? 'background: rgba(74, 222, 128, 0.1); border-left: 3px solid #4ade80; margin-right: 20px;' : ''}
-        ${type === 'system' ? 'background: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; text-align: center; font-style: italic;' : ''}
-        ${type === 'error' ? 'background: rgba(239, 68, 68, 0.1); border-left: 3px solid #ef4444;' : ''}
-      `;
-      
-      const timestamp = new Date().toLocaleTimeString('pl-PL', {
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-      
-      messageDiv.innerHTML = `
-        <div>${content}</div>
-        <div style="font-size: 11px; color: #666; margin-top: 5px; text-align: right;">${timestamp}</div>
-      `;
-      
-      messagesContainer.appendChild(messageDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      
-      // Store in history
-      this.chatHistory.push({
-        type,
-        content,
-        timestamp: new Date()
-      });
-    }
-
-    // Generate fallback responses
-    generateChatResponse(message) {
-      const lowerMessage = message.toLowerCase();
-      
-      if (lowerMessage.includes('status')) {
-        return `📊 Status systemu:<br>• Agenty: 20 aktywnych<br>• Usługi: Wszystkie działają<br>• Pamięć: 67% wykorzystana<br>• Uptime: 99.9%`;
-      }
-      
-      if (lowerMessage.includes('help') || lowerMessage.includes('pomoc')) {
-        return `❓ Dostępne komendy:<br>• "status" - status systemu<br>• "agents" - lista agentów<br>• "pogoda" - info o pogodzie<br>• "czas" - aktualny czas<br>• Zadaj dowolne pytanie dla AI`;
-      }
-      
-      if (lowerMessage.includes('agents') || lowerMessage.includes('agent')) {
-        return `🤖 Aktywne agenty:<br>• Voice Agent ✅<br>• Music Agent ✅<br>• System Agent ✅<br>• Business Agent ✅<br>• POLACZEK ✅`;
-      }
-      
-      return `💬 Rozumiem: "${message}"<br><br>Jestem twoim AI asystentem! Mogę pomóc z:<br>• Monitorowaniem systemu<br>• Zarządzaniem agentami<br>• Odpowiedziami na pytania<br>• Automatyzacją zadań`;
-    }
-
-    // Clear chat
-    clearMainChat() {
-      const input = document.getElementById('chatInput');
-      const messagesContainer = document.getElementById('chatMessages');
-      
-      if (input) input.value = '';
-      if (messagesContainer) {
-        messagesContainer.innerHTML = `
-          <div style="padding: 15px; color: #ccc; text-align: center; font-size: 14px;">
-            💬 Chat wyczyszczony!<br>
-            <small>Rozpocznij nową rozmowę</small>
-          </div>
-        `;
-      }
-      
-      this.chatHistory = [];
-    }
-  }
-
-  // Global chat helper functions
-  window.connectToAssistant = function() {
-    console.log('🤖 Łączenie z AI Assistant...');
-    const messagesContainer = document.getElementById('chatMessages');
-    if (messagesContainer) {
-      const messageDiv = document.createElement('div');
-      messageDiv.style.cssText = 'padding: 10px; color: #4ade80; text-align: center; font-style: italic;';
-      messageDiv.innerHTML = '🤖 POLACZEK AI połączony - Gotowy do pomocy!';
-      messagesContainer.appendChild(messageDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-  };
-
-  window.openChannels = function() {
-    console.log('📺 Otwieranie kanałów...');
-    const messagesContainer = document.getElementById('chatMessages');
-    if (messagesContainer) {
-      const messageDiv = document.createElement('div');
-      messageDiv.style.cssText = 'padding: 10px; color: #1be1ff; text-align: center; font-style: italic;';
-      messageDiv.innerHTML = '📺 Dostępne kanały: #ogólny, #agenty, #wsparcie, #aktualizacje';
-      messagesContainer.appendChild(messageDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-  };
-
-  window.chatHistory = function() {
-    console.log('📋 Ładowanie historii...');
-    const messagesContainer = document.getElementById('chatMessages');
-    if (messagesContainer && window.mainChatAgentFunctions) {
-      const history = window.mainChatAgentFunctions.chatHistory;
-      const messageDiv = document.createElement('div');
-      messageDiv.style.cssText = 'padding: 10px; color: #ffc107; text-align: center; font-style: italic;';
-      messageDiv.innerHTML = `📋 Historia chatu: ${history.length} wiadomości zapisanych`;
-      messagesContainer.appendChild(messageDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-  };
-
-  window.quickMessage = function(type) {
-    const input = document.getElementById('chatInput');
-    if (input) {
-      input.value = type;
-      if (window.mainChatAgentFunctions) {
-        window.mainChatAgentFunctions.sendToMainChat();
-      }
-    }
-  };
-</script>
-
-<!-- Load MyBonzo Floating Buttons REAL Implementation -->
-<script is:inline src="/scripts/floating-buttons-real.js"></script>
+</MainLayout>

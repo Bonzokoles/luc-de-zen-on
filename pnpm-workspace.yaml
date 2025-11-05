@@ -1,5 +1,0 @@
-onlyBuiltDependencies:
-  - core-js
-  - esbuild
-  - sharp
-  - workerd
