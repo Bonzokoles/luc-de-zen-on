@@ -11,8 +11,9 @@
   }
 
   body {
-    @apply bg-business-dark text-business-text;
+    @apply bg-gradient-to-br from-black via-gray-900 to-black text-business-text;
     font-family: 'Inter', system-ui, sans-serif;
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -42,6 +43,15 @@
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.3)) drop-shadow(0 0 15px rgba(0, 217, 255, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.5)) drop-shadow(0 0 25px rgba(0, 217, 255, 0.5));
+  }
+}
+
 @keyframes shimmer {
   0% {
     background-position: -1000px 0;
@@ -55,7 +65,7 @@
 @layer components {
   .btn-primary {
     @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500
-           text-white font-medium rounded-lg
+           text-white font-medium rounded-none
            hover:from-primary-700 hover:to-primary-600
            transition-all duration-300
            shadow-lg hover:shadow-glow
@@ -63,36 +73,36 @@
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-business-surface border border-business-border
-           text-business-text font-medium rounded-lg
-           hover:bg-business-border hover:border-business-accent
+    @apply px-6 py-3 bg-business-surface/20 border border-business-border
+           text-business-text font-medium rounded-none
+           hover:bg-business-border/80 hover:border-business-accent hover:shadow-[0_0_10px_rgba(0,217,255,0.3)]
            transition-all duration-300
            focus:outline-none focus:ring-2 focus:ring-business-accent;
   }
 
   .card {
-    @apply bg-business-surface border border-business-border rounded-xl p-6
-           shadow-lg hover:shadow-glow-soft transition-all duration-300;
+    @apply bg-business-surface/20 border border-business-border rounded-none p-6
+           shadow-lg hover:shadow-[0_0_15px_rgba(0,217,255,0.2)] transition-all duration-300;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-business-dark border border-business-border
-           rounded-lg text-business-text placeholder-business-text-dim
-           focus:outline-none focus:border-business-accent focus:ring-2 focus:ring-business-accent/30
+    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border
+           rounded-none text-business-text placeholder-business-text-dim
+           focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0,217,255,0.3)]
            transition-all duration-200;
   }
 
   .textarea-field {
-    @apply w-full px-4 py-3 bg-business-dark border border-business-border
-           rounded-lg text-business-text placeholder-business-text-dim
-           focus:outline-none focus:border-business-accent focus:ring-2 focus:ring-business-accent/30
+    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border
+           rounded-none text-business-text placeholder-business-text-dim
+           focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0,217,255,0.3)]
            transition-all duration-200
            min-h-[120px] resize-y;
   }
 
   .tool-card {
     @apply card hover:border-business-accent cursor-pointer
-           transform hover:-translate-y-1 transition-all duration-300;
+           transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(0,217,255,0.3)] transition-all duration-300;
   }
 
   .loading-spinner {
@@ -100,7 +110,7 @@
   }
 
   .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-3 py-1 rounded-none text-xs font-medium;
   }
 
   .badge-success {
@@ -122,7 +132,7 @@
   }
 
   .tool-icon {
-    @apply w-12 h-12 rounded-lg flex items-center justify-center
+    @apply w-12 h-12 rounded-none flex items-center justify-center
            bg-gradient-to-br from-primary-600 to-primary-700
            text-white shadow-lg;
   }
@@ -169,4 +179,8 @@ body::before {
 
 .pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
 }
