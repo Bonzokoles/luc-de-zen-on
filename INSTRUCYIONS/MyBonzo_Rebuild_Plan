@@ -1,0 +1,1139 @@
+# 🚀 PLAN PRZEBUDOWY APLIKACJI MYBONZO - INSTRUKCJA DLA GEMINI
+
+## WSTĘP STRATEGICZNY
+
+Celem projektu jest **kompleksowa transformacja platformy AI Workers z zachowaniem ducha i wizualizacji**, ale z **znacznie uproszczoną, bardziej przyjazną dla użytkowników funkcjonalnością**. Aplikacja powinna być **intuicyjna, szybka, praktyczna** i **oparta na rzeczywistych narzędziach AI dostępnych w 2025**.
+
+---
+
+## CZĘŚĆ I: ANALIZA OBECNEGO STANU
+
+### Obecna struktura strony www.mybonzo.com
+
+#### Design i Layout
+- **Typ**: Nowoczesna, minimalistyczna strona z blokiem głównym
+- **Architektura**: Single-page design z sekcjami spływającymi
+- **Estetyka**: Futurystyczna, ciemna, z wysokim kontrastem
+- **Gradient kolorowy**: Głębokie błękity, purpury, czarne tła
+- **Typografia**: Duża, czcionki sans-serif, dynamiczne nagłówki
+
+#### Główne sekcje
+1. **Nagłówek heroiczny** - "Tworzę nowoczesne rozwiązania..."
+2. **CTA** - "Naciśnij aby rozmawiać" (button do czatu)
+3. **Podstawowe funkcje** (karty):
+   - Generator Obrazów (Flux-1 Schnell)
+   - AI Chatbot
+   - BigQuery Analytics
+   - Kaggle Datasets
+   - Tavily AI Search
+   - Voice AI Assistant
+   - AI BUSINESS BOX
+
+4. **Zaawansowane funkcje** (karty):
+   - Generator Treści
+   - Rekomendacje
+   - Obsługa Klienta
+   - Monitorowanie
+   - Harmonogramowanie
+   - Dynamiczne FAQ
+   - Edukacja
+   - Tickety AI
+   - Quizy AI
+
+#### Sekcja techniczna
+- MCP Servers
+- Flowise AI
+- Activepieces
+- Langchain AI
+
+#### Footer
+- O mnie (z cytatem filozoficznym)
+
+---
+
+## CZĘŚĆ II: STRATEGIA PRZEBUDOWY
+
+### Zasady transformacji
+
+1. **Simplifikacja bez degradacji** - Usunięcie zaawansowanych narzędzi, które wymagają wiedzy technicznej, zastępując je popularnymi, easy-to-use alternatywami
+2. **Modułowość funkcji** - Każda funkcja to odrębny moduł z jasnym CTA
+3. **Orientacja biznesowa** - Skupienie się na narzędziach, które rzeczywiście rozwiązują problemy MŚP
+4. **Utrzymanie wizualizacji** - Zachowanie futurystycznego designu, gradientów, animacji
+5. **Interfejs kartkowy** - Wszystkie funkcje jako karty/moduły na stronie
+6. **Responsywność** - Pełna dostępność na mobile, tablet, desktop
+7. **Najnowsze trendy AI 2025** - Integracja agentic AI, multimodal interfaces, AI reasoning
+
+---
+
+## CZĘŚĆ III: NOWA ARCHITEKTURA FUNKCJONALNA
+
+### A. FUNKCJE OBOWIĄZKOWE (Keep & Improve)
+
+#### 1. Generator Obrazów AI (Uproszczony)
+**Zastąpienie**: BigQuery Analytics, Kaggle Datasets, Tavily Search → Jedno narzędzie o większych możliwościach
+
+**Obecna funkcja**: Flux-1 Schnell
+
+**Nowa wizja**:
+- **Nazwa**: "Studio Kreatywne AI"
+- **Opis**: Twórz niesamowite obrazy, grafiki, ikony i makiety za pomocą prostego interfejsu
+- **Modele**: Flux.1 Pro (profesjonalne), DALL-E 3 (precyzja), Stable Diffusion 3 (szybkość)
+- **Funkcjonalność**:
+  - Prosty tekstowy prompt (bez technicznego żargonu)
+  - Predefiniowane szablony (Social Media, E-commerce, Marketing, Design)
+  - Edytor zdjęć AI (inpaint, outpaint, style transfer)
+  - Export w różnych formatach (PNG, JPG, SVG, WebP)
+  - Historia generacji i ulubione
+- **API**: Integracja z Replicate, API Flux.1 lub DALL-E 3 przez OpenAI
+- **UX Flow**:
+  ```
+  Wybierz kategorie → Wpisz opis → Wybierz styl → Kliknij Generuj
+  → Wynik → Edytuj (opcjonalnie) → Pobierz/Udostępnij
+  ```
+- **Beginner-friendly**: Sugestie podpowiedzi, przykłady, galeria inspiracji
+
+#### 2. AI Chatbot (Utrzymany i Wzmocniony)
+**Nazwa**: "Asystent AI"
+
+**Funkcjonalność**:
+- Inteligentna rozmowa z kontekstem biznesowym
+- Obsługa pytań w języku polskim
+- Integracja z Google Gemini 2.0 lub OpenAI GPT-4.5 (2025)
+- Context memory (pamięć rozmowy)
+- Mogą być ustawione role: "Doradca Biznesu", "Analityk", "Copywriter", itp.
+- Export rozmów (PDF, TXT)
+- Integracja z systemem ticketów/support
+
+**Technologia**:
+- WebSocket dla real-time odpowiedzi
+- Streaming tokenów
+- Przechowywanie sesji w IndexedDB + backend
+
+#### 3. Voice AI Assistant (Utrzymany)
+**Nazwa**: "Asystent Głosowy"
+
+**Funkcjonalność**:
+- Transkrypcja mowy na tekst (Speech-to-Text)
+- Sinteza tekstu na mowę (Text-to-Speech) z polskimi głosami
+- Komenda głosowa do automatyzacji
+- Zapis nagrań
+- Real-time transkrypcja podczas spotkań
+
+**Technologia**:
+- Google Cloud Speech-to-Text (free tier: 60 min/miesiąc)
+- ElevenLabs API dla naturalnego TTS (13 języków)
+- Web Audio API
+
+#### 4. Dashboard Monitorowania (Simplifikowany)
+**Zastąpienie**: BigQuery Analytics → Uproszczona analityka
+
+**Nazwa**: "Panel Biznesu"
+
+**Funkcjonalność**:
+- Real-time metryki biznesowe
+- Wykresy sprzedaży, ruchu, konwersji
+- KPI alerting
+- Eksport raportów
+- Integracja z Google Analytics, Shopify, WooCommerce
+
+**Technologia**:
+- Chart.js lub ECharts dla wizualizacji
+- Supabase/Firebase dla bazy danych
+- API do popularnych platform e-commerce
+
+---
+
+### B. NOWE FUNKCJE (Game-Changers)
+
+#### 5. Generator Treści Marketingowych (AI Content Creator)
+**Nowa funkcja**
+
+**Nazwa**: "Kreatywny Asystent"
+
+**Opis**: Automatycznie generuj posty, opisy produktów, email marketing, copy ad
+
+**Funkcjonalność**:
+- Szablony treści (Blog post, Social media, Email, Landing page)
+- AI generuje tekst w kilka sekund
+- Edytor bezpośrednio w aplikacji
+- Optymalizacja SEO sugestie
+- Multi-language support (PL, EN, DE, FR, ES, IT)
+- Harmonogram publikacji (calendar integracja)
+- Analiza sentymenty i engagement predictions
+
+**Technologia**:
+- OpenAI GPT-4.5 lub Google Gemini 2.0 Pro
+- Integracja z WordPress, Medium, LinkedIn, Instagram APIs
+- Zapier/Make dla automatyzacji
+
+**UX Flow**:
+```
+Wybierz typ treści → Wstaw kontekst (produkt/usługa) 
+→ AI generuje 3 wersje → Wybierz, edytuj, opublikuj
+```
+
+---
+
+#### 6. Smart Analytics (DuckDB dla Początkujących)
+**Zastąpienie**: BigQuery + Kaggle
+
+**Nazwa**: "Analityk Danych"
+
+**Opis**: Przesyłaj CSV, zadawaj pytania w języku polskim, otrzymuj wykresy i wnioski
+
+**Funkcjonalność**:
+- Upload CSV/XLSX
+- Pytania naturalne ("Jaki produkt najlepiej się sprzedaje?")
+- Auto-generowanie wykresów
+- Insights i rekomendacje (AI reasoning)
+- Porównania period (rok do roku, miesiąc do miesiąca)
+- Predykcje (trend forecastingu)
+- Eksport raportu PDF
+
+**Technologia**:
+- DuckDB w przeglądarce (WASM) - zero backendu potrzebnego
+- Natural language to SQL translation (LLM-based)
+- Plotly/Observable Plot dla interaktywnych wykresów
+- Pandas.js dla przetwarzania danych
+
+**Beginner-friendly**: Interfejs jak "Google Sheets z AI"
+
+---
+
+#### 7. AI Business Assistant (Orkestracja Modułów)
+**Nowa funkcja**
+
+**Nazwa**: "Biznes Bot"
+
+**Opis**: Jeden chatbot, który ma dostęp do wszystkich narzędzi aplikacji i używa ich w kontekście
+
+**Funkcjonalność**:
+- "Wygeneruj mi 5 postów na Instagram dla mojej piekarni"
+  - Bot generuje treść → Generuje obrazy do każdego posta → Tworzy harmonogram
+- "Analizuj moje sprzedaże z ostatnich 3 miesięcy"
+  - Bot czyta dane → Uruchamia analityka → Tworzy raport
+- "Pomóż mi napisać maila do klienta"
+  - Bot generuje kilka wersji
+- "Jakie produkty powinienem promować?"
+  - Analizuje dane + generuje rekomendacje
+
+**Technologia**:
+- LangChain / LlamaIndex dla orchestration
+- Function calling (GPT-4 tools)
+- Memory management (konwersacja w kontekście)
+
+**UX Flow**:
+```
+Czat → Człowiek pyta o coś biznesowe 
+→ AI rozumie intencję → Uruchamia potrzebne moduły
+→ Agreguje wyniki → Prezentuje w czacie
+```
+
+---
+
+#### 8. Automation Recipes (Proste Automaty)
+**Zastąpienie**: Flowise + Activepieces (too complex)
+
+**Nazwa**: "Automatyzator"
+
+**Opis**: Pre-built automaty do najpopularniejszych scenariuszy
+
+**Gotowe szablony**:
+1. **Email nurture sequence** - Automatyczne emaile do nowych klientów
+2. **Lead scoring** - Automatyczna klasyfikacja leadów po formularzu
+3. **Social media reposter** - Publikuj raz, idzie na wszystkie platformy
+4. **Backup automation** - Codzienny backup danych
+5. **Customer support ticketing** - Automatyczne przydzielanie ticketów
+6. **Newsletter automation** - Tworzenie i wysyłanie newslettera
+7. **Product recommendation** - Sugestie produktów dla klientów
+8. **Meeting scheduler** - Automatyczne umawianie spotkań
+
+**Technologia**:
+- n8n (open-source, self-hosted na Cloudflare Workers)
+- Zapier API (dla zapas opcji)
+- Webhook-based integracje
+
+**UX Flow**:
+```
+Kliknij na "Automation Recipe" → Wybierz z galerii
+→ Połącz swoje konta (Gmail, Shopify, etc)
+→ Potwierdź → Gotowe, działa!
+```
+
+---
+
+### C. FUNKCJE DO USUNIĘCIA/ZAMIANY
+
+| Funkcja | Powód | Zamiennik |
+|---------|-------|----------|
+| BigQuery Analytics | Za zaawansowana, wymaga SQL | DuckDB + Natural Language |
+| Kaggle Datasets | Zbyt techniczna, mało praktyczna | Studio Kreatywne - generator danych do CV |
+| Tavily AI Search | Dubluje Google Search, mało wartości | Zintegrowana w Biznes Bot |
+| MCP Servers | Poza reach dla beginner | Usunięte (ale dostępne w advanced mode) |
+| Flowise/Activepieces | Zbyt skomplikowane UI | Automation Recipes templates |
+| Langchain (standalone) | Framework dla devów | Używane wewnętrznie |
+| Quizy AI | Edge-case funkcja | Usunięte (lub jako Add-on) |
+
+---
+
+## CZĘŚĆ IV: NOWY LAYOUT STRONY
+
+### Struktura
+
+```
+┌─────────────────────────────────────────┐
+│  NAVBAR - Logo, Login/Signup, Dashboard │
+├─────────────────────────────────────────┤
+│                                         │
+│  HERO SECTION                           │
+│  "Platforma AI dla Twojej Firmy"        │
+│  [CTA: Start Free]                      │
+│                                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  MAIN FEATURES (4 kolumny karty)        │
+│  ┌──────────┐ ┌──────────┐             │
+│  │Kreatywny │ │Asystent  │             │
+│  │Studio    │ │AI        │             │
+│  └──────────┘ └──────────┘             │
+│  ┌──────────┐ ┌──────────┐             │
+│  │Asystent  │ │Panel     │             │
+│  │Głosowy   │ │Biznesu   │             │
+│  └──────────┘ └──────────┘             │
+│                                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  ADVANCED FEATURES (2 kolumny)          │
+│  ┌──────────┐ ┌──────────┐             │
+│  │Kreatywny │ │Biznes    │             │
+│  │Asystent  │ │Bot       │             │
+│  │(Content) │ │(Orchestr)│             │
+│  └──────────┘ └──────────┘             │
+│  ┌──────────┐ ┌──────────┐             │
+│  │Analityk  │ │Automator │             │
+│  │Danych    │ │(Recipes) │             │
+│  └──────────┘ └──────────┘             │
+│                                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  PRICING SECTION (3 plany)              │
+│  ┌──────────┐ ┌──────────┐┌──────────┐ │
+│  │ Starter  │ │ Business ││Enterprise│ │
+│  │ Free     │ │ $29/mo   ││Custom    │ │
+│  └──────────┘ └──────────┘└──────────┘ │
+│                                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  TESTIMONIALS / CASE STUDIES            │
+│  (Karty z rezultatami dla MŚP)          │
+│                                         │
+├─────────────────────────────────────────┤
+│                                         │
+│  BLOG / LEARNING HUB                    │
+│  (Artykuły o AI dla biznesu)            │
+│                                         │
+├─────────────────────────────────────────┤
+│  FOOTER                                 │
+│  Links, Social, About                   │
+└─────────────────────────────────────────┘
+```
+
+### Palet kolorów (utrzymanie futurystyczne)
+
+- **Głowny gradient**: #0f0c29 → #302b63 → #24243e (purpurowy, ciemny)
+- **Akcent 1**: #00d4ff (cyan, dla CTA)
+- **Akcent 2**: #ff006e (magenta, dla highlights)
+- **Tekst**: #ffffff / #f0f0f0
+- **Szare tło**: #1a1a1a, #2a2a2a
+- **Success green**: #00ff88
+- **Warning orange**: #ff8000
+
+### Animacje & Interakcje
+
+1. **Hover effect na kartach** - Lekkie podniesienie, glow effect
+2. **Gradient animation** - Tło się powoli zmienia
+3. **Icon animations** - Ikony pulsują, rotują
+4. **Scroll reveal** - Sekcje pojawiają się podczas scrollowania
+5. **Microinteractions** - Guziki mają feedback (ripple, bounce)
+6. **Loading states** - Animacje podczas ładowania
+
+---
+
+## CZĘŚĆ V: SZCZEGÓŁOWE INSTRUKCJE DLA GEMINI
+
+### Instrukcja 1: Projektowanie Interfejsu
+
+**Prompt dla Gemini:**
+
+```
+Jesteś senior UX/UI designerem dla SaaS AI. Zaprojektuj pełny interfejs dla platformy MyBonzo 2.0 
+z następującymi wymaganiami:
+
+LAYOUT:
+- Single page z sekcjami
+- 4 główne moduły (karty): Studio Kreatywne, Asystent AI, Asystent Głosowy, Panel Biznesu
+- 4 zaawansowane moduły (karty): Kreatywny Asystent (Content), Biznes Bot, Analityk Danych, Automatyzator
+- Sekcja pricing (3 plany)
+- Sekcja testimonials
+- Footer
+
+DESIGN:
+- Gradient tło: purpura #0f0c29 do #302b63
+- Karty: semi-transparent background (rgba), glow border, hover effect
+- Typografia: duża, sans-serif (Poppins / Inter), dynamiczne nagłówki
+- Ikonki: minimalistyczne, z animacjami
+
+RESPONSYWNOŚĆ:
+- Desktop: 4 kolumny dla głównych features
+- Tablet: 2 kolumny
+- Mobile: 1 kolumna, full-width
+
+Stwórz szczegółowy HTML/CSS/SVG kod z Tailwind CSS. Każda karta powinna mieć:
+- Ikonę
+- Tytuł
+- Krótki opis (1 zdanie)
+- CTA button ("Spróbuj" / "Dowiedz się więcej")
+- Hover animation
+
+Dodaj animacje CSS dla:
+- Tła (gradient shift)
+- Kart (glow, lift on hover)
+- Ikon (pulse, rotate)
+- Scroll reveal effects
+
+Zrób kod gotowy do produkcji, zoptymalizowany, bez zbędnych elementów.
+```
+
+---
+
+### Instrukcja 2: Architektura Backend i API
+
+**Prompt dla Gemini:**
+
+```
+Zaprojektuj architekturę backendu dla platformy MyBonzo z następującymi wymaganiami:
+
+STACK:
+- Framework: Node.js / Express.js lub Hono (dla Cloudflare Workers)
+- Database: Supabase (PostgreSQL) / Firebase
+- Cache: Redis / Cloudflare KV
+- Deployment: Cloudflare Workers / Vercel
+
+MODUŁY I ENDPOINTS:
+
+1. STUDIO KREATYWNE (Image Generation)
+   GET /api/v1/generation/models - Lista dostępnych modeli
+   POST /api/v1/generation/text-to-image
+   POST /api/v1/generation/edit-image
+   GET /api/v1/generation/history
+   DELETE /api/v1/generation/{id}
+
+2. ASYSTENT AI (Chatbot)
+   POST /api/v1/chat/messages - Send message
+   GET /api/v1/chat/conversations/{id} - Get conversation
+   DELETE /api/v1/chat/conversations/{id}
+   POST /api/v1/chat/conversations/{id}/export
+
+3. ASYSTENT GŁOSOWY (Voice)
+   POST /api/v1/voice/transcribe - Speech to Text
+   POST /api/v1/voice/synthesize - Text to Speech
+   GET /api/v1/voice/languages
+
+4. KREATYWNY ASYSTENT (Content)
+   POST /api/v1/content/generate - Generate content
+   GET /api/v1/content/templates - List templates
+   POST /api/v1/content/publish - Publish to social media
+   GET /api/v1/content/calendar - Content calendar
+
+5. BIZNES BOT (Orchestration)
+   POST /api/v1/bizbot/query - Send query
+   GET /api/v1/bizbot/capabilities - List available actions
+   POST /api/v1/bizbot/execute-action - Execute tool
+
+6. ANALITYK DANYCH (Data Analysis)
+   POST /api/v1/analytics/upload - Upload CSV
+   POST /api/v1/analytics/query - Ask question
+   GET /api/v1/analytics/report/{id}
+
+7. AUTOMATYZATOR (Automation)
+   GET /api/v1/automation/templates - List templates
+   POST /api/v1/automation/create - Create automation
+   GET /api/v1/automation/{id}/status
+   DELETE /api/v1/automation/{id}
+
+8. AUTH & USERS
+   POST /api/v1/auth/register
+   POST /api/v1/auth/login
+   POST /api/v1/auth/refresh
+   GET /api/v1/auth/me
+   POST /api/v1/auth/logout
+
+DATABASE SCHEMA:
+
+```sql
+-- Users
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  email VARCHAR UNIQUE,
+  password_hash VARCHAR,
+  name VARCHAR,
+  plan VARCHAR (starter/business/enterprise),
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+);
+
+-- Conversations (Chat)
+CREATE TABLE conversations (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users,
+  title VARCHAR,
+  messages JSONB,
+  created_at TIMESTAMP
+);
+
+-- Generations (Images)
+CREATE TABLE generations (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users,
+  prompt TEXT,
+  model VARCHAR,
+  image_url VARCHAR,
+  created_at TIMESTAMP
+);
+
+-- Content (Blog Posts, Social)
+CREATE TABLE content (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users,
+  type VARCHAR,
+  title VARCHAR,
+  content TEXT,
+  status VARCHAR (draft/published),
+  published_at TIMESTAMP
+);
+
+-- Automations
+CREATE TABLE automations (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users,
+  template_id VARCHAR,
+  config JSONB,
+  status VARCHAR (active/inactive),
+  created_at TIMESTAMP
+);
+
+-- Usage Tracking
+CREATE TABLE usage_logs (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users,
+  feature VARCHAR,
+  tokens_used INT,
+  cost DECIMAL,
+  created_at TIMESTAMP
+);
+```
+
+INTEGRACJE ZEWNĘTRZNE:
+
+1. Image Generation:
+   - Replicate API (Flux models)
+   - OpenAI API (DALL-E 3)
+   - Stability AI API (Stable Diffusion)
+
+2. LLMs:
+   - Google Gemini 2.0 API (main chatbot)
+   - OpenAI API (backup + advanced)
+
+3. Voice:
+   - Google Cloud Speech-to-Text
+   - ElevenLabs API (TTS)
+
+4. Content Publishing:
+   - WordPress XML-RPC
+   - Medium API
+   - LinkedIn API
+   - Instagram Graph API
+
+5. Analytics:
+   - Google Analytics API
+   - Shopify GraphQL API
+   - Stripe API
+
+6. Automation:
+   - n8n Webhooks
+   - Zapier API
+
+AUTHENTICATION & SECURITY:
+- JWT tokens (access + refresh)
+- Rate limiting (Cloudflare rate limiting)
+- CORS properly configured
+- Input validation on all endpoints
+- SQL injection prevention
+- HTTPS only
+- CSRF protection
+
+CACHING STRATEGY:
+- Redis dla frequently accessed data
+- Cloudflare Cache dla static assets
+- Browser cache headers (max-age)
+
+Stwórz pełny kod backendu jako gotowy projekt w Express.js lub Hono.
+```
+
+---
+
+### Instrukcja 3: Frontend - Komponenty React/Vue
+
+**Prompt dla Gemini:**
+
+```
+Stwórz kompletny frontend dla platformy MyBonzo korzystając z:
+- React 19 + TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- Zustand dla state management
+- TanStack Query dla data fetching
+- WebSocket dla real-time chat
+
+KOMPONENTY DO STWORZENIA:
+
+1. Layout Components
+   - Navbar (Logo, Nav, User Menu)
+   - Sidebar (Feature navigation)
+   - Footer
+   - Modal/Dialog
+
+2. Home Page
+   - Hero section
+   - Features grid (4 kolumny)
+   - Advanced features grid
+   - Pricing section
+   - Testimonials
+   - CTA sections
+
+3. Dashboard
+   - Dashboard layout
+   - Feature cards
+   - Quick stats
+   - Recent activity
+
+4. Studio Kreatywne (Image Generator)
+   - Prompt input
+   - Model selector
+   - Gallery
+   - Editor
+   - Download/Share buttons
+
+5. Asystent AI (Chat)
+   - Chat interface
+   - Message list
+   - Input area
+   - Conversation history
+   - Export button
+
+6. Asystent Głosowy
+   - Record button
+   - Transcript display
+   - TTS player
+   - History
+
+7. Kreatywny Asystent (Content)
+   - Template selector
+   - Content generator
+   - Editor
+   - Calendar view
+   - Publish buttons
+
+8. Biznes Bot
+   - Chat interface
+   - Capability showcase
+   - Quick actions
+
+9. Analityk Danych
+   - File upload
+   - Query input
+   - Results visualization
+   - Report export
+
+10. Automatyzator
+    - Template gallery
+    - Configuration form
+    - Status monitor
+
+STRUKTURA PROJEKTU:
+```
+src/
+├── components/
+│   ├── Layout/
+│   │   ├── Navbar.tsx
+│   │   ├── Sidebar.tsx
+│   │   ├── Footer.tsx
+│   ├── Home/
+│   │   ├── Hero.tsx
+│   │   ├── Features.tsx
+│   │   ├── Pricing.tsx
+│   ├── Dashboard/
+│   │   ├── DashboardLayout.tsx
+│   │   ├── StatsCard.tsx
+│   ├── Features/
+│   │   ├── ImageGenerator.tsx
+│   │   ├── ChatBot.tsx
+│   │   ├── ContentCreator.tsx
+│   │   ├── DataAnalytics.tsx
+│   │   ├── VoiceAssistant.tsx
+├── hooks/
+│   ├── useChat.ts
+│   ├── useImageGeneration.ts
+│   ├── useAuth.ts
+├── stores/
+│   ├── authStore.ts
+│   ├── uiStore.ts
+├── services/
+│   ├── api.ts
+│   ├── imageService.ts
+│   ├── chatService.ts
+├── types/
+│   ├── index.ts
+│   ├── api.ts
+├── pages/
+│   ├── Home.tsx
+│   ├── Dashboard.tsx
+│   ├── App.tsx
+├── styles/
+│   ├── globals.css
+```
+
+STYLING:
+- Tailwind CSS z custom config
+- Dark mode support
+- Responsive design (mobile first)
+- Smooth animations (Framer Motion)
+- Custom themes support
+
+Stwórz gotowy projekt React z wszystkimi komponentami, hooks, oraz wstępnie zaimplementowanymi interfejsami API.
+```
+
+---
+
+### Instrukcja 4: Integracje AI i Funkcjonalność
+
+**Prompt dla Gemini:**
+
+```
+Stwórz pełne integracje AI dla platformy MyBonzo z następującymi wymaganiami:
+
+IMAGE GENERATION (Studio Kreatywne):
+- Integracja z Replicate API dla Flux models
+- Fallback do DALL-E 3 jeśli Replicate down
+- Queue system dla long-running tasks
+- Webhook callbacks dla rezultatów
+- Image processing (resize, compress, convert)
+
+CHATBOT (Asystent AI):
+- System prompts dla różnych rolí (Advisor, Analyst, Copywriter)
+- Memory management (ostatnie 10 wiadomości w kontekście)
+- Function calling dla akcji (search, generate image, etc)
+- Real-time streaming
+- WebSocket connection handling
+- Session persistence
+
+VOICE ASSISTANT:
+- Speech-to-Text integration z Google Cloud
+- Text-to-Speech z ElevenLabs (naturalne głosy PL)
+- Audio preprocessing
+- Format conversion
+
+CONTENT GENERATOR:
+- LLM-based generation z GPT-4.5 lub Gemini 2.0
+- Prompt templates dla różnych typów treści
+- Multi-language support
+- Plagiarism check
+- SEO optimization
+
+BIZNES BOT (Orchestrator):
+- Tool registry
+- Function definitions
+- Action execution
+- Result aggregation
+- Error handling
+
+DATA ANALYTICS:
+- DuckDB WASM dla in-browser queries
+- Natural language to SQL conversion
+- Chart generation
+- Insight extraction
+- Report building
+
+AUTOMATION TEMPLATES:
+- Pre-built workflows
+- Trigger-action model
+- Webhook integration
+- Scheduled execution
+- Error notifications
+
+STWÓRZ:
+
+1. Service layer (TypeScript):
+```typescript
+// services/ai/imageGenerationService.ts
+export class ImageGenerationService {
+  async generateFromPrompt(prompt: string, model: string): Promise<GenerationResult>
+  async editImage(imageUrl: string, prompt: string): Promise<GenerationResult>
+  async getHistory(userId: string): Promise<Generation[]>
+}
+
+// services/ai/chatService.ts
+export class ChatService {
+  async createConversation(userId: string): Promise<Conversation>
+  async addMessage(conversationId: string, message: Message): Promise<Message>
+  async streamResponse(conversationId: string): Promise<ReadableStream<string>>
+}
+
+// services/ai/orchestrationService.ts
+export class OrchestrationService {
+  async executeQuery(query: string, context: Record<string, any>): Promise<Result>
+  async discoverTools(): Promise<Tool[]>
+  async executeAction(actionId: string, params: Record<string, any>): Promise<Result>
+}
+```
+
+2. LLM Prompts (ustandaryzowane):
+```
+// prompts/system.ts
+export const SYSTEM_PROMPTS = {
+  advisor: "You are a business advisor for Polish SMEs...",
+  analyst: "You are a data analyst specialized in...",
+  copywriter: "You are a professional copywriter...",
+};
+```
+
+3. Tool Definitions (dla function calling):
+```
+// tools/definitions.ts
+export const TOOLS = [
+  {
+    name: "generate_image",
+    description: "Generate images from text descriptions",
+    parameters: { prompt: "string", model: "string" }
+  },
+  {
+    name: "search_data",
+    description: "Search and analyze data",
+    parameters: { query: "string" }
+  },
+  ...
+];
+```
+
+Stwórz kompletne wdrażanie wszystkich integracji z error handling, retry logic, caching.
+```
+
+---
+
+### Instrukcja 5: Deployment & DevOps
+
+**Prompt dla Gemini:**
+
+```
+Stwórz pełny pipeline deployment dla platformy MyBonzo:
+
+INFRASTRUCTURE:
+- Frontend: Cloudflare Pages (static site generation + serverless)
+- Backend API: Cloudflare Workers (Node.js runtime) lub Vercel Functions
+- Database: Supabase (PostgreSQL na AWS)
+- Cache: Cloudflare KV
+- CDN: Cloudflare CDN
+- DNS: Cloudflare DNS
+
+DEPLOYMENT PROCESS:
+1. GitHub Actions workflow
+2. Build step (Next.js / Astro frontend, bundling backend)
+3. Tests (Jest, E2E tests)
+4. Docker containerization (optional dla local dev)
+5. Push to Cloudflare / Vercel
+6. Database migrations (Supabase)
+7. Environment variables setup
+8. Health checks
+
+CI/CD PIPELINE:
+- Trigger: Git push to main
+- Steps:
+  1. Install dependencies
+  2. Run linter (ESLint)
+  3. Run tests
+  4. Build frontend (optimization)
+  5. Build backend (bundling)
+  6. Deploy to staging
+  7. Run smoke tests
+  8. Deploy to production
+  9. Monitor & alerting
+
+ENVIRONMENT SETUP:
+- .env.production
+- .env.staging
+- .env.development
+
+DOCKER (dla local development):
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+MONITORING & LOGGING:
+- Sentry dla error tracking
+- LogRocket dla session replay
+- Cloudflare analytics
+- Custom logging
+- Uptime monitoring (Pingdom / UptimeRobot)
+
+SECURITY:
+- SSL/TLS (automatic via Cloudflare)
+- DDoS protection (Cloudflare)
+- WAF rules
+- Rate limiting
+- API key rotation
+- Secret management (Cloudflare Secrets)
+
+SCALING:
+- Auto-scaling na Cloudflare Workers
+- Database connection pooling
+- Cache invalidation strategy
+- Image optimization & CDN
+
+Stwórz gotowe pliki:
+- GitHub Actions workflow (.github/workflows/deploy.yml)
+- Dockerfile
+- docker-compose.yml
+- .env.example
+- wrangler.toml (dla Cloudflare Workers)
+- tsconfig.json
+- Deployment scripts
+```
+
+---
+
+### Instrukcja 6: Dokumentacja & Learning Resources
+
+**Prompt dla Gemini:**
+
+```
+Stwórz kompletną dokumentację dla użytkowników:
+
+1. Getting Started Guide
+   - Sign up process
+   - First login
+   - Dashboard tour
+   - Setting up first automation
+
+2. Feature Guides
+   - Studio Kreatywne (image generation)
+   - Asystent AI (chatbot)
+   - Asystent Głosowy (voice)
+   - Kreatywny Asystent (content)
+   - Biznes Bot (orchestration)
+   - Analityk Danych (analytics)
+   - Automatyzator (automation)
+
+3. Best Practices
+   - Writing good prompts
+   - Organizing content
+   - Automating workflows
+   - Analyzing data
+
+4. API Documentation
+   - Endpoint reference
+   - Authentication
+   - Rate limits
+   - Error codes
+   - Example requests
+
+5. Video Tutorials (scripts for YouTube)
+   - Welcome video (2 min)
+   - Feature overview (3 min each)
+   - Use case demonstrations (5-10 min)
+
+6. FAQ & Troubleshooting
+
+7. Blog Articles
+   - "10 AI Tools Every SMB Needs" (1500 words)
+   - "How to Automate Your Marketing" (2000 words)
+   - "Data-Driven Decision Making" (1500 words)
+   - "Voice Commands for Busy Entrepreneurs" (1000 words)
+
+Stwórz w Markdown format, gotowe do publikacji.
+```
+
+---
+
+## CZĘŚĆ VI: TIMELINE I MILESTONES
+
+### Faza 1: Planowanie & Design (2 tygodnie)
+- UI/UX mockups
+- API specification
+- Database schema
+- Component library
+
+### Faza 2: Frontend Development (3 tygodnie)
+- Layout i homepage
+- Dashboard
+- Komponenty dla każdej funkcji
+- Styling i animacje
+
+### Faza 3: Backend Development (3 tygodnie)
+- API endpoints
+- Database setup
+- Authentication
+- Basic integrations
+
+### Faza 4: AI Integrations (2 tygodnie)
+- Image generation
+- Chatbot
+- Content creation
+- Orchestration
+
+### Faza 5: Testing & Optimization (2 tygodnie)
+- Unit tests
+- E2E tests
+- Performance optimization
+- Security audit
+
+### Faza 6: Deployment & Launch (1 tydzień)
+- Production setup
+- Domain configuration
+- SSL/TLS
+- Monitoring
+- Launch marketing
+
+**Total: 13 tygodni (~3 miesiące)**
+
+---
+
+## CZĘŚĆ VII: FUNKCJE BIZNESOWE I PRICING
+
+### Plan Starter (Free Forever)
+- Studio Kreatywne: 20 generacji/miesiąc
+- Asystent AI: 1000 wiadomości/miesiąc
+- Asystent Głosowy: 2 minuty/miesiąc
+- Kreatywny Asystent: 5 artykułów/miesiąc
+- Automatyzator: 1 automation
+- No Biznes Bot, Analityk
+
+### Plan Business ($29/miesiąc)
+- Studio Kreatywne: 1000 generacji/miesiąc
+- Asystent AI: unlimited
+- Asystent Głosowy: 100 minut/miesiąc
+- Kreatywny Asystent: 100 artykułów/miesiąc
+- Biznes Bot: limited queries
+- Analityk Danych: 5 uploads/miesiąc
+- Automatyzator: 10 automations
+
+### Plan Enterprise (Custom)
+- Everything unlimited
+- Priority support
+- Custom integrations
+- Dedicated account manager
+- SLA guarantee
+
+---
+
+## CZĘŚĆ VIII: NARZĘDZIA I TECHNOLOGIE (2025)
+
+### Frontend Stack
+- **Framework**: Next.js 15 + React 19
+- **UI**: shadcn/ui + Tailwind CSS
+- **State**: Zustand / Jotai
+- **Data Fetching**: TanStack Query v5
+- **Animation**: Framer Motion
+- **Charts**: Recharts / ECharts
+- **Real-time**: Socket.io / WebSockets
+- **TypeScript**: v5.6
+
+### Backend Stack
+- **Runtime**: Node.js 22 LTS
+- **Framework**: Hono / Express.js
+- **Database**: Supabase (PostgreSQL)
+- **Cache**: Cloudflare KV / Redis
+- **ORM**: Prisma / Drizzle ORM
+- **Auth**: NextAuth.js / Auth0
+- **Validation**: Zod
+- **Logging**: Pino / Winston
+
+### AI Integrations
+- **Image**: Replicate / DALL-E 3 / Flux.1
+- **LLM**: Google Gemini 2.0 / OpenAI GPT-4.5
+- **Voice**: Google Cloud Speech / ElevenLabs
+- **Data**: DuckDB WASM / LangChain
+
+### DevOps
+- **Hosting**: Cloudflare Workers / Vercel
+- **Database**: Supabase
+- **Monitoring**: Sentry / LogRocket
+- **CI/CD**: GitHub Actions
+- **Version Control**: GitHub
+
+---
+
+## PODSUMOWANIE
+
+Aplikacja MyBonzo 2.0 będzie **nowoczesną, intuicyjną platformą AI dla MŚP** z **następującymi wyznacznikami**:
+
+✅ **Prosty interfejs** - Każdy może użyć bez wiedzy technicznej
+✅ **Rzeczywiste narzędzia** - Zintegrane, działające, testowane
+✅ **Futurystyczny design** - Zachowujący estetykę poprzedniej wersji
+✅ **Modułowa architektura** - Łatwa do rozszerzenia
+✅ **Beginner-friendly** - Solidne onboarding, tutorials, support
+✅ **Agentic AI** - Orkiestracja narzędzi dla kompleksowych zadań
+✅ **Skalowalna** - Na Cloudflare, serverless, gotowa na miliony użytkowników
+✅ **Opłacalna** - Free tier, competitive pricing, ROI dla MŚP
+
+---
+
+## INSTRUKCJA KOŃCOWA DLA GEMINI
+
+**MASTER PROMPT:**
+
+```
+Jesteś senior full-stack inżynierem AI z 15-letnim doświadczeniem.
+Twoim zadaniem jest **kompletne przebudowanie platformy MyBonzo** 
+na podstawie dokumentu powyżej.
+
+PRZYGOTUJ:
+
+1. ✅ Pełny kod frontend (React + TypeScript)
+2. ✅ Pełny kod backend (Node.js/Hono)
+3. ✅ Konfiguracja bazy danych (Supabase SQL)
+4. ✅ Integracje AI (image, chat, voice, content)
+5. ✅ Deployment pipeline (GitHub Actions)
+6. ✅ Dokumentacja użytkownika i API
+7. ✅ Testing setup (Jest, Playwright)
+8. ✅ Docker setup dla local development
+9. ✅ Security configuration
+10. ✅ Monitoring i logging setup
+
+WYMAGANIA:
+- Kod production-ready
+- TypeScript everywhere
+- Error handling везде
+- Comprehensive comments
+- Scalable architecture
+- Security best practices
+- Performance optimized
+
+DOSTARCZ:
+- Kompletne repozytoria (zip file)
+- Gotowe do uruchomienia
+- Z instrukcjami setup
+- Każdy plik z dokumentacją
+
+START!
+```
+
+---
+
+**Koniec dokumentu - Prześlij go Gemini i zacznij budować! 🚀**
