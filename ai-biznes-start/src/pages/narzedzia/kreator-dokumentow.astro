@@ -1,0 +1,13 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import KreatorDokumentow from '../../components/narzedzia/KreatorDokumentow';
+---
+
+<MainLayout
+  title="Kreator Dokumentów Biznesowych - AI Biznes Start"
+  description="Generuj profesjonalne dokumenty prawne z pomocą AI. Umowy, regulaminy, polityki prywatności RODO i więcej - wszystko zgodnie z polskim prawem."
+>
+  <div class="container-custom py-12">
+    <KreatorDokumentow client:load />
+  </div>
+</MainLayout>

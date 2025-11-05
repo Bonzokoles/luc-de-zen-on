@@ -29,10 +29,10 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
     </section>
 
     <!-- Statystyki -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
       <div class="card text-center">
-        <div class="text-4xl font-bold text-business-accent mb-2">8</div>
-        <div class="text-business-text-dim">Prostych Narzędzi</div>
+        <div class="text-4xl font-bold text-business-accent mb-2">7</div>
+        <div class="text-business-text-dim">Narzędzi Biznesowych</div>
       </div>
       <div class="card text-center">
         <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
@@ -40,8 +40,36 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
       </div>
       <div class="card text-center">
         <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
-        <div class="text-business-text-dim">Wsparcie dla Każdego</div>
+        <div class="text-business-text-dim">Wsparcie Gemini</div>
       </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-purple-400 mb-2">🤖</div>
+        <div class="text-business-text-dim">Asystent 24/7</div>
+      </div>
+    </section>
+
+    <!-- Featured Tool -->
+    <section class="mb-12">
+      <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform">
+            🤖
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-full mb-2">
+              ⭐ NOWOŚĆ - Gemini AI
+            </div>
+            <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
+            <p class="text-lg text-gray-300">
+              Twój osobisty doradca 24/7 - zadaj pytanie o strategię, marketing, finanse, prawo biznesowe.
+              Odpowiedzi w czasie rzeczywistym powered by Gemini 2.0 Flash.
+            </p>
+          </div>
+          <div class="text-indigo-400 text-3xl group-hover:translate-x-2 transition-transform">
+            →
+          </div>
+        </div>
+      </a>
     </section>
 
     <!-- Narzędzia - Podgląd -->
@@ -50,109 +78,89 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         🛠️ Dostępne Narzędzia
       </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Kreator Dokumentów -->
+        <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-cyan-600 to-cyan-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kreator Dokumentów</h3>
+          <p class="text-sm text-business-text-dim">
+            Umowy, regulaminy, RODO, NDA - AI generuje zgodnie z prawem
+          </p>
+        </a>
+
+        <!-- Generator Faktur -->
+        <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30">
+          <div class="absolute top-3 right-3">
+            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded">NOWE</span>
+          </div>
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-emerald-600 to-emerald-700">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Faktur VAT</h3>
+          <p class="text-sm text-business-text-dim">
+            Profesjonalne faktury z VAT - eksport do PDF, pełna polskość
+          </p>
+        </a>
 
         <!-- Generator Treści -->
         <a href="/narzedzia/generator-tresci" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-blue-600 to-blue-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
             </svg>
           </div>
           <h3 class="text-lg font-bold mb-2 text-business-text">Generator Treści</h3>
           <p class="text-sm text-business-text-dim">
-            Twórz posty, opisy i ogłoszenia AI w kilka sekund
+            Posty, opisy produktów, newslettery - AI w sekundę
           </p>
         </a>
 
         <!-- Asystent Email -->
         <a href="/narzedzia/asystent-email" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-purple-600 to-purple-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
           </div>
           <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Email</h3>
           <p class="text-sm text-business-text-dim">
-            Pisz profesjonalne emaile z pomocą AI
+            Profesjonalne emaile biznesowe z etykietą
           </p>
         </a>
 
         <!-- Organizer Zadań -->
         <a href="/narzedzia/organizer-zadan" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-green-600 to-green-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
             </svg>
           </div>
           <h3 class="text-lg font-bold mb-2 text-business-text">Organizer Zadań</h3>
           <p class="text-sm text-business-text-dim">
-            Planuj dzień z AI - priorytet, czas, przypomnienia
-          </p>
-        </a>
-
-        <!-- Generator Dokumentów -->
-        <a href="/narzedzia/generator-dokumentow" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Dokumentów</h3>
-          <p class="text-sm text-business-text-dim">
-            Faktury, umowy, oferty - gotowe szablony
+            Zarządzaj zadaniami - priorytety, terminy, filtry
           </p>
         </a>
 
         <!-- Kalkulator Biznesowy -->
         <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-orange-600 to-orange-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
             </svg>
           </div>
           <h3 class="text-lg font-bold mb-2 text-business-text">Kalkulator Biznesowy</h3>
           <p class="text-sm text-business-text-dim">
-            Marże, VAT, ROI - wszystko w jednym miejscu
-          </p>
-        </a>
-
-        <!-- Generator Social Media -->
-        <a href="/narzedzia/generator-social" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Social Media</h3>
-          <p class="text-sm text-business-text-dim">
-            Posty na FB, Instagram, LinkedIn z AI
-          </p>
-        </a>
-
-        <!-- Asystent Pomysłów -->
-        <a href="/narzedzia/asystent-pomyslow" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Pomysłów</h3>
-          <p class="text-sm text-business-text-dim">
-            Burza mózgów z AI - nowe produkty, usługi, strategie
-          </p>
-        </a>
-
-        <!-- Analizator Tekstu -->
-        <a href="/narzedzia/analizator-tekstu" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-            </svg>
-          </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Analizator Tekstu</h3>
-          <p class="text-sm text-business-text-dim">
-            Sprawdź ton, czytelność, popraw błędy
+            Marże, VAT, ROI, zyski - wszystko w jednym
           </p>
         </a>
 
