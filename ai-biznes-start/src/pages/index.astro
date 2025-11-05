@@ -1,0 +1,268 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import NewsBiznesowe from '../components/NewsBiznesowe';
+import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
+---
+
+<MainLayout title="Strona Główna">
+  <div class="container mx-auto px-4 py-12">
+
+    <!-- Hero Section -->
+    <section class="text-center mb-16 fade-in">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6">
+        <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
+          AI Biznes Start
+        </span>
+      </h1>
+      <p class="text-xl md:text-2xl text-business-text-dim mb-8 max-w-3xl mx-auto">
+        Twoje pierwsze kroki w świecie AI dla biznesu.<br/>
+        Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/narzedzia" class="btn-primary">
+          🚀 Zobacz Narzędzia
+        </a>
+        <a href="/instrukcje" class="btn-secondary">
+          📚 Jak Zacząć?
+        </a>
+      </div>
+    </section>
+
+    <!-- Statystyki -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent mb-2">8</div>
+        <div class="text-business-text-dim">Prostych Narzędzi</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
+        <div class="text-business-text-dim">Po Polsku</div>
+      </div>
+      <div class="card text-center">
+        <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
+        <div class="text-business-text-dim">Wsparcie dla Każdego</div>
+      </div>
+    </section>
+
+    <!-- Narzędzia - Podgląd -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🛠️ Dostępne Narzędzia
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Generator Treści -->
+        <a href="/narzedzia/generator-tresci" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Treści</h3>
+          <p class="text-sm text-business-text-dim">
+            Twórz posty, opisy i ogłoszenia AI w kilka sekund
+          </p>
+        </a>
+
+        <!-- Asystent Email -->
+        <a href="/narzedzia/asystent-email" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Email</h3>
+          <p class="text-sm text-business-text-dim">
+            Pisz profesjonalne emaile z pomocą AI
+          </p>
+        </a>
+
+        <!-- Organizer Zadań -->
+        <a href="/narzedzia/organizer-zadan" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Organizer Zadań</h3>
+          <p class="text-sm text-business-text-dim">
+            Planuj dzień z AI - priorytet, czas, przypomnienia
+          </p>
+        </a>
+
+        <!-- Generator Dokumentów -->
+        <a href="/narzedzia/generator-dokumentow" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Dokumentów</h3>
+          <p class="text-sm text-business-text-dim">
+            Faktury, umowy, oferty - gotowe szablony
+          </p>
+        </a>
+
+        <!-- Kalkulator Biznesowy -->
+        <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Kalkulator Biznesowy</h3>
+          <p class="text-sm text-business-text-dim">
+            Marże, VAT, ROI - wszystko w jednym miejscu
+          </p>
+        </a>
+
+        <!-- Generator Social Media -->
+        <a href="/narzedzia/generator-social" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Social Media</h3>
+          <p class="text-sm text-business-text-dim">
+            Posty na FB, Instagram, LinkedIn z AI
+          </p>
+        </a>
+
+        <!-- Asystent Pomysłów -->
+        <a href="/narzedzia/asystent-pomyslow" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Pomysłów</h3>
+          <p class="text-sm text-business-text-dim">
+            Burza mózgów z AI - nowe produkty, usługi, strategie
+          </p>
+        </a>
+
+        <!-- Analizator Tekstu -->
+        <a href="/narzedzia/analizator-tekstu" class="tool-card group">
+          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-2 text-business-text">Analizator Tekstu</h3>
+          <p class="text-sm text-business-text-dim">
+            Sprawdź ton, czytelność, popraw błędy
+          </p>
+        </a>
+
+      </div>
+
+      <div class="text-center mt-8">
+        <a href="/narzedzia" class="btn-primary">
+          Zobacz Wszystkie Narzędzia →
+        </a>
+      </div>
+    </section>
+
+    <!-- Jak to działa -->
+    <section class="mb-16">
+      <h2 class="section-title text-center mb-12">
+        🎯 Jak to działa?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            1
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wybierz Narzędzie</h3>
+          <p class="text-business-text-dim">
+            Kliknij na narzędzie, które Cię interesuje. Każde ma jasny opis co robi.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            2
+          </div>
+          <h3 class="text-xl font-bold mb-3">Wpisz co Potrzebujesz</h3>
+          <p class="text-business-text-dim">
+            Opisz zwykłymi słowami czego potrzebujesz. AI zrozumie i pomoże.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+            3
+          </div>
+          <h3 class="text-xl font-bold mb-3">Gotowe!</h3>
+          <p class="text-business-text-dim">
+            AI wygeneruje dla Ciebie gotowe rozwiązanie. Kopiuj i używaj!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dla kogo -->
+    <section class="card mb-16">
+      <h2 class="text-2xl font-bold mb-6 text-center">
+        💼 Dla kogo jest ta platforma?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Początkujący Przedsiębiorcy</h3>
+            <p class="text-sm text-business-text-dim">Dopiero zaczynasz? Pomożemy Ci zautomatyzować pierwsze procesy.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Freelancerzy</h3>
+            <p class="text-sm text-business-text-dim">Oszczędzaj czas na administracji, skup się na pracy.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Małe Firmy</h3>
+            <p class="text-sm text-business-text-dim">Automatyzuj marketing, faktury, dokumenty - bez zatrudniania zespołu.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <span class="text-2xl">✅</span>
+          <div>
+            <h3 class="font-bold mb-1">Osoby bez Wiedzy Technicznej</h3>
+            <p class="text-sm text-business-text-dim">Wszystko jest proste i intuicyjne. Nie potrzebujesz kursu AI!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsy i Media -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+      <NewsBiznesowe client:load />
+      <MusicPlayerVisualizer client:load />
+    </section>
+
+    <!-- CTA -->
+    <section class="text-center card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700">
+      <h2 class="text-3xl font-bold mb-4">
+        Gotowy żeby zacząć?
+      </h2>
+      <p class="text-business-text-dim mb-6 max-w-2xl mx-auto">
+        Nie czekaj! Wypróbuj nasze narzędzia już teraz - bez rejestracji, za darmo.
+      </p>
+      <a href="/narzedzia" class="btn-primary">
+        🚀 Rozpocznij Teraz
+      </a>
+    </section>
+
+  </div>
+</MainLayout>
