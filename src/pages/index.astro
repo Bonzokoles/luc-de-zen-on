@@ -5,6 +5,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
 import BalloonLibrary from '../components/animations/BalloonLibrary';
 import DashboardVisual from '../components/DashboardVisual';
 import { SparkleEffect } from '../components/animations/BalloonLibrary';
+import IconWrapper from '../components/IconWrapper';
 ---
 
 <MainLayout title="Strona Główna">
@@ -34,11 +35,13 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/narzedzia" class="btn-primary">
-          🚀 Zobacz Narzędzia
+        <a href="/narzedzia" class="btn-primary flex items-center justify-center gap-2">
+          <IconWrapper client:load name="rocket" size={20} className="inline" />
+          Zobacz Narzędzia
         </a>
-        <a href="/instrukcje" class="btn-secondary">
-          📚 Jak Zacząć?
+        <a href="/instrukcje" class="btn-secondary flex items-center justify-center gap-2">
+          <IconWrapper client:load name="bookOpen" size={20} className="inline" />
+          Jak Zacząć?
         </a>
       </div>
     </section>
@@ -63,7 +66,9 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         <div class="text-business-text-dim">Wsparcie Gemini</div>
       </div>
       <div class="card text-center hover:scale-105 transition-transform hover:border-primary-500">
-        <div class="text-4xl font-bold text-purple-400 mb-2">🤖</div>
+        <div class="flex justify-center mb-2">
+          <IconWrapper client:load name="bot" size={48} className="text-purple-400" />
+        </div>
         <div class="text-business-text-dim">Asystent 24/7</div>
       </div>
     </section>
@@ -72,12 +77,13 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
     <section class="mb-12">
       <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
         <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform border-2 border-indigo-400/30">
-            🤖
+          <div class="w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform border-2 border-indigo-400/30">
+            <IconWrapper client:load name="bot" size={48} className="text-white" />
           </div>
           <div class="flex-1 text-center md:text-left">
-            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-400/40">
-              ⭐ NOWOŚĆ - Gemini AI
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-400/40 flex items-center gap-1">
+              <IconWrapper client:load name="sparkles" size={14} className="inline text-purple-300" />
+              NOWOŚĆ - Gemini AI
             </div>
             <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
             <p class="text-lg text-gray-300">
@@ -94,9 +100,12 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
 
     <!-- Narzędzia - Podgląd -->
     <section class="mb-16">
-      <h2 class="section-title text-center mb-12">
-        🛠️ Dostępne Narzędzia
-      </h2>
+      <div class="flex items-center justify-center gap-3 mb-12">
+        <IconWrapper client:load name="wrench" size={32} className="text-primary-500" />
+        <h2 class="section-title text-center m-0">
+          Dostępne Narzędzia
+        </h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -195,9 +204,12 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
 
     <!-- Jak to działa -->
     <section class="mb-16">
-      <h2 class="section-title text-center mb-12">
-        🎯 Jak to działa?
-      </h2>
+      <div class="flex items-center justify-center gap-3 mb-12">
+        <IconWrapper client:load name="target" size={32} className="text-primary-500" />
+        <h2 class="section-title text-center m-0">
+          Jak to działa?
+        </h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
@@ -234,13 +246,14 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
 
     <!-- Dla kogo -->
     <section class="card mb-16">
-      <h2 class="text-2xl font-bold mb-6 text-center">
-        💼 Dla kogo jest ta platforma?
+      <h2 class="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+        <IconWrapper client:load name="briefcase" size={28} className="text-primary-500" />
+        Dla kogo jest ta platforma?
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Początkujący Przedsiębiorcy</h3>
             <p class="text-sm text-business-text-dim">Dopiero zaczynasz? Pomożemy Ci zautomatyzować pierwsze procesy.</p>
@@ -248,7 +261,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Freelancerzy</h3>
             <p class="text-sm text-business-text-dim">Oszczędzaj czas na administracji, skup się na pracy.</p>
@@ -256,7 +269,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Małe Firmy</h3>
             <p class="text-sm text-business-text-dim">Automatyzuj marketing, faktury, dokumenty - bez zatrudniania zespołu.</p>
@@ -264,7 +277,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Osoby bez Wiedzy Technicznej</h3>
             <p class="text-sm text-business-text-dim">Wszystko jest proste i intuicyjne. Nie potrzebujesz kursu AI!</p>
@@ -287,8 +300,9 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
       <p class="text-business-text-dim mb-6 max-w-2xl mx-auto">
         Nie czekaj! Wypróbuj nasze narzędzia już teraz - bez rejestracji, za darmo.
       </p>
-      <a href="/narzedzia" class="btn-primary">
-        🚀 Rozpocznij Teraz
+      <a href="/narzedzia" class="btn-primary flex items-center justify-center gap-2 inline-flex">
+        <IconWrapper client:load name="rocket" size={20} className="inline" />
+        Rozpocznij Teraz
       </a>
     </section>
 
