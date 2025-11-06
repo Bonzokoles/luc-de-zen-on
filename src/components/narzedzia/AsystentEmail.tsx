@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const AsystentEmail = () => {
   const [emailType, setEmailType] = useState('email biznesowy');
@@ -97,7 +98,12 @@ const AsystentEmail = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-5xl mx-auto"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Panel Konfiguracji */}
@@ -291,7 +297,7 @@ const AsystentEmail = () => {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,14 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const MusicPlayerVisualizer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [volume, setVolume] = useState(70);
+  const [visualMode, setVisualMode] = useState<'bars' | 'wave' | 'circular'>('bars');
+  const [isSpeechMode, setIsSpeechMode] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const speechCanvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const analyzerRef = useRef<AnalyserNode | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
 
   // Przykładowa biblioteka muzyki (w produkcji użyj prawdziwych plików)
   const tracks = [
@@ -41,67 +46,223 @@ const MusicPlayerVisualizer = () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach(track => track.stop());
+      }
     };
   }, []);
 
-  // Audio Context and Visualizer - commented out for demo
-  // Uncomment when adding real audio files
-  //
-  // const setupAudioContext = () => {
-  //   if (audioRef.current && !audioContextRef.current) {
-  //     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  //     const source = audioContext.createMediaElementSource(audioRef.current);
-  //     const analyzer = audioContext.createAnalyser();
-  //
-  //     analyzer.fftSize = 256;
-  //     source.connect(analyzer);
-  //     analyzer.connect(audioContext.destination);
-  //
-  //     analyzerRef.current = analyzer;
-  //     audioContextRef.current = audioContext;
-  //   }
-  // };
-  //
-  // const visualize = () => {
-  //   if (!analyzerRef.current || !canvasRef.current) return;
-  //
-  //   const canvas = canvasRef.current;
-  //   const ctx = canvas.getContext('2d');
-  //   if (!ctx) return;
-  //
-  //   const analyzer = analyzerRef.current;
-  //   const bufferLength = analyzer.frequencyBinCount;
-  //   const dataArray = new Uint8Array(bufferLength);
-  //
-  //   const draw = () => {
-  //     animationRef.current = requestAnimationFrame(draw);
-  //
-  //     analyzer.getByteFrequencyData(dataArray);
-  //
-  //     ctx.fillStyle = 'rgba(10, 14, 39, 0.3)';
-  //     ctx.fillRect(0, 0, canvas.width, canvas.height);
-  //
-  //     const barWidth = (canvas.width / bufferLength) * 2.5;
-  //     let barHeight;
-  //     let x = 0;
-  //
-  //     for (let i = 0; i < bufferLength; i++) {
-  //       barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
-  //
-  //       const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
-  //       gradient.addColorStop(0, '#00d9ff');
-  //       gradient.addColorStop(0.5, '#0ea5e9');
-  //       gradient.addColorStop(1, '#4ade80');
-  //
-  //       ctx.fillStyle = gradient;
-  //       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-  //
-  //       x += barWidth + 1;
-  //     }
-  //   };
-  //
-  //   draw();
-  // };
+  // Setup Audio Context
+  const setupAudioContext = () => {
+    if (audioRef.current && !audioContextRef.current) {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const source = audioContext.createMediaElementSource(audioRef.current);
+      const analyzer = audioContext.createAnalyser();
+
+      analyzer.fftSize = 256;
+      source.connect(analyzer);
+      analyzer.connect(audioContext.destination);
+
+      analyzerRef.current = analyzer;
+      audioContextRef.current = audioContext;
+    }
+  };
+
+  // Visualizer - Bars Mode
+  const visualizeBars = (analyzer: AnalyserNode, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const bufferLength = analyzer.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyzer.getByteFrequencyData(dataArray);
+
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.3)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
+
+    for (let i = 0; i < bufferLength; i++) {
+      const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
+
+      const gradient = ctx.createLinearGradient(0, canvas.height - barHeight, 0, canvas.height);
+      gradient.addColorStop(0, '#0ea5e9');
+      gradient.addColorStop(0.5, '#64748b');
+      gradient.addColorStop(1, '#334155');
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+
+      x += barWidth + 1;
+    }
+  };
+
+  // Visualizer - Wave Mode
+  const visualizeWave = (analyzer: AnalyserNode, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const bufferLength = analyzer.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyzer.getByteTimeDomainData(dataArray);
+
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#0ea5e9';
+    ctx.beginPath();
+
+    const sliceWidth = canvas.width / bufferLength;
+    let x = 0;
+
+    for (let i = 0; i < bufferLength; i++) {
+      const v = dataArray[i] / 128.0;
+      const y = (v * canvas.height) / 2;
+
+      if (i === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    ctx.lineTo(canvas.width, canvas.height / 2);
+    ctx.stroke();
+  };
+
+  // Visualizer - Circular Mode
+  const visualizeCircular = (analyzer: AnalyserNode, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const bufferLength = analyzer.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyzer.getByteFrequencyData(dataArray);
+
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.2)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) * 0.5;
+
+    for (let i = 0; i < bufferLength; i++) {
+      const angle = (i / bufferLength) * Math.PI * 2;
+      const barHeight = (dataArray[i] / 255) * radius;
+
+      const x1 = centerX + Math.cos(angle) * radius;
+      const y1 = centerY + Math.sin(angle) * radius;
+      const x2 = centerX + Math.cos(angle) * (radius + barHeight);
+      const y2 = centerY + Math.sin(angle) * (radius + barHeight);
+
+      const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+      gradient.addColorStop(0, '#334155');
+      gradient.addColorStop(1, '#0ea5e9');
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+  };
+
+  // Main Visualize Function
+  const visualize = () => {
+    if (!analyzerRef.current || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const draw = () => {
+      animationRef.current = requestAnimationFrame(draw);
+      const analyzer = analyzerRef.current!;
+
+      switch (visualMode) {
+        case 'bars':
+          visualizeBars(analyzer, canvas, ctx);
+          break;
+        case 'wave':
+          visualizeWave(analyzer, canvas, ctx);
+          break;
+        case 'circular':
+          visualizeCircular(analyzer, canvas, ctx);
+          break;
+      }
+    };
+
+    draw();
+  };
+
+  // Speech Visualizer
+  const visualizeSpeech = (analyzer: AnalyserNode, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const bufferLength = analyzer.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    const draw = () => {
+      animationRef.current = requestAnimationFrame(draw);
+      analyzer.getByteFrequencyData(dataArray);
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Speech waveform
+      const centerY = canvas.height / 2;
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+
+      const sliceWidth = canvas.width / bufferLength;
+      let x = 0;
+
+      for (let i = 0; i < bufferLength; i++) {
+        const v = dataArray[i] / 255;
+        const y = centerY + (v - 0.5) * canvas.height;
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+        x += sliceWidth;
+      }
+      ctx.stroke();
+    };
+
+    draw();
+  };
+
+  // Start Speech Recognition
+  const startSpeechVisualizer = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaStreamRef.current = stream;
+
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const source = audioContext.createMediaStreamSource(stream);
+      const analyzer = audioContext.createAnalyser();
+      analyzer.fftSize = 256;
+      source.connect(analyzer);
+
+      if (speechCanvasRef.current) {
+        const ctx = speechCanvasRef.current.getContext('2d');
+        if (ctx) {
+          visualizeSpeech(analyzer, speechCanvasRef.current, ctx);
+        }
+      }
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      alert('Nie można uzyskać dostępu do mikrofonu');
+      setIsSpeechMode(false);
+    }
+  };
+
+  const stopSpeechVisualizer = () => {
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach(track => track.stop());
+      mediaStreamRef.current = null;
+    }
+  };
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -118,11 +279,22 @@ const MusicPlayerVisualizer = () => {
     } else {
       // Demo: brak prawdziwego pliku audio
       alert('🎵 To jest wersja demo. W pełnej wersji załaduj pliki MP3 do folderu /public/music/');
+      // setupAudioContext();
       // audioRef.current.play();
       // visualize();
     }
 
     setIsPlaying(!isPlaying);
+  };
+
+  const toggleSpeechMode = async () => {
+    if (!isSpeechMode) {
+      await startSpeechVisualizer();
+      setIsSpeechMode(true);
+    } else {
+      stopSpeechVisualizer();
+      setIsSpeechMode(false);
+    }
   };
 
   const changeTrack = (index: number) => {
@@ -142,20 +314,98 @@ const MusicPlayerVisualizer = () => {
   };
 
   return (
-    <div className="card">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="card"
+    >
       <h2 className="text-2xl font-bold mb-6">
-        🎵 Music Player & Wizualizer
+        🎵 Music Player & Wizualizator
       </h2>
 
-      {/* Wizualizer Canvas */}
-      <div className="mb-6 bg-business-dark rounded-lg overflow-hidden border border-business-border">
-        <canvas
-          ref={canvasRef}
-          width={800}
-          height={200}
-          className="w-full h-48 md:h-64"
-        />
+      {/* Mode Selector */}
+      <div className="flex gap-2 mb-4 flex-wrap">
+        <button
+          onClick={toggleSpeechMode}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+            isSpeechMode
+              ? 'bg-green-600 text-white shadow-glow'
+              : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
+          }`}
+        >
+          {isSpeechMode ? '🎤 Mowa włączona' : '🎤 Wizualizator mowy'}
+        </button>
+        {!isSpeechMode && (
+          <>
+            <button
+              onClick={() => setVisualMode('bars')}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                visualMode === 'bars'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
+              }`}
+            >
+              📊 Słupki
+            </button>
+            <button
+              onClick={() => setVisualMode('wave')}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                visualMode === 'wave'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
+              }`}
+            >
+              〰️ Fala
+            </button>
+            <button
+              onClick={() => setVisualMode('circular')}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                visualMode === 'circular'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
+              }`}
+            >
+              ⭕ Okrągły
+            </button>
+          </>
+        )}
       </div>
+
+      {/* Music Visualizer Canvas */}
+      {!isSpeechMode && (
+        <motion.div 
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          className="mb-6 bg-business-dark rounded-lg overflow-hidden border border-business-border"
+        >
+          <canvas
+            ref={canvasRef}
+            width={800}
+            height={200}
+            className="w-full h-48 md:h-64"
+          />
+        </motion.div>
+      )}
+
+      {/* Speech Visualizer Canvas */}
+      {isSpeechMode && (
+        <motion.div 
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          className="mb-6 bg-business-dark rounded-lg overflow-hidden border-2 border-green-600/50"
+        >
+          <canvas
+            ref={speechCanvasRef}
+            width={800}
+            height={200}
+            className="w-full h-48 md:h-64"
+          />
+          <div className="px-4 py-2 bg-green-900/30 text-center text-sm text-green-300">
+            🎤 Mów do mikrofonu, aby zobaczyć wizualizację
+          </div>
+        </motion.div>
+      )}
 
       {/* Obecny utwór */}
       <div className="bg-gradient-to-r from-primary-900/30 to-business-surface border border-primary-700 rounded-lg p-6 mb-6">
@@ -274,7 +524,7 @@ const MusicPlayerVisualizer = () => {
           i zaktualizuj ścieżki w <code className="bg-business-surface px-2 py-1 rounded">tracks.src</code>
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

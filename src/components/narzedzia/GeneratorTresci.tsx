@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { motion } from 'framer-motion';
 
 const GeneratorTresci = () => {
   const [contentType, setContentType] = useState('post na Facebooka');
@@ -80,11 +81,21 @@ const GeneratorTresci = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-5xl mx-auto"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Panel Konfiguracji */}
-        <div className="card">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="card"
+        >
           <h2 className="text-2xl font-bold mb-6">
             ⚙️ Konfiguracja
           </h2>
@@ -181,10 +192,15 @@ const GeneratorTresci = () => {
               ⚠️ {error}
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Panel Wyniku */}
-        <div className="card">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="card"
+        >
           <h2 className="text-2xl font-bold mb-6">
             📄 Wygenerowana Treść
           </h2>
@@ -239,7 +255,7 @@ const GeneratorTresci = () => {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* Przykłady użycia */}
@@ -272,7 +288,7 @@ const GeneratorTresci = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
