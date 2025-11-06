@@ -1,0 +1,11 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Magazyn from '../components/Magazyn';
+---
+
+<MainLayout
+  title="Magazyn ERP - Zarządzanie stanem magazynowym"
+  description="System zarządzania magazynem: stany, dokumenty PZ/WZ, raporty, wykresy rotacji"
+>
+  <Magazyn client:load />
+</MainLayout>
