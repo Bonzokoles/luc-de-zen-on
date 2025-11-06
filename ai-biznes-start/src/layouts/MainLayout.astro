@@ -1,0 +1,127 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "AI Biznes Start - Narzędzia AI dla początkujących przedsiębiorców"
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content={description}>
+  <title>{title} | AI Biznes Start</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+  <div class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-business-surface/80 backdrop-blur-md border-b border-business-border">
+      <nav class="container mx-auto px-4 py-4">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <a href="/" class="flex items-center space-x-3 group">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center shadow-glow">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <span class="text-xl font-bold bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+              AI Biznes Start
+            </span>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-6">
+            <a href="/" class="text-business-text hover:text-business-accent transition-colors">Strona Główna</a>
+            <a href="/narzedzia" class="text-business-text hover:text-business-accent transition-colors">Narzędzia</a>
+            <a href="/instrukcje" class="text-business-text hover:text-business-accent transition-colors">Instrukcje</a>
+            <a href="/kontakt" class="text-business-text hover:text-business-accent transition-colors">Kontakt</a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-button" class="md:hidden text-business-text">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3">
+          <a href="/" class="block text-business-text hover:text-business-accent transition-colors py-2">Strona Główna</a>
+          <a href="/narzedzia" class="block text-business-text hover:text-business-accent transition-colors py-2">Narzędzia</a>
+          <a href="/instrukcje" class="block text-business-text hover:text-business-accent transition-colors py-2">Instrukcje</a>
+          <a href="/kontakt" class="block text-business-text hover:text-business-accent transition-colors py-2">Kontakt</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-business-surface border-t border-business-border mt-auto">
+      <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- O Platformie -->
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">AI Biznes Start</h3>
+            <p class="text-business-text-dim text-sm">
+              Twoje pierwsze kroki w świecie AI dla biznesu.
+              Proste, efektywne narzędzia w 100% po polsku.
+            </p>
+          </div>
+
+          <!-- Szybkie Linki -->
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">Szybkie Linki</h3>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/narzedzia" class="text-business-text-dim hover:text-business-accent transition-colors">Wszystkie Narzędzia</a></li>
+              <li><a href="/instrukcje" class="text-business-text-dim hover:text-business-accent transition-colors">Jak Zacząć</a></li>
+              <li><a href="/dokumentacja" class="text-business-text-dim hover:text-business-accent transition-colors">Dokumentacja</a></li>
+            </ul>
+          </div>
+
+          <!-- Kontakt -->
+          <div>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">Wsparcie</h3>
+            <p class="text-business-text-dim text-sm mb-2">
+              Potrzebujesz pomocy?
+            </p>
+            <a href="/kontakt" class="text-business-accent hover:text-business-accent-soft transition-colors text-sm">
+              Skontaktuj się z nami →
+            </a>
+          </div>
+        </div>
+
+        <div class="border-t border-business-border mt-8 pt-6 text-center text-business-text-dim text-sm">
+          <p>&copy; {new Date().getFullYear()} AI Biznes Start. Wszystkie prawa zastrzeżone.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  </script>
+</body>
+</html>

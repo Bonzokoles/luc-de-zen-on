@@ -1,0 +1,84 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import AsystentEmail from '../../components/narzedzia/AsystentEmail';
+---
+
+<MainLayout title="Asystent Email Biznesowy">
+  <div class="container mx-auto px-4 py-12">
+
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm">
+      <a href="/" class="text-business-accent hover:underline">Strona główna</a>
+      <span class="mx-2 text-business-text-dim">/</span>
+      <a href="/narzedzia" class="text-business-accent hover:underline">Narzędzia</a>
+      <span class="mx-2 text-business-text-dim">/</span>
+      <span class="text-business-text-dim">Asystent Email</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center mb-12 fade-in">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-700 text-white mb-6 shadow-glow">
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
+          Asystent Email Biznesowy
+        </span>
+      </h1>
+
+      <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
+        Pisz profesjonalne emaile biznesowe w sekundach.
+        AI zadba o odpowiedni ton, formę i etykietę biznesową.
+      </p>
+    </div>
+
+    <!-- Jak używać -->
+    <div class="card mb-8 bg-gradient-to-r from-business-accent/10 to-business-accent-soft/10 border-business-accent/30">
+      <div class="flex items-start space-x-4">
+        <div class="text-3xl">📖</div>
+        <div>
+          <h3 class="font-bold text-lg mb-2">Jak korzystać z asystenta?</h3>
+          <ol class="space-y-2 text-sm text-business-text-dim">
+            <li><strong>1.</strong> Wypróbuj gotowe szablony lub stwórz własny email</li>
+            <li><strong>2.</strong> Podaj do kogo piszesz (klient, dostawca, partner...)</li>
+            <li><strong>3.</strong> Opisz w jakiej sprawie piszesz</li>
+            <li><strong>4.</strong> Wybierz ton (profesjonalny, uprzejmy, bezpośredni...)</li>
+            <li><strong>5.</strong> Kliknij "Wygeneruj" i skopiuj gotowy email!</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Komponent -->
+    <AsystentEmail client:load />
+
+    <!-- Porady -->
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="card">
+        <h3 class="text-xl font-bold mb-4">✅ Dobre praktyki</h3>
+        <ul class="space-y-2 text-sm text-business-text-dim">
+          <li>• Zawsze sprawdź email przed wysłaniem</li>
+          <li>• Dodaj swoje dane kontaktowe na końcu</li>
+          <li>• Dostosuj ton do odbiorcy (klient vs partner)</li>
+          <li>• Używaj konkretnych dat i kwot</li>
+          <li>• Przeczytaj na głos - pomoże wyłapać błędy</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 class="text-xl font-bold mb-4">⚠️ Czego unikać</h3>
+        <ul class="space-y-2 text-sm text-business-text-dim">
+          <li>• Zbyt długich emaili (max 3 akapity)</li>
+          <li>• Niejasnych tematów wiadomości</li>
+          <li>• Wielkich liter (WYGLĄDA JAK KRZYK)</li>
+          <li>• Zbyt wielu wykrzykników!!!</li>
+          <li>• Wysyłania bez sprawdzenia dat i danych</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</MainLayout>

@@ -1,6 +1,54 @@
+# Dependencies
+node_modules/
 node_modules
+.npm/
+.yarn/
+
+# Build outputs
+dist/
+.output/
+.astro/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.*.local
 .dev.vars
 
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+
+# Misc
+*.bak
+*.tmp
+.temp/
+
+# Project directories
 luc-de-zen-on/
 ai-biznes-erp/
 ai-biznes-start/
