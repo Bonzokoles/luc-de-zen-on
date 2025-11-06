@@ -15,29 +15,91 @@ const MusicPlayerVisualizer = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
-  // Przykładowa biblioteka muzyki (w produkcji użyj prawdziwych plików)
+  // Biblioteka muzyki - prawdziwe pliki MP3
   const tracks = [
     {
-      title: 'Muzyka do pracy 1',
-      artist: 'Focus Beats',
-      duration: '3:45',
-      genre: 'Lo-fi',
-      // W produkcji: src: '/music/track1.mp3'
-      src: '' // Pusta - demo
-    },
-    {
-      title: 'Ambient dla produktywności',
-      artist: 'Chill Vibes',
-      duration: '4:12',
-      genre: 'Ambient',
-      src: ''
-    },
-    {
-      title: 'Koncentracja i flow',
-      artist: 'Study Music',
-      duration: '5:20',
+      title: 'Personal Jesus',
+      artist: 'Depeche Mode',
+      duration: '4:56',
       genre: 'Electronic',
-      src: ''
+      src: '/music/01. Personal Jesus.mp3'
+    },
+    {
+      title: 'Neony',
+      artist: 'Miuosh',
+      duration: '4:58',
+      genre: 'Hip-Hop',
+      src: '/music/02 - Miuosh - Neony.mp3'
+    },
+    {
+      title: 'Nieznajomy',
+      artist: 'Daria Zawiałow',
+      duration: '5:47',
+      genre: 'Pop',
+      src: '/music/03. Nieznajomy.mp3'
+    },
+    {
+      title: 'Blizny',
+      artist: 'Swiernalis',
+      duration: '2:09',
+      genre: 'Hip-Hop',
+      src: '/music/044._Swiernalis_-_Blizny.mp3'
+    },
+    {
+      title: 'Tora! Tora! Tora!',
+      artist: 'Depeche Mode',
+      duration: '3:16',
+      genre: 'Electronic',
+      src: '/music/08 - Depeche Mode - Tora! Tora! Tora!.mp3'
+    },
+    {
+      title: 'The Man Who Sold The World',
+      artist: 'David Bowie',
+      duration: '2:46',
+      genre: 'Rock',
+      src: '/music/08 - The Man Who Sold The World.mp3'
+    },
+    {
+      title: 'Life On Mars',
+      artist: 'David Bowie',
+      duration: '2:41',
+      genre: 'Rock',
+      src: '/music/bowie Life On Mars.mp3'
+    },
+    {
+      title: 'Antistar',
+      artist: 'Massive Attack',
+      duration: '3:55',
+      genre: 'Trip-Hop',
+      src: '/music/Massive Attack - Antistar.mp3'
+    },
+    {
+      title: 'Silacz',
+      artist: 'Marcin Rozynek',
+      duration: '2:47',
+      genre: 'Rock',
+      src: '/music/Marcin Rozynek - Silacz.mp3'
+    },
+    {
+      title: 'Jeszcze w zielone gramy',
+      artist: 'Daria Zawiałow',
+      duration: '3:42',
+      genre: 'Pop',
+      src: '/music/Daria Zawiałow - Jeszcze w zielone gramy (Bonus Track).mp3'
+    },
+    {
+      title: 'Kilka westchnień',
+      artist: 'Daria Zawiałow',
+      duration: '4:29',
+      genre: 'Pop',
+      src: '/music/Kilka westchnień.mp3'
+    },
+    {
+      title: 'Nikt tak pieknie',
+      artist: 'Gutek',
+      duration: '1:41',
+      genre: 'Pop',
+      src: '/music/gutek - nikt tak pieknie.mp3'
     }
   ];
 
@@ -277,11 +339,12 @@ const MusicPlayerVisualizer = () => {
         cancelAnimationFrame(animationRef.current);
       }
     } else {
-      // Demo: brak prawdziwego pliku audio
-      alert('🎵 To jest wersja demo. W pełnej wersji załaduj pliki MP3 do folderu /public/music/');
-      // setupAudioContext();
-      // audioRef.current.play();
-      // visualize();
+      setupAudioContext();
+      audioRef.current.play().catch(err => {
+        console.error('Error playing audio:', err);
+        alert('Nie można odtworzyć pliku audio. Sprawdź czy plik istnieje.');
+      });
+      visualize();
     }
 
     setIsPlaying(!isPlaying);
