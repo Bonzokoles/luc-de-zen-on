@@ -46,7 +46,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=luc-de-zen-on --commit-dirty=true
+          wranglerVersion: '3.78.12'
+          command: pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
 
       - name: Deployment Summary
         run: |
