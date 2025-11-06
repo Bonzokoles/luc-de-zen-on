@@ -47,14 +47,22 @@ const {
           <div class="hidden md:flex items-center space-x-6">
             <a href="/" class="text-business-text hover:text-business-accent transition-colors">Strona Główna</a>
             <a href="/narzedzia" class="text-business-text hover:text-business-accent transition-colors">Narzędzia</a>
-            <a href="/ai-biznes-erp" target="_blank" class="text-business-text hover:text-business-accent transition-colors flex items-center gap-1">
-              ERP System
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-            </a>
-            <a href="/instrukcje" class="text-business-text hover:text-business-accent transition-colors">Instrukcje</a>
-            <a href="/kontakt" class="text-business-text hover:text-business-accent transition-colors">Kontakt</a>
+            <div class="relative group">
+              <button class="text-business-text hover:text-business-accent transition-colors flex items-center gap-1">
+                Moduły ERP
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="absolute left-0 mt-2 w-48 bg-business-surface border border-business-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <a href="/finanse" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">💰 Finanse Pro</a>
+                <a href="/magazyn" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📦 Magazyn</a>
+                <a href="/projekty" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📊 Projekty</a>
+                <a href="/konwerter" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">🔄 Konwerter</a>
+                <a href="/wizualizacje" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📈 Wizualizacje</a>
+              </div>
+            </div>
+            <a href="/asystent-ai" class="text-business-text hover:text-business-accent transition-colors">Asystent AI</a>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -69,9 +77,15 @@ const {
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3">
           <a href="/" class="block text-business-text hover:text-business-accent transition-colors py-2">Strona Główna</a>
           <a href="/narzedzia" class="block text-business-text hover:text-business-accent transition-colors py-2">Narzędzia</a>
-          <a href="/ai-biznes-erp" target="_blank" class="block text-business-text hover:text-business-accent transition-colors py-2">ERP System ↗</a>
-          <a href="/instrukcje" class="block text-business-text hover:text-business-accent transition-colors py-2">Instrukcje</a>
-          <a href="/kontakt" class="block text-business-text hover:text-business-accent transition-colors py-2">Kontakt</a>
+          <div class="pl-4 space-y-2">
+            <p class="text-business-accent text-sm font-medium">Moduły ERP:</p>
+            <a href="/finanse" class="block text-business-text hover:text-business-accent transition-colors py-1">💰 Finanse Pro</a>
+            <a href="/magazyn" class="block text-business-text hover:text-business-accent transition-colors py-1">📦 Magazyn</a>
+            <a href="/projekty" class="block text-business-text hover:text-business-accent transition-colors py-1">📊 Projekty</a>
+            <a href="/konwerter" class="block text-business-text hover:text-business-accent transition-colors py-1">🔄 Konwerter</a>
+            <a href="/wizualizacje" class="block text-business-text hover:text-business-accent transition-colors py-1">📈 Wizualizacje</a>
+          </div>
+          <a href="/asystent-ai" class="block text-business-text hover:text-business-accent transition-colors py-2">Asystent AI</a>
         </div>
       </nav>
     </header>
