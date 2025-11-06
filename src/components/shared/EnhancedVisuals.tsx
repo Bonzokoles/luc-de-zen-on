@@ -21,10 +21,10 @@ export const GradientCard: React.FC<GradientCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={animated ? { scale: 1.02, y: -5 } : {}}
       transition={{ duration: 0.3 }}
-      className={`relative overflow-hidden rounded-xl ${className}`}
+      className={`relative overflow-hidden ${className}`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50`}></div>
-      <div className="relative bg-business-surface/80 backdrop-blur-sm border border-business-border rounded-xl p-6">
+      <div className="relative bg-business-surface/80 backdrop-blur-sm border border-business-border p-6">
         {children}
       </div>
       {animated && (
@@ -97,9 +97,9 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
 
   return (
     <div className="w-full">
-      <div className={`relative ${height} bg-business-dark rounded-full overflow-hidden`}>
+      <div className={`relative ${height} bg-business-dark overflow-hidden border border-business-border/30`}>
         <motion.div
-          className={`absolute inset-y-0 left-0 ${color} rounded-full`}
+          className={`absolute inset-y-0 left-0 ${color}`}
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: animated ? 1 : 0, ease: 'easeOut' }}
@@ -159,7 +159,7 @@ export const StatCardEnhanced: React.FC<StatCardEnhancedProps> = ({
       animate={{ opacity: 1, scale: 1 }}
       whileHover={animated ? { scale: 1.05, y: -5 } : {}}
       transition={{ duration: 0.3 }}
-      className="bg-business-surface border border-business-border rounded-xl p-6 relative overflow-hidden"
+      className="bg-business-surface border border-business-border p-6 relative overflow-hidden"
     >
       {/* Background gradient effect */}
       <div
@@ -170,7 +170,7 @@ export const StatCardEnhanced: React.FC<StatCardEnhancedProps> = ({
       <div className="relative">
         <div className="flex items-start justify-between mb-4">
           <div
-            className="w-12 h-12 rounded-lg flex items-center justify-center"
+            className="w-12 h-12 flex items-center justify-center border-2 border-current/20"
             style={{ backgroundColor: `${color}22`, color }}
           >
             {icon}
@@ -240,13 +240,13 @@ export const AnimatedBadge: React.FC<AnimatedBadgeProps> = ({
     <motion.span
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
-      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border ${colors[color as keyof typeof colors]}`}
+      className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-semibold border ${colors[color as keyof typeof colors]}`}
     >
       {icon && <span>{icon}</span>}
       <span>{text}</span>
       {pulse && (
         <motion.span
-          className="w-2 h-2 rounded-full bg-current"
+          className="w-2 h-2 bg-current"
           animate={{
             opacity: [1, 0.3, 1],
             scale: [1, 1.2, 1],
@@ -319,7 +319,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         whileHover={{ opacity: 1, scale: 1 }}
         className={`absolute ${positions[position]} opacity-0 group-hover:opacity-100 pointer-events-none z-50 transition-opacity`}
       >
-        <div className="bg-business-dark border border-business-border rounded-lg px-3 py-2 text-xs text-business-text whitespace-nowrap shadow-xl">
+        <div className="bg-business-dark border border-business-border px-3 py-2 text-xs text-business-text whitespace-nowrap shadow-xl">
           {content}
           <div
             className={`absolute w-2 h-2 bg-business-dark border-business-border rotate-45 ${
@@ -354,7 +354,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`bg-business-surface/30 ${blur} border border-business-border/50 rounded-xl p-6 shadow-xl ${className}`}
+      className={`bg-business-surface/30 ${blur} border border-business-border/50 p-6 shadow-xl ${className}`}
     >
       {children}
     </motion.div>

@@ -36,6 +36,15 @@ export default {
       boxShadow: {
         'glow': '0 0 20px rgba(0, 217, 255, 0.3)',
         'glow-soft': '0 0 10px rgba(74, 222, 128, 0.2)',
+      },
+      animation: {
+        'float': 'float 3s ease-in-out infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        }
       }
     },
   },

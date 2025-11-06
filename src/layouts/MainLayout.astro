@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "AI Biznes Start - Narzędzia AI dla początkujących przedsiębiorców"
+  description = "ZENON_Biznes_hub - Narzędzia AI dla początkujących przedsiębiorców"
 } = Astro.props;
 ---
 
@@ -18,7 +18,7 @@ const {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
-  <title>{title} | AI Biznes Start</title>
+  <title>{title} | ZENON_Biznes_hub</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
@@ -30,16 +30,16 @@ const {
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <a href="/" class="flex items-center space-x-3 group">
-            <div class="relative w-10 h-10 rounded-lg overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary-500/30 to-primary-600/30 blur-md animate-pulse"></div>
+            <div class="relative w-10 h-10">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-primary-600/20 blur-lg"></div>
               <img 
                 src="/apple-touch-icon.png" 
-                alt="AI Biznes Start Logo" 
-                class="relative w-full h-full object-contain rounded-lg transition-transform group-hover:scale-110"
+                alt="ZENON Biznes HUB Logo" 
+                class="relative w-full h-full object-contain drop-shadow-[0_0_15px_rgba(14,165,233,0.4)] transition-transform group-hover:scale-110"
               />
             </div>
             <span class="text-xl font-bold bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
-              AI Biznes Start
+              ZENON_Biznes_hub
             </span>
           </a>
 
@@ -80,7 +80,7 @@ const {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- O Platformie -->
           <div>
-            <h3 class="text-lg font-bold mb-4 text-business-accent">AI Biznes Start</h3>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">ZENON_Biznes_hub</h3>
             <p class="text-business-text-dim text-sm">
               Twoje pierwsze kroki w świecie AI dla biznesu.
               Proste, efektywne narzędzia w 100% po polsku.
@@ -110,7 +110,7 @@ const {
         </div>
 
         <div class="border-t border-business-border mt-8 pt-6 text-center text-business-text-dim text-sm">
-          <p>&copy; {new Date().getFullYear()} AI Biznes Start. Wszystkie prawa zastrzeżone.</p>
+          <p>&copy; {new Date().getFullYear()} ZENON_Biznes_hub. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>
     </footer>

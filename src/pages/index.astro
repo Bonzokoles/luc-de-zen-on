@@ -14,11 +14,21 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
 
     <!-- Hero Section -->
     <section class="text-center mb-16 fade-in">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6">
-        <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
-          AI Biznes Start
-        </span>
-      </h1>
+      <div class="flex items-center justify-center gap-6 mb-6">
+        <div class="relative w-24 h-24 md:w-32 md:h-32 animate-float">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
+          <img 
+            src="/apple-touch-icon.png" 
+            alt="ZENON Biznes HUB Logo" 
+            class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
+          />
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold">
+          <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
+            ZENON_Biznes_HUB
+          </span>
+        </h1>
+      </div>
       <p class="text-xl md:text-2xl text-business-text-dim mb-8 max-w-3xl mx-auto">
         Twoje pierwsze kroki w świecie AI dla biznesu.<br/>
         Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
@@ -62,11 +72,11 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
     <section class="mb-12">
       <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
         <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform">
+          <div class="w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform border-2 border-indigo-400/30">
             🤖
           </div>
           <div class="flex-1 text-center md:text-left">
-            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-full mb-2">
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-400/40">
               ⭐ NOWOŚĆ - Gemini AI
             </div>
             <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
@@ -93,7 +103,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         <!-- Kreator Dokumentów -->
         <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:-translate-y-2 transition-all duration-300">
           <div class="absolute top-3 right-3">
-            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded animate-pulse">NOWE</span>
+            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold animate-pulse border border-cyan-400/40">NOWE</span>
           </div>
           <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-cyan-600 to-cyan-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,7 +119,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         <!-- Generator Faktur -->
         <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2 transition-all duration-300">
           <div class="absolute top-3 right-3">
-            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded animate-pulse">NOWE</span>
+            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold animate-pulse border border-emerald-400/40">NOWE</span>
           </div>
           <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-emerald-600 to-emerald-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -191,7 +201,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             1
           </div>
           <h3 class="text-xl font-bold mb-3">Wybierz Narzędzie</h3>
@@ -201,7 +211,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             2
           </div>
           <h3 class="text-xl font-bold mb-3">Wpisz co Potrzebujesz</h3>
@@ -211,7 +221,7 @@ import { SparkleEffect } from '../components/animations/BalloonLibrary';
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             3
           </div>
           <h3 class="text-xl font-bold mb-3">Gotowe!</h3>

@@ -105,13 +105,23 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
   <div class="container mx-auto px-4 py-12">
     <!-- Header -->
     <div class="text-center mb-12 fade-in">
-      <h1 class="text-5xl font-bold mb-4">
-        <span
-          class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
-        >
-          Wszystkie Narzędzia
-        </span>
-      </h1>
+      <div class="flex items-center justify-center gap-6 mb-4">
+        <div class="relative w-20 h-20 md:w-24 md:h-24 animate-float">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
+          <img 
+            src="/apple-touch-icon.png" 
+            alt="ZENON Narzędzia Logo" 
+            class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
+          />
+        </div>
+        <h1 class="text-5xl font-bold">
+          <span
+            class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
+          >
+            Wszystkie Narzędzia
+          </span>
+        </h1>
+      </div>
       <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
         Kompletny zestaw narzędzi AI dla Twojego biznesu. Proste, efektywne,
         100% po polsku.
@@ -133,7 +143,7 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
         narzedzia.map((narzedzie) => (
           <a href={narzedzie.href} class="tool-card group">
             <div
-              class={`w-16 h-16 rounded-xl bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow`}
+              class={`w-16 h-16 bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow border-2 border-white/10`}
             >
               {narzedzie.icon}
             </div>

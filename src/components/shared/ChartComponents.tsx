@@ -29,7 +29,7 @@ export const CHART_COLORS = [
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-business-surface border border-business-border rounded-lg p-3 shadow-xl">
+      <div className="bg-business-surface border border-business-border p-3 shadow-xl">
         <p className="text-sm font-semibold text-business-text mb-2">{label}</p>
         {payload.map((entry: any, index: number) => (
           <p key={index} className="text-xs text-business-text-dim">
@@ -63,7 +63,7 @@ export const AnimatedLineChart: React.FC<AnimatedLineChartProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-business-surface border border-business-border rounded-lg p-4"
+      className="bg-business-surface border border-business-border p-4"
     >
       {title && <h3 className="text-lg font-semibold mb-4 text-business-text">{title}</h3>}
       <ResponsiveContainer width="100%" height={height}>
@@ -112,7 +112,7 @@ export const AnimatedBarChart: React.FC<AnimatedBarChartProps> = ({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-business-surface border border-business-border rounded-lg p-4"
+      className="bg-business-surface border border-business-border p-4"
     >
       {title && <h3 className="text-lg font-semibold mb-4 text-business-text">{title}</h3>}
       <ResponsiveContainer width="100%" height={height}>
@@ -154,7 +154,7 @@ export const AnimatedPieChart: React.FC<AnimatedPieChartProps> = ({
       initial={{ opacity: 0, rotate: -10 }}
       animate={{ opacity: 1, rotate: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-business-surface border border-business-border rounded-lg p-4"
+      className="bg-business-surface border border-business-border p-4"
     >
       {title && <h3 className="text-lg font-semibold mb-4 text-business-text">{title}</h3>}
       <ResponsiveContainer width="100%" height={height}>
@@ -201,7 +201,7 @@ export const AnimatedAreaChart: React.FC<AnimatedAreaChartProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-business-surface border border-business-border rounded-lg p-4"
+      className="bg-business-surface border border-business-border p-4"
     >
       {title && <h3 className="text-lg font-semibold mb-4 text-business-text">{title}</h3>}
       <ResponsiveContainer width="100%" height={height}>
@@ -258,7 +258,7 @@ export const AnimatedRadarChart: React.FC<AnimatedRadarChartProps> = ({
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-business-surface border border-business-border rounded-lg p-4"
+      className="bg-business-surface border border-business-border p-4"
     >
       {title && <h3 className="text-lg font-semibold mb-4 text-business-text">{title}</h3>}
       <ResponsiveContainer width="100%" height={height}>
