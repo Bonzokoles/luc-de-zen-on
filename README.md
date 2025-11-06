@@ -1,4 +1,4 @@
-# 🚀 AI Biznes Start
+# 🚀 AI Biznes Start (My_LUCK_the_ZENON)
 
 **Platforma narzędzi AI dla początkujących przedsiębiorców**
 
@@ -144,8 +144,8 @@ Sprawdź ton, czytelność, popraw błędy w tekstach.
 
 ```bash
 # 1. Sklonuj repozytorium
-git clone https://github.com/your-username/ai-biznes-start.git
-cd ai-biznes-start
+git clone https://github.com/Bonzokoles/My_LUCK_the_ZENON.git
+cd My_LUCK_the_ZENON
 
 # 2. Zainstaluj zależności
 npm install
