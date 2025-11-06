@@ -92,7 +92,7 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
-      const response = await fetch('/api/chat-gemini', {
+      const response = await fetch('/api/chat-openrouter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +101,8 @@ const AsystentAI = () => {
           messages: [...messages, userMessage].map(m => ({
             role: m.role,
             content: m.content
-          }))
+          })),
+          model: 'anthropic/claude-3.5-sonnet' // Główny model - OpenRouter
         }),
       });
 
