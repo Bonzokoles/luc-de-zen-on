@@ -16,7 +16,12 @@
     background-attachment: fixed;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Poppins', sans-serif;
     @apply text-business-text;
   }
@@ -28,6 +33,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -35,18 +41,24 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.6;
   }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.3)) drop-shadow(0 0 15px rgba(0, 217, 255, 0.3));
   }
+
   50% {
     filter: drop-shadow(0 0 25px rgba(0, 217, 255, 0.5)) drop-shadow(0 0 25px rgba(0, 217, 255, 0.5));
   }
@@ -56,6 +68,7 @@
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -64,45 +77,27 @@
 /* Komponenty wielokrotnego użytku */
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500
-           text-white font-medium rounded-none
-           hover:from-primary-700 hover:to-primary-600
-           transition-all duration-300
-           shadow-lg hover:shadow-glow
-           focus:outline-none focus:ring-2 focus:ring-primary-400;
+    @apply px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-medium rounded-none hover:from-primary-700 hover:to-primary-600 transition-all duration-300 shadow-lg hover:shadow-glow focus:outline-none focus:ring-2 focus:ring-primary-400;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-business-surface/20 border border-business-border
-           text-business-text font-medium rounded-none
-           hover:bg-business-border/80 hover:border-business-accent hover:shadow-[0_0_10px_rgba(0,217,255,0.3)]
-           transition-all duration-300
-           focus:outline-none focus:ring-2 focus:ring-business-accent;
+    @apply px-6 py-3 bg-business-surface/20 border border-business-border text-business-text font-medium rounded-none hover:bg-business-border/80 hover:border-business-accent hover:shadow-[0_0_10px_rgba(0, 217, 255, 0.3)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-business-accent;
   }
 
   .card {
-    @apply bg-business-surface/20 border border-business-border rounded-none p-6
-           shadow-lg hover:shadow-[0_0_15px_rgba(0,217,255,0.2)] transition-all duration-300;
+    @apply bg-business-surface/20 border border-business-border rounded-none p-6 shadow-lg hover:shadow-[0_0_15px_rgba(0, 217, 255, 0.2)] transition-all duration-300;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border
-           rounded-none text-business-text placeholder-business-text-dim
-           focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0,217,255,0.3)]
-           transition-all duration-200;
+    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border rounded-none text-business-text placeholder-business-text-dim focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0, 217, 255, 0.3)] transition-all duration-200;
   }
 
   .textarea-field {
-    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border
-           rounded-none text-business-text placeholder-business-text-dim
-           focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0,217,255,0.3)]
-           transition-all duration-200
-           min-h-[120px] resize-y;
+    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border rounded-none text-business-text placeholder-business-text-dim focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0, 217, 255, 0.3)] transition-all duration-200 min-h-[120px] resize-y;
   }
 
   .tool-card {
-    @apply card hover:border-business-accent cursor-pointer
-           transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(0,217,255,0.3)] transition-all duration-300;
+    @apply card hover:border-business-accent cursor-pointer transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(0, 217, 255, 0.3)] transition-all duration-300;
   }
 
   .loading-spinner {
@@ -126,15 +121,11 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-6
-           bg-gradient-to-r from-business-accent to-business-accent-soft
-           bg-clip-text text-transparent;
+    @apply text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent;
   }
 
   .tool-icon {
-    @apply w-12 h-12 rounded-none flex items-center justify-center
-           bg-gradient-to-br from-primary-600 to-primary-700
-           text-white shadow-lg;
+    @apply w-12 h-12 rounded-none flex items-center justify-center bg-gradient-to-br from-primary-600 to-primary-700 text-white shadow-lg;
   }
 }
 
@@ -191,6 +182,7 @@ body::before {
     opacity: 0;
     transform: translateX(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -202,6 +194,7 @@ body::before {
     opacity: 0;
     transform: translateX(30px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -213,6 +206,7 @@ body::before {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -224,6 +218,7 @@ body::before {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -231,9 +226,12 @@ body::before {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -243,6 +241,7 @@ body::before {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -278,12 +277,29 @@ body::before {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
-.stagger-item:nth-child(1) { animation-delay: 0.05s; }
-.stagger-item:nth-child(2) { animation-delay: 0.10s; }
-.stagger-item:nth-child(3) { animation-delay: 0.15s; }
-.stagger-item:nth-child(4) { animation-delay: 0.20s; }
-.stagger-item:nth-child(5) { animation-delay: 0.25s; }
-.stagger-item:nth-child(6) { animation-delay: 0.30s; }
+.stagger-item:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.stagger-item:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.stagger-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.stagger-item:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.stagger-item:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.stagger-item:nth-child(6) {
+  animation-delay: 0.30s;
+}
 
 /* Glow effects */
 .glow-border-blue {

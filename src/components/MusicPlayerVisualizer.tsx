@@ -387,7 +387,7 @@ const MusicPlayerVisualizer = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -401,11 +401,10 @@ const MusicPlayerVisualizer = () => {
       <div className="flex gap-2 mb-4 flex-wrap">
         <button
           onClick={toggleSpeechMode}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-            isSpeechMode
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${isSpeechMode
               ? 'bg-green-600 text-white shadow-glow'
               : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
-          }`}
+            }`}
         >
           {isSpeechMode ? '🎤 Mowa włączona' : '🎤 Wizualizator mowy'}
         </button>
@@ -413,31 +412,28 @@ const MusicPlayerVisualizer = () => {
           <>
             <button
               onClick={() => setVisualMode('bars')}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                visualMode === 'bars'
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${visualMode === 'bars'
                   ? 'bg-primary-600 text-white'
                   : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
-              }`}
+                }`}
             >
               📊 Słupki
             </button>
             <button
               onClick={() => setVisualMode('wave')}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                visualMode === 'wave'
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${visualMode === 'wave'
                   ? 'bg-primary-600 text-white'
                   : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
-              }`}
+                }`}
             >
               〰️ Fala
             </button>
             <button
               onClick={() => setVisualMode('circular')}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                visualMode === 'circular'
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${visualMode === 'circular'
                   ? 'bg-primary-600 text-white'
                   : 'bg-business-dark text-business-text-dim border border-business-border hover:border-business-accent'
-              }`}
+                }`}
             >
               ⭕ Okrągły
             </button>
@@ -447,7 +443,7 @@ const MusicPlayerVisualizer = () => {
 
       {/* Music Visualizer Canvas */}
       {!isSpeechMode && (
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           className="mb-6 bg-business-dark rounded-lg overflow-hidden border border-business-border"
@@ -463,7 +459,7 @@ const MusicPlayerVisualizer = () => {
 
       {/* Speech Visualizer Canvas */}
       {isSpeechMode && (
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           className="mb-6 bg-business-dark rounded-lg overflow-hidden border-2 border-green-600/50"
@@ -562,11 +558,10 @@ const MusicPlayerVisualizer = () => {
             <button
               key={index}
               onClick={() => changeTrack(index)}
-              className={`w-full text-left p-3 rounded-lg transition-all ${
-                currentTrack === index
+              className={`w-full text-left p-3 rounded-lg transition-all ${currentTrack === index
                   ? 'bg-primary-600/20 border border-primary-600'
                   : 'bg-business-dark border border-business-border hover:border-business-accent'
-              }`}
+                }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-grow">
