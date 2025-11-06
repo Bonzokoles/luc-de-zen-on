@@ -114,6 +114,16 @@ const MusicPlayerVisualizer = () => {
     };
   }, []);
 
+  // Restart visualizer when mode changes
+  useEffect(() => {
+    if (isPlaying && analyzerRef.current && canvasRef.current) {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      visualize();
+    }
+  }, [visualMode]);
+
   // Setup Audio Context
   const setupAudioContext = () => {
     if (audioRef.current && !audioContextRef.current) {
