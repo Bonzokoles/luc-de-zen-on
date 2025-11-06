@@ -53,3 +53,12 @@ luc-de-zen-on/
 ai-biznes-erp/
 ai-biznes-start/
 MEGA_SITE/
+
+# Large documentation folders
+docs/gemini/
+docs/DOC_2/
+docs/ELEVEN_LABS/
+docs/playlista mp3/
+
+# GitHub Actions logs (local)
+.github/workflows/*.log
