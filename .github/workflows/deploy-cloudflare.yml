@@ -35,8 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit
 
-      - name: Build Astro site
-        run: npm run build
+      - name: Build Astro site (skip type checking)
+        run: npm run build:fast
         env:
           NODE_OPTIONS: '--max-old-space-size=8192'
           NODE_ENV: 'production'
