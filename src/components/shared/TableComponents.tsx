@@ -1,5 +1,7 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useMemo } from 'react';
 import type { ReactNode } from 'react';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 interface Column {
   key: string;
@@ -243,4 +245,160 @@ export const StatsGrid: React.FC<StatsGridProps> = ({ stats, columns = 4 }) => {
   );
 };
 
-export default { DataTable, ComparisonTable, StatCard, StatsGrid };
+// Enhanced Data Table with Sorting
+interface EnhancedColumn extends Column {
+  sortable?: boolean;
+  render?: (value: any, row: any) => ReactNode;
+}
+
+interface EnhancedTableProps {
+  columns: EnhancedColumn[];
+  data: any[];
+  title?: string;
+  hoverable?: boolean;
+  striped?: boolean;
+  searchable?: boolean;
+  onRowClick?: (row: any) => void;
+}
+
+export const EnhancedTable: React.FC<EnhancedTableProps> = ({
+  columns,
+  data,
+  title,
+  hoverable = true,
+  striped = true,
+  searchable = false,
+  onRowClick
+}) => {
+  const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSort = (key: string) => {
+    let direction: 'asc' | 'desc' = 'asc';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = useMemo(() => {
+    let sorted = [...data];
+    if (sortConfig) {
+      sorted.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sorted;
+  }, [data, sortConfig]);
+
+  const filteredData = useMemo(() => {
+    if (!searchTerm) return sortedData;
+    return sortedData.filter((row) =>
+      columns.some((col) =>
+        String(row[col.key]).toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [sortedData, searchTerm, columns]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="bg-business-surface border border-business-border rounded-lg overflow-hidden"
+    >
+      {(title || searchable) && (
+        <div className="px-6 py-4 border-b border-business-border">
+          <div className="flex items-center justify-between">
+            {title && <h3 className="text-lg font-semibold text-business-text">{title}</h3>}
+            {searchable && (
+              <input
+                type="text"
+                placeholder="Szukaj..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="px-3 py-1 bg-business-dark border border-business-border rounded text-sm text-business-text focus:outline-none focus:border-primary-500"
+              />
+            )}
+          </div>
+        </div>
+      )}
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-business-dark border-b border-business-border">
+              {columns.map((col) => (
+                <th
+                  key={col.key}
+                  className={`px-6 py-3 text-xs font-semibold text-business-text-dim uppercase tracking-wider text-${col.align || 'left'} ${
+                    col.sortable ? 'cursor-pointer select-none hover:text-business-accent transition-colors' : ''
+                  }`}
+                  style={{ width: col.width }}
+                  onClick={() => col.sortable && handleSort(col.key)}
+                >
+                  <div className="flex items-center gap-2">
+                    {col.label}
+                    {col.sortable && sortConfig?.key === col.key && (
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                      >
+                        {sortConfig.direction === 'asc' ? (
+                          <ArrowUp className="w-3 h-3" />
+                        ) : (
+                          <ArrowDown className="w-3 h-3" />
+                        )}
+                      </motion.span>
+                    )}
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <AnimatePresence>
+              {filteredData.map((row, rowIndex) => (
+                <motion.tr
+                  key={rowIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ delay: rowIndex * 0.05, duration: 0.3 }}
+                  className={`
+                    border-b border-business-border/50 last:border-b-0
+                    ${striped && rowIndex % 2 === 1 ? 'bg-business-dark/30' : ''}
+                    ${hoverable ? 'hover:bg-business-dark/50 transition-colors' : ''}
+                    ${onRowClick ? 'cursor-pointer' : ''}
+                  `}
+                  onClick={() => onRowClick?.(row)}
+                >
+                  {columns.map((col) => (
+                    <td
+                      key={col.key}
+                      className={`px-6 py-4 text-sm text-business-text text-${col.align || 'left'}`}
+                    >
+                      {col.render ? col.render(row[col.key], row) : row[col.key]}
+                    </td>
+                  ))}
+                </motion.tr>
+              ))}
+            </AnimatePresence>
+          </tbody>
+        </table>
+      </div>
+      {filteredData.length === 0 && (
+        <div className="text-center py-12 text-business-text-dim">
+          Brak danych do wyświetlenia
+        </div>
+      )}
+    </motion.div>
+  );
+};
+
+export default { DataTable, ComparisonTable, StatCard, StatsGrid, EnhancedTable };

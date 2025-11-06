@@ -192,4 +192,172 @@ export const GlowPulse: React.FC<GlowPulseProps> = ({
   );
 };
 
+// Wave Effect Component
+interface WaveEffectProps {
+  color?: string;
+  opacity?: number;
+}
+
+export const WaveEffect: React.FC<WaveEffectProps> = ({
+  color = '#0ea5e9',
+  opacity = 0.1
+}) => {
+  return (
+    <div className="fixed bottom-0 left-0 right-0 pointer-events-none overflow-hidden h-64 z-0">
+      {[...Array(3)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute bottom-0 left-0 right-0"
+          style={{
+            height: '200%',
+            background: `radial-gradient(ellipse at center, ${color} 0%, transparent 70%)`,
+            opacity: opacity,
+          }}
+          animate={{
+            x: ['-25%', '25%'],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 8 + i * 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: i * 1.5,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Sparkle Effect Component
+interface SparkleEffectProps {
+  density?: number;
+}
+
+export const SparkleEffect: React.FC<SparkleEffectProps> = ({
+  density = 20
+}) => {
+  const [sparkles, setSparkles] = useState<any[]>([]);
+
+  useEffect(() => {
+    const newSparkles = Array.from({ length: density }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: 2 + Math.random() * 4,
+      delay: Math.random() * 3,
+      duration: 1 + Math.random() * 2,
+    }));
+    setSparkles(newSparkles);
+  }, [density]);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {sparkles.map((sparkle) => (
+        <motion.div
+          key={sparkle.id}
+          className="absolute"
+          style={{
+            left: `${sparkle.x}%`,
+            top: `${sparkle.y}%`,
+            width: `${sparkle.size}px`,
+            height: `${sparkle.size}px`,
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: sparkle.duration,
+            delay: sparkle.delay,
+            repeat: Infinity,
+            repeatDelay: Math.random() * 5,
+          }}
+        >
+          <div className="w-full h-full bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+// Gradient Orb Component
+interface GradientOrbProps {
+  colors?: string[];
+  size?: number;
+  blur?: number;
+}
+
+export const GradientOrb: React.FC<GradientOrbProps> = ({
+  colors = ['#00d9ff', '#8b5cf6', '#ec4899'],
+  size = 400,
+  blur = 100
+}) => {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {colors.map((color, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            background: `radial-gradient(circle, ${color}40 0%, transparent 70%)`,
+            filter: `blur(${blur}px)`,
+            left: `${20 + i * 30}%`,
+            top: `${20 + i * 20}%`,
+          }}
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 10 + i * 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: i * 2,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Ripple Effect Component (for clicks/interactions)
+interface RippleProps {
+  x: number;
+  y: number;
+  onComplete?: () => void;
+}
+
+export const Ripple: React.FC<RippleProps> = ({ x, y, onComplete }) => {
+  return (
+    <motion.div
+      className="absolute rounded-full border-2 border-primary-400"
+      style={{
+        left: x,
+        top: y,
+        width: 0,
+        height: 0,
+      }}
+      initial={{ width: 0, height: 0, opacity: 1 }}
+      animate={{
+        width: 100,
+        height: 100,
+        opacity: 0,
+        x: -50,
+        y: -50,
+      }}
+      transition={{
+        duration: 0.6,
+        ease: 'easeOut',
+      }}
+      onAnimationComplete={onComplete}
+    />
+  );
+};
+
 export default BalloonLibrary;

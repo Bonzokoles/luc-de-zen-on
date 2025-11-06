@@ -20,6 +20,7 @@ const {
   <meta name="description" content={description}>
   <title>{title} | AI Biznes Start</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
   <div class="min-h-screen flex flex-col">
@@ -29,10 +30,13 @@ const {
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <a href="/" class="flex items-center space-x-3 group">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center shadow-glow">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
+            <div class="relative w-10 h-10 rounded-lg overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary-500/30 to-primary-600/30 blur-md animate-pulse"></div>
+              <img 
+                src="/apple-touch-icon.png" 
+                alt="AI Biznes Start Logo" 
+                class="relative w-full h-full object-contain rounded-lg transition-transform group-hover:scale-110"
+              />
             </div>
             <span class="text-xl font-bold bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
               AI Biznes Start

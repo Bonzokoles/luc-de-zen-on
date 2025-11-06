@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BarChart3, TrendingUp, TrendingDown, DollarSign, Users, ShoppingCart, Target, Calendar, Download, RefreshCw } from 'lucide-react';
+import { AnimatedLineChart, AnimatedBarChart, AnimatedAreaChart } from './shared/ChartComponents';
+import { StatCardEnhanced, GradientCard, ProgressBar } from './shared/EnhancedVisuals';
 
 interface BusinessMetric {
   label: string;
@@ -223,11 +225,35 @@ const AnalitikaRaporty = () => {
         })}
       </div>
 
+      {/* Animated Charts Section */}
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <AnimatedLineChart
+          data={monthlyData}
+          dataKeys={[
+            { key: 'revenue', name: 'Przychód', color: '#10b981' },
+            { key: 'expenses', name: 'Koszty', color: '#ef4444' },
+            { key: 'profit', name: 'Zysk', color: '#0ea5e9' }
+          ]}
+          xKey="month"
+          title="Trend Finansowy"
+          height={300}
+        />
+        <AnimatedBarChart
+          data={monthlyData}
+          dataKeys={[
+            { key: 'customers', name: 'Nowi Klienci', color: '#8b5cf6' }
+          ]}
+          xKey="month"
+          title="Pozyskiwanie Klientów"
+          height={300}
+        />
+      </div>
+
       {/* Revenue Chart */}
       <div className="card">
         <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
           <DollarSign className="w-6 h-6 text-green-400" />
-          Przychody, Koszty i Zysk
+          Szczegółowy Widok Finansowy
         </h2>
 
         <div className="space-y-4">
