@@ -239,8 +239,8 @@ const AsystentAI = () => {
 
               <div
                 className={`max-w-[80%] rounded-lg p-4 ${message.role === 'user'
-                    ? 'bg-primary-600 text-white'
-                    : 'bg-surface-dark text-gray-100'
+                  ? 'bg-primary-600 text-white'
+                  : 'bg-surface-dark text-gray-100'
                   }`}
               >
                 {message.role === 'assistant' ? (
