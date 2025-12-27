@@ -49,8 +49,8 @@ Pamiętaj:
 - Tekst ma być atrakcyjny i zachęcający do działania
 - Dostosuj styl do polskiego rynku`;
 
-    // Wywołanie Google Gemini API
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=' + apiKey, {
+    // Wywołanie Google Gemini 3 Flash (najnowszy model)
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash:generateContent?key=' + apiKey, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -73,10 +73,10 @@ Pamiętaj:
       const error = await response.json();
       console.error('Gemini API Error:', error);
       return new Response(
-        JSON.stringify({ 
-          error: 'Błąd API Gemini', 
+        JSON.stringify({
+          error: 'Błąd API Gemini',
           details: error,
-          status: response.status 
+          status: response.status
         }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );

@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // Inicjalizuj Gemini AI
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash-exp",
+      model: "gemini-3-flash",
       generationConfig: {
         temperature: 0.3, // Niższa temperatura dla dokumentów prawnych = bardziej konserwatywne
         topP: 0.8,
