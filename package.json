@@ -6,10 +6,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "build:fast": "astro build",
+    "build:cf": "astro build && xcopy /E /I /Y functions dist\\functions",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "npm run build && wrangler pages deploy dist --project-name=mybonzo-new"
+    "deploy": "npm run build:cf && wrangler pages deploy dist --project-name=mybonzo-new"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",
