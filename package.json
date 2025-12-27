@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "build:fast": "astro build && mkdir -p dist/functions/api && cp -r functions/api/* dist/functions/api/",
+    "build:fast": "astro build && cp -r functions dist/",
     "build:cf": "astro build && xcopy /E /I /Y functions dist\\functions",
     "preview": "astro preview",
     "astro": "astro",
