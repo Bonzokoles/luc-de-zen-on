@@ -92,7 +92,7 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
-      const response = await fetch('/api/chat-gemini', {
+      const response = await fetch('/api/chat-openrouter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +101,8 @@ const AsystentAI = () => {
           messages: [...messages, userMessage].map(m => ({
             role: m.role,
             content: m.content
-          }))
+          })),
+          model: 'anthropic/claude-3.5-sonnet' // Główny model - OpenRouter
         }),
       });
 
@@ -236,11 +237,10 @@ const AsystentAI = () => {
               )}
 
               <div
-                className={`max-w-[80%] rounded-lg p-4 ${
-                  message.role === 'user'
+                className={`max-w-[80%] rounded-lg p-4 ${message.role === 'user'
                     ? 'bg-primary-600 text-white'
                     : 'bg-surface-dark text-gray-100'
-                }`}
+                  }`}
               >
                 {message.role === 'assistant' ? (
                   <div className="prose prose-invert prose-sm max-w-none">

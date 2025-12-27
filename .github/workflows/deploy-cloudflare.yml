@@ -1,0 +1,56 @@
+name: Deploy to Cloudflare Pages (mybonzo.com)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Pages
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            src
+            public
+            package.json
+            package-lock.json
+            astro.config.mjs
+            tailwind.config.mjs
+            tsconfig.json
+            wrangler.toml
+          sparse-checkout-cone-mode: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Build Astro site (skip type checking)
+        run: npm run build:fast
+        env:
+          NODE_OPTIONS: '--max-old-space-size=8192'
+          NODE_ENV: 'production'
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '3.78.12'
+          command: pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
+
+      - name: Deployment Summary
+        run: |
+          echo "✅ Deployed to Cloudflare Pages"
+          echo "🌐 Primary domain: luc-de-zen-on.pages.dev"
+          echo "🌐 Custom domain: mybonzo.com"

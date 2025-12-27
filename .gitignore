@@ -1,15 +1,68 @@
+# Dependencies
+node_modules/
 node_modules
+.npm/
+.yarn/
 
-# Environment variables
+# Build outputs
+dist/
+.output/
+.astro/
+
+# Environment variables (DO NOT COMMIT API KEYS!)
 .env
 .env.local
+.env.production
 .env.*.local
+.dev.vars
 
 # Build directories
 the-zen-buisnes/
 
-# Directories
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.turbo/
+
+# Misc
+*.bak
+*.tmp
+.temp/
+
+# Project directories
 luc-de-zen-on/
 ai-biznes-erp/
 ai-biznes-start/
 MEGA_SITE/
+
+# Large documentation folders
+docs/gemini/
+docs/DOC_2/
+docs/ELEVEN_LABS/
+docs/playlista mp3/
+
+# GitHub Actions logs (local)
+.github/workflows/*.log
+node_modules

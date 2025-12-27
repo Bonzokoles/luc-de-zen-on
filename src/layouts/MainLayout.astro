@@ -8,7 +8,7 @@ interface Props {
 
 const {
   title,
-  description = "AI Biznes Start - Narzędzia AI dla początkujących przedsiębiorców"
+  description = "ZENON_Biznes_hub - Narzędzia AI dla początkujących przedsiębiorców"
 } = Astro.props;
 ---
 
@@ -18,8 +18,9 @@ const {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
-  <title>{title} | AI Biznes Start</title>
+  <title>{title} | ZENON_Biznes_hub</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body>
   <div class="min-h-screen flex flex-col">
@@ -29,13 +30,16 @@ const {
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <a href="/" class="flex items-center space-x-3 group">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center shadow-glow">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
+            <div class="relative w-10 h-10">
+              <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-primary-600/20 blur-lg"></div>
+              <img 
+                src="/apple-touch-icon.png" 
+                alt="ZENON Biznes HUB Logo" 
+                class="relative w-full h-full object-contain drop-shadow-[0_0_15px_rgba(14,165,233,0.4)] transition-transform group-hover:scale-110"
+              />
             </div>
             <span class="text-xl font-bold bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
-              AI Biznes Start
+              ZENON_Biznes_hub
             </span>
           </a>
 
@@ -43,8 +47,22 @@ const {
           <div class="hidden md:flex items-center space-x-6">
             <a href="/" class="text-business-text hover:text-business-accent transition-colors">Strona Główna</a>
             <a href="/narzedzia" class="text-business-text hover:text-business-accent transition-colors">Narzędzia</a>
-            <a href="/instrukcje" class="text-business-text hover:text-business-accent transition-colors">Instrukcje</a>
-            <a href="/kontakt" class="text-business-text hover:text-business-accent transition-colors">Kontakt</a>
+            <div class="relative group">
+              <button class="text-business-text hover:text-business-accent transition-colors flex items-center gap-1">
+                Moduły ERP
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div class="absolute left-0 mt-2 w-48 bg-business-surface border border-business-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <a href="/finanse" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">💰 Finanse Pro</a>
+                <a href="/magazyn" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📦 Magazyn</a>
+                <a href="/projekty" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📊 Projekty</a>
+                <a href="/konwerter" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">🔄 Konwerter</a>
+                <a href="/wizualizacje" class="block px-4 py-2 text-business-text hover:bg-business-border hover:text-business-accent">📈 Wizualizacje</a>
+              </div>
+            </div>
+            <a href="/asystent-ai" class="text-business-text hover:text-business-accent transition-colors">Asystent AI</a>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -59,8 +77,15 @@ const {
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3">
           <a href="/" class="block text-business-text hover:text-business-accent transition-colors py-2">Strona Główna</a>
           <a href="/narzedzia" class="block text-business-text hover:text-business-accent transition-colors py-2">Narzędzia</a>
-          <a href="/instrukcje" class="block text-business-text hover:text-business-accent transition-colors py-2">Instrukcje</a>
-          <a href="/kontakt" class="block text-business-text hover:text-business-accent transition-colors py-2">Kontakt</a>
+          <div class="pl-4 space-y-2">
+            <p class="text-business-accent text-sm font-medium">Moduły ERP:</p>
+            <a href="/finanse" class="block text-business-text hover:text-business-accent transition-colors py-1">💰 Finanse Pro</a>
+            <a href="/magazyn" class="block text-business-text hover:text-business-accent transition-colors py-1">📦 Magazyn</a>
+            <a href="/projekty" class="block text-business-text hover:text-business-accent transition-colors py-1">📊 Projekty</a>
+            <a href="/konwerter" class="block text-business-text hover:text-business-accent transition-colors py-1">🔄 Konwerter</a>
+            <a href="/wizualizacje" class="block text-business-text hover:text-business-accent transition-colors py-1">📈 Wizualizacje</a>
+          </div>
+          <a href="/asystent-ai" class="block text-business-text hover:text-business-accent transition-colors py-2">Asystent AI</a>
         </div>
       </nav>
     </header>
@@ -76,7 +101,7 @@ const {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- O Platformie -->
           <div>
-            <h3 class="text-lg font-bold mb-4 text-business-accent">AI Biznes Start</h3>
+            <h3 class="text-lg font-bold mb-4 text-business-accent">ZENON_Biznes_hub</h3>
             <p class="text-business-text-dim text-sm">
               Twoje pierwsze kroki w świecie AI dla biznesu.
               Proste, efektywne narzędzia w 100% po polsku.
@@ -106,7 +131,7 @@ const {
         </div>
 
         <div class="border-t border-business-border mt-8 pt-6 text-center text-business-text-dim text-sm">
-          <p>&copy; {new Date().getFullYear()} AI Biznes Start. Wszystkie prawa zastrzeżone.</p>
+          <p>&copy; {new Date().getFullYear()} ZENON_Biznes_hub. Wszystkie prawa zastrzeżone.</p>
         </div>
       </div>
     </footer>

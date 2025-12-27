@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(git clean:*)",
+      "Bash(robocopy:*)",
+      "Bash(dir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRefactor: Dark cyberpunk theme with pulsing icon\n\n- Updated color palette to pure black and dark tones\n- Changed all components to 20% transparency\n- Removed rounded corners (sharp design)\n- Added pulsing cyan glow effect\n- Added logo icon with animation\n- Updated page title to NARZEDZIA_DLA_BIZNESU\n- Added ZENON_AI_Biznes_HUB branding\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(npm run build:*)",
+      "Bash(npx astro build)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,191 +1,184 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import MainLayout from "../../layouts/MainLayout.astro";
 
 const narzedzia = [
   {
-    title: 'Asystent Biznesowy AI',
-    description: 'Twój osobisty doradca 24/7 - strategia, marketing, finanse, wszystko w jednym',
-    icon: '🤖',
-    href: '/asystent-ai',
-    category: 'AI Asystent',
-    color: 'from-indigo-600 to-purple-700',
-    featured: true
+    title: "Asystent Biznesowy AI",
+    description:
+      "Twój osobisty doradca 24/7 - strategia, marketing, finanse, wszystko w jednym",
+    icon: "🤖",
+    href: "/asystent-ai",
+    category: "AI Asystent",
+    color: "from-indigo-600 to-purple-700",
+    featured: true,
   },
   {
-    title: 'Generator Treści Marketingowych',
-    description: 'Twórz profesjonalne posty, opisy produktów i ogłoszenia w sekundach',
-    icon: '✍️',
-    href: '/narzedzia/generator-tresci',
-    category: 'Marketing',
-    color: 'from-blue-600 to-blue-700'
+    title: "Generator Treści Marketingowych",
+    description:
+      "Twórz profesjonalne posty, opisy produktów i ogłoszenia w sekundach",
+    icon: "✍️",
+    href: "/narzedzia/generator-tresci",
+    category: "Marketing",
+    color: "from-blue-600 to-blue-700",
   },
   {
-    title: 'Kreator Dokumentów Prawnych',
-    description: 'Umowy, regulaminy, RODO, NDA - wszystko zgodnie z polskim prawem',
-    icon: '📝',
-    href: '/narzedzia/kreator-dokumentow',
-    category: 'Dokumenty',
-    color: 'from-cyan-600 to-cyan-700',
-    featured: true
+    title: "Kreator Dokumentów Prawnych",
+    description:
+      "Umowy, regulaminy, RODO, NDA - wszystko zgodnie z polskim prawem",
+    icon: "📝",
+    href: "/narzedzia/kreator-dokumentow",
+    category: "Dokumenty",
+    color: "from-cyan-600 to-cyan-700",
+    featured: true,
   },
   {
-    title: 'Generator Faktur VAT',
-    description: 'Profesjonalne faktury VAT zgodne z polskim prawem - gotowe do druku',
-    icon: '🧾',
-    href: '/narzedzia/generator-faktur',
-    category: 'Finanse',
-    color: 'from-emerald-600 to-emerald-700',
-    featured: true
+    title: "Generator Faktur VAT",
+    description:
+      "Profesjonalne faktury VAT zgodne z polskim prawem - gotowe do druku",
+    icon: "🧾",
+    href: "/narzedzia/generator-faktur",
+    category: "Finanse",
+    color: "from-emerald-600 to-emerald-700",
+    featured: true,
   },
   {
-    title: 'Asystent Email Biznesowy',
-    description: 'Pisz profesjonalne emaile z odpowiednią etykietą biznesową',
-    icon: '📧',
-    href: '/narzedzia/asystent-email',
-    category: 'Komunikacja',
-    color: 'from-purple-600 to-purple-700'
+    title: "Asystent Email Biznesowy",
+    description: "Pisz profesjonalne emaile z odpowiednią etykietą biznesową",
+    icon: "📧",
+    href: "/narzedzia/asystent-email",
+    category: "Komunikacja",
+    color: "from-purple-600 to-purple-700",
   },
   {
-    title: 'Organizer Zadań',
-    description: 'Zarządzaj zadaniami z priorytetami i terminami',
-    icon: '✅',
-    href: '/narzedzia/organizer-zadan',
-    category: 'Produktywność',
-    color: 'from-green-600 to-green-700'
+    title: "Organizer Zadań",
+    description: "Zarządzaj zadaniami z priorytetami i terminami",
+    icon: "✅",
+    href: "/narzedzia/organizer-zadan",
+    category: "Produktywność",
+    color: "from-green-600 to-green-700",
   },
   {
-    title: 'Kalkulator Biznesowy',
-    description: 'Marże, VAT, ROI, zyski - wszystkie obliczenia w jednym miejscu',
-    icon: '🧮',
-    href: '/narzedzia/kalkulator-biznesowy',
-    category: 'Finanse',
-    color: 'from-orange-600 to-orange-700'
+    title: "Kalkulator Biznesowy",
+    description:
+      "MarĹĽe, VAT, ROI, zyski - wszystkie obliczenia w jednym miejscu",
+    icon: "đź§®",
+    href: "/narzedzia/kalkulator-biznesowy",
+    category: "Finanse",
+    color: "from-orange-600 to-orange-700",
   },
   {
-    title: 'SEO Analityka',
-    description: 'Analizuj konkurencję, słowa kluczowe i optymalizuj swoją stronę dla wyszukiwarek',
-    icon: '📊',
-    href: '/seo-analityka',
-    category: 'Marketing',
-    color: 'from-pink-600 to-pink-700',
-    featured: true
+    title: "SEO Analityka",
+    description:
+      "Analizuj konkurencjÄ™, slowa kluczowe i optymalizuj swojÄ… stronÄ™ dla wyszukiwarek",
+    icon: 'đź"Š',
+    href: "/seo-analityka",
+    category: "Marketing",
+    color: "from-pink-600 to-pink-700",
+    featured: true,
   },
   {
-    title: 'Analityka i Raporty',
-    description: 'Przeglądaj dane biznesowe, generuj raporty i analizuj trendy',
-    icon: '📈',
-    href: '/analityka-raporty',
-    category: 'Analityka',
-    color: 'from-violet-600 to-violet-700',
-    featured: true
+    title: "Analityka i Raporty",
+    description:
+      "PrzeglÄ…daj dane biznesowe, generuj raporty i analizuj trendy",
+    icon: 'đź"ť',
+    href: "/analityka-raporty",
+    category: "Analityka",
+    color: "from-violet-600 to-violet-700",
+    featured: true,
   },
   {
-    title: 'CRM - Zarządzanie Klientami',
-    description: 'Zarządzaj kontaktami, śledź sprzedaż i buduj relacje z klientami',
-    icon: '👥',
-    href: '/crm-klienci',
-    category: 'CRM',
-    color: 'from-rose-600 to-rose-700',
-    featured: true
-  }
+    title: "CRM - ZarzÄ…dzanie Klientami",
+    description:
+      "ZarzÄ…dzaj kontaktami, Ĺ›ledĹş sprzedaĹĽ i buduj relacje z klientami",
+    icon: "👥",
+    href: "/crm-klienci",
+    category: "CRM",
+    color: "from-rose-600 to-rose-700",
+    featured: true,
+  },
 ];
 
-const categories = Array.from(new Set(narzedzia.map(n => n.category)));
+const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
 ---
 
 <MainLayout title="Wszystkie Narzędzia">
-  <div class="container mx-auto px-4 py-12 relative">
-
-    <!-- Logo w narożniku -->
-    <div class="absolute top-0 right-4">
-      <span class="text-business-accent font-bold text-sm tracking-wider">
-        ZENON_AI_Biznes_HUB
-      </span>
-    </div>
-
+  <div class="container mx-auto px-4 py-12">
     <!-- Header -->
-    <div class="text-center mb-12 fade-in relative">
-      <div class="flex items-center justify-center gap-8">
-        <!-- Ikona z przejrzystym tłem -->
-        <div class="relative">
-          <img
-            src="/apple-touch-icon.png"
-            alt="Zenon AI Logo"
-            class="w-32 h-32 object-contain opacity-30 hover:opacity-50 transition-opacity duration-300 animate-pulse-glow"
+    <div class="text-center mb-12 fade-in">
+      <div class="flex items-center justify-center gap-6 mb-4">
+        <div class="relative w-20 h-20 md:w-24 md:h-24 animate-float">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
+          <img 
+            src="/apple-touch-icon.png" 
+            alt="ZENON Narzędzia Logo" 
+            class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
           />
         </div>
-
-        <!-- Teksty -->
-        <div class="text-left">
-          <h1 class="text-5xl font-bold mb-4">
-            <span class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent">
-              NARZEDZIA_DLA_BIZNESU
-            </span>
-          </h1>
-          <p class="text-xl text-business-text-dim max-w-3xl">
-            Kompletny zestaw narzędzi AI dla Twojego biznesu.
-            Proste, efektywne, 100% po polsku.
-          </p>
-        </div>
+        <h1 class="text-5xl font-bold">
+          <span
+            class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
+          >
+            Wszystkie Narzędzia
+          </span>
+        </h1>
       </div>
+      <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
+        Kompletny zestaw narzędzi AI dla Twojego biznesu. Proste, efektywne,
+        100% po polsku.
+      </p>
     </div>
 
     <!-- Kategorie -->
     <div class="flex flex-wrap justify-center gap-3 mb-12">
-      {categories.map(category => (
-        <button class="badge badge-info text-sm px-8 py-3 w-full sm:w-auto">
-          {category}
-        </button>
-      ))}
+      {
+        categories.map((category) => (
+          <button class="badge badge-info text-sm">{category}</button>
+        ))
+      }
     </div>
 
     <!-- Narzędzia Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {narzedzia.map(narzedzie => (
-        <a href={narzedzie.href} class="tool-card group">
-          <div class={`w-16 h-16 rounded-none bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-[0_0_15px_rgba(0,217,255,0.3)] transition-shadow`}>
-            {narzedzie.icon}
-          </div>
+      {
+        narzedzia.map((narzedzie) => (
+          <a href={narzedzie.href} class="tool-card group">
+            <div
+              class={`w-16 h-16 bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow border-2 border-white/10`}
+            >
+              {narzedzie.icon}
+            </div>
 
-          <div class="flex items-start justify-between mb-2">
-            <h3 class="text-xl font-bold flex-grow">
-              {narzedzie.title}
-            </h3>
-          </div>
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="text-xl font-bold flex-grow">{narzedzie.title}</h3>
+            </div>
 
-          <p class="text-sm text-business-text-dim mb-3">
-            {narzedzie.description}
-          </p>
+            <p class="text-sm text-business-text-dim mb-3">
+              {narzedzie.description}
+            </p>
 
-          <div class="flex items-center justify-between">
-            <span class="badge badge-info text-xs">
-              {narzedzie.category}
-            </span>
-            <span class="text-business-accent text-sm group-hover:translate-x-1 transition-transform inline-block">
-              →
-            </span>
-          </div>
-        </a>
-      ))}
+            <div class="flex items-center justify-between">
+              <span class="badge badge-info text-xs">{narzedzie.category}</span>
+              <span class="text-business-accent text-sm group-hover:translate-x-1 transition-transform inline-block">
+                →
+              </span>
+            </div>
+          </a>
+        ))
+      }
     </div>
 
     <!-- CTA -->
-    <div class="card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700 text-center">
-      <h2 class="text-2xl font-bold mb-4">
-        Gotowy żeby zacząć?
-      </h2>
+    <div
+      class="card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700 text-center"
+    >
+      <h2 class="text-2xl font-bold mb-4">Gotowy żeby zacząć?</h2>
       <p class="text-business-text-dim mb-6">
         Wybierz narzędzie i odkryj jak AI może usprawnić Twój biznes!
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/instrukcje" class="btn-primary">
-          📚 Przeczytaj Instrukcje
-        </a>
-        <a href="/" class="btn-secondary">
-          🏠 Strona Główna
-        </a>
+        <a href="/instrukcje" class="btn-primary"> 📚 Przeczytaj Instrukcje </a>
+        <a href="/" class="btn-secondary"> 🏠 Strona Główna </a>
       </div>
     </div>
-
   </div>
 </MainLayout>

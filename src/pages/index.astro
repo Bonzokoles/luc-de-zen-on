@@ -2,62 +2,89 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import NewsBiznesowe from '../components/NewsBiznesowe';
 import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
+import BalloonLibrary from '../components/animations/BalloonLibrary';
+import DashboardVisual from '../components/DashboardVisual';
+import { SparkleEffect } from '../components/animations/BalloonLibrary';
+import IconWrapper from '../components/IconWrapper';
 ---
 
 <MainLayout title="Strona Główna">
-  <div class="container mx-auto px-4 py-12">
+  <BalloonLibrary client:load count={20} speed="slow" />
+  <SparkleEffect client:load density={15} />
+  <div class="container mx-auto px-4 py-12 relative z-10">
 
     <!-- Hero Section -->
     <section class="text-center mb-16 fade-in">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6">
-        <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
-          AI Biznes Start
-        </span>
-      </h1>
+      <div class="flex items-center justify-center gap-6 mb-6">
+        <div class="relative w-24 h-24 md:w-32 md:h-32 animate-float">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
+          <img 
+            src="/apple-touch-icon.png" 
+            alt="ZENON Biznes HUB Logo" 
+            class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
+          />
+        </div>
+        <h1 class="text-5xl md:text-6xl font-bold">
+          <span class="bg-gradient-to-r from-business-accent via-primary-500 to-business-accent-soft bg-clip-text text-transparent">
+            ZENON_Biznes_HUB
+          </span>
+        </h1>
+      </div>
       <p class="text-xl md:text-2xl text-business-text-dim mb-8 max-w-3xl mx-auto">
         Twoje pierwsze kroki w świecie AI dla biznesu.<br/>
         Proste narzędzia, które od razu zrozumiesz i zaczniesz używać.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/narzedzia" class="btn-primary">
-          🚀 Zobacz Narzędzia
+        <a href="/narzedzia" class="btn-primary flex items-center justify-center gap-2">
+          <IconWrapper client:load name="rocket" size={20} className="inline" />
+          Zobacz Narzędzia
         </a>
-        <a href="/instrukcje" class="btn-secondary">
-          📚 Jak Zacząć?
+        <a href="/instrukcje" class="btn-secondary flex items-center justify-center gap-2">
+          <IconWrapper client:load name="bookOpen" size={20} className="inline" />
+          Jak Zacząć?
         </a>
       </div>
+    </section>
+
+    <!-- Visual Dashboard -->
+    <section class="mb-16">
+      <DashboardVisual client:load />
     </section>
 
     <!-- Statystyki -->
     <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-      <div class="card text-center">
-        <div class="text-4xl font-bold text-business-accent mb-2">10</div>
+      <div class="card text-center hover:scale-105 transition-transform hover:border-primary-500">
+        <div class="text-4xl font-bold text-business-accent mb-2 animate-pulse">10</div>
         <div class="text-business-text-dim">Narzędzi Biznesowych</div>
       </div>
-      <div class="card text-center">
+      <div class="card text-center hover:scale-105 transition-transform hover:border-primary-500">
         <div class="text-4xl font-bold text-business-accent-soft mb-2">100%</div>
         <div class="text-business-text-dim">Po Polsku</div>
       </div>
-      <div class="card text-center">
+      <div class="card text-center hover:scale-105 transition-transform hover:border-primary-500">
         <div class="text-4xl font-bold text-primary-500 mb-2">AI</div>
         <div class="text-business-text-dim">Wsparcie Gemini</div>
       </div>
-      <div class="card text-center">
-        <div class="text-4xl font-bold text-purple-400 mb-2">🤖</div>
+      <div class="card text-center hover:scale-105 transition-transform hover:border-primary-500">
+        <div class="flex justify-center mb-2">
+          <IconWrapper client:load name="bot" size={48} className="text-purple-400" />
+        </div>
         <div class="text-business-text-dim">Asystent 24/7</div>
       </div>
     </section>
 
-    <!-- Featured Tool -->
-    <section class="mb-12">
+    <!-- Featured Tools -->
+    <section class="mb-12 space-y-6">
+      <!-- Asystent AI -->
       <a href="/asystent-ai" class="card bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-indigo-500/50 hover:border-indigo-400 transition-all group">
         <div class="flex flex-col md:flex-row items-center gap-6">
-          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-5xl shadow-glow group-hover:scale-110 transition-transform">
-            🤖
+          <div class="w-20 h-20 bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform border-2 border-indigo-400/30">
+            <IconWrapper client:load name="bot" size={48} className="text-white" />
           </div>
           <div class="flex-1 text-center md:text-left">
-            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-full mb-2">
-              ⭐ NOWOŚĆ - Gemini AI
+            <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold mb-2 border border-purple-400/40 flex items-center gap-1">
+              <IconWrapper client:load name="sparkles" size={14} className="inline text-purple-300" />
+              NOWOŚĆ - Gemini AI
             </div>
             <h2 class="text-3xl font-bold mb-2">Asystent Biznesowy AI</h2>
             <p class="text-lg text-gray-300">
@@ -70,95 +97,130 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
           </div>
         </div>
       </a>
+
+      <!-- ERP System -->
+      <a href="/ai-biznes-erp" target="_blank" class="card bg-gradient-to-br from-emerald-900/50 to-teal-900/50 border-emerald-500/50 hover:border-emerald-400 transition-all group">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="w-20 h-20 bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform border-2 border-emerald-400/30">
+            <IconWrapper client:load name="building" size={48} className="text-white" />
+          </div>
+          <div class="flex-1 text-center md:text-left">
+            <div class="inline-block px-3 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold mb-2 border border-emerald-400/40 flex items-center gap-1">
+              <IconWrapper client:load name="rocket" size={14} className="inline text-emerald-300" />
+              ZAAWANSOWANY SYSTEM
+            </div>
+            <h2 class="text-3xl font-bold mb-2">AI Biznes ERP</h2>
+            <p class="text-lg text-gray-300">
+              Kompleksowy system ERP: Magazyn, Projekty z ROI, Finanse Pro, Konwerter plików (Excel/PDF/XML),
+              Wizualizacje danych. Wszystko w jednym miejscu!
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge badge-success text-xs">📦 Magazyn</span>
+              <span class="badge badge-info text-xs">💼 Projekty</span>
+              <span class="badge badge-warning text-xs">💰 Finanse</span>
+              <span class="badge badge-error text-xs">🔄 Konwerter</span>
+              <span class="badge badge-primary text-xs">📊 Wizualizacje</span>
+            </div>
+          </div>
+          <div class="text-emerald-400 text-3xl group-hover:translate-x-2 transition-transform flex items-center gap-2">
+            → <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+            </svg>
+          </div>
+        </div>
+      </a>
     </section>
 
     <!-- Narzędzia - Podgląd -->
     <section class="mb-16">
-      <h2 class="section-title text-center mb-12">
-        🛠️ Dostępne Narzędzia
-      </h2>
+      <div class="flex items-center justify-center gap-3 mb-12">
+        <IconWrapper client:load name="wrench" size={32} className="text-primary-500" />
+        <h2 class="section-title text-center m-0">
+          Dostępne Narzędzia
+        </h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- Kreator Dokumentów -->
-        <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30">
+        <a href="/narzedzia/kreator-dokumentow" class="tool-card group border-2 border-cyan-500/30 hover:border-cyan-400 hover:shadow-2xl hover:shadow-cyan-500/20 hover:-translate-y-2 transition-all duration-300">
           <div class="absolute top-3 right-3">
-            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold rounded">NOWE</span>
+            <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 text-xs font-bold animate-pulse border border-cyan-400/40">NOWE</span>
           </div>
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-cyan-600 to-cyan-700">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-cyan-600 to-cyan-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Kreator Dokumentów</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-cyan-300 transition-colors">Kreator Dokumentów</h3>
           <p class="text-sm text-business-text-dim">
             Umowy, regulaminy, RODO, NDA - AI generuje zgodnie z prawem
           </p>
         </a>
 
         <!-- Generator Faktur -->
-        <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30">
+        <a href="/narzedzia/generator-faktur" class="tool-card group border-2 border-emerald-500/30 hover:border-emerald-400 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2 transition-all duration-300">
           <div class="absolute top-3 right-3">
-            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold rounded">NOWE</span>
+            <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-xs font-bold animate-pulse border border-emerald-400/40">NOWE</span>
           </div>
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-emerald-600 to-emerald-700">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-emerald-600 to-emerald-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Faktur VAT</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-emerald-300 transition-colors">Generator Faktur VAT</h3>
           <p class="text-sm text-business-text-dim">
             Profesjonalne faktury z VAT - eksport do PDF, pełna polskość
           </p>
         </a>
 
         <!-- Generator Treści -->
-        <a href="/narzedzia/generator-tresci" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-blue-600 to-blue-700">
+        <a href="/narzedzia/generator-tresci" class="tool-card group hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 hover:-translate-y-2 transition-all duration-300">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-blue-600 to-blue-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Generator Treści</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-blue-300 transition-colors">Generator Treści</h3>
           <p class="text-sm text-business-text-dim">
             Posty, opisy produktów, newslettery - AI w sekundę
           </p>
         </a>
 
         <!-- Asystent Email -->
-        <a href="/narzedzia/asystent-email" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-purple-600 to-purple-700">
+        <a href="/narzedzia/asystent-email" class="tool-card group hover:border-purple-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-purple-600 to-purple-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Asystent Email</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-purple-300 transition-colors">Asystent Email</h3>
           <p class="text-sm text-business-text-dim">
             Profesjonalne emaile biznesowe z etykietą
           </p>
         </a>
 
         <!-- Organizer Zadań -->
-        <a href="/narzedzia/organizer-zadan" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-green-600 to-green-700">
+        <a href="/narzedzia/organizer-zadan" class="tool-card group hover:border-green-500 hover:shadow-2xl hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-300">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-green-600 to-green-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Organizer Zadań</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-green-300 transition-colors">Organizer Zadań</h3>
           <p class="text-sm text-business-text-dim">
             Zarządzaj zadaniami - priorytety, terminy, filtry
           </p>
         </a>
 
         <!-- Kalkulator Biznesowy -->
-        <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group">
-          <div class="tool-icon mb-4 group-hover:shadow-glow transition-shadow bg-gradient-to-br from-orange-600 to-orange-700">
+        <a href="/narzedzia/kalkulator-biznesowy" class="tool-card group hover:border-orange-500 hover:shadow-2xl hover:shadow-orange-500/20 hover:-translate-y-2 transition-all duration-300">
+          <div class="tool-icon mb-4 group-hover:shadow-glow group-hover:scale-110 transition-all bg-gradient-to-br from-orange-600 to-orange-700">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
             </svg>
           </div>
-          <h3 class="text-lg font-bold mb-2 text-business-text">Kalkulator Biznesowy</h3>
+          <h3 class="text-lg font-bold mb-2 text-business-text group-hover:text-orange-300 transition-colors">Kalkulator Biznesowy</h3>
           <p class="text-sm text-business-text-dim">
             Marże, VAT, ROI, zyski - wszystko w jednym
           </p>
@@ -175,13 +237,16 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
 
     <!-- Jak to działa -->
     <section class="mb-16">
-      <h2 class="section-title text-center mb-12">
-        🎯 Jak to działa?
-      </h2>
+      <div class="flex items-center justify-center gap-3 mb-12">
+        <IconWrapper client:load name="target" size={32} className="text-primary-500" />
+        <h2 class="section-title text-center m-0">
+          Jak to działa?
+        </h2>
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             1
           </div>
           <h3 class="text-xl font-bold mb-3">Wybierz Narzędzie</h3>
@@ -191,7 +256,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             2
           </div>
           <h3 class="text-xl font-bold mb-3">Wpisz co Potrzebujesz</h3>
@@ -201,7 +266,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         </div>
 
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 shadow-glow border-2 border-primary-400/30">
             3
           </div>
           <h3 class="text-xl font-bold mb-3">Gotowe!</h3>
@@ -214,13 +279,14 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
 
     <!-- Dla kogo -->
     <section class="card mb-16">
-      <h2 class="text-2xl font-bold mb-6 text-center">
-        💼 Dla kogo jest ta platforma?
+      <h2 class="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+        <IconWrapper client:load name="briefcase" size={28} className="text-primary-500" />
+        Dla kogo jest ta platforma?
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Początkujący Przedsiębiorcy</h3>
             <p class="text-sm text-business-text-dim">Dopiero zaczynasz? Pomożemy Ci zautomatyzować pierwsze procesy.</p>
@@ -228,7 +294,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Freelancerzy</h3>
             <p class="text-sm text-business-text-dim">Oszczędzaj czas na administracji, skup się na pracy.</p>
@@ -236,7 +302,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Małe Firmy</h3>
             <p class="text-sm text-business-text-dim">Automatyzuj marketing, faktury, dokumenty - bez zatrudniania zespołu.</p>
@@ -244,7 +310,7 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
         </div>
 
         <div class="flex items-start space-x-3">
-          <span class="text-2xl">✅</span>
+          <IconWrapper client:load name="check" size={24} className="text-green-400 flex-shrink-0" />
           <div>
             <h3 class="font-bold mb-1">Osoby bez Wiedzy Technicznej</h3>
             <p class="text-sm text-business-text-dim">Wszystko jest proste i intuicyjne. Nie potrzebujesz kursu AI!</p>
@@ -267,8 +333,9 @@ import MusicPlayerVisualizer from '../components/MusicPlayerVisualizer';
       <p class="text-business-text-dim mb-6 max-w-2xl mx-auto">
         Nie czekaj! Wypróbuj nasze narzędzia już teraz - bez rejestracji, za darmo.
       </p>
-      <a href="/narzedzia" class="btn-primary">
-        🚀 Rozpocznij Teraz
+      <a href="/narzedzia" class="btn-primary flex items-center justify-center gap-2 inline-flex">
+        <IconWrapper client:load name="rocket" size={20} className="inline" />
+        Rozpocznij Teraz
       </a>
     </section>
 
