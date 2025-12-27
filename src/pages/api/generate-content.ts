@@ -49,10 +49,11 @@ Pamiętaj:
 - Tekst ma być atrakcyjny i zachęcający do działania
 - Dostosuj styl do polskiego rynku`;
 
-    // Wywołanie Google Gemini 3.0 Flash
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:generateContent?key=' + apiKey, {
+    // Wywołanie Google Gemini 2.5 Flash
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', {
       method: 'POST',
       headers: {
+        'x-goog-api-key': apiKey,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
