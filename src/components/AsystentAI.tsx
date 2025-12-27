@@ -92,10 +92,11 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
-      // 🤖 MODEL AI: CLAUDE 3.7 SONNET (via OpenRouter)
-      // Najlepszy do rozmów biznesowych, strategii, doradztwa
-      // Endpoint: /api/chat-openrouter
-      const response = await fetch('/api/chat-openrouter', {
+      // 🤖 MODEL AI: DEEPSEEK-V3 
+      // Najnowszy model DeepSeek - doskonałe wsparcie języka polskiego
+      // Świetny w biznesie, programowaniu, analizie danych
+      // Endpoint: /api/chat-deepseek
+      const response = await fetch('/api/chat-deepseek', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ const AsystentAI = () => {
             role: m.role,
             content: m.content
           })),
-          model: 'anthropic/claude-3.7-sonnet' // Upgrade do najnowszej wersji
+          model: 'deepseek-chat' // DeepSeek V3
         }),
       });
 
@@ -113,22 +114,27 @@ const AsystentAI = () => {
         throw new Error('Błąd podczas komunikacji z AI');
       }
 
-      // Stream response
+      // Stream response z poprawnym dekodowaniem UTF-8
       const reader = response.body?.getReader();
-      const decoder = new TextDecoder();
+      const decoder = new TextDecoder('utf-8');
       let fullContent = '';
+      let buffer = '';
 
       if (reader) {
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
 
-          const chunk = decoder.decode(value);
-          const lines = chunk.split('\n');
+          // Dekoduj chunk z obsługą znaków wielobajtowych
+          const chunk = decoder.decode(value, { stream: true });
+          buffer += chunk;
+
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || ''; // Zachowaj niepełną linię w buforze
 
           for (const line of lines) {
             if (line.startsWith('data: ')) {
-              const data = line.slice(6);
+              const data = line.slice(6).trim();
               if (data === '[DONE]') continue;
 
               try {
