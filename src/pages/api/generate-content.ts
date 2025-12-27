@@ -14,8 +14,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // GEMINI 2.0 FLASH - najlepszy do kreatywnych treści marketingowych
     const env = locals.runtime?.env || {};
-    const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] || 
-                   Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
+    const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] ||
+      Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
 
     if (!apiKey) {
       return new Response(
@@ -73,7 +73,11 @@ Pamiętaj:
       const error = await response.json();
       console.error('Gemini API Error:', error);
       return new Response(
-        JSON.stringify({ error: 'Błąd generowania treści. Spróbuj ponownie.' }),
+        JSON.stringify({ 
+          error: 'Błąd API Gemini', 
+          details: error,
+          status: response.status 
+        }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }

@@ -12,8 +12,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }
 
         const env = locals.runtime?.env || {};
-        const apiKey = env['OPENROUTER_API_KEY'] || env[' OPENROUTER_API_KEY'] || 
-                       Object.entries(env).find(([k]) => k.trim() === 'OPENROUTER_API_KEY')?.[1];
+        const apiKey = env['OPENROUTER_API_KEY'] || env[' OPENROUTER_API_KEY'] ||
+            Object.entries(env).find(([k]) => k.trim() === 'OPENROUTER_API_KEY')?.[1];
 
         if (!apiKey) {
             return new Response(
