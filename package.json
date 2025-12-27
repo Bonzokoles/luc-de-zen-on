@@ -1,0 +1,40 @@
+{
+  "name": "the-zen-buisnes",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "AI Business Tools - Narzędzia AI dla polskich przedsiębiorców",
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^2.0.28",
+    "@ai-sdk/openai": "^2.0.62",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "^12.6.7",
+    "@astrojs/react": "^4.3.1",
+    "@astrojs/svelte": "^7.2.1",
+    "@astrojs/tailwind": "^6.0.2",
+    "@google/generative-ai": "^0.21.0",
+    "@nanostores/react": "^0.8.1",
+    "ai": "^4.3.19",
+    "astro": "^5.0.6",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.552.0",
+    "nanostores": "^0.11.3",
+    "openai": "^4.84.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^10.1.0",
+    "recharts": "^2.15.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.1"
+  }
+}
