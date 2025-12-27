@@ -2,12 +2,6 @@ name = "mybonzo-new"
 compatibility_date = "2025-11-05"
 pages_build_output_dir = "dist"
 
-# D1 Database Configuration
-[[d1_databases]]
-binding = "DB"
-database_name = "mybonzo_database"
-database_id = "PLACEHOLDER_ID"  # Zostanie wypełnione po utworzeniu bazy
-
 # Environment Variables
 [vars]
 GEMINI_API_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta"
