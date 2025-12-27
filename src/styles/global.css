@@ -81,15 +81,15 @@
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-business-surface/20 border border-business-border text-business-text font-medium rounded-none hover:bg-business-border/80 hover:border-business-accent hover:shadow-[0_0_10px_rgba(0, 217, 255, 0.3)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-business-accent;
+    @apply px-6 py-3 bg-business-surface/20 border border-business-border text-business-text font-medium rounded-none hover:bg-business-border/80 hover:border-business-accent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-business-accent;
   }
 
   .card {
-    @apply bg-business-surface/20 border border-business-border rounded-none p-6 shadow-lg hover:shadow-[0_0_15px_rgba(0, 217, 255, 0.2)] transition-all duration-300;
+    @apply bg-business-surface/20 border border-business-border rounded-none p-6 shadow-lg transition-all duration-300;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border rounded-none text-business-text placeholder-business-text-dim focus:outline-none focus:border-business-accent focus:shadow-[0_0_10px_rgba(0, 217, 255, 0.3)] transition-all duration-200;
+    @apply w-full px-4 py-3 bg-business-surface/20 border border-business-border rounded-none text-business-text placeholder-business-text-dim focus:outline-none focus:border-business-accent transition-all duration-200;
   }
 
   .textarea-field {
