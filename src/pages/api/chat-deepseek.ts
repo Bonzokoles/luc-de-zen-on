@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
-        const { messages, model = 'anthropic/claude-3.7-sonnet' } = await request.json();
+        const { messages, model = 'deepseek-chat' } = await request.json();
 
         if (!messages || messages.length === 0) {
             return new Response(
@@ -11,11 +11,11 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        const apiKey = import.meta.env.OPENROUTER_API_KEY || process.env.OPENROUTER_API_KEY;
+        const apiKey = import.meta.env.DEEPSEEK_API_KEY || process.env.DEEPSEEK_API_KEY;
 
         if (!apiKey) {
             return new Response(
-                JSON.stringify({ error: 'Brak klucza API OpenRouter' }),
+                JSON.stringify({ error: 'Brak klucza API DeepSeek' }),
                 { status: 500 }
             );
         }
@@ -43,6 +43,7 @@ Obszary Twojej ekspertyzy:
 - Social media i content marketing
 - E-commerce
 - Produktywność i organizacja pracy
+- Programowanie i technologie (szczególnie w kontekście biznesowym)
 
 Styl komunikacji:
 - Konkretne odpowiedzi z przykładami
@@ -56,14 +57,12 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
 
         const allMessages = [systemMessage, ...messages];
 
-        // Wywołanie OpenRouter API
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        // Wywołanie DeepSeek API
+        const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json',
-                'HTTP-Referer': 'https://mybonzo.com',
-                'X-Title': 'ZENON Biznes HUB'
             },
             body: JSON.stringify({
                 model: model,
@@ -76,10 +75,10 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('OpenRouter API error:', errorData);
+            console.error('DeepSeek API error:', errorData);
             return new Response(
                 JSON.stringify({
-                    error: 'Błąd OpenRouter API',
+                    error: 'Błąd DeepSeek API',
                     details: errorData.error?.message || 'Unknown error'
                 }),
                 { status: response.status }
@@ -98,9 +97,8 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
                         const { done, value } = await reader.read();
                         if (done) break;
 
-                        // Dekoduj chunk
-                        const chunk = new TextDecoder().decode(value);
-                        const lines = chunk.split('\n').filter(line => line.trim() !== '');
+                        const text = new TextDecoder().decode(value);
+                        const lines = text.split('\n').filter(line => line.trim() !== '');
 
                         for (const line of lines) {
                             if (line.startsWith('data: ')) {
@@ -112,14 +110,13 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
 
                                 try {
                                     const parsed = JSON.parse(data);
-                                    const content = parsed.choices?.[0]?.delta?.content;
-
+                                    const content = parsed.choices?.[0]?.delta?.content || '';
                                     if (content) {
-                                        const streamData = `data: ${JSON.stringify({ content })}\n\n`;
-                                        controller.enqueue(encoder.encode(streamData));
+                                        const chunk = `data: ${JSON.stringify({ content })}\n\n`;
+                                        controller.enqueue(encoder.encode(chunk));
                                     }
                                 } catch (e) {
-                                    // Skip invalid JSON
+                                    console.error('Error parsing chunk:', e);
                                 }
                             }
                         }
@@ -141,13 +138,10 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
             },
         });
 
-    } catch (error: any) {
-        console.error('Chat error:', error);
+    } catch (error) {
+        console.error('DeepSeek chat error:', error);
         return new Response(
-            JSON.stringify({
-                error: 'Błąd podczas komunikacji z AI',
-                details: error.message
-            }),
+            JSON.stringify({ error: 'Wystąpił błąd podczas komunikacji z DeepSeek' }),
             { status: 500 }
         );
     }
