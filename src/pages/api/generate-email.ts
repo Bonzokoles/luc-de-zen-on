@@ -11,7 +11,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const apiKey = locals.runtime?.env?.OPENAI_API_KEY;
+    const apiKey = locals.runtime?.env?.OPENAI_API_KEY ||
+      locals.runtime?.env[' OPENAI_API_KEY'] ||
+      locals.runtime?.env['OPENAI_API_KEY'];
 
     if (!apiKey) {
       return new Response(

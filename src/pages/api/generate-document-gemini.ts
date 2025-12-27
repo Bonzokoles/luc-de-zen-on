@@ -14,7 +14,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Pobierz klucz API
-    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY;
+    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY ||
+      locals.runtime?.env[' GOOGLE_API_KEY'] ||
+      locals.runtime?.env['GOOGLE_API_KEY'];
 
     if (!apiKey) {
       return new Response(
