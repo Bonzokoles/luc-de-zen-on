@@ -12,9 +12,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY ||
-      locals.runtime?.env[' GOOGLE_API_KEY'] ||
-      locals.runtime?.env['GOOGLE_API_KEY'];
+    const env = locals.runtime?.env || {};
+    const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] || 
+                   Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
 
     if (!apiKey) {
       return new Response(
