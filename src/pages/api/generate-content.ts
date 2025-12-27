@@ -13,11 +13,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // GEMINI 2.0 FLASH - najlepszy do kreatywnych treści marketingowych
-    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY;
+    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY || locals.runtime?.env['GOOGLE_API_KEY'];
 
     if (!apiKey) {
       return new Response(
-        JSON.stringify({ error: 'Brak klucza API. Skontaktuj się z administratorem.' }),
+        JSON.stringify({ 
+          error: 'Brak klucza API',
+          debug: {
+            hasRuntime: !!locals.runtime,
+            hasEnv: !!locals.runtime?.env,
+            keys: locals.runtime?.env ? Object.keys(locals.runtime.env).slice(0, 5) : []
+          }
+        }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
