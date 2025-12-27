@@ -87,129 +87,10 @@ interface Alert {
 
 // ========== DEMO DATA ==========
 
-const demoItems: InventoryItem[] = [
-  {
-    id: '1',
-    sku: 'PRD-001',
-    name: 'Monitor 24" Dell',
-    description: 'Monitor LED 24 cale, Full HD',
-    category: 'Elektronika',
-    unit: 'szt',
-    quantity: 15,
-    minQuantity: 5,
-    maxQuantity: 50,
-    location: 'A-01-03',
-    barcodes: ['5901234567890'],
-    price: { purchase: 450, sale: 650 },
-    supplier: 'Tech Distribution Sp. z o.o.',
-    lastUpdated: new Date('2025-01-10'),
-    batches: [
-      {
-        id: 'b1',
-        batchNumber: 'BP-2025-001',
-        quantity: 15,
-        productionDate: new Date('2024-12-01'),
-        purchasePrice: 450
-      }
-    ]
-  },
-  {
-    id: '2',
-    sku: 'PRD-002',
-    name: 'Klawiatura mechaniczna RGB',
-    description: 'Klawiatura mechaniczna, przełączniki Blue',
-    category: 'Elektronika',
-    unit: 'szt',
-    quantity: 3,
-    minQuantity: 10,
-    maxQuantity: 30,
-    location: 'A-01-05',
-    barcodes: ['5901234567891'],
-    price: { purchase: 180, sale: 280 },
-    supplier: 'Gaming Gear Polska',
-    lastUpdated: new Date('2025-01-12'),
-    batches: [
-      {
-        id: 'b2',
-        batchNumber: 'BP-2025-002',
-        quantity: 3,
-        productionDate: new Date('2024-11-15'),
-        purchasePrice: 180
-      }
-    ]
-  },
-  {
-    id: '3',
-    sku: 'PRD-003',
-    name: 'Myszka bezprzewodowa',
-    description: 'Myszka optyczna, bezprzewodowa, 1600 DPI',
-    category: 'Elektronika',
-    unit: 'szt',
-    quantity: 28,
-    minQuantity: 15,
-    maxQuantity: 50,
-    location: 'A-02-01',
-    barcodes: ['5901234567892'],
-    price: { purchase: 45, sale: 85 },
-    supplier: 'Tech Distribution Sp. z o.o.',
-    lastUpdated: new Date('2025-01-08'),
-    batches: [
-      {
-        id: 'b3',
-        batchNumber: 'BP-2025-003',
-        quantity: 28,
-        productionDate: new Date('2024-12-20'),
-        purchasePrice: 45
-      }
-    ]
-  },
-  {
-    id: '4',
-    sku: 'PRD-004',
-    name: 'Kabel HDMI 2m',
-    description: 'Kabel HDMI 2.0, 2 metry, 4K support',
-    category: 'Akcesoria',
-    unit: 'szt',
-    quantity: 52,
-    minQuantity: 20,
-    maxQuantity: 100,
-    location: 'B-03-02',
-    barcodes: ['5901234567893'],
-    price: { purchase: 15, sale: 35 },
-    supplier: 'Cable World',
-    lastUpdated: new Date('2025-01-05'),
-    batches: [
-      {
-        id: 'b4',
-        batchNumber: 'BP-2025-004',
-        quantity: 52,
-        productionDate: new Date('2024-11-01'),
-        purchasePrice: 15
-      }
-    ]
-  }
-];
+// ⚠️ DANE DEMO WYZEROWANE - użyj formularza aby dodać produkty do magazynu
+const demoItems: InventoryItem[] = [];
 
-const demoAlerts: Alert[] = [
-  {
-    id: 'a1',
-    itemId: '2',
-    type: 'low_stock',
-    message: 'Klawiatura mechaniczna RGB - stan niższy niż minimum (3 < 10)',
-    severity: 'critical',
-    createdAt: new Date('2025-01-12'),
-    acknowledged: false
-  },
-  {
-    id: 'a2',
-    itemId: '1',
-    type: 'low_stock',
-    message: 'Monitor 24" Dell - zbliża się do minimum (15 > 5)',
-    severity: 'warning',
-    createdAt: new Date('2025-01-10'),
-    acknowledged: false
-  }
-];
+const demoAlerts: Alert[] = [];
 
 const historyData = [
   { date: '2024-08', quantity: 45 },
@@ -294,7 +175,7 @@ export default function Magazyn() {
   // Filtrowanie
   const filteredItems = items.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         item.sku.toLowerCase().includes(searchQuery.toLowerCase());
+      item.sku.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -429,11 +310,10 @@ export default function Magazyn() {
             <button
               key={view.id}
               onClick={() => setActiveView(view.id as any)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
-                activeView === view.id
+              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeView === view.id
                   ? 'bg-blue-600 text-white shadow-lg'
                   : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700'
-              }`}
+                }`}
             >
               {view.label}
             </button>

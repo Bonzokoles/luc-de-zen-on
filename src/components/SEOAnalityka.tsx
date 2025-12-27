@@ -50,32 +50,12 @@ const SEOAnalityka = () => {
   }, []);
 
   const loadDemoData = () => {
-    // Demo keywords
-    const demoKeywords: Keyword[] = [
-      { keyword: 'marketing AI', volume: 1200, difficulty: 45, cpc: 2.30, trend: 'up' },
-      { keyword: 'narz─Ödzia biznesowe', volume: 850, difficulty: 38, cpc: 1.80, trend: 'up' },
-      { keyword: 'automatyzacja firmy', volume: 620, difficulty: 52, cpc: 3.10, trend: 'stable' },
-      { keyword: 'CRM dla ma┼éych firm', volume: 450, difficulty: 41, cpc: 2.50, trend: 'up' },
-      { keyword: 'zarz─ůdzanie projektami', volume: 1500, difficulty: 58, cpc: 2.90, trend: 'down' },
-    ];
+    // ⚠️ DANE DEMONSTRACYJNE - wyzerowane. Rozpocznij pracę z narzędziami aby zobaczyć prawdziwe dane.
+    const demoKeywords: Keyword[] = [];
 
-    // Demo positions
-    const demoPositions: PositionData[] = [
-      { keyword: 'AI biznes', position: 12, previousPosition: 15, url: '/strona-glowna', date: new Date().toISOString() },
-      { keyword: 'narz─Ödzia AI', position: 8, previousPosition: 11, url: '/narzedzia', date: new Date().toISOString() },
-      { keyword: 'CRM online', position: 24, previousPosition: 28, url: '/crm', date: new Date().toISOString() },
-    ];
+    const demoPositions: PositionData[] = [];
 
-    // Demo traffic
-    const demoTraffic: TrafficData[] = [
-      { date: '2025-01-08', visits: 245, pageviews: 680, uniqueVisitors: 198, bounceRate: 42 },
-      { date: '2025-01-09', visits: 312, pageviews: 890, uniqueVisitors: 267, bounceRate: 38 },
-      { date: '2025-01-10', visits: 278, pageviews: 745, uniqueVisitors: 223, bounceRate: 41 },
-      { date: '2025-01-11', visits: 356, pageviews: 1020, uniqueVisitors: 289, bounceRate: 35 },
-      { date: '2025-01-12', visits: 401, pageviews: 1150, uniqueVisitors: 334, bounceRate: 33 },
-      { date: '2025-01-13', visits: 389, pageviews: 1080, uniqueVisitors: 312, bounceRate: 36 },
-      { date: '2025-01-14', visits: 425, pageviews: 1240, uniqueVisitors: 351, bounceRate: 31 },
-    ];
+    const demoTraffic: TrafficData[] = [];
 
     setKeywords(demoKeywords);
     setPositions(demoPositions);
@@ -177,41 +157,37 @@ const SEOAnalityka = () => {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveTab('keywords')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              activeTab === 'keywords'
+            className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'keywords'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-            }`}
+              }`}
           >
             ­čöŹ S┼éowa Kluczowe
           </button>
           <button
             onClick={() => setActiveTab('positions')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              activeTab === 'positions'
+            className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'positions'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-            }`}
+              }`}
           >
             ­čôł Pozycje w Google
           </button>
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              activeTab === 'analytics'
+            className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'analytics'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-            }`}
+              }`}
           >
             ­čôŐ Analityka Ruchu
           </button>
           <button
             onClick={() => setActiveTab('onpage')}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              activeTab === 'onpage'
+            className={`px-4 py-2 rounded-lg transition-colors ${activeTab === 'onpage'
                 ? 'bg-primary-600 text-white'
                 : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-            }`}
+              }`}
           >
             ÔÜÖ´ŞĆ Analiza On-Page
           </button>

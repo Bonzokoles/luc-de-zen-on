@@ -6,35 +6,36 @@ import {
 import { motion } from 'framer-motion';
 
 // ========== DEMO DATA ==========
+// ⚠️ DANE DEMONSTRACYJNE WYZEROWANE - dane będą pobierane z narzędzi: FinansePro, Projekty, CRM
 
 const salesData = [
-  { month: 'Sty', sales: 45000, costs: 32000, profit: 13000 },
-  { month: 'Lut', sales: 52000, costs: 35000, profit: 17000 },
-  { month: 'Mar', sales: 48000, costs: 33000, profit: 15000 },
-  { month: 'Kwi', sales: 61000, costs: 38000, profit: 23000 },
-  { month: 'Maj', sales: 58000, costs: 36000, profit: 22000 },
-  { month: 'Cze', sales: 72000, costs: 42000, profit: 30000 }
+  { month: 'Sty', sales: 0, costs: 0, profit: 0 },
+  { month: 'Lut', sales: 0, costs: 0, profit: 0 },
+  { month: 'Mar', sales: 0, costs: 0, profit: 0 },
+  { month: 'Kwi', sales: 0, costs: 0, profit: 0 },
+  { month: 'Maj', sales: 0, costs: 0, profit: 0 },
+  { month: 'Cze', sales: 0, costs: 0, profit: 0 }
 ];
 
 const categoryData = [
-  { name: 'E-commerce', value: 120000, color: '#3b82f6' },
-  { name: 'Aplikacje', value: 85000, color: '#10b981' },
-  { name: 'Konsultacje', value: 65000, color: '#f59e0b' },
-  { name: 'Utrzymanie', value: 45000, color: '#8b5cf6' },
-  { name: 'Inne', value: 30000, color: '#ec4899' }
+  { name: 'E-commerce', value: 0, color: '#3b82f6' },
+  { name: 'Aplikacje', value: 0, color: '#10b981' },
+  { name: 'Konsultacje', value: 0, color: '#f59e0b' },
+  { name: 'Utrzymanie', value: 0, color: '#8b5cf6' },
+  { name: 'Inne', value: 0, color: '#ec4899' }
 ];
 
 const performanceData = [
-  { subject: 'Sprzedaż', A: 95, fullMark: 100 },
-  { subject: 'Marketing', A: 78, fullMark: 100 },
-  { subject: 'Zadowolenie', A: 88, fullMark: 100 },
-  { subject: 'Zysk', A: 82, fullMark: 100 },
-  { subject: 'Wzrost', A: 75, fullMark: 100 }
+  { subject: 'Sprzedaż', A: 0, fullMark: 100 },
+  { subject: 'Marketing', A: 0, fullMark: 100 },
+  { subject: 'Zadowolenie', A: 0, fullMark: 100 },
+  { subject: 'Zysk', A: 0, fullMark: 100 },
+  { subject: 'Wzrost', A: 0, fullMark: 100 }
 ];
 
 const dailyData = Array.from({ length: 30 }, (_, i) => ({
   day: i + 1,
-  value: Math.floor(Math.random() * 5000) + 3000
+  value: 0
 }));
 
 // ========== COMPONENT ==========
@@ -79,11 +80,10 @@ export default function Wizualizacje() {
         >
           <button
             onClick={() => setIsAnimated(!isAnimated)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all ${
-              isAnimated
+            className={`px-4 py-2 rounded-lg font-medium transition-all ${isAnimated
                 ? 'bg-pink-600 text-white'
                 : 'bg-slate-800 text-slate-400'
-            }`}
+              }`}
           >
             {isAnimated ? '✓ Animacje włączone' : '○ Animacje wyłączone'}
           </button>
@@ -105,11 +105,10 @@ export default function Wizualizacje() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * idx }}
-              className={`p-6 rounded-xl font-medium transition-all text-left ${
-                activeChart === chart.id
+              className={`p-6 rounded-xl font-medium transition-all text-left ${activeChart === chart.id
                   ? 'bg-gradient-to-br from-pink-600 to-purple-600 border-2 border-pink-400 shadow-lg shadow-pink-500/30'
                   : 'bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50'
-              }`}
+                }`}
             >
               <div className="text-2xl mb-2">{chart.label.split(' ')[0]}</div>
               <div className="text-sm font-bold">{chart.label.substring(3)}</div>
@@ -126,10 +125,10 @@ export default function Wizualizacje() {
           className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"
         >
           {[
-            { label: 'Przychody', value: '345 000 zł', color: 'from-emerald-600 to-green-600', icon: '💰' },
-            { label: 'Projekty', value: '24', color: 'from-blue-600 to-cyan-600', icon: '💼' },
-            { label: 'Klienci', value: '18', color: 'from-purple-600 to-pink-600', icon: '👥' },
-            { label: 'ROI', value: '+45%', color: 'from-orange-600 to-yellow-600', icon: '📈' }
+            { label: 'Przychody', value: '0 zł', color: 'from-emerald-600 to-green-600', icon: '💰' },
+            { label: 'Projekty', value: '0', color: 'from-blue-600 to-cyan-600', icon: '💼' },
+            { label: 'Klienci', value: '0', color: 'from-purple-600 to-pink-600', icon: '👥' },
+            { label: 'ROI', value: '0%', color: 'from-orange-600 to-yellow-600', icon: '📈' }
           ].map((stat, idx) => (
             <motion.div
               key={idx}
@@ -281,8 +280,8 @@ export default function Wizualizacje() {
                 <AreaChart data={dailyData}>
                   <defs>
                     <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />

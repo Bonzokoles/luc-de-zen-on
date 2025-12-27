@@ -70,7 +70,7 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
                 model: model,
                 messages: allMessages,
                 temperature: 0.7,
-                max_tokens: 4000,
+                max_tokens: 8000,
                 stream: true,
             }),
         });

@@ -35,29 +35,9 @@ interface CategorySummary {
 }
 
 // ========== DEMO DATA ==========
+// ⚠️ DANE DEMONSTRACYJNE - wyzerowane. Rozpocznij pracę z narzędziami aby zobaczyć prawdziwe dane.
 
-const demoTransactions: Transaction[] = [
-  // Przychody
-  { id: '1', date: new Date('2025-01-05'), type: 'income', category: 'Sprzedaż usług', amount: 45000, description: 'Projekt e-commerce dla ModaBoutique', status: 'completed', paymentMethod: 'transfer', invoice: 'FV/2025/001' },
-  { id: '2', date: new Date('2025-01-12'), type: 'income', category: 'Sprzedaż usług', amount: 28000, description: 'Konsultacje IT dla TechCorp', status: 'completed', paymentMethod: 'transfer', invoice: 'FV/2025/002' },
-  { id: '3', date: new Date('2025-01-20'), type: 'income', category: 'Subskrypcje', amount: 3500, description: 'Abonament utrzymaniowy - 5 klientów', status: 'completed', paymentMethod: 'transfer' },
-  { id: '4', date: new Date('2025-01-28'), type: 'income', category: 'Sprzedaż usług', amount: 12000, description: 'Aplikacja mobilna - wpłata zaliczki', status: 'pending', paymentMethod: 'transfer', invoice: 'FV/2025/003' },
-
-  // Koszty
-  { id: '5', date: new Date('2025-01-03'), type: 'expense', category: 'Wynagrodzenia', amount: 25000, description: 'Wynagrodzenia zespołu - styczeń', status: 'completed', paymentMethod: 'transfer' },
-  { id: '6', date: new Date('2025-01-05'), type: 'expense', category: 'Czynsz', amount: 4500, description: 'Czynsz biura - styczeń', status: 'completed', paymentMethod: 'transfer' },
-  { id: '7', date: new Date('2025-01-08'), type: 'expense', category: 'Licencje', amount: 2800, description: 'Oprogramowanie i narzędzia', status: 'completed', paymentMethod: 'card' },
-  { id: '8', date: new Date('2025-01-10'), type: 'expense', category: 'Marketing', amount: 3200, description: 'Kampania Google Ads', status: 'completed', paymentMethod: 'card' },
-  { id: '9', date: new Date('2025-01-15'), type: 'expense', category: 'Infrastruktura', amount: 1800, description: 'Serwery i hosting', status: 'completed', paymentMethod: 'transfer' },
-  { id: '10', date: new Date('2025-01-18'), type: 'expense', category: 'Księgowość', amount: 800, description: 'Usługi biura rachunkowego', status: 'completed', paymentMethod: 'transfer' },
-  { id: '11', date: new Date('2025-01-22'), type: 'expense', category: 'Paliwo', amount: 650, description: 'Dojazdy do klientów', status: 'completed', paymentMethod: 'cash' },
-
-  // Grudzień (dla historii)
-  { id: '12', date: new Date('2024-12-05'), type: 'income', category: 'Sprzedaż usług', amount: 52000, description: 'System CRM Enterprise', status: 'completed', paymentMethod: 'transfer' },
-  { id: '13', date: new Date('2024-12-15'), type: 'income', category: 'Subskrypcje', amount: 3500, description: 'Abonament utrzymaniowy', status: 'completed', paymentMethod: 'transfer' },
-  { id: '14', date: new Date('2024-12-03'), type: 'expense', category: 'Wynagrodzenia', amount: 25000, description: 'Wynagrodzenia zespołu - grudzień', status: 'completed', paymentMethod: 'transfer' },
-  { id: '15', date: new Date('2024-12-05'), type: 'expense', category: 'Czynsz', amount: 4500, description: 'Czynsz biura - grudzień', status: 'completed', paymentMethod: 'transfer' },
-];
+const demoTransactions: Transaction[] = [];
 
 const CATEGORY_COLORS: Record<string, string> = {
   'Sprzedaż usług': '#10b981',
@@ -192,7 +172,7 @@ export default function FinansePro() {
   const filteredTransactions = transactions.filter(t => {
     const matchesType = filterType === 'all' || t.type === filterType;
     const matchesSearch = t.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         t.category.toLowerCase().includes(searchQuery.toLowerCase());
+      t.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesType && matchesSearch;
   }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -221,11 +201,10 @@ export default function FinansePro() {
             <button
               key={view.id}
               onClick={() => setActiveView(view.id as any)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
-                activeView === view.id
+              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeView === view.id
                   ? 'bg-emerald-600 text-white shadow-lg'
                   : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700'
-              }`}
+                }`}
             >
               {view.label}
             </button>
@@ -412,33 +391,30 @@ export default function FinansePro() {
                           {format(new Date(t.date), 'dd MMM yyyy', { locale: pl })}
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            t.type === 'income'
+                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${t.type === 'income'
                               ? 'bg-emerald-900/30 text-emerald-400'
                               : 'bg-red-900/30 text-red-400'
-                          }`}>
+                            }`}>
                             {t.type === 'income' ? '💰 Przychód' : '💸 Koszt'}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-sm">{t.category}</td>
                         <td className="px-6 py-4 text-sm">{t.description}</td>
                         <td className="px-6 py-4 text-right">
-                          <span className={`font-mono font-bold ${
-                            t.type === 'income' ? 'text-emerald-400' : 'text-red-400'
-                          }`}>
+                          <span className={`font-mono font-bold ${t.type === 'income' ? 'text-emerald-400' : 'text-red-400'
+                            }`}>
                             {t.type === 'income' ? '+' : '-'}{t.amount.toLocaleString('pl-PL')} zł
                           </span>
                         </td>
                         <td className="px-6 py-4 text-center">
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            t.status === 'completed'
+                          <span className={`px-2 py-1 rounded text-xs ${t.status === 'completed'
                               ? 'bg-green-900/30 text-green-400'
                               : t.status === 'pending'
-                              ? 'bg-yellow-900/30 text-yellow-400'
-                              : 'bg-red-900/30 text-red-400'
-                          }`}>
+                                ? 'bg-yellow-900/30 text-yellow-400'
+                                : 'bg-red-900/30 text-red-400'
+                            }`}>
                             {t.status === 'completed' ? '✓ Zrealizowana' :
-                             t.status === 'pending' ? '⏳ Oczekująca' : '✗ Anulowana'}
+                              t.status === 'pending' ? '⏳ Oczekująca' : '✗ Anulowana'}
                           </span>
                         </td>
                       </tr>
@@ -463,12 +439,12 @@ export default function FinansePro() {
                 <AreaChart data={cashFlowData}>
                   <defs>
                     <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorExpense" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#ef4444" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#ef4444" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />

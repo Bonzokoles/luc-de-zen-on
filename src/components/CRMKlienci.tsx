@@ -68,32 +68,8 @@ const CRMKlienci = () => {
     if (saved) {
       setClients(JSON.parse(saved));
     } else {
-      // Demo data
-      const demoClients: Client[] = [
-        {
-          id: '1',
-          name: 'Jan Kowalski',
-          email: 'jan@example.com',
-          phone: '+48 123 456 789',
-          company: 'Tech Solutions Sp. z o.o.',
-          status: 'active',
-          segment: 'Enterprise',
-          value: 50000,
-          source: 'Rekomendacja',
-          createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
-          lastContact: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-          contacts: [
-            {
-              id: 'c1',
-              date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-              type: 'email',
-              description: 'Wys┼éano ofert─Ö na rozszerzenie us┼éug'
-            }
-          ],
-          notes: 'Kluczowy klient. Zainteresowany d┼éugoterminow─ů wsp├│┼éprac─ů.',
-          tags: ['priority', 'tech']
-        }
-      ];
+      // ⚠️ DANE DEMONSTRACYJNE - wyzerowane. Rozpocznij pracę z narzędziami aby zobaczyć prawdziwe dane.
+      const demoClients: Client[] = [];
       setClients(demoClients);
     }
   }, []);

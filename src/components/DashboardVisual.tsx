@@ -4,57 +4,52 @@ import { StatCardEnhanced, GradientCard, ProgressBar, AnimatedBadge } from './sh
 import { AnimatedPieChart } from './shared/ChartComponents';
 
 const DashboardVisual = () => {
-  // Demo data
+  // ⚠️ UWAGA: To są przykładowe dane demonstracyjne
+  // W prawdziwej aplikacji dane byłyby pobierane z API/bazy danych
   const stats = [
     {
       icon: <DollarSign className="w-6 h-6" />,
-      label: 'Miesięczny Przychód',
-      value: '125,000 PLN',
-      trend: { value: 12.5, isPositive: true },
+      label: 'Miesięczny Przychód [DEMO]',
+      value: '0 PLN',
+      trend: { value: 0, isPositive: true },
       color: '#10b981'
     },
     {
       icon: <Users className="w-6 h-6" />,
-      label: 'Aktywni Użytkownicy',
-      value: '2,847',
-      trend: { value: 8.3, isPositive: true },
+      label: 'Aktywni Użytkownicy [DEMO]',
+      value: '0',
+      trend: { value: 0, isPositive: true },
       color: '#0ea5e9'
     },
     {
       icon: <Target className="w-6 h-6" />,
-      label: 'Konwersja',
-      value: '3.8%',
-      trend: { value: 2.1, isPositive: true },
+      label: 'Konwersja [DEMO]',
+      value: '0%',
+      trend: { value: 0, isPositive: true },
       color: '#8b5cf6'
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      label: 'Zrealizowane Projekty',
-      value: '156',
-      trend: { value: 15.2, isPositive: true },
+      label: 'Zrealizowane Projekty [DEMO]',
+      value: '0',
+      trend: { value: 0, isPositive: true },
       color: '#f59e0b'
     }
   ];
 
   const pieData = [
-    { name: 'Faktury', value: 35 },
-    { name: 'Treści', value: 28 },
-    { name: 'Email', value: 22 },
-    { name: 'CRM', value: 15 }
+    { name: 'Brak danych', value: 100 }
   ];
 
   const taskProgress = [
-    { name: 'Marketing', completed: 85, total: 100, color: 'bg-blue-500' },
-    { name: 'Sprzedaż', completed: 72, total: 100, color: 'bg-green-500' },
-    { name: 'Produkcja', completed: 63, total: 100, color: 'bg-purple-500' },
-    { name: 'Wsparcie', completed: 91, total: 100, color: 'bg-orange-500' }
+    { name: 'Marketing [DEMO]', completed: 0, total: 100, color: 'bg-blue-500' },
+    { name: 'Sprzedaż [DEMO]', completed: 0, total: 100, color: 'bg-green-500' },
+    { name: 'Produkcja [DEMO]', completed: 0, total: 100, color: 'bg-purple-500' },
+    { name: 'Wsparcie [DEMO]', completed: 0, total: 100, color: 'bg-orange-500' }
   ];
 
   const recentActivity = [
-    { action: 'Nowa faktura utworzona', time: '5 min temu', icon: '📄', color: 'text-green-400' },
-    { action: 'Wygenerowano treść AI', time: '12 min temu', icon: '✨', color: 'text-blue-400' },
-    { action: 'Dodano klienta do CRM', time: '1 godz. temu', icon: '👤', color: 'text-purple-400' },
-    { action: 'Wysłano email', time: '2 godz. temu', icon: '📧', color: 'text-orange-400' }
+    { action: 'Brak aktywności - zacznij korzystać z narzędzi', time: 'Teraz', icon: '🚀', color: 'text-gray-400' }
   ];
 
   return (

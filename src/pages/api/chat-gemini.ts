@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         temperature: 0.7,
         topP: 0.9,
         topK: 40,
-        maxOutputTokens: 4000,
+        maxOutputTokens: 8192,
       },
       systemInstruction: `Jesteś profesjonalnym asystentem biznesowym dla polskich przedsiębiorców.
 

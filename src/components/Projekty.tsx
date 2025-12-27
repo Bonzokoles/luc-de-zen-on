@@ -52,107 +52,8 @@ interface EmployeeCost {
 
 // ========== DEMO DATA ==========
 
-const demoProjects: Project[] = [
-  {
-    id: '1',
-    name: 'Sklep E-commerce Fashion',
-    client: 'ModaBoutique Sp. z o.o.',
-    status: 'in_progress',
-    startDate: new Date('2025-01-01'),
-    progress: 65,
-    budget: {
-      planned: 85000,
-      actual: 58420
-    },
-    costs: {
-      rent: [
-        { id: 'r1', name: 'Czynsz biura - styczeń', amount: 3000, vat: 23, date: new Date('2025-01-05'), category: 'rent' }
-      ],
-      fuel: [
-        { id: 'f1', name: 'Paliwo - spotkania z klientem', amount: 450, vat: 23, date: new Date('2025-01-10'), category: 'fuel' },
-        { id: 'f2', name: 'Dojazdy do magazynu', amount: 320, vat: 23, date: new Date('2025-01-20'), category: 'fuel' }
-      ],
-      employees: [
-        { id: 'e1', employeeName: 'Jan Kowalski (Full-stack Dev)', hours: 160, hourlyRate: 150, grossCost: 33600, date: new Date('2025-01-31') },
-        { id: 'e2', employeeName: 'Anna Nowak (UI/UX Designer)', hours: 80, hourlyRate: 120, grossCost: 13440, date: new Date('2025-01-31') }
-      ],
-      materials: [
-        { id: 'm1', name: 'Serwer VPS - 3 miesiące', amount: 450, vat: 23, date: new Date('2025-01-15'), category: 'materials' },
-        { id: 'm2', name: 'Licencje oprogramowania', amount: 1200, vat: 23, date: new Date('2025-01-08'), category: 'materials' }
-      ],
-      other: [
-        { id: 'o1', name: 'Konsultacje prawne', amount: 1800, vat: 23, date: new Date('2025-01-12'), category: 'other' }
-      ]
-    },
-    revenue: 85000,
-    description: 'Kompleksowa platforma e-commerce z integracją płatności i zarządzaniem magazynem'
-  },
-  {
-    id: '2',
-    name: 'Aplikacja Mobilna Fitness',
-    client: 'FitLife App',
-    status: 'in_progress',
-    startDate: new Date('2024-12-15'),
-    progress: 85,
-    budget: {
-      planned: 45000,
-      actual: 41230
-    },
-    costs: {
-      rent: [
-        { id: 'r2', name: 'Czynsz biura - grudzień', amount: 3000, vat: 23, date: new Date('2024-12-05'), category: 'rent' },
-        { id: 'r3', name: 'Czynsz biura - styczeń', amount: 3000, vat: 23, date: new Date('2025-01-05'), category: 'rent' }
-      ],
-      fuel: [
-        { id: 'f3', name: 'Dojazdy - testy aplikacji', amount: 280, vat: 23, date: new Date('2025-01-15'), category: 'fuel' }
-      ],
-      employees: [
-        { id: 'e3', employeeName: 'Piotr Wiśniewski (Mobile Dev)', hours: 120, hourlyRate: 180, grossCost: 30240, date: new Date('2025-01-31') }
-      ],
-      materials: [
-        { id: 'm3', name: 'Konta Apple/Google Developer', amount: 600, vat: 23, date: new Date('2024-12-20'), category: 'materials' },
-        { id: 'm4', name: 'API trzecie (mapowanie)', amount: 850, vat: 23, date: new Date('2025-01-10'), category: 'materials' }
-      ],
-      other: []
-    },
-    revenue: 45000,
-    description: 'Aplikacja mobilna iOS/Android do śledzenia treningów i diety'
-  },
-  {
-    id: '3',
-    name: 'System CRM Enterprise',
-    client: 'TechCorp Solutions',
-    status: 'completed',
-    startDate: new Date('2024-10-01'),
-    endDate: new Date('2024-12-20'),
-    progress: 100,
-    budget: {
-      planned: 120000,
-      actual: 115800
-    },
-    costs: {
-      rent: [
-        { id: 'r4', name: 'Czynsz biura - październik', amount: 3000, vat: 23, date: new Date('2024-10-05'), category: 'rent' },
-        { id: 'r5', name: 'Czynsz biura - listopad', amount: 3000, vat: 23, date: new Date('2024-11-05'), category: 'rent' },
-        { id: 'r6', name: 'Czynsz biura - grudzień', amount: 3000, vat: 23, date: new Date('2024-12-05'), category: 'rent' }
-      ],
-      fuel: [
-        { id: 'f4', name: 'Spotkania z klientem', amount: 650, vat: 23, date: new Date('2024-11-15'), category: 'fuel' }
-      ],
-      employees: [
-        { id: 'e4', employeeName: 'Zespół 4 devs (3 miesiące)', hours: 1920, hourlyRate: 150, grossCost: 403200, date: new Date('2024-12-20') }
-      ],
-      materials: [
-        { id: 'm5', name: 'Infrastruktura cloud', amount: 4500, vat: 23, date: new Date('2024-10-15'), category: 'materials' }
-      ],
-      other: [
-        { id: 'o2', name: 'Audyt bezpieczeństwa', amount: 3200, vat: 23, date: new Date('2024-12-10'), category: 'other' }
-      ]
-    },
-    revenue: 120000,
-    description: 'System zarządzania relacjami z klientami dla dużej firmy'
-  }
-];
+// ⚠️ DANE DEMO WYZEROWANE - utwórz nowy projekt aby rozpocząć śledzenie kosztów i ROI
+const demoProjects: Project[] = [];
 
 const COLORS = {
   rent: '#3b82f6',
@@ -212,7 +113,7 @@ export default function Projekty() {
   // Filter projects
   const filteredProjects = projects.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         p.client.toLowerCase().includes(searchQuery.toLowerCase());
+      p.client.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === 'all' || p.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
@@ -282,11 +183,10 @@ export default function Projekty() {
             <button
               key={view.id}
               onClick={() => setActiveView(view.id as any)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${
-                activeView === view.id
+              className={`px-4 py-2 rounded-lg font-medium transition-all whitespace-nowrap ${activeView === view.id
                   ? 'bg-cyan-600 text-white shadow-lg'
                   : 'bg-slate-800/50 text-slate-300 hover:bg-slate-700'
-              }`}
+                }`}
             >
               {view.label}
             </button>

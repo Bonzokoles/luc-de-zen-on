@@ -31,36 +31,36 @@ const AnalitikaRaporty = () => {
   }, [timeRange]);
 
   const loadData = () => {
-    // Demo data - w prawdziwej aplikacji pobieramy z API/localStorage
+    // ⚠️ DANE DEMONSTRACYJNE - wyzerowane. Rozpocznij pracę z narzędziami aby zobaczyć prawdziwe dane.
     const demoMetrics: BusinessMetric[] = [
       {
-        label: 'Przych├│d',
-        value: 125000,
-        previousValue: 98000,
+        label: 'Przych├³d',
+        value: 0,
+        previousValue: 0,
         unit: 'PLN',
         icon: DollarSign,
         color: 'text-green-400'
       },
       {
         label: 'Klienci',
-        value: 247,
-        previousValue: 189,
+        value: 0,
+        previousValue: 0,
         unit: '',
         icon: Users,
         color: 'text-blue-400'
       },
       {
         label: 'Sprzeda┼╝',
-        value: 156,
-        previousValue: 134,
+        value: 0,
+        previousValue: 0,
         unit: 'transakcji',
         icon: ShoppingCart,
         color: 'text-purple-400'
       },
       {
         label: 'Konwersja',
-        value: 3.8,
-        previousValue: 2.9,
+        value: 0,
+        previousValue: 0,
         unit: '%',
         icon: Target,
         color: 'text-orange-400'
@@ -68,12 +68,12 @@ const AnalitikaRaporty = () => {
     ];
 
     const demoMonthlyData: MonthlyData[] = [
-      { month: 'Sty', revenue: 95000, expenses: 62000, profit: 33000, customers: 42 },
-      { month: 'Lut', revenue: 103000, expenses: 67000, profit: 36000, customers: 48 },
-      { month: 'Mar', revenue: 118000, expenses: 71000, profit: 47000, customers: 55 },
-      { month: 'Kwi', revenue: 112000, expenses: 68000, profit: 44000, customers: 51 },
-      { month: 'Maj', revenue: 125000, expenses: 73000, profit: 52000, customers: 58 },
-      { month: 'Cze', revenue: 138000, expenses: 79000, profit: 59000, customers: 64 },
+      { month: 'Sty', revenue: 0, expenses: 0, profit: 0, customers: 0 },
+      { month: 'Lut', revenue: 0, expenses: 0, profit: 0, customers: 0 },
+      { month: 'Mar', revenue: 0, expenses: 0, profit: 0, customers: 0 },
+      { month: 'Kwi', revenue: 0, expenses: 0, profit: 0, customers: 0 },
+      { month: 'Maj', revenue: 0, expenses: 0, profit: 0, customers: 0 },
+      { month: 'Cze', revenue: 0, expenses: 0, profit: 0, customers: 0 },
     ];
 
     setMetrics(demoMetrics);
@@ -141,41 +141,37 @@ const AnalitikaRaporty = () => {
           <div className="flex gap-2">
             <button
               onClick={() => setTimeRange('week')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                timeRange === 'week'
+              className={`px-4 py-2 rounded-lg transition-colors ${timeRange === 'week'
                   ? 'bg-primary-600 text-white'
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-              }`}
+                }`}
             >
               Tydzie┼ä
             </button>
             <button
               onClick={() => setTimeRange('month')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                timeRange === 'month'
+              className={`px-4 py-2 rounded-lg transition-colors ${timeRange === 'month'
                   ? 'bg-primary-600 text-white'
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-              }`}
+                }`}
             >
               Miesi─ůc
             </button>
             <button
               onClick={() => setTimeRange('quarter')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                timeRange === 'quarter'
+              className={`px-4 py-2 rounded-lg transition-colors ${timeRange === 'quarter'
                   ? 'bg-primary-600 text-white'
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-              }`}
+                }`}
             >
               Kwarta┼é
             </button>
             <button
               onClick={() => setTimeRange('year')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                timeRange === 'year'
+              className={`px-4 py-2 rounded-lg transition-colors ${timeRange === 'year'
                   ? 'bg-primary-600 text-white'
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
-              }`}
+                }`}
             >
               Rok
             </button>

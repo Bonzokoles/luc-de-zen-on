@@ -87,7 +87,7 @@ Pamiętaj:
         }],
         generationConfig: {
           temperature: 0.9,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 4096,
           topP: 0.95
         }
       })
