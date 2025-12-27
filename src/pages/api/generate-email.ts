@@ -1,3 +1,28 @@
+/**
+ * ASYSTENT EMAIL BIZNESOWY
+ * 
+ * 🤖 MODEL AI: GPT-4 TURBO
+ * • API: OpenAI Chat Completions
+ * • Model: gpt-4-turbo-preview
+ * • Env: OPENAI_API_KEY
+ * 
+ * 🎯 Zastosowanie:
+ * - Emaile biznesowe (ogólne)
+ * - Odpowiedzi na zapytania ofertowe
+ * - Oferty handlowe
+ * - Prośby o informacje
+ * - Zaproszenia na spotkania
+ * - Podziękowania
+ * - Przeprosiny
+ * - Przypomnienia o płatnościach
+ * 
+ * 💡 Cechy:
+ * - Profesjonalny język biznesowy
+ * - Polska etykieta biznesowa
+ * - Odpowiednie zwroty grzecznościowe
+ * - Struktura: temat + treść + zakończenie
+ * - Dostosowany ton (profesjonalny/formalny/uprzęjmy/przyjazny)
+ */
 import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, locals }) => {

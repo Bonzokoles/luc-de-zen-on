@@ -59,6 +59,9 @@ const AsystentEmail = () => {
     setGeneratedEmail('');
 
     try {
+      // 🤖 MODEL AI: GPT-4 TURBO
+      // Profesjonalne emaile biznesowe, formalne pisma, oferty
+      // Endpoint: /api/generate-email
       const response = await fetch('/api/generate-email', {
         method: 'POST',
         headers: {
@@ -98,7 +101,7 @@ const AsystentEmail = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

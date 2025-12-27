@@ -92,7 +92,9 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
-      // CLAUDE 3.7 SONNET - najlepszy do rozmów i doradztwa biznesowego
+      // 🤖 MODEL AI: CLAUDE 3.7 SONNET (via OpenRouter)
+      // Najlepszy do rozmów biznesowych, strategii, doradztwa
+      // Endpoint: /api/chat-openrouter
       const response = await fetch('/api/chat-openrouter', {
         method: 'POST',
         headers: {

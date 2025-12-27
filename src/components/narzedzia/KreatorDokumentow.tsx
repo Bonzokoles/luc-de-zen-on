@@ -94,6 +94,10 @@ const KreatorDokumentow = () => {
       return;
     }
 
+    // 🤖 MODEL AI: GEMINI 2.5 FLASH
+    // Generowanie dokumentów prawnych: umowy, regulaminy, RODO
+    // Endpoint: /api/generate-document-gemini
+
     setIsGenerating(true);
     setError('');
     setGeneratedDocument('');
@@ -189,11 +193,10 @@ WAŻNE WYMAGANIA:
                 <button
                   key={template.id}
                   onClick={() => setSelectedTemplate(template.id)}
-                  className={`p-4 rounded-lg border-2 transition-all text-left ${
-                    selectedTemplate === template.id
+                  className={`p-4 rounded-lg border-2 transition-all text-left ${selectedTemplate === template.id
                       ? 'border-primary-500 bg-primary-500/10'
                       : 'border-gray-700 hover:border-gray-600 bg-surface-dark'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-start gap-3">
                     <span className="text-3xl">{template.icon}</span>

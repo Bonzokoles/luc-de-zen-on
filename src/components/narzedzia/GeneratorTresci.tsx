@@ -48,6 +48,9 @@ const GeneratorTresci = () => {
     setGeneratedContent('');
 
     try {
+      // 🤖 MODEL AI: GEMINI 2.5 FLASH
+      // Szybkie generowanie treści marketingowych, postów, opisów
+      // Endpoint: /api/generate-content
       const response = await fetch('/api/generate-content', {
         method: 'POST',
         headers: {
@@ -81,7 +84,7 @@ const GeneratorTresci = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -90,7 +93,7 @@ const GeneratorTresci = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* Panel Konfiguracji */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
@@ -195,7 +198,7 @@ const GeneratorTresci = () => {
         </motion.div>
 
         {/* Panel Wyniku */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
