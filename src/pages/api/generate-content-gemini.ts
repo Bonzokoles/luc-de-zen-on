@@ -49,8 +49,8 @@ Zawsze piszesz w odpowiednim tonie i stylu. Twoje treści są gotowe do natychmi
     const lengthGuide = length === 'krótka'
       ? '1-2 krótkie zdania lub jeden akapit'
       : length === 'długa'
-      ? '3-5 akapitów z rozwinięciem tematu'
-      : '2-3 akapity';
+        ? '3-5 akapitów z rozwinięciem tematu'
+        : '2-3 akapity';
 
     const userPrompt = `Utwórz ${contentType} o następującej tematyce:
 
