@@ -50,10 +50,12 @@ const AsystentAI = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll do najnowszej wiadomości
+  // Auto-scroll tylko gdy dodamy nową wiadomość (nie podczas streamingu)
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, streamingContent]);
+    if (!isLoading) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   // Load messages from localStorage
   useEffect(() => {

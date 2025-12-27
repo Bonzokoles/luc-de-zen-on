@@ -87,7 +87,7 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
             );
         }
 
-        // Stream response
+        // Stream response z poprawnym dekodowaniem UTF-8
         const encoder = new TextEncoder();
         const stream = new ReadableStream({
             async start(controller) {
@@ -95,12 +95,18 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
                     const reader = response.body?.getReader();
                     if (!reader) throw new Error('No reader available');
 
+                    const decoder = new TextDecoder('utf-8');
+                    let buffer = '';
+
                     while (true) {
                         const { done, value } = await reader.read();
                         if (done) break;
 
-                        const text = new TextDecoder().decode(value);
-                        const lines = text.split('\n').filter(line => line.trim() !== '');
+                        // Dekoduj z obsługą znaków wielobajtowych
+                        const text = decoder.decode(value, { stream: true });
+                        buffer += text;
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop() || ''; // Zachowaj niepełną linię
 
                         for (const line of lines) {
                             if (line.startsWith('data: ')) {
