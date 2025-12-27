@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { contentType, description, tone, length } = await request.json();
 
@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // GEMINI 2.0 FLASH - najlepszy do kreatywnych treści marketingowych
-    const apiKey = import.meta.env.GOOGLE_API_KEY || process.env.GOOGLE_API_KEY;
+    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY;
 
     if (!apiKey) {
       return new Response(

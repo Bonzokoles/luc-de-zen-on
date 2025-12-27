@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { documentType, prompt } = await request.json();
 
@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Pobierz klucz API
-    const apiKey = import.meta.env.GOOGLE_API_KEY || process.env.GOOGLE_API_KEY;
+    const apiKey = locals.runtime?.env?.GOOGLE_API_KEY;
 
     if (!apiKey) {
       return new Response(

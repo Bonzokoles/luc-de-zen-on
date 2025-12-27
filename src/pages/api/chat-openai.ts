@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
     try {
         const { messages, model = 'gpt-4-turbo-preview' } = await request.json();
 
@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        const apiKey = import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+        const apiKey = locals.runtime?.env?.OPENAI_API_KEY;
 
         if (!apiKey) {
             return new Response(
