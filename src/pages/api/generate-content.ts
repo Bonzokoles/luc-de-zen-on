@@ -12,8 +12,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Pobranie klucza API
-    const apiKey = import.meta.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY;
+    // GEMINI 2.0 FLASH - najlepszy do kreatywnych treści marketingowych
+    const apiKey = import.meta.env.GOOGLE_API_KEY || process.env.GOOGLE_API_KEY;
 
     if (!apiKey) {
       return new Response(
@@ -40,27 +40,29 @@ Pamiętaj:
 - Tekst ma być atrakcyjny i zachęcający do działania
 - Dostosuj styl do polskiego rynku`;
 
-    // Wywołanie OpenAI API
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    // Wywołanie Google Gemini API
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=' + apiKey, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt }
-        ],
-        temperature: 0.8,
-        max_tokens: 800
+        contents: [{
+          parts: [{
+            text: `${systemPrompt}\n\n${userPrompt}`
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.9,
+          maxOutputTokens: 1024,
+          topP: 0.95
+        }
       })
     });
 
     if (!response.ok) {
       const error = await response.json();
-      console.error('OpenAI API Error:', error);
+      console.error('Gemini API Error:', error);
       return new Response(
         JSON.stringify({ error: 'Błąd generowania treści. Spróbuj ponownie.' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
@@ -68,7 +70,7 @@ Pamiętaj:
     }
 
     const data = await response.json();
-    const generatedContent = data.choices[0]?.message?.content || '';
+    const generatedContent = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     return new Response(
       JSON.stringify({ content: generatedContent }),

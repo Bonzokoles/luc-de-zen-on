@@ -41,6 +41,7 @@ TEMAT: [temat emaila]
 
 [treść emaila z odpowiednimi akapitami]`;
 
+    // GPT-4 TURBO - najlepszy do profesjonalnych emaili biznesowych
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -48,7 +49,7 @@ TEMAT: [temat emaila]
         'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4-turbo-preview',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
