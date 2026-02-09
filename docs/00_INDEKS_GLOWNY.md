@@ -1,6 +1,6 @@
 # 📚 INDEKS GŁÓWNY DOKUMENTACJI - MYBONZO PROJECT
 
-**Ostatnia aktualizacja:** 16 października 2025  
+**Ostatnia aktualizacja:** 9 lutego 2026  
 **Lokalizacja:** `Q:\mybonzo\luc-de-zen-on\docs\`
 
 ---
@@ -29,9 +29,16 @@
 - AI Business Box plan
 - Gateway & Bielik setup
 - Główny model instruktor
+- **HUGGINGFACE_MINICHELPERS.md** ✨ NOWY - lekkie modele AI
+- **HUGGINGFACE_REPOS_REFERENCE.md** ✨ NOWY - quick links do repozytoriów
 - GEMINI_AI_ASSISTANT_POSITIONING_FIX.md (18 plików do naprawy)
 
 **Użycie:** Zadania do zrobienia, plany wdrożeń, specyfikacje nowych funkcji
+
+**🆕 Najnowsze dodatki (2026-02-09):**
+- **HuggingFace MiniHelpers** - dokumentacja lekkich modeli AI (SmolLM, embeddings, polski NLP)
+- Rekomendowane repo: all-MiniLM-L6-v2, polish-roberta-base-v2, bge-small, Xenova/gte-small
+- Przypadki użycia: semantic search, sentiment analysis, text classification
 
 ---
 

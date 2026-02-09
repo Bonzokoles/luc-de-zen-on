@@ -1,6 +1,6 @@
 # 📋 INDEKS PLIKÓW DO ZROBIENIA - MYBONZO PROJECT
 
-**Ostatnia aktualizacja:** 16 października 2025  
+**Ostatnia aktualizacja:** 9 lutego 2026  
 **Lokalizacja:** `Q:\mybonzo\luc-de-zen-on\docs\Do_zrobienia\`
 
 ---
@@ -98,6 +98,45 @@
 - Bielik-11B-v2.2-Instruct integration
 - HuggingFace API configuration
 - ZeroGPU quota management
+
+---
+
+### 🤖 HUGGINGFACE MINICHELPERS (Priorytet: ŚREDNI) ✨ NOWY
+
+#### HUGGINGFACE_MINICHELPERS.md
+
+**Status:** 📋 KOMPLETNA DOKUMENTACJA  
+**Zawartość:**
+
+- Lekkie modele AI z HuggingFace (SmolLM, embeddings)
+- Przypadki użycia: semantic search, sentiment analysis, klasyfikacja
+- Polskie modele: `sdadas/polish-roberta-base-v2`
+- Integracja z HuggingFace Inference API
+- Przykłady implementacji endpoints
+
+**Rekomendowane Modele:**
+
+- ✅ **SmolLM2-1.7B-Instruct** - lekki LLM (4GB RAM)
+- ✅ **all-MiniLM-L6-v2** - embeddings (80MB, bardzo szybki)
+- ✅ **bge-small-en-v1.5** - retrieval (133MB)
+- ✅ **polish-roberta-base-v2** - polski NLP (500MB)
+- ✅ **Xenova/gte-small** - client-side embeddings (120MB)
+
+**Przypadki użycia w projekcie:**
+
+1. Wyszukiwanie semantyczne w dokumentacji
+2. Auto-kategoryzacja treści marketingowych
+3. Analiza sentymentu opinii klientów
+4. Smart FAQ matching (bez LLM)
+5. Ekstrakcja danych z faktur/umów
+
+**Następne kroki:**
+
+1. Dodaj HF_TOKEN do Cloudflare (✅ już istnieje w checklist)
+2. Stwórz endpoint `/api/semantic-search.ts`
+3. Stwórz endpoint `/api/sentiment-analysis.ts`
+4. UI komponenty dla text classification
+5. Pre-compute embeddings dla docs
 
 **Konfiguracja:**
 
