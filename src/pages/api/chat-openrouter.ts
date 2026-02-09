@@ -1,11 +1,11 @@
 /**
  * ASYSTENT BIZNESOWY AI (GŁÓWNY CHATBOT)
- * 
+ *
  * 🤖 MODEL AI: CLAUDE 3.7 SONNET
  * • API: OpenRouter (proxy do Anthropic)
  * • Model: anthropic/claude-3.7-sonnet
  * • Env: OPENROUTER_API_KEY
- * 
+ *
  * 🎯 Zastosowanie:
  * - Główny asystent biznesowy 24/7
  * - Doradztwo strategiczne
@@ -13,14 +13,14 @@
  * - Marketing, finanse, prawo gospodarcze
  * - Zarządzanie projektami
  * - E-commerce i social media
- * 
+ *
  * 💡 Cechy:
  * - Streaming responses (real-time)
  * - Kontekst rozmowy (history)
  * - Ekspert w polskim biznesie
  * - Konkretne, praktyczne rady z przykładami
  * - System prompt: ZENON_Biznes_HUB AI
- * 
+ *
  * 🔧 Technical:
  * - SSE (Server-Sent Events)
  * - Content-Type: text/event-stream
@@ -40,7 +40,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
             );
         }
 
-        const env = locals.runtime?.env || {};
+        const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
         const apiKey = env['OPENROUTER_API_KEY'] || env[' OPENROUTER_API_KEY'] ||
             Object.entries(env).find(([k]) => k.trim() === 'OPENROUTER_API_KEY')?.[1];
 

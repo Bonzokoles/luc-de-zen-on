@@ -1,21 +1,21 @@
 /**
  * KREATOR DOKUMENTÓW BIZNESOWYCH
- * 
+ *
  * 🤖 MODEL AI: GEMINI 2.5 FLASH
  * • API: Google Generative AI SDK
  * • Model: gemini-2.5-flash
  * • Env: GOOGLE_API_KEY
- * 
+ *
  * 🎯 Zastosowanie:
  * - Umowy: świadczenia usług, zlecenie, współpraca B2B
  * - Dokumenty prawne: NDA, Oświadczenie RODO
  * - Polityki: Prywatności (RODO), Regulamin sklepu
  * - Oferty handlowe
- * 
+ *
  * ⚠️ UWAGA PRAWNA:
  * Wygenerowane dokumenty są SZABLONAMI.
  * Zawsze skonsultuj z prawnikiem przed użyciem!
- * 
+ *
  * 💡 Cechy:
  * - Zgodne z polskim prawem (szablony)
  * - Długie dokumenty (max 8000 tokens)
@@ -39,7 +39,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // Pobierz klucz API
-    const env = locals.runtime?.env || {};
+    const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
     const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] ||
       Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
 

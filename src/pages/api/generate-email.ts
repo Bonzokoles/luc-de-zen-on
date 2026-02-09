@@ -1,11 +1,11 @@
 /**
  * ASYSTENT EMAIL BIZNESOWY
- * 
+ *
  * 🤖 MODEL AI: GPT-4 TURBO
  * • API: OpenAI Chat Completions
  * • Model: gpt-4-turbo-preview
  * • Env: OPENAI_API_KEY
- * 
+ *
  * 🎯 Zastosowanie:
  * - Emaile biznesowe (ogólne)
  * - Odpowiedzi na zapytania ofertowe
@@ -15,7 +15,7 @@
  * - Podziękowania
  * - Przeprosiny
  * - Przypomnienia o płatnościach
- * 
+ *
  * 💡 Cechy:
  * - Profesjonalny język biznesowy
  * - Polska etykieta biznesowa
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       );
     }
 
-    const env = locals.runtime?.env || {};
+    const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
     const apiKey = env['OPENAI_API_KEY'] || env[' OPENAI_API_KEY'] ||
       Object.entries(env).find(([k]) => k.trim() === 'OPENAI_API_KEY')?.[1];
 

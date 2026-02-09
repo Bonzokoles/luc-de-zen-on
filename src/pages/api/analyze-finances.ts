@@ -1,18 +1,18 @@
 /**
  * ANALIZA FINANSOWA AI - KALKULATOR BIZNESOWY
- * 
+ *
  * 🤖 MODEL AI: GEMINI 2.5 FLASH
  * • API: Google Generative Language API
  * • Model: gemini-2.5-flash
  * • Authentication: x-goog-api-key header
  * • Env: GOOGLE_API_KEY
- * 
+ *
  * 🎯 Zastosowanie:
  * - Analiza obliczeń brutto/netto
  * - Wyjaśnienie rzeczywistego zysku dla firmy
  * - Uwzględnienie kosztów stałych, ZUS, podatków
  * - Rekomendacje biznesowe
- * 
+ *
  * 💡 Cechy:
  * - Kontekst polskiego biznesu
  * - Praktyczne wskazówki
@@ -32,7 +32,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         }
 
         // 🔑 Pobieranie klucza API z Cloudflare env (obsługa spacji)
-        const env = locals.runtime?.env || {};
+        const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
         const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] ||
             Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
 
@@ -49,7 +49,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         switch (calculationType) {
             case 'margin':
                 userPrompt = `Przeanalizuj obliczenia marży dla małej firmy w Polsce:
-        
+
 Dane:
 - Cena zakupu (netto): ${data.costPrice} PLN
 - Cena sprzedaży (netto): ${data.sellPrice} PLN

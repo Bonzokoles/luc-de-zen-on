@@ -262,7 +262,7 @@ export default function Wizualizacje() {
                   </Pie>
                   <Tooltip
                     contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
-                    formatter={(value: number) => `${value.toLocaleString('pl-PL')} zł`}
+                    formatter={(value: number | undefined) => value ? `${value.toLocaleString('pl-PL')} zł` : '0 zł'}
                   />
                   <Legend />
                 </PieChart>

@@ -1,11 +1,11 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import Konwerter from '../components/Konwerter';
+import MainLayout from "../layouts/MainLayout.astro";
+import KonwerterComponent from "../components/Konwerter";
 ---
 
 <MainLayout
   title="Konwerter Formatów - AI Biznes ERP"
   description="Konwertuj między formatami: Excel, PDF, XML, Markdown, JSON"
 >
-  <Konwerter client:load />
+  <KonwerterComponent client:load />
 </MainLayout>

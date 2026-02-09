@@ -1,12 +1,12 @@
 /**
  * GENERATOR TREŚCI MARKETINGOWYCH
- * 
+ *
  * 🤖 MODEL AI: GEMINI 2.5 FLASH
  * • API: Google Generative Language API
  * • Model: gemini-2.5-flash
  * • Authentication: x-goog-api-key header (NIE query param!)
  * • Env: GOOGLE_API_KEY
- * 
+ *
  * 🎯 Zastosowanie:
  * - Posty na Facebook, Instagram, LinkedIn
  * - Opisy produktów e-commerce
@@ -14,7 +14,7 @@
  * - Newslettery
  * - Artykuły blogowe
  * - Opisy firm
- * 
+ *
  * 💡 Cechy:
  * - Szybkie generowanie (2-3s)
  * - 100% po polsku
@@ -36,7 +36,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // 🔑 Pobieranie klucza API z Cloudflare env (obsługa spacjów)
-    const env = locals.runtime?.env || {};
+    const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
     const apiKey = env['GOOGLE_API_KEY'] || env[' GOOGLE_API_KEY'] ||
       Object.entries(env).find(([k]) => k.trim() === 'GOOGLE_API_KEY')?.[1];
 

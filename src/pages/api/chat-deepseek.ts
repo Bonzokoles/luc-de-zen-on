@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
             );
         }
 
-        const env = locals.runtime?.env || {};
+        const env = (locals.runtime?.env || {}) as Record<string, string | undefined>;
         const apiKey = env['DEEPSEEK_API_KEY'] || env[' DEEPSEEK_API_KEY'] ||
             Object.entries(env).find(([k]) => k.trim() === 'DEEPSEEK_API_KEY')?.[1];
 
