@@ -2,6 +2,9 @@
   "name": "the-zen-business",
   "type": "module",
   "version": "0.0.1",
+  "bin": {
+    "add-skill": "./bin/add-skill.js"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
