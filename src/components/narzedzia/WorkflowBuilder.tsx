@@ -33,9 +33,13 @@ export default function WorkflowBuilder() {
 
   // Add node from selected tool
   const handleSelectTool = useCallback((tool: Tool) => {
-    const newNode = createAIAgentNode(tool.id, {
-      prompt: 'Wygeneruj treść...',
-    });
+    const newNode = createAIAgentNode(
+      `ai-${Date.now()}`,
+      tool.id,
+      {
+        prompt: 'Wygeneruj treść...',
+      }
+    );
     
     setNodes(prev => [...prev, newNode]);
     setSelectedTool(tool);
@@ -43,13 +47,19 @@ export default function WorkflowBuilder() {
 
   // Add processor node
   const addProcessorNode = useCallback((processorType: 'scrape' | 'transform' | 'export') => {
-    const newNode = createProcessorNode(processorType, {});
+    const newNode = createProcessorNode(
+      `proc-${Date.now()}`,
+      processorType
+    );
     setNodes(prev => [...prev, newNode]);
   }, []);
 
   // Add output node
   const addOutputNode = useCallback((outputType: 'email' | 'pdf' | 'slack') => {
-    const newNode = createOutputNode(outputType, {});
+    const newNode = createOutputNode(
+      `out-${Date.now()}`,
+      outputType
+    );
     setNodes(prev => [...prev, newNode]);
   }, []);
 
@@ -81,6 +91,7 @@ export default function WorkflowBuilder() {
       id: node.id,
       toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : '',
       type: node.type,
+      category: node.type.toLowerCase(), // Use type as category
     }));
 
     const result = scoreWorkflow({
@@ -97,14 +108,15 @@ export default function WorkflowBuilder() {
       id: node.id,
       toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : '',
       type: node.type,
+      category: node.type.toLowerCase(),
     }));
 
-    const cycles = detectCycles(workflowNodes, edges);
+    const cycleResult = detectCycles({ nodes: workflowNodes, edges });
     
-    if (cycles.length === 0) {
+    if (cycleResult.cycles.length === 0) {
       alert('✅ Brak cykli w workflow!');
     } else {
-      alert(`⚠️ Znaleziono ${cycles.length} cykl(i):\n${cycles.map(c => c.join(' → ')).join('\n')}`);
+      alert(`⚠️ Znaleziono ${cycleResult.cycles.length} cykl(i):\n${cycleResult.cycles.map((c: string[]) => c.join(' → ')).join('\n')}`);
     }
   }, [nodes, edges]);
 

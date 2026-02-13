@@ -266,7 +266,7 @@ export default function MyBonzoDashboard() {
     
     const updatedWorkflow = {
       ...currentWorkflow,
-      nodes: currentWorkflow.nodes.map(n => n.id === nodeId ? { ...n, ...updates } : n),
+      nodes: currentWorkflow.nodes.map(n => n.id === nodeId ? { ...n, ...updates } as WorkflowNode : n),
       updatedAt: new Date().toISOString()
     };
     
