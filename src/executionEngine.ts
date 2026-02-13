@@ -230,8 +230,8 @@ export class ExecutionEngine {
     // Apply custom mapping if provided
     if (options?.mapping && typeof transformedData === 'object') {
       const mapped: any = {};
-      for (const [key, value] of Object.entries(options.mapping)) {
-        mapped[key] = transformedData[value];
+      for (const [key, mappedValue] of Object.entries(options.mapping)) {
+        mapped[key] = (transformedData as any)[mappedValue as string];
       }
       transformedData = mapped;
     }
