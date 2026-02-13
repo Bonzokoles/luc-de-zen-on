@@ -4,9 +4,9 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { Tool } from '../../lib/compatibilityMatrix';
-import { calculateConnectionScore, getCompatibleTools } from '../../lib/compatibilityMatrix';
-import { calculateQuality, detectCycles } from '../../lib/workflowScoring';
+import type { Tool } from 'lib/compatibilityMatrix';
+import { calculateConnectionScore, getCompatibleTools } from 'lib/compatibilityMatrix';
+import { scoreWorkflow, detectCycles } from 'lib/workflowScoring';
 import type { UniversalNode } from '../../nodes/universal';
 import { 
   createAIAgentNode, 
@@ -15,7 +15,7 @@ import {
   validateNode 
 } from '../../nodes/universal';
 import NodePalette from './NodePalette';
-import toolsData from '../../lib/tools.json';
+import toolsData from 'lib/tools.json';
 
 const tools = toolsData as Tool[];
 
@@ -83,12 +83,12 @@ export default function WorkflowBuilder() {
       type: node.type,
     }));
 
-    const score = calculateQuality({
+    const result = scoreWorkflow({
       nodes: workflowNodes,
       edges,
-    });
+    }, []);
 
-    setWorkflowScore(score);
+    setWorkflowScore(result.quality);
   }, [nodes, edges]);
 
   // Detect cycles

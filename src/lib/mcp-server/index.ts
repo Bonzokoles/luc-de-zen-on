@@ -3,11 +3,11 @@
  * Provides /analyze endpoint for DAG analysis and workflow scoring
  */
 
-import type { UniversalWorkflow } from '../src/nodes/universal';
-import { scoreWorkflow, detectCycles, getExecutionOrder, type Workflow, type WorkflowNode } from '../lib/workflowScoring';
-import { validateWorkflow } from '../lib/compatibilityMatrix';
+import type { UniversalWorkflow } from '../nodes/universal';
+import { scoreWorkflow, detectCycles, getExecutionOrder, type Workflow, type WorkflowNode } from 'lib/workflowScoring';
+import { validateWorkflow } from 'lib/compatibilityMatrix';
 // @ts-ignore - JSON import
-import toolsData from '../lib/tools-extended.json';
+import toolsData from 'lib/tools-extended.json';
 
 export interface AnalyzeRequest {
   workflow: UniversalWorkflow;

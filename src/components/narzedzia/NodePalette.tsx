@@ -4,8 +4,8 @@
  */
 
 import { useState, useMemo } from 'react';
-import type { Tool } from '../../lib/compatibilityMatrix';
-import toolsData from '../../lib/tools.json';
+import type { Tool } from 'lib/compatibilityMatrix';
+import toolsData from 'lib/tools.json';
 
 const tools = toolsData as Tool[];
 

@@ -4,7 +4,7 @@
  */
 
 import type { APIRoute } from 'astro';
-import toolsData from '../../../lib/tools-extended.json';
+import toolsData from 'lib/tools-extended.json';
 
 export const GET: APIRoute = async ({ url }) => {
   try {

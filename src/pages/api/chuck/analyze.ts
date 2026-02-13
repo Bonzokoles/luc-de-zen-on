@@ -4,8 +4,8 @@
  */
 
 import type { APIRoute } from 'astro';
-import { analyzeWorkflow } from '../../../mcp-server';
-import type { AnalyzeRequest } from '../../../mcp-server';
+import { analyzeWorkflow } from '@/lib/mcp-server/index';
+import type { AnalyzeRequest } from '@/lib/mcp-server/index';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
