@@ -18,14 +18,14 @@ interface Tool {
   compatibility: string[];
 }
 
-interface WorkflowNode extends UniversalNode {
+interface VisualWorkflowNode extends UniversalNode {
   position?: { x: number; y: number };
 }
 
 interface Workflow {
   id: string;
   name: string;
-  nodes: WorkflowNode[];
+  nodes: VisualWorkflowNode[];
   edges: WorkflowEdge[];
   createdAt: string;
   updatedAt: string;
@@ -65,7 +65,7 @@ export default function MyBonzoDashboard() {
   // Workflow state
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [currentWorkflow, setCurrentWorkflow] = useState<Workflow | null>(null);
-  const [selectedNode, setSelectedNode] = useState<WorkflowNode | null>(null);
+  const [selectedNode, setSelectedNode] = useState<VisualWorkflowNode | null>(null);
   const [isExecuting, setIsExecuting] = useState(false);
   const [executionResult, setExecutionResult] = useState<any>(null);
   
@@ -208,7 +208,7 @@ export default function MyBonzoDashboard() {
   const handleAddNode = useCallback((type: 'AI_AGENT' | 'PROCESSOR' | 'OUTPUT', toolId?: string) => {
     if (!currentWorkflow) return;
     
-    const newNode: WorkflowNode = {
+    const newNode: VisualWorkflowNode = {
       id: `node-${Date.now()}`,
       type,
       name: `${type} Node`,
@@ -219,7 +219,7 @@ export default function MyBonzoDashboard() {
         x: Math.random() * 400 + 50, 
         y: Math.random() * 300 + 50 
       }
-    };
+    } as any;
     
     const updatedWorkflow = {
       ...currentWorkflow,
@@ -233,7 +233,7 @@ export default function MyBonzoDashboard() {
     setSelectedNode(newNode);
   }, [currentWorkflow, workflows]);
 
-  const handleUpdateNode = useCallback((nodeId: string, updates: Partial<WorkflowNode>) => {
+  const handleUpdateNode = useCallback((nodeId: string, updates: Partial<VisualWorkflowNode>) => {
     if (!currentWorkflow) return;
     
     const updatedWorkflow = {

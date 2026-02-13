@@ -11,5 +11,8 @@
             "@/*": ["src/*"],
             "lib/*": ["lib/*"]
         }
-    }
+    },
+    "exclude": [
+        "src/test-chuck.ts"
+    ]
 }
