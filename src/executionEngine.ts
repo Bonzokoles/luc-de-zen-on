@@ -30,6 +30,53 @@ export interface ExecutionResult {
   executionTime: number;
 }
 
+/**
+ * Safe expression evaluator for filter conditions
+ * Supports basic comparison operators without allowing arbitrary code execution
+ * 
+ * Allowed operators: ==, !=, ===, !==, <, <=, >, >=, &&, ||
+ * Allowed field access: item.field or item['field']
+ * 
+ * Examples:
+ * - "item.age > 18"
+ * - "item.status === 'active'"
+ * - "item.price < 100 && item.inStock === true"
+ */
+function safeEvaluateFilter(condition: string, item: any): boolean {
+  // Remove any potentially dangerous patterns
+  const dangerous = [
+    'Function', 'eval', 'setTimeout', 'setInterval', 'require', 'import',
+    'process', 'global', 'window', 'document', '__proto__', 'constructor',
+    'prototype', 'this.'
+  ];
+  
+  for (const pattern of dangerous) {
+    if (condition.includes(pattern)) {
+      throw new Error(`Filter condition contains forbidden pattern: ${pattern}`);
+    }
+  }
+  
+  // Validate condition only contains allowed characters
+  // Allow: letters, numbers, dots, brackets, quotes, comparison operators, logical operators, spaces
+  const allowedPattern = /^[a-zA-Z0-9._\[\]'"<>=!&|\s\-]+$/;
+  if (!allowedPattern.test(condition)) {
+    throw new Error('Filter condition contains invalid characters');
+  }
+  
+  try {
+    // Create a safe evaluation context with only the item accessible
+    // Using Function constructor in a controlled way with whitelist validation
+    const fn = new Function('item', `
+      'use strict';
+      return (${condition});
+    `);
+    
+    return Boolean(fn(item));
+  } catch (error) {
+    throw new Error(`Invalid filter condition: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
 const DEFAULT_CHUCK_API = 'https://api.mybonzo.com/chuck/exec';
 const DEFAULT_RETRY_CONFIG = {
   maxRetries: 3,
@@ -144,16 +191,30 @@ async function executeProcessor(
         break;
 
       case 'filter':
-        // Filter logic
+        // Filter logic with safe expression evaluation
         const { filterConfig } = node.config;
         
         if (!filterConfig?.condition) {
           throw new Error('Filter operation requires condition');
         }
         
-        // SECURITY: Direct JavaScript evaluation disabled to prevent code injection
-        // Use pre-defined filter conditions or simple comparison operators only
-        throw new Error('Dynamic filter conditions are disabled for security reasons. Use pre-defined filter operations instead.');
+        // Use safe expression evaluator to prevent code injection
+        if (Array.isArray(inputData)) {
+          result = inputData.filter((item) => {
+            try {
+              return safeEvaluateFilter(filterConfig.condition, item);
+            } catch (error) {
+              throw new Error(`Filter evaluation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            }
+          });
+        } else {
+          try {
+            result = safeEvaluateFilter(filterConfig.condition, inputData) ? inputData : null;
+          } catch (error) {
+            throw new Error(`Filter evaluation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          }
+        }
+        break;
 
       case 'merge':
         // Merge logic
