@@ -21,6 +21,7 @@
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.1",
     "@google/generative-ai": "^0.21.0",
+    "@monaco-editor/react": "^4.7.0",
     "@types/node": "^24.10.0",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",

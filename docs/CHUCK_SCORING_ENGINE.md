@@ -1,363 +1,404 @@
-# 🎯 CHUCK Scoring Engine & Jimbo Universal Nodes
+# CHUCK Scoring Engine Documentation
 
-System budowania i oceny workflow AI z wykorzystaniem 133 narzędzi.
+## Overview
 
-## 📋 Spis Treści
+CHUCK (Comprehensive Heuristic Universal Connector Kit) is an AI workflow scoring and compatibility engine that powers the Jimbo universal nodes system. It provides intelligent tool selection, workflow optimization, and execution management for 140+ AI tools.
 
-- [Przegląd](#-przegląd)
-- [Komponenty](#-komponenty)
-- [Baza Narzędzi](#-baza-narzędzi)
-- [Typy Węzłów](#-typy-węzłów)
-- [Scoring Engine](#-scoring-engine)
-- [Użycie](#-użycie)
-- [Demo](#-demo)
+## Architecture
 
-## 🎯 Przegląd
+```
+┌─────────────────────────────────────────────────┐
+│            CHUCK Scoring Engine                  │
+├─────────────────────────────────────────────────┤
+│  • tools-extended.json (140+ AI tools)          │
+│  • compatibilityMatrix.ts (scoring algorithm)   │
+│  • workflowScoring.ts (DAG analysis)            │
+└─────────────────────────────────────────────────┘
+                      ↓
+┌─────────────────────────────────────────────────┐
+│         Jimbo Universal Nodes (3 types)          │
+├─────────────────────────────────────────────────┤
+│  • AI_AGENT → CHUCK proxy (localhost:5152)     │
+│  • PROCESSOR → scrape/transform/export          │
+│  • OUTPUT → email/pdf/slack/webhook             │
+└─────────────────────────────────────────────────┘
+                      ↓
+┌─────────────────────────────────────────────────┐
+│          Execution Engine                        │
+├─────────────────────────────────────────────────┤
+│  • Topological sort (execution order)           │
+│  • Cycle detection (DAG validation)             │
+│  • Retry logic (exponential backoff)            │
+└─────────────────────────────────────────────────┘
+```
 
-CHUCK (Complete Hub for Unified Compatibility Knowledge) to zaawansowany system do:
-- Zarządzania bazą 133 narzędzi AI
-- Oceny kompatybilności między narzędziami
-- Budowania i walidacji workflow
-- Wykrywania problemów (cykle, niewydajności)
-- Delegacji zadań do specjalistycznych narzędzi
+## Components
 
-## 🔧 Komponenty
+### 1. Tools Extended (`lib/tools-extended.json`)
 
-### 1. Baza Danych Narzędzi (`lib/tools.json`)
+Contains 140+ AI tools organized into 5 categories:
 
-133 narzędzia AI zorganizowane według typów:
+- **SEO/Content** (20 tools): Perplexity, Notion AI, MarketMuse, etc.
+- **Code/Dev** (25 tools): Cursor, GitHub Copilot, Replit AI, etc.
+- **E-commerce/B2B** (30 tools): Klaviyo, Gorgias, HubSpot, etc.
+- **Creative/Productivity** (35 tools): Canva AI, Midjourney, Notion, etc.
+- **New 2026** (30 tools): RunwayML, Sora, Claude, Gemini, etc.
 
-- **writer** (24 narzędzia) - ChatGPT-4, Claude, Gemini, Jasper, Copy.ai...
-- **code** (8 narzędzi) - DeepSeek Coder, Copilot, Cursor, Tabnine...
-- **design** (31 narzędzi) - Midjourney, DALL-E, Canva, Figma, Leonardo...
-- **video** (8 narzędzi) - Runway, Synthesia, HeyGen, Descript...
-- **audio** (8 narzędzi) - ElevenLabs, Suno, Whisper, AssemblyAI...
-- **research** (9 narzędzi) - Perplexity, Elicit, ChatPDF, Consensus...
-- **social** (18 narzędzi) - Hootsuite, Buffer, ManyChat, Chatbase...
-- **productivity** (15 narzędzi) - Notion, Monday, Asana, Superhuman...
-- **automation** (4 narzędzia) - Zapier, Make, POLACZEK...
-- **analytics** (5 narzędzi) - Semrush, Ahrefs, Surfer SEO...
-- **crm** (7 narzędzi) - Salesforce, HubSpot, Intercom, Zendesk...
-
-Każde narzędzie zawiera:
-```typescript
+Each tool includes:
+```json
 {
-  id: string;           // Unikalny identyfikator
-  name: string;         // Nazwa międzynarodowa
-  namePl: string;       // Nazwa polska
-  type: string;         // Typ narzędzia
-  workflows: string[];  // Obsługiwane workflow
-  scoreMatrix: {
-    quality: number;    // Jakość 0-100
-    speed: number;      // Szybkość 0-100
-    creativity: number; // Kreatywność 0-100
-    technical: number;  // Poziom techniczny 0-100
-  };
+  "id": "cursor",
+  "type": "coding",
+  "pl": "VS Code AI",
+  "score": 97,
+  "category": "code-dev"
 }
 ```
 
-### 2. Matryca Kompatybilności (`lib/compatibilityMatrix.ts`)
+### 2. Compatibility Matrix (`lib/compatibilityMatrix.ts`)
 
-Oblicza kompatybilność między narzędziami:
+Calculates compatibility scores between tools:
 
 ```typescript
-// Przykład: writer → social = 95% kompatybilności
-calculateConnectionScore(chatgpt, buffer); // 95%
+// Category-level compatibility (60% weight)
+categoryCompatibility = {
+  'seo-content': { 'seo-content': 95, 'code-dev': 70, ... },
+  'code-dev': { 'code-dev': 100, ... }
+}
 
-// Znajdź kompatybilne narzędzia
-getCompatibleTools(chatgpt, allTools, 80); // min 80% score
-
-// Najlepsze narzędzia dla workflow
-findBestToolsForWorkflow('content', allTools, 5);
+// Type-level compatibility (40% weight)
+typeCompatibility = {
+  'research': { 'writing': 95, 'seo': 98, ... },
+  'coding': { 'ui': 95, 'webdev': 92, ... }
+}
 ```
 
-**Tabela połączeń:**
-- writer → social: 95%
-- design → video: 95%
-- code → automation: 95%
-- analytics → crm: 95%
-- research → analytics: 92%
+**Functions:**
+- `calculateCompatibility(tool1, tool2)` → score 0-100
+- `findBestNextTools(currentTool, allTools)` → top 10 recommendations
+- `validateWorkflow(toolSequence)` → validation result
 
 ### 3. Workflow Scoring (`lib/workflowScoring.ts`)
 
-Ocena jakości workflow 0-100%:
+Analyzes and scores complete workflows:
 
 ```typescript
-const score = calculateQuality(workflow);
-// {
-//   overall: 96,
-//   breakdown: {
-//     structure: 100,   // Struktura grafu
-//     efficiency: 100,  // Wydajność
-//     reliability: 80,  // Niezawodność
-//     complexity: 100   // Prostota (im niższa złożoność, tym lepiej)
-//   },
-//   issues: [],
-//   suggestions: []
-// }
-```
-
-**Wykrywanie cykli:**
-```typescript
-const cycles = detectCycles(nodes, edges);
-// [[node1, node2, node3, node1]] - znaleziony cykl
-```
-
-### 4. Universal Nodes (`src/nodes/universal.ts`)
-
-Trzy typy węzłów Jimbo:
-
-#### AI_AGENT
-Deleguje wykonanie do CHUCK:
-```typescript
-const node = createAIAgentNode('chatgpt-4', {
-  prompt: 'Wygeneruj post na LinkedIn',
-  temperature: 0.7,
-  maxTokens: 500
-});
-```
-
-#### PROCESSOR
-Przetwarza dane:
-```typescript
-// Scraping
-createProcessorNode('scrape', {
-  url: 'https://example.com',
-  selector: '.content'
-});
-
-// Transformacja
-createProcessorNode('transform', {
-  transformType: 'json',
-  mapping: { title: 'name', desc: 'description' }
-});
-
-// Export
-createProcessorNode('export', {
-  format: 'csv',
-  filename: 'results.csv'
-});
-```
-
-#### OUTPUT
-Wysyła wyniki:
-```typescript
-// Email
-createOutputNode('email', {
-  to: 'user@example.com',
-  subject: 'Raport'
-});
-
-// PDF
-createOutputNode('pdf', {
-  pdfOptions: { format: 'A4', orientation: 'portrait' }
-});
-
-// Slack
-createOutputNode('slack', {
-  channel: '#notifications',
-  webhookUrl: 'https://...'
-});
-```
-
-### 5. Execution Engine (`src/executionEngine.ts`)
-
-Orkiestruje wykonanie workflow:
-
-```typescript
-const engine = new ExecutionEngine({
-  chuckApiUrl: 'http://localhost:5152/api/exec',
-  timeout: 30000,
-  retryAttempts: 3
-});
-
-// Wykonaj pojedynczy węzeł
-const result = await engine.executeNode(node, context);
-
-// Wykonaj cały workflow
-const results = await engine.executeWorkflow(nodes, edges, {
-  input: 'Starting data'
-});
-```
-
-**Delegacja do CHUCK:**
-```typescript
-// AI_AGENT nodes automatycznie delegowane do CHUCK
-if (node.type === "ai_agent") {
-  return fetch("http://localhost:5152/api/exec", {
-    method: "POST",
-    body: JSON.stringify({ toolId, prompt, ... })
-  });
+interface WorkflowScore {
+  quality: number;        // 0-100% overall score
+  hasCycles: boolean;     // DAG validation
+  cycles?: string[][];    // Detected cycles
+  compatibilityScore: number;
+  executionOrder?: string[];
+  issues: string[];
+  recommendations: string[];
 }
 ```
 
-## 📊 Scoring Engine
-
-### Ocena Struktury (0-100%)
-- ✅ Brak cykli: +100%
-- ⚠️ Cykle: -20% per cykl
-- ⚠️ Węzły osierocone: -5% per węzeł
-- ⚠️ Zbyt wiele punktów wejścia/wyjścia: -5%
-
-### Ocena Wydajności (0-100%)
-- ✅ Optymalna liczba węzłów (≤20): +100%
-- ⚠️ Zbyt wiele węzłów: -penalty
-- ⚠️ Zbyt wiele połączeń (ratio >2): -10%
-- ⚠️ Długie ścieżki (>10): -3% per nadmiarowy krok
-
-### Ocena Niezawodności (0-100%)
-- Base: 80%
-- ✅ Error handling: +10%
-- ✅ Retry logic: +10%
-
-### Ocena Złożoności (0-100%)
-- Complexity 1-5: 90-100% (doskonałe)
-- Complexity 6-10: 70-89% (dobre)
-- Complexity 11-20: 50-69% (średnie)
-- Complexity 21+: 0-49% (złożone)
-
-## 🚀 Użycie
-
-### 1. Import Modułów
-
-```typescript
-import { calculateConnectionScore } from './lib/compatibilityMatrix';
-import { calculateQuality, detectCycles } from './lib/workflowScoring';
-import { createAIAgentNode, createProcessorNode, createOutputNode } from './nodes/universal';
-import { ExecutionEngine } from './executionEngine';
-import tools from './lib/tools.json';
+**Quality Score Formula:**
+```
+quality = (compatibility × 0.4) + (avgToolScore × 0.3) + (structure × 0.3)
 ```
 
-### 2. Budowanie Workflow
+Where:
+- **Compatibility**: Average compatibility between consecutive tools
+- **AvgToolScore**: Average quality score of tools used
+- **Structure**: 100 if no cycles, 0 if cycles detected
+
+**Functions:**
+- `detectCycles(workflow)` → cycle detection using DFS
+- `getExecutionOrder(workflow)` → topological sort
+- `scoreWorkflow(workflow, tools)` → complete scoring
+
+## Jimbo Universal Nodes
+
+### Node Types
+
+#### 1. AI_AGENT
+Delegates to CHUCK API for AI tool execution.
 
 ```typescript
-// Utwórz węzły
-const node1 = createAIAgentNode('chatgpt-4', {
-  prompt: 'Napisz post o AI'
+{
+  type: 'AI_AGENT',
+  config: {
+    toolId: 'cursor',           // From tools-extended.json
+    prompt: 'Write a function',
+    chuckEndpoint: 'http://localhost:5152/api/exec'
+  }
+}
+```
+
+#### 2. PROCESSOR
+Data transformation and scraping.
+
+```typescript
+{
+  type: 'PROCESSOR',
+  config: {
+    operation: 'scrape' | 'transform' | 'export' | 'filter' | 'merge',
+    source: 'https://example.com',
+    format: 'json' | 'csv' | 'xml' | 'html'
+  }
+}
+```
+
+#### 3. OUTPUT
+Final output destinations.
+
+```typescript
+{
+  type: 'OUTPUT',
+  config: {
+    destination: 'email' | 'pdf' | 'slack' | 'webhook' | 'database' | 'file',
+    target: 'user@example.com',
+    template: 'Email template {{variable}}'
+  }
+}
+```
+
+## Execution Engine
+
+### Features
+
+1. **Topological Sort**: Determines optimal execution order
+2. **Cycle Detection**: Validates DAG structure
+3. **Retry Logic**: Exponential backoff (3 retries default)
+4. **Timeout Protection**: 5 minutes per node default
+5. **Error Handling**: Continue on error option
+
+### Execution Flow
+
+```typescript
+const result = await executeWorkflow(workflow, {
+  maxRetries: 3,
+  retryDelay: 1000,     // ms
+  timeout: 300000,      // 5 min
+  continueOnError: false
 });
+```
 
-const node2 = createProcessorNode('transform', {
-  transformType: 'markdown'
-});
+Result structure:
+```typescript
+{
+  success: boolean,
+  workflowId: string,
+  executionTime: number,
+  results: { [nodeId]: any },
+  errors: { [nodeId]: string },
+  executionOrder: string[]
+}
+```
 
-const node3 = createOutputNode('slack', {
-  channel: '#marketing'
-});
+## MCP Server
 
-// Zdefiniuj połączenia
-const edges = [
-  { from: node1.id, to: node2.id },
-  { from: node2.id, to: node3.id }
-];
+### Endpoints
 
-// Oceń workflow
-const workflow = {
-  nodes: [
-    { id: node1.id, toolId: 'chatgpt-4', type: node1.type },
-    { id: node2.id, toolId: '', type: node2.type },
-    { id: node3.id, toolId: '', type: node3.type }
+#### POST /api/analyze
+Analyze workflow and get scoring.
+
+**Request:**
+```json
+{
+  "workflow": { ... },
+  "options": {
+    "includeRecommendations": true,
+    "includeCompatibility": true,
+    "includeExecutionPlan": true
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "score": {
+    "overall": 85,
+    "quality": 87,
+    "compatibility": 92
+  },
+  "dag": {
+    "isValid": true,
+    "hasCycles": false,
+    "executionOrder": ["node1", "node2", "node3"]
+  },
+  "recommendations": [
+    "Consider using higher-rated tools"
+  ]
+}
+```
+
+#### POST /api/exec
+Execute AI tool via CHUCK proxy.
+
+**Request:**
+```json
+{
+  "toolId": "cursor",
+  "prompt": "Write a function",
+  "parameters": { ... }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "result": { ... },
+  "metadata": {
+    "toolId": "cursor",
+    "executionTime": 1234,
+    "tokensUsed": 500
+  }
+}
+```
+
+## User Libraries
+
+Custom libraries stored in `lib/userLibraries/`:
+
+```
+lib/userLibraries/
+├── my-scrapers/          # Custom scrapers
+│   └── allegro-prices.js
+├── custom-ai/            # Custom AI models
+│   └── b2b-lead-scorer.py
+└── workflows/            # Saved workflows
+    └── seo-pipeline.json
+```
+
+### Adding Libraries
+
+**Option 1: Drag & Drop**
+```
+Manual copy to lib/userLibraries/
+```
+
+**Option 2: MCP Function**
+```typescript
+saveLibrary(name, files) → git clone + commit
+```
+
+## Example Workflow
+
+```json
+{
+  "id": "example-001",
+  "name": "SEO Content Pipeline",
+  "nodes": [
+    {
+      "id": "research",
+      "type": "AI_AGENT",
+      "config": { "toolId": "perplexity" }
+    },
+    {
+      "id": "write",
+      "type": "AI_AGENT",
+      "config": { "toolId": "jasper" }
+    },
+    {
+      "id": "optimize",
+      "type": "AI_AGENT",
+      "config": { "toolId": "surfer-seo" }
+    },
+    {
+      "id": "publish",
+      "type": "OUTPUT",
+      "config": { "destination": "webhook" }
+    }
   ],
-  edges
-};
-
-const score = calculateQuality(workflow);
-console.log(`Workflow score: ${score.overall}%`);
-
-// Wykryj cykle
-const cycles = detectCycles(workflow.nodes, workflow.edges);
-if (cycles.length > 0) {
-  console.warn('Znaleziono cykle!', cycles);
+  "connections": [
+    { "from": "research", "to": "write" },
+    { "from": "write", "to": "optimize" },
+    { "from": "optimize", "to": "publish" }
+  ]
 }
 ```
 
-### 3. Wykonanie Workflow
+### Execution
 
 ```typescript
-const engine = new ExecutionEngine();
+import { executeWorkflow } from './src/executionEngine';
 
-const results = await engine.executeWorkflow(
-  [node1, node2, node3],
-  edges,
-  { input: 'Początkowe dane' }
-);
+const result = await executeWorkflow(workflow);
 
-// Sprawdź wyniki
-results.forEach((result, nodeId) => {
-  console.log(`${nodeId}: ${result.success ? 'OK' : 'FAIL'}`);
-  if (result.data) console.log(result.data);
-});
+if (result.success) {
+  console.log('Workflow completed:', result.results);
+} else {
+  console.error('Workflow failed:', result.errors);
+}
 ```
 
-### 4. Analiza Kompatybilności
+## API Integration
 
-```typescript
-const chatgpt = tools.find(t => t.id === 'chatgpt-4');
-const compatible = getCompatibleTools(chatgpt, tools, 85);
+### Local Development
 
-console.log('Narzędzia kompatybilne z ChatGPT-4:');
-compatible.forEach(c => {
-  console.log(`- ${c.tool.namePl}: ${c.score}%`);
-});
-```
-
-## 🎨 Demo
-
-### Visual Workflow Builder
-
-Dostępny pod adresem: `/narzedzia/workflow-builder`
-
-**Funkcje:**
-- 🎯 Paleta 133 narzędzi AI z filtrowaniem
-- 🔗 Wizualne budowanie workflow
-- 📊 Ocena jakości w czasie rzeczywistym
-- 🔍 Wykrywanie cykli
-- 💡 Sugestie optymalizacji
-
-### Testy
-
-Uruchom testy:
 ```bash
-npx tsx src/test-chuck.ts
+# Start MCP server
+npm run dev:mcp  # Port 5152
+
+# CHUCK endpoint
+http://localhost:5152/api/exec
+http://localhost:5152/api/analyze
 ```
 
-Wynik:
-```
-✅ All tests completed successfully!
-  • 133 AI tools database
-  • Compatibility scoring between tools
-  • Workflow quality evaluation (0-100%)
-  • Cycle detection in workflows
-  • 3 universal node types (AI_AGENT, PROCESSOR, OUTPUT)
-  • Integration with execution engine
-```
-
-## 🔗 Integracja z CAY_DEN
-
-System zachowuje strukturę proxy Workers z mybonzo.com:
+### Production (Cloudflare Workers)
 
 ```typescript
-// CHUCK proxy endpoint
-const CHUCK_API = 'http://localhost:5152/api/exec';
-
-// Delegacja AI_AGENT nodes
-if (node.type === 'AI_AGENT') {
-  const response = await fetch(CHUCK_API, {
-    method: 'POST',
-    body: JSON.stringify({
-      toolId: node.config.toolId,
-      prompt: node.config.prompt,
-      workflowId: context.workflowId
-    })
-  });
+// Keep existing mybonzo.com structure
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    
+    if (url.pathname.startsWith('/api/chuck/')) {
+      return handleMCPRequest(request);
+    }
+    
+    // ... existing routes
+  }
 }
 ```
 
-## 📝 Licencja
+## Security
 
-MIT - Część projektu luc-de-zen-on
+- **CHUCK Local**: Keys stored locally, not exposed
+- **Jimbo Delegation**: Proxies requests to CHUCK
+- **User Libraries**: Sandboxed execution
+- **API Keys**: Stored in environment variables
 
----
+## Performance
 
-**Stworzono dla**: Bonzokoles/luc-de-zen-on  
-**Technologie**: TypeScript, React, Astro  
-**Status**: ✅ Production Ready
+- **Tool Lookup**: O(1) hash map
+- **Compatibility Calc**: O(n²) for n tools
+- **Topological Sort**: O(V + E) for V nodes, E edges
+- **Cycle Detection**: O(V + E) DFS
+
+## Future Enhancements
+
+1. **Caching**: Cache compatibility scores
+2. **Optimization**: Greedy algorithm for workflow optimization
+3. **ML Scoring**: Train ML model on workflow success rates
+4. **Real-time Updates**: WebSocket for execution progress
+5. **Visual Editor**: Drag-and-drop workflow builder
+
+## Troubleshooting
+
+### Common Issues
+
+**Q: Workflow has cycles**
+A: Use `detectCycles()` to identify and remove cyclic dependencies
+
+**Q: Low compatibility score**
+A: Use `findBestNextTools()` to get recommendations
+
+**Q: Node execution timeout**
+A: Increase `timeout` option in `executeWorkflow()`
+
+**Q: CHUCK API not responding**
+A: Ensure MCP server is running on localhost:5152
+
+## Support
+
+For issues or questions:
+- GitHub Issues: https://github.com/Bonzokoles/luc-de-zen-on/issues
+- Documentation: `/docs/CHUCK_SCORING_ENGINE.md`
+- Examples: `/lib/userLibraries/workflows/`

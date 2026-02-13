@@ -1,260 +1,192 @@
 /**
- * Universal Node Types for Jimbo
- * Three core node types that integrate with CHUCK scoring engine
+ * Jimbo Universal Node Types
+ * 3 node types that map to 140+ tools
  */
 
 export type NodeType = 'AI_AGENT' | 'PROCESSOR' | 'OUTPUT';
 
-export type ProcessorType = 'scrape' | 'transform' | 'export';
-export type OutputType = 'email' | 'pdf' | 'slack';
-
-/**
- * Base node interface
- */
 export interface BaseNode {
   id: string;
   type: NodeType;
   label?: string;
-  position?: { x: number; y: number };
+  config: Record<string, any>;
 }
 
 /**
  * AI_AGENT Node
- * Proxies execution to CHUCK scoring engine
- * Uses toolId to reference tools from lib/tools.json
+ * Delegates to CHUCK API for AI tool execution
  */
 export interface AIAgentNode extends BaseNode {
   type: 'AI_AGENT';
   config: {
-    toolId: string; // Reference to tool in lib/tools.json
+    toolId: string; // ID from tools-extended.json
     prompt?: string;
-    temperature?: number;
-    maxTokens?: number;
-    systemPrompt?: string;
     parameters?: Record<string, any>;
+    chuckEndpoint?: string; // Default: localhost:5152/api/exec
   };
 }
 
 /**
  * PROCESSOR Node
- * Handles data processing operations
+ * Data transformation and scraping
  */
 export interface ProcessorNode extends BaseNode {
   type: 'PROCESSOR';
   config: {
-    processorType: ProcessorType;
-    options?: ProcessorOptions;
+    operation: 'scrape' | 'transform' | 'export' | 'filter' | 'merge';
+    source?: string; // URL or data source
+    transformer?: string; // JavaScript function or library path
+    format?: 'json' | 'csv' | 'xml' | 'html';
+    options?: Record<string, any>;
   };
-}
-
-export interface ProcessorOptions {
-  // Scrape options
-  url?: string;
-  selector?: string;
-  waitFor?: number;
-  
-  // Transform options
-  transformType?: 'json' | 'xml' | 'csv' | 'markdown' | 'html' | 'text';
-  transformScript?: string;
-  mapping?: Record<string, string>;
-  
-  // Export options
-  format?: 'json' | 'csv' | 'xlsx' | 'xml';
-  destination?: string;
-  filename?: string;
 }
 
 /**
  * OUTPUT Node
- * Handles final output destinations
+ * Final output destinations
  */
 export interface OutputNode extends BaseNode {
   type: 'OUTPUT';
   config: {
-    outputType: OutputType;
-    options?: OutputOptions;
+    destination: 'email' | 'pdf' | 'slack' | 'webhook' | 'database' | 'file';
+    target?: string; // Email address, file path, webhook URL, etc.
+    template?: string; // Template for formatting
+    options?: Record<string, any>;
   };
 }
 
-export interface OutputOptions {
-  // Email options
-  to?: string | string[];
-  from?: string;
-  subject?: string;
-  template?: string;
-  attachments?: string[];
-  
-  // PDF options
-  pdfTemplate?: string;
-  pdfOptions?: {
-    format?: 'A4' | 'Letter';
-    orientation?: 'portrait' | 'landscape';
-    margin?: { top?: number; right?: number; bottom?: number; left?: number };
-  };
-  
-  // Slack options
-  channel?: string;
-  webhookUrl?: string;
-  username?: string;
-  iconEmoji?: string;
-  blocks?: any[];
-}
-
-/**
- * Union type for all node types
- */
 export type UniversalNode = AIAgentNode | ProcessorNode | OutputNode;
 
 /**
- * Node execution result
+ * Node Connection
  */
-export interface NodeExecutionResult {
-  nodeId: string;
-  success: boolean;
-  data?: any;
-  error?: string;
-  executionTime?: number;
-  metadata?: Record<string, any>;
+export interface NodeConnection {
+  from: string; // Source node ID
+  to: string; // Target node ID
+  label?: string;
+  weight?: number; // For workflow scoring
 }
 
 /**
- * Create an AI_AGENT node
+ * Complete Workflow
  */
-export function createAIAgentNode(
-  toolId: string,
-  config?: Partial<AIAgentNode['config']>,
-  metadata?: Partial<BaseNode>
-): AIAgentNode {
-  return {
-    id: metadata?.id || `ai-agent-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
-    type: 'AI_AGENT',
-    label: metadata?.label || `AI Agent: ${toolId}`,
-    position: metadata?.position || { x: 0, y: 0 },
-    config: {
-      toolId,
-      ...config,
-    },
+export interface UniversalWorkflow {
+  id: string;
+  name: string;
+  description?: string;
+  nodes: UniversalNode[];
+  connections: NodeConnection[];
+  metadata?: {
+    created?: string;
+    modified?: string;
+    author?: string;
+    version?: string;
   };
 }
 
 /**
- * Create a PROCESSOR node
+ * Validate node configuration
  */
-export function createProcessorNode(
-  processorType: ProcessorType,
-  options?: ProcessorOptions,
-  metadata?: Partial<BaseNode>
-): ProcessorNode {
-  return {
-    id: metadata?.id || `processor-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
-    type: 'PROCESSOR',
-    label: metadata?.label || `Processor: ${processorType}`,
-    position: metadata?.position || { x: 0, y: 0 },
-    config: {
-      processorType,
-      options,
-    },
-  };
-}
-
-/**
- * Create an OUTPUT node
- */
-export function createOutputNode(
-  outputType: OutputType,
-  options?: OutputOptions,
-  metadata?: Partial<BaseNode>
-): OutputNode {
-  return {
-    id: metadata?.id || `output-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
-    type: 'OUTPUT',
-    label: metadata?.label || `Output: ${outputType}`,
-    position: metadata?.position || { x: 0, y: 0 },
-    config: {
-      outputType,
-      options,
-    },
-  };
-}
-
-/**
- * Validate a universal node
- */
-export function validateNode(node: UniversalNode): string[] {
+export function validateNode(node: UniversalNode): { valid: boolean; errors: string[] } {
   const errors: string[] = [];
 
   if (!node.id) {
-    errors.push('Node must have an id');
+    errors.push('Node ID is required');
   }
 
   if (!node.type) {
-    errors.push('Node must have a type');
+    errors.push('Node type is required');
   }
 
+  // Type-specific validation
   switch (node.type) {
     case 'AI_AGENT':
-      if (!node.config.toolId) {
-        errors.push('AI_AGENT node must have a toolId');
+      const agentNode = node as AIAgentNode;
+      if (!agentNode.config.toolId) {
+        errors.push('AI_AGENT requires toolId');
       }
       break;
 
     case 'PROCESSOR':
-      if (!node.config.processorType) {
-        errors.push('PROCESSOR node must have a processorType');
-      }
-      if (!['scrape', 'transform', 'export'].includes(node.config.processorType)) {
-        errors.push('processorType must be one of: scrape, transform, export');
+      const processorNode = node as ProcessorNode;
+      if (!processorNode.config.operation) {
+        errors.push('PROCESSOR requires operation');
       }
       break;
 
     case 'OUTPUT':
-      if (!node.config.outputType) {
-        errors.push('OUTPUT node must have an outputType');
-      }
-      if (!['email', 'pdf', 'slack'].includes(node.config.outputType)) {
-        errors.push('outputType must be one of: email, pdf, slack');
+      const outputNode = node as OutputNode;
+      if (!outputNode.config.destination) {
+        errors.push('OUTPUT requires destination');
       }
       break;
-
-    default:
-      errors.push(`Unknown node type: ${(node as any).type}`);
   }
 
-  return errors;
+  return {
+    valid: errors.length === 0,
+    errors
+  };
 }
 
 /**
- * Get node type display name
+ * Create AI_AGENT node
  */
-export function getNodeTypeDisplayName(type: NodeType): string {
-  const names: Record<NodeType, string> = {
-    AI_AGENT: 'AI Agent',
-    PROCESSOR: 'Processor',
-    OUTPUT: 'Output',
+export function createAIAgentNode(
+  id: string,
+  toolId: string,
+  config?: Partial<AIAgentNode['config']>
+): AIAgentNode {
+  return {
+    id,
+    type: 'AI_AGENT',
+    config: {
+      toolId,
+      chuckEndpoint: 'http://localhost:5152/api/exec',
+      ...config
+    }
   };
-  return names[type] || type;
 }
 
 /**
- * Get processor type display name
+ * Create PROCESSOR node
  */
-export function getProcessorTypeDisplayName(type: ProcessorType): string {
-  const names: Record<ProcessorType, string> = {
-    scrape: 'Web Scraping',
-    transform: 'Data Transform',
-    export: 'Data Export',
+export function createProcessorNode(
+  id: string,
+  operation: ProcessorNode['config']['operation'],
+  config?: Partial<ProcessorNode['config']>
+): ProcessorNode {
+  return {
+    id,
+    type: 'PROCESSOR',
+    config: {
+      operation,
+      format: 'json',
+      ...config
+    }
   };
-  return names[type] || type;
 }
 
 /**
- * Get output type display name
+ * Create OUTPUT node
  */
-export function getOutputTypeDisplayName(type: OutputType): string {
-  const names: Record<OutputType, string> = {
-    email: 'Email',
-    pdf: 'PDF Document',
-    slack: 'Slack Message',
+export function createOutputNode(
+  id: string,
+  destination: OutputNode['config']['destination'],
+  config?: Partial<OutputNode['config']>
+): OutputNode {
+  return {
+    id,
+    type: 'OUTPUT',
+    config: {
+      destination,
+      ...config
+    }
   };
-  return names[type] || type;
 }
+
+export default {
+  validateNode,
+  createAIAgentNode,
+  createProcessorNode,
+  createOutputNode
+};

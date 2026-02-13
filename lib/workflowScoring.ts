@@ -1,12 +1,15 @@
 /**
  * CHUCK Workflow Scoring Engine
- * Evaluates workflow quality and detects cycles in node graphs
+ * Analyzes and scores complete workflows with cycle detection
  */
+
+import { calculateCompatibility, validateWorkflow } from 'lib/compatibilityMatrix';
 
 export interface WorkflowNode {
   id: string;
   toolId: string;
   type: string;
+  category: string;
   config?: Record<string, any>;
 }
 
@@ -19,42 +22,29 @@ export interface WorkflowEdge {
 export interface Workflow {
   nodes: WorkflowNode[];
   edges: WorkflowEdge[];
-  metadata?: {
-    name?: string;
-    description?: string;
-    created?: string;
-  };
 }
 
-export interface QualityScore {
-  overall: number;
-  breakdown: {
-    structure: number;
-    efficiency: number;
-    reliability: number;
-    complexity: number;
-  };
+export interface WorkflowScore {
+  quality: number; // 0-100%
+  hasCycles: boolean;
+  cycles?: string[][];
+  compatibilityScore: number;
+  executionOrder?: string[];
   issues: string[];
-  suggestions: string[];
+  recommendations: string[];
 }
 
 /**
- * Detect cycles in a directed graph using DFS
- * @param nodes Array of workflow nodes
- * @param edges Array of workflow edges
- * @returns Array of cycles found (each cycle is an array of node IDs)
+ * Detect cycles in workflow using DFS
  */
-export function detectCycles(
-  nodes: WorkflowNode[],
-  edges: WorkflowEdge[]
-): string[][] {
-  const cycles: string[][] = [];
-  const visited = new Set<string>();
-  const recursionStack = new Set<string>();
-  const path: string[] = [];
-
-  // Build adjacency list
+export function detectCycles(workflow: Workflow): {
+  hasCycles: boolean;
+  cycles: string[][];
+} {
+  const { nodes, edges } = workflow;
   const adjacencyList = new Map<string, string[]>();
+  
+  // Build adjacency list
   nodes.forEach(node => adjacencyList.set(node.id, []));
   edges.forEach(edge => {
     const neighbors = adjacencyList.get(edge.from) || [];
@@ -62,10 +52,15 @@ export function detectCycles(
     adjacencyList.set(edge.from, neighbors);
   });
 
+  const visited = new Set<string>();
+  const recursionStack = new Set<string>();
+  const cycles: string[][] = [];
+  const currentPath: string[] = [];
+
   function dfs(nodeId: string): boolean {
     visited.add(nodeId);
     recursionStack.add(nodeId);
-    path.push(nodeId);
+    currentPath.push(nodeId);
 
     const neighbors = adjacencyList.get(nodeId) || [];
     for (const neighbor of neighbors) {
@@ -74,305 +69,178 @@ export function detectCycles(
           return true;
         }
       } else if (recursionStack.has(neighbor)) {
-        // Found a cycle
-        const cycleStartIndex = path.indexOf(neighbor);
-        const cycle = path.slice(cycleStartIndex);
-        cycles.push([...cycle, neighbor]); // Complete the cycle
+        // Cycle detected
+        const cycleStartIndex = currentPath.indexOf(neighbor);
+        const cycle = currentPath.slice(cycleStartIndex);
+        cycles.push([...cycle, neighbor]);
       }
     }
 
+    currentPath.pop();
     recursionStack.delete(nodeId);
-    path.pop();
     return false;
   }
 
-  // Check each node for cycles
-  for (const node of nodes) {
+  nodes.forEach(node => {
     if (!visited.has(node.id)) {
       dfs(node.id);
     }
-  }
-
-  return cycles;
-}
-
-/**
- * Calculate workflow structure score (0-100)
- * Evaluates graph structure, connections, and organization
- */
-function calculateStructureScore(workflow: Workflow): number {
-  const { nodes, edges } = workflow;
-  let score = 100;
-  const issues: string[] = [];
-
-  // Check if workflow has nodes
-  if (nodes.length === 0) {
-    return 0;
-  }
-
-  // Detect cycles (major issue)
-  const cycles = detectCycles(nodes, edges);
-  if (cycles.length > 0) {
-    score -= cycles.length * 20;
-    issues.push(`Found ${cycles.length} cycle(s) in workflow`);
-  }
-
-  // Check for orphaned nodes (no incoming or outgoing edges)
-  const connectedNodes = new Set<string>();
-  edges.forEach(edge => {
-    connectedNodes.add(edge.from);
-    connectedNodes.add(edge.to);
   });
-  const orphanedCount = nodes.filter(n => !connectedNodes.has(n.id)).length;
-  if (orphanedCount > 0) {
-    score -= orphanedCount * 5;
-    issues.push(`${orphanedCount} orphaned node(s)`);
-  }
-
-  // Check for multiple entry points (might be intentional but worth noting)
-  const hasIncoming = new Set(edges.map(e => e.to));
-  const entryPoints = nodes.filter(n => !hasIncoming.has(n.id));
-  if (entryPoints.length > 3) {
-    score -= 5;
-  }
-
-  // Check for multiple exit points
-  const hasOutgoing = new Set(edges.map(e => e.from));
-  const exitPoints = nodes.filter(n => !hasOutgoing.has(n.id));
-  if (exitPoints.length > 3) {
-    score -= 5;
-  }
-
-  return Math.max(0, Math.min(100, score));
-}
-
-/**
- * Calculate workflow efficiency score (0-100)
- * Evaluates redundancy, path length, and optimization
- */
-function calculateEfficiencyScore(workflow: Workflow): number {
-  const { nodes, edges } = workflow;
-  let score = 100;
-
-  // Penalize overly complex workflows
-  if (nodes.length > 20) {
-    score -= Math.floor((nodes.length - 20) / 2);
-  }
-
-  // Check edge to node ratio (too many edges might indicate redundancy)
-  const edgeRatio = edges.length / nodes.length;
-  if (edgeRatio > 2) {
-    score -= 10;
-  }
-
-  // Check for very long paths (calculate max path length)
-  const maxPathLength = calculateMaxPathLength(nodes, edges);
-  if (maxPathLength > 10) {
-    score -= (maxPathLength - 10) * 3;
-  }
-
-  return Math.max(0, Math.min(100, score));
-}
-
-/**
- * Calculate maximum path length in the workflow
- */
-function calculateMaxPathLength(
-  nodes: WorkflowNode[],
-  edges: WorkflowEdge[]
-): number {
-  // Build adjacency list
-  const adjacencyList = new Map<string, string[]>();
-  nodes.forEach(node => adjacencyList.set(node.id, []));
-  edges.forEach(edge => {
-    const neighbors = adjacencyList.get(edge.from) || [];
-    neighbors.push(edge.to);
-    adjacencyList.set(edge.from, neighbors);
-  });
-
-  let maxLength = 0;
-
-  function dfs(nodeId: string, visited: Set<string>, depth: number): void {
-    maxLength = Math.max(maxLength, depth);
-    visited.add(nodeId);
-
-    const neighbors = adjacencyList.get(nodeId) || [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
-        dfs(neighbor, visited, depth + 1);
-      }
-    }
-
-    visited.delete(nodeId);
-  }
-
-  // Start DFS from all entry points
-  const hasIncoming = new Set(edges.map(e => e.to));
-  const entryPoints = nodes.filter(n => !hasIncoming.has(n.id));
-
-  for (const entry of entryPoints) {
-    dfs(entry.id, new Set(), 0);
-  }
-
-  return maxLength;
-}
-
-/**
- * Calculate workflow reliability score (0-100)
- * Evaluates error handling, fallbacks, and robustness
- */
-function calculateReliabilityScore(workflow: Workflow): number {
-  const { nodes } = workflow;
-  let score = 80; // Base score
-
-  // Check if workflow has error handling nodes
-  const hasErrorHandling = nodes.some(n => 
-    n.type === 'error-handler' || n.config?.errorHandling
-  );
-  if (hasErrorHandling) {
-    score += 10;
-  }
-
-  // Check if workflow has retry logic
-  const hasRetry = nodes.some(n => n.config?.retry);
-  if (hasRetry) {
-    score += 10;
-  }
-
-  return Math.min(100, score);
-}
-
-/**
- * Calculate workflow complexity score (0-100)
- * Lower complexity is better (inverse score)
- */
-function calculateComplexityScore(workflow: Workflow): number {
-  const { nodes, edges } = workflow;
-  
-  // Calculate cyclomatic complexity
-  const complexity = edges.length - nodes.length + 2;
-  
-  // Convert to 0-100 score (lower complexity = higher score)
-  // Complexity 1-5: excellent (90-100)
-  // Complexity 6-10: good (70-89)
-  // Complexity 11-20: moderate (50-69)
-  // Complexity 21+: complex (0-49)
-  
-  if (complexity <= 5) {
-    return 100 - (complexity - 1) * 2;
-  } else if (complexity <= 10) {
-    return 90 - (complexity - 5) * 4;
-  } else if (complexity <= 20) {
-    return 70 - (complexity - 10) * 2;
-  } else {
-    return Math.max(0, 50 - (complexity - 20));
-  }
-}
-
-/**
- * Calculate overall workflow quality score
- * @param workflow The workflow to evaluate
- * @returns Quality score with breakdown and recommendations
- */
-export function calculateQuality(workflow: Workflow): QualityScore {
-  const structure = calculateStructureScore(workflow);
-  const efficiency = calculateEfficiencyScore(workflow);
-  const reliability = calculateReliabilityScore(workflow);
-  const complexity = calculateComplexityScore(workflow);
-
-  // Weighted average
-  const overall = Math.round(
-    structure * 0.35 +
-    efficiency * 0.25 +
-    reliability * 0.20 +
-    complexity * 0.20
-  );
-
-  const issues: string[] = [];
-  const suggestions: string[] = [];
-
-  // Analyze results and provide feedback
-  const cycles = detectCycles(workflow.nodes, workflow.edges);
-  if (cycles.length > 0) {
-    issues.push(`Workflow contains ${cycles.length} cycle(s) - this may cause infinite loops`);
-    suggestions.push('Remove cycles or add cycle breaking conditions');
-  }
-
-  if (structure < 70) {
-    issues.push('Workflow structure needs improvement');
-    suggestions.push('Review node connections and remove orphaned nodes');
-  }
-
-  if (efficiency < 70) {
-    issues.push('Workflow could be more efficient');
-    suggestions.push('Consider simplifying the workflow or combining similar steps');
-  }
-
-  if (reliability < 70) {
-    suggestions.push('Add error handling and retry logic for better reliability');
-  }
-
-  if (complexity < 70) {
-    issues.push('Workflow is complex and may be hard to maintain');
-    suggestions.push('Break down into smaller sub-workflows');
-  }
-
-  if (workflow.nodes.length === 0) {
-    issues.push('Workflow has no nodes');
-  }
-
-  if (workflow.edges.length === 0 && workflow.nodes.length > 1) {
-    issues.push('Nodes are not connected');
-  }
 
   return {
-    overall,
-    breakdown: {
-      structure,
-      efficiency,
-      reliability,
-      complexity,
-    },
-    issues,
-    suggestions,
+    hasCycles: cycles.length > 0,
+    cycles
   };
 }
 
 /**
- * Validate workflow and return validation errors
- * @param workflow The workflow to validate
- * @returns Array of validation errors
+ * Topological sort for execution order
  */
-export function validateWorkflow(workflow: Workflow): string[] {
-  const errors: string[] = [];
+export function getExecutionOrder(workflow: Workflow): string[] | null {
+  const { nodes, edges } = workflow;
+  const inDegree = new Map<string, number>();
+  const adjacencyList = new Map<string, string[]>();
+  
+  // Initialize
+  nodes.forEach(node => {
+    inDegree.set(node.id, 0);
+    adjacencyList.set(node.id, []);
+  });
 
-  if (!workflow.nodes || workflow.nodes.length === 0) {
-    errors.push('Workflow must have at least one node');
-  }
+  // Build graph
+  edges.forEach(edge => {
+    adjacencyList.get(edge.from)?.push(edge.to);
+    inDegree.set(edge.to, (inDegree.get(edge.to) || 0) + 1);
+  });
 
-  if (!workflow.edges || !Array.isArray(workflow.edges)) {
-    errors.push('Workflow must have an edges array');
-  }
-
-  // Check for invalid edge references
-  const nodeIds = new Set(workflow.nodes.map(n => n.id));
-  workflow.edges.forEach((edge, index) => {
-    if (!nodeIds.has(edge.from)) {
-      errors.push(`Edge ${index}: 'from' node '${edge.from}' does not exist`);
-    }
-    if (!nodeIds.has(edge.to)) {
-      errors.push(`Edge ${index}: 'to' node '${edge.to}' does not exist`);
+  // Find nodes with no incoming edges
+  const queue: string[] = [];
+  nodes.forEach(node => {
+    if (inDegree.get(node.id) === 0) {
+      queue.push(node.id);
     }
   });
 
-  // Check for duplicate node IDs
-  const seenIds = new Set<string>();
-  workflow.nodes.forEach(node => {
-    if (seenIds.has(node.id)) {
-      errors.push(`Duplicate node ID: ${node.id}`);
-    }
-    seenIds.add(node.id);
-  });
+  const order: string[] = [];
 
-  return errors;
+  while (queue.length > 0) {
+    const current = queue.shift()!;
+    order.push(current);
+
+    const neighbors = adjacencyList.get(current) || [];
+    neighbors.forEach(neighbor => {
+      const newDegree = (inDegree.get(neighbor) || 0) - 1;
+      inDegree.set(neighbor, newDegree);
+      if (newDegree === 0) {
+        queue.push(neighbor);
+      }
+    });
+  }
+
+  // If order doesn't include all nodes, there's a cycle
+  return order.length === nodes.length ? order : null;
 }
+
+/**
+ * Calculate workflow quality score
+ */
+export function scoreWorkflow(
+  workflow: Workflow,
+  toolsData: Array<{ id: string; type: string; category: string; score: number }>
+): WorkflowScore {
+  const issues: string[] = [];
+  const recommendations: string[] = [];
+
+  // Check for cycles
+  const cycleDetection = detectCycles(workflow);
+  if (cycleDetection.hasCycles) {
+    issues.push(`Workflow contains ${cycleDetection.cycles.length} cycle(s)`);
+  }
+
+  // Get execution order
+  const executionOrder = getExecutionOrder(workflow);
+  if (!executionOrder) {
+    issues.push('Cannot determine execution order (cycle detected)');
+  }
+
+  // Calculate compatibility score
+  let compatibilityScore = 100;
+  if (workflow.nodes.length > 1) {
+    const toolSequence = workflow.nodes.map(node => {
+      const tool = toolsData.find(t => t.id === node.toolId);
+      return {
+        id: node.toolId,
+        type: tool?.type || 'unknown',
+        category: tool?.category || 'unknown'
+      };
+    });
+
+    const validation = validateWorkflow(toolSequence);
+    compatibilityScore = validation.averageScore;
+
+    if (!validation.valid) {
+      issues.push('Workflow has weak compatibility links');
+      validation.weakLinks.forEach(link => {
+        recommendations.push(
+          `Consider improving connection between ${link.from} → ${link.to} (score: ${link.score})`
+        );
+      });
+    }
+  }
+
+  // Calculate average tool score
+  const toolScores = workflow.nodes.map(node => {
+    const tool = toolsData.find(t => t.id === node.toolId);
+    return tool?.score || 70;
+  });
+  const avgToolScore = toolScores.length > 0
+    ? Math.round(toolScores.reduce((a, b) => a + b, 0) / toolScores.length)
+    : 70;
+
+  // Calculate final quality score
+  // 40% compatibility, 30% tool quality, 30% structure (no cycles = 100, with cycles = 0)
+  const structureScore = cycleDetection.hasCycles ? 0 : 100;
+  const quality = Math.round(
+    compatibilityScore * 0.4 +
+    avgToolScore * 0.3 +
+    structureScore * 0.3
+  );
+
+  // Add recommendations based on score
+  if (quality < 70) {
+    recommendations.push('Consider using higher-rated tools');
+    recommendations.push('Review tool sequence for better compatibility');
+  }
+  if (workflow.nodes.length > 10) {
+    recommendations.push('Large workflow - consider breaking into sub-workflows');
+  }
+
+  return {
+    quality,
+    hasCycles: cycleDetection.hasCycles,
+    cycles: cycleDetection.hasCycles ? cycleDetection.cycles : undefined,
+    compatibilityScore,
+    executionOrder: executionOrder || undefined,
+    issues,
+    recommendations
+  };
+}
+
+/**
+ * Optimize workflow by reordering nodes for better compatibility
+ */
+export function optimizeWorkflow(
+  workflow: Workflow,
+  toolsData: Array<{ id: string; type: string; category: string; score: number }>
+): Workflow {
+  // For now, return as-is
+  // Future: implement greedy optimization algorithm
+  return workflow;
+}
+
+export default {
+  detectCycles,
+  getExecutionOrder,
+  scoreWorkflow,
+  optimizeWorkflow
+};

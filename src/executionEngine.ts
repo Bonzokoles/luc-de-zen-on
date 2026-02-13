@@ -1,498 +1,292 @@
 /**
- * Execution Engine for Jimbo
- * Orchestrates node execution and delegates AI_AGENT nodes to CHUCK
+ * Workflow Execution Engine
+ * Orchestrates universal node execution with topological sort and retry logic
  */
 
-import type {
-  UniversalNode,
-  AIAgentNode,
-  ProcessorNode,
-  OutputNode,
-  NodeExecutionResult,
-} from './nodes/universal';
-import type { WorkflowEdge } from '../lib/workflowScoring';
+import type { UniversalWorkflow, UniversalNode } from './nodes/universal';
+import { executeAIAgent } from './nodes/ai-agent';
+import { executeProcessor } from './nodes/processor';
+import { executeOutput } from './nodes/output';
+import { getExecutionOrder } from 'lib/workflowScoring';
 
 export interface ExecutionContext {
   workflowId: string;
-  variables: Record<string, any>;
-  results: Map<string, NodeExecutionResult>;
-  chuckApiUrl?: string;
+  startTime: number;
+  results: Map<string, any>;
+  errors: Map<string, Error>;
 }
 
 export interface ExecutionOptions {
-  chuckApiUrl?: string;
-  timeout?: number;
-  retryAttempts?: number;
+  maxRetries?: number;
+  retryDelay?: number; // milliseconds
+  timeout?: number; // milliseconds per node
+  continueOnError?: boolean;
 }
 
-const DEFAULT_CHUCK_URL = 'http://localhost:5152/api/exec';
-const DEFAULT_TIMEOUT = 30000; // 30 seconds
-const DEFAULT_RETRY_ATTEMPTS = 3;
+export interface ExecutionResult {
+  success: boolean;
+  workflowId: string;
+  executionTime: number;
+  results: Record<string, any>;
+  errors: Record<string, string>;
+  executionOrder: string[];
+}
+
+const DEFAULT_OPTIONS: Required<ExecutionOptions> = {
+  maxRetries: 3,
+  retryDelay: 1000,
+  timeout: 300000, // 5 minutes
+  continueOnError: false
+};
 
 /**
- * Main execution engine class
+ * Execute complete workflow
  */
-export class ExecutionEngine {
-  private chuckApiUrl: string;
-  private timeout: number;
-  private retryAttempts: number;
+export async function executeWorkflow(
+  workflow: UniversalWorkflow,
+  options: ExecutionOptions = {}
+): Promise<ExecutionResult> {
+  const opts = { ...DEFAULT_OPTIONS, ...options };
+  const startTime = Date.now();
+  
+  const context: ExecutionContext = {
+    workflowId: workflow.id,
+    startTime,
+    results: new Map(),
+    errors: new Map()
+  };
 
-  constructor(options: ExecutionOptions = {}) {
-    this.chuckApiUrl = options.chuckApiUrl || DEFAULT_CHUCK_URL;
-    this.timeout = options.timeout || DEFAULT_TIMEOUT;
-    this.retryAttempts = options.retryAttempts || DEFAULT_RETRY_ATTEMPTS;
-  }
-
-  /**
-   * Execute a single node
-   */
-  async executeNode(
-    node: UniversalNode,
-    context: ExecutionContext
-  ): Promise<NodeExecutionResult> {
-    const startTime = Date.now();
-
-    try {
-      let result: any;
-
-      switch (node.type) {
-        case 'AI_AGENT':
-          result = await this.executeAIAgent(node, context);
-          break;
-        case 'PROCESSOR':
-          result = await this.executeProcessor(node, context);
-          break;
-        case 'OUTPUT':
-          result = await this.executeOutput(node, context);
-          break;
-        default:
-          throw new Error(`Unknown node type: ${(node as any).type}`);
-      }
-
-      const executionTime = Date.now() - startTime;
-
-      return {
-        nodeId: node.id,
-        success: true,
-        data: result,
-        executionTime,
-        metadata: {
-          nodeType: node.type,
-          timestamp: new Date().toISOString(),
-        },
-      };
-    } catch (error) {
-      const executionTime = Date.now() - startTime;
-      return {
-        nodeId: node.id,
-        success: false,
-        error: error instanceof Error ? error.message : String(error),
-        executionTime,
-        metadata: {
-          nodeType: node.type,
-          timestamp: new Date().toISOString(),
-        },
-      };
-    }
-  }
-
-  /**
-   * Execute AI_AGENT node by delegating to CHUCK
-   */
-  private async executeAIAgent(
-    node: AIAgentNode,
-    context: ExecutionContext
-  ): Promise<any> {
-    const { toolId, prompt, temperature, maxTokens, systemPrompt, parameters } = node.config;
-
-    // Prepare request payload for CHUCK
-    const payload = {
+  // Get execution order using topological sort
+  // Convert UniversalWorkflow to Workflow format
+  const workflowNodes: any[] = workflow.nodes.map(node => {
+    const toolId = (node as any).config?.toolId || node.id;
+    return {
+      id: node.id,
       toolId,
-      prompt: this.interpolateVariables(prompt || '', context.variables),
-      temperature,
-      maxTokens,
-      systemPrompt,
-      parameters,
-      workflowId: context.workflowId,
-      nodeId: node.id,
+      type: node.type,
+      category: 'unknown',
+      config: (node as any).config
     };
+  });
 
-    // Delegate to CHUCK scoring engine
-    const response = await this.fetchWithRetry(
-      context.chuckApiUrl || this.chuckApiUrl,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      }
-    );
+  const workflowGraph = {
+    nodes: workflowNodes,
+    edges: workflow.connections.map(conn => ({
+      from: conn.from,
+      to: conn.to,
+      weight: conn.weight
+    }))
+  };
 
-    if (!response.ok) {
-      throw new Error(`CHUCK API error: ${response.status} ${response.statusText}`);
-    }
-
-    return await response.json();
-  }
-
-  /**
-   * Execute PROCESSOR node
-   */
-  private async executeProcessor(
-    node: ProcessorNode,
-    context: ExecutionContext
-  ): Promise<any> {
-    const { processorType, options } = node.config;
-
-    switch (processorType) {
-      case 'scrape':
-        return await this.executeScrape(options, context);
-      case 'transform':
-        return await this.executeTransform(options, context);
-      case 'export':
-        return await this.executeExport(options, context);
-      default:
-        throw new Error(`Unknown processor type: ${processorType}`);
-    }
-  }
-
-  /**
-   * Execute scraping operation
-   */
-  private async executeScrape(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const url = this.interpolateVariables(options?.url || '', context.variables);
-    
-    if (!url) {
-      throw new Error('Scrape processor requires a URL');
-    }
-
-    // In a real implementation, this would use a scraping service
-    // For now, we'll return a placeholder
+  const executionOrder = getExecutionOrder(workflowGraph);
+  
+  if (!executionOrder) {
     return {
-      type: 'scrape',
-      url,
-      selector: options?.selector,
-      data: `[Scraped data from ${url}]`,
-      timestamp: new Date().toISOString(),
+      success: false,
+      workflowId: workflow.id,
+      executionTime: Date.now() - startTime,
+      results: {},
+      errors: { workflow: 'Cannot determine execution order - workflow contains cycles' },
+      executionOrder: []
     };
   }
 
-  /**
-   * Execute data transformation
-   */
-  private async executeTransform(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const transformType = options?.transformType || 'json';
-    
-    // Get input data from previous node results
-    const inputData = context.variables.previousResult || context.variables.input;
-
-    if (!inputData) {
-      throw new Error('Transform processor requires input data');
+  // Execute nodes in topological order
+  for (const nodeId of executionOrder) {
+    const node = workflow.nodes.find(n => n.id === nodeId);
+    if (!node) {
+      context.errors.set(nodeId, new Error(`Node ${nodeId} not found`));
+      if (!opts.continueOnError) break;
+      continue;
     }
 
-    // Apply transformation based on type
-    let transformedData: any;
+    // Get input from connected nodes
+    const input = getNodeInput(workflow, nodeId, context);
 
-    switch (transformType) {
-      case 'json':
-        transformedData = typeof inputData === 'string' 
-          ? JSON.parse(inputData) 
-          : inputData;
-        break;
-      case 'text':
-        transformedData = typeof inputData === 'object'
-          ? JSON.stringify(inputData, null, 2)
-          : String(inputData);
-        break;
-      case 'csv':
-        // Simplified CSV conversion
-        if (Array.isArray(inputData)) {
-          const headers = Object.keys(inputData[0] || {});
-          const rows = inputData.map(row => 
-            headers.map(h => row[h]).join(',')
-          );
-          transformedData = [headers.join(','), ...rows].join('\n');
-        } else {
-          transformedData = String(inputData);
-        }
-        break;
-      default:
-        transformedData = inputData;
-    }
+    // Execute node with retry logic
+    const result = await executeNodeWithRetry(node, input, opts);
 
-    // Apply custom mapping if provided
-    if (options?.mapping && typeof transformedData === 'object') {
-      const mapped: any = {};
-      for (const [key, mappedValue] of Object.entries(options.mapping)) {
-        mapped[key] = (transformedData as any)[mappedValue as string];
-      }
-      transformedData = mapped;
-    }
-
-    return {
-      type: 'transform',
-      transformType,
-      data: transformedData,
-      timestamp: new Date().toISOString(),
-    };
-  }
-
-  /**
-   * Execute data export
-   */
-  private async executeExport(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const format = options?.format || 'json';
-    const destination = options?.destination || 'local';
-    
-    const data = context.variables.previousResult || context.variables.input;
-
-    if (!data) {
-      throw new Error('Export processor requires data to export');
-    }
-
-    return {
-      type: 'export',
-      format,
-      destination,
-      filename: options?.filename || `export-${Date.now()}.${format}`,
-      data,
-      timestamp: new Date().toISOString(),
-    };
-  }
-
-  /**
-   * Execute OUTPUT node
-   */
-  private async executeOutput(
-    node: OutputNode,
-    context: ExecutionContext
-  ): Promise<any> {
-    const { outputType, options } = node.config;
-
-    switch (outputType) {
-      case 'email':
-        return await this.executeEmailOutput(options, context);
-      case 'pdf':
-        return await this.executePDFOutput(options, context);
-      case 'slack':
-        return await this.executeSlackOutput(options, context);
-      default:
-        throw new Error(`Unknown output type: ${outputType}`);
+    if (result.success) {
+      context.results.set(nodeId, result.data);
+    } else {
+      context.errors.set(nodeId, new Error(result.error || 'Unknown error'));
+      if (!opts.continueOnError) break;
     }
   }
 
-  /**
-   * Execute email output
-   */
-  private async executeEmailOutput(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const to = options?.to;
-    const subject = this.interpolateVariables(options?.subject || '', context.variables);
-    const body = context.variables.previousResult || context.variables.input;
+  // Build final result
+  const results: Record<string, any> = {};
+  context.results.forEach((value, key) => {
+    results[key] = value;
+  });
 
-    if (!to) {
-      throw new Error('Email output requires a recipient');
+  const errors: Record<string, string> = {};
+  context.errors.forEach((error, key) => {
+    errors[key] = error.message;
+  });
+
+  return {
+    success: context.errors.size === 0,
+    workflowId: workflow.id,
+    executionTime: Date.now() - startTime,
+    results,
+    errors,
+    executionOrder
+  };
+}
+
+/**
+ * Get input for a node from its connected predecessors
+ */
+function getNodeInput(
+  workflow: UniversalWorkflow,
+  nodeId: string,
+  context: ExecutionContext
+): any {
+  const incomingConnections = workflow.connections.filter(conn => conn.to === nodeId);
+  
+  if (incomingConnections.length === 0) {
+    return undefined; // No input
+  }
+
+  if (incomingConnections.length === 1) {
+    const sourceId = incomingConnections[0].from;
+    return context.results.get(sourceId);
+  }
+
+  // Multiple inputs - merge them
+  const inputs: any[] = [];
+  incomingConnections.forEach(conn => {
+    const result = context.results.get(conn.from);
+    if (result !== undefined) {
+      inputs.push(result);
     }
+  });
 
-    return {
-      type: 'email',
-      to,
-      from: options?.from,
-      subject,
-      body,
-      sent: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
+  return inputs;
+}
 
-  /**
-   * Execute PDF output
-   */
-  private async executePDFOutput(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const content = context.variables.previousResult || context.variables.input;
-
-    return {
-      type: 'pdf',
-      content,
-      options: options?.pdfOptions,
-      generated: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
-
-  /**
-   * Execute Slack output
-   */
-  private async executeSlackOutput(
-    options: any,
-    context: ExecutionContext
-  ): Promise<any> {
-    const channel = options?.channel;
-    const webhookUrl = options?.webhookUrl;
-    const message = context.variables.previousResult || context.variables.input;
-
-    if (!channel && !webhookUrl) {
-      throw new Error('Slack output requires a channel or webhook URL');
-    }
-
-    return {
-      type: 'slack',
-      channel,
-      message,
-      sent: true,
-      timestamp: new Date().toISOString(),
-    };
-  }
-
-  /**
-   * Execute a workflow (multiple nodes in sequence)
-   */
-  async executeWorkflow(
-    nodes: UniversalNode[],
-    edges: WorkflowEdge[],
-    initialVariables: Record<string, any> = {}
-  ): Promise<Map<string, NodeExecutionResult>> {
-    const context: ExecutionContext = {
-      workflowId: `workflow-${Date.now()}`,
-      variables: { ...initialVariables },
-      results: new Map(),
-    };
-
-    // Build execution order (topological sort)
-    const executionOrder = this.topologicalSort(nodes, edges);
-
-    // Execute nodes in order
-    for (const nodeId of executionOrder) {
-      const node = nodes.find(n => n.id === nodeId);
-      if (!node) continue;
-
-      // Get input from previous nodes
-      const incomingEdges = edges.filter(e => e.to === nodeId);
-      if (incomingEdges.length > 0) {
-        const previousNodeId = incomingEdges[0].from;
-        const previousResult = context.results.get(previousNodeId);
-        if (previousResult?.success) {
-          context.variables.previousResult = previousResult.data;
-          context.variables.input = previousResult.data;
-        }
-      }
-
-      // Execute the node
-      const result = await this.executeNode(node, context);
-      context.results.set(nodeId, result);
-
-      // If execution failed and no error handling, stop
-      if (!result.success) {
-        console.error(`Node ${nodeId} failed:`, result.error);
-        // Continue execution for now (could add error handling logic)
-      }
-    }
-
-    return context.results;
-  }
-
-  /**
-   * Topological sort for node execution order
-   */
-  private topologicalSort(
-    nodes: UniversalNode[],
-    edges: WorkflowEdge[]
-  ): string[] {
-    const order: string[] = [];
-    const visited = new Set<string>();
-    const visiting = new Set<string>();
-
-    // Build adjacency list
-    const adjacencyList = new Map<string, string[]>();
-    nodes.forEach(node => adjacencyList.set(node.id, []));
-    edges.forEach(edge => {
-      const neighbors = adjacencyList.get(edge.from) || [];
-      neighbors.push(edge.to);
-      adjacencyList.set(edge.from, neighbors);
-    });
-
-    function visit(nodeId: string) {
-      if (visited.has(nodeId)) return;
-      if (visiting.has(nodeId)) {
-        throw new Error('Cycle detected in workflow');
-      }
-
-      visiting.add(nodeId);
-
-      const neighbors = adjacencyList.get(nodeId) || [];
-      neighbors.forEach(visit);
-
-      visiting.delete(nodeId);
-      visited.add(nodeId);
-      order.push(nodeId);
-    }
-
-    // Visit all nodes
-    nodes.forEach(node => visit(node.id));
-
-    return order.reverse();
-  }
-
-  /**
-   * Fetch with retry logic
-   */
-  private async fetchWithRetry(
-    url: string,
-    options: RequestInit,
-    attempt: number = 0
-  ): Promise<Response> {
+/**
+ * Execute single node with retry logic and exponential backoff
+ */
+async function executeNodeWithRetry(
+  node: UniversalNode,
+  input: any,
+  options: Required<ExecutionOptions>
+): Promise<{ success: boolean; data?: any; error?: string }> {
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt <= options.maxRetries; attempt++) {
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.timeout);
-
-      const response = await fetch(url, {
-        ...options,
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-      return response;
+      // Apply timeout
+      const result = await executeNodeWithTimeout(node, input, options.timeout);
+      return { success: true, data: result };
     } catch (error) {
-      if (attempt < this.retryAttempts - 1) {
-        // Wait before retrying (exponential backoff)
-        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, attempt)));
-        return this.fetchWithRetry(url, options, attempt + 1);
+      lastError = error instanceof Error ? error : new Error(String(error));
+      
+      // Don't retry on last attempt
+      if (attempt < options.maxRetries) {
+        // Exponential backoff
+        const delay = options.retryDelay * Math.pow(2, attempt);
+        await sleep(delay);
       }
-      throw error;
     }
   }
 
-  /**
-   * Interpolate variables in a string
-   */
-  private interpolateVariables(
-    template: string,
-    variables: Record<string, any>
-  ): string {
-    return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-      return variables[key] !== undefined ? String(variables[key]) : match;
-    });
+  return {
+    success: false,
+    error: lastError?.message || 'Unknown error after retries'
+  };
+}
+
+/**
+ * Execute node with timeout
+ */
+async function executeNodeWithTimeout(
+  node: UniversalNode,
+  input: any,
+  timeout: number
+): Promise<any> {
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => reject(new Error('Node execution timeout')), timeout);
+  });
+
+  const executionPromise = executeNode(node, input);
+
+  return Promise.race([executionPromise, timeoutPromise]);
+}
+
+/**
+ * Execute single node based on type
+ */
+async function executeNode(node: UniversalNode, input: any): Promise<any> {
+  switch (node.type) {
+    case 'AI_AGENT':
+      const agentResult = await executeAIAgent(node, input);
+      if (!agentResult.success) {
+        throw new Error(agentResult.error || 'AI_AGENT execution failed');
+      }
+      return agentResult.result;
+
+    case 'PROCESSOR':
+      const processorResult = await executeProcessor(node, input);
+      if (!processorResult.success) {
+        throw new Error(processorResult.error || 'PROCESSOR execution failed');
+      }
+      return processorResult.data;
+
+    case 'OUTPUT':
+      const outputResult = await executeOutput(node, input);
+      if (!outputResult.success) {
+        throw new Error(outputResult.error || 'OUTPUT execution failed');
+      }
+      return outputResult.message;
+
+    default:
+      throw new Error(`Unknown node type: ${(node as any).type}`);
   }
 }
 
 /**
- * Create a default execution engine instance
+ * Sleep utility
  */
-export function createExecutionEngine(options?: ExecutionOptions): ExecutionEngine {
-  return new ExecutionEngine(options);
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+/**
+ * Validate workflow before execution
+ */
+export function validateWorkflowExecution(workflow: UniversalWorkflow): {
+  valid: boolean;
+  errors: string[];
+} {
+  const errors: string[] = [];
+
+  if (!workflow.nodes || workflow.nodes.length === 0) {
+    errors.push('Workflow must contain at least one node');
+  }
+
+  // Check for orphaned connections
+  workflow.connections.forEach(conn => {
+    const fromExists = workflow.nodes.some(n => n.id === conn.from);
+    const toExists = workflow.nodes.some(n => n.id === conn.to);
+    
+    if (!fromExists) {
+      errors.push(`Connection references non-existent source node: ${conn.from}`);
+    }
+    if (!toExists) {
+      errors.push(`Connection references non-existent target node: ${conn.to}`);
+    }
+  });
+
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+export default {
+  executeWorkflow,
+  validateWorkflowExecution
+};
