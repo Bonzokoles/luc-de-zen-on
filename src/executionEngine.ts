@@ -57,8 +57,20 @@ export async function executeWorkflow(
   };
 
   // Get execution order using topological sort
+  // Convert UniversalWorkflow to Workflow format
+  const workflowNodes: any[] = workflow.nodes.map(node => {
+    const toolId = (node as any).config?.toolId || node.id;
+    return {
+      id: node.id,
+      toolId,
+      type: node.type,
+      category: 'unknown',
+      config: (node as any).config
+    };
+  });
+
   const workflowGraph = {
-    nodes: workflow.nodes,
+    nodes: workflowNodes,
     edges: workflow.connections.map(conn => ({
       from: conn.from,
       to: conn.to,

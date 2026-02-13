@@ -4,8 +4,9 @@
  */
 
 import type { UniversalWorkflow } from '../src/nodes/universal';
-import { scoreWorkflow, detectCycles, getExecutionOrder } from '../lib/workflowScoring';
+import { scoreWorkflow, detectCycles, getExecutionOrder, type Workflow, type WorkflowNode } from '../lib/workflowScoring';
 import { validateWorkflow } from '../lib/compatibilityMatrix';
+// @ts-ignore - JSON import
 import toolsData from '../lib/tools-extended.json';
 
 export interface AnalyzeRequest {
@@ -76,9 +77,19 @@ export async function analyzeWorkflow(request: AnalyzeRequest): Promise<AnalyzeR
         };
       });
 
-    // Detect cycles in DAG
+    // Convert UniversalWorkflow to Workflow format for scoring
     const workflowGraph = {
-      nodes: workflow.nodes,
+      nodes: workflow.nodes.map(node => {
+        const toolId = (node as any).config?.toolId || node.id;
+        const toolInfo = tools.find(t => t.id === toolId);
+        return {
+          id: node.id,
+          toolId,
+          type: toolInfo?.type || 'unknown',
+          category: toolInfo?.category || 'unknown',
+          config: (node as any).config
+        };
+      }),
       edges: workflow.connections.map(conn => ({
         from: conn.from,
         to: conn.to,
