@@ -167,7 +167,7 @@ console.log('=== Test Summary ===');
 console.log('✅ All tests completed successfully!');
 console.log('');
 console.log('CHUCK Scoring Engine is ready to use:');
-console.log('  • 140+ AI tools database');
+console.log('  • 133 AI tools database');
 console.log('  • Compatibility scoring between tools');
 console.log('  • Workflow quality evaluation (0-100%)');
 console.log('  • Cycle detection in workflows');

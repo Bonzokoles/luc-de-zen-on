@@ -1,6 +1,6 @@
 # 🎯 CHUCK Scoring Engine & Jimbo Universal Nodes
 
-System budowania i oceny workflow AI z wykorzystaniem 140+ narzędzi.
+System budowania i oceny workflow AI z wykorzystaniem 133 narzędzi.
 
 ## 📋 Spis Treści
 
@@ -15,7 +15,7 @@ System budowania i oceny workflow AI z wykorzystaniem 140+ narzędzi.
 ## 🎯 Przegląd
 
 CHUCK (Complete Hub for Unified Compatibility Knowledge) to zaawansowany system do:
-- Zarządzania bazą 140+ narzędzi AI
+- Zarządzania bazą 133 narzędzi AI
 - Oceny kompatybilności między narzędziami
 - Budowania i walidacji workflow
 - Wykrywania problemów (cykle, niewydajności)
@@ -323,7 +323,7 @@ npx tsx src/test-chuck.ts
 Wynik:
 ```
 ✅ All tests completed successfully!
-  • 140+ AI tools database
+  • 133 AI tools database
   • Compatibility scoring between tools
   • Workflow quality evaluation (0-100%)
   • Cycle detection in workflows
