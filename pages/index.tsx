@@ -85,6 +85,17 @@ export default function MyBonzoDashboard() {
   // CHUCK client
   const [chuckClient, setChuckClient] = useState<ChuckClient | null>(null);
   const [authToken, setAuthToken] = useState('');
+  
+  // Toast notifications
+  const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: 'success' | 'error' | 'info' }>>([]);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info') => {
+    const id = `toast-${Date.now()}`;
+    setToasts(prev => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 5000);
+  }, []);
 
   // ============================================================================
   // EFFECTS
@@ -111,7 +122,7 @@ export default function MyBonzoDashboard() {
     const client = createChuckClient({
       apiUrl: 'https://api.mybonzo.com/chuck/exec',
       onRateLimit: (retryAfter) => {
-        alert(`Rate limit exceeded. Please wait ${retryAfter} seconds.`);
+        showToast(`Rate limit exceeded. Please wait ${retryAfter} seconds.`, 'error');
       },
       onError: (error) => {
         console.error('CHUCK client error:', error);
@@ -194,16 +205,16 @@ export default function MyBonzoDashboard() {
     localStorage.setItem('mybonzo-workflows', JSON.stringify([...workflows, newWorkflow]));
   }, [workflows]);
 
-  const handleAddNode = useCallback((type: 'AI_AGENT' | 'PROCESSOR' | 'OUTPUT') => {
+  const handleAddNode = useCallback((type: 'AI_AGENT' | 'PROCESSOR' | 'OUTPUT', toolId?: string) => {
     if (!currentWorkflow) return;
     
     const newNode: WorkflowNode = {
       id: `node-${Date.now()}`,
       type,
       name: `${type} Node`,
-      config: type === 'AI_AGENT' ? { toolId: '' } :
+      config: type === 'AI_AGENT' ? { toolId: toolId || '' } :
              type === 'PROCESSOR' ? { operation: 'transform' } :
-             { deliveryMethod: 'email' },
+             { channel: 'email' },
       position: { 
         x: Math.random() * 400 + 50, 
         y: Math.random() * 300 + 50 
@@ -219,6 +230,7 @@ export default function MyBonzoDashboard() {
     setCurrentWorkflow(updatedWorkflow);
     setWorkflows(workflows.map(w => w.id === updatedWorkflow.id ? updatedWorkflow : w));
     localStorage.setItem('mybonzo-workflows', JSON.stringify(workflows.map(w => w.id === updatedWorkflow.id ? updatedWorkflow : w)));
+    setSelectedNode(newNode);
   }, [currentWorkflow, workflows]);
 
   const handleUpdateNode = useCallback((nodeId: string, updates: Partial<WorkflowNode>) => {
@@ -253,12 +265,12 @@ export default function MyBonzoDashboard() {
 
   const handleExecuteWorkflow = useCallback(async () => {
     if (!currentWorkflow || !chuckClient) {
-      alert('Please create a workflow and set authentication token first');
+      showToast('Please create a workflow and set authentication token first', 'error');
       return;
     }
     
     if (!authToken) {
-      alert('Please set your authentication token in the settings');
+      showToast('Please set your authentication token in the settings', 'error');
       return;
     }
     
@@ -278,16 +290,21 @@ export default function MyBonzoDashboard() {
           ...prev,
           executions: prev.executions + 1
         }));
+        showToast('Workflow executed successfully', 'success');
+      } else {
+        showToast(`Workflow execution failed: ${result.error}`, 'error');
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       setExecutionResult({
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
+        error: errorMessage
       });
+      showToast(`Execution error: ${errorMessage}`, 'error');
     } finally {
       setIsExecuting(false);
     }
-  }, [currentWorkflow, chuckClient, authToken]);
+  }, [currentWorkflow, chuckClient, authToken, showToast]);
 
   const handleSavePlugin = useCallback(() => {
     if (!selectedPlugin) {
@@ -320,10 +337,10 @@ export default function MyBonzoDashboard() {
   }, [plugins, selectedPlugin]);
 
   const handleStripeCheckout = useCallback(async (planId: string) => {
+    showToast(`Redirecting to Stripe checkout for ${planId} plan...`, 'info');
     // In production, this would redirect to Stripe Checkout
-    alert(`Redirecting to Stripe checkout for plan: ${planId}`);
     // window.location.href = `https://checkout.stripe.com/...?plan=${planId}`;
-  }, []);
+  }, [showToast]);
 
   // ============================================================================
   // RENDER: TOOLS GRID
@@ -417,13 +434,7 @@ export default function MyBonzoDashboard() {
                   onClick={() => {
                     setActiveTab('workflow');
                     if (currentWorkflow) {
-                      handleAddNode('AI_AGENT');
-                      const lastNode = currentWorkflow.nodes[currentWorkflow.nodes.length - 1];
-                      if (lastNode) {
-                        handleUpdateNode(lastNode.id, {
-                          config: { ...lastNode.config, toolId: tool.id }
-                        });
-                      }
+                      handleAddNode('AI_AGENT', tool.id);
                     }
                   }}
                   className="w-full px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
@@ -677,12 +688,12 @@ export default function MyBonzoDashboard() {
                     {selectedNode.type === 'OUTPUT' && (
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Delivery Method
+                          Channel
                         </label>
                         <select
-                          value={(selectedNode.config as any).deliveryMethod || 'email'}
+                          value={(selectedNode.config as any).channel || 'email'}
                           onChange={(e) => handleUpdateNode(selectedNode.id, {
-                            config: { ...selectedNode.config, deliveryMethod: e.target.value }
+                            config: { ...selectedNode.config, channel: e.target.value }
                           })}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                         >
@@ -690,7 +701,8 @@ export default function MyBonzoDashboard() {
                           <option value="slack">Slack</option>
                           <option value="webhook">Webhook</option>
                           <option value="pdf">PDF</option>
-                          <option value="sms">SMS</option>
+                          <option value="storage">Storage</option>
+                          <option value="api">API</option>
                         </select>
                       </div>
                     )}
@@ -1054,7 +1066,7 @@ export default {
                 onClick={() => {
                   if (authToken) {
                     localStorage.setItem('mybonzo-auth-token', authToken);
-                    alert('Token saved successfully');
+                    showToast('Authentication token saved successfully', 'success');
                   }
                 }}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -1206,6 +1218,31 @@ export default {
           </div>
         </div>
       </footer>
+      
+      {/* Toast Notifications */}
+      <div className="fixed bottom-4 right-4 z-50 space-y-2">
+        {toasts.map(toast => (
+          <div
+            key={toast.id}
+            className={`px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 min-w-[300px] animate-slide-in ${
+              toast.type === 'success' ? 'bg-green-600 text-white' :
+              toast.type === 'error' ? 'bg-red-600 text-white' :
+              'bg-blue-600 text-white'
+            }`}
+          >
+            {toast.type === 'success' && <Check className="w-5 h-5 flex-shrink-0" />}
+            {toast.type === 'error' && <AlertCircle className="w-5 h-5 flex-shrink-0" />}
+            {toast.type === 'info' && <Settings className="w-5 h-5 flex-shrink-0" />}
+            <span className="flex-1 text-sm font-medium">{toast.message}</span>
+            <button
+              onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+              className="p-1 hover:bg-white/20 rounded"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
