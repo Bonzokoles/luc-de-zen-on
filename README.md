@@ -309,6 +309,35 @@ ai-biznes-start/
 
 ## 🔨 Rozwój
 
+### Dodawanie Agent Skills
+
+Ten projekt obsługuje teraz instalację agent skills z repozytoriów takich jak `google-labs-code/stitch-skills`. Agent skills to wtyczki rozszerzające możliwości AI agentów w tworzeniu kodu.
+
+#### Instalacja skill
+
+```bash
+# Lista dostępnych skills
+npx add-skill google-labs-code/stitch-skills --list
+
+# Instalacja konkretnego skill globalnie
+npx add-skill google-labs-code/stitch-skills --skill react:components --global
+
+# Instalacja lokalnie (w bieżącym katalogu)
+npx add-skill google-labs-code/stitch-skills --skill design-md
+```
+
+#### Dostępne Skills z google-labs-code/stitch-skills
+
+- **react:components** - Konwertuje projekty Stitch HTML/CSS do production-ready komponentów React używając metodologii Atomic Design
+- **design-md** - Generuje dokumentację DESIGN.md z projektów Stitch
+- **shadcn-ui** - Integracja z biblioteką komponentów shadcn/ui
+
+#### Zainstalowane Skills
+
+Skills zainstalowane globalnie znajdują się w `.github/agents/skills/` i są dostępne dla wszystkich AI agentów (GitHub Copilot, Claude Code, Cursor, itp.).
+
+Plik `skills-manifest.json` zawiera listę wszystkich zainstalowanych skills.
+
 ### Dodawanie Nowych Narzędzi
 
 #### 1. Stwórz komponent React

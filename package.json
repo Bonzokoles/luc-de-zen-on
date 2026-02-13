@@ -2,6 +2,9 @@
   "name": "the-zen-business",
   "type": "module",
   "version": "0.0.1",
+  "bin": {
+    "add-skill": "./bin/add-skill.js"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -9,7 +12,8 @@
     "build:fast": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && wrangler pages deploy dist --project-name=mybonzo-new"
+    "deploy": "astro build && wrangler pages deploy dist --project-name=mybonzo-new",
+    "test:add-skill": "node test/add-skill.test.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",

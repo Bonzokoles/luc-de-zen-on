@@ -1,0 +1,16 @@
+{
+  "skills": [
+    {
+      "name": "react:components",
+      "repository": "google-labs-code/stitch-skills",
+      "installedAt": "2026-02-10T19:11:39.933Z",
+      "description": "Converts Stitch HTML/CSS designs into production-ready React components using Atomic Design methodology"
+    },
+    {
+      "name": "design-md",
+      "repository": "google-labs-code/stitch-skills",
+      "installedAt": "2026-02-10T19:11:33.857Z",
+      "description": "Generates DESIGN.md documentation from Stitch projects"
+    }
+  ]
+}
