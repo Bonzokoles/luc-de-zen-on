@@ -3,7 +3,7 @@
  * Analyzes and scores complete workflows with cycle detection
  */
 
-import { calculateCompatibility, validateWorkflow } from './compatibilityMatrix';
+import { validateWorkflow } from './compatibilityMatrix';
 
 export interface WorkflowNode {
   id: string;
