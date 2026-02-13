@@ -126,7 +126,7 @@ export function createAIAgentNode(
   metadata?: Partial<BaseNode>
 ): AIAgentNode {
   return {
-    id: metadata?.id || `ai-agent-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    id: metadata?.id || `ai-agent-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
     type: 'AI_AGENT',
     label: metadata?.label || `AI Agent: ${toolId}`,
     position: metadata?.position || { x: 0, y: 0 },
@@ -146,7 +146,7 @@ export function createProcessorNode(
   metadata?: Partial<BaseNode>
 ): ProcessorNode {
   return {
-    id: metadata?.id || `processor-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    id: metadata?.id || `processor-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
     type: 'PROCESSOR',
     label: metadata?.label || `Processor: ${processorType}`,
     position: metadata?.position || { x: 0, y: 0 },
@@ -166,7 +166,7 @@ export function createOutputNode(
   metadata?: Partial<BaseNode>
 ): OutputNode {
   return {
-    id: metadata?.id || `output-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    id: metadata?.id || `output-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
     type: 'OUTPUT',
     label: metadata?.label || `Output: ${outputType}`,
     position: metadata?.position || { x: 0, y: 0 },

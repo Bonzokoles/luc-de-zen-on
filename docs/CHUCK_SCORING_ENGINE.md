@@ -307,7 +307,7 @@ compatible.forEach(c => {
 Dostępny pod adresem: `/narzedzia/workflow-builder`
 
 **Funkcje:**
-- 🎯 Paleta 140+ narzędzi AI z filtrowaniem
+- 🎯 Paleta 133 narzędzi AI z filtrowaniem
 - 🔗 Wizualne budowanie workflow
 - 📊 Ocena jakości w czasie rzeczywistym
 - 🔍 Wykrywanie cykli
