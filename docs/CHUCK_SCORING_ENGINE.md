@@ -18,7 +18,7 @@ CHUCK (Comprehensive Heuristic Universal Connector Kit) is an AI workflow scorin
 ┌─────────────────────────────────────────────────┐
 │         Jimbo Universal Nodes (3 types)          │
 ├─────────────────────────────────────────────────┤
-│  • AI_AGENT → CHUCK proxy (localhost:5152)     │
+│  • AI_AGENT → CHUCK proxy (localhost:4321)     │
 │  • PROCESSOR → scrape/transform/export          │
 │  • OUTPUT → email/pdf/slack/webhook             │
 └─────────────────────────────────────────────────┘
@@ -122,7 +122,7 @@ Delegates to CHUCK API for AI tool execution.
   config: {
     toolId: 'cursor',           // From tools-extended.json
     prompt: 'Write a function',
-    chuckEndpoint: 'http://localhost:5152/api/exec'
+    chuckEndpoint: 'http://localhost:4321/api/chuck/exec'
   }
 }
 ```
@@ -333,12 +333,13 @@ if (result.success) {
 ### Local Development
 
 ```bash
-# Start MCP server
-npm run dev:mcp  # Port 5152
+# Start development server
+npm run dev  # Port 4321 (Astro)
 
-# CHUCK endpoint
-http://localhost:5152/api/exec
-http://localhost:5152/api/analyze
+# CHUCK API endpoints
+http://localhost:4321/api/chuck/exec
+http://localhost:4321/api/chuck/analyze
+http://localhost:4321/api/chuck/tools
 ```
 
 ### Production (Cloudflare Workers)
@@ -394,7 +395,7 @@ A: Use `findBestNextTools()` to get recommendations
 A: Increase `timeout` option in `executeWorkflow()`
 
 **Q: CHUCK API not responding**
-A: Ensure MCP server is running on localhost:5152
+A: Ensure development server is running with `npm run dev` on localhost:4321
 
 ## Support
 

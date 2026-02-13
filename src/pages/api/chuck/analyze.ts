@@ -9,7 +9,22 @@ import type { AnalyzeRequest } from '../../../mcp-server';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json() as AnalyzeRequest;
+    let body: AnalyzeRequest;
+    
+    try {
+      body = await request.json() as AnalyzeRequest;
+    } catch (jsonError) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: 'Invalid JSON in request body'
+        }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
     
     if (!body.workflow) {
       return new Response(

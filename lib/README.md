@@ -155,7 +155,7 @@ Executes AI tools via CHUCK proxy.
   config: {
     toolId: 'cursor',
     prompt: 'Your prompt',
-    chuckEndpoint: 'http://localhost:5152/api/exec'
+    chuckEndpoint: 'http://localhost:4321/api/chuck/exec'
   }
 }
 ```

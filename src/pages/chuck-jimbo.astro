@@ -229,14 +229,14 @@ import MainLayout from '../layouts/MainLayout.astro';
       }
     }
 
-    function displayResults(data: any) {
+    function displayResults(data) {
       const results = document.getElementById('results');
       if (results) {
         results.innerHTML = `<pre class="text-sm overflow-auto">${JSON.stringify(data, null, 2)}</pre>`;
       }
     }
 
-    function displayError(error: any) {
+    function displayError(error) {
       const results = document.getElementById('results');
       if (results) {
         results.innerHTML = `<p class="text-red-600">Error: ${error.message}</p>`;

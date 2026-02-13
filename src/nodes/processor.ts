@@ -17,6 +17,50 @@ export interface ProcessorResult {
 }
 
 /**
+ * Validate URL to prevent SSRF attacks
+ */
+function validateUrl(urlString: string): void {
+  let url: URL;
+  
+  try {
+    url = new URL(urlString);
+  } catch {
+    throw new Error('Invalid URL format');
+  }
+
+  // Block localhost and private IP ranges
+  const hostname = url.hostname.toLowerCase();
+  
+  // Block localhost
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+    throw new Error('Access to localhost is not allowed');
+  }
+  
+  // Block private IP ranges
+  const privateIpPatterns = [
+    /^10\./,                    // 10.0.0.0/8
+    /^172\.(1[6-9]|2[0-9]|3[01])\./, // 172.16.0.0/12
+    /^192\.168\./,              // 192.168.0.0/16
+    /^169\.254\./,              // 169.254.0.0/16 (link-local)
+    /^127\./,                   // 127.0.0.0/8 (loopback)
+    /^0\.0\.0\.0$/,             // 0.0.0.0
+    /^fc00:/i,                  // fc00::/7 (IPv6 private)
+    /^fe80:/i,                  // fe80::/10 (IPv6 link-local)
+  ];
+  
+  for (const pattern of privateIpPatterns) {
+    if (pattern.test(hostname)) {
+      throw new Error('Access to private IP ranges is not allowed');
+    }
+  }
+  
+  // Only allow http and https protocols
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    throw new Error('Only HTTP and HTTPS protocols are allowed');
+  }
+}
+
+/**
  * Execute PROCESSOR node
  */
 export async function executeProcessor(
@@ -83,8 +127,16 @@ async function executeScrape(node: ProcessorNode, input?: any): Promise<any> {
     throw new Error('Scrape operation requires URL in source or input');
   }
 
+  // Validate URL to prevent SSRF attacks
+  validateUrl(url);
+
   // Basic fetch (in production, use proper scraping library)
   const response = await fetch(url);
+  
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  
   const content = await response.text();
   
   if (node.config.format === 'html') {
@@ -164,9 +216,20 @@ async function executeMerge(node: ProcessorNode, input?: any): Promise<any> {
     throw new Error('Merge operation requires array input');
   }
 
-  // Merge array items
-  if (typeof input[0] === 'object') {
-    return Object.assign({}, ...input);
+  // Handle empty arrays
+  if (input.length === 0) {
+    return [];
+  }
+
+  // Merge array items (filter out null/undefined)
+  const validItems = input.filter(item => item != null);
+  
+  if (validItems.length === 0) {
+    return [];
+  }
+  
+  if (typeof validItems[0] === 'object') {
+    return Object.assign({}, ...validItems);
   }
 
   return input.flat();
@@ -181,11 +244,11 @@ function convertFormat(data: any, format: string): any {
       return typeof data === 'string' ? JSON.parse(data) : data;
     
     case 'csv':
-      // Simple CSV conversion for arrays of objects
+      // Proper CSV conversion for arrays of objects
       if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object') {
-        const headers = Object.keys(data[0]).join(',');
+        const headers = Object.keys(data[0]).map(escapeCSV).join(',');
         const rows = data.map(item => 
-          Object.values(item).join(',')
+          Object.values(item).map(v => escapeCSV(String(v))).join(',')
         ).join('\n');
         return `${headers}\n${rows}`;
       }
@@ -201,6 +264,17 @@ function convertFormat(data: any, format: string): any {
     default:
       return data;
   }
+}
+
+/**
+ * Escape CSV value (handle commas, quotes, newlines)
+ */
+function escapeCSV(value: string): string {
+  // If value contains comma, quote, or newline, wrap in quotes and escape quotes
+  if (value.includes(',') || value.includes('"') || value.includes('\n') || value.includes('\r')) {
+    return `"${value.replace(/"/g, '""')}"`;
+  }
+  return value;
 }
 
 /**

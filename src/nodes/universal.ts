@@ -22,7 +22,7 @@ export interface AIAgentNode extends BaseNode {
     toolId: string; // ID from tools-extended.json
     prompt?: string;
     parameters?: Record<string, any>;
-    chuckEndpoint?: string; // Default: localhost:5152/api/exec
+    chuckEndpoint?: string; // Default: localhost:4321/api/chuck/exec
   };
 }
 
@@ -141,7 +141,7 @@ export function createAIAgentNode(
     type: 'AI_AGENT',
     config: {
       toolId,
-      chuckEndpoint: 'http://localhost:5152/api/exec',
+      chuckEndpoint: 'http://localhost:4321/api/chuck/exec',
       ...config
     }
   };

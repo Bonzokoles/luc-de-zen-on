@@ -186,18 +186,20 @@ export async function multiToolChainExample() {
  * Run examples
  */
 if (import.meta.url === `file://${process.argv[1]}`) {
-  console.log('=== CHUCK + Jimbo Examples ===\n');
-  
-  // Run example 1
-  console.log('Example 1: Simple SEO Workflow');
-  console.log('================================');
-  await simpleWorkflowExample();
-  
-  console.log('\n\nExample 2: Data Processing Pipeline');
-  console.log('=====================================');
-  await dataProcessingExample();
-  
-  console.log('\n\nExample 3: Multi-Tool AI Chain');
-  console.log('================================');
-  await multiToolChainExample();
+  void (async () => {
+    console.log('=== CHUCK + Jimbo Examples ===\n');
+    
+    // Run example 1
+    console.log('Example 1: Simple SEO Workflow');
+    console.log('================================');
+    await simpleWorkflowExample();
+    
+    console.log('\n\nExample 2: Data Processing Pipeline');
+    console.log('=====================================');
+    await dataProcessingExample();
+    
+    console.log('\n\nExample 3: Multi-Tool AI Chain');
+    console.log('================================');
+    await multiToolChainExample();
+  })();
 }

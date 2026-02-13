@@ -18,6 +18,50 @@ export interface OutputResult {
 }
 
 /**
+ * Validate URL to prevent SSRF attacks
+ */
+function validateUrl(urlString: string): void {
+  let url: URL;
+  
+  try {
+    url = new URL(urlString);
+  } catch {
+    throw new Error('Invalid URL format');
+  }
+
+  // Block localhost and private IP ranges
+  const hostname = url.hostname.toLowerCase();
+  
+  // Block localhost
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '::1') {
+    throw new Error('Access to localhost is not allowed');
+  }
+  
+  // Block private IP ranges
+  const privateIpPatterns = [
+    /^10\./,                    // 10.0.0.0/8
+    /^172\.(1[6-9]|2[0-9]|3[01])\./, // 172.16.0.0/12
+    /^192\.168\./,              // 192.168.0.0/16
+    /^169\.254\./,              // 169.254.0.0/16 (link-local)
+    /^127\./,                   // 127.0.0.0/8 (loopback)
+    /^0\.0\.0\.0$/,             // 0.0.0.0
+    /^fc00:/i,                  // fc00::/7 (IPv6 private)
+    /^fe80:/i,                  // fe80::/10 (IPv6 link-local)
+  ];
+  
+  for (const pattern of privateIpPatterns) {
+    if (pattern.test(hostname)) {
+      throw new Error('Access to private IP ranges is not allowed');
+    }
+  }
+  
+  // Only allow http and https protocols
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    throw new Error('Only HTTP and HTTPS protocols are allowed');
+  }
+}
+
+/**
  * Execute OUTPUT node
  */
 export async function executeOutput(
@@ -144,6 +188,9 @@ async function sendWebhook(node: OutputNode, input?: any): Promise<string> {
     throw new Error('Webhook destination requires URL in target');
   }
 
+  // Validate URL to prevent SSRF
+  validateUrl(url);
+
   try {
     const response = await fetch(url, {
       method: 'POST',
@@ -196,7 +243,9 @@ function formatTemplate(template: string, data: any): string {
   // Simple template replacement: {{key}}
   if (typeof data === 'object' && data !== null) {
     Object.entries(data).forEach(([key, value]) => {
-      const regex = new RegExp(`{{${key}}}`, 'g');
+      // Escape special regex characters in key
+      const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`{{${escapedKey}}}`, 'g');
       result = result.replace(regex, String(value));
     });
   }

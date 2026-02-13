@@ -29,7 +29,7 @@ export async function executeAIAgent(
   node: AIAgentNode,
   input?: any
 ): Promise<CHUCKExecutionResponse> {
-  const endpoint = node.config.chuckEndpoint || 'http://localhost:5152/api/exec';
+  const endpoint = node.config.chuckEndpoint || 'http://localhost:4321/api/chuck/exec';
   
   const request: CHUCKExecutionRequest = {
     toolId: node.config.toolId,

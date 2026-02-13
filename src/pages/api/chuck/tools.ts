@@ -6,18 +6,28 @@
 import type { APIRoute } from 'astro';
 import toolsData from '../../../lib/tools-extended.json';
 
+// Cache the flattened tools array at module level for performance
+let cachedTools: any[] | null = null;
+
+function getAllTools(): any[] {
+  if (!cachedTools) {
+    cachedTools = [];
+    Object.values(toolsData.categories).forEach((cat: any) => {
+      cachedTools = cachedTools!.concat(cat.tools);
+    });
+  }
+  return cachedTools;
+}
+
 export const GET: APIRoute = async ({ url }) => {
   try {
     const category = url.searchParams.get('category');
     const type = url.searchParams.get('type');
-    const minScore = parseInt(url.searchParams.get('minScore') || '0');
+    const minScoreParam = url.searchParams.get('minScore');
+    const parsedMinScore = parseInt(minScoreParam || '0', 10);
+    const minScore = Number.isNaN(parsedMinScore) ? 0 : parsedMinScore;
 
-    let tools: any[] = [];
-
-    // Collect all tools from all categories
-    Object.values(toolsData.categories).forEach((cat: any) => {
-      tools = tools.concat(cat.tools);
-    });
+    let tools = getAllTools();
 
     // Apply filters
     if (category) {
