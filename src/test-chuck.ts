@@ -4,7 +4,7 @@
  */
 
 import { calculateConnectionScore, getCompatibleTools, findBestToolsForWorkflow } from '../lib/compatibilityMatrix';
-import { calculateQuality, detectCycles, validateWorkflow } from '../lib/workflowScoring';
+import { scoreWorkflow, detectCycles, validateWorkflow } from '../lib/workflowScoring';
 import { createAIAgentNode, createProcessorNode, createOutputNode } from './nodes/universal';
 import toolsData from '../lib/tools.json';
 import type { Tool } from '../lib/compatibilityMatrix';
@@ -50,15 +50,15 @@ console.log('');
 
 // Test 4: Workflow Scoring - Simple Linear Workflow
 console.log('=== Test 4: Workflow Scoring - Linear Workflow ===');
-const node1 = createAIAgentNode('chatgpt-4');
-const node2 = createProcessorNode('transform');
-const node3 = createOutputNode('email');
+const node1 = createAIAgentNode('node1', 'chatgpt-4');
+const node2 = createProcessorNode('node2', 'transform');
+const node3 = createOutputNode('node3', 'email');
 
 const linearWorkflow = {
   nodes: [
-    { id: node1.id, toolId: 'chatgpt-4', type: node1.type },
-    { id: node2.id, toolId: '', type: node2.type },
-    { id: node3.id, toolId: '', type: node3.type },
+    { id: node1.id, toolId: 'chatgpt-4', type: node1.type, category: 'AI' },
+    { id: node2.id, toolId: '', type: node2.type, category: 'processing' },
+    { id: node3.id, toolId: '', type: node3.type, category: 'output' },
   ],
   edges: [
     { from: node1.id, to: node2.id },
@@ -66,19 +66,26 @@ const linearWorkflow = {
   ],
 };
 
-const linearScore = calculateQuality(linearWorkflow);
+// Since scoreWorkflow requires toolsData, let's create a simple mock
+const mockToolsData = [
+  { id: 'chatgpt-4', type: 'AI_AGENT', category: 'AI', score: 95 },
+  { id: 'transform', type: 'PROCESSOR', category: 'processing', score: 85 },
+  { id: 'email', type: 'OUTPUT', category: 'output', score: 90 },
+];
+
+const linearScore = scoreWorkflow(linearWorkflow, mockToolsData);
 console.log('Linear workflow (3 nodes, 2 edges):');
-console.log(`  Overall Score: ${linearScore.overall}%`);
-console.log('  Breakdown:');
-console.log(`    Structure: ${linearScore.breakdown.structure}%`);
-console.log(`    Efficiency: ${linearScore.breakdown.efficiency}%`);
-console.log(`    Reliability: ${linearScore.breakdown.reliability}%`);
-console.log(`    Complexity: ${linearScore.breakdown.complexity}%`);
+console.log(`  Quality Score: ${linearScore.quality}%`);
+console.log(`  Compatibility Score: ${linearScore.compatibilityScore}%`);
+console.log(`  Has Cycles: ${linearScore.hasCycles}`);
+if (linearScore.executionOrder) {
+  console.log(`  Execution Order: ${linearScore.executionOrder.join(' → ')}`);
+}
 if (linearScore.issues.length > 0) {
   console.log('  Issues:', linearScore.issues);
 }
-if (linearScore.suggestions.length > 0) {
-  console.log('  Suggestions:', linearScore.suggestions);
+if (linearScore.recommendations.length > 0) {
+  console.log('  Recommendations:', linearScore.recommendations);
 }
 console.log('');
 
@@ -86,15 +93,15 @@ console.log('');
 console.log('=== Test 5: Cycle Detection ===');
 
 // Workflow with a cycle
-const cycleNode1 = createAIAgentNode('chatgpt-4');
-const cycleNode2 = createProcessorNode('transform');
-const cycleNode3 = createOutputNode('email');
+const cycleNode1 = createAIAgentNode('cycle1', 'chatgpt-4');
+const cycleNode2 = createProcessorNode('cycle2', 'transform');
+const cycleNode3 = createOutputNode('cycle3', 'email');
 
 const cyclicWorkflow = {
   nodes: [
-    { id: cycleNode1.id, toolId: 'chatgpt-4', type: cycleNode1.type },
-    { id: cycleNode2.id, toolId: '', type: cycleNode2.type },
-    { id: cycleNode3.id, toolId: '', type: cycleNode3.type },
+    { id: cycleNode1.id, toolId: 'chatgpt-4', type: cycleNode1.type, category: 'AI' },
+    { id: cycleNode2.id, toolId: '', type: cycleNode2.type, category: 'processing' },
+    { id: cycleNode3.id, toolId: '', type: cycleNode3.type, category: 'output' },
   ],
   edges: [
     { from: cycleNode1.id, to: cycleNode2.id },
@@ -103,16 +110,16 @@ const cyclicWorkflow = {
   ],
 };
 
-const cycles = detectCycles(cyclicWorkflow.nodes, cyclicWorkflow.edges);
-console.log(`Cyclic workflow has ${cycles.length} cycle(s)`);
-if (cycles.length > 0) {
-  cycles.forEach((cycle, i) => {
+const cycleResult = detectCycles(cyclicWorkflow);
+console.log(`Cyclic workflow has ${cycleResult.cycles.length} cycle(s)`);
+if (cycleResult.cycles.length > 0) {
+  cycleResult.cycles.forEach((cycle, i) => {
     console.log(`  Cycle ${i + 1}: ${cycle.join(' → ')}`);
   });
 }
 
-const cyclicScore = calculateQuality(cyclicWorkflow);
-console.log(`Cyclic workflow score: ${cyclicScore.overall}% (penalty for cycles)`);
+const cyclicScore = scoreWorkflow(cyclicWorkflow, mockToolsData);
+console.log(`Cyclic workflow score: ${cyclicScore.quality}% (penalty for cycles)`);
 console.log('');
 
 // Test 6: Validation
@@ -136,9 +143,9 @@ console.log('');
 
 // Test 7: Universal Nodes
 console.log('=== Test 7: Universal Nodes ===');
-const aiNode = createAIAgentNode('deepseek-coder', { 
+const aiNode = createAIAgentNode('ai-node-1', 'deepseek-coder', { 
   prompt: 'Write a function',
-  temperature: 0.7 
+  parameters: { temperature: 0.7 }
 });
 console.log('AI_AGENT node created:');
 console.log(`  ID: ${aiNode.id}`);
@@ -146,20 +153,22 @@ console.log(`  Type: ${aiNode.type}`);
 console.log(`  Tool: ${aiNode.config.toolId}`);
 console.log(`  Prompt: ${aiNode.config.prompt}`);
 
-const processorNode = createProcessorNode('scrape', {
-  url: 'https://example.com',
-  selector: '.content',
+const processorNode = createProcessorNode('proc-node-1', 'scrape', {
+  source: 'https://example.com',
+  options: { selector: '.content' }
 });
 console.log('PROCESSOR node created:');
 console.log(`  ID: ${processorNode.id}`);
-console.log(`  Type: ${processorNode.config.processorType}`);
+console.log(`  Type: ${processorNode.type}`);
+console.log(`  Operation: ${processorNode.config.operation}`);
 
-const outputNode = createOutputNode('pdf', {
-  pdfOptions: { format: 'A4' },
+const outputNode = createOutputNode('output-node-1', 'pdf', {
+  options: { pdfOptions: { format: 'A4' } }
 });
 console.log('OUTPUT node created:');
 console.log(`  ID: ${outputNode.id}`);
-console.log(`  Type: ${outputNode.config.outputType}`);
+console.log(`  Type: ${outputNode.type}`);
+console.log(`  Destination: ${outputNode.config.destination}`);
 console.log('');
 
 // Summary
