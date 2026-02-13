@@ -1,0 +1,1731 @@
+[
+  {
+    "id": "chatgpt-4",
+    "name": "ChatGPT-4",
+    "namePl": "ChatGPT-4",
+    "type": "writer",
+    "workflows": ["content", "email", "chat"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 75,
+      "creativity": 90,
+      "technical": 85
+    }
+  },
+  {
+    "id": "claude-sonnet",
+    "name": "Claude Sonnet 4.5",
+    "namePl": "Claude Sonnet 4.5",
+    "type": "writer",
+    "workflows": ["content", "analysis", "code"],
+    "scoreMatrix": {
+      "quality": 98,
+      "speed": 80,
+      "creativity": 95,
+      "technical": 92
+    }
+  },
+  {
+    "id": "gemini-pro",
+    "name": "Gemini Pro",
+    "namePl": "Gemini Pro",
+    "type": "writer",
+    "workflows": ["content", "research", "multimodal"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 85,
+      "creativity": 88,
+      "technical": 90
+    }
+  },
+  {
+    "id": "deepseek-coder",
+    "name": "DeepSeek Coder",
+    "namePl": "DeepSeek Koder",
+    "type": "code",
+    "workflows": ["coding", "debug", "refactor"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 70,
+      "technical": 98
+    }
+  },
+  {
+    "id": "copilot",
+    "name": "GitHub Copilot",
+    "namePl": "GitHub Copilot",
+    "type": "code",
+    "workflows": ["coding", "autocomplete"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 95,
+      "creativity": 75,
+      "technical": 90
+    }
+  },
+  {
+    "id": "midjourney",
+    "name": "Midjourney",
+    "namePl": "Midjourney",
+    "type": "design",
+    "workflows": ["image-gen", "creative"],
+    "scoreMatrix": {
+      "quality": 98,
+      "speed": 60,
+      "creativity": 99,
+      "technical": 75
+    }
+  },
+  {
+    "id": "dall-e-3",
+    "name": "DALL-E 3",
+    "namePl": "DALL-E 3",
+    "type": "design",
+    "workflows": ["image-gen"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 70,
+      "creativity": 95,
+      "technical": 80
+    }
+  },
+  {
+    "id": "stable-diffusion",
+    "name": "Stable Diffusion XL",
+    "namePl": "Stable Diffusion XL",
+    "type": "design",
+    "workflows": ["image-gen", "local"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 90,
+      "technical": 85
+    }
+  },
+  {
+    "id": "canva-ai",
+    "name": "Canva AI",
+    "namePl": "Canva AI",
+    "type": "design",
+    "workflows": ["design", "templates"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 88,
+      "technical": 70
+    }
+  },
+  {
+    "id": "figma-ai",
+    "name": "Figma AI",
+    "namePl": "Figma AI",
+    "type": "design",
+    "workflows": ["ui-design", "prototyping"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 85,
+      "creativity": 92,
+      "technical": 88
+    }
+  },
+  {
+    "id": "jasper",
+    "name": "Jasper AI",
+    "namePl": "Jasper AI",
+    "type": "writer",
+    "workflows": ["marketing", "content"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 75
+    }
+  },
+  {
+    "id": "copy-ai",
+    "name": "Copy.ai",
+    "namePl": "Copy.ai",
+    "type": "writer",
+    "workflows": ["marketing", "social"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 70
+    }
+  },
+  {
+    "id": "grammarly",
+    "name": "Grammarly AI",
+    "namePl": "Grammarly AI",
+    "type": "writer",
+    "workflows": ["editing", "proofreading"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 95,
+      "creativity": 60,
+      "technical": 85
+    }
+  },
+  {
+    "id": "notion-ai",
+    "name": "Notion AI",
+    "namePl": "Notion AI",
+    "type": "productivity",
+    "workflows": ["notes", "content", "organization"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 82,
+      "technical": 80
+    }
+  },
+  {
+    "id": "zapier-ai",
+    "name": "Zapier AI",
+    "namePl": "Zapier AI",
+    "type": "automation",
+    "workflows": ["automation", "integration"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 75,
+      "technical": 90
+    }
+  },
+  {
+    "id": "make-ai",
+    "name": "Make (Integromat) AI",
+    "namePl": "Make AI",
+    "type": "automation",
+    "workflows": ["automation", "workflow"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 82,
+      "creativity": 78,
+      "technical": 92
+    }
+  },
+  {
+    "id": "chatbot-gpt",
+    "name": "Custom GPT Chatbot",
+    "namePl": "Chatbot GPT",
+    "type": "social",
+    "workflows": ["chat", "support"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 80,
+      "technical": 85
+    }
+  },
+  {
+    "id": "perplexity",
+    "name": "Perplexity AI",
+    "namePl": "Perplexity AI",
+    "type": "research",
+    "workflows": ["research", "search"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 90,
+      "creativity": 70,
+      "technical": 88
+    }
+  },
+  {
+    "id": "you-chat",
+    "name": "You.com Chat",
+    "namePl": "You.com Chat",
+    "type": "research",
+    "workflows": ["research", "search", "chat"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 75,
+      "technical": 82
+    }
+  },
+  {
+    "id": "bing-chat",
+    "name": "Microsoft Copilot (Bing)",
+    "namePl": "Microsoft Copilot",
+    "type": "research",
+    "workflows": ["research", "search", "chat"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 88,
+      "creativity": 80,
+      "technical": 85
+    }
+  },
+  {
+    "id": "github-copilot-x",
+    "name": "GitHub Copilot X",
+    "namePl": "GitHub Copilot X",
+    "type": "code",
+    "workflows": ["coding", "chat", "debug"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 95
+    }
+  },
+  {
+    "id": "tabnine",
+    "name": "Tabnine",
+    "namePl": "Tabnine",
+    "type": "code",
+    "workflows": ["coding", "autocomplete"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 95,
+      "creativity": 70,
+      "technical": 88
+    }
+  },
+  {
+    "id": "codeium",
+    "name": "Codeium",
+    "namePl": "Codeium",
+    "type": "code",
+    "workflows": ["coding", "autocomplete", "chat"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 93,
+      "creativity": 75,
+      "technical": 90
+    }
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor AI",
+    "namePl": "Cursor AI",
+    "type": "code",
+    "workflows": ["coding", "ide", "refactor"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 95
+    }
+  },
+  {
+    "id": "replit-ai",
+    "name": "Replit AI",
+    "namePl": "Replit AI",
+    "type": "code",
+    "workflows": ["coding", "collaboration"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 90,
+      "creativity": 78,
+      "technical": 85
+    }
+  },
+  {
+    "id": "runway-ml",
+    "name": "Runway ML",
+    "namePl": "Runway ML",
+    "type": "video",
+    "workflows": ["video-gen", "editing"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 65,
+      "creativity": 95,
+      "technical": 85
+    }
+  },
+  {
+    "id": "synthesia",
+    "name": "Synthesia",
+    "namePl": "Synthesia",
+    "type": "video",
+    "workflows": ["video-gen", "avatar"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 80,
+      "creativity": 85,
+      "technical": 82
+    }
+  },
+  {
+    "id": "pictory",
+    "name": "Pictory AI",
+    "namePl": "Pictory AI",
+    "type": "video",
+    "workflows": ["video-gen", "content"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 85,
+      "creativity": 80,
+      "technical": 75
+    }
+  },
+  {
+    "id": "descript",
+    "name": "Descript",
+    "namePl": "Descript",
+    "type": "video",
+    "workflows": ["video-editing", "audio", "transcription"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 90
+    }
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs",
+    "namePl": "ElevenLabs",
+    "type": "audio",
+    "workflows": ["voice-gen", "tts"],
+    "scoreMatrix": {
+      "quality": 98,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 88
+    }
+  },
+  {
+    "id": "murf-ai",
+    "name": "Murf AI",
+    "namePl": "Murf AI",
+    "type": "audio",
+    "workflows": ["voice-gen", "tts"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 80,
+      "technical": 82
+    }
+  },
+  {
+    "id": "play-ht",
+    "name": "Play.ht",
+    "namePl": "Play.ht",
+    "type": "audio",
+    "workflows": ["voice-gen", "tts"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 78,
+      "technical": 80
+    }
+  },
+  {
+    "id": "suno-ai",
+    "name": "Suno AI",
+    "namePl": "Suno AI",
+    "type": "audio",
+    "workflows": ["music-gen"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 75,
+      "creativity": 95,
+      "technical": 85
+    }
+  },
+  {
+    "id": "udio",
+    "name": "Udio",
+    "namePl": "Udio",
+    "type": "audio",
+    "workflows": ["music-gen"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 78,
+      "creativity": 93,
+      "technical": 83
+    }
+  },
+  {
+    "id": "adobe-firefly",
+    "name": "Adobe Firefly",
+    "namePl": "Adobe Firefly",
+    "type": "design",
+    "workflows": ["image-gen", "editing"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 82,
+      "creativity": 92,
+      "technical": 90
+    }
+  },
+  {
+    "id": "leonardo-ai",
+    "name": "Leonardo AI",
+    "namePl": "Leonardo AI",
+    "type": "design",
+    "workflows": ["image-gen", "game-assets"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 85,
+      "creativity": 88,
+      "technical": 85
+    }
+  },
+  {
+    "id": "ideogram",
+    "name": "Ideogram",
+    "namePl": "Ideogram",
+    "type": "design",
+    "workflows": ["image-gen", "text-render"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 80,
+      "creativity": 85,
+      "technical": 82
+    }
+  },
+  {
+    "id": "brandmark",
+    "name": "Brandmark",
+    "namePl": "Brandmark",
+    "type": "design",
+    "workflows": ["logo-design"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 95,
+      "creativity": 82,
+      "technical": 75
+    }
+  },
+  {
+    "id": "looka",
+    "name": "Looka",
+    "namePl": "Looka",
+    "type": "design",
+    "workflows": ["logo-design", "branding"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 92,
+      "creativity": 85,
+      "technical": 78
+    }
+  },
+  {
+    "id": "remove-bg",
+    "name": "Remove.bg",
+    "namePl": "Remove.bg",
+    "type": "design",
+    "workflows": ["image-editing", "background-removal"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 98,
+      "creativity": 60,
+      "technical": 90
+    }
+  },
+  {
+    "id": "upscale-ai",
+    "name": "Upscale AI",
+    "namePl": "Upscale AI",
+    "type": "design",
+    "workflows": ["image-editing", "enhancement"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 85,
+      "creativity": 65,
+      "technical": 88
+    }
+  },
+  {
+    "id": "lumen5",
+    "name": "Lumen5",
+    "namePl": "Lumen5",
+    "type": "video",
+    "workflows": ["video-gen", "social"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 88,
+      "creativity": 78,
+      "technical": 75
+    }
+  },
+  {
+    "id": "heygen",
+    "name": "HeyGen",
+    "namePl": "HeyGen",
+    "type": "video",
+    "workflows": ["video-gen", "avatar", "translation"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 82,
+      "creativity": 88,
+      "technical": 85
+    }
+  },
+  {
+    "id": "fliki",
+    "name": "Fliki",
+    "namePl": "Fliki",
+    "type": "video",
+    "workflows": ["video-gen", "tts", "content"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 82,
+      "technical": 80
+    }
+  },
+  {
+    "id": "invideo",
+    "name": "InVideo AI",
+    "namePl": "InVideo AI",
+    "type": "video",
+    "workflows": ["video-gen", "editing"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 85,
+      "technical": 82
+    }
+  },
+  {
+    "id": "whisper",
+    "name": "OpenAI Whisper",
+    "namePl": "OpenAI Whisper",
+    "type": "audio",
+    "workflows": ["transcription", "translation"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 88,
+      "creativity": 60,
+      "technical": 92
+    }
+  },
+  {
+    "id": "assemblyai",
+    "name": "AssemblyAI",
+    "namePl": "AssemblyAI",
+    "type": "audio",
+    "workflows": ["transcription", "analysis"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 90,
+      "creativity": 65,
+      "technical": 90
+    }
+  },
+  {
+    "id": "otter-ai",
+    "name": "Otter.ai",
+    "namePl": "Otter.ai",
+    "type": "audio",
+    "workflows": ["transcription", "notes"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 92,
+      "creativity": 70,
+      "technical": 85
+    }
+  },
+  {
+    "id": "fireflies-ai",
+    "name": "Fireflies.ai",
+    "namePl": "Fireflies.ai",
+    "type": "audio",
+    "workflows": ["transcription", "meeting-notes"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 88
+    }
+  },
+  {
+    "id": "chatpdf",
+    "name": "ChatPDF",
+    "namePl": "ChatPDF",
+    "type": "research",
+    "workflows": ["document-analysis", "qa"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 70,
+      "technical": 85
+    }
+  },
+  {
+    "id": "humata",
+    "name": "Humata AI",
+    "namePl": "Humata AI",
+    "type": "research",
+    "workflows": ["document-analysis", "research"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 75,
+      "technical": 88
+    }
+  },
+  {
+    "id": "elicit",
+    "name": "Elicit",
+    "namePl": "Elicit",
+    "type": "research",
+    "workflows": ["research", "literature-review"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 80,
+      "creativity": 78,
+      "technical": 90
+    }
+  },
+  {
+    "id": "consensus",
+    "name": "Consensus",
+    "namePl": "Consensus",
+    "type": "research",
+    "workflows": ["research", "scientific"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 82,
+      "creativity": 70,
+      "technical": 92
+    }
+  },
+  {
+    "id": "scite-ai",
+    "name": "Scite AI",
+    "namePl": "Scite AI",
+    "type": "research",
+    "workflows": ["research", "citation-check"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 68,
+      "technical": 90
+    }
+  },
+  {
+    "id": "claude-ai",
+    "name": "Claude AI",
+    "namePl": "Claude AI",
+    "type": "writer",
+    "workflows": ["content", "analysis", "coding"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 82,
+      "creativity": 92,
+      "technical": 90
+    }
+  },
+  {
+    "id": "bard",
+    "name": "Google Bard",
+    "namePl": "Google Bard",
+    "type": "writer",
+    "workflows": ["content", "research", "coding"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 88
+    }
+  },
+  {
+    "id": "llama-3",
+    "name": "Meta Llama 3",
+    "namePl": "Meta Llama 3",
+    "type": "writer",
+    "workflows": ["content", "chat", "coding"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 90
+    }
+  },
+  {
+    "id": "mistral-ai",
+    "name": "Mistral AI",
+    "namePl": "Mistral AI",
+    "type": "writer",
+    "workflows": ["content", "coding"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 92,
+      "creativity": 82,
+      "technical": 90
+    }
+  },
+  {
+    "id": "cohere",
+    "name": "Cohere",
+    "namePl": "Cohere",
+    "type": "writer",
+    "workflows": ["content", "classification"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 80,
+      "technical": 88
+    }
+  },
+  {
+    "id": "anthropic",
+    "name": "Anthropic",
+    "namePl": "Anthropic",
+    "type": "writer",
+    "workflows": ["content", "analysis", "safety"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 80,
+      "creativity": 90,
+      "technical": 92
+    }
+  },
+  {
+    "id": "quillbot",
+    "name": "QuillBot",
+    "namePl": "QuillBot",
+    "type": "writer",
+    "workflows": ["paraphrasing", "summarization"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 95,
+      "creativity": 75,
+      "technical": 78
+    }
+  },
+  {
+    "id": "wordtune",
+    "name": "Wordtune",
+    "namePl": "Wordtune",
+    "type": "writer",
+    "workflows": ["rewriting", "editing"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 80
+    }
+  },
+  {
+    "id": "rytr",
+    "name": "Rytr",
+    "namePl": "Rytr",
+    "type": "writer",
+    "workflows": ["content", "marketing"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 90,
+      "creativity": 75,
+      "technical": 70
+    }
+  },
+  {
+    "id": "writesonic",
+    "name": "Writesonic",
+    "namePl": "Writesonic",
+    "type": "writer",
+    "workflows": ["content", "marketing", "social"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 92,
+      "creativity": 78,
+      "technical": 72
+    }
+  },
+  {
+    "id": "contentbot",
+    "name": "ContentBot",
+    "namePl": "ContentBot",
+    "type": "writer",
+    "workflows": ["content", "blog"],
+    "scoreMatrix": {
+      "quality": 75,
+      "speed": 88,
+      "creativity": 72,
+      "technical": 68
+    }
+  },
+  {
+    "id": "frase",
+    "name": "Frase",
+    "namePl": "Frase",
+    "type": "writer",
+    "workflows": ["content", "seo"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 85,
+      "creativity": 75,
+      "technical": 80
+    }
+  },
+  {
+    "id": "surfer-seo",
+    "name": "Surfer SEO",
+    "namePl": "Surfer SEO",
+    "type": "analytics",
+    "workflows": ["seo", "content-optimization"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 82,
+      "creativity": 70,
+      "technical": 85
+    }
+  },
+  {
+    "id": "clearscope",
+    "name": "Clearscope",
+    "namePl": "Clearscope",
+    "type": "analytics",
+    "workflows": ["seo", "content-optimization"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 80,
+      "creativity": 68,
+      "technical": 82
+    }
+  },
+  {
+    "id": "marketmuse",
+    "name": "MarketMuse",
+    "namePl": "MarketMuse",
+    "type": "analytics",
+    "workflows": ["seo", "content-strategy"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 78,
+      "creativity": 75,
+      "technical": 88
+    }
+  },
+  {
+    "id": "semrush-ai",
+    "name": "Semrush AI",
+    "namePl": "Semrush AI",
+    "type": "analytics",
+    "workflows": ["seo", "marketing"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 85,
+      "creativity": 78,
+      "technical": 90
+    }
+  },
+  {
+    "id": "ahrefs-ai",
+    "name": "Ahrefs AI",
+    "namePl": "Ahrefs AI",
+    "type": "analytics",
+    "workflows": ["seo", "backlink-analysis"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 82,
+      "creativity": 72,
+      "technical": 88
+    }
+  },
+  {
+    "id": "hootsuite-ai",
+    "name": "Hootsuite AI",
+    "namePl": "Hootsuite AI",
+    "type": "social",
+    "workflows": ["social-management", "scheduling"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 90,
+      "creativity": 78,
+      "technical": 80
+    }
+  },
+  {
+    "id": "buffer-ai",
+    "name": "Buffer AI",
+    "namePl": "Buffer AI",
+    "type": "social",
+    "workflows": ["social-management", "analytics"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 92,
+      "creativity": 75,
+      "technical": 78
+    }
+  },
+  {
+    "id": "sprout-social",
+    "name": "Sprout Social",
+    "namePl": "Sprout Social",
+    "type": "social",
+    "workflows": ["social-management", "crm"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 80,
+      "technical": 85
+    }
+  },
+  {
+    "id": "brandwatch",
+    "name": "Brandwatch AI",
+    "namePl": "Brandwatch AI",
+    "type": "social",
+    "workflows": ["social-listening", "analytics"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 82,
+      "creativity": 75,
+      "technical": 88
+    }
+  },
+  {
+    "id": "socialbee",
+    "name": "SocialBee",
+    "namePl": "SocialBee",
+    "type": "social",
+    "workflows": ["social-management", "content"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 75
+    }
+  },
+  {
+    "id": "monday-ai",
+    "name": "Monday.com AI",
+    "namePl": "Monday.com AI",
+    "type": "productivity",
+    "workflows": ["project-management", "automation"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 85
+    }
+  },
+  {
+    "id": "asana-ai",
+    "name": "Asana AI",
+    "namePl": "Asana AI",
+    "type": "productivity",
+    "workflows": ["project-management", "workflow"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 78,
+      "technical": 88
+    }
+  },
+  {
+    "id": "trello-ai",
+    "name": "Trello AI",
+    "namePl": "Trello AI",
+    "type": "productivity",
+    "workflows": ["project-management", "kanban"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 90,
+      "creativity": 75,
+      "technical": 80
+    }
+  },
+  {
+    "id": "clickup-ai",
+    "name": "ClickUp AI",
+    "namePl": "ClickUp AI",
+    "type": "productivity",
+    "workflows": ["project-management", "docs"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 80,
+      "technical": 85
+    }
+  },
+  {
+    "id": "airtable-ai",
+    "name": "Airtable AI",
+    "namePl": "Airtable AI",
+    "type": "productivity",
+    "workflows": ["database", "automation"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 85,
+      "creativity": 82,
+      "technical": 90
+    }
+  },
+  {
+    "id": "smartsheet-ai",
+    "name": "Smartsheet AI",
+    "namePl": "Smartsheet AI",
+    "type": "productivity",
+    "workflows": ["project-management", "collaboration"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 82,
+      "creativity": 75,
+      "technical": 85
+    }
+  },
+  {
+    "id": "reclaim-ai",
+    "name": "Reclaim AI",
+    "namePl": "Reclaim AI",
+    "type": "productivity",
+    "workflows": ["scheduling", "calendar"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 92,
+      "creativity": 78,
+      "technical": 85
+    }
+  },
+  {
+    "id": "motion-ai",
+    "name": "Motion",
+    "namePl": "Motion",
+    "type": "productivity",
+    "workflows": ["scheduling", "task-management"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 82,
+      "technical": 88
+    }
+  },
+  {
+    "id": "calendly-ai",
+    "name": "Calendly",
+    "namePl": "Calendly",
+    "type": "productivity",
+    "workflows": ["scheduling", "meetings"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 95,
+      "creativity": 70,
+      "technical": 82
+    }
+  },
+  {
+    "id": "tidycal",
+    "name": "TidyCal",
+    "namePl": "TidyCal",
+    "type": "productivity",
+    "workflows": ["scheduling"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 92,
+      "creativity": 68,
+      "technical": 75
+    }
+  },
+  {
+    "id": "superhuman",
+    "name": "Superhuman",
+    "namePl": "Superhuman",
+    "type": "productivity",
+    "workflows": ["email", "productivity"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 95,
+      "creativity": 80,
+      "technical": 88
+    }
+  },
+  {
+    "id": "gmail-ai",
+    "name": "Gmail AI",
+    "namePl": "Gmail AI",
+    "type": "productivity",
+    "workflows": ["email", "smart-compose"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 75,
+      "technical": 85
+    }
+  },
+  {
+    "id": "microsoft365-ai",
+    "name": "Microsoft 365 Copilot",
+    "namePl": "Microsoft 365 Copilot",
+    "type": "productivity",
+    "workflows": ["office", "productivity"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 92
+    }
+  },
+  {
+    "id": "google-workspace-ai",
+    "name": "Google Workspace AI",
+    "namePl": "Google Workspace AI",
+    "type": "productivity",
+    "workflows": ["office", "collaboration"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 82,
+      "technical": 88
+    }
+  },
+  {
+    "id": "salesforce-einstein",
+    "name": "Salesforce Einstein",
+    "namePl": "Salesforce Einstein",
+    "type": "crm",
+    "workflows": ["crm", "sales", "analytics"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 85,
+      "creativity": 78,
+      "technical": 92
+    }
+  },
+  {
+    "id": "hubspot-ai",
+    "name": "HubSpot AI",
+    "namePl": "HubSpot AI",
+    "type": "crm",
+    "workflows": ["crm", "marketing", "sales"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 82,
+      "technical": 90
+    }
+  },
+  {
+    "id": "pipedrive-ai",
+    "name": "Pipedrive AI",
+    "namePl": "Pipedrive AI",
+    "type": "crm",
+    "workflows": ["crm", "sales"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 85
+    }
+  },
+  {
+    "id": "zendesk-ai",
+    "name": "Zendesk AI",
+    "namePl": "Zendesk AI",
+    "type": "crm",
+    "workflows": ["support", "ticketing"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 78,
+      "technical": 88
+    }
+  },
+  {
+    "id": "intercom-ai",
+    "name": "Intercom AI",
+    "namePl": "Intercom AI",
+    "type": "crm",
+    "workflows": ["support", "chat"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 92,
+      "creativity": 82,
+      "technical": 90
+    }
+  },
+  {
+    "id": "drift-ai",
+    "name": "Drift AI",
+    "namePl": "Drift AI",
+    "type": "crm",
+    "workflows": ["chat", "conversational-marketing"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 85
+    }
+  },
+  {
+    "id": "chatbase",
+    "name": "Chatbase",
+    "namePl": "Chatbase",
+    "type": "social",
+    "workflows": ["chatbot", "custom"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 82
+    }
+  },
+  {
+    "id": "botsonic",
+    "name": "Botsonic",
+    "namePl": "Botsonic",
+    "type": "social",
+    "workflows": ["chatbot", "support"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 90,
+      "creativity": 75,
+      "technical": 80
+    }
+  },
+  {
+    "id": "landbot",
+    "name": "Landbot",
+    "namePl": "Landbot",
+    "type": "social",
+    "workflows": ["chatbot", "conversational"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 82,
+      "technical": 85
+    }
+  },
+  {
+    "id": "manychat",
+    "name": "ManyChat",
+    "namePl": "ManyChat",
+    "type": "social",
+    "workflows": ["chatbot", "messenger"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 90,
+      "creativity": 78,
+      "technical": 82
+    }
+  },
+  {
+    "id": "chatfuel",
+    "name": "Chatfuel",
+    "namePl": "Chatfuel",
+    "type": "social",
+    "workflows": ["chatbot", "messenger"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 80
+    }
+  },
+  {
+    "id": "tidio",
+    "name": "Tidio",
+    "namePl": "Tidio",
+    "type": "social",
+    "workflows": ["chatbot", "live-chat"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 92,
+      "creativity": 72,
+      "technical": 78
+    }
+  },
+  {
+    "id": "crisp-ai",
+    "name": "Crisp AI",
+    "namePl": "Crisp AI",
+    "type": "social",
+    "workflows": ["chatbot", "live-chat"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 90,
+      "creativity": 75,
+      "technical": 80
+    }
+  },
+  {
+    "id": "tawk-to",
+    "name": "Tawk.to",
+    "namePl": "Tawk.to",
+    "type": "social",
+    "workflows": ["live-chat", "support"],
+    "scoreMatrix": {
+      "quality": 75,
+      "speed": 95,
+      "creativity": 68,
+      "technical": 75
+    }
+  },
+  {
+    "id": "beautiful-ai",
+    "name": "Beautiful.ai",
+    "namePl": "Beautiful.ai",
+    "type": "design",
+    "workflows": ["presentations"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 80
+    }
+  },
+  {
+    "id": "gamma-ai",
+    "name": "Gamma AI",
+    "namePl": "Gamma AI",
+    "type": "design",
+    "workflows": ["presentations", "documents"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 88,
+      "creativity": 88,
+      "technical": 85
+    }
+  },
+  {
+    "id": "tome-ai",
+    "name": "Tome",
+    "namePl": "Tome",
+    "type": "design",
+    "workflows": ["presentations", "storytelling"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 85,
+      "creativity": 90,
+      "technical": 85
+    }
+  },
+  {
+    "id": "slidesai",
+    "name": "SlidesAI",
+    "namePl": "SlidesAI",
+    "type": "design",
+    "workflows": ["presentations"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 78
+    }
+  },
+  {
+    "id": "designs-ai",
+    "name": "Designs.ai",
+    "namePl": "Designs.ai",
+    "type": "design",
+    "workflows": ["design", "branding", "video"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 82
+    }
+  },
+  {
+    "id": "uizard",
+    "name": "Uizard",
+    "namePl": "Uizard",
+    "type": "design",
+    "workflows": ["ui-design", "prototyping"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 82,
+      "technical": 85
+    }
+  },
+  {
+    "id": "framer-ai",
+    "name": "Framer AI",
+    "namePl": "Framer AI",
+    "type": "design",
+    "workflows": ["web-design", "prototyping"],
+    "scoreMatrix": {
+      "quality": 92,
+      "speed": 85,
+      "creativity": 90,
+      "technical": 90
+    }
+  },
+  {
+    "id": "webflow-ai",
+    "name": "Webflow AI",
+    "namePl": "Webflow AI",
+    "type": "design",
+    "workflows": ["web-design", "no-code"],
+    "scoreMatrix": {
+      "quality": 90,
+      "speed": 82,
+      "creativity": 88,
+      "technical": 88
+    }
+  },
+  {
+    "id": "durable-ai",
+    "name": "Durable AI",
+    "namePl": "Durable AI",
+    "type": "design",
+    "workflows": ["website-builder"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 95,
+      "creativity": 75,
+      "technical": 75
+    }
+  },
+  {
+    "id": "wix-ai",
+    "name": "Wix AI",
+    "namePl": "Wix AI",
+    "type": "design",
+    "workflows": ["website-builder"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 92,
+      "creativity": 80,
+      "technical": 78
+    }
+  },
+  {
+    "id": "10web",
+    "name": "10Web AI",
+    "namePl": "10Web AI",
+    "type": "design",
+    "workflows": ["website-builder", "wordpress"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 82,
+      "technical": 85
+    }
+  },
+  {
+    "id": "namelix",
+    "name": "Namelix",
+    "namePl": "Namelix",
+    "type": "design",
+    "workflows": ["naming", "branding"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 95,
+      "creativity": 85,
+      "technical": 70
+    }
+  },
+  {
+    "id": "business-name-generator",
+    "name": "Business Name Generator AI",
+    "namePl": "Generator Nazw Firm AI",
+    "type": "design",
+    "workflows": ["naming"],
+    "scoreMatrix": {
+      "quality": 75,
+      "speed": 98,
+      "creativity": 80,
+      "technical": 65
+    }
+  },
+  {
+    "id": "simplified",
+    "name": "Simplified",
+    "namePl": "Simplified",
+    "type": "design",
+    "workflows": ["design", "content", "social"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 80
+    }
+  },
+  {
+    "id": "creatopy",
+    "name": "Creatopy",
+    "namePl": "Creatopy",
+    "type": "design",
+    "workflows": ["ad-design", "animation"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 85,
+      "creativity": 82,
+      "technical": 78
+    }
+  },
+  {
+    "id": "visme",
+    "name": "Visme AI",
+    "namePl": "Visme AI",
+    "type": "design",
+    "workflows": ["infographics", "presentations"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 85,
+      "technical": 80
+    }
+  },
+  {
+    "id": "piktochart",
+    "name": "Piktochart AI",
+    "namePl": "Piktochart AI",
+    "type": "design",
+    "workflows": ["infographics", "reports"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 90,
+      "creativity": 82,
+      "technical": 78
+    }
+  },
+  {
+    "id": "snappa",
+    "name": "Snappa",
+    "namePl": "Snappa",
+    "type": "design",
+    "workflows": ["graphics", "social"],
+    "scoreMatrix": {
+      "quality": 78,
+      "speed": 92,
+      "creativity": 78,
+      "technical": 75
+    }
+  },
+  {
+    "id": "designify",
+    "name": "Designify",
+    "namePl": "Designify",
+    "type": "design",
+    "workflows": ["image-editing", "automatic"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 75,
+      "technical": 82
+    }
+  },
+  {
+    "id": "clipdrop",
+    "name": "ClipDrop",
+    "namePl": "ClipDrop",
+    "type": "design",
+    "workflows": ["image-editing", "ar"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 90,
+      "creativity": 85,
+      "technical": 85
+    }
+  },
+  {
+    "id": "hotpot-ai",
+    "name": "Hotpot AI",
+    "namePl": "Hotpot AI",
+    "type": "design",
+    "workflows": ["graphics", "templates"],
+    "scoreMatrix": {
+      "quality": 80,
+      "speed": 88,
+      "creativity": 80,
+      "technical": 75
+    }
+  },
+  {
+    "id": "autodraw",
+    "name": "AutoDraw",
+    "namePl": "AutoDraw",
+    "type": "design",
+    "workflows": ["drawing", "sketching"],
+    "scoreMatrix": {
+      "quality": 70,
+      "speed": 95,
+      "creativity": 75,
+      "technical": 70
+    }
+  },
+  {
+    "id": "khroma",
+    "name": "Khroma",
+    "namePl": "Khroma",
+    "type": "design",
+    "workflows": ["color-palette"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 92,
+      "creativity": 85,
+      "technical": 78
+    }
+  },
+  {
+    "id": "colormind",
+    "name": "Colormind",
+    "namePl": "Colormind",
+    "type": "design",
+    "workflows": ["color-palette"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 95,
+      "creativity": 82,
+      "technical": 75
+    }
+  },
+  {
+    "id": "fontjoy",
+    "name": "Fontjoy",
+    "namePl": "Fontjoy",
+    "type": "design",
+    "workflows": ["font-pairing"],
+    "scoreMatrix": {
+      "quality": 82,
+      "speed": 95,
+      "creativity": 85,
+      "technical": 72
+    }
+  },
+  {
+    "id": "bielik-ai",
+    "name": "Bielik 11B v2.6",
+    "namePl": "Bielik 11B v2.6",
+    "type": "writer",
+    "workflows": ["polish-content", "orchestration"],
+    "scoreMatrix": {
+      "quality": 88,
+      "speed": 85,
+      "creativity": 85,
+      "technical": 88
+    }
+  },
+  {
+    "id": "gemma-3",
+    "name": "Gemma 3 12B",
+    "namePl": "Gemma 3 12B",
+    "type": "writer",
+    "workflows": ["general", "fast-response"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 92,
+      "creativity": 82,
+      "technical": 85
+    }
+  },
+  {
+    "id": "llama-3-70b",
+    "name": "Llama 3.3 70B",
+    "namePl": "Llama 3.3 70B",
+    "type": "writer",
+    "workflows": ["reasoning", "analysis"],
+    "scoreMatrix": {
+      "quality": 95,
+      "speed": 75,
+      "creativity": 88,
+      "technical": 95
+    }
+  },
+  {
+    "id": "polaczek",
+    "name": "POLACZEK",
+    "namePl": "POLACZEK",
+    "type": "automation",
+    "workflows": ["browser-automation", "scraping"],
+    "scoreMatrix": {
+      "quality": 85,
+      "speed": 88,
+      "creativity": 75,
+      "technical": 92
+    }
+  }
+]

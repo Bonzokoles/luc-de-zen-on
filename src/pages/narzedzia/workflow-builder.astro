@@ -1,0 +1,69 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+---
+
+<MainLayout title="CHUCK Workflow Builder - AI Biznes Start">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div class="container mx-auto px-4 py-8">
+      <div class="mb-8 text-center">
+        <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          🎯 CHUCK Workflow Builder
+        </h1>
+        <p class="text-xl text-gray-600 mb-2">
+          System budowania workflow z 133 narzędziami AI
+        </p>
+        <p class="text-gray-500">
+          Jimbo Universal Nodes + CHUCK Scoring Engine
+        </p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h2 class="text-2xl font-bold mb-4">📚 Funkcjonalności</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="p-4 bg-blue-50 rounded-lg">
+            <h3 class="font-bold text-blue-900 mb-2">🎯 133 Narzędzi AI</h3>
+            <p class="text-sm text-gray-700">
+              Kompletna baza narzędzi z polskimi nazwami, typami i ocenami CHUCK
+            </p>
+          </div>
+          <div class="p-4 bg-purple-50 rounded-lg">
+            <h3 class="font-bold text-purple-900 mb-2">🔗 3 Universal Nodes</h3>
+            <p class="text-sm text-gray-700">
+              AI_AGENT, PROCESSOR (scrape/transform/export), OUTPUT (email/pdf/slack)
+            </p>
+          </div>
+          <div class="p-4 bg-green-50 rounded-lg">
+            <h3 class="font-bold text-green-900 mb-2">📊 CHUCK Scoring</h3>
+            <p class="text-sm text-gray-700">
+              Ocena jakości workflow, wykrywanie cykli, analiza kompatybilności
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-screen Workflow Builder -->
+    <div class="h-screen">
+      <div id="workflow-builder-root" class="h-full"></div>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  import { createRoot } from 'react-dom/client';
+  import { createElement } from 'react';
+  import WorkflowBuilder from '../../components/narzedzia/WorkflowBuilder';
+
+  const container = document.getElementById('workflow-builder-root');
+  if (container) {
+    const root = createRoot(container);
+    root.render(createElement(WorkflowBuilder));
+  }
+</script>
+
+<style>
+  /* Ensure full height for workflow builder */
+  #workflow-builder-root {
+    height: 100%;
+  }
+</style>
