@@ -1,0 +1,41 @@
+# Wrangler Configuration for CHUCK Proxy Worker
+
+name = "chuck-proxy"
+main = "workers/chuck-proxy.js"
+compatibility_date = "2025-11-05"
+
+# Worker configuration
+workers_dev = true
+route = "api.mybonzo.com/chuck/*"
+
+# KV Namespace for rate limiting
+[[kv_namespaces]]
+binding = "CHUCK_RATE_LIMIT"
+id = "YOUR_KV_NAMESPACE_ID" # Replace with actual KV namespace ID
+preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID"
+
+# Environment variables (non-sensitive)
+[env.production]
+vars = { }
+
+# Secrets (set via wrangler secret put)
+# SUPABASE_URL - Supabase project URL
+# SUPABASE_ANON_KEY - Supabase anonymous key  
+# CHUCK_TUNNEL_URL - Cloudflared tunnel URL
+
+# Routes for production
+[[env.production.routes]]
+pattern = "api.mybonzo.com/chuck/*"
+zone_name = "mybonzo.com"
+
+[[env.production.routes]]
+pattern = "api.mybonzo.com/health"
+zone_name = "mybonzo.com"
+
+# Development environment
+[env.development]
+name = "chuck-proxy-dev"
+
+[[env.development.kv_namespaces]]
+binding = "CHUCK_RATE_LIMIT"
+id = "YOUR_DEV_KV_NAMESPACE_ID" # Replace with dev KV namespace ID
