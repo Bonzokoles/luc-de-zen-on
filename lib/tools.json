@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "gpt-4-turbo",
+    "name": "GPT-4 Turbo",
+    "category": "text-generation",
+    "provider": "OpenAI",
+    "capabilities": ["text-generation", "conversation", "code-generation", "analysis", "reasoning"],
+    "compatibility": ["chat", "content-creation", "coding", "research", "translation"]
+  },
+  {
+    "id": "gpt-4",
+    "name": "GPT-4",
+    "category": "text-generation",
+    "provider": "OpenAI",
+    "capabilities": ["text-generation", "conversation", "code-generation", "multimodal", "reasoning"],
+    "compatibility": ["chat", "content-creation", "coding", "research", "image-analysis"]
+  },
+  {
+    "id": "gpt-3-5-turbo",
+    "name": "GPT-3.5 Turbo",
+    "category": "text-generation",
+    "provider": "OpenAI",
+    "capabilities": ["text-generation", "conversation", "code-generation"],
+    "compatibility": ["chat", "content-creation", "coding", "simple-tasks"]
+  },
+  {
+    "id": "claude-3-opus",
+    "name": "Claude 3 Opus",
+    "category": "text-generation",
+    "provider": "Anthropic",
+    "capabilities": ["text-generation", "conversation", "code-generation", "analysis", "reasoning", "long-context"],
+    "compatibility": ["chat", "content-creation", "coding", "research", "document-analysis"]
+  },
+  {
+    "id": "claude-3-sonnet",
+    "name": "Claude 3 Sonnet",
+    "category": "text-generation",
+    "provider": "Anthropic",
+    "capabilities": ["text-generation", "conversation", "code-generation", "analysis"],
+    "compatibility": ["chat", "content-creation", "coding", "research"]
+  },
+  {
+    "id": "claude-3-haiku",
+    "name": "Claude 3 Haiku",
+    "category": "text-generation",
+    "provider": "Anthropic",
+    "capabilities": ["text-generation", "conversation", "fast-response"],
+    "compatibility": ["chat", "simple-tasks", "quick-analysis"]
+  },
+  {
+    "id": "gemini-pro",
+    "name": "Gemini Pro",
+    "category": "text-generation",
+    "provider": "Google",
+    "capabilities": ["text-generation", "conversation", "code-generation", "multimodal"],
+    "compatibility": ["chat", "content-creation", "coding", "image-analysis"]
+  },
+  {
+    "id": "gemini-ultra",
+    "name": "Gemini Ultra",
+    "category": "text-generation",
+    "provider": "Google",
+    "capabilities": ["text-generation", "conversation", "code-generation", "multimodal", "advanced-reasoning"],
+    "compatibility": ["chat", "content-creation", "coding", "research", "complex-analysis"]
+  },
+  {
+    "id": "palm-2",
+    "name": "PaLM 2",
+    "category": "text-generation",
+    "provider": "Google",
+    "capabilities": ["text-generation", "conversation", "code-generation", "translation"],
+    "compatibility": ["chat", "content-creation", "coding", "translation"]
+  },
+  {
+    "id": "llama-3",
+    "name": "Llama 3",
+    "category": "text-generation",
+    "provider": "Meta",
+    "capabilities": ["text-generation", "conversation", "code-generation", "open-source"],
+    "compatibility": ["chat", "content-creation", "coding", "self-hosted"]
+  },
+  {
+    "id": "llama-2",
+    "name": "Llama 2",
+    "category": "text-generation",
+    "provider": "Meta",
+    "capabilities": ["text-generation", "conversation", "open-source"],
+    "compatibility": ["chat", "content-creation", "self-hosted"]
+  },
+  {
+    "id": "mistral-large",
+    "name": "Mistral Large",
+    "category": "text-generation",
+    "provider": "Mistral AI",
+    "capabilities": ["text-generation", "conversation", "code-generation", "reasoning"],
+    "compatibility": ["chat", "content-creation", "coding", "research"]
+  },
+  {
+    "id": "mistral-medium",
+    "name": "Mistral Medium",
+    "category": "text-generation",
+    "provider": "Mistral AI",
+    "capabilities": ["text-generation", "conversation", "code-generation"],
+    "compatibility": ["chat", "content-creation", "coding"]
+  },
+  {
+    "id": "mistral-7b",
+    "name": "Mistral 7B",
+    "category": "text-generation",
+    "provider": "Mistral AI",
+    "capabilities": ["text-generation", "conversation", "open-source", "efficient"],
+    "compatibility": ["chat", "content-creation", "self-hosted"]
+  },
+  {
+    "id": "mixtral-8x7b",
+    "name": "Mixtral 8x7B",
+    "category": "text-generation",
+    "provider": "Mistral AI",
+    "capabilities": ["text-generation", "conversation", "code-generation", "open-source", "mixture-of-experts"],
+    "compatibility": ["chat", "content-creation", "coding", "self-hosted"]
+  },
+  {
+    "id": "cohere-command",
+    "name": "Cohere Command",
+    "category": "text-generation",
+    "provider": "Cohere",
+    "capabilities": ["text-generation", "conversation", "rag", "enterprise"],
+    "compatibility": ["chat", "content-creation", "enterprise-search"]
+  },
+  {
+    "id": "ai21-jurassic",
+    "name": "Jurassic-2",
+    "category": "text-generation",
+    "provider": "AI21 Labs",
+    "capabilities": ["text-generation", "conversation", "task-specific"],
+    "compatibility": ["chat", "content-creation", "business-writing"]
+  },
+  {
+    "id": "dall-e-3",
+    "name": "DALL-E 3",
+    "category": "image-generation",
+    "provider": "OpenAI",
+    "capabilities": ["image-generation", "text-to-image", "high-quality", "prompt-following"],
+    "compatibility": ["creative-design", "marketing", "illustration", "content-creation"]
+  },
+  {
+    "id": "dall-e-2",
+    "name": "DALL-E 2",
+    "category": "image-generation",
+    "provider": "OpenAI",
+    "capabilities": ["image-generation", "text-to-image", "image-editing"],
+    "compatibility": ["creative-design", "marketing", "illustration"]
+  },
+  {
+    "id": "midjourney",
+    "name": "Midjourney",
+    "category": "image-generation",
+    "provider": "Midjourney",
+    "capabilities": ["image-generation", "text-to-image", "artistic", "high-quality"],
+    "compatibility": ["creative-design", "art", "illustration", "concept-art"]
+  },
+  {
+    "id": "stable-diffusion-xl",
+    "name": "Stable Diffusion XL",
+    "category": "image-generation",
+    "provider": "Stability AI",
+    "capabilities": ["image-generation", "text-to-image", "open-source", "customizable"],
+    "compatibility": ["creative-design", "art", "self-hosted", "fine-tuning"]
+  },
+  {
+    "id": "stable-diffusion-2",
+    "name": "Stable Diffusion 2",
+    "category": "image-generation",
+    "provider": "Stability AI",
+    "capabilities": ["image-generation", "text-to-image", "open-source"],
+    "compatibility": ["creative-design", "art", "self-hosted"]
+  },
+  {
+    "id": "adobe-firefly",
+    "name": "Adobe Firefly",
+    "category": "image-generation",
+    "provider": "Adobe",
+    "capabilities": ["image-generation", "text-to-image", "image-editing", "commercially-safe"],
+    "compatibility": ["creative-design", "marketing", "professional-design"]
+  },
+  {
+    "id": "leonardo-ai",
+    "name": "Leonardo.AI",
+    "category": "image-generation",
+    "provider": "Leonardo.AI",
+    "capabilities": ["image-generation", "text-to-image", "game-assets", "consistent-characters"],
+    "compatibility": ["game-development", "creative-design", "concept-art"]
+  },
+  {
+    "id": "ideogram",
+    "name": "Ideogram",
+    "category": "image-generation",
+    "provider": "Ideogram",
+    "capabilities": ["image-generation", "text-to-image", "text-rendering"],
+    "compatibility": ["creative-design", "marketing", "typography"]
+  },
+  {
+    "id": "runway-gen-2",
+    "name": "Runway Gen-2",
+    "category": "video-generation",
+    "provider": "Runway",
+    "capabilities": ["video-generation", "text-to-video", "image-to-video"],
+    "compatibility": ["video-production", "content-creation", "marketing"]
+  },
+  {
+    "id": "pika-labs",
+    "name": "Pika Labs",
+    "category": "video-generation",
+    "provider": "Pika",
+    "capabilities": ["video-generation", "text-to-video", "video-editing"],
+    "compatibility": ["video-production", "content-creation", "social-media"]
+  },
+  {
+    "id": "synthesia",
+    "name": "Synthesia",
+    "category": "video-generation",
+    "provider": "Synthesia",
+    "capabilities": ["video-generation", "avatar-videos", "text-to-speech", "multilingual"],
+    "compatibility": ["training-videos", "marketing", "education", "presentations"]
+  },
+  {
+    "id": "heygen",
+    "name": "HeyGen",
+    "category": "video-generation",
+    "provider": "HeyGen",
+    "capabilities": ["video-generation", "avatar-videos", "text-to-speech", "video-translation"],
+    "compatibility": ["marketing", "education", "presentations", "social-media"]
+  },
+  {
+    "id": "d-id",
+    "name": "D-ID",
+    "category": "video-generation",
+    "provider": "D-ID",
+    "capabilities": ["video-generation", "avatar-videos", "face-animation"],
+    "compatibility": ["marketing", "education", "customer-service"]
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs",
+    "category": "audio-generation",
+    "provider": "ElevenLabs",
+    "capabilities": ["text-to-speech", "voice-cloning", "multilingual", "high-quality"],
+    "compatibility": ["voiceovers", "audiobooks", "podcasts", "content-creation"]
+  },
+  {
+    "id": "whisper",
+    "name": "Whisper",
+    "category": "audio-generation",
+    "provider": "OpenAI",
+    "capabilities": ["speech-to-text", "transcription", "translation", "multilingual"],
+    "compatibility": ["transcription", "subtitles", "accessibility"]
+  },
+  {
+    "id": "murf-ai",
+    "name": "Murf.AI",
+    "category": "audio-generation",
+    "provider": "Murf",
+    "capabilities": ["text-to-speech", "voice-over", "voice-editing"],
+    "compatibility": ["voiceovers", "presentations", "marketing"]
+  },
+  {
+    "id": "resemble-ai",
+    "name": "Resemble AI",
+    "category": "audio-generation",
+    "provider": "Resemble AI",
+    "capabilities": ["text-to-speech", "voice-cloning", "real-time"],
+    "compatibility": ["gaming", "customer-service", "voiceovers"]
+  },
+  {
+    "id": "descript",
+    "name": "Descript",
+    "category": "audio-generation",
+    "provider": "Descript",
+    "capabilities": ["audio-editing", "video-editing", "transcription", "text-to-speech"],
+    "compatibility": ["podcasts", "video-production", "content-creation"]
+  },
+  {
+    "id": "suno",
+    "name": "Suno",
+    "category": "audio-generation",
+    "provider": "Suno",
+    "capabilities": ["music-generation", "text-to-music", "vocal-synthesis"],
+    "compatibility": ["music-creation", "content-creation", "entertainment"]
+  },
+  {
+    "id": "udio",
+    "name": "Udio",
+    "category": "audio-generation",
+    "provider": "Udio",
+    "capabilities": ["music-generation", "text-to-music", "high-quality"],
+    "compatibility": ["music-creation", "content-creation", "entertainment"]
+  },
+  {
+    "id": "github-copilot",
+    "name": "GitHub Copilot",
+    "category": "code-generation",
+    "provider": "GitHub",
+    "capabilities": ["code-completion", "code-generation", "multi-language", "context-aware"],
+    "compatibility": ["software-development", "coding", "debugging"]
+  },
+  {
+    "id": "copilot-chat",
+    "name": "GitHub Copilot Chat",
+    "category": "code-generation",
+    "provider": "GitHub",
+    "capabilities": ["code-generation", "code-explanation", "debugging", "chat"],
+    "compatibility": ["software-development", "coding", "learning"]
+  },
+  {
+    "id": "tabnine",
+    "name": "Tabnine",
+    "category": "code-generation",
+    "provider": "Tabnine",
+    "capabilities": ["code-completion", "code-generation", "multi-language", "self-hosted"],
+    "compatibility": ["software-development", "coding", "enterprise"]
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "category": "code-generation",
+    "provider": "Cursor",
+    "capabilities": ["code-generation", "code-editing", "ai-pair-programming"],
+    "compatibility": ["software-development", "coding", "refactoring"]
+  },
+  {
+    "id": "replit-ghostwriter",
+    "name": "Replit Ghostwriter",
+    "category": "code-generation",
+    "provider": "Replit",
+    "capabilities": ["code-completion", "code-generation", "debugging", "chat"],
+    "compatibility": ["software-development", "coding", "learning"]
+  },
+  {
+    "id": "codeium",
+    "name": "Codeium",
+    "category": "code-generation",
+    "provider": "Codeium",
+    "capabilities": ["code-completion", "code-generation", "multi-language", "free"],
+    "compatibility": ["software-development", "coding"]
+  },
+  {
+    "id": "amazon-codewhisperer",
+    "name": "Amazon CodeWhisperer",
+    "category": "code-generation",
+    "provider": "Amazon",
+    "capabilities": ["code-completion", "code-generation", "security-scanning", "aws-optimized"],
+    "compatibility": ["software-development", "coding", "aws-development"]
+  },
+  {
+    "id": "sourcegraph-cody",
+    "name": "Sourcegraph Cody",
+    "category": "code-generation",
+    "provider": "Sourcegraph",
+    "capabilities": ["code-generation", "code-search", "codebase-context"],
+    "compatibility": ["software-development", "coding", "code-navigation"]
+  },
+  {
+    "id": "notion-ai",
+    "name": "Notion AI",
+    "category": "productivity",
+    "provider": "Notion",
+    "capabilities": ["writing-assistance", "summarization", "translation", "brainstorming"],
+    "compatibility": ["note-taking", "documentation", "project-management"]
+  },
+  {
+    "id": "jasper",
+    "name": "Jasper",
+    "category": "productivity",
+    "provider": "Jasper",
+    "capabilities": ["content-generation", "marketing-copy", "seo", "multi-language"],
+    "compatibility": ["marketing", "content-creation", "copywriting"]
+  },
+  {
+    "id": "copy-ai",
+    "name": "Copy.ai",
+    "category": "productivity",
+    "provider": "Copy.ai",
+    "capabilities": ["content-generation", "marketing-copy", "workflows"],
+    "compatibility": ["marketing", "content-creation", "sales"]
+  },
+  {
+    "id": "writesonic",
+    "name": "Writesonic",
+    "category": "productivity",
+    "provider": "Writesonic",
+    "capabilities": ["content-generation", "article-writing", "chatbot"],
+    "compatibility": ["content-creation", "blogging", "marketing"]
+  },
+  {
+    "id": "grammarly",
+    "name": "Grammarly",
+    "category": "productivity",
+    "provider": "Grammarly",
+    "capabilities": ["grammar-checking", "writing-enhancement", "tone-detection"],
+    "compatibility": ["writing", "editing", "communication"]
+  },
+  {
+    "id": "perplexity",
+    "name": "Perplexity AI",
+    "category": "productivity",
+    "provider": "Perplexity",
+    "capabilities": ["research", "search", "summarization", "citations"],
+    "compatibility": ["research", "information-gathering", "learning"]
+  },
+  {
+    "id": "you-chat",
+    "name": "You.com",
+    "category": "productivity",
+    "provider": "You.com",
+    "capabilities": ["search", "chat", "code-generation", "image-generation"],
+    "compatibility": ["research", "chat", "multi-purpose"]
+  },
+  {
+    "id": "zapier",
+    "name": "Zapier",
+    "category": "automation",
+    "provider": "Zapier",
+    "capabilities": ["workflow-automation", "app-integration", "no-code", "ai-actions"],
+    "compatibility": ["business-automation", "integration", "productivity"]
+  },
+  {
+    "id": "make",
+    "name": "Make (Integromat)",
+    "category": "automation",
+    "provider": "Make",
+    "capabilities": ["workflow-automation", "app-integration", "visual-builder", "advanced-logic"],
+    "compatibility": ["business-automation", "integration", "complex-workflows"]
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "category": "automation",
+    "provider": "n8n",
+    "capabilities": ["workflow-automation", "app-integration", "self-hosted", "open-source"],
+    "compatibility": ["business-automation", "integration", "self-hosted"]
+  },
+  {
+    "id": "bardeen",
+    "name": "Bardeen",
+    "category": "automation",
+    "provider": "Bardeen",
+    "capabilities": ["browser-automation", "workflow-automation", "ai-powered"],
+    "compatibility": ["productivity", "data-scraping", "task-automation"]
+  },
+  {
+    "id": "langchain",
+    "name": "LangChain",
+    "category": "development-framework",
+    "provider": "LangChain",
+    "capabilities": ["llm-framework", "chains", "agents", "rag", "open-source"],
+    "compatibility": ["ai-development", "application-building", "integration"]
+  },
+  {
+    "id": "llamaindex",
+    "name": "LlamaIndex",
+    "category": "development-framework",
+    "provider": "LlamaIndex",
+    "capabilities": ["data-framework", "rag", "indexing", "open-source"],
+    "compatibility": ["ai-development", "data-integration", "search"]
+  },
+  {
+    "id": "semantic-kernel",
+    "name": "Semantic Kernel",
+    "category": "development-framework",
+    "provider": "Microsoft",
+    "capabilities": ["llm-framework", "orchestration", "plugins", "enterprise"],
+    "compatibility": ["ai-development", "enterprise", "integration"]
+  },
+  {
+    "id": "autogen",
+    "name": "AutoGen",
+    "category": "development-framework",
+    "provider": "Microsoft",
+    "capabilities": ["multi-agent", "conversation", "code-execution", "open-source"],
+    "compatibility": ["ai-development", "multi-agent-systems", "automation"]
+  },
+  {
+    "id": "crewai",
+    "name": "CrewAI",
+    "category": "development-framework",
+    "provider": "CrewAI",
+    "capabilities": ["multi-agent", "role-based", "task-delegation", "open-source"],
+    "compatibility": ["ai-development", "multi-agent-systems", "workflow-automation"]
+  },
+  {
+    "id": "haystack",
+    "name": "Haystack",
+    "category": "development-framework",
+    "provider": "deepset",
+    "capabilities": ["nlp-framework", "rag", "search", "open-source"],
+    "compatibility": ["ai-development", "search", "question-answering"]
+  },
+  {
+    "id": "pinecone",
+    "name": "Pinecone",
+    "category": "vector-database",
+    "provider": "Pinecone",
+    "capabilities": ["vector-search", "managed", "scalable", "real-time"],
+    "compatibility": ["semantic-search", "rag", "recommendations"]
+  },
+  {
+    "id": "weaviate",
+    "name": "Weaviate",
+    "category": "vector-database",
+    "provider": "Weaviate",
+    "capabilities": ["vector-search", "open-source", "hybrid-search", "self-hosted"],
+    "compatibility": ["semantic-search", "rag", "recommendations", "self-hosted"]
+  },
+  {
+    "id": "qdrant",
+    "name": "Qdrant",
+    "category": "vector-database",
+    "provider": "Qdrant",
+    "capabilities": ["vector-search", "open-source", "filtering", "self-hosted"],
+    "compatibility": ["semantic-search", "rag", "recommendations", "self-hosted"]
+  },
+  {
+    "id": "chroma",
+    "name": "Chroma",
+    "category": "vector-database",
+    "provider": "Chroma",
+    "capabilities": ["vector-search", "open-source", "embedding-database", "lightweight"],
+    "compatibility": ["semantic-search", "rag", "development"]
+  },
+  {
+    "id": "milvus",
+    "name": "Milvus",
+    "category": "vector-database",
+    "provider": "Zilliz",
+    "capabilities": ["vector-search", "open-source", "distributed", "scalable"],
+    "compatibility": ["semantic-search", "rag", "large-scale", "self-hosted"]
+  },
+  {
+    "id": "pgvector",
+    "name": "pgvector",
+    "category": "vector-database",
+    "provider": "PostgreSQL",
+    "capabilities": ["vector-search", "postgresql-extension", "open-source"],
+    "compatibility": ["semantic-search", "rag", "existing-postgres"]
+  },
+  {
+    "id": "redis-vector",
+    "name": "Redis Vector Search",
+    "category": "vector-database",
+    "provider": "Redis",
+    "capabilities": ["vector-search", "real-time", "hybrid-search", "caching"],
+    "compatibility": ["semantic-search", "rag", "real-time-applications"]
+  },
+  {
+    "id": "huggingface-hub",
+    "name": "Hugging Face Hub",
+    "category": "model-hub",
+    "provider": "Hugging Face",
+    "capabilities": ["model-hosting", "open-source", "community", "inference"],
+    "compatibility": ["model-deployment", "research", "development"]
+  },
+  {
+    "id": "huggingface-transformers",
+    "name": "Transformers",
+    "category": "development-framework",
+    "provider": "Hugging Face",
+    "capabilities": ["nlp", "model-library", "open-source", "multi-framework"],
+    "compatibility": ["ai-development", "nlp", "research"]
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "category": "model-deployment",
+    "provider": "Ollama",
+    "capabilities": ["local-llm", "model-management", "open-source", "easy-deployment"],
+    "compatibility": ["self-hosted", "local-development", "privacy"]
+  },
+  {
+    "id": "localai",
+    "name": "LocalAI",
+    "category": "model-deployment",
+    "provider": "LocalAI",
+    "capabilities": ["local-llm", "openai-compatible", "open-source", "self-hosted"],
+    "compatibility": ["self-hosted", "privacy", "development"]
+  },
+  {
+    "id": "vllm",
+    "name": "vLLM",
+    "category": "model-deployment",
+    "provider": "vLLM",
+    "capabilities": ["llm-inference", "high-throughput", "open-source", "optimization"],
+    "compatibility": ["model-deployment", "production", "performance"]
+  },
+  {
+    "id": "triton",
+    "name": "Triton Inference Server",
+    "category": "model-deployment",
+    "provider": "NVIDIA",
+    "capabilities": ["model-serving", "multi-framework", "optimization", "scalable"],
+    "compatibility": ["model-deployment", "production", "enterprise"]
+  },
+  {
+    "id": "tensorflow",
+    "name": "TensorFlow",
+    "category": "ml-framework",
+    "provider": "Google",
+    "capabilities": ["deep-learning", "open-source", "production", "deployment"],
+    "compatibility": ["ai-development", "research", "production"]
+  },
+  {
+    "id": "pytorch",
+    "name": "PyTorch",
+    "category": "ml-framework",
+    "provider": "Meta",
+    "capabilities": ["deep-learning", "open-source", "research", "dynamic-graphs"],
+    "compatibility": ["ai-development", "research", "prototyping"]
+  },
+  {
+    "id": "jax",
+    "name": "JAX",
+    "category": "ml-framework",
+    "provider": "Google",
+    "capabilities": ["numerical-computing", "automatic-differentiation", "open-source", "performance"],
+    "compatibility": ["research", "scientific-computing", "high-performance"]
+  },
+  {
+    "id": "scikit-learn",
+    "name": "scikit-learn",
+    "category": "ml-framework",
+    "provider": "scikit-learn",
+    "capabilities": ["machine-learning", "classical-ml", "open-source", "python"],
+    "compatibility": ["data-science", "analytics", "traditional-ml"]
+  },
+  {
+    "id": "wandb",
+    "name": "Weights & Biases",
+    "category": "ml-ops",
+    "provider": "Weights & Biases",
+    "capabilities": ["experiment-tracking", "model-monitoring", "collaboration", "visualization"],
+    "compatibility": ["ml-development", "research", "team-collaboration"]
+  },
+  {
+    "id": "mlflow",
+    "name": "MLflow",
+    "category": "ml-ops",
+    "provider": "Databricks",
+    "capabilities": ["experiment-tracking", "model-registry", "deployment", "open-source"],
+    "compatibility": ["ml-development", "production", "self-hosted"]
+  },
+  {
+    "id": "clearml",
+    "name": "ClearML",
+    "category": "ml-ops",
+    "provider": "ClearML",
+    "capabilities": ["experiment-tracking", "orchestration", "data-versioning", "open-source"],
+    "compatibility": ["ml-development", "production", "team-collaboration"]
+  },
+  {
+    "id": "neptune",
+    "name": "Neptune.ai",
+    "category": "ml-ops",
+    "provider": "Neptune",
+    "capabilities": ["experiment-tracking", "model-registry", "monitoring", "collaboration"],
+    "compatibility": ["ml-development", "research", "production"]
+  },
+  {
+    "id": "labelstudio",
+    "name": "Label Studio",
+    "category": "data-annotation",
+    "provider": "HumanSignal",
+    "capabilities": ["data-labeling", "annotation", "multi-format", "open-source"],
+    "compatibility": ["data-preparation", "training", "quality-control"]
+  },
+  {
+    "id": "roboflow",
+    "name": "Roboflow",
+    "category": "data-annotation",
+    "provider": "Roboflow",
+    "capabilities": ["computer-vision", "data-labeling", "augmentation", "deployment"],
+    "compatibility": ["computer-vision", "object-detection", "model-training"]
+  },
+  {
+    "id": "scale-ai",
+    "name": "Scale AI",
+    "category": "data-annotation",
+    "provider": "Scale AI",
+    "capabilities": ["data-labeling", "human-in-loop", "quality-control", "enterprise"],
+    "compatibility": ["data-preparation", "training", "quality-assurance"]
+  },
+  {
+    "id": "openai-api",
+    "name": "OpenAI API",
+    "category": "api-service",
+    "provider": "OpenAI",
+    "capabilities": ["text-generation", "image-generation", "embeddings", "api"],
+    "compatibility": ["application-development", "integration", "production"]
+  },
+  {
+    "id": "anthropic-api",
+    "name": "Anthropic API",
+    "category": "api-service",
+    "provider": "Anthropic",
+    "capabilities": ["text-generation", "conversation", "api", "long-context"],
+    "compatibility": ["application-development", "integration", "production"]
+  },
+  {
+    "id": "google-ai-studio",
+    "name": "Google AI Studio",
+    "category": "api-service",
+    "provider": "Google",
+    "capabilities": ["text-generation", "multimodal", "api", "prompt-engineering"],
+    "compatibility": ["application-development", "prototyping", "integration"]
+  },
+  {
+    "id": "azure-openai",
+    "name": "Azure OpenAI Service",
+    "category": "api-service",
+    "provider": "Microsoft",
+    "capabilities": ["text-generation", "enterprise", "compliance", "api"],
+    "compatibility": ["enterprise", "application-development", "production"]
+  },
+  {
+    "id": "aws-bedrock",
+    "name": "AWS Bedrock",
+    "category": "api-service",
+    "provider": "Amazon",
+    "capabilities": ["multi-model", "serverless", "enterprise", "api"],
+    "compatibility": ["enterprise", "application-development", "aws-ecosystem"]
+  },
+  {
+    "id": "replicate",
+    "name": "Replicate",
+    "category": "api-service",
+    "provider": "Replicate",
+    "capabilities": ["model-hosting", "api", "open-models", "serverless"],
+    "compatibility": ["application-development", "prototyping", "integration"]
+  },
+  {
+    "id": "together-ai",
+    "name": "Together AI",
+    "category": "api-service",
+    "provider": "Together AI",
+    "capabilities": ["model-hosting", "api", "open-models", "inference"],
+    "compatibility": ["application-development", "integration", "open-source-models"]
+  },
+  {
+    "id": "canva",
+    "name": "Canva",
+    "category": "design-tool",
+    "provider": "Canva",
+    "capabilities": ["graphic-design", "ai-design", "templates", "collaboration"],
+    "compatibility": ["marketing", "social-media", "presentations"]
+  },
+  {
+    "id": "figma",
+    "name": "Figma",
+    "category": "design-tool",
+    "provider": "Figma",
+    "capabilities": ["ui-design", "collaboration", "prototyping", "ai-plugins"],
+    "compatibility": ["design", "prototyping", "team-collaboration"]
+  },
+  {
+    "id": "framer",
+    "name": "Framer",
+    "category": "design-tool",
+    "provider": "Framer",
+    "capabilities": ["website-builder", "ai-design", "interactive", "no-code"],
+    "compatibility": ["web-design", "prototyping", "production"]
+  },
+  {
+    "id": "remove-bg",
+    "name": "Remove.bg",
+    "category": "image-editing",
+    "provider": "Kaleido",
+    "capabilities": ["background-removal", "image-editing", "api"],
+    "compatibility": ["image-processing", "e-commerce", "content-creation"]
+  },
+  {
+    "id": "topaz-photo-ai",
+    "name": "Topaz Photo AI",
+    "category": "image-editing",
+    "provider": "Topaz Labs",
+    "capabilities": ["image-enhancement", "upscaling", "noise-reduction", "sharpening"],
+    "compatibility": ["photography", "image-processing", "restoration"]
+  },
+  {
+    "id": "lensa",
+    "name": "Lensa AI",
+    "category": "image-editing",
+    "provider": "Prisma Labs",
+    "capabilities": ["portrait-editing", "avatar-generation", "filters"],
+    "compatibility": ["social-media", "personal-use", "creative"]
+  },
+  {
+    "id": "chatgpt-plugins",
+    "name": "ChatGPT Plugins",
+    "category": "plugin-ecosystem",
+    "provider": "OpenAI",
+    "capabilities": ["extensibility", "third-party-integration", "real-time-data"],
+    "compatibility": ["chat", "integration", "extended-functionality"]
+  },
+  {
+    "id": "gpt-store",
+    "name": "GPT Store",
+    "category": "plugin-ecosystem",
+    "provider": "OpenAI",
+    "capabilities": ["custom-gpts", "marketplace", "sharing", "monetization"],
+    "compatibility": ["customization", "specialized-tasks", "distribution"]
+  },
+  {
+    "id": "chrome-ai-extensions",
+    "name": "Chrome AI Extensions",
+    "category": "browser-extension",
+    "provider": "Various",
+    "capabilities": ["browser-integration", "productivity", "content-enhancement"],
+    "compatibility": ["browsing", "productivity", "research"]
+  },
+  {
+    "id": "compose-ai",
+    "name": "Compose AI",
+    "category": "browser-extension",
+    "provider": "Compose AI",
+    "capabilities": ["autocomplete", "writing-assistance", "email"],
+    "compatibility": ["writing", "email", "productivity"]
+  },
+  {
+    "id": "merlin",
+    "name": "Merlin AI",
+    "category": "browser-extension",
+    "provider": "Merlin",
+    "capabilities": ["chatgpt-everywhere", "summarization", "writing"],
+    "compatibility": ["browsing", "productivity", "research"]
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "category": "infrastructure",
+    "provider": "Docker",
+    "capabilities": ["containerization", "deployment", "isolation", "portability"],
+    "compatibility": ["development", "deployment", "devops"]
+  },
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes",
+    "category": "infrastructure",
+    "provider": "CNCF",
+    "capabilities": ["orchestration", "scaling", "container-management", "cloud-native"],
+    "compatibility": ["production", "deployment", "enterprise"]
+  },
+  {
+    "id": "aws-ec2",
+    "name": "AWS EC2",
+    "category": "cloud-compute",
+    "provider": "Amazon",
+    "capabilities": ["virtual-machines", "scalable", "cloud", "flexible"],
+    "compatibility": ["hosting", "computation", "enterprise"]
+  },
+  {
+    "id": "aws-lambda",
+    "name": "AWS Lambda",
+    "category": "cloud-compute",
+    "provider": "Amazon",
+    "capabilities": ["serverless", "event-driven", "auto-scaling", "pay-per-use"],
+    "compatibility": ["serverless", "microservices", "automation"]
+  },
+  {
+    "id": "google-cloud-run",
+    "name": "Google Cloud Run",
+    "category": "cloud-compute",
+    "provider": "Google",
+    "capabilities": ["serverless", "containers", "auto-scaling", "managed"],
+    "compatibility": ["serverless", "containerized-apps", "deployment"]
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "category": "cloud-platform",
+    "provider": "Vercel",
+    "capabilities": ["frontend-hosting", "serverless", "edge-functions", "deployment"],
+    "compatibility": ["web-apps", "jamstack", "nextjs"]
+  },
+  {
+    "id": "netlify",
+    "name": "Netlify",
+    "category": "cloud-platform",
+    "provider": "Netlify",
+    "capabilities": ["frontend-hosting", "serverless", "deployment", "ci-cd"],
+    "compatibility": ["web-apps", "jamstack", "static-sites"]
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "category": "cloud-platform",
+    "provider": "Railway",
+    "capabilities": ["deployment", "databases", "simple-setup", "developer-friendly"],
+    "compatibility": ["full-stack-apps", "deployment", "development"]
+  },
+  {
+    "id": "render",
+    "name": "Render",
+    "category": "cloud-platform",
+    "provider": "Render",
+    "capabilities": ["deployment", "databases", "auto-deploy", "managed"],
+    "compatibility": ["web-apps", "apis", "deployment"]
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "category": "backend-service",
+    "provider": "Supabase",
+    "capabilities": ["database", "authentication", "storage", "real-time", "open-source"],
+    "compatibility": ["web-apps", "mobile-apps", "backend"]
+  },
+  {
+    "id": "firebase",
+    "name": "Firebase",
+    "category": "backend-service",
+    "provider": "Google",
+    "capabilities": ["database", "authentication", "hosting", "analytics"],
+    "compatibility": ["web-apps", "mobile-apps", "backend"]
+  },
+  {
+    "id": "mongodb-atlas",
+    "name": "MongoDB Atlas",
+    "category": "database",
+    "provider": "MongoDB",
+    "capabilities": ["nosql", "document-database", "managed", "scalable"],
+    "compatibility": ["web-apps", "data-storage", "backend"]
+  },
+  {
+    "id": "planetscale",
+    "name": "PlanetScale",
+    "category": "database",
+    "provider": "PlanetScale",
+    "capabilities": ["mysql", "serverless", "branching", "managed"],
+    "compatibility": ["web-apps", "data-storage", "backend"]
+  },
+  {
+    "id": "neon",
+    "name": "Neon",
+    "category": "database",
+    "provider": "Neon",
+    "capabilities": ["postgresql", "serverless", "branching", "managed"],
+    "compatibility": ["web-apps", "data-storage", "backend"]
+  },
+  {
+    "id": "tableau",
+    "name": "Tableau",
+    "category": "analytics",
+    "provider": "Salesforce",
+    "capabilities": ["data-visualization", "business-intelligence", "dashboards", "ai-insights"],
+    "compatibility": ["analytics", "reporting", "enterprise"]
+  },
+  {
+    "id": "power-bi",
+    "name": "Power BI",
+    "category": "analytics",
+    "provider": "Microsoft",
+    "capabilities": ["data-visualization", "business-intelligence", "dashboards", "ai-insights"],
+    "compatibility": ["analytics", "reporting", "enterprise"]
+  },
+  {
+    "id": "looker",
+    "name": "Looker",
+    "category": "analytics",
+    "provider": "Google",
+    "capabilities": ["data-visualization", "business-intelligence", "embedded-analytics"],
+    "compatibility": ["analytics", "reporting", "enterprise"]
+  },
+  {
+    "id": "snowflake",
+    "name": "Snowflake",
+    "category": "data-warehouse",
+    "provider": "Snowflake",
+    "capabilities": ["data-warehouse", "cloud-native", "scalable", "analytics"],
+    "compatibility": ["data-analytics", "enterprise", "big-data"]
+  },
+  {
+    "id": "databricks",
+    "name": "Databricks",
+    "category": "data-platform",
+    "provider": "Databricks",
+    "capabilities": ["data-lakehouse", "ml-platform", "analytics", "collaboration"],
+    "compatibility": ["data-analytics", "ml-development", "enterprise"]
+  },
+  {
+    "id": "airflow",
+    "name": "Apache Airflow",
+    "category": "data-orchestration",
+    "provider": "Apache",
+    "capabilities": ["workflow-orchestration", "scheduling", "monitoring", "open-source"],
+    "compatibility": ["data-pipelines", "ml-pipelines", "automation"]
+  },
+  {
+    "id": "prefect",
+    "name": "Prefect",
+    "category": "data-orchestration",
+    "provider": "Prefect",
+    "capabilities": ["workflow-orchestration", "dataflow", "monitoring", "modern"],
+    "compatibility": ["data-pipelines", "ml-pipelines", "automation"]
+  },
+  {
+    "id": "dbt",
+    "name": "dbt",
+    "category": "data-transformation",
+    "provider": "dbt Labs",
+    "capabilities": ["data-transformation", "analytics-engineering", "sql", "version-control"],
+    "compatibility": ["data-analytics", "data-warehousing", "transformation"]
+  },
+  {
+    "id": "fivetran",
+    "name": "Fivetran",
+    "category": "data-integration",
+    "provider": "Fivetran",
+    "capabilities": ["data-integration", "etl", "automated-connectors", "managed"],
+    "compatibility": ["data-pipelines", "data-warehousing", "integration"]
+  },
+  {
+    "id": "airbyte",
+    "name": "Airbyte",
+    "category": "data-integration",
+    "provider": "Airbyte",
+    "capabilities": ["data-integration", "etl", "open-source", "connectors"],
+    "compatibility": ["data-pipelines", "data-warehousing", "self-hosted"]
+  },
+  {
+    "id": "segment",
+    "name": "Segment",
+    "category": "customer-data",
+    "provider": "Twilio",
+    "capabilities": ["customer-data-platform", "analytics", "integration", "tracking"],
+    "compatibility": ["analytics", "marketing", "customer-data"]
+  },
+  {
+    "id": "mixpanel",
+    "name": "Mixpanel",
+    "category": "analytics",
+    "provider": "Mixpanel",
+    "capabilities": ["product-analytics", "user-tracking", "funnels", "retention"],
+    "compatibility": ["product-analytics", "user-behavior", "growth"]
+  },
+  {
+    "id": "amplitude",
+    "name": "Amplitude",
+    "category": "analytics",
+    "provider": "Amplitude",
+    "capabilities": ["product-analytics", "behavioral-analytics", "experimentation"],
+    "compatibility": ["product-analytics", "user-behavior", "growth"]
+  },
+  {
+    "id": "intercom",
+    "name": "Intercom",
+    "category": "customer-service",
+    "provider": "Intercom",
+    "capabilities": ["customer-messaging", "chatbots", "support", "ai-automation"],
+    "compatibility": ["customer-support", "sales", "engagement"]
+  },
+  {
+    "id": "zendesk",
+    "name": "Zendesk",
+    "category": "customer-service",
+    "provider": "Zendesk",
+    "capabilities": ["customer-support", "ticketing", "ai-agents", "help-desk"],
+    "compatibility": ["customer-support", "service", "enterprise"]
+  },
+  {
+    "id": "salesforce-einstein",
+    "name": "Salesforce Einstein",
+    "category": "crm",
+    "provider": "Salesforce",
+    "capabilities": ["ai-crm", "predictive-analytics", "automation", "insights"],
+    "compatibility": ["sales", "crm", "enterprise"]
+  },
+  {
+    "id": "hubspot",
+    "name": "HubSpot",
+    "category": "crm",
+    "provider": "HubSpot",
+    "capabilities": ["crm", "marketing-automation", "sales", "ai-content"],
+    "compatibility": ["marketing", "sales", "crm"]
+  },
+  {
+    "id": "adept",
+    "name": "Adept",
+    "category": "ai-agent",
+    "provider": "Adept",
+    "capabilities": ["action-agent", "computer-use", "task-automation"],
+    "compatibility": ["automation", "productivity", "task-execution"]
+  },
+  {
+    "id": "chatbase",
+    "name": "Chatbase",
+    "category": "chatbot-builder",
+    "provider": "Chatbase",
+    "capabilities": ["custom-chatbot", "training", "embedding", "api"],
+    "compatibility": ["customer-support", "websites", "documentation"]
+  },
+  {
+    "id": "voiceflow",
+    "name": "Voiceflow",
+    "category": "chatbot-builder",
+    "provider": "Voiceflow",
+    "capabilities": ["conversation-design", "chatbot-builder", "voice-apps", "collaboration"],
+    "compatibility": ["customer-support", "voice-assistants", "chat"]
+  },
+  {
+    "id": "botpress",
+    "name": "Botpress",
+    "category": "chatbot-builder",
+    "provider": "Botpress",
+    "capabilities": ["chatbot-builder", "open-source", "conversational-ai", "self-hosted"],
+    "compatibility": ["customer-support", "enterprise", "self-hosted"]
+  },
+  {
+    "id": "rasa",
+    "name": "Rasa",
+    "category": "chatbot-builder",
+    "provider": "Rasa",
+    "capabilities": ["conversational-ai", "open-source", "nlu", "self-hosted"],
+    "compatibility": ["customer-support", "enterprise", "custom-ai"]
+  },
+  {
+    "id": "chainlit",
+    "name": "Chainlit",
+    "category": "ui-framework",
+    "provider": "Chainlit",
+    "capabilities": ["chat-ui", "llm-apps", "streaming", "open-source"],
+    "compatibility": ["ai-applications", "prototyping", "production"]
+  },
+  {
+    "id": "streamlit",
+    "name": "Streamlit",
+    "category": "ui-framework",
+    "provider": "Streamlit",
+    "capabilities": ["data-apps", "dashboards", "python", "rapid-prototyping"],
+    "compatibility": ["data-science", "ml-demos", "internal-tools"]
+  },
+  {
+    "id": "gradio",
+    "name": "Gradio",
+    "category": "ui-framework",
+    "provider": "Hugging Face",
+    "capabilities": ["ml-demos", "interfaces", "sharing", "open-source"],
+    "compatibility": ["ml-demos", "prototyping", "model-showcase"]
+  },
+  {
+    "id": "langsmith",
+    "name": "LangSmith",
+    "category": "llm-ops",
+    "provider": "LangChain",
+    "capabilities": ["debugging", "testing", "monitoring", "evaluation"],
+    "compatibility": ["llm-development", "production", "quality-assurance"]
+  },
+  {
+    "id": "helicone",
+    "name": "Helicone",
+    "category": "llm-ops",
+    "provider": "Helicone",
+    "capabilities": ["observability", "monitoring", "caching", "open-source"],
+    "compatibility": ["llm-applications", "production", "cost-optimization"]
+  },
+  {
+    "id": "portkey",
+    "name": "Portkey",
+    "category": "llm-ops",
+    "provider": "Portkey",
+    "capabilities": ["llm-gateway", "observability", "load-balancing", "fallbacks"],
+    "compatibility": ["llm-applications", "production", "reliability"]
+  },
+  {
+    "id": "litellm",
+    "name": "LiteLLM",
+    "category": "llm-ops",
+    "provider": "LiteLLM",
+    "capabilities": ["unified-api", "multi-provider", "cost-tracking", "open-source"],
+    "compatibility": ["llm-development", "multi-provider", "integration"]
+  },
+  {
+    "id": "runway-ml",
+    "name": "Runway ML",
+    "category": "creative-suite",
+    "provider": "Runway",
+    "capabilities": ["video-editing", "image-generation", "ai-tools", "creative"],
+    "compatibility": ["video-production", "creative", "content-creation"]
+  },
+  {
+    "id": "clipdrop",
+    "name": "Clipdrop",
+    "category": "image-editing",
+    "provider": "Stability AI",
+    "capabilities": ["image-editing", "background-removal", "cleanup", "api"],
+    "compatibility": ["image-processing", "creative", "e-commerce"]
+  },
+  {
+    "id": "krea",
+    "name": "Krea AI",
+    "category": "image-generation",
+    "provider": "Krea",
+    "capabilities": ["real-time-generation", "image-generation", "editing"],
+    "compatibility": ["creative-design", "art", "real-time"]
+  }
+]
