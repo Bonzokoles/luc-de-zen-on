@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Search, Filter, Play, Save, Upload, Download, Trash2, Plus, Code, Zap, Database, Mail, Settings, CreditCard, ChevronDown, ChevronRight, X, Check, AlertCircle, Loader2 } from 'lucide-react';
+import { Search, Play, Save, Download, Trash2, Plus, Code, Zap, Database, Mail, Settings, CreditCard, X, Check, AlertCircle, Loader2 } from 'lucide-react';
 import Editor from '@monaco-editor/react';
 import { createChuckClient, type ChuckClient } from '../client/src/lib/chuckClient';
 import type { UniversalNode, AIAgentNode, ProcessorNode, OutputNode } from '../src/nodes/universal';
@@ -75,7 +75,7 @@ export default function MyBonzoDashboard() {
   const [pluginCode, setPluginCode] = useState('');
   
   // Billing state
-  const [currentPlan, setCurrentPlan] = useState<string>('free');
+  const [currentPlan] = useState<string>('free');
   const [usageStats, setUsageStats] = useState({
     executions: 0,
     limit: 100,
@@ -719,7 +719,9 @@ export default function MyBonzoDashboard() {
                               const config = JSON.parse(e.target.value);
                               handleUpdateNode(selectedNode.id, { config });
                             } catch (error) {
-                              // Invalid JSON, ignore
+                              // Invalid JSON - show error to user
+                              console.error('Invalid JSON in node configuration:', error);
+                              showToast('Invalid JSON in node configuration. Please fix the JSON and try again.', 'error');
                             }
                           }}
                           className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-lg font-mono text-xs"
@@ -1065,6 +1067,11 @@ export default {
               <button
                 onClick={() => {
                   if (authToken) {
+                    // SECURITY WARNING: Storing auth tokens in localStorage makes them accessible to any JavaScript
+                    // running in this origin, which means they can be exfiltrated if an XSS vulnerability exists.
+                    // Prefer HTTP-only cookies where possible. If using localStorage, ensure you have strong XSS
+                    // protections (e.g., strict Content Security Policy headers and robust input sanitization) in
+                    // place at the application and infrastructure level.
                     localStorage.setItem('mybonzo-auth-token', authToken);
                     showToast('Authentication token saved successfully', 'success');
                   }

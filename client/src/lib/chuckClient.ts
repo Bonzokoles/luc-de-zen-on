@@ -77,7 +77,6 @@ export class ChuckClient {
           this.config.onRateLimit(retryAfter);
         }
 
-        const errorData = await response.json();
         return {
           success: false,
           error: `Rate limit exceeded. Retry after ${retryAfter} seconds.`,

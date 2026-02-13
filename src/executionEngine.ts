@@ -135,9 +135,9 @@ async function executeProcessor(
             result[key] = inputData[value];
           }
         } else if (transformConfig?.script) {
-          // Execute custom script
-          const fn = new Function('data', transformConfig.script);
-          result = fn(inputData);
+          // SECURITY: Custom script execution disabled to prevent code injection
+          // For custom transformations, use the mapping feature or pre-defined operations
+          throw new Error('Custom script execution is disabled for security reasons. Use mapping or pre-defined operations instead.');
         } else {
           result = inputData;
         }
@@ -151,14 +151,9 @@ async function executeProcessor(
           throw new Error('Filter operation requires condition');
         }
         
-        const filterFn = new Function('item', `return ${filterConfig.condition}`);
-        
-        if (Array.isArray(inputData)) {
-          result = inputData.filter((item) => filterFn(item));
-        } else {
-          result = filterFn(inputData) ? inputData : null;
-        }
-        break;
+        // SECURITY: Direct JavaScript evaluation disabled to prevent code injection
+        // Use pre-defined filter conditions or simple comparison operators only
+        throw new Error('Dynamic filter conditions are disabled for security reasons. Use pre-defined filter operations instead.');
 
       case 'merge':
         // Merge logic
@@ -415,11 +410,11 @@ async function executeNodeWithRetry(
       default:
         return {
           success: false,
-          error: `Unknown node type: ${(node as any).type}`,
+          error: `Unknown node type: ${(node as UniversalNode).type}`,
           metadata: {
             executionTime: 0,
-            nodeId: node.id,
-            nodeType: node.type,
+            nodeId: (node as UniversalNode).id,
+            nodeType: (node as UniversalNode).type,
           },
         };
     }
@@ -452,7 +447,10 @@ export async function executeWorkflow(context: WorkflowExecutionContext): Promis
   const errors: string[] = [];
 
   // Validate workflow
-  const validation = validateWorkflow(context.nodes, context.edges);
+  const validation = validateWorkflow(
+    context.nodes.map((n) => ({ id: n.id, toolId: n.id, type: n.type })),
+    context.edges
+  );
   if (!validation.valid) {
     return {
       success: false,

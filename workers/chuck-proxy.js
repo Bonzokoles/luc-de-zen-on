@@ -11,9 +11,8 @@
 // - SUPABASE_URL: Supabase project URL
 // - SUPABASE_ANON_KEY: Supabase anonymous key
 // - CHUCK_RATE_LIMIT: KV namespace for rate limiting
-// - CHUCK_TUNNEL_URL: Cloudflared tunnel URL (default: http://localhost:5152)
+// - CHUCK_TUNNEL_URL: Cloudflared tunnel URL (REQUIRED - must be set in production)
 
-const CHUCK_TUNNEL_URL = 'http://localhost:5152';
 const RATE_LIMIT_WINDOW = 60; // 60 seconds
 const RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests per minute per user
 
@@ -74,6 +73,12 @@ async function verifyAuth(request, env) {
 
 /**
  * Check and update rate limit
+ * 
+ * NOTE: This implementation stores all request timestamps in an array.
+ * For high-traffic scenarios (>1000 req/min per user), consider using:
+ * - A simple counter with TTL (less precise but more efficient)
+ * - Durable Objects for distributed rate limiting
+ * - Token bucket algorithm with atomic operations
  */
 async function checkRateLimit(userId, env) {
   const now = Math.floor(Date.now() / 1000);
@@ -126,7 +131,13 @@ async function checkRateLimit(userId, env) {
  */
 async function proxyToChuck(request, env) {
   const url = new URL(request.url);
-  const chuckUrl = env.CHUCK_TUNNEL_URL || CHUCK_TUNNEL_URL;
+  
+  // CHUCK_TUNNEL_URL is required in production (Workers cannot access localhost)
+  if (!env.CHUCK_TUNNEL_URL) {
+    throw new Error('CHUCK_TUNNEL_URL environment variable is required');
+  }
+  
+  const chuckUrl = env.CHUCK_TUNNEL_URL;
   
   // Forward to CHUCK API
   const targetUrl = `${chuckUrl}/api/exec`;
