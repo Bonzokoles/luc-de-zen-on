@@ -129,7 +129,7 @@ export default function MyBonzoDashboard() {
       }
     });
     setChuckClient(client);
-  }, []);
+  }, [showToast]);
 
   // Set auth token when available
   useEffect(() => {
