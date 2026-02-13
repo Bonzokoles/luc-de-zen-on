@@ -74,55 +74,61 @@ async function verifyAuth(request, env) {
 /**
  * Check and update rate limit
  * 
- * NOTE: This implementation stores all request timestamps in an array.
- * For high-traffic scenarios (>1000 req/min per user), consider using:
- * - A simple counter with TTL (less precise but more efficient)
- * - Durable Objects for distributed rate limiting
- * - Token bucket algorithm with atomic operations
+ * Uses a simple counter with TTL for scalable rate limiting.
+ * This approach is more efficient than storing all timestamps and works well
+ * even in high-traffic scenarios (>1000 req/min per user).
+ * 
+ * The counter resets after RATE_LIMIT_WINDOW seconds via KV TTL.
  */
 async function checkRateLimit(userId, env) {
   const now = Math.floor(Date.now() / 1000);
-  const windowStart = now - RATE_LIMIT_WINDOW;
   
   // Get current request count from KV
   const key = `rate_limit:${userId}`;
   const data = await env.CHUCK_RATE_LIMIT.get(key, { type: 'json' });
   
-  let requests = [];
+  let count = 0;
+  let windowStart = now;
   
-  if (data && data.requests) {
-    // Filter out old requests outside the window
-    requests = data.requests.filter(timestamp => timestamp > windowStart);
+  if (data) {
+    count = data.count || 0;
+    windowStart = data.windowStart || now;
+  }
+  
+  // Check if we're in a new window (window has expired)
+  if (now - windowStart >= RATE_LIMIT_WINDOW) {
+    // Start a new window
+    count = 0;
+    windowStart = now;
   }
   
   // Check if limit exceeded
-  if (requests.length >= RATE_LIMIT_MAX_REQUESTS) {
-    const oldestRequest = Math.min(...requests);
-    const retryAfter = RATE_LIMIT_WINDOW - (now - oldestRequest);
+  if (count >= RATE_LIMIT_MAX_REQUESTS) {
+    const retryAfter = RATE_LIMIT_WINDOW - (now - windowStart);
     
     return {
       allowed: false,
-      retryAfter,
+      retryAfter: Math.max(retryAfter, 1),
       limit: RATE_LIMIT_MAX_REQUESTS,
       remaining: 0,
     };
   }
   
-  // Add current request
-  requests.push(now);
+  // Increment counter
+  count++;
   
-  // Store updated count
+  // Store updated count with TTL
   await env.CHUCK_RATE_LIMIT.put(
     key,
-    JSON.stringify({ requests }),
+    JSON.stringify({ count, windowStart }),
     { expirationTtl: RATE_LIMIT_WINDOW * 2 }
   );
   
   return {
     allowed: true,
     limit: RATE_LIMIT_MAX_REQUESTS,
-    remaining: RATE_LIMIT_MAX_REQUESTS - requests.length,
-    reset: now + RATE_LIMIT_WINDOW,
+    remaining: RATE_LIMIT_MAX_REQUESTS - count,
+    reset: windowStart + RATE_LIMIT_WINDOW,
   };
 }
 
