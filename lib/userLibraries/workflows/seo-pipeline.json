@@ -1,0 +1,106 @@
+{
+  "id": "seo-pipeline-001",
+  "name": "SEO Content Pipeline",
+  "description": "Automated workflow for SEO content creation and optimization",
+  "version": "1.0.0",
+  "nodes": [
+    {
+      "id": "research-1",
+      "type": "AI_AGENT",
+      "label": "Keyword Research",
+      "config": {
+        "toolId": "perplexity",
+        "prompt": "Research trending keywords for: {{topic}}",
+        "parameters": {
+          "depth": "comprehensive"
+        }
+      }
+    },
+    {
+      "id": "content-1",
+      "type": "AI_AGENT",
+      "label": "Content Generation",
+      "config": {
+        "toolId": "jasper",
+        "prompt": "Write SEO-optimized article based on keywords",
+        "parameters": {
+          "length": "long-form",
+          "tone": "professional"
+        }
+      }
+    },
+    {
+      "id": "seo-1",
+      "type": "AI_AGENT",
+      "label": "SEO Optimization",
+      "config": {
+        "toolId": "surfer-seo",
+        "prompt": "Optimize content for SEO",
+        "parameters": {
+          "analysis_depth": "deep"
+        }
+      }
+    },
+    {
+      "id": "processor-1",
+      "type": "PROCESSOR",
+      "label": "Format Content",
+      "config": {
+        "operation": "transform",
+        "format": "html"
+      }
+    },
+    {
+      "id": "output-1",
+      "type": "OUTPUT",
+      "label": "Publish Article",
+      "config": {
+        "destination": "webhook",
+        "target": "https://api.mybonzo.com/publish"
+      }
+    },
+    {
+      "id": "output-2",
+      "type": "OUTPUT",
+      "label": "Send Notification",
+      "config": {
+        "destination": "email",
+        "target": "team@mybonzo.com",
+        "template": "New SEO article published: {{title}}"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": "research-1",
+      "to": "content-1",
+      "label": "Keywords → Content"
+    },
+    {
+      "from": "content-1",
+      "to": "seo-1",
+      "label": "Content → SEO"
+    },
+    {
+      "from": "seo-1",
+      "to": "processor-1",
+      "label": "SEO → Format"
+    },
+    {
+      "from": "processor-1",
+      "to": "output-1",
+      "label": "Format → Publish"
+    },
+    {
+      "from": "processor-1",
+      "to": "output-2",
+      "label": "Format → Notify"
+    }
+  ],
+  "metadata": {
+    "created": "2026-02-13T07:00:00Z",
+    "author": "mybonzo-team",
+    "category": "seo-content",
+    "tags": ["seo", "content", "automation"]
+  }
+}

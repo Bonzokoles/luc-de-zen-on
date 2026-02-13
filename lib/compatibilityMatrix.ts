@@ -1,266 +1,232 @@
 /**
  * CHUCK Compatibility Matrix
- * Calculates connection scores between different AI tools based on their types and workflows
+ * Scores tool-to-tool compatibility for workflow optimization
  */
 
-export interface Tool {
-  id: string;
-  name: string;
-  namePl: string;
-  type: string;
-  workflows: string[];
-  scoreMatrix: {
-    quality: number;
-    speed: number;
-    creativity: number;
-    technical: number;
+export interface CompatibilityScore {
+  source: string;
+  target: string;
+  score: number; // 0-100%
+  reason?: string;
+}
+
+export interface CategoryCompatibility {
+  [key: string]: {
+    [key: string]: number; // category -> category score
   };
 }
 
 /**
- * Connection compatibility table
- * Defines how well different tool types work together (0-100%)
+ * Category-level compatibility scores
+ * Higher scores = better workflow integration
  */
-const CONNECTION_TABLE: Record<string, Record<string, number>> = {
-  writer: {
-    writer: 75,
-    social: 95,
-    design: 85,
-    code: 60,
-    video: 80,
-    audio: 70,
-    research: 90,
-    analytics: 85,
-    productivity: 88,
-    automation: 82,
-    crm: 75,
+export const categoryCompatibility: CategoryCompatibility = {
+  'seo-content': {
+    'seo-content': 95,
+    'code-dev': 70,
+    'ecommerce-b2b': 90,
+    'creative-productivity': 85,
+    'new-2026': 80
   },
-  social: {
-    writer: 95,
-    social: 85,
-    design: 90,
-    code: 50,
-    video: 92,
-    audio: 75,
-    research: 65,
-    analytics: 88,
-    productivity: 80,
-    automation: 90,
-    crm: 85,
+  'code-dev': {
+    'seo-content': 65,
+    'code-dev': 100,
+    'ecommerce-b2b': 75,
+    'creative-productivity': 80,
+    'new-2026': 85
   },
-  design: {
-    writer: 85,
-    social: 90,
-    design: 80,
-    code: 70,
-    video: 95,
-    audio: 65,
-    research: 60,
-    analytics: 70,
-    productivity: 75,
-    automation: 72,
-    crm: 65,
+  'ecommerce-b2b': {
+    'seo-content': 88,
+    'code-dev': 70,
+    'ecommerce-b2b': 95,
+    'creative-productivity': 85,
+    'new-2026': 82
   },
-  code: {
-    writer: 60,
-    social: 50,
-    design: 70,
-    code: 90,
-    video: 55,
-    audio: 55,
-    research: 75,
-    analytics: 85,
-    productivity: 88,
-    automation: 95,
-    crm: 70,
+  'creative-productivity': {
+    'seo-content': 82,
+    'code-dev': 75,
+    'ecommerce-b2b': 80,
+    'creative-productivity': 98,
+    'new-2026': 90
   },
-  video: {
-    writer: 80,
-    social: 92,
-    design: 95,
-    code: 55,
-    video: 85,
-    audio: 90,
-    research: 60,
-    analytics: 75,
-    productivity: 70,
-    automation: 75,
-    crm: 65,
-  },
-  audio: {
-    writer: 70,
-    social: 75,
-    design: 65,
-    code: 55,
-    video: 90,
-    audio: 85,
-    research: 65,
-    analytics: 70,
-    productivity: 75,
-    automation: 72,
-    crm: 70,
-  },
-  research: {
-    writer: 90,
-    social: 65,
-    design: 60,
-    code: 75,
-    video: 60,
-    audio: 65,
-    research: 88,
-    analytics: 92,
-    productivity: 85,
-    automation: 78,
-    crm: 75,
-  },
-  analytics: {
-    writer: 85,
-    social: 88,
-    design: 70,
-    code: 85,
-    video: 75,
-    audio: 70,
-    research: 92,
-    analytics: 90,
-    productivity: 88,
-    automation: 85,
-    crm: 95,
-  },
-  productivity: {
-    writer: 88,
-    social: 80,
-    design: 75,
-    code: 88,
-    video: 70,
-    audio: 75,
-    research: 85,
-    analytics: 88,
-    productivity: 85,
-    automation: 92,
-    crm: 90,
-  },
-  automation: {
-    writer: 82,
-    social: 90,
-    design: 72,
-    code: 95,
-    video: 75,
-    audio: 72,
-    research: 78,
-    analytics: 85,
-    productivity: 92,
-    automation: 88,
-    crm: 88,
-  },
-  crm: {
-    writer: 75,
-    social: 85,
-    design: 65,
-    code: 70,
-    video: 65,
-    audio: 70,
-    research: 75,
-    analytics: 95,
-    productivity: 90,
-    automation: 88,
-    crm: 85,
-  },
+  'new-2026': {
+    'seo-content': 78,
+    'code-dev': 82,
+    'ecommerce-b2b': 80,
+    'creative-productivity': 92,
+    'new-2026': 95
+  }
 };
 
 /**
- * Workflow compatibility bonuses
- * Additional score if tools share common workflows
+ * Type-level compatibility scores
+ * Specific tool type interactions
  */
-const WORKFLOW_BONUS = 15;
-const MAX_WORKFLOW_BONUS = 30;
+export const typeCompatibility: { [key: string]: { [key: string]: number } } = {
+  'research': {
+    'research': 100,
+    'writing': 95,
+    'seo': 98,
+    'content': 92,
+    'coding': 85,
+    'productivity': 88,
+    'meetings': 75,
+    'email': 70
+  },
+  'writing': {
+    'research': 90,
+    'writing': 100,
+    'seo': 95,
+    'content': 98,
+    'productivity': 85,
+    'copywriting': 95
+  },
+  'seo': {
+    'research': 95,
+    'writing': 92,
+    'seo': 100,
+    'content': 95,
+    'analytics': 90,
+    'ecom': 85
+  },
+  'coding': {
+    'coding': 100,
+    'ui': 95,
+    'webdev': 92,
+    'ide': 98,
+    'docs': 88,
+    'devtools': 90
+  },
+  'productivity': {
+    'productivity': 100,
+    'notes': 95,
+    'email': 90,
+    'meetings': 92,
+    'research': 85
+  },
+  'video': {
+    'video': 100,
+    'image': 88,
+    '3d': 85,
+    'audio': 90,
+    'creative': 92
+  },
+  'ecom': {
+    'ecom': 100,
+    'analytics': 95,
+    'support': 88,
+    'crm': 90,
+    'sales': 92,
+    'marketing': 85
+  }
+};
 
 /**
- * Calculate connection score between two tools
- * @param toolA First tool
- * @param toolB Second tool
- * @returns Connection score (0-100%)
+ * Calculate compatibility score between two tools
  */
-export function calculateConnectionScore(toolA: Tool, toolB: Tool): number {
-  // Base compatibility from connection table
-  const typeA = toolA.type;
-  const typeB = toolB.type;
+export function calculateCompatibility(
+  sourceTool: { id: string; type: string; category: string },
+  targetTool: { id: string; type: string; category: string }
+): number {
+  // Same tool = perfect compatibility
+  if (sourceTool.id === targetTool.id) {
+    return 100;
+  }
+
+  // Get category compatibility (60% weight)
+  const categoryScore = categoryCompatibility[sourceTool.category]?.[targetTool.category] || 50;
   
-  let baseScore = CONNECTION_TABLE[typeA]?.[typeB] ?? 50;
+  // Get type compatibility (40% weight)
+  const typeScore = typeCompatibility[sourceTool.type]?.[targetTool.type] || 60;
   
-  // Calculate workflow overlap bonus
-  const sharedWorkflows = toolA.workflows.filter(w => 
-    toolB.workflows.includes(w)
-  );
-  const workflowBonus = Math.min(
-    sharedWorkflows.length * WORKFLOW_BONUS,
-    MAX_WORKFLOW_BONUS
-  );
+  // Weighted average
+  const finalScore = Math.round(categoryScore * 0.6 + typeScore * 0.4);
   
-  // Calculate quality difference penalty (if tools have very different quality levels)
-  const qualityDiff = Math.abs(
-    toolA.scoreMatrix.quality - toolB.scoreMatrix.quality
-  );
-  const qualityPenalty = qualityDiff > 20 ? Math.floor(qualityDiff / 5) : 0;
-  
-  // Final score calculation
-  let finalScore = baseScore + workflowBonus - qualityPenalty;
-  
-  // Ensure score is within 0-100 range
-  return Math.max(0, Math.min(100, finalScore));
+  return Math.min(100, Math.max(0, finalScore));
 }
 
 /**
- * Get all tools compatible with a given tool
- * @param tool Source tool
- * @param allTools All available tools
- * @param minScore Minimum compatibility score (default: 70)
- * @returns Array of compatible tools with scores
+ * Get all compatibility scores for a specific tool
  */
-export function getCompatibleTools(
-  tool: Tool,
-  allTools: Tool[],
-  minScore: number = 70
-): Array<{ tool: Tool; score: number }> {
+export function getToolCompatibilities(
+  tool: { id: string; type: string; category: string },
+  allTools: Array<{ id: string; type: string; category: string }>
+): CompatibilityScore[] {
   return allTools
     .filter(t => t.id !== tool.id)
-    .map(t => ({
-      tool: t,
-      score: calculateConnectionScore(tool, t),
+    .map(targetTool => ({
+      source: tool.id,
+      target: targetTool.id,
+      score: calculateCompatibility(tool, targetTool)
     }))
-    .filter(({ score }) => score >= minScore)
     .sort((a, b) => b.score - a.score);
 }
 
 /**
- * Calculate average compatibility for a tool across all tool types
- * @param tool The tool to analyze
- * @returns Average compatibility score
+ * Find best next tools for a given tool (top 10)
  */
-export function calculateAverageCompatibility(tool: Tool): number {
-  const typeScores = Object.values(CONNECTION_TABLE[tool.type] || {});
-  if (typeScores.length === 0) return 50;
+export function findBestNextTools(
+  currentTool: { id: string; type: string; category: string },
+  allTools: Array<{ id: string; type: string; category: string; pl: string }>,
+  limit: number = 10
+): Array<{ tool: any; score: number }> {
+  const compatibilities = getToolCompatibilities(currentTool, allTools);
   
-  const sum = typeScores.reduce((acc, score) => acc + score, 0);
-  return Math.round(sum / typeScores.length);
+  return compatibilities
+    .slice(0, limit)
+    .map(comp => ({
+      tool: allTools.find(t => t.id === comp.target)!,
+      score: comp.score
+    }));
 }
 
 /**
- * Find best tool combinations for a workflow
- * @param workflow Workflow type
- * @param allTools All available tools
- * @param count Number of tools to return
- * @returns Best tools for the workflow
+ * Validate workflow compatibility (sequence of tools)
  */
-export function findBestToolsForWorkflow(
-  workflow: string,
-  allTools: Tool[],
-  count: number = 5
-): Tool[] {
-  return allTools
-    .filter(tool => tool.workflows.includes(workflow))
-    .sort((a, b) => {
-      // Sort by quality score
-      return b.scoreMatrix.quality - a.scoreMatrix.quality;
-    })
-    .slice(0, count);
+export function validateWorkflow(
+  workflow: Array<{ id: string; type: string; category: string }>,
+  threshold: number = 70
+): {
+  valid: boolean;
+  averageScore: number;
+  weakLinks: Array<{ from: string; to: string; score: number }>;
+} {
+  if (workflow.length < 2) {
+    return { valid: true, averageScore: 100, weakLinks: [] };
+  }
+
+  const scores: number[] = [];
+  const weakLinks: Array<{ from: string; to: string; score: number }> = [];
+
+  for (let i = 0; i < workflow.length - 1; i++) {
+    const score = calculateCompatibility(workflow[i], workflow[i + 1]);
+    scores.push(score);
+    
+    if (score < threshold) {
+      weakLinks.push({
+        from: workflow[i].id,
+        to: workflow[i + 1].id,
+        score
+      });
+    }
+  }
+
+  const averageScore = Math.round(
+    scores.reduce((sum, s) => sum + s, 0) / scores.length
+  );
+
+  return {
+    valid: weakLinks.length === 0,
+    averageScore,
+    weakLinks
+  };
 }
+
+export default {
+  categoryCompatibility,
+  typeCompatibility,
+  calculateCompatibility,
+  getToolCompatibilities,
+  findBestNextTools,
+  validateWorkflow
+};
