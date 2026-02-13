@@ -18,8 +18,9 @@ interface Tool {
   compatibility: string[];
 }
 
-interface WorkflowNode extends UniversalNode {
+type WorkflowNode = UniversalNode & {
   position?: { x: number; y: number };
+  name?: string; // Add optional name for display
 }
 
 interface Workflow {
@@ -208,18 +209,45 @@ export default function MyBonzoDashboard() {
   const handleAddNode = useCallback((type: 'AI_AGENT' | 'PROCESSOR' | 'OUTPUT', toolId?: string) => {
     if (!currentWorkflow) return;
     
-    const newNode: WorkflowNode = {
-      id: `node-${Date.now()}`,
-      type,
-      name: `${type} Node`,
-      config: type === 'AI_AGENT' ? { toolId: toolId || '' } :
-             type === 'PROCESSOR' ? { operation: 'transform' } :
-             { channel: 'email' },
-      position: { 
-        x: Math.random() * 400 + 50, 
-        y: Math.random() * 300 + 50 
-      }
-    };
+    let newNode: WorkflowNode;
+    
+    if (type === 'AI_AGENT') {
+      newNode = {
+        id: `node-${Date.now()}`,
+        type: 'AI_AGENT' as const,
+        label: 'AI_AGENT Node',
+        name: 'AI_AGENT Node',
+        config: { toolId: toolId || '' },
+        position: { 
+          x: Math.random() * 400 + 50, 
+          y: Math.random() * 300 + 50 
+        }
+      };
+    } else if (type === 'PROCESSOR') {
+      newNode = {
+        id: `node-${Date.now()}`,
+        type: 'PROCESSOR' as const,
+        label: 'PROCESSOR Node',
+        name: 'PROCESSOR Node',
+        config: { operation: 'transform' as const },
+        position: { 
+          x: Math.random() * 400 + 50, 
+          y: Math.random() * 300 + 50 
+        }
+      };
+    } else {
+      newNode = {
+        id: `node-${Date.now()}`,
+        type: 'OUTPUT' as const,
+        label: 'OUTPUT Node',
+        name: 'OUTPUT Node',
+        config: { destination: 'email' as const },
+        position: { 
+          x: Math.random() * 400 + 50, 
+          y: Math.random() * 300 + 50 
+        }
+      };
+    }
     
     const updatedWorkflow = {
       ...currentWorkflow,
@@ -238,7 +266,7 @@ export default function MyBonzoDashboard() {
     
     const updatedWorkflow = {
       ...currentWorkflow,
-      nodes: currentWorkflow.nodes.map(n => n.id === nodeId ? { ...n, ...updates } : n),
+      nodes: currentWorkflow.nodes.map(n => n.id === nodeId ? { ...n, ...updates } as WorkflowNode : n),
       updatedAt: new Date().toISOString()
     };
     
@@ -671,7 +699,7 @@ export default function MyBonzoDashboard() {
                         <select
                           value={(selectedNode.config as any).operation || 'transform'}
                           onChange={(e) => handleUpdateNode(selectedNode.id, {
-                            config: { ...selectedNode.config, operation: e.target.value }
+                            config: { ...selectedNode.config, operation: e.target.value as any }
                           })}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                         >
@@ -680,7 +708,6 @@ export default function MyBonzoDashboard() {
                           <option value="export">Export</option>
                           <option value="filter">Filter</option>
                           <option value="merge">Merge</option>
-                          <option value="split">Split</option>
                         </select>
                       </div>
                     )}
@@ -688,12 +715,12 @@ export default function MyBonzoDashboard() {
                     {selectedNode.type === 'OUTPUT' && (
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Channel
+                          Destination
                         </label>
                         <select
-                          value={(selectedNode.config as any).channel || 'email'}
+                          value={(selectedNode.config as any).destination || 'email'}
                           onChange={(e) => handleUpdateNode(selectedNode.id, {
-                            config: { ...selectedNode.config, channel: e.target.value }
+                            config: { ...selectedNode.config, destination: e.target.value as any }
                           })}
                           className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                         >
@@ -701,8 +728,8 @@ export default function MyBonzoDashboard() {
                           <option value="slack">Slack</option>
                           <option value="webhook">Webhook</option>
                           <option value="pdf">PDF</option>
-                          <option value="storage">Storage</option>
-                          <option value="api">API</option>
+                          <option value="database">Database</option>
+                          <option value="file">File</option>
                         </select>
                       </div>
                     )}
