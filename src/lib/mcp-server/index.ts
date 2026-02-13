@@ -3,7 +3,7 @@
  * Provides /analyze endpoint for DAG analysis and workflow scoring
  */
 
-import type { UniversalWorkflow } from '../nodes/universal';
+import type { UniversalWorkflow } from '@/nodes/universal';
 import { scoreWorkflow, detectCycles, getExecutionOrder, type Workflow, type WorkflowNode } from 'lib/workflowScoring';
 import { validateWorkflow } from 'lib/compatibilityMatrix';
 // @ts-ignore - JSON import
@@ -58,8 +58,8 @@ export async function analyzeWorkflow(request: AnalyzeRequest): Promise<AnalyzeR
   try {
     // Extract tool information from workflow nodes
     const tools = workflow.nodes
-      .filter(node => node.type === 'AI_AGENT')
-      .map(node => {
+      .filter((node: any) => node.type === 'AI_AGENT')
+      .map((node: any) => {
         const toolId = (node as any).config?.toolId;
         
         // Find tool in tools-extended.json
@@ -79,7 +79,7 @@ export async function analyzeWorkflow(request: AnalyzeRequest): Promise<AnalyzeR
 
     // Convert UniversalWorkflow to Workflow format for scoring
     const workflowGraph = {
-      nodes: workflow.nodes.map(node => {
+      nodes: workflow.nodes.map((node: any) => {
         const toolId = (node as any).config?.toolId || node.id;
         const toolInfo = tools.find(t => t.id === toolId);
         return {

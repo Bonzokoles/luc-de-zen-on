@@ -4,8 +4,21 @@
  */
 
 import { useState, useMemo } from 'react';
-import type { Tool } from 'lib/compatibilityMatrix';
 import toolsData from 'lib/tools.json';
+
+interface Tool {
+  id: string;
+  name: string;
+  namePl: string;
+  type: string;
+  workflows: string[];
+  scoreMatrix: {
+    quality: number;
+    speed: number;
+    creativity: number;
+    technical: number;
+  };
+}
 
 const tools = toolsData as Tool[];
 
@@ -33,7 +46,7 @@ export default function NodePalette({
 
   const workflows = useMemo(() => {
     const workflowSet = new Set<string>();
-    tools.forEach(t => t.workflows.forEach(w => workflowSet.add(w)));
+    tools.forEach(t => t.workflows.forEach((w: string) => workflowSet.add(w)));
     return ['all', ...Array.from(workflowSet).sort()];
   }, []);
 
@@ -48,7 +61,7 @@ export default function NodePalette({
         tool.name.toLowerCase().includes(query) ||
         tool.namePl.toLowerCase().includes(query) ||
         tool.type.toLowerCase().includes(query) ||
-        tool.workflows.some(w => w.toLowerCase().includes(query))
+        tool.workflows.some((w: string) => w.toLowerCase().includes(query))
       );
     }
 
@@ -202,7 +215,7 @@ export default function NodePalette({
 
               {/* Workflows */}
               <div className="flex flex-wrap gap-1 mb-2">
-                {tool.workflows.map(workflow => (
+                {tool.workflows.map((workflow: string) => (
                   <span 
                     key={workflow}
                     className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded text-xs"

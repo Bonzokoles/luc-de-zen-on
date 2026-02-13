@@ -4,18 +4,29 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { Tool } from 'lib/compatibilityMatrix';
-import { calculateConnectionScore, getCompatibleTools } from 'lib/compatibilityMatrix';
 import { scoreWorkflow, detectCycles } from 'lib/workflowScoring';
 import type { UniversalNode } from '../../nodes/universal';
 import { 
   createAIAgentNode, 
   createProcessorNode, 
-  createOutputNode,
-  validateNode 
+  createOutputNode
 } from '../../nodes/universal';
 import NodePalette from './NodePalette';
 import toolsData from 'lib/tools.json';
+
+interface Tool {
+  id: string;
+  name: string;
+  namePl: string;
+  type: string;
+  workflows: string[];
+  scoreMatrix: {
+    quality: number;
+    speed: number;
+    creativity: number;
+    technical: number;
+  };
+}
 
 const tools = toolsData as Tool[];
 
@@ -33,7 +44,8 @@ export default function WorkflowBuilder() {
 
   // Add node from selected tool
   const handleSelectTool = useCallback((tool: Tool) => {
-    const newNode = createAIAgentNode(tool.id, {
+    const nodeId = `node-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    const newNode = createAIAgentNode(nodeId, tool.id, {
       prompt: 'Wygeneruj treść...',
     });
     
@@ -42,14 +54,16 @@ export default function WorkflowBuilder() {
   }, []);
 
   // Add processor node
-  const addProcessorNode = useCallback((processorType: 'scrape' | 'transform' | 'export') => {
-    const newNode = createProcessorNode(processorType, {});
+  const addProcessorNode = useCallback((processorType: 'scrape' | 'transform' | 'export' | 'filter' | 'merge') => {
+    const nodeId = `processor-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    const newNode = createProcessorNode(nodeId, processorType, {});
     setNodes(prev => [...prev, newNode]);
   }, []);
 
   // Add output node
-  const addOutputNode = useCallback((outputType: 'email' | 'pdf' | 'slack') => {
-    const newNode = createOutputNode(outputType, {});
+  const addOutputNode = useCallback((outputType: 'email' | 'pdf' | 'slack' | 'webhook' | 'database' | 'file') => {
+    const nodeId = `output-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    const newNode = createOutputNode(nodeId, outputType, {});
     setNodes(prev => [...prev, newNode]);
   }, []);
 
@@ -79,8 +93,9 @@ export default function WorkflowBuilder() {
 
     const workflowNodes = nodes.map(node => ({
       id: node.id,
-      toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : '',
+      toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : node.id,
       type: node.type,
+      category: 'general', // Default category
     }));
 
     const result = scoreWorkflow({
@@ -95,16 +110,17 @@ export default function WorkflowBuilder() {
   const checkCycles = useCallback(() => {
     const workflowNodes = nodes.map(node => ({
       id: node.id,
-      toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : '',
+      toolId: node.type === 'AI_AGENT' ? (node as any).config.toolId : node.id,
       type: node.type,
+      category: 'general', // Default category
     }));
 
-    const cycles = detectCycles(workflowNodes, edges);
+    const result = detectCycles({ nodes: workflowNodes, edges });
     
-    if (cycles.length === 0) {
+    if (!result.hasCycles) {
       alert('✅ Brak cykli w workflow!');
     } else {
-      alert(`⚠️ Znaleziono ${cycles.length} cykl(i):\n${cycles.map(c => c.join(' → ')).join('\n')}`);
+      alert(`⚠️ Znaleziono ${result.cycles.length} cykl(i):\n${result.cycles.map((c: string[]) => c.join(' → ')).join('\n')}`);
     }
   }, [nodes, edges]);
 
