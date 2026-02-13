@@ -3,6 +3,21 @@
  * Scores tool-to-tool compatibility for workflow optimization
  */
 
+export interface Tool {
+  id: string;
+  name: string;
+  namePl: string;
+  type: string;
+  category?: string;  // Make optional for backward compatibility
+  workflows: string[];
+  scoreMatrix: {
+    quality: number;
+    speed: number;
+    creativity: number;
+    technical: number;
+  };
+}
+
 export interface CompatibilityScore {
   source: string;
   target: string;
@@ -230,3 +245,40 @@ export default {
   findBestNextTools,
   validateWorkflow
 };
+
+// Aliases for backward compatibility
+export const calculateConnectionScore = calculateCompatibility;
+
+export function getCompatibleTools(
+  tool: Tool,
+  allTools: Tool[],
+  minScore: number = 70
+): Array<{ tool: Tool; score: number }> {
+  const toolWithCategory = {
+    id: tool.id,
+    type: tool.type,
+    category: tool.category || tool.type  // Use type as fallback for category
+  };
+  
+  return getToolCompatibilities(toolWithCategory, allTools.map(t => ({
+    id: t.id,
+    type: t.type,
+    category: t.category || t.type
+  })))
+    .filter(comp => comp.score >= minScore)
+    .map(comp => ({
+      tool: allTools.find(t => t.id === comp.target)!,
+      score: comp.score
+    }));
+}
+
+export function findBestToolsForWorkflow(
+  workflowType: string,
+  allTools: Tool[],
+  limit: number = 10
+): Tool[] {
+  return allTools
+    .filter(tool => tool.workflows.includes(workflowType))
+    .sort((a, b) => b.scoreMatrix.quality - a.scoreMatrix.quality)
+    .slice(0, limit);
+}
