@@ -7,7 +7,7 @@ import type { UniversalWorkflow, UniversalNode } from './nodes/universal';
 import { executeAIAgent } from './nodes/ai-agent';
 import { executeProcessor } from './nodes/processor';
 import { executeOutput } from './nodes/output';
-import { getExecutionOrder } from '../lib/workflowScoring';
+import { getExecutionOrder } from 'lib/workflowScoring';
 
 export interface ExecutionContext {
   workflowId: string;

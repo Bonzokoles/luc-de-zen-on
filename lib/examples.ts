@@ -9,7 +9,7 @@
 
 import { createAIAgentNode, createProcessorNode, createOutputNode } from '../src/nodes/universal';
 import { executeWorkflow } from '../src/executionEngine';
-import { analyzeWorkflow } from '../mcp-server';
+import { analyzeWorkflow } from '@/lib/mcp-server/index';
 import type { UniversalWorkflow } from '../src/nodes/universal';
 
 /**
