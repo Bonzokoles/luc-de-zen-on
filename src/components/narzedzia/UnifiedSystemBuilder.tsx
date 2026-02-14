@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { UniversalWorkflow, UniversalNode, NodeConnection } from '../../nodes/universal';
+import type { UniversalWorkflow, UniversalNode, NodeConnection, AIAgentNode, ProcessorNode, OutputNode } from '../../nodes/universal';
 
 interface Tool {
   id: string;
@@ -16,6 +16,19 @@ interface WorkflowTemplate {
   description: string;
   category: string;
   workflow: Partial<UniversalWorkflow>;
+}
+
+// Type guard functions
+function isAIAgentNode(node: UniversalNode): node is AIAgentNode {
+  return node.type === 'AI_AGENT';
+}
+
+function isProcessorNode(node: UniversalNode): node is ProcessorNode {
+  return node.type === 'PROCESSOR';
+}
+
+function isOutputNode(node: UniversalNode): node is OutputNode {
+  return node.type === 'OUTPUT';
 }
 
 const WORKFLOW_TEMPLATES: WorkflowTemplate[] = [
@@ -214,17 +227,22 @@ export default function UnifiedSystemBuilder() {
 
     try {
       // Execute each node in the workflow
-      const results: any[] = [];
+      const results: Array<{
+        nodeId: string;
+        type: string;
+        toolId?: string;
+        result: any;
+      }> = [];
       
       for (const node of workflow.nodes || []) {
-        if (node.type === 'AI_AGENT') {
+        if (isAIAgentNode(node)) {
           const response = await fetch('/api/chuck/exec', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              toolId: (node as any).config.toolId,
-              prompt: (node as any).config.prompt || '',
-              parameters: (node as any).config.parameters || {}
+              toolId: node.config.toolId,
+              prompt: node.config.prompt || '',
+              parameters: node.config.parameters || {}
             })
           });
 
@@ -232,7 +250,7 @@ export default function UnifiedSystemBuilder() {
           results.push({
             nodeId: node.id,
             type: node.type,
-            toolId: (node as any).config.toolId,
+            toolId: node.config.toolId,
             result: data
           });
         }
@@ -325,9 +343,9 @@ export default function UnifiedSystemBuilder() {
                   <div className="flex-1">
                     <div className="font-semibold">{node.type}</div>
                     <div className="text-sm text-gray-600">
-                      {node.type === 'AI_AGENT' && `Tool: ${node.config.toolId}`}
-                      {node.type === 'PROCESSOR' && `Operation: ${node.config.operation}`}
-                      {node.type === 'OUTPUT' && `Destination: ${node.config.destination}`}
+                      {node.type === 'AI_AGENT' && node.config?.toolId && `Tool: ${node.config.toolId}`}
+                      {node.type === 'PROCESSOR' && node.config?.operation && `Operation: ${node.config.operation}`}
+                      {node.type === 'OUTPUT' && node.config?.destination && `Destination: ${node.config.destination}`}
                     </div>
                   </div>
                   {idx < (workflow.nodes?.length || 0) - 1 && (
