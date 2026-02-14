@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro";
+import TabNavigation from "../../components/dashboard/TabNavigation";
 
 const narzedzia = [
   {
@@ -103,8 +104,32 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
 
 <MainLayout title="Wszystkie Narzędzia">
   <div class="container mx-auto px-4 py-12">
-    <!-- Header -->
-    <div class="text-center mb-12 fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Left Sidebar: Tab Navigation -->
+      <aside class="lg:col-span-3">
+        <TabNavigation client:load currentPath="/narzedzia" />
+        
+        <!-- CHUCK Scoring Info Card -->
+        <div class="mt-6 p-4 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 rounded-lg">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 class="text-lg font-bold text-indigo-300">CHUCK Scoring</h3>
+          </div>
+          <p class="text-sm text-gray-300 mb-3">
+            System oceny jakości workflow AI - analizuj, optymalizuj, buduj lepsze procesy.
+          </p>
+          <a href="/narzedzia/workflow-builder" class="block w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-center rounded-lg font-semibold transition-colors text-sm">
+            Otwórz Workflow Builder
+          </a>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="lg:col-span-9">
+        <!-- Header -->
+        <div class="text-center mb-12 fade-in">
       <div class="flex items-center justify-center gap-6 mb-4">
         <div class="relative w-20 h-20 md:w-24 md:h-24 animate-float">
           <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
@@ -179,6 +204,8 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
         <a href="/instrukcje" class="btn-primary"> 📚 Przeczytaj Instrukcje </a>
         <a href="/" class="btn-secondary"> 🏠 Strona Główna </a>
       </div>
+    </div>
+      </main>
     </div>
   </div>
 </MainLayout>

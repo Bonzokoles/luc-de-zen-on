@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import AsystentAI from '../components/AsystentAI';
+import TabNavigation from '../components/dashboard/TabNavigation';
 ---
 
 <MainLayout
@@ -8,6 +9,24 @@ import AsystentAI from '../components/AsystentAI';
   description="Twój osobisty doradca biznesowy 24/7. Zadaj pytanie, otrzymaj ekspercką pomoc w prowadzeniu firmy."
 >
   <div class="container-custom py-12">
-    <AsystentAI client:load />
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Left Sidebar: Tab Navigation -->
+      <aside class="lg:col-span-3">
+        <TabNavigation client:load currentPath="/asystent-ai" />
+        
+        <!-- Info Card -->
+        <div class="mt-6 p-4 bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-lg">
+          <h3 class="text-lg font-bold text-purple-300 mb-2">💡 Wskazówka</h3>
+          <p class="text-sm text-gray-300">
+            Zadawaj konkretne pytania, opisuj swój biznes - im więcej szczegółów, tym lepsze odpowiedzi!
+          </p>
+        </div>
+      </aside>
+
+      <!-- Main Content: Expanded AI Panel -->
+      <main class="lg:col-span-9">
+        <AsystentAI client:load />
+      </main>
+    </div>
   </div>
 </MainLayout>

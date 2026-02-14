@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import GlobalChatbox from '../components/dashboard/GlobalChatbox';
 
 interface Props {
   title: string;
@@ -136,6 +137,9 @@ const {
       </div>
     </footer>
   </div>
+
+  <!-- Global Chatbox -->
+  <GlobalChatbox client:load />
 
   <script>
     // Mobile menu toggle
