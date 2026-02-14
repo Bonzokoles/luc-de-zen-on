@@ -151,13 +151,13 @@ export class WorkflowOrchestrator {
       // Execute based on node type
       switch (node.type) {
         case 'AI_AGENT':
-          stepResult.output = await this.executeAIAgent(node as any);
+          stepResult.output = await this.executeAIAgent(node);
           break;
         case 'PROCESSOR':
-          stepResult.output = await this.executeProcessor(node as any);
+          stepResult.output = await this.executeProcessor(node);
           break;
         case 'OUTPUT':
-          stepResult.output = await this.executeOutput(node as any);
+          stepResult.output = await this.executeOutput(node);
           break;
         default:
           throw new Error(`Unknown node type: ${node.type}`);
@@ -175,7 +175,11 @@ export class WorkflowOrchestrator {
   /**
    * Execute AI_AGENT node
    */
-  private async executeAIAgent(node: any): Promise<any> {
+  private async executeAIAgent(node: UniversalNode): Promise<any> {
+    if (node.type !== 'AI_AGENT') {
+      throw new Error('Node is not an AI_AGENT');
+    }
+    
     const endpoint = this.config.apiEndpoints.exec;
     
     const response = await fetch(endpoint, {
@@ -198,7 +202,11 @@ export class WorkflowOrchestrator {
   /**
    * Execute PROCESSOR node
    */
-  private async executeProcessor(node: any): Promise<any> {
+  private async executeProcessor(node: UniversalNode): Promise<any> {
+    if (node.type !== 'PROCESSOR') {
+      throw new Error('Node is not a PROCESSOR');
+    }
+    
     // Mock implementation for now
     return {
       type: 'processor',
@@ -211,7 +219,11 @@ export class WorkflowOrchestrator {
   /**
    * Execute OUTPUT node
    */
-  private async executeOutput(node: any): Promise<any> {
+  private async executeOutput(node: UniversalNode): Promise<any> {
+    if (node.type !== 'OUTPUT') {
+      throw new Error('Node is not an OUTPUT');
+    }
+    
     // Mock implementation for now
     return {
       type: 'output',

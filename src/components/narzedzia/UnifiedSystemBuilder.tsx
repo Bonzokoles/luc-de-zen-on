@@ -125,10 +125,18 @@ export default function UnifiedSystemBuilder() {
   const [tools, setTools] = useState<Tool[]>([]);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
   const [workflow, setWorkflow] = useState<Partial<UniversalWorkflow> | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<{
+    qualityScore?: number;
+    isValidDAG?: boolean;
+    executionOrder?: string[];
+  } | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
-  const [executionResult, setExecutionResult] = useState<any>(null);
+  const [executionResult, setExecutionResult] = useState<{
+    status: string;
+    executedNodes: number;
+    results: any[];
+  } | null>(null);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
@@ -214,9 +222,9 @@ export default function UnifiedSystemBuilder() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              toolId: node.config.toolId,
-              prompt: node.config.prompt || '',
-              parameters: node.config.parameters || {}
+              toolId: (node as any).config.toolId,
+              prompt: (node as any).config.prompt || '',
+              parameters: (node as any).config.parameters || {}
             })
           });
 
@@ -224,7 +232,7 @@ export default function UnifiedSystemBuilder() {
           results.push({
             nodeId: node.id,
             type: node.type,
-            toolId: node.config.toolId,
+            toolId: (node as any).config.toolId,
             result: data
           });
         }
