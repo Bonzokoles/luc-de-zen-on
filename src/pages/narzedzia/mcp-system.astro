@@ -20,7 +20,7 @@ import MCPConnectionStatus from '../../components/narzedzia/MCPConnectionStatus'
 
     <!-- Connection Status Component -->
     <div class="mb-8">
-      <MCPConnectionStatus client:load serverUrl="/api/mcp-server" autoConnect={true} />
+      <MCPConnectionStatus client:load />
     </div>
 
     <!-- Info Sections -->
@@ -94,7 +94,7 @@ import MCPConnectionStatus from '../../components/narzedzia/MCPConnectionStatus'
         <!-- Example 1 -->
         <div>
           <h3 class="text-lg font-semibold text-cyan-400 mb-2">1. Wykonanie Skill z Safety Check</h3>
-          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">POST /api/mcp-server
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
 {
   "action": "execute_skill",
   "skillId": "text-generation",
@@ -104,27 +104,27 @@ import MCPConnectionStatus from '../../components/narzedzia/MCPConnectionStatus'
     "tone": "professional",
     "length": "medium"
   }
-}</code></pre>
+}`}</code></pre>
         </div>
 
         <!-- Example 2 -->
         <div>
           <h3 class="text-lg font-semibold text-purple-400 mb-2">2. Walidacja Skill</h3>
-          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">POST /api/mcp-server
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
 {
   "action": "validate_skill",
   "skillId": "email-writing"
-}</code></pre>
+}`}</code></pre>
         </div>
 
         <!-- Example 3 -->
         <div>
           <h3 class="text-lg font-semibold text-green-400 mb-2">3. Pobranie System Prompt</h3>
-          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">POST /api/mcp-server
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
 {
   "action": "get_system_prompt",
   "context": "business"
-}</code></pre>
+}`}</code></pre>
         </div>
       </div>
     </div>
