@@ -1,17 +1,10 @@
-import { useEffect, useState } from 'react';
-import { LayoutDashboard, Wrench, Bot } from 'lucide-react';
+import { Bot, LayoutDashboard, Wrench } from 'lucide-react';
 
 interface TabNavigationProps {
   currentPath?: string;
 }
 
 const TabNavigation = ({ currentPath = '/' }: TabNavigationProps) => {
-  const [activePath, setActivePath] = useState(currentPath);
-
-  useEffect(() => {
-    setActivePath(currentPath);
-  }, [currentPath]);
-
   const tabs = [
     { label: 'Dashboard', path: '/', icon: LayoutDashboard },
     { label: 'Narzędzia', path: '/narzedzia', icon: Wrench },
@@ -22,7 +15,7 @@ const TabNavigation = ({ currentPath = '/' }: TabNavigationProps) => {
     <nav className="flex flex-col gap-2 bg-business-surface/50 backdrop-blur-sm p-4 rounded-lg border border-business-border">
       {tabs.map((tab) => {
         const Icon = tab.icon;
-        const isActive = activePath === tab.path;
+        const isActive = currentPath === tab.path;
         
         return (
           <a
