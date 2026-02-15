@@ -19,7 +19,6 @@ class CursorLightEffect {
 
   // Configuration
   private readonly IDLE_DELAY = 800; // ms
-  private readonly TRAIL_DELAY = 150; // ms
 
   constructor() {
     this.handleMouseMove = this.handleMouseMove.bind(this);

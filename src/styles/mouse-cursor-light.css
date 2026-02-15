@@ -199,33 +199,12 @@
   animation: idle-glow 2s ease-in-out infinite;
 }
 
-/* Extended glow layer when idle */
+/* Extended glow layer when idle with pulsing ring */
 .cursor-light.idle::before {
   width: 600px;
   height: 600px;
   opacity: 1;
   filter: blur(60px) brightness(1.3);
-}
-
-/* Brighter core when idle */
-.cursor-light.idle::after {
-  filter: blur(35px) brightness(1.5);
-  
-  /* Add pulsing ring effect */
-  box-shadow: 
-    0 0 20px rgba(96, 165, 250, 0.4),
-    0 0 40px rgba(59, 130, 246, 0.3);
-}
-
-/* Pulsing ring around cursor when idle - using a new pseudo-element approach */
-/* We'll add this via the ring animation on the main element's border */
-.cursor-light.idle {
-  /* Create ring effect with border */
-  position: relative;
-}
-
-/* Add animated ring via border styling */
-.cursor-light.idle::before {
   border: 2px solid rgba(147, 197, 253, 0.3);
   border-radius: 50%;
   box-shadow: 
@@ -235,6 +214,14 @@
   
   /* Ring pulse animation */
   animation: idle-ring 3s ease-in-out infinite;
+}
+
+/* Brighter core when idle */
+.cursor-light.idle::after {
+  filter: blur(35px) brightness(1.5);
+  box-shadow: 
+    0 0 20px rgba(96, 165, 250, 0.4),
+    0 0 40px rgba(59, 130, 246, 0.3);
 }
 
 /* ===== ANIMATIONS ===== */
