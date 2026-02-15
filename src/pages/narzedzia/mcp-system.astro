@@ -1,0 +1,218 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import MCPConnectionStatus from '../../components/narzedzia/MCPConnectionStatus';
+---
+
+<MainLayout 
+  title="MCP System - Model Context Protocol"
+  description="Zarządzanie połączeniem MCP z system prompts i walidacją bezpieczeństwa"
+>
+  <div class="container mx-auto px-4 py-8 max-w-7xl">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
+        MCP System 2025
+      </h1>
+      <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+        Model Context Protocol - Najnowszy standard połączenia z AI z pełnym zarządzaniem połączeniem, system prompts i walidacją bezpieczeństwa
+      </p>
+    </div>
+
+    <!-- Connection Status Component -->
+    <div class="mb-8">
+      <MCPConnectionStatus client:load />
+    </div>
+
+    <!-- Info Sections -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <!-- Connection Management -->
+      <div class="card bg-slate-900 border-slate-700 p-6">
+        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-cyan-400">🔗</span>
+          Zarządzanie Połączeniem
+        </h2>
+        <ul class="space-y-3 text-slate-300">
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Keep-Alive:</strong> Automatyczne utrzymanie połączenia</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Heartbeat:</strong> Sprawdzanie stanu co 30s</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Auto-reconnect:</strong> Automatyczne ponowne łączenie</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Wykładniczy backoff:</strong> Inteligentne opóźnienia</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Monitoring:</strong> Real-time status połączenia</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Safety Features -->
+      <div class="card bg-slate-900 border-slate-700 p-6">
+        <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-purple-400">🛡️</span>
+          Funkcje Bezpieczeństwa
+        </h2>
+        <ul class="space-y-3 text-slate-300">
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Walidacja Promptów:</strong> Sprawdzanie niebezpiecznych wzorców</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Walidacja Skills:</strong> Tylko zweryfikowane funkcje</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>Filtrowanie Treści:</strong> Usuwanie credentials i injection</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>System Prompts:</strong> Kontekstowe zasady bezpieczeństwa</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 mt-1">✓</span>
+            <span><strong>PII Protection:</strong> Ochrona danych osobowych</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- API Examples -->
+    <div class="card bg-slate-900 border-slate-700 p-6 mb-8">
+      <h2 class="text-2xl font-bold text-white mb-4">Przykłady API</h2>
+      
+      <div class="space-y-6">
+        <!-- Example 1 -->
+        <div>
+          <h3 class="text-lg font-semibold text-cyan-400 mb-2">1. Wykonanie Skill z Safety Check</h3>
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
+{
+  "action": "execute_skill",
+  "skillId": "text-generation",
+  "prompt": "Napisz profesjonalny email",
+  "context": "business",
+  "parameters": {
+    "tone": "professional",
+    "length": "medium"
+  }
+}`}</code></pre>
+        </div>
+
+        <!-- Example 2 -->
+        <div>
+          <h3 class="text-lg font-semibold text-purple-400 mb-2">2. Walidacja Skill</h3>
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
+{
+  "action": "validate_skill",
+  "skillId": "email-writing"
+}`}</code></pre>
+        </div>
+
+        <!-- Example 3 -->
+        <div>
+          <h3 class="text-lg font-semibold text-green-400 mb-2">3. Pobranie System Prompt</h3>
+          <pre class="bg-slate-800 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300">{`POST /api/mcp-server
+{
+  "action": "get_system_prompt",
+  "context": "business"
+}`}</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- Safe Skills -->
+    <div class="card bg-slate-900 border-slate-700 p-6 mb-8">
+      <h2 class="text-2xl font-bold text-white mb-4">Dozwolone Skills</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Content Skills -->
+        <div>
+          <h3 class="text-lg font-semibold text-cyan-400 mb-3">Content</h3>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• text-generation</li>
+            <li>• summarization</li>
+            <li>• translation</li>
+            <li>• paraphrasing</li>
+            <li>• grammar-check</li>
+          </ul>
+        </div>
+
+        <!-- Business Skills -->
+        <div>
+          <h3 class="text-lg font-semibold text-purple-400 mb-3">Business</h3>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• email-writing</li>
+            <li>• document-generation</li>
+            <li>• data-analysis</li>
+            <li>• report-generation</li>
+            <li>• task-management</li>
+          </ul>
+        </div>
+
+        <!-- Technical Skills -->
+        <div>
+          <h3 class="text-lg font-semibold text-green-400 mb-3">Technical</h3>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• code-review</li>
+            <li>• documentation</li>
+            <li>• debugging-assistance</li>
+            <li>• api-integration</li>
+            <li>• testing</li>
+          </ul>
+        </div>
+
+        <!-- Creative Skills -->
+        <div>
+          <h3 class="text-lg font-semibold text-orange-400 mb-3">Creative</h3>
+          <ul class="space-y-2 text-sm text-slate-300">
+            <li>• brainstorming</li>
+            <li>• ideation</li>
+            <li>• content-planning</li>
+            <li>• social-media</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentation Link -->
+    <div class="card bg-gradient-to-r from-cyan-900/50 to-purple-900/50 border-cyan-700 p-6 text-center">
+      <h2 class="text-2xl font-bold text-white mb-3">📚 Pełna Dokumentacja</h2>
+      <p class="text-slate-300 mb-4">
+        Dowiedz się więcej o MCP System, Connection Manager, Safety Validator i API
+      </p>
+      <a 
+        href="/docs/MCP_SYSTEM_2025.md" 
+        target="_blank"
+        class="inline-block px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg font-semibold transition-colors"
+      >
+        Zobacz Dokumentację
+      </a>
+    </div>
+
+    <!-- Footer Info -->
+    <div class="mt-8 text-center text-sm text-slate-500">
+      <p>Model Context Protocol 2025 Specification</p>
+      <p class="mt-1">
+        Zgodne z:
+        <a href="https://modelcontextprotocol.io/" target="_blank" class="text-cyan-400 hover:underline ml-1">
+          modelcontextprotocol.io
+        </a>
+      </p>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .card {
+    @apply bg-white/5 backdrop-blur-sm border rounded-xl shadow-xl;
+  }
+</style>
