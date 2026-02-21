@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/Shared_State": false,
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true
+		},
+		"editor.formatOnSave": true
+	}
+}

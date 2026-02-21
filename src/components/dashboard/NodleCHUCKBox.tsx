@@ -13,9 +13,8 @@ const NodleCHUCKBox = () => {
   return (
     <div className="relative z-20">
       <div
-        className={`bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border-2 border-indigo-500/30 rounded-lg overflow-hidden transition-all duration-500 ease-out ${
-          isExpanded ? 'max-h-[600px]' : 'max-h-[80px]'
-        }`}
+        className={`bg-gray-900/60 backdrop-blur-md border border-gray-700/50 rounded-lg overflow-hidden transition-all duration-500 ease-out ${isExpanded ? 'max-h-[600px] ring-1 ring-indigo-500/30' : 'max-h-[80px] hover:bg-gray-800/60'
+          }`}
       >
         {/* Header - Always Visible */}
         <button
@@ -37,9 +36,8 @@ const NodleCHUCKBox = () => {
 
         {/* Expandable Content - Expands UP-DOWN (scaleY) */}
         <div
-          className={`px-6 pb-6 transition-all duration-500 ease-out origin-top ${
-            isExpanded ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
-          }`}
+          className={`px-6 pb-6 transition-all duration-500 ease-out origin-top ${isExpanded ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
+            }`}
         >
           {/* Mini Canvas / Workflow List */}
           <div className="space-y-3 mb-4">
@@ -54,13 +52,12 @@ const NodleCHUCKBox = () => {
                     <span className="font-semibold text-gray-200">{workflow.name}</span>
                   </div>
                   <span
-                    className={`px-2 py-1 rounded text-xs font-bold ${
-                      workflow.status === 'active'
+                    className={`px-2 py-1 rounded text-xs font-bold ${workflow.status === 'active'
                         ? 'bg-green-500/20 text-green-300'
                         : workflow.status === 'ready'
-                        ? 'bg-blue-500/20 text-blue-300'
-                        : 'bg-gray-500/20 text-gray-300'
-                    }`}
+                          ? 'bg-blue-500/20 text-blue-300'
+                          : 'bg-gray-500/20 text-gray-300'
+                      }`}
                   >
                     {workflow.status}
                   </span>

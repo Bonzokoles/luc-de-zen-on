@@ -22,7 +22,9 @@ export default defineConfig({
         output: {
           manualChunks: {
             'vendor-react': ['react', 'react-dom'],
-            'vendor-ai': ['openai', '@ai-sdk/openai', 'ai']
+            'vendor-ui': ['framer-motion', 'lucide-react', '@monaco-editor/react'],
+            'vendor-charts': ['recharts', 'd3', '@visx/visx'],
+            'vendor-utils': ['date-fns', 'jspdf', 'xlsx']
           }
         }
       }

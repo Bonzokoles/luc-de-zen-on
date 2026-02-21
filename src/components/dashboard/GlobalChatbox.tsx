@@ -43,7 +43,7 @@ const GlobalChatbox = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 w-full max-w-2xl md:w-1/2">
+    <div className="fixed bottom-4 right-4 z-[35] w-full max-w-2xl md:w-1/2">
       {/* Collapsed State */}
       {!isExpanded && (
         <button
@@ -58,7 +58,7 @@ const GlobalChatbox = () => {
 
       {/* Expanded State */}
       {isExpanded && (
-        <div className="bg-business-surface border-2 border-indigo-500/30 rounded-lg shadow-2xl overflow-hidden transition-all duration-500 ease-out max-h-[25vh] flex flex-col">
+        <div className="bg-business-surface border-2 border-indigo-500/30 rounded-lg shadow-2xl overflow-hidden transition-all duration-500 ease-out max-h-[16vh] min-h-[200px] flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
             <div className="flex items-center gap-2">
@@ -96,11 +96,10 @@ const GlobalChatbox = () => {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] px-4 py-2 rounded-lg ${
-                    msg.role === 'user'
+                  className={`max-w-[80%] px-4 py-2 rounded-lg ${msg.role === 'user'
                       ? 'bg-indigo-600 text-white'
                       : 'bg-business-surface border border-business-border text-business-text'
-                  }`}
+                    }`}
                 >
                   {msg.content}
                 </div>

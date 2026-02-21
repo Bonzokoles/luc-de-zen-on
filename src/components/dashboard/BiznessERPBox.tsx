@@ -5,33 +5,33 @@ const BiznessERPBox = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const tiles = [
-    { 
-      icon: FileText, 
-      label: 'Kreator dokumentów', 
-      href: '/narzedzia/kreator-dokumentow', 
+    {
+      icon: FileText,
+      label: 'Kreator dokumentów',
+      href: '/narzedzia/kreator-dokumentow',
       bgClass: 'bg-cyan-900/30',
       borderClass: 'border-cyan-500/30 hover:border-cyan-400',
       iconClass: 'text-cyan-400'
     },
-    { 
-      icon: DollarSign, 
-      label: 'Faktury VAT', 
+    {
+      icon: DollarSign,
+      label: 'Faktury VAT',
       href: '/narzedzia/generator-faktur',
       bgClass: 'bg-emerald-900/30',
       borderClass: 'border-emerald-500/30 hover:border-emerald-400',
       iconClass: 'text-emerald-400'
     },
-    { 
-      icon: Package, 
-      label: 'Magazyn', 
+    {
+      icon: Package,
+      label: 'Magazyn',
       href: '/magazyn',
       bgClass: 'bg-blue-900/30',
       borderClass: 'border-blue-500/30 hover:border-blue-400',
       iconClass: 'text-blue-400'
     },
-    { 
-      icon: FileText, 
-      label: 'Treści', 
+    {
+      icon: FileText,
+      label: 'Treści',
       href: '/narzedzia/generator-tresci',
       bgClass: 'bg-purple-900/30',
       borderClass: 'border-purple-500/30 hover:border-purple-400',
@@ -48,9 +48,8 @@ const BiznessERPBox = () => {
   return (
     <div className="relative z-30">
       <div
-        className={`bg-gradient-to-br from-emerald-900/50 to-teal-900/50 border-2 border-emerald-500/30 rounded-lg overflow-hidden transition-all duration-500 ease-out ${
-          isExpanded ? 'max-h-[600px]' : 'max-h-[80px]'
-        }`}
+        className={`bg-gray-900/60 backdrop-blur-md border border-gray-700/50 rounded-lg overflow-hidden transition-all duration-500 ease-out ${isExpanded ? 'max-h-[600px] ring-1 ring-emerald-500/30' : 'max-h-[80px] hover:bg-gray-800/60'
+          }`}
       >
         {/* Header - Always Visible */}
         <button
@@ -72,9 +71,8 @@ const BiznessERPBox = () => {
 
         {/* Expandable Content - Expands DOWN */}
         <div
-          className={`px-6 pb-6 transition-all duration-500 ease-out ${
-            isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
-          }`}
+          className={`px-6 pb-6 transition-all duration-500 ease-out ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
+            }`}
         >
           {/* Tiles Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
