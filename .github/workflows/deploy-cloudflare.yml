@@ -43,12 +43,14 @@ jobs:
           NODE_OPTIONS: '--max-old-space-size=8192'
           NODE_ENV: 'production'
 
+      - name: Install Wrangler
+        run: npm install -g wrangler@4.50.0
+
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
+        run: wrangler pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deployment Summary
         run: |
