@@ -57,3 +57,4 @@ jobs:
           echo "✅ Deployed to Cloudflare Pages"
           echo "🌐 Primary domain: luc-de-zen-on.pages.dev"
           echo "🌐 Custom domain: mybonzo.com"
+          echo "📦 Commit: ${{ github.sha }}"
