@@ -11,6 +11,8 @@ interface Balloon {
   delay: number;
 }
 
+const DEFAULT_BALLOON_COLORS = ['#334155', '#475569', '#64748b', '#94a3b8'];
+
 interface BalloonLibraryProps {
   count?: number;
   colors?: string[];
@@ -21,7 +23,7 @@ interface BalloonLibraryProps {
 
 export const BalloonLibrary: React.FC<BalloonLibraryProps> = ({
   count = 15,
-  colors = ['#334155', '#475569', '#64748b', '#94a3b8'],
+  colors = DEFAULT_BALLOON_COLORS,
   minSize = 4,
   maxSize = 12,
   speed = 'medium'
@@ -78,6 +80,8 @@ export const BalloonLibrary: React.FC<BalloonLibraryProps> = ({
 };
 
 // Particle Effect Component
+const DEFAULT_PARTICLE_COLORS = ['#00d9ff', '#0ea5e9', '#4ade80', '#8b5cf6'];
+
 interface ParticleEffectProps {
   particleCount?: number;
   colors?: string[];
@@ -85,7 +89,7 @@ interface ParticleEffectProps {
 
 export const ParticleEffect: React.FC<ParticleEffectProps> = ({
   particleCount = 30,
-  colors = ['#00d9ff', '#0ea5e9', '#4ade80', '#8b5cf6']
+  colors = DEFAULT_PARTICLE_COLORS
 }) => {
   const [particles, setParticles] = useState<any[]>([]);
 

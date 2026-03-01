@@ -1,3 +1,20 @@
+/* Czcionki lokalne - Steelfish (polskie znaki) */
+@font-face {
+  font-family: 'SteelfishEb';
+  src: url('/fonts/SteelfishEb.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SteelfishEb';
+  src: url('/fonts/SteelfishEbIt.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Importuj czcionki Google */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
 
@@ -24,6 +41,17 @@
   h6 {
     font-family: 'Poppins', sans-serif;
     @apply text-business-text;
+  }
+
+  /* Opisy i małe znaki - Steelfish ExtraBold (polskie znaki) */
+  p,
+  small,
+  .text-sm,
+  .text-xs,
+  label,
+  .description,
+  .subtitle {
+    font-family: 'SteelfishEb', 'Inter', sans-serif;
   }
 }
 

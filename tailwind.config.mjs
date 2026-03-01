@@ -32,6 +32,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         heading: ['Poppins', 'sans-serif'],
+        steelfish: ['SteelfishEb', 'sans-serif'],
       },
       boxShadow: {
         'glow': '0 0 20px rgba(0, 217, 255, 0.3)',

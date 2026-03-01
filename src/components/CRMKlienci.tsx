@@ -109,7 +109,7 @@ const CRMKlienci = () => {
   // Add/Update client
   const handleSaveClient = () => {
     if (!formData.name || !formData.email) {
-      alert('Imi─Ö i email s─ů wymagane!');
+      alert('Imię i email są wymagane!');
       return;
     }
 
@@ -153,7 +153,7 @@ const CRMKlienci = () => {
 
   // Delete client
   const handleDelete = (id: string) => {
-    if (confirm('Czy na pewno chcesz usun─ů─ç tego klienta?')) {
+    if (confirm('Czy na pewno chcesz usunąć tego klienta?')) {
       setClients(prev => prev.filter(c => c.id !== id));
       setShowDetailModal(false);
     }
@@ -193,7 +193,7 @@ const CRMKlienci = () => {
   // Export to CSV
   const handleExport = () => {
     const csv = [
-      ['Imi─Ö i Nazwisko', 'Email', 'Telefon', 'Firma', 'Status', 'Segment', 'Warto┼Ť─ç', '┼╣r├│d┼éo', 'Data utworzenia'],
+      ['Imię i Nazwisko', 'Email', 'Telefon', 'Firma', 'Status', 'Segment', 'Wartość', '┼╣ródło', 'Data utworzenia'],
       ...filteredClients.map(c => [
         c.name,
         c.email,
@@ -233,10 +233,10 @@ const CRMKlienci = () => {
       <div className="text-center mb-6">
         <h1 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-3">
           <Users className="w-8 h-8 text-primary-400" />
-          CRM - Zarz─ůdzanie Klientami
+          CRM - Zarządzanie Klientami
         </h1>
         <p className="text-gray-300">
-          Twoja baza klient├│w w jednym miejscu - historia kontakt├│w, segmentacja, warto┼Ť─ç
+          Twoja baza klientów w jednym miejscu - historia kontaktów, segmentacja, wartość
         </p>
       </div>
 
@@ -262,7 +262,7 @@ const CRMKlienci = () => {
           <div className="text-2xl font-bold text-primary-400">
             {(stats.totalValue / 1000).toFixed(0)}k
           </div>
-          <div className="text-xs text-gray-400">Warto┼Ť─ç (PLN)</div>
+          <div className="text-xs text-gray-400">Wartość (PLN)</div>
         </div>
       </div>
 
@@ -332,7 +332,7 @@ const CRMKlienci = () => {
         {filteredClients.length === 0 ? (
           <div className="col-span-full card text-center py-12">
             <Users className="w-16 h-16 mx-auto mb-4 text-gray-600" />
-            <p className="text-gray-400">Brak klient├│w do wy┼Ťwietlenia</p>
+            <p className="text-gray-400">Brak klientów do wyświetlenia</p>
             <button
               onClick={() => setShowAddModal(true)}
               className="btn-primary mt-4"
@@ -377,8 +377,8 @@ const CRMKlienci = () => {
               </div>
 
               <div className="mt-4 pt-4 border-t border-gray-700 flex items-center justify-between text-xs text-gray-400">
-                <span>Warto┼Ť─ç: {client.value.toLocaleString('pl-PL')} z┼é</span>
-                <span>{client.contacts.length} kontakt├│w</span>
+                <span>Wartość: {client.value.toLocaleString('pl-PL')} zł</span>
+                <span>{client.contacts.length} kontaktów</span>
               </div>
             </div>
           ))
@@ -394,7 +394,7 @@ const CRMKlienci = () => {
             <div className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1">Imi─Ö i nazwisko *</label>
+                  <label className="block text-sm text-gray-300 mb-1">Imię i nazwisko *</label>
                   <input
                     type="text"
                     value={formData.name}
@@ -463,7 +463,7 @@ const CRMKlienci = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1">Warto┼Ť─ç (PLN)</label>
+                  <label className="block text-sm text-gray-300 mb-1">Wartość (PLN)</label>
                   <input
                     type="number"
                     value={formData.value}
@@ -475,7 +475,7 @@ const CRMKlienci = () => {
               </div>
 
               <div>
-                <label className="block text-sm text-gray-300 mb-1">┼╣r├│d┼éo pozyskania</label>
+                <label className="block text-sm text-gray-300 mb-1">┼╣ródło pozyskania</label>
                 <input
                   type="text"
                   value={formData.source}
@@ -522,7 +522,7 @@ const CRMKlienci = () => {
                 <div className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm text-gray-300 mb-1">Imi─Ö i nazwisko *</label>
+                      <label className="block text-sm text-gray-300 mb-1">Imię i nazwisko *</label>
                       <input
                         type="text"
                         value={formData.name}
@@ -586,7 +586,7 @@ const CRMKlienci = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-300 mb-1">Warto┼Ť─ç (PLN)</label>
+                      <label className="block text-sm text-gray-300 mb-1">Wartość (PLN)</label>
                       <input
                         type="number"
                         value={formData.value}
@@ -597,7 +597,7 @@ const CRMKlienci = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-300 mb-1">┼╣r├│d┼éo</label>
+                    <label className="block text-sm text-gray-300 mb-1">┼╣ródło</label>
                     <input
                       type="text"
                       value={formData.source}
@@ -669,7 +669,7 @@ const CRMKlienci = () => {
                   <div className="space-y-3">
                     <div className="flex items-center gap-3 text-gray-300">
                       <Building className="w-5 h-5 text-primary-400" />
-                      ┼╣r├│d┼éo: {selectedClient.source || 'Nie podano'}
+                      ┼╣ródło: {selectedClient.source || 'Nie podano'}
                     </div>
                     <div className="flex items-center gap-3 text-gray-300">
                       <Calendar className="w-5 h-5 text-primary-400" />
@@ -688,7 +688,7 @@ const CRMKlienci = () => {
                     <div className="text-3xl font-bold text-primary-400">
                       {selectedClient.value.toLocaleString('pl-PL')} PLN
                     </div>
-                    <div className="text-sm text-gray-400">Warto┼Ť─ç klienta</div>
+                    <div className="text-sm text-gray-400">Wartość klienta</div>
                   </div>
                 </div>
 
@@ -735,10 +735,10 @@ const CRMKlienci = () => {
 
                 {/* Contact History */}
                 <div className="mb-6">
-                  <h3 className="font-bold text-white mb-3">Historia kontakt├│w ({selectedClient.contacts.length})</h3>
+                  <h3 className="font-bold text-white mb-3">Historia kontaktów ({selectedClient.contacts.length})</h3>
                   <div className="space-y-3 max-h-64 overflow-y-auto">
                     {selectedClient.contacts.length === 0 ? (
-                      <p className="text-gray-400 text-sm">Brak historii kontakt├│w</p>
+                      <p className="text-gray-400 text-sm">Brak historii kontaktów</p>
                     ) : (
                       selectedClient.contacts.map(contact => (
                         <div key={contact.id} className="flex gap-3 p-3 bg-surface-darker rounded-lg">
@@ -771,7 +771,7 @@ const CRMKlienci = () => {
                     className="btn-secondary text-red-400 flex items-center gap-2"
                   >
                     <Trash2 className="w-4 h-4" />
-                    Usu┼ä
+                    Usuń
                   </button>
                   <button
                     onClick={() => setShowDetailModal(false)}
@@ -791,13 +791,13 @@ const CRMKlienci = () => {
         <div className="flex items-start gap-3">
           <Users className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
           <div className="text-sm text-gray-300">
-            <p className="font-bold text-white mb-2">Zarz─ůdzaj swoimi klientami profesjonalnie</p>
+            <p className="font-bold text-white mb-2">Zarządzaj swoimi klientami profesjonalnie</p>
             <ul className="space-y-1 ml-4 list-disc">
-              <li>Dodawaj klient├│w z pe┼énymi danymi kontaktowymi</li>
-              <li>┼Üled┼║ histori─Ö wszystkich interakcji</li>
-              <li>Segmentuj klient├│w wed┼éug warto┼Ťci i statusu</li>
-              <li>Eksportuj dane do CSV dla raport├│w</li>
-              <li>Wszystkie dane zapisywane lokalnie w przegl─ůdarce</li>
+              <li>Dodawaj klientów z pełnymi danymi kontaktowymi</li>
+              <li>Śledź historię wszystkich interakcji</li>
+              <li>Segmentuj klientów według wartości i statusu</li>
+              <li>Eksportuj dane do CSV dla raportów</li>
+              <li>Wszystkie dane zapisywane lokalnie w przeglądarce</li>
             </ul>
           </div>
         </div>

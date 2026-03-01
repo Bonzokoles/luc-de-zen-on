@@ -34,7 +34,7 @@ const AnalitikaRaporty = () => {
     // ⚠️ DANE DEMONSTRACYJNE - wyzerowane. Rozpocznij pracę z narzędziami aby zobaczyć prawdziwe dane.
     const demoMetrics: BusinessMetric[] = [
       {
-        label: 'Przych├³d',
+        label: 'Przychód',
         value: 0,
         previousValue: 0,
         unit: 'PLN',
@@ -50,7 +50,7 @@ const AnalitikaRaporty = () => {
         color: 'text-blue-400'
       },
       {
-        label: 'Sprzeda┼╝',
+        label: 'Sprzedaż',
         value: 0,
         previousValue: 0,
         unit: 'transakcji',
@@ -90,7 +90,7 @@ const AnalitikaRaporty = () => {
       ['Raport Biznesowy', new Date().toLocaleDateString('pl-PL')],
       [''],
       ['Metryki'],
-      ['Wska┼║nik', 'Warto┼Ť─ç', 'Poprzednia', 'Zmiana %'],
+      ['Wskaźnik', 'Wartość', 'Poprzednia', 'Zmiana %'],
       ...metrics.map(m => [
         m.label,
         `${m.value} ${m.unit}`,
@@ -98,8 +98,8 @@ const AnalitikaRaporty = () => {
         `${calculateChange(m.value, m.previousValue).toFixed(1)}%`
       ]),
       [''],
-      ['Dane miesi─Öczne'],
-      ['Miesi─ůc', 'Przych├│d', 'Koszty', 'Zysk', 'Klienci'],
+      ['Dane miesięczne'],
+      ['Miesiąc', 'Przychód', 'Koszty', 'Zysk', 'Klienci'],
       ...monthlyData.map(d => [
         d.month,
         d.revenue.toString(),
@@ -122,6 +122,10 @@ const AnalitikaRaporty = () => {
   const maxProfit = Math.max(...monthlyData.map(d => d.profit));
   const chartMax = Math.max(maxRevenue, maxExpenses);
 
+  if (monthlyData.length === 0) {
+    return <div className="text-center py-12 text-gray-400">Ładowanie danych...</div>;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -131,7 +135,7 @@ const AnalitikaRaporty = () => {
           Analityka & Raporty
         </h1>
         <p className="text-gray-300">
-          Przegl─ůd Twojego biznesu - KPI, trendy, wykresy finansowe
+          Przegląd Twojego biznesu - KPI, trendy, wykresy finansowe
         </p>
       </div>
 
@@ -146,7 +150,7 @@ const AnalitikaRaporty = () => {
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
                 }`}
             >
-              Tydzie┼ä
+              Tydzień
             </button>
             <button
               onClick={() => setTimeRange('month')}
@@ -155,7 +159,7 @@ const AnalitikaRaporty = () => {
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
                 }`}
             >
-              Miesi─ůc
+              Miesiąc
             </button>
             <button
               onClick={() => setTimeRange('quarter')}
@@ -164,7 +168,7 @@ const AnalitikaRaporty = () => {
                   : 'bg-surface-dark text-gray-300 hover:bg-surface-darker'
                 }`}
             >
-              Kwarta┼é
+              Kwartał
             </button>
             <button
               onClick={() => setTimeRange('year')}
@@ -180,7 +184,7 @@ const AnalitikaRaporty = () => {
           <div className="flex gap-2">
             <button onClick={loadData} className="btn-secondary flex items-center gap-2">
               <RefreshCw className="w-4 h-4" />
-              Od┼Ťwie┼╝
+              Odśwież
             </button>
             <button onClick={exportReport} className="btn-primary flex items-center gap-2">
               <Download className="w-4 h-4" />
@@ -297,7 +301,7 @@ const AnalitikaRaporty = () => {
                         +{data.profit.toLocaleString('pl-PL')} PLN
                       </div>
                       <div className="text-xs text-gray-500">
-                        {data.customers} klient├│w
+                        {data.customers} klientów
                       </div>
                     </div>
                   </div>
@@ -311,7 +315,7 @@ const AnalitikaRaporty = () => {
         <div className="mt-6 flex flex-wrap gap-6 justify-center text-sm">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-gradient-to-r from-green-600 to-green-500 rounded"></div>
-            <span className="text-gray-300">Przych├│d</span>
+            <span className="text-gray-300">Przychód</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-gradient-to-r from-red-600 to-red-500 rounded"></div>
@@ -333,14 +337,14 @@ const AnalitikaRaporty = () => {
               <TrendingUp className="w-6 h-6 text-green-400" />
             </div>
             <div>
-              <div className="text-sm text-gray-400">┼ü─ůczny Przych├│d</div>
+              <div className="text-sm text-gray-400">Łączny Przychód</div>
               <div className="text-2xl font-bold text-white">
                 {monthlyData.reduce((sum, d) => sum + d.revenue, 0).toLocaleString('pl-PL')} PLN
               </div>
             </div>
           </div>
           <div className="text-xs text-gray-400">
-            ┼Ürednio: {(monthlyData.reduce((sum, d) => sum + d.revenue, 0) / monthlyData.length).toLocaleString('pl-PL')} PLN/mc
+            Średnio: {(monthlyData.reduce((sum, d) => sum + d.revenue, 0) / monthlyData.length).toLocaleString('pl-PL')} PLN/mc
           </div>
         </div>
 
@@ -351,14 +355,14 @@ const AnalitikaRaporty = () => {
               <TrendingDown className="w-6 h-6 text-red-400" />
             </div>
             <div>
-              <div className="text-sm text-gray-400">┼ü─ůczne Koszty</div>
+              <div className="text-sm text-gray-400">Łączne Koszty</div>
               <div className="text-2xl font-bold text-white">
                 {monthlyData.reduce((sum, d) => sum + d.expenses, 0).toLocaleString('pl-PL')} PLN
               </div>
             </div>
           </div>
           <div className="text-xs text-gray-400">
-            ┼Ürednio: {(monthlyData.reduce((sum, d) => sum + d.expenses, 0) / monthlyData.length).toLocaleString('pl-PL')} PLN/mc
+            Średnio: {(monthlyData.reduce((sum, d) => sum + d.expenses, 0) / monthlyData.length).toLocaleString('pl-PL')} PLN/mc
           </div>
         </div>
 
@@ -376,7 +380,7 @@ const AnalitikaRaporty = () => {
             </div>
           </div>
           <div className="text-xs text-gray-400">
-            Mar┼╝a: {((monthlyData.reduce((sum, d) => sum + d.profit, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(1)}%
+            Marża: {((monthlyData.reduce((sum, d) => sum + d.profit, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(1)}%
           </div>
         </div>
       </div>
@@ -385,7 +389,7 @@ const AnalitikaRaporty = () => {
       <div className="card">
         <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
           <Users className="w-6 h-6 text-blue-400" />
-          Wzrost Liczby Klient├│w
+          Wzrost Liczby Klientów
         </h2>
 
         <div className="relative h-64 flex items-end gap-2">
@@ -401,7 +405,7 @@ const AnalitikaRaporty = () => {
                 >
                   <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
                     <div className="bg-surface-dark px-2 py-1 rounded text-xs text-white whitespace-nowrap">
-                      {data.customers} klient├│w
+                      {data.customers} klientów
                       {growth !== 0 && (
                         <span className={growth > 0 ? 'text-green-400' : 'text-red-400'}>
                           {' '}({growth > 0 ? '+' : ''}{growth})
@@ -429,9 +433,9 @@ const AnalitikaRaporty = () => {
             <div className="flex items-start gap-2">
               <span className="text-green-400 text-xl">Ôťů</span>
               <div>
-                <p className="text-white font-semibold">Wzrost przychod├│w</p>
+                <p className="text-white font-semibold">Wzrost przychodów</p>
                 <p className="text-sm text-gray-400">
-                  Przychody wzros┼éy o {calculateChange(
+                  Przychody wzrosły o {calculateChange(
                     monthlyData[monthlyData.length - 1].revenue,
                     monthlyData[0].revenue
                   ).toFixed(0)}% w analizowanym okresie
@@ -441,9 +445,9 @@ const AnalitikaRaporty = () => {
             <div className="flex items-start gap-2">
               <span className="text-blue-400 text-xl">­čôł</span>
               <div>
-                <p className="text-white font-semibold">Pozyskiwanie klient├│w</p>
+                <p className="text-white font-semibold">Pozyskiwanie klientów</p>
                 <p className="text-sm text-gray-400">
-                  ┼Ürednio {(monthlyData.reduce((sum, d) => sum + d.customers, 0) / monthlyData.length).toFixed(0)} nowych klient├│w miesi─Öcznie
+                  Średnio {(monthlyData.reduce((sum, d) => sum + d.customers, 0) / monthlyData.length).toFixed(0)} nowych klientów miesięcznie
                 </p>
               </div>
             </div>
@@ -453,18 +457,18 @@ const AnalitikaRaporty = () => {
             <div className="flex items-start gap-2">
               <span className="text-yellow-400 text-xl">ÔÜá´ŞĆ</span>
               <div>
-                <p className="text-white font-semibold">Kontrola koszt├│w</p>
+                <p className="text-white font-semibold">Kontrola kosztów</p>
                 <p className="text-sm text-gray-400">
-                  Koszty stanowi─ů {((monthlyData.reduce((sum, d) => sum + d.expenses, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(0)}% przychod├│w
+                  Koszty stanowią {((monthlyData.reduce((sum, d) => sum + d.expenses, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(0)}% przychodów
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-purple-400 text-xl">­čĺí</span>
               <div>
-                <p className="text-white font-semibold">Rentowno┼Ť─ç</p>
+                <p className="text-white font-semibold">Rentowność</p>
                 <p className="text-sm text-gray-400">
-                  Mar┼╝a zysku: {((monthlyData.reduce((sum, d) => sum + d.profit, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(1)}% - {
+                  Marża zysku: {((monthlyData.reduce((sum, d) => sum + d.profit, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100).toFixed(1)}% - {
                     ((monthlyData.reduce((sum, d) => sum + d.profit, 0) / monthlyData.reduce((sum, d) => sum + d.revenue, 0)) * 100) > 35 ? 'Bardzo dobra!' : 'Do poprawy'
                   }
                 </p>
@@ -481,14 +485,14 @@ const AnalitikaRaporty = () => {
           <div className="text-sm text-gray-300">
             <p className="font-bold text-white mb-2">Funkcje Analityki</p>
             <ul className="space-y-1 ml-4 list-disc">
-              <li>Przegl─ůd KPI w czasie rzeczywistym</li>
-              <li>Wykresy przychod├│w, koszt├│w i zysk├│w</li>
-              <li>Analiza wzrostu liczby klient├│w</li>
-              <li>Eksport danych do CSV dla ksi─Ögowo┼Ťci</li>
+              <li>Przegląd KPI w czasie rzeczywistym</li>
+              <li>Wykresy przychodów, kosztów i zysków</li>
+              <li>Analiza wzrostu liczby klientów</li>
+              <li>Eksport danych do CSV dla księgowości</li>
               <li>Automatyczne wnioski biznesowe</li>
             </ul>
             <p className="mt-3 text-yellow-400">
-              ­čĺí <strong>Wskaz├│wka:</strong> To s─ů dane demonstracyjne. W pe┼énej wersji dane b─Öd─ů pobierane z Twoich faktur i transakcji.
+              ­čĺí <strong>Wskazówka:</strong> To są dane demonstracyjne. W pełnej wersji dane będą pobierane z Twoich faktur i transakcji.
             </p>
           </div>
         </div>

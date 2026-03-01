@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, locals }) => {
     try {
-        const { messages, model = 'gpt-4-turbo-preview' } = await request.json();
+        const { messages, model = 'gpt-4o' } = await request.json();
 
         if (!messages || messages.length === 0) {
             return new Response(

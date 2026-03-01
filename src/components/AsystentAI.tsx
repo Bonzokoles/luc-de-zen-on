@@ -57,15 +57,19 @@ const AsystentAI = () => {
     }
   }, [messages]);
 
-  // Load messages from localStorage
+  // Load messages from localStorage — pomijaj wiadomości z błędami
   useEffect(() => {
     const saved = localStorage.getItem('ai-assistant-messages');
     if (saved) {
-      const parsed = JSON.parse(saved);
-      setMessages(parsed.map((m: any) => ({
-        ...m,
-        timestamp: new Date(m.timestamp)
-      })));
+      try {
+        const parsed = JSON.parse(saved);
+        const clean = parsed
+          .map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) }))
+          .filter((m: any) => !m.content.startsWith('❌'));
+        setMessages(clean);
+      } catch {
+        localStorage.removeItem('ai-assistant-messages');
+      }
     }
   }, []);
 
@@ -94,11 +98,9 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
-      // 🤖 MODEL AI: DEEPSEEK-V3 
-      // Najnowszy model DeepSeek - doskonałe wsparcie języka polskiego
-      // Świetny w biznesie, programowaniu, analizie danych
-      // Endpoint: /api/chat-deepseek
-      const response = await fetch('/api/chat-deepseek', {
+      // 🤖 MODEL AI: GPT-4o (OpenAI)
+      // Endpoint: /api/chat-openai
+      const response = await fetch('/api/chat-openai', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,12 +110,17 @@ const AsystentAI = () => {
             role: m.role,
             content: m.content
           })),
-          model: 'deepseek-chat' // DeepSeek V3
+          model: 'gpt-4o'
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Błąd podczas komunikacji z AI');
+        let details = `HTTP ${response.status}`;
+        try {
+          const errData = await response.json();
+          details = errData.details || errData.error || details;
+        } catch {}
+        throw new Error(details);
       }
 
       // Stream response z poprawnym dekodowaniem UTF-8
