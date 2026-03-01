@@ -2,6 +2,8 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import BalloonLibrary from "../components/animations/BalloonLibrary";
 import { SparkleEffect } from "../components/animations/BalloonLibrary";
+import NewsBiznesowe from "../components/NewsBiznesowe";
+import MusicPlayerVisualizer from "../components/MusicPlayerVisualizer";
 ---
 
 <MainLayout
@@ -389,6 +391,28 @@ import { SparkleEffect } from "../components/animations/BalloonLibrary";
           </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== WIADOMOŚCI BIZNESOWE ===== -->
+  <section class="relative z-10 py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-business-text mb-1">Wiadomości</h2>
+        <p class="text-business-text-dim text-sm">Najnowsze informacje ze świata biznesu i technologii</p>
+      </div>
+      <NewsBiznesowe client:load />
+    </div>
+  </section>
+
+  <!-- ===== MUSIC PLAYER ===== -->
+  <section class="relative z-10 py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-business-text mb-1">Odtwarzacz muzyki</h2>
+        <p class="text-business-text-dim text-sm">Muzyka do pracy i wizualizacje dźwięku</p>
+      </div>
+      <MusicPlayerVisualizer client:load />
     </div>
   </section>
 

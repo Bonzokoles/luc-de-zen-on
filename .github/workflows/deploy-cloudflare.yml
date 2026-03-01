@@ -18,6 +18,8 @@ jobs:
           sparse-checkout: |
             src
             public
+            lib
+            workers
             package.json
             package-lock.json
             astro.config.mjs
