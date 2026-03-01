@@ -46,6 +46,12 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler@4.50.0
 
+      - name: Debug credentials
+        run: |
+          echo "API_TOKEN set: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}"
+          echo "ACCOUNT_ID set: ${{ secrets.CLOUDFLARE_ACCOUNT_ID != '' }}"
+          echo "ACCOUNT_ID value: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+
       - name: Deploy to Cloudflare Pages
         run: wrangler pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
         env:
