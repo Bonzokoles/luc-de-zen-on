@@ -46,9 +46,9 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=8192"
           NODE_ENV: "production"
 
-      - name: Build check OK
-        run: |
-          echo "✅ Build successful - Cloudflare Pages deploys via Git integration"
-          echo "🌐 https://luc-de-zen-on.pages.dev"
-          echo "🌐 https://mybonzo.com"
-          echo "📦 Commit: ${{ github.sha }}"
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 7f490d58a478c6baccb0ae01ea1d87c3
+          command: pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
