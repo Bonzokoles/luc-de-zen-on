@@ -19,7 +19,10 @@ jobs:
             src
             public
             lib
+            pages
             workers
+            bin
+            client
             package.json
             package-lock.json
             astro.config.mjs
