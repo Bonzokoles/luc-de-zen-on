@@ -1,3 +1,6 @@
+/* Importuj czcionki Google - musi być przed wszystkim */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
 /* Czcionki lokalne - Steelfish (polskie znaki) */
 @font-face {
   font-family: 'SteelfishEb';
@@ -14,9 +17,6 @@
   font-style: italic;
   font-display: swap;
 }
-
-/* Importuj czcionki Google */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;

@@ -17,6 +17,9 @@ export default defineConfig({
     tailwind()
   ],
   vite: {
+    ssr: {
+      external: ['events', 'timers', 'stream']
+    },
     build: {
       rollupOptions: {
         output: {
