@@ -46,29 +46,9 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=8192"
           NODE_ENV: "production"
 
-      - name: Install Wrangler
-        run: npm install -g wrangler@latest
-
-      - name: Deploy to Cloudflare Pages (with retry)
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 7f490d58a478c6baccb0ae01ea1d87c3
+      - name: Build check OK
         run: |
-          for i in 1 2 3 4 5; do
-            echo "Deploy attempt $i/5..."
-            if wrangler pages deploy dist --project-name luc-de-zen-on --commit-dirty=true; then
-              echo "✅ Deploy succeeded on attempt $i"
-              exit 0
-            fi
-            echo "❌ Attempt $i failed, waiting 30s..."
-            sleep 30
-          done
-          echo "💥 All 5 attempts failed"
-          exit 1
-
-      - name: Deployment Summary
-        run: |
-          echo "✅ Deployed to Cloudflare Pages"
-          echo "🌐 Primary domain: luc-de-zen-on.pages.dev"
-          echo "🌐 Custom domain: mybonzo.com"
+          echo "✅ Build successful - Cloudflare Pages deploys via Git integration"
+          echo "🌐 https://luc-de-zen-on.pages.dev"
+          echo "🌐 https://mybonzo.com"
           echo "📦 Commit: ${{ github.sha }}"
