@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import { format, startOfMonth, endOfMonth, subMonths } from 'date-fns';
 import { pl } from 'date-fns/locale';
-import type { FinanceDashboardResponse, TransakcjaFinansowa } from '../types/finanse';
+import type { FinanceDashboardResponse, TransakcjaFinansowa } from '../../types/finanse';
 
 // ========== INTERFACES ==========
 

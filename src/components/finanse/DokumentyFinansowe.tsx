@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { DokumentFinansowy } from '../types/finanse';
+import type { DokumentFinansowy } from '../../types/finanse';
 
 /**
  * Dokumenty Finansowe - Upload i AI Ocena Ryzyka
