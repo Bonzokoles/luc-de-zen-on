@@ -7,14 +7,18 @@ import FinansePro from './FinansePro';
 import DokumentyFinansowe from './DokumentyFinansowe';
 import FinanseAsystent from './FinanseAsystent';
 import FinanseImport from './FinanseImport';
+import FinanseTransakcje from './FinanseTransakcje';
+import FinanseCosts from './FinanseCosts';
 
-type Tab = 'dashboard' | 'dokumenty' | 'asystent' | 'import';
+type Tab = 'dashboard' | 'transakcje' | 'koszty' | 'dokumenty' | 'asystent' | 'import';
 
 const TABS: { id: Tab; label: string; icon: string; desc: string }[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: '📊', desc: 'KPI, cash flow, transakcje' },
-  { id: 'dokumenty', label: 'Dokumenty', icon: '📄', desc: 'Faktury, umowy, ryzyko AI' },
-  { id: 'asystent', label: 'Asystent AI', icon: '🤖', desc: 'GPT-4o + dane finansowe' },
-  { id: 'import', label: 'Import CSV', icon: '📥', desc: 'Wgraj transakcje z pliku' },
+  { id: 'dashboard',   label: 'Dashboard',   icon: '📊', desc: 'KPI, cash flow, wykresy' },
+  { id: 'transakcje',  label: 'Transakcje',  icon: '💳', desc: 'Lista transakcji z filtrami' },
+  { id: 'koszty',      label: 'Koszty',      icon: '💸', desc: 'Koszty operacyjne per kategoria' },
+  { id: 'dokumenty',   label: 'Dokumenty',   icon: '📄', desc: 'Faktury, umowy, ryzyko AI' },
+  { id: 'asystent',    label: 'Asystent AI', icon: '🤖', desc: 'GPT-4o + dane finansowe' },
+  { id: 'import',      label: 'Import CSV',  icon: '📥', desc: 'Wgraj transakcje z pliku' },
 ];
 
 export default function FinanseTabs() {
@@ -56,6 +60,8 @@ export default function FinanseTabs() {
       {/* Tab content */}
       <div className="container mx-auto px-4">
         {activeTab === 'dashboard'  && <FinansePro />}
+        {activeTab === 'transakcje' && <FinanseTransakcje />}
+        {activeTab === 'koszty'     && <FinanseCosts />}
         {activeTab === 'dokumenty'  && <DokumentyFinansowe />}
         {activeTab === 'asystent'   && <FinanseAsystent />}
         {activeTab === 'import'     && <FinanseImport />}
