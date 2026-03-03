@@ -6,7 +6,7 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "D1"
 database_name = "mybonzo"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "84f0f3cb-7778-4cc4-a6ba-e823ef52f1f3"
 
 # ====== Cloudflare R2 — storage plików (PDF, CSV) ======
 [[r2_buckets]]
