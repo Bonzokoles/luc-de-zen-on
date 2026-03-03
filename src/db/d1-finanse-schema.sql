@@ -353,3 +353,29 @@ VALUES (
         'Wysokie',
         'Brak historii, bardzo wysoka kwota, brak NIP.'
     );
+-- ========== TABELA COSTS (step_09) ==========
+-- Niezależna tabela kosztów z angielskimi kolumnami (kompatybilna z /api/finanse/costs)
+CREATE TABLE IF NOT EXISTS costs (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    date DATE NOT NULL,
+    amount DECIMAL(18, 2) NOT NULL,
+    currency TEXT DEFAULT 'PLN',
+    type TEXT DEFAULT 'VARIABLE',
+    category TEXT NOT NULL,
+    subcategory TEXT,
+    counterparty TEXT,
+    counterparty_id TEXT,
+    project_id TEXT,
+    description TEXT,
+    source_system TEXT DEFAULT 'MANUAL',
+    status TEXT DEFAULT 'PENDING',
+    vat_rate DECIMAL(5, 2),
+    net_amount DECIMAL(18, 2),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    meta TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_costs_tenant_date ON costs(tenant_id, date);
+CREATE INDEX IF NOT EXISTS idx_costs_category ON costs(tenant_id, category);
+CREATE INDEX IF NOT EXISTS idx_costs_status ON costs(tenant_id, status);
