@@ -23,11 +23,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* Globalne powiększenie tekstu o ~17% — wszystkie klasy text-* używają rem */
-  html {
-    font-size: 117%;
-  }
-
   * {
     @apply border-business-border;
   }
