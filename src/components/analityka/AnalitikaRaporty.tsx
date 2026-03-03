@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BarChart3, TrendingUp, TrendingDown, DollarSign, Users, ShoppingCart, Target, Calendar, Download, RefreshCw } from 'lucide-react';
-import { AnimatedLineChart, AnimatedBarChart, AnimatedAreaChart } from './shared/ChartComponents';
-import { StatCardEnhanced, GradientCard, ProgressBar } from './shared/EnhancedVisuals';
+import { AnimatedLineChart, AnimatedBarChart, AnimatedAreaChart } from '../shared/ChartComponents';
+import { StatCardEnhanced, GradientCard, ProgressBar } from '../shared/EnhancedVisuals';
 
 interface BusinessMetric {
   label: string;

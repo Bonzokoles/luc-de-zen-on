@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, Users, DollarSign, Target, Zap, BarChart3 } from 'lucide-react';
-import { StatCardEnhanced, GradientCard, ProgressBar, AnimatedBadge } from './shared/EnhancedVisuals';
-import { AnimatedPieChart } from './shared/ChartComponents';
+import { StatCardEnhanced, GradientCard, ProgressBar, AnimatedBadge } from '../shared/EnhancedVisuals';
+import { AnimatedPieChart } from '../shared/ChartComponents';
 
 const DashboardVisual = () => {
   // ⚠️ UWAGA: To są przykładowe dane demonstracyjne

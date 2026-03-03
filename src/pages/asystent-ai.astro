@@ -1,7 +1,7 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import AsystentAI from '../components/AsystentAI';
-import TabNavigation from '../components/dashboard/TabNavigation';
+import MainLayout from "../layouts/MainLayout.astro";
+import AsystentAI from "../components/asystent/AsystentAI";
+import TabNavigation from "../components/dashboard/TabNavigation";
 ---
 
 <MainLayout
@@ -13,12 +13,15 @@ import TabNavigation from '../components/dashboard/TabNavigation';
       <!-- Left Sidebar: Tab Navigation -->
       <aside class="lg:col-span-3">
         <TabNavigation client:load currentPath="/asystent-ai" />
-        
+
         <!-- Info Card -->
-        <div class="mt-6 p-4 bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-lg">
+        <div
+          class="mt-6 p-4 bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-lg"
+        >
           <h3 class="text-lg font-bold text-purple-300 mb-2">💡 Wskazówka</h3>
           <p class="text-sm text-gray-300">
-            Zadawaj konkretne pytania, opisuj swój biznes - im więcej szczegółów, tym lepsze odpowiedzi!
+            Zadawaj konkretne pytania, opisuj swój biznes - im więcej
+            szczegółów, tym lepsze odpowiedzi!
           </p>
         </div>
       </aside>
