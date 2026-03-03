@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+﻿import { useState, useEffect, useCallback } from 'react';
 import {
   LineChart, Line, BarChart, Bar, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -210,7 +210,7 @@ export default function FinansePro() {
           <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">
             💰 Finanse Pro
           </h1>
-          <p className="text-slate-400">Przepływy finansowe, cash flow i zarządzanie płatnościami</p>
+          <p className="text-lg text-slate-400">Przepływy finansowe, cash flow i zarządzanie płatnościami</p>
         </div>
 
         {/* Navigation */}
@@ -240,7 +240,7 @@ export default function FinansePro() {
 
             {/* API insight banner */}
             {aiInsight && (
-              <div className="bg-emerald-900/20 border border-emerald-600/30 rounded-xl px-4 py-3 text-sm text-emerald-300">
+              <div className="bg-emerald-900/20 border border-emerald-600/30 rounded-xl px-4 py-3 text-base text-emerald-300">
                 🤖 {aiInsight}
               </div>
             )}
@@ -248,7 +248,7 @@ export default function FinansePro() {
             {/* Stats Cards — API data lub lokalne obliczenia */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Przychody (miesiąc)</div>
+                <div className="text-base text-slate-400 mb-2">Przychody (miesiąc)</div>
                 <div className="text-3xl font-bold text-emerald-400">
                   {apiData
                     ? apiData.kpi_cards.total_revenue.toLocaleString('pl-PL')
@@ -256,7 +256,7 @@ export default function FinansePro() {
                 </div>
               </div>
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Koszty (miesiąc)</div>
+                <div className="text-base text-slate-400 mb-2">Koszty (miesiąc)</div>
                 <div className="text-3xl font-bold text-red-400">
                   {apiData
                     ? apiData.kpi_cards.total_costs.toLocaleString('pl-PL')
@@ -264,7 +264,7 @@ export default function FinansePro() {
                 </div>
               </div>
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Zysk netto</div>
+                <div className="text-base text-slate-400 mb-2">Zysk netto</div>
                 <div className={`text-3xl font-bold ${(apiData?.kpi_cards.net_profit ?? balance) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {apiData
                     ? apiData.kpi_cards.net_profit.toLocaleString('pl-PL')
@@ -272,7 +272,7 @@ export default function FinansePro() {
                 </div>
               </div>
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Marża brutto</div>
+                <div className="text-base text-slate-400 mb-2">Marża brutto</div>
                 <div className={`text-3xl font-bold ${(apiData?.kpi_cards.gross_margin_pct ?? 0) >= 35 ? 'text-green-400' : 'text-orange-400'}`}>
                   {apiData
                     ? `${apiData.kpi_cards.gross_margin_pct}%`
@@ -311,8 +311,8 @@ export default function FinansePro() {
                   {incomeSummary.sort((a, b) => b.amount - a.amount).map(cat => (
                     <div key={cat.category}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm">{cat.category}</span>
-                        <span className="text-sm font-mono font-bold">{cat.amount.toLocaleString('pl-PL')} zł</span>
+                        <span className="text-base">{cat.category}</span>
+                        <span className="text-base font-mono font-bold">{cat.amount.toLocaleString('pl-PL')} zł</span>
                       </div>
                       <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
                         <div
@@ -320,7 +320,7 @@ export default function FinansePro() {
                           style={{ width: `${cat.percentage}%` }}
                         />
                       </div>
-                      <div className="text-xs text-slate-400 mt-1">
+                      <div className="text-base text-slate-400 mt-1">
                         {cat.count} transakcji • {cat.percentage.toFixed(1)}%
                       </div>
                     </div>
@@ -335,8 +335,8 @@ export default function FinansePro() {
                   {expenseSummary.sort((a, b) => b.amount - a.amount).map(cat => (
                     <div key={cat.category}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-sm">{cat.category}</span>
-                        <span className="text-sm font-mono font-bold">{cat.amount.toLocaleString('pl-PL')} zł</span>
+                        <span className="text-base">{cat.category}</span>
+                        <span className="text-base font-mono font-bold">{cat.amount.toLocaleString('pl-PL')} zł</span>
                       </div>
                       <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
                         <div
@@ -344,7 +344,7 @@ export default function FinansePro() {
                           style={{ width: `${cat.percentage}%` }}
                         />
                       </div>
-                      <div className="text-xs text-slate-400 mt-1">
+                      <div className="text-base text-slate-400 mt-1">
                         {cat.count} transakcji • {cat.percentage.toFixed(1)}%
                       </div>
                     </div>
@@ -366,7 +366,7 @@ export default function FinansePro() {
                       </div>
                       <div className="flex-1">
                         <div className="font-medium">{t.description}</div>
-                        <div className="text-xs text-slate-400">
+                        <div className="text-base text-slate-400">
                           {t.category} • {format(new Date(t.date), 'dd MMM yyyy', { locale: pl })}
                         </div>
                       </div>
@@ -375,7 +375,7 @@ export default function FinansePro() {
                       <div className={`text-xl font-mono font-bold ${t.type === 'income' ? 'text-emerald-400' : 'text-red-400'}`}>
                         {t.type === 'income' ? '+' : '-'}{t.amount.toLocaleString('pl-PL')} zł
                       </div>
-                      <div className="text-xs text-slate-400">
+                      <div className="text-base text-slate-400">
                         {t.status === 'pending' ? '⏳ Oczekująca' : '✓ Zrealizowana'}
                       </div>
                     </div>
@@ -420,30 +420,30 @@ export default function FinansePro() {
                 <table className="w-full">
                   <thead className="bg-slate-900/50">
                     <tr>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Data</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Typ</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Kategoria</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-slate-300">Opis</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-slate-300">Kwota</th>
-                      <th className="px-6 py-4 text-center text-sm font-semibold text-slate-300">Status</th>
+                      <th className="px-6 py-4 text-left text-base font-semibold text-slate-300">Data</th>
+                      <th className="px-6 py-4 text-left text-base font-semibold text-slate-300">Typ</th>
+                      <th className="px-6 py-4 text-left text-base font-semibold text-slate-300">Kategoria</th>
+                      <th className="px-6 py-4 text-left text-base font-semibold text-slate-300">Opis</th>
+                      <th className="px-6 py-4 text-right text-base font-semibold text-slate-300">Kwota</th>
+                      <th className="px-6 py-4 text-center text-base font-semibold text-slate-300">Status</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-700">
                     {filteredTransactions.map(t => (
                       <tr key={t.id} className="hover:bg-slate-900/30">
-                        <td className="px-6 py-4 text-sm">
+                        <td className="px-6 py-4 text-base">
                           {format(new Date(t.date), 'dd MMM yyyy', { locale: pl })}
                         </td>
                         <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${t.type === 'income'
+                          <span className={`px-3 py-1 rounded-full text-base font-medium ${t.type === 'income'
                               ? 'bg-emerald-900/30 text-emerald-400'
                               : 'bg-red-900/30 text-red-400'
                             }`}>
                             {t.type === 'income' ? '💰 Przychód' : '💸 Koszt'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm">{t.category}</td>
-                        <td className="px-6 py-4 text-sm">{t.description}</td>
+                        <td className="px-6 py-4 text-base">{t.category}</td>
+                        <td className="px-6 py-4 text-base">{t.description}</td>
                         <td className="px-6 py-4 text-right">
                           <span className={`font-mono font-bold ${t.type === 'income' ? 'text-emerald-400' : 'text-red-400'
                             }`}>
@@ -451,7 +451,7 @@ export default function FinansePro() {
                           </span>
                         </td>
                         <td className="px-6 py-4 text-center">
-                          <span className={`px-2 py-1 rounded text-xs ${t.status === 'completed'
+                          <span className={`px-2 py-1 rounded text-base ${t.status === 'completed'
                               ? 'bg-green-900/30 text-green-400'
                               : t.status === 'pending'
                                 ? 'bg-yellow-900/30 text-yellow-400'
@@ -522,18 +522,18 @@ export default function FinansePro() {
               <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                 {cashFlowData.slice(-3).map((month, idx) => (
                   <div key={idx} className="bg-slate-900/50 rounded-lg p-4">
-                    <div className="text-sm text-slate-400 mb-3">{month.date}</div>
+                    <div className="text-base text-slate-400 mb-3">{month.date}</div>
                     <div className="space-y-2">
                       <div className="flex justify-between">
-                        <span className="text-sm">Przychody:</span>
+                        <span className="text-base">Przychody:</span>
                         <span className="font-mono text-emerald-400">{month.income.toLocaleString('pl-PL')} zł</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm">Koszty:</span>
+                        <span className="text-base">Koszty:</span>
                         <span className="font-mono text-red-400">{month.expense.toLocaleString('pl-PL')} zł</span>
                       </div>
                       <div className="flex justify-between pt-2 border-t border-slate-700">
-                        <span className="text-sm font-bold">Saldo:</span>
+                        <span className="text-base font-bold">Saldo:</span>
                         <span className={`font-mono font-bold ${(month.income - month.expense) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                           {(month.income - month.expense).toLocaleString('pl-PL')} zł
                         </span>
@@ -558,25 +558,25 @@ export default function FinansePro() {
               <button className="p-6 bg-gradient-to-br from-emerald-600/20 to-green-600/20 border border-emerald-500/30 rounded-xl hover:border-emerald-500/50 transition-all text-left">
                 <div className="text-3xl mb-3">📊</div>
                 <h3 className="font-bold mb-1">Raport miesięczny</h3>
-                <p className="text-sm text-slate-400">Podsumowanie przychodów i kosztów</p>
+                <p className="text-base text-slate-400">Podsumowanie przychodów i kosztów</p>
               </button>
 
               <button className="p-6 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-xl hover:border-blue-500/50 transition-all text-left">
                 <div className="text-3xl mb-3">📈</div>
                 <h3 className="font-bold mb-1">Analiza Cash Flow</h3>
-                <p className="text-sm text-slate-400">Przepływy finansowe w czasie</p>
+                <p className="text-base text-slate-400">Przepływy finansowe w czasie</p>
               </button>
 
               <button className="p-6 bg-gradient-to-br from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-xl hover:border-purple-500/50 transition-all text-left">
                 <div className="text-3xl mb-3">📄</div>
                 <h3 className="font-bold mb-1">Eksport PDF</h3>
-                <p className="text-sm text-slate-400">Wygeneruj raport w PDF</p>
+                <p className="text-base text-slate-400">Wygeneruj raport w PDF</p>
               </button>
 
               <button className="p-6 bg-gradient-to-br from-orange-600/20 to-yellow-600/20 border border-orange-500/30 rounded-xl hover:border-orange-500/50 transition-all text-left">
                 <div className="text-3xl mb-3">📊</div>
                 <h3 className="font-bold mb-1">Eksport Excel</h3>
-                <p className="text-sm text-slate-400">Pobierz dane w XLSX</p>
+                <p className="text-base text-slate-400">Pobierz dane w XLSX</p>
               </button>
             </div>
           </div>
