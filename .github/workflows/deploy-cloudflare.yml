@@ -46,9 +46,8 @@ jobs:
           NODE_OPTIONS: "--max-old-space-size=8192"
           NODE_ENV: "production"
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 7f490d58a478c6baccb0ae01ea1d87c3
-          command: pages deploy dist --project-name luc-de-zen-on --commit-dirty=true
+      - name: Build verification
+        run: |
+          echo "✅ Build OK - deployed automatically via mybonzo-new Git integration"
+          echo "🌐 https://mybonzo-new.pages.dev → mybonzo.com"
+          echo "📦 Commit: ${{ github.sha }}"
