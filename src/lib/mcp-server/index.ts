@@ -215,7 +215,7 @@ export async function handleMCPRequest(request: Request): Promise<Response> {
   // /exec endpoint (CHUCK proxy)
   if (url.pathname === '/api/exec' && request.method === 'POST') {
     try {
-      const body = await request.json();
+      const body = await request.json() as { toolId: string; parameters?: unknown };
       
       // In production, execute the AI tool
       // For now, return mock response

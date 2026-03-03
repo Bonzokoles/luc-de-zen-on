@@ -7,7 +7,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json();
+    const body = await request.json() as { toolId?: string; prompt?: string; parameters?: unknown };
     
     if (!body.toolId) {
       return new Response(

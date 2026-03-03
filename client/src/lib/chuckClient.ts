@@ -77,7 +77,6 @@ export class ChuckClient {
           this.config.onRateLimit(retryAfter);
         }
 
-        const errorData = await response.json();
         return {
           success: false,
           error: `Rate limit exceeded. Retry after ${retryAfter} seconds.`,
@@ -89,7 +88,7 @@ export class ChuckClient {
 
       // Handle authentication errors
       if (response.status === 401) {
-        const errorData = await response.json();
+        const errorData = await response.json() as Record<string, string>;
         return {
           success: false,
           error: errorData.message || 'Authentication failed',
@@ -101,7 +100,7 @@ export class ChuckClient {
 
       // Handle other errors
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData = await response.json() as Record<string, string>;
         return {
           success: false,
           error: errorData.error || `HTTP ${response.status}: ${response.statusText}`,

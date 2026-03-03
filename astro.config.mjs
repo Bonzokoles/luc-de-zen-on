@@ -2,6 +2,10 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,6 +21,11 @@ export default defineConfig({
     tailwind()
   ],
   vite: {
+    resolve: {
+      alias: {
+        '@modules': path.resolve(__dirname, './src/modules')
+      }
+    },
     ssr: {
       external: ['events', 'timers', 'stream']
     },

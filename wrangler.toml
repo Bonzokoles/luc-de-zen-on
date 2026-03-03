@@ -1,3 +1,18 @@
 name = "mybonzo-new"
 compatibility_date = "2025-11-05"
 pages_build_output_dir = "dist"
+
+# ====== Cloudflare D1 — baza danych SQLite ======
+[[d1_databases]]
+binding = "D1"
+database_name = "mybonzo"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# ====== Cloudflare R2 — storage plików (PDF, CSV) ======
+[[r2_buckets]]
+binding = "R2_FINANSE"
+bucket_name = "mybonzo-finanse"
+
+# ====== Zmienne środowiskowe ======
+[vars]
+TENANT_ID = "meblepumo"

@@ -28,7 +28,7 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/ge
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { documentType, prompt } = await request.json();
+    const { documentType, prompt } = await request.json() as { documentType: string; prompt: string };
 
     // Walidacja
     if (!prompt) {

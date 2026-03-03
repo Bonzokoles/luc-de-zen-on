@@ -27,7 +27,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { emailType, recipient, purpose, tone, additionalInfo } = await request.json();
+    const { emailType, recipient, purpose, tone, additionalInfo } = await request.json() as { emailType: string; recipient: string; purpose: string; tone: string; additionalInfo?: string };
 
     if (!emailType || !recipient || !purpose) {
       return new Response(
@@ -90,8 +90,8 @@ TEMAT: [temat emaila]
       throw new Error('Błąd API');
     }
 
-    const data = await response.json();
-    const generatedEmail = data.choices[0]?.message?.content || '';
+    const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
+    const generatedEmail = data.choices?.[0]?.message?.content || '';
 
     return new Response(
       JSON.stringify({ email: generatedEmail }),

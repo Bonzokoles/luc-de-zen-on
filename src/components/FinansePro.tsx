@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   LineChart, Line, BarChart, Bar, AreaChart, Area,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import { format, startOfMonth, endOfMonth, subMonths, addDays } from 'date-fns';
+import { format, startOfMonth, endOfMonth, subMonths } from 'date-fns';
 import { pl } from 'date-fns/locale';
+import type { FinanceDashboardResponse, TransakcjaFinansowa } from '../types/finanse';
 
 // ========== INTERFACES ==========
 
@@ -59,23 +60,45 @@ export default function FinansePro() {
   const [dateRange, setDateRange] = useState<'month' | 'quarter' | 'year'>('month');
   const [filterType, setFilterType] = useState<'all' | 'income' | 'expense'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [apiData, setApiData] = useState<FinanceDashboardResponse | null>(null);
+  const [apiLoading, setApiLoading] = useState(true);
+  const [aiInsight, setAiInsight] = useState<string>('');
 
-  // Load data
-  useEffect(() => {
-    const saved = localStorage.getItem('erp-finanse');
-    if (saved) {
-      setTransactions(JSON.parse(saved));
-    } else {
-      setTransactions(demoTransactions);
+  // Pobierz dane z API
+  const fetchDashboard = useCallback(async (from?: string, to?: string) => {
+    setApiLoading(true);
+    try {
+      const now = new Date();
+      const f = from ?? new Date(now.getFullYear(), now.getMonth(), 1).toISOString().split('T')[0];
+      const t = to   ?? now.toISOString().split('T')[0];
+      const res = await fetch(`/api/finanse/dashboard?from=${f}&to=${t}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data: FinanceDashboardResponse = await res.json();
+      setApiData(data);
+      // Mapuj recent_transactions na lokalny stan
+      const mapped: Transaction[] = (data.recent_transactions ?? []).map((r: TransakcjaFinansowa) => ({
+        id: r.id,
+        date: new Date(r.data),
+        type: r.kierunek === 'PRZYCHÓD' ? 'income' : 'expense',
+        category: r.kategoria ?? 'Inne',
+        amount: r.kwota,
+        description: r.opis ?? r.kontrahent ?? '-',
+        status: r.status === 'Zaksięgowano' ? 'completed' : r.status === 'Anulowane' ? 'cancelled' : 'pending',
+        paymentMethod: 'other' as const,
+      }));
+      if (mapped.length > 0) setTransactions(mapped);
+      setAiInsight(data.ai_insight?.summary ?? '');
+    } catch (_) {
+      // Fallback z localStorage
+      const saved = localStorage.getItem('erp-finanse');
+      if (saved) setTransactions(JSON.parse(saved));
+      else setTransactions(demoTransactions);
+    } finally {
+      setApiLoading(false);
     }
   }, []);
 
-  // Save data
-  useEffect(() => {
-    if (transactions.length > 0) {
-      localStorage.setItem('erp-finanse', JSON.stringify(transactions));
-    }
-  }, [transactions]);
+  useEffect(() => { fetchDashboard(); }, [fetchDashboard]);
 
   // Calculations
   const now = new Date();
@@ -215,25 +238,46 @@ export default function FinansePro() {
         {activeView === 'dashboard' && (
           <div className="space-y-6">
 
-            {/* Stats Cards */}
+            {/* API insight banner */}
+            {aiInsight && (
+              <div className="bg-emerald-900/20 border border-emerald-600/30 rounded-xl px-4 py-3 text-sm text-emerald-300">
+                🤖 {aiInsight}
+              </div>
+            )}
+
+            {/* Stats Cards — API data lub lokalne obliczenia */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
                 <div className="text-sm text-slate-400 mb-2">Przychody (miesiąc)</div>
-                <div className="text-3xl font-bold text-emerald-400">{totalIncome.toLocaleString('pl-PL')} zł</div>
-              </div>
-              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Koszty (miesiąc)</div>
-                <div className="text-3xl font-bold text-red-400">{totalExpense.toLocaleString('pl-PL')} zł</div>
-              </div>
-              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Saldo</div>
-                <div className={`text-3xl font-bold ${balance >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                  {balance.toLocaleString('pl-PL')} zł
+                <div className="text-3xl font-bold text-emerald-400">
+                  {apiData
+                    ? apiData.kpi_cards.total_revenue.toLocaleString('pl-PL')
+                    : totalIncome.toLocaleString('pl-PL')} zł
                 </div>
               </div>
               <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
-                <div className="text-sm text-slate-400 mb-2">Oczekujące wpłaty</div>
-                <div className="text-3xl font-bold text-yellow-400">{pendingIncome.toLocaleString('pl-PL')} zł</div>
+                <div className="text-sm text-slate-400 mb-2">Koszty (miesiąc)</div>
+                <div className="text-3xl font-bold text-red-400">
+                  {apiData
+                    ? apiData.kpi_cards.total_costs.toLocaleString('pl-PL')
+                    : totalExpense.toLocaleString('pl-PL')} zł
+                </div>
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+                <div className="text-sm text-slate-400 mb-2">Zysk netto</div>
+                <div className={`text-3xl font-bold ${(apiData?.kpi_cards.net_profit ?? balance) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                  {apiData
+                    ? apiData.kpi_cards.net_profit.toLocaleString('pl-PL')
+                    : balance.toLocaleString('pl-PL')} zł
+                </div>
+              </div>
+              <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+                <div className="text-sm text-slate-400 mb-2">Marża brutto</div>
+                <div className={`text-3xl font-bold ${(apiData?.kpi_cards.gross_margin_pct ?? 0) >= 35 ? 'text-green-400' : 'text-orange-400'}`}>
+                  {apiData
+                    ? `${apiData.kpi_cards.gross_margin_pct}%`
+                    : pendingIncome.toLocaleString('pl-PL') + ' zł'}
+                </div>
               </div>
             </div>
 
@@ -241,7 +285,7 @@ export default function FinansePro() {
             <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
               <h3 className="text-xl font-bold mb-4">📈 Cash Flow (ostatnie 6 miesięcy)</h3>
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={cashFlowData}>
+                <LineChart data={apiData?.cashflow_chart?.data ?? cashFlowData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                   <XAxis dataKey="date" stroke="#94a3b8" />
                   <YAxis stroke="#94a3b8" />

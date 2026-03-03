@@ -25,7 +25,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { contentType, description, tone, length } = await request.json();
+    const { contentType, description, tone, length } = await request.json() as { contentType: string; description: string; tone: string; length: string };
 
     // Walidacja
     if (!contentType || !description) {
@@ -106,7 +106,7 @@ Pamiętaj:
       );
     }
 
-    const data = await response.json();
+    const data = await response.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
     const generatedContent = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     return new Response(

@@ -56,7 +56,7 @@ export async function executeAIAgent(
       throw new Error(`CHUCK API error: ${response.status} ${response.statusText}`);
     }
 
-    const result = await response.json();
+    const result = await response.json() as { data?: unknown; tokensUsed?: number; [key: string]: unknown };
     const executionTime = Date.now() - startTime;
 
     return {

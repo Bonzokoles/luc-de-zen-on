@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request, locals }) => {
     try {
-        const { messages, model = 'gpt-4o' } = await request.json();
+        const { messages, model = 'gpt-4o' } = await request.json() as { messages: Array<{role: string; content: string}>; model?: string };
 
         if (!messages || messages.length === 0) {
             return new Response(
@@ -73,7 +73,7 @@ Jeśli nie masz pewności co do odpowiedzi (szczególnie prawnej lub finansowej)
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
+            const errorData = await response.json() as { error?: { message?: string } };
             console.error('OpenAI API error:', errorData);
             return new Response(
                 JSON.stringify({

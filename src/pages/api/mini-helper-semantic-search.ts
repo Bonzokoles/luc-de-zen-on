@@ -15,7 +15,7 @@ const HF_API_URL = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { query, documents } = await request.json();
+    const { query, documents } = await request.json() as { query: string; documents?: Array<string | { text: string; title?: string; metadata?: Record<string, unknown> }> };
     const env = locals.runtime?.env || import.meta.env;
     
     // Validate input
@@ -122,7 +122,7 @@ async function generateEmbedding(text: string, token: string): Promise<number[]>
     throw new Error(`HuggingFace API error (${response.status}): ${errorText}`);
   }
   
-  const result = await response.json();
+  const result = await response.json() as number[] | { embeddings?: number[] };
   
   // HF API returns array directly for embedding models
   return Array.isArray(result) ? result : result.embeddings || [];

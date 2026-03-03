@@ -10,7 +10,7 @@ import type { APIRoute } from 'astro';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { numbers, text } = await request.json();
+    const { numbers, text } = await request.json() as { numbers: Record<string, number>; text: string };
 
     const apiKey = import.meta.env.GOOGLE_API_KEY;
     if (!apiKey) {
@@ -71,8 +71,8 @@ Przeanalizuj i zwróć JSON z oceną ryzyka.`;
       throw new Error('Gemini API error');
     }
 
-    const data = await response.json();
-    const aiResponse = data.candidates[0]?.content?.parts[0]?.text || '{}';
+    const data = await response.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+    const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
 
     // Extract JSON from response (handle markdown code blocks)
     let jsonStr = aiResponse.trim();

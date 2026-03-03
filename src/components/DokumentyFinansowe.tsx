@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { DokumentFinansowy } from '../types/finanse';
 
 /**
  * Dokumenty Finansowe - Upload i AI Ocena Ryzyka
@@ -44,16 +45,46 @@ export default function DokumentyFinansowe() {
     opis: ''
   });
 
-  useEffect(() => {
-    const saved = localStorage.getItem('erp-dokumenty');
-    if (saved) {
-      setDocuments(JSON.parse(saved));
+  const mapApiDoc = useCallback((api: DokumentFinansowy): Document => ({
+    id: String(api.id),
+    name: `${api.numer} — ${api.kontrahent}`,
+    type: api.typ,
+    size: 0,
+    uploadDate: api.data_wystawienia ?? api.created_at,
+    extractedNumbers: {
+      kwota: api.kwota_brutto ?? undefined,
+      netto: api.kwota_netto ?? undefined,
+      brutto: api.kwota_brutto ?? undefined,
+      vat: api.stawka_vat ?? undefined,
+    },
+    riskAssessment: api.poziom_ryzyka ? {
+      score: api.ryzyko_punktowe ?? 0,
+      level: api.poziom_ryzyka === 'Wysokie' ? 'high' : api.poziom_ryzyka === 'Średnie' ? 'medium' : 'low',
+      analysis: api.podsumowanie_ryzyka ?? '',
+      recommendations: api.tagi_ryzyka ?? [],
+    } : undefined,
+  }), []);
+
+  const fetchDocuments = useCallback(async () => {
+    try {
+      const res = await fetch('/api/finanse/dokumenty-finansowe?limit=50');
+      if (!res.ok) throw new Error('API error');
+      const data2 = await res.json() as { dokumenty?: DokumentFinansowy[] };
+      if (Array.isArray(data2.dokumenty)) {
+        setDocuments(data2.dokumenty.map(mapApiDoc));
+        return;
+      }
+    } catch (err) {
+      console.error('Błąd ładowania dokumentów:', err);
     }
-  }, []);
+    // Fallback to localStorage
+    const saved = localStorage.getItem('erp-dokumenty');
+    if (saved) setDocuments(JSON.parse(saved));
+  }, [mapApiDoc]);
 
   useEffect(() => {
-    localStorage.setItem('erp-dokumenty', JSON.stringify(documents));
-  }, [documents]);
+    fetchDocuments();
+  }, [fetchDocuments]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -81,6 +112,28 @@ export default function DokumentyFinansowe() {
       // AI Risk Assessment
       const risk = await analyzeRisk(extractedNumbers, text);
       newDoc.riskAssessment = risk;
+
+      // Persist to D1 via API
+      try {
+        await fetch('/api/finanse/dokumenty-finansowe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            numer: `DOK-${Date.now()}`,
+            kontrahent: newDoc.name,
+            typ: 'Inny' as const,
+            data_wystawienia: new Date().toISOString().split('T')[0],
+            waluta: 'PLN',
+            kwota_brutto: newDoc.extractedNumbers.brutto ?? newDoc.extractedNumbers.kwota,
+            kwota_netto: newDoc.extractedNumbers.netto,
+            stawka_vat: newDoc.extractedNumbers.vat,
+            poziom_ryzyka: risk.level === 'high' ? 'Wysokie' : risk.level === 'medium' ? 'Średnie' : 'Niskie',
+            ryzyko_punktowe: risk.score,
+            podsumowanie_ryzyka: risk.analysis,
+            tagi_ryzyka: risk.recommendations,
+          } satisfies Partial<DokumentFinansowy>),
+        });
+      } catch (_) { /* ignore persistence errors in dev */ }
 
       setDocuments(prev => [newDoc, ...prev]);
       setSelectedDoc(newDoc);
@@ -138,7 +191,7 @@ export default function DokumentyFinansowe() {
 
       if (!response.ok) throw new Error('API error');
       
-      const data = await response.json();
+      const data = await response.json() as { risk: { score: number; level: 'low'|'medium'|'high'; analysis: string; recommendations: string[] } };
       return data.risk;
     } catch (error) {
       console.error('Risk analysis error:', error);
@@ -146,7 +199,7 @@ export default function DokumentyFinansowe() {
       const kwota = numbers.kwota || numbers.brutto || 0;
       return {
         score: kwota > 10000 ? 65 : kwota > 5000 ? 45 : 25,
-        level: kwota > 10000 ? 'high' : kwota > 5000 ? 'medium' : 'low',
+        level: (kwota > 10000 ? 'high' : kwota > 5000 ? 'medium' : 'low') as 'low' | 'medium' | 'high',
         analysis: 'Analiza podstawowa: kwota ' + kwota + ' PLN',
         recommendations: ['Sprawdź warunki płatności', 'Zweryfikuj kontrahenta']
       };
@@ -182,6 +235,29 @@ export default function DokumentyFinansowe() {
       extractedNumbers,
       riskAssessment: risk
     };
+
+    // Persist to D1 via API
+    try {
+      await fetch('/api/finanse/dokumenty-finansowe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          numer: `WPIS-${Date.now()}`,
+          kontrahent: 'Wpis ręczny',
+          typ: 'Inny' as const,
+          data_wystawienia: new Date().toISOString().split('T')[0],
+          waluta: 'PLN',
+          kwota_brutto: extractedNumbers.brutto,
+          kwota_netto: extractedNumbers.netto,
+          stawka_vat: extractedNumbers.vat,
+          poziom_ryzyka: risk.level === 'high' ? 'Wysokie' : risk.level === 'medium' ? 'Średnie' : 'Niskie',
+          ryzyko_punktowe: risk.score,
+          podsumowanie_ryzyka: risk.analysis,
+          tagi_ryzyka: risk.recommendations,
+          uwagi: manualData.opis,
+        } satisfies Partial<DokumentFinansowy>),
+      });
+    } catch (_) { /* ignore persistence errors in dev */ }
 
     setDocuments(prev => [newDoc, ...prev]);
     setSelectedDoc(newDoc);
