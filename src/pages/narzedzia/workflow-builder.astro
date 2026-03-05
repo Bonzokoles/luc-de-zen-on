@@ -6,7 +6,9 @@ import MainLayout from "../../layouts/MainLayout.astro";
   <div class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
     <div class="container mx-auto px-4 py-8">
       <div class="mb-8 text-center">
-        <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h1
+          class="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        >
           🎯 CHUCK Workflow Builder
         </h1>
         <p class="text-xl text-gray-600 mb-2">
@@ -29,7 +31,8 @@ import MainLayout from "../../layouts/MainLayout.astro";
           <div class="p-4 bg-purple-50 rounded-lg">
             <h3 class="font-bold text-purple-900 mb-2">🔗 3 Universal Nodes</h3>
             <p class="text-sm text-gray-700">
-              AI_AGENT, PROCESSOR (scrape/transform/export), OUTPUT (email/pdf/slack)
+              AI_AGENT, PROCESSOR (scrape/transform/export), OUTPUT
+              (email/pdf/slack)
             </p>
           </div>
           <div class="p-4 bg-green-50 rounded-lg">
@@ -50,11 +53,11 @@ import MainLayout from "../../layouts/MainLayout.astro";
 </MainLayout>
 
 <script>
-  import { createRoot } from 'react-dom/client';
-  import { createElement } from 'react';
-  import WorkflowBuilder from '../../components/narzedzia/WorkflowBuilder';
+  import { createRoot } from "react-dom/client";
+  import { createElement } from "react";
+  import WorkflowBuilder from "../../components/narzedzia/workflow-builder/WorkflowBuilder";
 
-  const container = document.getElementById('workflow-builder-root');
+  const container = document.getElementById("workflow-builder-root");
   if (container) {
     const root = createRoot(container);
     root.render(createElement(WorkflowBuilder));

@@ -1,5 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+  AIResultMeta,
+} from '../shared/AIToolComponents';
 
 const AsystentEmail = () => {
   const [emailType, setEmailType] = useState('email biznesowy');
@@ -8,8 +14,13 @@ const AsystentEmail = () => {
   const [tone, setTone] = useState('profesjonalny');
   const [additionalInfo, setAdditionalInfo] = useState('');
   const [generatedEmail, setGeneratedEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+
+  // Nowe: model selector + company prompt
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+  const [localError, setLocalError] = useState('');
+
+  const { execute, loading: isLoading, error: aiError, result: aiResult } = useAIExecute();
 
   const emailTypes = [
     'email biznesowy',
@@ -50,45 +61,33 @@ const AsystentEmail = () => {
 
   const handleGenerate = async () => {
     if (!recipient.trim() || !purpose.trim()) {
-      setError('Wypełnij wszystkie wymagane pola');
+      setLocalError('Wypełnij wszystkie wymagane pola');
       return;
     }
 
-    setIsLoading(true);
-    setError('');
+    setLocalError('');
     setGeneratedEmail('');
 
-    try {
-      // 🤖 MODEL AI: GPT-4 TURBO
-      // Profesjonalne emaile biznesowe, formalne pisma, oferty
-      // Endpoint: /api/generate-email
-      const response = await fetch('/api/generate-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          emailType,
-          recipient,
-          purpose,
-          tone,
-          additionalInfo
-        }),
-      });
+    const data = await execute({
+      narzedzie: 'asystent_email',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: {
+        typ: emailType,
+        do_kogo: recipient,
+        cel: purpose,
+        ton: tone,
+        dodatkowe_info: additionalInfo || undefined,
+        jezyk: 'pl',
+      },
+    });
 
-      const data = await response.json() as { error?: string; email?: string };
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Błąd generowania');
-      }
-
-      setGeneratedEmail(data.email ?? '');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Wystąpił błąd');
-    } finally {
-      setIsLoading(false);
+    if (data?.wynik) {
+      setGeneratedEmail(data.wynik);
     }
   };
+
+  const error = localError || aiError;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedEmail);
@@ -202,7 +201,7 @@ const AsystentEmail = () => {
             </div>
 
             {/* Dodatkowe info */}
-            <div className="mb-6">
+            <div className="mb-4">
               <label className="block text-sm font-medium mb-2">
                 Dodatkowe informacje (opcjonalnie)
               </label>
@@ -213,6 +212,12 @@ const AsystentEmail = () => {
                 rows={2}
                 placeholder="Np. termin, kwota, szczegóły..."
               />
+            </div>
+
+            {/* Model AI + Kontekst firmy */}
+            <div className="mb-6 space-y-4 border-t border-business-border pt-4">
+              <AIModelSelector value={model} onChange={setModel} />
+              <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
             </div>
 
             {/* Przycisk */}
@@ -269,6 +274,7 @@ const AsystentEmail = () => {
                   {generatedEmail}
                 </pre>
               </div>
+              {aiResult && <AIResultMeta result={aiResult} />}
 
               <div className="flex gap-3">
                 <button

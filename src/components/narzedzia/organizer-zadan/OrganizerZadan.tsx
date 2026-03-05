@@ -1,4 +1,11 @@
 import { useState, useEffect } from 'react';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+  AIResultMeta,
+  AIStatusIndicator,
+} from '../shared/AIToolComponents';
 
 interface Task {
   id: string;
@@ -14,6 +21,50 @@ const OrganizerZadan = () => {
   const [newTaskPriority, setNewTaskPriority] = useState<'wysoki' | 'średni' | 'niski'>('średni');
   const [newTaskDate, setNewTaskDate] = useState('');
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+
+  // AI state
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+  const [aiPlan, setAiPlan] = useState('');
+  const [aiGoal, setAiGoal] = useState('');
+  const [aiMode, setAiMode] = useState<'rozbij' | 'priorytetyzuj' | 'plan_tygodnia'>('rozbij');
+  const { execute: aiExecute, loading: aiLoading, error: aiError, result: aiResult } = useAIExecute();
+
+  const handleAIPlan = async () => {
+    const activeTasks = tasks.filter(t => !t.completed).map(t => t.title);
+
+    const data = await aiExecute({
+      narzedzie: 'organizer_zadan',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: {
+        tryb: aiMode,
+        opis: aiGoal || undefined,
+        istniejace_zadania: activeTasks.length > 0 ? activeTasks : undefined,
+        ramy_czasowe: 'ten tydzień',
+      },
+    });
+
+    if (data?.wynik) {
+      setAiPlan(data.wynik);
+
+      // Spróbuj sparsować JSON i dodać zadania
+      try {
+        const parsed = JSON.parse(data.wynik);
+        if (Array.isArray(parsed.zadania)) {
+          const newTasks: Task[] = parsed.zadania.map((z: { tytul?: string; priorytet?: string }, i: number) => ({
+            id: `ai-${Date.now()}-${i}`,
+            title: z.tytul || `Zadanie ${i + 1}`,
+            priority: (['wysoki', 'średni', 'niski'].includes(z.priorytet ?? '') ? z.priorytet : 'średni') as Task['priority'],
+            completed: false,
+          }));
+          setTasks(prev => [...newTasks, ...prev]);
+        }
+      } catch {
+        // OK — AI zwróciło tekst, nie JSON — po prostu wyświetlamy
+      }
+    }
+  };
 
   // Wczytaj zadania z localStorage
   useEffect(() => {
@@ -318,6 +369,88 @@ const OrganizerZadan = () => {
               ))}
             </div>
           )}
+        </div>
+      </div>
+
+      {/* AI Planowanie */}
+      <div className="mt-8 card">
+        <h3 className="text-xl font-bold text-white mb-4">🤖 AI Planowanie</h3>
+
+        <div className="space-y-4">
+          <div className="grid md:grid-cols-3 gap-3">
+            <button
+              onClick={() => setAiMode('rozbij')}
+              className={`p-3 rounded-lg border text-left text-sm transition-all ${
+                aiMode === 'rozbij'
+                  ? 'border-primary-500 bg-primary-500/10 text-white'
+                  : 'border-business-border bg-business-dark text-gray-400 hover:border-gray-600'
+              }`}
+            >
+              <div className="font-bold">🔨 Rozbij na zadania</div>
+              <div className="text-xs mt-1 opacity-70">Opisz cel → AI stworzy listę zadań</div>
+            </button>
+            <button
+              onClick={() => setAiMode('priorytetyzuj')}
+              className={`p-3 rounded-lg border text-left text-sm transition-all ${
+                aiMode === 'priorytetyzuj'
+                  ? 'border-primary-500 bg-primary-500/10 text-white'
+                  : 'border-business-border bg-business-dark text-gray-400 hover:border-gray-600'
+              }`}
+            >
+              <div className="font-bold">📊 Priorytetyzuj</div>
+              <div className="text-xs mt-1 opacity-70">AI ustali priorytety Twoich zadań</div>
+            </button>
+            <button
+              onClick={() => setAiMode('plan_tygodnia')}
+              className={`p-3 rounded-lg border text-left text-sm transition-all ${
+                aiMode === 'plan_tygodnia'
+                  ? 'border-primary-500 bg-primary-500/10 text-white'
+                  : 'border-business-border bg-business-dark text-gray-400 hover:border-gray-600'
+              }`}
+            >
+              <div className="font-bold">📅 Plan tygodnia</div>
+              <div className="text-xs mt-1 opacity-70">AI zaplanuje Twój tydzień pracy</div>
+            </button>
+          </div>
+
+          {aiMode === 'rozbij' && (
+            <textarea
+              value={aiGoal}
+              onChange={(e) => setAiGoal(e.target.value)}
+              className="textarea-field"
+              rows={3}
+              placeholder="Opisz cel / projekt, np. 'Przeprowadzić migrację sklepu na nowy hosting'"
+            />
+          )}
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <AIModelSelector value={model} onChange={setModel} />
+            <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
+          </div>
+
+          <button
+            onClick={handleAIPlan}
+            disabled={aiLoading || (aiMode === 'rozbij' && !aiGoal.trim())}
+            className="btn-primary w-full disabled:opacity-50"
+          >
+            {aiLoading ? (
+              <>
+                <span className="loading-spinner inline-block mr-2"></span>
+                AI planuje…
+              </>
+            ) : (
+              '🧠 Generuj plan AI'
+            )}
+          </button>
+
+          <AIStatusIndicator loading={aiLoading} error={aiError}>
+            {aiPlan && (
+              <div className="bg-business-dark border border-business-border rounded-lg p-4">
+                <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{aiPlan}</pre>
+                {aiResult && <AIResultMeta result={aiResult} />}
+              </div>
+            )}
+          </AIStatusIndicator>
         </div>
       </div>
 

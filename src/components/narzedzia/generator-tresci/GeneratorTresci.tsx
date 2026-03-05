@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+  AIResultMeta,
+  AIStatusIndicator,
+} from '../shared/AIToolComponents';
 
 const GeneratorTresci = () => {
   const [contentType, setContentType] = useState('post na Facebooka');
@@ -8,8 +15,13 @@ const GeneratorTresci = () => {
   const [tone, setTone] = useState('profesjonalny');
   const [length, setLength] = useState('średnia');
   const [generatedContent, setGeneratedContent] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+
+  // Nowe: model selector + company prompt
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+  const [localError, setLocalError] = useState('');
+
+  const { execute, loading: isLoading, error: aiError, result: aiResult } = useAIExecute();
 
   const contentTypes = [
     'post na Facebooka',
@@ -39,44 +51,32 @@ const GeneratorTresci = () => {
 
   const handleGenerate = async () => {
     if (!description.trim()) {
-      setError('Proszę opisz czego potrzebujesz');
+      setLocalError('Proszę opisz czego potrzebujesz');
       return;
     }
 
-    setIsLoading(true);
-    setError('');
+    setLocalError('');
     setGeneratedContent('');
 
-    try {
-      // 🤖 MODEL AI: GEMINI 2.5 FLASH
-      // Szybkie generowanie treści marketingowych, postów, opisów
-      // Endpoint: /api/generate-content
-      const response = await fetch('/api/generate-content', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contentType,
-          description,
-          tone,
-          length
-        }),
-      });
+    const data = await execute({
+      narzedzie: 'generator_tresci',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: {
+        typ: contentType,
+        opis: description,
+        ton: tone,
+        dlugosc: length,
+        jezyk: 'pl',
+      },
+    });
 
-      const data = await response.json() as { error?: string; content?: string };
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Błąd generowania');
-      }
-
-      setGeneratedContent(data.content ?? '');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Wystąpił błąd');
-    } finally {
-      setIsLoading(false);
+    if (data?.wynik) {
+      setGeneratedContent(data.wynik);
     }
   };
+
+  const error = localError || aiError;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedContent);
@@ -174,6 +174,12 @@ const GeneratorTresci = () => {
             </select>
           </div>
 
+          {/* Model AI + Kontekst firmy */}
+          <div className="mb-6 space-y-4 border-t border-business-border pt-4">
+            <AIModelSelector value={model} onChange={setModel} />
+            <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
+          </div>
+
           {/* Przycisk */}
           <button
             onClick={handleGenerate}
@@ -230,6 +236,7 @@ const GeneratorTresci = () => {
                 <div className="prose prose-invert max-w-none">
                   <ReactMarkdown>{generatedContent}</ReactMarkdown>
                 </div>
+                {aiResult && <AIResultMeta result={aiResult} />}
               </div>
 
               <div className="flex gap-3">

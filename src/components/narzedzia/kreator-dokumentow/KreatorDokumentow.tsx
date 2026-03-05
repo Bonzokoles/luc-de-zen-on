@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import { FileText, Sparkles, Copy, Download, CheckCircle, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+  AIResultMeta,
+} from '../shared/AIToolComponents';
 
 interface DocumentTemplate {
   id: string;
@@ -83,69 +89,49 @@ const KreatorDokumentow = () => {
   const [customDetails, setCustomDetails] = useState('');
   const [companyName, setCompanyName] = useState('');
   const [generatedDocument, setGeneratedDocument] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [error, setError] = useState('');
+  const [localError, setLocalError] = useState('');
   const [copiedMessage, setCopiedMessage] = useState(false);
+
+  // Nowe: model selector + company prompt
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+
+  const { execute, loading: isGenerating, error: aiError, result: aiResult } = useAIExecute();
 
   const handleGenerate = async () => {
     const template = templates.find(t => t.id === selectedTemplate);
     if (!template) {
-      setError('Wybierz szablon dokumentu');
+      setLocalError('Wybierz szablon dokumentu');
       return;
     }
 
-    // 🤖 MODEL AI: GEMINI 2.5 FLASH
-    // Generowanie dokumentów prawnych: umowy, regulaminy, RODO
-    // Endpoint: /api/generate-document-gemini
-
-    setIsGenerating(true);
-    setError('');
+    setLocalError('');
     setGeneratedDocument('');
 
-    try {
-      const detailsText = customDetails.trim();
-      const companyText = companyName.trim();
+    const detailsText = customDetails.trim();
+    const companyText = companyName.trim();
 
-      const fullPrompt = `${template.prompt}
+    const userPayload = {
+      rodzaj: template.name,
+      szablon_prompt: template.prompt,
+      nazwa_firmy: companyText || undefined,
+      szczegoly: detailsText || undefined,
+      jezyk: 'pl',
+    };
 
-${companyText ? `Nazwa firmy: ${companyText}` : ''}
-${detailsText ? `Dodatkowe szczegóły i wymagania:\n${detailsText}` : ''}
+    const data = await execute({
+      narzedzie: 'kreator_dokumentow',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: userPayload,
+    });
 
-WAŻNE WYMAGANIA:
-- Dokument po polsku
-- Zgodny z prawem polskim (aktualny stan prawny)
-- Profesjonalny język prawniczy
-- Wszystkie niezbędne klauzule
-- Gotowy do użycia (wypełnij [PLACEHOLDERY] jeśli masz informacje, lub zostaw do wypełnienia)
-- Format markdown z podziałem na sekcje
-- Dodaj na końcu informację: "⚠️ To szablon. Przed użyciem skonsultuj z prawnikiem."`;
-
-      // Wywołaj API endpoint
-      const response = await fetch('/api/generate-document-gemini', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          documentType: template.name,
-          prompt: fullPrompt,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json() as { error?: string };
-        throw new Error(errorData.error || 'Błąd generowania dokumentu');
-      }
-
-      const data = await response.json() as { content?: string };
-      setGeneratedDocument(data.content ?? '');
-    } catch (err: any) {
-      console.error('Błąd:', err);
-      setError(err.message || 'Nie udało się wygenerować dokumentu');
-    } finally {
-      setIsGenerating(false);
+    if (data?.wynik) {
+      setGeneratedDocument(data.wynik);
     }
   };
+
+  const error = localError || aiError;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(generatedDocument);
@@ -254,6 +240,12 @@ WAŻNE WYMAGANIA:
               </p>
             </div>
 
+            {/* Model AI + Kontekst firmy */}
+            <div className="space-y-4 border-t border-gray-700 pt-4">
+              <AIModelSelector value={model} onChange={setModel} />
+              <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
+            </div>
+
             <button
               onClick={handleGenerate}
               disabled={isGenerating}
@@ -315,6 +307,7 @@ WAŻNE WYMAGANIA:
           <div className="bg-white text-gray-900 p-8 rounded-lg max-h-[600px] overflow-y-auto prose prose-sm max-w-none">
             <ReactMarkdown>{generatedDocument}</ReactMarkdown>
           </div>
+          {aiResult && <AIResultMeta result={aiResult} />}
 
           {/* Warning */}
           <div className="mt-4 p-4 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">

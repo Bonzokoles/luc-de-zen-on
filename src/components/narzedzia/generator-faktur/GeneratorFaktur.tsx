@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, Download, FileText, Calculator, Save } from 'lucide-react';
+import { Plus, Trash2, Download, FileText, Calculator, Save, Sparkles } from 'lucide-react';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+} from '../shared/AIToolComponents';
 
 interface InvoiceItem {
   id: string;
@@ -66,6 +71,41 @@ const GeneratorFaktur = () => {
     vatTotal: 0,
     grossTotal: 0
   });
+
+  // AI: model selector + company prompt + opis AI
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+  const { execute: aiExecute, loading: aiLoading } = useAIExecute();
+
+  // Generuj AI opis dla pozycji
+  const generateAIDescription = async (itemId: string) => {
+    const item = invoice.items.find(i => i.id === itemId);
+    if (!item || !item.name.trim()) return;
+
+    const data = await aiExecute({
+      narzedzie: 'generator_faktur',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: {
+        akcja: 'opis_pozycji',
+        nazwa: item.name,
+        ilosc: item.quantity,
+        cena_jednostkowa: item.unitPrice,
+      },
+    });
+
+    if (data?.wynik) {
+      try {
+        const parsed = JSON.parse(data.wynik);
+        if (parsed.opis) {
+          updateItem(itemId, 'name', parsed.opis);
+        }
+      } catch {
+        // Jeśli AI zwróciło plain text — użyj bezpośrednio
+        updateItem(itemId, 'name', data.wynik.trim());
+      }
+    }
+  };
 
   // Oblicz sumy
   useEffect(() => {
@@ -587,13 +627,23 @@ const GeneratorFaktur = () => {
                 {invoice.items.map((item) => (
                   <tr key={item.id} className="border-b border-gray-800">
                     <td className="p-2">
-                      <input
-                        type="text"
-                        placeholder="Nazwa produktu/usługi"
-                        value={item.name}
-                        onChange={(e) => updateItem(item.id, 'name', e.target.value)}
-                        className="input-field w-full"
-                      />
+                      <div className="flex gap-1">
+                        <input
+                          type="text"
+                          placeholder="Nazwa produktu/usługi"
+                          value={item.name}
+                          onChange={(e) => updateItem(item.id, 'name', e.target.value)}
+                          className="input-field w-full"
+                        />
+                        <button
+                          onClick={() => generateAIDescription(item.id)}
+                          disabled={aiLoading || !item.name.trim()}
+                          className="text-blue-400 hover:text-blue-300 p-1 disabled:opacity-30 flex-shrink-0"
+                          title="AI: rozwiń opis pozycji"
+                        >
+                          <Sparkles className="w-4 h-4" />
+                        </button>
+                      </div>
                     </td>
                     <td className="p-2">
                       <input
@@ -671,6 +721,18 @@ const GeneratorFaktur = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Płatność */}
+      <div className="card">
+        <h2 className="text-xl font-bold text-white mb-4">🤖 Ustawienia AI</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          <AIModelSelector value={model} onChange={setModel} />
+          <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
+        </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Kliknij ✨ przy nazwie pozycji, aby AI rozwinął opis do profesjonalnej formy fakturowej.
+        </p>
       </div>
 
       {/* Płatność */}

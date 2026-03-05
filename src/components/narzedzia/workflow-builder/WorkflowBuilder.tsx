@@ -7,13 +7,13 @@ import { useState, useCallback } from 'react';
 import type { Tool } from 'lib/compatibilityMatrix';
 import { calculateConnectionScore, getCompatibleTools } from 'lib/compatibilityMatrix';
 import { scoreWorkflow, detectCycles } from 'lib/workflowScoring';
-import type { UniversalNode } from '../../nodes/universal';
+import type { UniversalNode } from '../../../nodes/universal';
 import { 
   createAIAgentNode, 
   createProcessorNode, 
   createOutputNode,
   validateNode 
-} from '../../nodes/universal';
+} from '../../../nodes/universal';
 import NodePalette from './NodePalette';
 import toolsData from 'lib/tools.json';
 

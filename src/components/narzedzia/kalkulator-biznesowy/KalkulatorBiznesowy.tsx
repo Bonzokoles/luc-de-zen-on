@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { AnimatedPieChart, AnimatedBarChart, AnimatedLineChart } from '../shared/ChartComponents';
-import { DataTable, ComparisonTable } from '../shared/TableComponents';
+import { AnimatedPieChart, AnimatedBarChart, AnimatedLineChart } from '../../shared/ChartComponents';
+import { DataTable, ComparisonTable } from '../../shared/TableComponents';
+import {
+  useAIExecute,
+  AIModelSelector,
+  CompanyPromptField,
+  AIResultMeta,
+  AIStatusIndicator,
+} from '../shared/AIToolComponents';
 
 const KalkulatorBiznesowy = () => {
   const [activeCalc, setActiveCalc] = useState<'margin' | 'vat' | 'roi' | 'profit'>('margin');
@@ -25,6 +32,36 @@ const KalkulatorBiznesowy = () => {
   const [revenue, setRevenue] = useState('');
   const [costs, setCosts] = useState('');
   const [profitResult, setProfitResult] = useState<any>(null);
+
+  // AI: interpretacja wyników
+  const [model, setModel] = useState('auto');
+  const [companyPrompt, setCompanyPrompt] = useState('');
+  const [aiInterpretation, setAiInterpretation] = useState('');
+  const { execute: aiExecute, loading: aiLoading, error: aiError, result: aiResult } = useAIExecute();
+
+  const getAIInterpretation = async () => {
+    const currentResult =
+      activeCalc === 'margin' ? marginResult :
+      activeCalc === 'vat' ? vatResult :
+      activeCalc === 'roi' ? roiResult :
+      profitResult;
+
+    if (!currentResult) return;
+
+    const data = await aiExecute({
+      narzedzie: 'kalkulator_biznesowy',
+      model,
+      company_prompt: companyPrompt || undefined,
+      payload: {
+        tryb: activeCalc,
+        dane: currentResult,
+      },
+    });
+
+    if (data?.wynik) {
+      setAiInterpretation(data.wynik);
+    }
+  };
 
   const calculateMargin = () => {
     const cost = parseFloat(costPrice);
@@ -116,6 +153,7 @@ const KalkulatorBiznesowy = () => {
     setVatResult(null);
     setRoiResult(null);
     setProfitResult(null);
+    setAiInterpretation('');
   };
 
   // Example data for charts and comparisons
@@ -650,6 +688,46 @@ const KalkulatorBiznesowy = () => {
             </>
           )}
 
+        </motion.div>
+      )}
+
+      {/* Sekcja AI Interpretacja */}
+      {(marginResult || vatResult || roiResult || profitResult) && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="card mt-6"
+        >
+          <h3 className="text-lg font-bold text-white mb-4">🤖 AI Interpretacja wyników</h3>
+          <div className="space-y-4 mb-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <AIModelSelector value={model} onChange={setModel} />
+              <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
+            </div>
+            <button
+              onClick={getAIInterpretation}
+              disabled={aiLoading}
+              className="btn-primary flex items-center gap-2"
+            >
+              {aiLoading ? (
+                <>
+                  <span className="loading-spinner inline-block"></span>
+                  Analizuję…
+                </>
+              ) : (
+                '🧠 Zinterpretuj wyniki AI'
+              )}
+            </button>
+          </div>
+
+          <AIStatusIndicator loading={aiLoading} error={aiError}>
+            {aiInterpretation && (
+              <div className="bg-business-dark border border-business-border rounded-lg p-4">
+                <p className="text-sm text-gray-300 whitespace-pre-wrap">{aiInterpretation}</p>
+                {aiResult && <AIResultMeta result={aiResult} />}
+              </div>
+            )}
+          </AIStatusIndicator>
         </motion.div>
       )}
 

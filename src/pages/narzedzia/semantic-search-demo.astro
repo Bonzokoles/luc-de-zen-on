@@ -3,12 +3,14 @@
  * Semantic Search Demo Page
  * Demonstrates HuggingFace MiniHelper integration
  */
-import MainLayout from '../../layouts/MainLayout.astro';
-import SemanticSearchDemoComponent from '../../components/narzedzia/SemanticSearchDemo';
+import MainLayout from "../../layouts/MainLayout.astro";
+import SemanticSearchDemoComponent from "../../components/narzedzia/semantic-search-demo/SemanticSearchDemo";
 ---
 
 <MainLayout title="Semantic Search Demo - HuggingFace MiniHelper">
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12">
+  <div
+    class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12"
+  >
     <SemanticSearchDemoComponent client:load />
   </div>
 </MainLayout>
