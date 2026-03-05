@@ -98,6 +98,34 @@ const AsystentAI = () => {
     setStreamingContent('');
 
     try {
+      // Auto-routing: gdy jesteśmy w module /finanse → dedykowany asystent finansowy
+      const isFinanse = typeof window !== 'undefined' && window.location.pathname.includes('/finanse');
+
+      if (isFinanse) {
+        // ─── Asystent finansowy (nie-streamingowy) ─────────────
+        const zakres = {
+          od: new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0],
+          do: new Date().toISOString().split('T')[0],
+        };
+        const response = await fetch('/api/finanse/asystent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pytanie: text, zakres }),
+        });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json() as { odpowiedz?: string; error?: string };
+        if (data.error) throw new Error(data.error);
+        const aiMessage: Message = {
+          id: `assistant-${Date.now()}`,
+          role: 'assistant',
+          content: data.odpowiedz ?? '(brak odpowiedzi)',
+          timestamp: new Date(),
+        };
+        setMessages(prev => [...prev, aiMessage]);
+        setIsLoading(false);
+        return;
+      }
+
       // 🤖 MODEL AI: GPT-4o (OpenAI)
       // Endpoint: /api/chat-openai
       const response = await fetch('/api/chat-openai', {

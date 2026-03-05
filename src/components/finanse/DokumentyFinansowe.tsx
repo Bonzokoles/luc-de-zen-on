@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { DokumentFinansowy } from '../../types/finanse';
 
@@ -15,472 +15,394 @@ import type { DokumentFinansowy } from '../../types/finanse';
  * - Historia dokumentów w localStorage
  */
 
-interface Document {
+// ─── Local display type ─────────────────────────────────────────────────────
+
+interface DisplayDoc {
   id: string;
-  name: string;
-  type: string;
-  size: number;
-  uploadDate: string;
-  extractedNumbers: {
-    kwota?: number;
-    vat?: number;
-    netto?: number;
-    brutto?: number;
-  };
-  riskAssessment?: {
-    score: number; // 0-100
-    level: 'low' | 'medium' | 'high';
-    analysis: string;
-    recommendations: string[];
+  numer: string;
+  kontrahent: string;
+  typ: string;
+  kwota_brutto: number | null;
+  data_wystawienia: string;
+  termin_platnosci: string | null;
+  status: string;
+  poziom_ryzyka: string | null;
+  ryzyko_punktowe: number | null;
+  podsumowanie_ryzyka: string | null;
+  tagi_ryzyka: string[] | null;
+  plik_url: string | null;
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function mapApiDoc(api: DokumentFinansowy): DisplayDoc {
+  return {
+    id: String(api.id),
+    numer: api.numer,
+    kontrahent: api.kontrahent,
+    typ: api.typ,
+    kwota_brutto: api.kwota_brutto ?? null,
+    data_wystawienia: api.data_wystawienia ?? api.created_at,
+    termin_platnosci: api.termin_platnosci ?? null,
+    status: api.status ?? 'Oczekuje',
+    poziom_ryzyka: api.poziom_ryzyka ?? null,
+    ryzyko_punktowe: api.ryzyko_punktowe ?? null,
+    podsumowanie_ryzyka: api.podsumowanie_ryzyka ?? null,
+    tagi_ryzyka: Array.isArray(api.tagi_ryzyka) ? api.tagi_ryzyka : null,
+    plik_url: api.plik_url ?? null,
   };
 }
 
-export default function DokumentyFinansowe() {
-  const [documents, setDocuments] = useState<Document[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
-  const [manualData, setManualData] = useState({
-    kwota: '',
-    vat: '',
-    opis: ''
+function riskStyle(poziom: string | null) {
+  if (poziom === 'Wysokie') return 'bg-red-900/40 text-red-400 border-red-700';
+  if (poziom === 'Średnie') return 'bg-yellow-900/40 text-yellow-400 border-yellow-700';
+  if (poziom === 'Niskie')  return 'bg-green-900/40 text-green-400 border-green-700';
+  return 'bg-slate-700 text-slate-400 border-slate-600';
+}
+
+function statusStyle(s: string) {
+  if (s === 'Zapłacone') return 'bg-green-900/30 text-green-400';
+  if (s === 'Przeterminowane') return 'bg-red-900/30 text-red-400';
+  return 'bg-slate-700 text-slate-400';
+}
+
+// ─── Dodaj Dokument Modal ─────────────────────────────────────────────────────
+
+interface AddModalProps {
+  onClose: () => void;
+  onSuccess: () => void;
+}
+
+function DodajDokumentModal({ onClose, onSuccess }: AddModalProps) {
+  const [form, setForm] = useState({
+    numer: '', kontrahent: '',
+    data_wystawienia: new Date().toISOString().split('T')[0],
+    termin_platnosci: '',
+    kwota_brutto: '', typ: 'Faktura', opis: '',
   });
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [result, setResult] = useState<{ message: string; analiza?: { poziom_ryzyka: string; ryzyko_punktowe: number; podsumowanie_ryzyka: string } } | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  const mapApiDoc = useCallback((api: DokumentFinansowy): Document => ({
-    id: String(api.id),
-    name: `${api.numer} — ${api.kontrahent}`,
-    type: api.typ,
-    size: 0,
-    uploadDate: api.data_wystawienia ?? api.created_at,
-    extractedNumbers: {
-      kwota: api.kwota_brutto ?? undefined,
-      netto: api.kwota_netto ?? undefined,
-      brutto: api.kwota_brutto ?? undefined,
-      vat: api.stawka_vat ?? undefined,
-    },
-    riskAssessment: api.poziom_ryzyka ? {
-      score: api.ryzyko_punktowe ?? 0,
-      level: api.poziom_ryzyka === 'Wysokie' ? 'high' : api.poziom_ryzyka === 'Średnie' ? 'medium' : 'low',
-      analysis: api.podsumowanie_ryzyka ?? '',
-      recommendations: api.tagi_ryzyka ?? [],
-    } : undefined,
-  }), []);
-
-  const fetchDocuments = useCallback(async () => {
-    try {
-      const res = await fetch('/api/finanse/dokumenty-finansowe?limit=50');
-      if (!res.ok) throw new Error('API error');
-      const data2 = await res.json() as { dokumenty?: DokumentFinansowy[] };
-      if (Array.isArray(data2.dokumenty)) {
-        setDocuments(data2.dokumenty.map(mapApiDoc));
-        return;
-      }
-    } catch (err) {
-      console.error('Błąd ładowania dokumentów:', err);
+  const handleSubmit = async () => {
+    if (!form.numer || !form.kontrahent || !form.kwota_brutto) {
+      setError('Wymagane: numer faktury, kontrahent, kwota brutto'); return;
     }
-    // Fallback to localStorage
-    const saved = localStorage.getItem('erp-dokumenty');
-    if (saved) setDocuments(JSON.parse(saved));
-  }, [mapApiDoc]);
-
-  useEffect(() => {
-    fetchDocuments();
-  }, [fetchDocuments]);
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const file = files[0];
-    setLoading(true);
-
+    setLoading(true); setError('');
     try {
-      // Read file content
-      const text = await readFileContent(file);
-      
-      // Extract numbers from text
-      const extractedNumbers = extractNumbers(text);
+      const fd = new FormData();
+      Object.entries(form).forEach(([k, v]) => { if (v) fd.append(k, v); });
+      if (file) fd.append('plik', file);
 
-      const newDoc: Document = {
-        id: Date.now().toString(),
-        name: file.name,
-        type: file.type || 'unknown',
-        size: file.size,
-        uploadDate: new Date().toISOString(),
-        extractedNumbers
-      };
-
-      // AI Risk Assessment
-      const risk = await analyzeRisk(extractedNumbers, text);
-      newDoc.riskAssessment = risk;
-
-      // Persist to D1 via API
-      try {
-        await fetch('/api/finanse/dokumenty-finansowe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            numer: `DOK-${Date.now()}`,
-            kontrahent: newDoc.name,
-            typ: 'Inny' as const,
-            data_wystawienia: new Date().toISOString().split('T')[0],
-            waluta: 'PLN',
-            kwota_brutto: newDoc.extractedNumbers.brutto ?? newDoc.extractedNumbers.kwota,
-            kwota_netto: newDoc.extractedNumbers.netto,
-            stawka_vat: newDoc.extractedNumbers.vat,
-            poziom_ryzyka: risk.level === 'high' ? 'Wysokie' : risk.level === 'medium' ? 'Średnie' : 'Niskie',
-            ryzyko_punktowe: risk.score,
-            podsumowanie_ryzyka: risk.analysis,
-            tagi_ryzyka: risk.recommendations,
-          } satisfies Partial<DokumentFinansowy>),
-        });
-      } catch (_) { /* ignore persistence errors in dev */ }
-
-      setDocuments(prev => [newDoc, ...prev]);
-      setSelectedDoc(newDoc);
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Błąd podczas przetwarzania pliku');
+      const res = await fetch('/api/finanse/import-dokumentu', { method: 'POST', body: fd });
+      const data = await res.json() as typeof result & { error?: string };
+      if (!res.ok) throw new Error(data?.error ?? `HTTP ${res.status}`);
+      setResult(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Błąd zapisu');
     } finally {
       setLoading(false);
     }
   };
 
-  const readFileContent = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => resolve(e.target?.result as string || '');
-      reader.onerror = reject;
-      reader.readAsText(file);
-    });
-  };
-
-  const extractNumbers = (text: string) => {
-    const numbers: { kwota?: number; vat?: number; netto?: number; brutto?: number } = {};
-    
-    // Extract VAT (23%, 8%, etc.)
-    const vatMatch = text.match(/(?:VAT|vat)\s*:?\s*(\d+)%?/i);
-    if (vatMatch) numbers.vat = parseFloat(vatMatch[1]);
-
-    // Extract amounts (PLN, zł)
-    const amountMatches = text.matchAll(/(\d+[\s,]?\d*\.?\d*)\s*(?:PLN|zł|zl)/gi);
-    const amounts = Array.from(amountMatches).map(m => parseFloat(m[1].replace(/[\s,]/g, '')));
-    
-    if (amounts.length > 0) {
-      numbers.kwota = amounts[0];
-      numbers.brutto = Math.max(...amounts);
-      numbers.netto = Math.min(...amounts);
-    }
-
-    // Extract numbers after keywords
-    const nettoMatch = text.match(/(?:netto|net)\s*:?\s*(\d+[\s,]?\d*\.?\d*)/i);
-    if (nettoMatch) numbers.netto = parseFloat(nettoMatch[1].replace(/[\s,]/g, ''));
-
-    const bruttoMatch = text.match(/(?:brutto|gross)\s*:?\s*(\d+[\s,]?\d*\.?\d*)/i);
-    if (bruttoMatch) numbers.brutto = parseFloat(bruttoMatch[1].replace(/[\s,]/g, ''));
-
-    return numbers;
-  };
-
-  const analyzeRisk = async (numbers: any, text: string) => {
-    try {
-      const response = await fetch('/api/analyze-risk', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ numbers, text })
-      });
-
-      if (!response.ok) throw new Error('API error');
-      
-      const data = await response.json() as { risk: { score: number; level: 'low'|'medium'|'high'; analysis: string; recommendations: string[] } };
-      return data.risk;
-    } catch (error) {
-      console.error('Risk analysis error:', error);
-      // Fallback basic risk assessment
-      const kwota = numbers.kwota || numbers.brutto || 0;
-      return {
-        score: kwota > 10000 ? 65 : kwota > 5000 ? 45 : 25,
-        level: (kwota > 10000 ? 'high' : kwota > 5000 ? 'medium' : 'low') as 'low' | 'medium' | 'high',
-        analysis: 'Analiza podstawowa: kwota ' + kwota + ' PLN',
-        recommendations: ['Sprawdź warunki płatności', 'Zweryfikuj kontrahenta']
-      };
-    }
-  };
-
-  const handleManualEntry = async () => {
-    if (!manualData.kwota || !manualData.opis) {
-      alert('Wypełnij kwotę i opis');
-      return;
-    }
-
-    setLoading(true);
-    const kwota = parseFloat(manualData.kwota);
-    const vat = manualData.vat ? parseFloat(manualData.vat) : 23;
-    const netto = kwota / (1 + vat / 100);
-
-    const extractedNumbers = {
-      kwota,
-      vat,
-      netto,
-      brutto: kwota
-    };
-
-    const risk = await analyzeRisk(extractedNumbers, manualData.opis);
-
-    const newDoc: Document = {
-      id: Date.now().toString(),
-      name: 'Wpis ręczny: ' + manualData.opis.substring(0, 30),
-      type: 'manual',
-      size: 0,
-      uploadDate: new Date().toISOString(),
-      extractedNumbers,
-      riskAssessment: risk
-    };
-
-    // Persist to D1 via API
-    try {
-      await fetch('/api/finanse/dokumenty-finansowe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          numer: `WPIS-${Date.now()}`,
-          kontrahent: 'Wpis ręczny',
-          typ: 'Inny' as const,
-          data_wystawienia: new Date().toISOString().split('T')[0],
-          waluta: 'PLN',
-          kwota_brutto: extractedNumbers.brutto,
-          kwota_netto: extractedNumbers.netto,
-          stawka_vat: extractedNumbers.vat,
-          poziom_ryzyka: risk.level === 'high' ? 'Wysokie' : risk.level === 'medium' ? 'Średnie' : 'Niskie',
-          ryzyko_punktowe: risk.score,
-          podsumowanie_ryzyka: risk.analysis,
-          tagi_ryzyka: risk.recommendations,
-          uwagi: manualData.opis,
-        } satisfies Partial<DokumentFinansowy>),
-      });
-    } catch (_) { /* ignore persistence errors in dev */ }
-
-    setDocuments(prev => [newDoc, ...prev]);
-    setSelectedDoc(newDoc);
-    setManualData({ kwota: '', vat: '', opis: '' });
-    setLoading(false);
-  };
-
-  const getRiskColor = (level?: string) => {
-    switch (level) {
-      case 'low': return 'text-green-400 border-green-500';
-      case 'medium': return 'text-yellow-400 border-yellow-500';
-      case 'high': return 'text-red-400 border-red-500';
-      default: return 'text-gray-400 border-gray-500';
-    }
-  };
-
-  const deleteDocument = (id: string) => {
-    setDocuments(prev => prev.filter(d => d.id !== id));
-    if (selectedDoc?.id === id) setSelectedDoc(null);
-  };
-
   return (
-    <div className="space-y-6">
-      <div className="card bg-gradient-to-br from-indigo-900/30 to-purple-900/30 border-indigo-500/50">
-        <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
-          <span>📄</span> Dokumenty Finansowe & Ocena Ryzyka
-        </h2>
-
-        {/* Manual Entry */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-indigo-300">Ręczny wpis liczb</h3>
-            <input
-              type="number"
-              placeholder="Kwota brutto (PLN)"
-              value={manualData.kwota}
-              onChange={(e) => setManualData({ ...manualData, kwota: e.target.value })}
-              className="input w-full bg-gray-800/50 border-indigo-500/50"
-            />
-            <input
-              type="number"
-              placeholder="VAT % (opcjonalnie, domyślnie 23%)"
-              value={manualData.vat}
-              onChange={(e) => setManualData({ ...manualData, vat: e.target.value })}
-              className="input w-full bg-gray-800/50 border-indigo-500/50"
-            />
-            <textarea
-              placeholder="Opis transakcji lub dokumentu..."
-              value={manualData.opis}
-              onChange={(e) => setManualData({ ...manualData, opis: e.target.value })}
-              rows={3}
-              className="input w-full bg-gray-800/50 border-indigo-500/50"
-            />
-            <button
-              onClick={handleManualEntry}
-              disabled={loading}
-              className="btn btn-primary w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500"
-            >
-              {loading ? '⏳ Analizuję...' : '✅ Dodaj i oceń ryzyko'}
-            </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
+        className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-5">
+            <h3 className="text-lg font-bold flex items-center gap-2">📄 Dodaj dokument finansowy</h3>
+            <button onClick={onClose} className="text-slate-500 hover:text-slate-300 text-xl leading-none">✕</button>
           </div>
 
-          {/* File Upload */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-purple-300">Upload dokumentu</h3>
-            <label className="block">
-              <div className="border-2 border-dashed border-purple-500/50 rounded-lg p-8 text-center hover:border-purple-400 cursor-pointer transition-all">
-                <input
-                  type="file"
-                  onChange={handleFileUpload}
-                  accept=".txt,.csv,.json,.pdf,.xlsx,.xls"
-                  className="hidden"
-                  disabled={loading}
-                />
-                <div className="text-4xl mb-2">📤</div>
-                <p className="text-lg font-semibold">Kliknij aby wgrać plik</p>
-                <p className="text-sm text-gray-400 mt-2">
-                  TXT, CSV, JSON, PDF, Excel
-                </p>
-              </div>
-            </label>
-            <div className="text-xs text-gray-400 space-y-1">
-              <p>✓ Automatyczne wykrywanie kwot</p>
-              <p>✓ Parsowanie VAT i kwot netto/brutto</p>
-              <p>✓ AI ocena ryzyka finansowego</p>
+          {result ? (
+            <div className="space-y-4">
+              <div className="bg-green-900/30 border border-green-700 rounded-xl p-4 text-green-300 text-sm">✅ {result.message}</div>
+              {result.analiza && (
+                <div className="bg-slate-800/60 rounded-xl p-4 text-sm space-y-1">
+                  <p className="font-semibold text-slate-300">Wynik analizy AI:</p>
+                  <p>Ryzyko: <span className={`font-bold ${result.analiza.poziom_ryzyka === 'Wysokie' ? 'text-red-400' : result.analiza.poziom_ryzyka === 'Średnie' ? 'text-yellow-400' : 'text-green-400'}`}>
+                    {result.analiza.poziom_ryzyka} ({result.analiza.ryzyko_punktowe}/100)
+                  </span></p>
+                  <p className="text-slate-400">{result.analiza.podsumowanie_ryzyka}</p>
+                </div>
+              )}
+              <button onClick={() => { onSuccess(); onClose(); }}
+                className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-white font-bold text-sm">
+                Odśwież listę i zamknij
+              </button>
             </div>
-          </div>
-        </div>
-
-        {/* Documents List */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold">
-            📋 Historia dokumentów ({documents.length})
-          </h3>
-          
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-2 max-h-[600px] overflow-y-auto">
-              <AnimatePresence>
-                {documents.map((doc) => (
-                  <motion.div
-                    key={doc.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className={`p-4 bg-gray-800/50 border rounded-lg cursor-pointer transition-all ${
-                      selectedDoc?.id === doc.id
-                        ? 'border-indigo-400 bg-indigo-900/30'
-                        : 'border-gray-600/50 hover:border-gray-500'
-                    }`}
-                    onClick={() => setSelectedDoc(doc)}
-                  >
-                    <div className="flex justify-between items-start mb-2">
-                      <h4 className="font-semibold text-sm truncate flex-1">
-                        {doc.name}
-                      </h4>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteDocument(doc.id);
-                        }}
-                        className="text-red-400 hover:text-red-300 ml-2"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                    <div className="text-xs text-gray-400 space-y-1">
-                      <p>{new Date(doc.uploadDate).toLocaleString('pl-PL')}</p>
-                      {doc.extractedNumbers.kwota && (
-                        <p className="text-green-400 font-semibold">
-                          💰 {doc.extractedNumbers.kwota.toFixed(2)} PLN
-                        </p>
-                      )}
-                      {doc.riskAssessment && (
-                        <div className={`inline-block px-2 py-1 border rounded ${getRiskColor(doc.riskAssessment.level)}`}>
-                          Ryzyko: {doc.riskAssessment.level.toUpperCase()} ({doc.riskAssessment.score})
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
+          ) : (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { key: 'numer',            label: 'Numer faktury *',     ph: 'FV/03/2026/001',  type: 'text' },
+                  { key: 'kontrahent',       label: 'Kontrahent *',         ph: 'Nazwa firmy',      type: 'text' },
+                  { key: 'kwota_brutto',     label: 'Kwota brutto (PLN) *', ph: '1234.56',          type: 'number' },
+                  { key: 'data_wystawienia', label: 'Data wystawienia',     ph: '',                 type: 'date' },
+                  { key: 'termin_platnosci', label: 'Termin płatności',     ph: '',                 type: 'date' },
+                ].map(f => (
+                  <div key={f.key} className={f.key === 'kontrahent' ? 'col-span-2' : ''}>
+                    <label className="block text-xs font-medium text-slate-400 mb-1">{f.label}</label>
+                    <input type={f.type} value={(form as Record<string, string>)[f.key]}
+                      placeholder={f.ph}
+                      onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))}
+                      className="w-full text-sm bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 outline-none focus:border-purple-500" />
+                  </div>
                 ))}
-              </AnimatePresence>
-              {documents.length === 0 && (
-                <div className="text-center text-gray-500 py-8">
-                  Brak dokumentów. Dodaj pierwszy!
+                <div>
+                  <label className="block text-xs font-medium text-slate-400 mb-1">Typ dokumentu</label>
+                  <select value={form.typ} onChange={e => setForm(p => ({ ...p, typ: e.target.value }))}
+                    className="w-full text-sm bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 outline-none focus:border-purple-500">
+                    {['Faktura', 'Proforma', 'Umowa', 'Oferta', 'Zwrot', 'Nota', 'Inny'].map(t => <option key={t}>{t}</option>)}
+                  </select>
                 </div>
-              )}
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Opis / notatka</label>
+                <input value={form.opis} onChange={e => setForm(p => ({ ...p, opis: e.target.value }))} placeholder="Opcjonalny opis"
+                  className="w-full text-sm bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-slate-200 outline-none focus:border-purple-500" />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-400 mb-1">Plik PDF (opcjonalny — AI przeanalizuje ryzyko)</label>
+                <div onClick={() => fileRef.current?.click()}
+                  className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-colors ${file ? 'border-purple-500 bg-purple-900/10' : 'border-slate-600 hover:border-purple-500'}`}>
+                  <input ref={fileRef} type="file" accept=".pdf" onChange={e => setFile(e.target.files?.[0] ?? null)} className="hidden" />
+                  {file ? <p className="text-purple-400 text-sm">📄 {file.name}</p>
+                        : <p className="text-slate-500 text-sm">📎 Kliknij aby wgrać PDF</p>}
+                </div>
+              </div>
+              {error && <div className="bg-red-900/30 border border-red-700 rounded-xl p-3 text-red-300 text-sm">❌ {error}</div>}
+              <div className="flex gap-2 pt-1">
+                <button onClick={onClose} className="flex-1 py-2.5 bg-slate-700 hover:bg-slate-600 rounded-xl text-slate-300 text-sm font-medium">Anuluj</button>
+                <button onClick={handleSubmit} disabled={loading}
+                  className="flex-1 py-2.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-40 rounded-xl text-white font-bold text-sm">
+                  {loading ? '🤖 Zapisuję...' : '✅ Dodaj dokument'}
+                </button>
+              </div>
             </div>
-
-            {/* Document Details */}
-            <div>
-              {selectedDoc ? (
-                <div className="p-6 bg-gray-800/50 border border-indigo-500/50 rounded-lg space-y-4">
-                  <h4 className="text-xl font-bold text-indigo-300">{selectedDoc.name}</h4>
-                  
-                  <div className="space-y-2">
-                    <p className="text-sm text-gray-400">
-                      📅 {new Date(selectedDoc.uploadDate).toLocaleString('pl-PL')}
-                    </p>
-                    {selectedDoc.type !== 'manual' && (
-                      <p className="text-sm text-gray-400">
-                        📦 {(selectedDoc.size / 1024).toFixed(2)} KB
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Extracted Numbers */}
-                  <div className="space-y-2">
-                    <h5 className="font-semibold text-green-300">💵 Wykryte liczby:</h5>
-                    {selectedDoc.extractedNumbers.netto && (
-                      <p>Netto: <span className="font-bold">{selectedDoc.extractedNumbers.netto.toFixed(2)} PLN</span></p>
-                    )}
-                    {selectedDoc.extractedNumbers.vat && (
-                      <p>VAT: <span className="font-bold">{selectedDoc.extractedNumbers.vat}%</span></p>
-                    )}
-                    {selectedDoc.extractedNumbers.brutto && (
-                      <p>Brutto: <span className="font-bold text-green-400">{selectedDoc.extractedNumbers.brutto.toFixed(2)} PLN</span></p>
-                    )}
-                    {selectedDoc.extractedNumbers.kwota && !selectedDoc.extractedNumbers.brutto && (
-                      <p>Kwota: <span className="font-bold text-green-400">{selectedDoc.extractedNumbers.kwota.toFixed(2)} PLN</span></p>
-                    )}
-                  </div>
-
-                  {/* Risk Assessment */}
-                  {selectedDoc.riskAssessment && (
-                    <div className="space-y-3 border-t border-gray-600 pt-4">
-                      <h5 className="font-semibold text-yellow-300">⚠️ Ocena ryzyka AI:</h5>
-                      
-                      <div className={`p-3 border-2 rounded ${getRiskColor(selectedDoc.riskAssessment.level)}`}>
-                        <p className="font-bold text-lg">
-                          Poziom: {selectedDoc.riskAssessment.level.toUpperCase()}
-                        </p>
-                        <p className="text-sm">Wynik: {selectedDoc.riskAssessment.score}/100</p>
-                      </div>
-
-                      <div className="bg-gray-900/50 p-3 rounded">
-                        <p className="text-sm leading-relaxed">{selectedDoc.riskAssessment.analysis}</p>
-                      </div>
-
-                      {selectedDoc.riskAssessment.recommendations.length > 0 && (
-                        <div>
-                          <p className="font-semibold mb-2 text-blue-300">📌 Rekomendacje:</p>
-                          <ul className="space-y-1 text-sm">
-                            {selectedDoc.riskAssessment.recommendations.map((rec, i) => (
-                              <li key={i} className="flex items-start gap-2">
-                                <span className="text-blue-400">•</span>
-                                <span>{rec}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="p-6 bg-gray-800/50 border border-gray-600/50 rounded-lg text-center text-gray-500">
-                  Wybierz dokument z listy aby zobaczyć szczegóły
-                </div>
-              )}
-            </div>
-          </div>
+          )}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
+
+export default function DokumentyFinansowe() {
+  const [documents, setDocuments] = useState<DisplayDoc[]>([]);
+  const [loadingList, setLoadingList] = useState(true);
+  const [selected, setSelected] = useState<DisplayDoc | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [filterRyzyko, setFilterRyzyko] = useState<string>('wszystkie');
+
+  const fetchDocuments = useCallback(async () => {
+    setLoadingList(true);
+    try {
+      const res = await fetch('/api/finanse/dokumenty-finansowe?limit=100');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      // FIX: API zwraca { items, total }, nie { dokumenty }
+      const data = await res.json() as { items?: DokumentFinansowy[]; total?: number };
+      if (Array.isArray(data.items)) {
+        setDocuments(data.items.map(mapApiDoc));
+        setLoadingList(false);
+        return;
+      }
+    } catch (err) {
+      console.error('Błąd ładowania dokumentów:', err);
+    }
+    setLoadingList(false);
+    // Fallback demo
+    setDocuments([
+      { id: '1', numer: 'FV/03/2026/001', kontrahent: 'IKEA Polska Sp. z o.o.', typ: 'Faktura', kwota_brutto: 12500, data_wystawienia: '2026-03-01', termin_platnosci: '2026-03-15', status: 'Zapłacone', poziom_ryzyka: 'Niskie', ryzyko_punktowe: 20, podsumowanie_ryzyka: 'Duży, wiarygodny kontrahent. Niskie ryzyko.', tagi_ryzyka: ['sprawdzony'], plik_url: null },
+      { id: '2', numer: 'FV/03/2026/002', kontrahent: 'DHL Express Poland', typ: 'Faktura', kwota_brutto: 3200, data_wystawienia: '2026-03-02', termin_platnosci: '2026-02-20', status: 'Przeterminowane', poziom_ryzyka: 'Wysokie', ryzyko_punktowe: 78, podsumowanie_ryzyka: 'Faktura przeterminowana o 10 dni.', tagi_ryzyka: ['przeterminowane', 'wysoka kwota'], plik_url: null },
+      { id: '3', numer: 'FV/03/2026/003', kontrahent: 'Google Ads EMEA Ltd.', typ: 'Faktura', kwota_brutto: 1500, data_wystawienia: '2026-03-04', termin_platnosci: '2026-04-04', status: 'Oczekuje', poziom_ryzyka: 'Średnie', ryzyko_punktowe: 45, podsumowanie_ryzyka: 'Duży podmiot, oczekuje na zapłatę.', tagi_ryzyka: ['terminowe'], plik_url: null },
+    ]);
+  }, []);
+
+  useEffect(() => { fetchDocuments(); }, [fetchDocuments]);
+
+  // ─── KPI ──
+  const total       = documents.length;
+  const highRisk    = documents.filter(d => d.poziom_ryzyka === 'Wysokie').length;
+  const overdue     = documents.filter(d => {
+    if (!d.termin_platnosci || d.status === 'Zapłacone') return false;
+    return new Date(d.termin_platnosci) < new Date();
+  }).length;
+  const sumaRyzyka  = documents
+    .filter(d => d.poziom_ryzyka !== 'Niskie')
+    .reduce((a, d) => a + (d.kwota_brutto ?? 0), 0);
+
+  // ─── Filtrowanie ──
+  const filtered = documents.filter(d =>
+    filterRyzyko === 'wszystkie' ? true : d.poziom_ryzyka === filterRyzyko
+  );
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl px-6 py-5 flex flex-wrap gap-4 items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold flex items-center gap-2">📄 Dokumenty Finansowe</h2>
+          <p className="text-slate-400 text-sm mt-0.5">Faktury, umowy, dokumenty — z automatyczną oceną ryzyka AI</p>
+        </div>
+        <button onClick={() => setShowModal(true)}
+          className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-xl text-white font-bold text-sm flex items-center gap-2 transition-colors">
+          ＋ Dodaj dokument
+        </button>
+      </div>
+
+      {/* KPI Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {[
+          { label: 'Wszystkich',     value: total,                                        icon: '📄', color: 'border-slate-600' },
+          { label: 'Wysokie ryzyko', value: highRisk,                                     icon: '🔴', color: 'border-red-700' },
+          { label: 'Przeterminowane',value: overdue,                                      icon: '⏰', color: 'border-orange-700' },
+          { label: 'Kwota ryzyka',   value: `${sumaRyzyka.toLocaleString('pl')} PLN`,    icon: '💸', color: 'border-yellow-700' },
+        ].map(kpi => (
+          <div key={kpi.label} className={`bg-slate-800/50 border ${kpi.color} rounded-xl p-4`}>
+            <p className="text-2xl font-bold text-white">{kpi.icon} {kpi.value}</p>
+            <p className="text-slate-400 text-xs mt-1">{kpi.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Filtry */}
+      <div className="flex flex-wrap gap-2">
+        {['wszystkie', 'Niskie', 'Średnie', 'Wysokie'].map(f => (
+          <button key={f} onClick={() => setFilterRyzyko(f)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${filterRyzyko === f ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-400 hover:text-white'}`}>
+            {f === 'wszystkie' ? 'Wszystkie' : f}
+          </button>
+        ))}
+        <span className="ml-auto text-xs text-slate-500 self-center">{filtered.length} dokumentów</span>
+      </div>
+
+      {/* Lista + szczegóły */}
+      <div className="grid lg:grid-cols-5 gap-4">
+        {/* Tabela */}
+        <div className="lg:col-span-3 bg-slate-800/40 border border-slate-700 rounded-xl overflow-hidden">
+          {loadingList ? (
+            <div className="text-center py-12 text-slate-500 text-sm">⏳ Ładowanie...</div>
+          ) : filtered.length === 0 ? (
+            <div className="text-center py-12 text-slate-500 text-sm">
+              Brak dokumentów<br/>
+              <button onClick={() => setShowModal(true)} className="mt-2 text-purple-400 hover:underline text-xs">+ Dodaj pierwszy dokument</button>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-700 text-xs text-slate-500">
+                    <th className="text-left px-4 py-3 font-medium">Numer / Kontrahent</th>
+                    <th className="text-right px-4 py-3 font-medium">Kwota</th>
+                    <th className="text-center px-4 py-3 font-medium">Ryzyko</th>
+                    <th className="text-center px-4 py-3 font-medium">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <AnimatePresence>
+                    {filtered.map(doc => (
+                      <motion.tr key={doc.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        onClick={() => setSelected(doc)}
+                        className={`border-b border-slate-700/50 cursor-pointer transition-colors ${selected?.id === doc.id ? 'bg-slate-700/50' : 'hover:bg-slate-700/30'}`}>
+                        <td className="px-4 py-3">
+                          <p className="font-semibold text-slate-200 truncate max-w-[160px]">{doc.numer}</p>
+                          <p className="text-xs text-slate-500 truncate max-w-[160px]">{doc.kontrahent}</p>
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          {doc.kwota_brutto != null
+                            ? <span className="font-semibold text-slate-200">{doc.kwota_brutto.toLocaleString('pl')} PLN</span>
+                            : <span className="text-slate-600">—</span>}
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <span className={`inline-block px-2 py-0.5 border rounded-full text-xs font-medium ${riskStyle(doc.poziom_ryzyka)}`}>
+                            {doc.poziom_ryzyka ?? '?'} {doc.ryzyko_punktowe != null ? `(${doc.ryzyko_punktowe})` : ''}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-center">
+                          <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${statusStyle(doc.status)}`}>
+                            {doc.status}
+                          </span>
+                        </td>
+                      </motion.tr>
+                    ))}
+                  </AnimatePresence>
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Szczegóły */}
+        <div className="lg:col-span-2">
+          <AnimatePresence mode="wait">
+            {selected ? (
+              <motion.div key={selected.id} initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
+                className="bg-slate-800/40 border border-slate-700 rounded-xl p-5 space-y-4">
+                <div className="flex justify-between">
+                  <h4 className="font-bold text-slate-200">{selected.numer}</h4>
+                  <button onClick={() => setSelected(null)} className="text-slate-500 hover:text-slate-300 text-sm">✕</button>
+                </div>
+                <dl className="space-y-1.5 text-sm">
+                  {([
+                    ['Kontrahent', selected.kontrahent],
+                    ['Typ', selected.typ],
+                    ['Data wystawienia', selected.data_wystawienia],
+                    ['Termin płatności', selected.termin_platnosci ?? '—'],
+                    ['Kwota brutto', selected.kwota_brutto != null ? `${selected.kwota_brutto.toLocaleString('pl')} PLN` : '—'],
+                    ['Status', selected.status],
+                  ] as [string, string][]).map(([k, v]) => (
+                    <div key={k} className="flex justify-between gap-2">
+                      <dt className="text-slate-500 shrink-0">{k}</dt>
+                      <dd className="text-slate-200 text-right font-medium">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {selected.poziom_ryzyka && (
+                  <div className={`border rounded-xl p-3 text-sm ${riskStyle(selected.poziom_ryzyka)}`}>
+                    <p className="font-bold mb-1">⚠️ Ryzyko: {selected.poziom_ryzyka} ({selected.ryzyko_punktowe ?? '?'}/100)</p>
+                    {selected.podsumowanie_ryzyka && <p className="text-xs opacity-80">{selected.podsumowanie_ryzyka}</p>}
+                    {(selected.tagi_ryzyka ?? []).length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {selected.tagi_ryzyka!.map(t => (
+                          <span key={t} className="bg-black/20 px-2 py-0.5 rounded-full text-xs">{t}</span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+                {selected.plik_url && (
+                  <a href={selected.plik_url} target="_blank" rel="noreferrer"
+                    className="flex items-center gap-2 text-xs text-blue-400 hover:underline">
+                    📎 Pobierz plik PDF
+                  </a>
+                )}
+                <button onClick={() => setShowModal(true)}
+                  className="w-full py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-slate-300 text-xs font-medium transition-colors">
+                  ＋ Dodaj powiązany dokument
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                className="bg-slate-800/20 border border-slate-700/50 rounded-xl p-8 text-center text-slate-500 text-sm h-full flex flex-col items-center justify-center gap-2">
+                <span className="text-3xl">👈</span>
+                <p>Wybierz dokument z listy aby zobaczyć szczegóły</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* MODAL */}
+      <AnimatePresence>
+        {showModal && (
+          <DodajDokumentModal onClose={() => setShowModal(false)} onSuccess={fetchDocuments} />
+        )}
+
+      </AnimatePresence>
+    </div>
+  );
+}
+

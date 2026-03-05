@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS dokumenty_finansowe (
             'Umowa',
             'Oferta',
             'Zwrot',
-            'Nota'
+            'Nota',
+            'Inny'
         )
     ),
     data_wystawienia DATE NOT NULL,

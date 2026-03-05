@@ -121,16 +121,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const db = env.D1;
 
-    // KPI agregaty
+    // KPI agregaty — czytamy z tabeli `koszty` (PL kolumny: kwota, kategoria, data, status, kontrahent)
     const kpiResult = await db.prepare(`
       SELECT
-        SUM(amount) AS total_costs,
-        SUM(CASE WHEN category = 'Marketing' THEN amount ELSE 0 END) AS marketing,
-        SUM(CASE WHEN category IN ('Logistyka','Transport') THEN amount ELSE 0 END) AS logistics,
-        SUM(CASE WHEN category = 'Pracownicy' THEN amount ELSE 0 END) AS employees,
-        SUM(CASE WHEN category = 'Dostawcy' THEN amount ELSE 0 END) AS suppliers
-      FROM costs
-      WHERE tenant_id = ? AND date BETWEEN ? AND ? AND status != 'CANCELLED'
+        SUM(kwota) AS total_costs,
+        SUM(CASE WHEN kategoria = 'Marketing' THEN kwota ELSE 0 END) AS marketing,
+        SUM(CASE WHEN kategoria IN ('Logistyka') THEN kwota ELSE 0 END) AS logistics,
+        SUM(CASE WHEN kategoria = 'Pracownicy' THEN kwota ELSE 0 END) AS employees,
+        SUM(CASE WHEN kategoria = 'Dostawcy' THEN kwota ELSE 0 END) AS suppliers
+      FROM koszty
+      WHERE tenant_id = ? AND data BETWEEN ? AND ? AND status != 'Anulowane'
     `).bind(tenantId, from, to).first<{
       total_costs: number; marketing: number; logistics: number; employees: number; suppliers: number;
     }>();
@@ -141,21 +141,21 @@ export const GET: APIRoute = async ({ request, locals }) => {
     // Wykres dzienny – ostatnie 30 punktów
     const chartResult = await db.prepare(`
       SELECT
-        date,
-        SUM(amount) AS total,
-        SUM(CASE WHEN category = 'Marketing' THEN amount ELSE 0 END) AS marketing,
-        SUM(CASE WHEN category IN ('Logistyka','Transport') THEN amount ELSE 0 END) AS logistics
-      FROM costs
-      WHERE tenant_id = ? AND date BETWEEN ? AND ? AND status != 'CANCELLED'
-      GROUP BY date ORDER BY date ASC
+        data AS date,
+        SUM(kwota) AS total,
+        SUM(CASE WHEN kategoria = 'Marketing' THEN kwota ELSE 0 END) AS marketing,
+        SUM(CASE WHEN kategoria IN ('Logistyka') THEN kwota ELSE 0 END) AS logistics
+      FROM koszty
+      WHERE tenant_id = ? AND data BETWEEN ? AND ? AND status != 'Anulowane'
+      GROUP BY data ORDER BY data ASC
     `).bind(tenantId, from, to).all<CostsChartPoint>();
 
     // Breakdown po kategoriach
     const breakdownResult = await db.prepare(`
-      SELECT category, SUM(amount) AS amount
-      FROM costs
-      WHERE tenant_id = ? AND date BETWEEN ? AND ? AND status != 'CANCELLED'
-      GROUP BY category ORDER BY amount DESC
+      SELECT kategoria AS category, SUM(kwota) AS amount
+      FROM koszty
+      WHERE tenant_id = ? AND data BETWEEN ? AND ? AND status != 'Anulowane'
+      GROUP BY kategoria ORDER BY amount DESC
     `).bind(tenantId, from, to).all<{ category: string; amount: number }>();
 
     const categoryBreakdown: CategoryBreakdown[] = (breakdownResult.results ?? []).map((row) => ({
@@ -167,18 +167,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // Ostatnie koszty
     const recentResult = await db.prepare(`
-      SELECT id, date, category, counterparty, amount, status
-      FROM costs
-      WHERE tenant_id = ? AND date BETWEEN ? AND ?
-      ORDER BY date DESC, created_at DESC LIMIT 10
+      SELECT id, data AS date, kategoria AS category, kontrahent AS counterparty, kwota AS amount, status
+      FROM koszty
+      WHERE tenant_id = ? AND data BETWEEN ? AND ?
+      ORDER BY data DESC, created_at DESC LIMIT 10
     `).bind(tenantId, from, to).all<RecentCost>();
 
     // Najdroższy dostawca
     const topSupplierResult = await db.prepare(`
-      SELECT counterparty, SUM(amount) AS total
-      FROM costs
-      WHERE tenant_id = ? AND date BETWEEN ? AND ? AND category = 'Dostawcy' AND status != 'CANCELLED'
-      GROUP BY counterparty ORDER BY total DESC LIMIT 1
+      SELECT kontrahent AS counterparty, SUM(kwota) AS total
+      FROM koszty
+      WHERE tenant_id = ? AND data BETWEEN ? AND ? AND kategoria = 'Dostawcy' AND status != 'Anulowane'
+      GROUP BY kontrahent ORDER BY total DESC LIMIT 1
     `).bind(tenantId, from, to).first<{ counterparty: string; total: number }>();
 
     const topSupplier = topSupplierResult
