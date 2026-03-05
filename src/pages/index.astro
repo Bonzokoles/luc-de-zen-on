@@ -17,13 +17,6 @@ import MusicPlayerVisualizer from "../components/shared/MusicPlayerVisualizer";
   <section
     class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4 pt-10 pb-20"
   >
-    <!-- Grid overlay -->
-    <div
-      class="absolute inset-0 z-0 pointer-events-none"
-      style="background-image: linear-gradient(rgba(0,217,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,217,255,0.04) 1px, transparent 1px); background-size: 48px 48px;"
-    >
-    </div>
-
     <!-- Radial glow orbs -->
     <div
       class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none z-0"
@@ -55,13 +48,13 @@ import MusicPlayerVisualizer from "../components/shared/MusicPlayerVisualizer";
       <!-- Title -->
       <h1 class="text-5xl md:text-7xl font-bold mb-4 hero-title leading-tight">
         <span
-          class="bg-gradient-to-r from-business-accent via-primary-400 to-business-accent-soft bg-clip-text text-transparent"
+          style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-image: linear-gradient(to right, #00d9ff, #38bdf8, #4ade80);"
         >
           ZENON
         </span>
         <span class="text-business-text">_Biznes_</span>
         <span
-          class="bg-gradient-to-r from-business-accent-soft via-primary-400 to-business-accent bg-clip-text text-transparent"
+          style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-image: linear-gradient(to right, #4ade80, #38bdf8, #00d9ff);"
         >
           HUB
         </span>
