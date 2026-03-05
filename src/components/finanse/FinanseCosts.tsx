@@ -143,7 +143,7 @@ export default function FinanseCosts() {
                 <Tooltip
                   contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }}
                   labelStyle={{ color: '#e2e8f0' }}
-                  formatter={(v: number) => [`${fmt(v)} PLN`]}
+                  formatter={((v: number) => `${fmt(v)} PLN`) as any}
                 />
                 <Bar dataKey="total"      fill="#ef4444" name="Razem" />
                 <Bar dataKey="marketing"  fill="#ec4899" name="Marketing" />
@@ -168,7 +168,7 @@ export default function FinanseCosts() {
                   nameKey="category"
                   cx="50%" cy="50%"
                   outerRadius={80}
-                  label={({ category, pct }) => `${category} ${pct}%`}
+                  label={({ name, percent }: any) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
                   labelLine={false}
                 >
                   {data!.category_breakdown.map(row => (
@@ -177,7 +177,7 @@ export default function FinanseCosts() {
                 </Pie>
                 <Tooltip
                   contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }}
-                  formatter={(v: number) => [`${fmt(v)} PLN`]}
+                  formatter={((v: number) => `${fmt(v)} PLN`) as any}
                 />
               </PieChart>
             </ResponsiveContainer>

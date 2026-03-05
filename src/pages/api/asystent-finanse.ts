@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import type { CloudflareEnv, FinanceDashboardResponse, RentownoscResponse } from '../types/finanse';
+import type { CloudflareEnv, FinanceDashboardResponse, RentownoscResponse } from '../../types/finanse';
 
 // ================================================================
 // ASYSTENT FINANSOWY MYBONZO — RAG endpoint (step_14)
