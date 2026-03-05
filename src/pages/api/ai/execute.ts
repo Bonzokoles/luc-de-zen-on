@@ -46,6 +46,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       GOOGLE_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'GOOGLE_API_KEY'),
       OPENAI_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'OPENAI_API_KEY'),
       DEEPSEEK_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'DEEPSEEK_API_KEY'),
+      ANTHROPIC_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'ANTHROPIC_API_KEY'),
+      GROQ_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'GROQ_API_KEY'),
+      MISTRAL_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'MISTRAL_API_KEY'),
+      XAI_API_KEY: getEnvKey(cfEnv as Record<string, string | undefined>, 'XAI_API_KEY'),
     };
 
     const d1 = (cfEnv as Record<string, unknown>).D1 as D1Database | undefined;
@@ -176,6 +180,14 @@ function getProviderKey(provider: string, keys: AIEnvKeys): string | undefined {
       return keys.OPENAI_API_KEY;
     case 'deepseek':
       return keys.DEEPSEEK_API_KEY;
+    case 'anthropic':
+      return keys.ANTHROPIC_API_KEY;
+    case 'groq':
+      return keys.GROQ_API_KEY;
+    case 'mistral':
+      return keys.MISTRAL_API_KEY;
+    case 'xai':
+      return keys.XAI_API_KEY;
     default:
       return undefined;
   }
@@ -191,6 +203,18 @@ function buildFallbackModels(keys: AIEnvKeys): AIModelConfig[] {
   }
   if (keys.DEEPSEEK_API_KEY) {
     models.push({ nazwa_logiczna: 'ekonomiczny', provider: 'deepseek', model_id: 'deepseek-chat' });
+  }
+  if (keys.ANTHROPIC_API_KEY) {
+    models.push({ nazwa_logiczna: 'claude', provider: 'anthropic', model_id: 'claude-3-5-sonnet-20241022' });
+  }
+  if (keys.GROQ_API_KEY) {
+    models.push({ nazwa_logiczna: 'szybki_llama', provider: 'groq', model_id: 'llama-3.1-70b-versatile' });
+  }
+  if (keys.MISTRAL_API_KEY) {
+    models.push({ nazwa_logiczna: 'mistral', provider: 'mistral', model_id: 'mistral-large-latest' });
+  }
+  if (keys.XAI_API_KEY) {
+    models.push({ nazwa_logiczna: 'grok', provider: 'xai', model_id: 'grok-4' });
   }
   return models;
 }
