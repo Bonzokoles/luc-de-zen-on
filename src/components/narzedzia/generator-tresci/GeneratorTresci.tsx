@@ -22,6 +22,7 @@ const GeneratorTresci = () => {
   const [description, setDescription] = useState('');
   const [tone, setTone] = useState('profesjonalny');
   const [length, setLength] = useState('srednia');
+  const [language, setLanguage] = useState('pl');
   const [generatedContent, setGeneratedContent] = useState('');
   const [alternativeContent, setAlternativeContent] = useState('');
 
@@ -62,6 +63,11 @@ const GeneratorTresci = () => {
     { value: 'dluga', label: 'Długa (kilka akapitów)' },
   ];
 
+  const languages = [
+    { value: 'pl', label: '🇵🇱 Polski' },
+    { value: 'en', label: '🇬🇧 Angielski' },
+  ];
+
   const handleGenerate = async (altModel?: string) => {
     if (!description.trim()) return;
 
@@ -72,7 +78,7 @@ const GeneratorTresci = () => {
       kanal: channel,
       ton: tone,
       dlugosc: length,
-      jezyk: 'pl',
+      jezyk: language,
       opis: description,
     });
 
@@ -136,6 +142,13 @@ const GeneratorTresci = () => {
             <label className="block text-sm font-medium mb-2">Długość</label>
             <select value={length} onChange={(e) => setLength(e.target.value)} className="input-field">
               {lengths.map((l) => <option key={l.value} value={l.value}>{l.label}</option>)}
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Język</label>
+            <select value={language} onChange={(e) => setLanguage(e.target.value)} className="input-field">
+              {languages.map((l) => <option key={l.value} value={l.value}>{l.label}</option>)}
             </select>
           </div>
 

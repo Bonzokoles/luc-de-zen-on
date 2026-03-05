@@ -28,6 +28,7 @@ const OrganizerZadan = () => {
   const [aiPlan, setAiPlan] = useState('');
   const [aiGoal, setAiGoal] = useState('');
   const [aiMode, setAiMode] = useState<'rozbij' | 'priorytetyzuj' | 'plan_tygodnia'>('rozbij');
+  const [ramyCzasowe, setRamyCzasowe] = useState('ten_tydzien');
   const [aiTasks, setAiTasks] = useState<Array<{ title: string; priority: string; selected: boolean }>>([]);
   const api = useToolAPI('/api/narzedzia/organizer-zadan');
 
@@ -40,7 +41,7 @@ const OrganizerZadan = () => {
       akcja: aiMode,
       opis: aiGoal || undefined,
       istniejace_zadania: activeTasks.length > 0 ? activeTasks : undefined,
-      ramy_czasowe: 'ten tydzień',
+      ramy_czasowe: ramyCzasowe,
     });
 
     if (result) {
@@ -440,15 +441,27 @@ const OrganizerZadan = () => {
             </button>
           </div>
 
-          {aiMode === 'rozbij' && (
+          {(aiMode === 'rozbij' || aiMode === 'plan_tygodnia') && (
             <textarea
               value={aiGoal}
               onChange={(e) => setAiGoal(e.target.value)}
               className="textarea-field"
               rows={3}
-              placeholder="Opisz cel / projekt, np. 'Przeprowadzić migrację sklepu na nowy hosting'"
+              placeholder={aiMode === 'rozbij'
+                ? "Opisz cel / projekt, np. 'Przeprowadzić migrację sklepu na nowy hosting'"
+                : "Opisz cele na ten tydzień, np. 'Zamknąć kwartalny raport, pozyskać 3 nowych klientów'"
+              }
             />
           )}
+
+          <div className="mb-2">
+            <label className="block text-sm font-medium mb-2">Ramy czasowe</label>
+            <select value={ramyCzasowe} onChange={(e) => setRamyCzasowe(e.target.value)} className="input-field">
+              <option value="dzisiaj">Dzisiaj</option>
+              <option value="ten_tydzien">Ten tydzień</option>
+              <option value="ten_miesiac">Ten miesiąc</option>
+            </select>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-4">
             <AIModelSelector value={model} onChange={setModel} />
@@ -457,7 +470,7 @@ const OrganizerZadan = () => {
 
           <button
             onClick={handleAIPlan}
-            disabled={api.loading || (aiMode === 'rozbij' && !aiGoal.trim())}
+            disabled={api.loading || ((aiMode === 'rozbij' || aiMode === 'plan_tygodnia') && !aiGoal.trim())}
             className="btn-primary w-full disabled:opacity-50"
           >
             {api.loading ? (

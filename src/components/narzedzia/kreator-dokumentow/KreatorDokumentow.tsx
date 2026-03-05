@@ -103,6 +103,20 @@ const KreatorDokumentow = () => {
 
   const copyToClipboard = (text: string) => navigator.clipboard.writeText(text);
 
+  const downloadAsFile = (text: string) => {
+    const header = '⚠️ SZABLON WYGENEROWANY PRZEZ AI — SKONSULTUJ Z PRAWNIKIEM PRZED UŻYCIEM.\n\n';
+    const blob = new Blob([header + text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const rodzajLabel = rodzajeMap[rodzaj]?.label || rodzaj;
+    a.download = `${rodzajLabel.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="max-w-6xl mx-auto">
       <AntAgentPanel currentTool="Kreator Dokumentów" className="mb-6" />
@@ -206,8 +220,9 @@ const KreatorDokumentow = () => {
 
               {api.meta && <ToolResultMeta model={api.meta.model} czas={api.meta.czas} tokeny={api.meta.tokeny} />}
 
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-wrap">
                 <button onClick={() => copyToClipboard(generatedDoc)} className="btn-primary flex-1">📋 Kopiuj</button>
+                <button onClick={() => downloadAsFile(generatedDoc)} className="btn-secondary flex-1">📥 Pobierz</button>
                 <button onClick={generateAlternative} className="btn-secondary flex-1" disabled={api.loading}>🔄 Inny model</button>
                 <button onClick={() => { setGeneratedDoc(''); setAlternativeDoc(''); }} className="btn-secondary">🆕 Nowy</button>
               </div>

@@ -79,7 +79,13 @@ const GeneratorFaktur = () => {
   const [companyPrompt, setCompanyPrompt] = useState('');
   const [aiItemLoading, setAiItemLoading] = useState<string | null>(null);
   const [aiBatchLoading, setAiBatchLoading] = useState(false);
-  const [walidacjaResult, setWalidacjaResult] = useState<string | null>(null);
+  const [walidacjaResult, setWalidacjaResult] = useState<{
+    status?: string;
+    wyniki?: Array<{ sprawdzane: string; status: string; komentarz: string }>;
+    sugestie?: string[];
+    zalecana_akcja?: string;
+    raw?: string;
+  } | null>(null);
   const [walidacjaLoading, setWalidacjaLoading] = useState(false);
   const [walidacjaMeta, setWalidacjaMeta] = useState<{ model?: string; czas?: number; tokeny?: { input: number; output: number } } | null>(null);
 
@@ -166,7 +172,24 @@ const GeneratorFaktur = () => {
 
       if (result) {
         const r = result as Record<string, unknown>;
-        setWalidacjaResult(r.walidacja as string || r.wynik as string || 'Brak wyniku walidacji');
+        const rawText = (r.walidacja as string) || (r.wynik as string) || '';
+        // Próbuj sparsować JSON z wyniku AI
+        try {
+          const jsonMatch = rawText.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            setWalidacjaResult({
+              status: parsed.status,
+              wyniki: parsed.wyniki,
+              sugestie: parsed.sugestie,
+              zalecana_akcja: parsed.zalecana_akcja,
+            });
+          } else {
+            setWalidacjaResult({ raw: rawText });
+          }
+        } catch {
+          setWalidacjaResult({ raw: rawText });
+        }
         if (r.model_uzyty) {
           const m = r.model_uzyty as { nazwa_logiczna?: string; model_id?: string };
           setWalidacjaMeta({
@@ -829,9 +852,55 @@ const GeneratorFaktur = () => {
         </p>
 
         {walidacjaResult && (
-          <div className="mt-4 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-            <h4 className="text-sm font-bold text-blue-300 mb-2">🔍 Wynik walidacji AI:</h4>
-            <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{walidacjaResult}</pre>
+          <div className={`mt-4 p-4 rounded-lg border ${
+            walidacjaResult.status === 'OK' ? 'bg-green-900/20 border-green-500/30' :
+            walidacjaResult.status === 'BŁĄD' ? 'bg-red-900/20 border-red-500/30' :
+            walidacjaResult.status === 'OSTRZEŻENIE' ? 'bg-yellow-900/20 border-yellow-500/30' :
+            'bg-blue-900/20 border-blue-500/30'
+          }`}>
+            <h4 className="text-sm font-bold mb-2 flex items-center gap-2">
+              {walidacjaResult.status === 'OK' ? '✅' : walidacjaResult.status === 'BŁĄD' ? '❌' : '⚠️'}
+              <span className={
+                walidacjaResult.status === 'OK' ? 'text-green-300' :
+                walidacjaResult.status === 'BŁĄD' ? 'text-red-300' :
+                'text-yellow-300'
+              }>
+                Wynik walidacji: {walidacjaResult.status || 'Sprawdzono'}
+              </span>
+              {walidacjaResult.zalecana_akcja && (
+                <span className="ml-auto text-xs px-2 py-1 rounded bg-business-dark text-gray-400">
+                  Zalecenie: {walidacjaResult.zalecana_akcja}
+                </span>
+              )}
+            </h4>
+
+            {walidacjaResult.wyniki && (
+              <div className="space-y-1 mb-3">
+                {walidacjaResult.wyniki.map((w, i) => (
+                  <div key={i} className={`flex items-center gap-2 text-sm ${
+                    w.status === 'BŁĄD' ? 'text-red-400' : w.status === 'OK' ? 'text-green-400' : 'text-yellow-400'
+                  }`}>
+                    <span>{w.status === 'OK' ? '✅' : w.status === 'BŁĄD' ? '❌' : '⚠️'}</span>
+                    <span className="font-medium">{w.sprawdzane}:</span>
+                    <span className="text-gray-300">{w.komentarz}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {walidacjaResult.sugestie && walidacjaResult.sugestie.length > 0 && (
+              <div className="mt-2 p-2 bg-business-dark/50 rounded text-sm">
+                <span className="font-medium text-yellow-300">💡 Sugestie:</span>
+                <ul className="list-disc ml-5 mt-1 space-y-1 text-gray-300">
+                  {walidacjaResult.sugestie.map((s, i) => <li key={i}>{s}</li>)}
+                </ul>
+              </div>
+            )}
+
+            {walidacjaResult.raw && (
+              <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{walidacjaResult.raw}</pre>
+            )}
+
             {walidacjaMeta && <ToolResultMeta model={walidacjaMeta.model} czas={walidacjaMeta.czas} tokeny={walidacjaMeta.tokeny} />}
           </div>
         )}
