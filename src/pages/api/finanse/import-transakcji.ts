@@ -45,12 +45,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const imported: string[] = [];
     const errors: string[] = [];
+    const batchStmts: ReturnType<typeof env.D1.prepare>[] = [];
 
-    const stmt = env.D1.prepare(`
+    const stmtTemplate = `
       INSERT OR IGNORE INTO transakcje_finansowe
         (id, tenant_id, data, kwota, kierunek, kategoria, podkategoria, kontrahent, opis, status, waluta, sposob_platnosci, zrodlo_systemu)
       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'CSV')
-    `);
+    `;
 
     for (let i = 1; i < lines.length; i++) {
       try {
@@ -80,25 +81,31 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
         const id = `trx_${Date.now()}_${i}_${Math.random().toString(36).slice(2, 6)}`;
 
-        await stmt.bind(
-          id,
-          tenantId,
-          row.data,
-          kwota,
-          kierunek,
-          row.kategoria || 'Inne',
-          row.podkategoria || null,
-          row.kontrahent || null,
-          row.opis || null,
-          row.status || 'Zaksięgowano',
-          row.waluta || 'PLN',
-          row.sposob_platnosci || null,
-        ).run();
-
+        batchStmts.push(
+          env.D1.prepare(stmtTemplate).bind(
+            id,
+            tenantId,
+            row.data,
+            kwota,
+            kierunek,
+            row.kategoria || 'Inne',
+            row.podkategoria || null,
+            row.kontrahent || null,
+            row.opis || null,
+            row.status || 'Zaksięgowano',
+            row.waluta || 'PLN',
+            row.sposob_platnosci || null,
+          )
+        );
         imported.push(id);
       } catch (lineErr) {
         errors.push(`Linia ${i + 1}: ${String(lineErr)}`);
       }
+    }
+
+    // D1 batch — all inserts in one round-trip
+    if (batchStmts.length > 0) {
+      await env.D1.batch(batchStmts);
     }
 
     return Response.json({

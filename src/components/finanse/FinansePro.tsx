@@ -40,18 +40,6 @@ interface CategorySummary {
 
 const demoTransactions: Transaction[] = [];
 
-const CATEGORY_COLORS: Record<string, string> = {
-  'Sprzedaż usług': '#10b981',
-  'Subskrypcje': '#3b82f6',
-  'Wynagrodzenia': '#ef4444',
-  'Czynsz': '#f59e0b',
-  'Licencje': '#8b5cf6',
-  'Marketing': '#ec4899',
-  'Infrastruktura': '#06b6d4',
-  'Księgowość': '#6366f1',
-  'Paliwo': '#f97316'
-};
-
 // ========== COMPONENT ==========
 
 export default function FinansePro() {

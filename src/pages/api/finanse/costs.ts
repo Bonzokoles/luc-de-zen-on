@@ -185,6 +185,17 @@ export const GET: APIRoute = async ({ request, locals }) => {
       ? `${topSupplierResult.counterparty} (${topSupplierResult.total.toLocaleString('pl-PL')} PLN)`
       : 'Brak danych';
 
+    // Zysk brutto = przychody - koszty za ten sam okres
+    const revenueResult = await db.prepare(`
+      SELECT COALESCE(SUM(kwota), 0) AS revenue
+      FROM transakcje_finansowe
+      WHERE tenant_id = ? AND data BETWEEN ? AND ? AND kierunek = 'PRZYCHOD'
+    `).bind(tenantId, from, to).first<{ revenue: number }>();
+
+    const totalRevenue = revenueResult?.revenue ?? 0;
+    const grossProfit = totalRevenue - totalCosts;
+    const grossMarginPct = totalRevenue > 0 ? Math.round((grossProfit / totalRevenue) * 1000) / 10 : 0;
+
     return Response.json({
       kpi_cards: {
         total_costs: totalCosts,
@@ -198,8 +209,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
       category_breakdown: categoryBreakdown,
       recent_costs: recentResult.results ?? [],
       profitability: {
-        gross_profit: 0, // wypełniane przez /api/finanse/rentownosc
-        gross_margin_pct: 0,
+        gross_profit: grossProfit,
+        gross_margin_pct: grossMarginPct,
         top_expensive_supplier: topSupplier,
       },
       from,

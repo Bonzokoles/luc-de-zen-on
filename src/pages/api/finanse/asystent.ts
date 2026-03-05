@@ -1,127 +1,191 @@
 import type { APIRoute } from 'astro';
-import type { CloudflareEnv, FinanceDashboardResponse, RentownoscResponse } from '../../../types/finanse';
+import type { CloudflareEnv } from '../../../types/finanse';
+import { getDashboardKPI, getRentownoscSummary, getHighRiskDocuments, getCostsSummary } from '../../../lib/finanse-service';
 
-interface DokumentApiItem {
-  numer: string;
-  kontrahent: string;
-  kwota_brutto: number;
-  ryzyko_punktowe: number;
+// ================================================================
+// ASYSTENT FINANSOWY MYBONZO — RAG endpoint (step_14)
+// POST /api/finanse/asystent
+// Bezpośrednie zapytania D1 (4 źródła) + GPT-4o + odpowiedź po polsku
+// ================================================================
+
+interface AsystentInput {
+  pytanie: string;
+  tenant_id?: string;
+  kontekst_sesji?: Array<{ rola: 'user' | 'asystent'; tresc: string }>;
+  zakres?: { od: string; do: string };
 }
 
 const SYSTEM_PROMPT = `Jesteś Asystentem Finansowym MyBonzo ERP. Odpowiadasz WYŁĄCZNIE po polsku.
 
-MASZ DOSTĘP DO:
-• Dashboard finansowy (przychody, koszty, cashflow, marże)
-• Dokumenty finansowe z analizą ryzyka Gemini
-• Rentowność po kategoriach produktów
+TWOJA ROLA:
+• Analizujesz dane finansowe firmy meblarskiej (meble, sofy, stoły, krzesła)
+• Identyfikujesz ryzyka, trendy i możliwości optymalizacji
+• Dajesz konkretne, operacyjne rekomendacje — nie ogólniki
+
+DOSTĘP DO DANYCH (RAG context w wiadomości użytkownika):
+• Dashboard KPI: przychody, koszty, zysk netto, marża brutto, cashflow
+• Rentowność per kategoria produktów (top kategorie + alerty < 35% marży)
+• Dokumenty wysokiego ryzyka (faktury przeterminowane, podejrzani kontrahenci)
+• Koszty operacyjne: marketing, pracownicy, dostawcy
 
 STYL ODPOWIEDZI:
-1. Krótko i konkretnie — max 200 słów
-2. Używaj • list i konkretnych liczb z %
-3. Zawsze wskaż źródło danych
-4. Kiedy pyta o ryzyko → podaj konkrety: numer dokumentu, kwotę, kontrahenta, score
-5. Kiedy pyta o marże → top3 kategorie + alerty < 35%
-6. Kiedy pyta o cashflow → saldo, przychody, koszty w podanym zakresie
-7. Na końcu: max 2 konkretne rekomendacje działań`;
+1. Krótko i konkretnie — max 250 słów, chyba że pytanie wymaga szczegółów
+2. Używaj list wypunktowanych (•) i konkretnych liczb z PLN/%
+3. Zawsze wskaż źródło danych (Dashboard, Rentowność, Dokumenty itp.)
+4. Kiedy pyta o ryzyko → podaj: numer dokumentu, kwotę, kontrahenta, score
+5. Kiedy pyta o marże → top 3 kategorie + alerty < 35%
+6. Kiedy pyta o cashflow → saldo, przychody vs koszty, trend
+7. Kiedy pyta o koszty → breakdown per kategoria + najdroższy dostawca
+8. Na końcu: 2–3 konkretne rekomendacje działań z priorytetem`;
+
+function buildDemoResponse(pytanie: string) {
+  return {
+    odpowiedz: `Tryb demonstracyjny — brak połączenia z bazą danych.\n\nOtrzymałem pytanie: "${pytanie}"\n\nAby uzyskać pełną analizę finansową, skonfiguruj zmienne środowiskowe OPENAI_API_KEY i D1 w Cloudflare Pages.`,
+    zrodla: ['Demo mode'],
+    tokeny: { input: 0, output: 0 },
+  };
+}
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = (locals as { runtime?: { env: CloudflareEnv } }).runtime?.env;
 
-  const { pytanie, zakres, tenant_id } = await request.json() as {
-    pytanie: string;
-    zakres?: { od: string; do: string };
-    tenant_id?: string;
-  };
+  let body: AsystentInput;
+  try {
+    body = await request.json() as AsystentInput;
+  } catch {
+    return Response.json({ error: 'Nieprawidłowy format JSON' }, { status: 400 });
+  }
 
-  if (!pytanie) {
-    return Response.json({ error: 'Pole pytanie jest wymagane' }, { status: 400 });
+  const { pytanie, tenant_id, kontekst_sesji = [], zakres } = body;
+
+  if (!pytanie?.trim()) {
+    return Response.json({ error: 'Pole "pytanie" jest wymagane' }, { status: 400 });
   }
 
   const apiKey = env?.OPENAI_API_KEY;
   if (!apiKey) {
-    return Response.json({ error: 'Brak OPENAI_API_KEY' }, { status: 503 });
+    return Response.json(buildDemoResponse(pytanie));
   }
 
-  const baseUrl = new URL(request.url).origin;
   const tenantId = tenant_id ?? env?.TENANT_ID ?? 'meblepumo';
   const od = zakres?.od ?? new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
   const do_ = zakres?.do ?? new Date().toISOString().split('T')[0];
 
+  // Brak D1 → demo mode
+  if (!env?.D1) {
+    return Response.json(buildDemoResponse(pytanie));
+  }
+
   try {
-    // Pobierz kontekst finansowy równolegle
-    const [dashRes, rentRes, docsRes] = await Promise.all([
-      fetch(`${baseUrl}/api/finanse/dashboard?from=${od}&to=${do_}`),
-      fetch(`${baseUrl}/api/finanse/rentownosc?from=${od}&to=${do_}`),
-      fetch(`${baseUrl}/api/finanse/dokumenty-finansowe?ryzyko=Wysokie&limit=5`),
+    const db = env.D1;
+
+    // ---- 1. RAG: pobierz kontekst finansowy bezpośrednio z D1 (4 źródła równolegle) ----
+    const [dashboard, rentownosc, dokumenty, costs] = await Promise.all([
+      getDashboardKPI(db, tenantId, od, do_).catch(() => null),
+      getRentownoscSummary(db, tenantId, od, do_).catch(() => null),
+      getHighRiskDocuments(db, tenantId, 5).catch(() => null),
+      getCostsSummary(db, tenantId, od, do_).catch(() => null),
     ]);
 
-    const [dashboard, rentownosc, dokumenty] = await Promise.all([
-      dashRes.ok ? dashRes.json() as Promise<FinanceDashboardResponse> : Promise.resolve(null),
-      rentRes.ok ? rentRes.json() as Promise<RentownoscResponse> : Promise.resolve(null),
-      docsRes.ok ? docsRes.json() as Promise<{ items: DokumentApiItem[] }> : Promise.resolve(null),
-    ]) as unknown as [FinanceDashboardResponse | null, RentownoscResponse | null, { items: DokumentApiItem[] } | null];
+    // ---- 2. Zbuduj kontekst RAG ----
+    const usedSources: string[] = [];
+    let ragKontekst = `KONTEKST FINANSOWY (${od} – ${do_}) dla firmy: ${tenantId}\n\n`;
 
-    // Zbuduj kontekst dla GPT-4o
-    const kontekst = `
-KONTEKST FINANSOWY (${od} – ${do_}) dla ${tenantId}:
+    if (dashboard) {
+      usedSources.push('Dashboard KPI');
+      ragKontekst += `## DASHBOARD KPI:\n`;
+      ragKontekst += `• Przychody: ${dashboard.total_revenue.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Koszty: ${dashboard.total_costs.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Zysk netto: ${dashboard.net_profit.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Marża brutto: ${dashboard.gross_margin_pct}%\n`;
+      ragKontekst += `• Liczba transakcji: ${dashboard.total_orders} szt.\n\n`;
+    }
 
-DASHBOARD KPI:
-- Przychody: ${dashboard?.kpi_cards?.total_revenue ?? 0} PLN
-- Koszty: ${dashboard?.kpi_cards?.total_costs ?? 0} PLN
-- Zysk netto: ${dashboard?.kpi_cards?.net_profit ?? 0} PLN
-- Marża brutto: ${dashboard?.kpi_cards?.gross_margin_pct ?? 0}%
-- Transakcje: ${dashboard?.kpi_cards?.total_orders ?? 0} szt.
+    if (rentownosc) {
+      usedSources.push('Rentowność kategorii');
+      ragKontekst += `## RENTOWNOŚĆ:\n`;
+      if (rentownosc.top_margin) {
+        ragKontekst += `• Najlepsza kategoria: ${rentownosc.top_margin.category} (${rentownosc.top_margin.margin_pct}%)\n`;
+      }
+      if (rentownosc.low_margin_alerts.length) {
+        ragKontekst += `• ALERTY (marża < 35%): ${rentownosc.low_margin_alerts.map(a => `${a.category} ${a.margin_pct}%`).join(', ')}\n`;
+      }
+      ragKontekst += '\n';
+    }
 
-RENTOWNOŚĆ:
-- Najlepsza: ${rentownosc?.top_margin?.category ?? '-'} (${rentownosc?.top_margin?.margin_pct ?? 0}%)
-- Alerty marży: ${rentownosc?.low_margin_alerts?.map((a: { category: string; margin_pct: number }) => `${a.category} ${a.margin_pct}%`).join(', ') || 'brak'}
+    if (dokumenty?.length) {
+      usedSources.push('Dokumenty wysokiego ryzyka');
+      ragKontekst += `## DOKUMENTY WYSOKIEGO RYZYKA:\n`;
+      dokumenty.slice(0, 4).forEach(d => {
+        ragKontekst += `• ${d.numer} | ${d.kontrahent} | ${d.kwota_brutto?.toLocaleString('pl-PL') ?? 0} PLN | Score: ${d.ryzyko_punktowe}/100 | ${d.poziom_ryzyka}\n`;
+      });
+      ragKontekst += '\n';
+    }
 
-DOKUMENTY WYSOKIEGO RYZYKA:
-${(dokumenty?.items ?? []).slice(0, 3).map((d: DokumentApiItem) =>
-  `• ${d.numer} | ${d.kontrahent} | ${d.kwota_brutto} PLN | score: ${d.ryzyko_punktowe}/100`
-).join('\n') || '• brak dokumentów wysokiego ryzyka'}
+    if (costs) {
+      usedSources.push('Koszty operacyjne');
+      ragKontekst += `## KOSZTY OPERACYJNE:\n`;
+      ragKontekst += `• Łączne: ${costs.total_costs.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Marketing: ${costs.marketing.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Pracownicy: ${costs.employees.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Dostawcy: ${costs.suppliers.toLocaleString('pl-PL')} PLN\n`;
+      ragKontekst += `• Najdroższy dostawca: ${costs.top_expensive_supplier}\n\n`;
+    }
 
-PYTANIE: ${pytanie}`;
+    // ---- 3. Zbuduj historię sesji ----
+    const messages: Array<{ role: string; content: string }> = [
+      { role: 'system', content: SYSTEM_PROMPT },
+    ];
 
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    const recentHistory = kontekst_sesji.slice(-6);
+    for (const turn of recentHistory) {
+      messages.push({ role: turn.rola === 'asystent' ? 'assistant' : 'user', content: turn.tresc });
+    }
+
+    messages.push({
+      role: 'user',
+      content: `${ragKontekst}\n---\nPYTANIE: ${pytanie}`,
+    });
+
+    // ---- 4. Wywołanie GPT-4o ----
+    const gptRes = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: 'gpt-4o',
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: kontekst },
-        ],
-        max_tokens: 500,
+        messages,
+        max_tokens: 800,
         temperature: 0.3,
       }),
     });
 
-    const data = await res.json() as {
-      choices?: Array<{ message: { content: string } }>;
-      usage?: { prompt_tokens: number; completion_tokens: number };
-      error?: { message: string };
-    };
-
-    if (data.error) {
-      return Response.json({ error: data.error.message }, { status: 500 });
+    if (!gptRes.ok) {
+      const err = await gptRes.text();
+      console.error('[asystent-finanse] OpenAI error:', err);
+      return Response.json({ error: 'Błąd OpenAI API', details: err }, { status: 502 });
     }
 
-    const odpowiedz = data.choices?.[0]?.message?.content ?? 'Brak odpowiedzi.';
+    const gptJson = await gptRes.json() as {
+      choices: Array<{ message: { content: string } }>;
+      usage: { prompt_tokens: number; completion_tokens: number; total_tokens: number };
+      model: string;
+    };
+
+    const odpowiedz = gptJson.choices?.[0]?.message?.content ?? 'Brak odpowiedzi.';
 
     return Response.json({
       odpowiedz,
-      zrodla: ['dashboard-finanse', 'rentownosc', 'dokumenty-finansowe'],
+      zrodla: usedSources,
       tokeny: {
-        input: data.usage?.prompt_tokens ?? 0,
-        output: data.usage?.completion_tokens ?? 0,
+        input: gptJson.usage?.prompt_tokens ?? 0,
+        output: gptJson.usage?.completion_tokens ?? 0,
       },
     });
   } catch (err) {
     console.error('[asystent-finanse]', err);
-    return Response.json({ error: String(err) }, { status: 500 });
+    return Response.json(buildDemoResponse(pytanie));
   }
 };

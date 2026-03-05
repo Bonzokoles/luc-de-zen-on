@@ -84,13 +84,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const imported: string[] = [];
     const errors: string[] = [];
+    const batchStmts: ReturnType<typeof env.D1.prepare>[] = [];
 
-    const stmt = env.D1.prepare(`
+    const stmtTemplate = `
       INSERT OR IGNORE INTO koszty
         (id, tenant_id, data, kwota, waluta, typ, kategoria, podkategoria,
          kontrahent, opis, status, kwota_netto, stawka_vat, projekt_id, zrodlo_systemu)
       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,'CSV')
-    `);
+    `;
 
     for (let i = 1; i < lines.length; i++) {
       try {
@@ -134,27 +135,33 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
         const id = `cost_${Date.now()}_${i}_${Math.random().toString(36).slice(2, 6)}`;
 
-        await stmt.bind(
-          id,
-          tenantId,
-          row.data,
-          kwota,
-          row.waluta || 'PLN',
-          typNorm,
-          katNorm,
-          row.podkategoria || null,
-          row.kontrahent || null,
-          row.opis || null,
-          statusNorm,
-          kwotaNetto,
-          vat,
-          row.projekt_id || null,
-        ).run();
-
+        batchStmts.push(
+          env.D1.prepare(stmtTemplate).bind(
+            id,
+            tenantId,
+            row.data,
+            kwota,
+            row.waluta || 'PLN',
+            typNorm,
+            katNorm,
+            row.podkategoria || null,
+            row.kontrahent || null,
+            row.opis || null,
+            statusNorm,
+            kwotaNetto,
+            vat,
+            row.projekt_id || null,
+          )
+        );
         imported.push(id);
       } catch (lineErr) {
         errors.push(`Linia ${i + 1}: ${String(lineErr)}`);
       }
+    }
+
+    // D1 batch — all inserts in one round-trip
+    if (batchStmts.length > 0) {
+      await env.D1.batch(batchStmts);
     }
 
     return Response.json({

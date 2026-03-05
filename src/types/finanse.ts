@@ -102,58 +102,6 @@ export interface Koszt {
 }
 
 // ----------------------------------------------------------------
-// FINANCE SUMMARY — odpowiedź dashboardu (step_07)
-// ----------------------------------------------------------------
-
-export interface FinanceSummaryRequest {
-  tenantId: string;
-  from?: string; // ISO date
-  to?: string;   // ISO date
-}
-
-export interface FinanceSummaryKPI {
-  total_income: number;
-  total_expense: number;
-  net_cashflow: number;
-  opening_balance: number;
-  closing_balance: number;
-  avg_daily_income: number;
-  avg_daily_expense: number;
-}
-
-export interface TimeseriesPoint {
-  date: string; // YYYY-MM-DD
-  income: number;
-  expense: number;
-  net: number;
-  balance: number;
-}
-
-export interface CategoryBreakdown {
-  category: string;
-  direction: KierunekTransakcji;
-  amount: number;
-}
-
-export interface FinanceSummaryResponse {
-  range: { from: string; to: string };
-  currency: string;
-  kpi: FinanceSummaryKPI;
-  timeseries: {
-    granularity: 'DAY' | 'WEEK' | 'MONTH';
-    points: TimeseriesPoint[];
-  };
-  by_category: CategoryBreakdown[];
-  ai_context: {
-    summary_prompt_payload: {
-      range: { from: string; to: string };
-      kpi: Pick<FinanceSummaryKPI, 'total_income' | 'total_expense' | 'net_cashflow' | 'opening_balance' | 'closing_balance'>;
-      top_categories: CategoryBreakdown[];
-    };
-  };
-}
-
-// ----------------------------------------------------------------
 // DASHBOARD FINANSOWY (step_08)
 // ----------------------------------------------------------------
 

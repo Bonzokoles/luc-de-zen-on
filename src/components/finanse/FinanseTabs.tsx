@@ -1,14 +1,17 @@
 /**
  * FinanseTabs — Tabbed wrapper dla całego modułu Finanse
  * Zakładki: Dashboard | Dokumenty | Asystent AI | Import
+ * Lazy-load: każda zakładka jest code-split (React.lazy + Suspense)
  */
-import { useState } from 'react';
-import FinansePro from './FinansePro';
-import DokumentyFinansowe from './DokumentyFinansowe';
-import FinanseAsystent from './FinanseAsystent';
-import FinanseImport from './FinanseImport';
-import FinanseTransakcje from './FinanseTransakcje';
-import FinanseCosts from './FinanseCosts';
+import { useState, lazy, Suspense } from 'react';
+
+// Lazy-loaded tab components — each tab is a separate JS chunk
+const FinansePro = lazy(() => import('./FinansePro'));
+const DokumentyFinansowe = lazy(() => import('./DokumentyFinansowe'));
+const FinanseAsystent = lazy(() => import('./FinanseAsystent'));
+const FinanseImport = lazy(() => import('./FinanseImport'));
+const FinanseTransakcje = lazy(() => import('./FinanseTransakcje'));
+const FinanseCosts = lazy(() => import('./FinanseCosts'));
 
 type Tab = 'dashboard' | 'transakcje' | 'koszty' | 'dokumenty' | 'asystent' | 'import';
 
@@ -57,14 +60,21 @@ export default function FinanseTabs() {
         </div>
       </div>
 
-      {/* Tab content */}
+      {/* Tab content — lazy loaded */}
       <div className="container mx-auto px-4">
-        {activeTab === 'dashboard'  && <FinansePro />}
-        {activeTab === 'transakcje' && <FinanseTransakcje />}
-        {activeTab === 'koszty'     && <FinanseCosts />}
-        {activeTab === 'dokumenty'  && <DokumentyFinansowe />}
-        {activeTab === 'asystent'   && <FinanseAsystent />}
-        {activeTab === 'import'     && <FinanseImport />}
+        <Suspense fallback={
+          <div className="flex items-center justify-center py-20 text-slate-400">
+            <div className="animate-spin w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full mr-3" />
+            Ładowanie modułu…
+          </div>
+        }>
+          {activeTab === 'dashboard'  && <FinansePro />}
+          {activeTab === 'transakcje' && <FinanseTransakcje />}
+          {activeTab === 'koszty'     && <FinanseCosts />}
+          {activeTab === 'dokumenty'  && <DokumentyFinansowe />}
+          {activeTab === 'asystent'   && <FinanseAsystent />}
+          {activeTab === 'import'     && <FinanseImport />}
+        </Suspense>
       </div>
     </div>
   );
