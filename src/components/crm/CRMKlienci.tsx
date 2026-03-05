@@ -1078,7 +1078,7 @@ ${activeClients
                       </div>
                       <div className="text-xs text-gray-400">Lead Score AI</div>
                       <button
-                        onClick={() => handleAILeadScoring(selectedClient.id)}
+                        onClick={() => handleAILeadScoring(selectedClient)}
                         disabled={aiScoringLoading}
                         className="mt-2 px-3 py-1 text-xs bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors disabled:opacity-50"
                       >
@@ -1146,7 +1146,7 @@ ${activeClients
                       </select>
                       <select
                         value={newContact.wynik || ''}
-                        onChange={(e) => setNewContact({ ...newContact, wynik: e.target.value as Contact['wynik'] || undefined })}
+                        onChange={(e) => setNewContact({ ...newContact, wynik: e.target.value })}
                         className="input-field w-36"
                       >
                         <option value="">— Wynik —</option>

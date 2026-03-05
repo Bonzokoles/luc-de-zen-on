@@ -166,7 +166,8 @@ ODPOWIEDZ WYŁĄCZNIE w JSON:
           return { agent: agent.name, error: `HTTP ${res.status}` };
         }
 
-        return { agent: agent.name, ...(await res.json()) };
+        const data = (await res.json()) as Record<string, unknown>;
+        return { agent: agent.name, ...data };
       } catch (err) {
         return { agent: agent.name, error: err instanceof Error ? err.message : 'Unknown error' };
       }
@@ -184,7 +185,7 @@ ODPOWIEDZ WYŁĄCZNIE w JSON:
 ORYGINALNE ZADANIE: "${body.zadanie}"
 
 WYNIKI AGENTÓW:
-${agentResults.map((r) => `--- ${r.agent} ---\n${JSON.stringify(r.result || r.error || r, null, 2)}`).join('\n\n')}
+${agentResults.map((r: any) => `--- ${r.agent} ---\n${JSON.stringify(r.result || r.error || r, null, 2)}`).join('\n\n')}
 
 INSTRUKCJE:
 1. Połącz wyniki w jedną logiczną odpowiedź po polsku
