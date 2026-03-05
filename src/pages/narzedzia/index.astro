@@ -88,13 +88,23 @@ const narzedzia = [
     featured: true,
   },
   {
-    title: "CRM - ZarzÄ…dzanie Klientami",
+    title: "CRM - Zarządzanie Klientami",
     description:
-      "ZarzÄ…dzaj kontaktami, Ĺ›ledĹş sprzedaĹĽ i buduj relacje z klientami",
+      "Zarządzaj kontaktami, śledź sprzedaż i buduj relacje z klientami",
     icon: "👥",
     href: "/crm-klienci",
     category: "CRM",
     color: "from-rose-600 to-rose-700",
+    featured: true,
+  },
+  {
+    title: "Konwerter Formatów",
+    description:
+      "Excel, PDF, XML, JSON, YAML, CSV, Markdown, JSONL — konwertuj między formatami danych, feedów i plików",
+    icon: "🔄",
+    href: "/konwerter",
+    category: "Narzędzia",
+    color: "from-amber-600 to-orange-700",
     featured: true,
   },
 ];
@@ -108,19 +118,34 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
       <!-- Left Sidebar: Tab Navigation -->
       <aside class="lg:col-span-3">
         <TabNavigation client:load currentPath="/narzedzia" />
-        
+
         <!-- CHUCK Scoring Info Card -->
-        <div class="mt-6 p-4 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 rounded-lg">
+        <div
+          class="mt-6 p-4 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 border border-indigo-500/30 rounded-lg"
+        >
           <div class="flex items-center gap-2 mb-3">
-            <svg class="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            <svg
+              class="w-6 h-6 text-indigo-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             <h3 class="text-lg font-bold text-indigo-300">CHUCK Scoring</h3>
           </div>
           <p class="text-sm text-gray-300 mb-3">
-            System oceny jakości workflow AI - analizuj, optymalizuj, buduj lepsze procesy.
+            System oceny jakości workflow AI - analizuj, optymalizuj, buduj
+            lepsze procesy.
           </p>
-          <a href="/narzedzia/workflow-builder" class="block w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-center rounded-lg font-semibold transition-colors text-sm">
+          <a
+            href="/narzedzia/workflow-builder"
+            class="block w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-center rounded-lg font-semibold transition-colors text-sm"
+          >
             Otwórz Workflow Builder
           </a>
         </div>
@@ -130,81 +155,88 @@ const categories = Array.from(new Set(narzedzia.map((n) => n.category)));
       <main class="lg:col-span-9">
         <!-- Header -->
         <div class="text-center mb-12 fade-in">
-      <div class="flex items-center justify-center gap-6 mb-4">
-        <div class="relative w-20 h-20 md:w-24 md:h-24 animate-float">
-          <div class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"></div>
-          <img 
-            src="/apple-touch-icon.png" 
-            alt="ZENON Narzędzia Logo" 
-            class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
-          />
-        </div>
-        <h1 class="text-5xl font-bold">
-          <span
-            class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
-          >
-            Wszystkie Narzędzia
-          </span>
-        </h1>
-      </div>
-      <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
-        Kompletny zestaw narzędzi AI dla Twojego biznesu. Proste, efektywne,
-        100% po polsku.
-      </p>
-    </div>
-
-    <!-- Kategorie -->
-    <div class="flex flex-wrap justify-center gap-3 mb-12">
-      {
-        categories.map((category) => (
-          <button class="badge badge-info text-sm">{category}</button>
-        ))
-      }
-    </div>
-
-    <!-- Narzędzia Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {
-        narzedzia.map((narzedzie) => (
-          <a href={narzedzie.href} class="tool-card group">
-            <div
-              class={`w-16 h-16 bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow border-2 border-white/10`}
-            >
-              {narzedzie.icon}
+          <div class="flex items-center justify-center gap-6 mb-4">
+            <div class="relative w-20 h-20 md:w-24 md:h-24 animate-float">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-primary-400/40 to-primary-600/40 blur-2xl animate-pulse"
+              >
+              </div>
+              <img
+                src="/apple-touch-icon.png"
+                alt="ZENON Narzędzia Logo"
+                class="relative w-full h-full object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.6)]"
+              />
             </div>
-
-            <div class="flex items-start justify-between mb-2">
-              <h3 class="text-xl font-bold flex-grow">{narzedzie.title}</h3>
-            </div>
-
-            <p class="text-sm text-business-text-dim mb-3">
-              {narzedzie.description}
-            </p>
-
-            <div class="flex items-center justify-between">
-              <span class="badge badge-info text-xs">{narzedzie.category}</span>
-              <span class="text-business-accent text-sm group-hover:translate-x-1 transition-transform inline-block">
-                →
+            <h1 class="text-5xl font-bold">
+              <span
+                class="bg-gradient-to-r from-business-accent to-business-accent-soft bg-clip-text text-transparent"
+              >
+                Wszystkie Narzędzia
               </span>
-            </div>
-          </a>
-        ))
-      }
-    </div>
+            </h1>
+          </div>
+          <p class="text-xl text-business-text-dim max-w-3xl mx-auto">
+            Kompletny zestaw narzędzi AI dla Twojego biznesu. Proste, efektywne,
+            100% po polsku.
+          </p>
+        </div>
 
-    <!-- CTA -->
-    <div
-      class="card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700 text-center"
-    >
-      <h2 class="text-2xl font-bold mb-4">Gotowy żeby zacząć?</h2>
-      <p class="text-business-text-dim mb-6">
-        Wybierz narzędzie i odkryj jak AI może usprawnić Twój biznes!
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/instrukcje" class="btn-primary"> 📚 Przeczytaj Instrukcje </a>
-        <a href="/" class="btn-secondary"> 🏠 Strona Główna </a>
-      </div>
-    </div>
+        <!-- Kategorie -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12">
+          {
+            categories.map((category) => (
+              <button class="badge badge-info text-sm">{category}</button>
+            ))
+          }
+        </div>
+
+        <!-- Narzędzia Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {
+            narzedzia.map((narzedzie) => (
+              <a href={narzedzie.href} class="tool-card group">
+                <div
+                  class={`w-16 h-16 bg-gradient-to-br ${narzedzie.color} flex items-center justify-center text-4xl mb-4 shadow-lg group-hover:shadow-glow transition-shadow border-2 border-white/10`}
+                >
+                  {narzedzie.icon}
+                </div>
+
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="text-xl font-bold flex-grow">{narzedzie.title}</h3>
+                </div>
+
+                <p class="text-sm text-business-text-dim mb-3">
+                  {narzedzie.description}
+                </p>
+
+                <div class="flex items-center justify-between">
+                  <span class="badge badge-info text-xs">
+                    {narzedzie.category}
+                  </span>
+                  <span class="text-business-accent text-sm group-hover:translate-x-1 transition-transform inline-block">
+                    →
+                  </span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        <!-- CTA -->
+        <div
+          class="card bg-gradient-to-r from-primary-900/30 to-business-surface border-primary-700 text-center"
+        >
+          <h2 class="text-2xl font-bold mb-4">Gotowy żeby zacząć?</h2>
+          <p class="text-business-text-dim mb-6">
+            Wybierz narzędzie i odkryj jak AI może usprawnić Twój biznes!
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/instrukcje" class="btn-primary">
+              📚 Przeczytaj Instrukcje
+            </a>
+            <a href="/" class="btn-secondary"> 🏠 Strona Główna </a>
+          </div>
+        </div>
       </main>
     </div>
   </div>

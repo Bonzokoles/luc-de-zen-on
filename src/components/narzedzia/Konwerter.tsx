@@ -386,16 +386,8 @@ export default function Konwerter() {
   // ========== RENDER ==========
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white p-6">
+    <div className="text-white">
       <div className="max-w-5xl mx-auto">
-
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            🔄 Konwerter Formatów
-          </h1>
-          <p className="text-slate-400">Excel, PDF, XML, Markdown, JSON - konwertuj między formatami</p>
-        </div>
 
         {/* Mode Selector */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
