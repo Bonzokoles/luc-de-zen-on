@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { AnimatedPieChart, AnimatedBarChart, AnimatedLineChart } from '../../shared/ChartComponents';
 import { DataTable, ComparisonTable } from '../../shared/TableComponents';
 import {
-  useAIExecute,
+  useToolAPI,
   AIModelSelector,
   CompanyPromptField,
-  AIResultMeta,
-  AIStatusIndicator,
+  ToolResultMeta,
+  AntAgentPanel,
 } from '../shared/AIToolComponents';
 
 const KalkulatorBiznesowy = () => {
@@ -37,7 +37,7 @@ const KalkulatorBiznesowy = () => {
   const [model, setModel] = useState('auto');
   const [companyPrompt, setCompanyPrompt] = useState('');
   const [aiInterpretation, setAiInterpretation] = useState('');
-  const { execute: aiExecute, loading: aiLoading, error: aiError, result: aiResult } = useAIExecute();
+  const api = useToolAPI('/api/narzedzia/kalkulator-biznesowy');
 
   const getAIInterpretation = async () => {
     const currentResult =
@@ -48,18 +48,16 @@ const KalkulatorBiznesowy = () => {
 
     if (!currentResult) return;
 
-    const data = await aiExecute({
-      narzedzie: 'kalkulator_biznesowy',
+    const result = await api.call({
       model,
       company_prompt: companyPrompt || undefined,
-      payload: {
-        tryb: activeCalc,
-        dane: currentResult,
-      },
+      tryb: activeCalc,
+      dane: currentResult,
     });
 
-    if (data?.wynik) {
-      setAiInterpretation(data.wynik);
+    if (result) {
+      const r = result as Record<string, unknown>;
+      setAiInterpretation((r.analiza as string) || (r.wynik as string) || '');
     }
   };
 
@@ -706,10 +704,10 @@ const KalkulatorBiznesowy = () => {
             </div>
             <button
               onClick={getAIInterpretation}
-              disabled={aiLoading}
+              disabled={api.loading}
               className="btn-primary flex items-center gap-2"
             >
-              {aiLoading ? (
+              {api.loading ? (
                 <>
                   <span className="loading-spinner inline-block"></span>
                   Analizuję…
@@ -720,16 +718,20 @@ const KalkulatorBiznesowy = () => {
             </button>
           </div>
 
-          <AIStatusIndicator loading={aiLoading} error={aiError}>
-            {aiInterpretation && (
-              <div className="bg-business-dark border border-business-border rounded-lg p-4">
-                <p className="text-sm text-gray-300 whitespace-pre-wrap">{aiInterpretation}</p>
-                {aiResult && <AIResultMeta result={aiResult} />}
-              </div>
-            )}
-          </AIStatusIndicator>
+          {api.error && (
+            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm mb-3">⚠️ {api.error}</div>
+          )}
+
+          {aiInterpretation && (
+            <div className="bg-business-dark border border-business-border rounded-lg p-4">
+              <p className="text-sm text-gray-300 whitespace-pre-wrap">{aiInterpretation}</p>
+              {api.meta && <ToolResultMeta model={api.meta.model} czas={api.meta.czas} tokeny={api.meta.tokeny} />}
+            </div>
+          )}
         </motion.div>
       )}
+
+      <AntAgentPanel currentTool="Kalkulator Biznesowy" className="mt-6" />
 
     </motion.div>
   );

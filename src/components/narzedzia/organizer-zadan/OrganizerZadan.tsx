@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import {
-  useAIExecute,
+  useToolAPI,
   AIModelSelector,
   CompanyPromptField,
-  AIResultMeta,
-  AIStatusIndicator,
+  ToolResultMeta,
+  AntAgentPanel,
 } from '../shared/AIToolComponents';
 
 interface Task {
@@ -28,42 +28,69 @@ const OrganizerZadan = () => {
   const [aiPlan, setAiPlan] = useState('');
   const [aiGoal, setAiGoal] = useState('');
   const [aiMode, setAiMode] = useState<'rozbij' | 'priorytetyzuj' | 'plan_tygodnia'>('rozbij');
-  const { execute: aiExecute, loading: aiLoading, error: aiError, result: aiResult } = useAIExecute();
+  const [aiTasks, setAiTasks] = useState<Array<{ title: string; priority: string; selected: boolean }>>([]);
+  const api = useToolAPI('/api/narzedzia/organizer-zadan');
 
   const handleAIPlan = async () => {
-    const activeTasks = tasks.filter(t => !t.completed).map(t => t.title);
+    const activeTasks = tasks.filter(t => !t.completed).map(t => ({ title: t.title, priority: t.priority }));
 
-    const data = await aiExecute({
-      narzedzie: 'organizer_zadan',
+    const result = await api.call({
       model,
       company_prompt: companyPrompt || undefined,
-      payload: {
-        tryb: aiMode,
-        opis: aiGoal || undefined,
-        istniejace_zadania: activeTasks.length > 0 ? activeTasks : undefined,
-        ramy_czasowe: 'ten tydzień',
-      },
+      akcja: aiMode,
+      opis: aiGoal || undefined,
+      istniejace_zadania: activeTasks.length > 0 ? activeTasks : undefined,
+      ramy_czasowe: 'ten tydzień',
     });
 
-    if (data?.wynik) {
-      setAiPlan(data.wynik);
+    if (result) {
+      const r = result as Record<string, unknown>;
+      const wynik = (r.wynik as string) || (r.plan as string) || '';
+      setAiPlan(wynik);
+      setAiTasks([]);
 
-      // Spróbuj sparsować JSON i dodać zadania
+      // Spróbuj sparsować JSON i przygotować zadania do dodania (checkbox)
       try {
-        const parsed = JSON.parse(data.wynik);
-        if (Array.isArray(parsed.zadania)) {
-          const newTasks: Task[] = parsed.zadania.map((z: { tytul?: string; priorytet?: string }, i: number) => ({
-            id: `ai-${Date.now()}-${i}`,
-            title: z.tytul || `Zadanie ${i + 1}`,
-            priority: (['wysoki', 'średni', 'niski'].includes(z.priorytet ?? '') ? z.priorytet : 'średni') as Task['priority'],
-            completed: false,
-          }));
-          setTasks(prev => [...newTasks, ...prev]);
+        const parsed = JSON.parse(wynik);
+        if (Array.isArray(parsed)) {
+          setAiTasks(parsed.map((z: { title?: string; priority?: string }) => ({
+            title: z.title || '',
+            priority: z.priority || 'średni',
+            selected: true,
+          })));
+        } else if (parsed.posortowane && Array.isArray(parsed.posortowane)) {
+          setAiTasks(parsed.posortowane.map((z: { title?: string; priority?: string }) => ({
+            title: z.title || '',
+            priority: z.priority || 'średni',
+            selected: false,
+          })));
+          if (parsed.uzasadnienie) {
+            setAiPlan(parsed.uzasadnienie);
+          }
+        } else if (parsed.zadania && Array.isArray(parsed.zadania)) {
+          setAiTasks(parsed.zadania.map((z: { tytul?: string; title?: string; priorytet?: string; priority?: string }) => ({
+            title: z.tytul || z.title || '',
+            priority: z.priorytet || z.priority || 'średni',
+            selected: true,
+          })));
         }
       } catch {
-        // OK — AI zwróciło tekst, nie JSON — po prostu wyświetlamy
+        // AI zwróciło tekst — wyświetlamy bezpośrednio
       }
     }
+  };
+
+  const addSelectedAITasks = () => {
+    const toAdd = aiTasks.filter(t => t.selected && t.title.trim());
+    const newTasks: Task[] = toAdd.map((z, i) => ({
+      id: `ai-${Date.now()}-${i}`,
+      title: z.title,
+      priority: (['wysoki', 'średni', 'niski'].includes(z.priority) ? z.priority : 'średni') as Task['priority'],
+      completed: false,
+    }));
+    setTasks(prev => [...newTasks, ...prev]);
+    setAiTasks([]);
+    setAiPlan('');
   };
 
   // Wczytaj zadania z localStorage
@@ -430,10 +457,10 @@ const OrganizerZadan = () => {
 
           <button
             onClick={handleAIPlan}
-            disabled={aiLoading || (aiMode === 'rozbij' && !aiGoal.trim())}
+            disabled={api.loading || (aiMode === 'rozbij' && !aiGoal.trim())}
             className="btn-primary w-full disabled:opacity-50"
           >
-            {aiLoading ? (
+            {api.loading ? (
               <>
                 <span className="loading-spinner inline-block mr-2"></span>
                 AI planuje…
@@ -443,16 +470,62 @@ const OrganizerZadan = () => {
             )}
           </button>
 
-          <AIStatusIndicator loading={aiLoading} error={aiError}>
-            {aiPlan && (
-              <div className="bg-business-dark border border-business-border rounded-lg p-4">
-                <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{aiPlan}</pre>
-                {aiResult && <AIResultMeta result={aiResult} />}
+          {api.error && (
+            <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">⚠️ {api.error}</div>
+          )}
+
+          {/* Wynik AI — checkboxy do dodania zadań */}
+          {aiTasks.length > 0 && (
+            <div className="bg-business-dark border border-business-border rounded-lg p-4">
+              <h4 className="text-sm font-bold text-white mb-3">📋 Zadania wygenerowane przez AI (zaznacz, które dodać):</h4>
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {aiTasks.map((t, idx) => (
+                  <label key={idx} className="flex items-center gap-3 p-2 rounded hover:bg-slate-700/50 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={t.selected}
+                      onChange={(e) => {
+                        setAiTasks(prev => prev.map((task, i) =>
+                          i === idx ? { ...task, selected: e.target.checked } : task
+                        ));
+                      }}
+                      className="w-4 h-4 rounded border-slate-500"
+                    />
+                    <span className="text-sm text-gray-300 flex-grow">{t.title}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded ${
+                      t.priority === 'wysoki' ? 'text-red-400 bg-red-500/10' :
+                      t.priority === 'niski' ? 'text-green-400 bg-green-500/10' :
+                      'text-yellow-400 bg-yellow-500/10'
+                    }`}>
+                      {t.priority}
+                    </span>
+                  </label>
+                ))}
               </div>
-            )}
-          </AIStatusIndicator>
+              <button
+                onClick={addSelectedAITasks}
+                disabled={!aiTasks.some(t => t.selected)}
+                className="btn-primary mt-3 w-full disabled:opacity-50"
+              >
+                ✅ Dodaj zaznaczone ({aiTasks.filter(t => t.selected).length}) do listy
+              </button>
+            </div>
+          )}
+
+          {/* Wynik tekstowy AI (plan tygodnia, uzasadnienie itp.) */}
+          {aiPlan && aiTasks.length === 0 && (
+            <div className="bg-business-dark border border-business-border rounded-lg p-4">
+              <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{aiPlan}</pre>
+            </div>
+          )}
+
+          {api.meta && (aiPlan || aiTasks.length > 0) && (
+            <ToolResultMeta model={api.meta.model} czas={api.meta.czas} tokeny={api.meta.tokeny} />
+          )}
         </div>
       </div>
+
+      <AntAgentPanel currentTool="Organizer Zadań" className="mt-6" />
 
       {/* Podpowiedzi */}
       <div className="mt-8 card bg-gradient-to-r from-primary-900/20 to-business-surface border-primary-700/50">

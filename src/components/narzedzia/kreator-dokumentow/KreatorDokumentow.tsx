@@ -1,352 +1,231 @@
 import { useState } from 'react';
-import { FileText, Sparkles, Copy, Download, CheckCircle, AlertCircle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { motion } from 'framer-motion';
 import {
-  useAIExecute,
+  useToolAPI,
   AIModelSelector,
   CompanyPromptField,
-  AIResultMeta,
+  ToolResultMeta,
+  AntAgentPanel,
 } from '../shared/AIToolComponents';
 
-interface DocumentTemplate {
-  id: string;
-  name: string;
-  description: string;
-  category: string;
-  icon: string;
-  prompt: string;
+interface DokumentResponse {
+  dokument: string;
+  model_uzyty: { nazwa_logiczna: string; provider: string; model_id: string };
+  czas: number;
+  tokeny: { input: number; output: number };
+  ostrzezenie: string;
 }
 
-const templates: DocumentTemplate[] = [
-  {
-    id: 'umowa-uslug',
-    name: 'Umowa Świadczenia Usług',
-    description: 'Profesjonalna umowa między usługodawcą a klientem',
-    category: 'Umowy',
-    icon: '📝',
-    prompt: 'Utwórz profesjonalną umowę świadczenia usług zgodnie z prawem polskim. Zawrzyj sekcje: strony umowy, przedmiot umowy, wynagrodzenie, terminy, odpowiedzialność, klauzule końcowe.'
-  },
-  {
-    id: 'polityka-prywatnosci',
-    name: 'Polityka Prywatności (RODO)',
-    description: 'Zgodna z RODO polityka dla strony/sklepu',
-    category: 'Prawne',
-    icon: '🔒',
-    prompt: 'Stwórz kompleksową Politykę Prywatności zgodną z RODO dla strony internetowej/sklepu. Zawrzyj: administratora danych, cel przetwarzania, podstawę prawną, prawa użytkowników, cookies, bezpieczeństwo danych.'
-  },
-  {
-    id: 'regulamin-sklepu',
-    name: 'Regulamin Sklepu Internetowego',
-    description: 'Kompletny regulamin e-commerce',
-    category: 'E-commerce',
-    icon: '🛒',
-    prompt: 'Wygeneruj regulamin sklepu internetowego zgodny z polskim prawem. Zawrzyj: definicje, warunki sprzedaży, realizacja zamówień, płatności, zwroty i reklamacje, ochrona danych osobowych.'
-  },
-  {
-    id: 'umowa-zlecenie',
-    name: 'Umowa Zlecenie',
-    description: 'Umowa na określone zadanie/projekt',
-    category: 'Umowy',
-    icon: '🤝',
-    prompt: 'Utwórz umowę zlecenia zgodną z Kodeksem Cywilnym. Zawrzyj: strony, przedmiot zlecenia, termin wykonania, wynagrodzenie, zasady rozliczenia, warunki odstąpienia.'
-  },
-  {
-    id: 'nda',
-    name: 'NDA (Umowa Poufności)',
-    description: 'Chroni tajemnice przedsiębiorstwa',
-    category: 'Prawne',
-    icon: '🔐',
-    prompt: 'Stwórz umowę o zachowaniu poufności (NDA) dla polskich firm. Zawrzyj: definicję informacji poufnych, zobowiązania stron, okres obowiązywania, kary umowne, sąd właściwy.'
-  },
-  {
-    id: 'oferta-handlowa',
-    name: 'Oferta Handlowa',
-    description: 'Profesjonalna oferta dla klienta',
-    category: 'Biznes',
-    icon: '💼',
-    prompt: 'Wygeneruj profesjonalną ofertę handlową. Zawrzyj: opis firmy, zakres usług/produktów, cennik, korzyści, warunki współpracy, dane kontaktowe, czas ważności oferty.'
-  },
-  {
-    id: 'umowa-wspolpracy',
-    name: 'Umowa Współpracy B2B',
-    description: 'Współpraca między firmami',
-    category: 'Umowy',
-    icon: '🤝',
-    prompt: 'Utwórz umowę współpracy B2B między dwoma firmami. Zawrzyj: przedmiot współpracy, obowiązki stron, rozliczenia finansowe, czas trwania, warunki rozwiązania.'
-  },
-  {
-    id: 'oswiadczenie-rodo',
-    name: 'Oświadczenie RODO',
-    description: 'Klauzula informacyjna RODO',
-    category: 'Prawne',
-    icon: '📋',
-    prompt: 'Stwórz klauzulę informacyjną RODO dla zbierania danych osobowych (np. rekrutacja, formularz kontaktowy). Zawrzyj wszystkie wymagane elementy art. 13 RODO.'
-  }
-];
+const rodzajeMap: Record<string, { label: string; fields: string[] }> = {
+  umowa_uslug: { label: 'Umowa o świadczenie usług', fields: ['strona_A', 'strona_B', 'przedmiot', 'okres', 'wynagrodzenie', 'miejsce'] },
+  umowa_sprzedazy: { label: 'Umowa sprzedaży', fields: ['strona_A', 'strona_B', 'przedmiot', 'cena', 'warunki_dostawy', 'miejsce'] },
+  umowa_zlecenia: { label: 'Umowa zlecenia', fields: ['strona_A', 'strona_B', 'przedmiot', 'wynagrodzenie', 'termin'] },
+  regulamin: { label: 'Regulamin serwisu / sklepu', fields: ['przedmiot', 'strona_A'] },
+  polityka_prywatnosci: { label: 'Polityka prywatności (RODO)', fields: ['przedmiot', 'strona_A'] },
+  oferta: { label: 'Oferta handlowa', fields: ['strona_A', 'strona_B', 'przedmiot', 'wynagrodzenie', 'okres'] },
+};
+
+const fieldLabels: Record<string, string> = {
+  strona_A: 'Strona A (Twoja firma)',
+  strona_B: 'Strona B (kontrahent)',
+  przedmiot: 'Przedmiot',
+  okres: 'Okres świadczenia',
+  wynagrodzenie: 'Wynagrodzenie / cena',
+  cena: 'Cena',
+  miejsce: 'Miejsce',
+  warunki_dostawy: 'Warunki dostawy',
+  termin: 'Termin wykonania',
+};
+
+const fieldPlaceholders: Record<string, string> = {
+  strona_A: 'Firma XYZ Sp. z o.o., NIP: ...',
+  strona_B: 'Klient biznesowy / osoba prywatna',
+  przedmiot: 'Np. świadczenie usług programistycznych',
+  okres: 'Np. 12 miesięcy',
+  wynagrodzenie: 'Np. 5000 PLN netto miesięcznie',
+  cena: 'Np. 15 000 PLN netto',
+  miejsce: 'Np. Warszawa, Polska',
+  warunki_dostawy: 'Np. dostawa kurierem w 3 dni robocze',
+  termin: 'Np. 30 dni od podpisania umowy',
+};
 
 const KreatorDokumentow = () => {
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  const [customDetails, setCustomDetails] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [generatedDocument, setGeneratedDocument] = useState('');
-  const [localError, setLocalError] = useState('');
-  const [copiedMessage, setCopiedMessage] = useState(false);
+  const [rodzaj, setRodzaj] = useState('umowa_uslug');
+  const [poziom, setPoziom] = useState('sredni');
+  const [dane, setDane] = useState<Record<string, string>>({});
+  const [innePunkty, setInnePunkty] = useState('');
+  const [generatedDoc, setGeneratedDoc] = useState('');
+  const [alternativeDoc, setAlternativeDoc] = useState('');
 
-  // Nowe: model selector + company prompt
   const [model, setModel] = useState('auto');
   const [companyPrompt, setCompanyPrompt] = useState('');
 
-  const { execute, loading: isGenerating, error: aiError, result: aiResult } = useAIExecute();
+  const api = useToolAPI<DokumentResponse>('/api/narzedzia/kreator-dokumentow');
 
-  const handleGenerate = async () => {
-    const template = templates.find(t => t.id === selectedTemplate);
-    if (!template) {
-      setLocalError('Wybierz szablon dokumentu');
-      return;
-    }
+  const currentFields = rodzajeMap[rodzaj]?.fields || [];
 
-    setLocalError('');
-    setGeneratedDocument('');
+  const updateDane = (field: string, val: string) => {
+    setDane((prev) => ({ ...prev, [field]: val }));
+  };
 
-    const detailsText = customDetails.trim();
-    const companyText = companyName.trim();
+  const handleGenerate = async (altModel?: string) => {
+    if (!dane.przedmiot?.trim()) return;
 
-    const userPayload = {
-      rodzaj: template.name,
-      szablon_prompt: template.prompt,
-      nazwa_firmy: companyText || undefined,
-      szczegoly: detailsText || undefined,
+    const body: Record<string, unknown> = {
+      model: altModel || model,
+      company_prompt: companyPrompt || undefined,
+      rodzaj,
+      poziom_szczegolowosci: poziom,
       jezyk: 'pl',
+      dane: {
+        ...dane,
+        inne_punkty: innePunkty ? innePunkty.split('\n').filter(Boolean) : undefined,
+      },
     };
 
-    const data = await execute({
-      narzedzie: 'kreator_dokumentow',
-      model,
-      company_prompt: companyPrompt || undefined,
-      payload: userPayload,
-    });
+    const result = await api.call(body);
 
-    if (data?.wynik) {
-      setGeneratedDocument(data.wynik);
+    if (result?.dokument) {
+      if (altModel) {
+        setAlternativeDoc(result.dokument);
+      } else {
+        setGeneratedDoc(result.dokument);
+        setAlternativeDoc('');
+      }
     }
   };
 
-  const error = localError || aiError;
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(generatedDocument);
-    setCopiedMessage(true);
-    setTimeout(() => setCopiedMessage(false), 2000);
+  const generateAlternative = () => {
+    const nextModel = model === 'auto' ? 'szybki' : model === 'szybki' ? 'dokladny' : 'auto';
+    handleGenerate(nextModel);
   };
 
-  const downloadDocument = () => {
-    const template = templates.find(t => t.id === selectedTemplate);
-    const filename = `${template?.name.replace(/\s+/g, '_')}_${Date.now()}.md`;
-
-    const blob = new Blob([generatedDocument], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const categories = Array.from(new Set(templates.map(t => t.category)));
+  const copyToClipboard = (text: string) => navigator.clipboard.writeText(text);
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center justify-center gap-3">
-          <FileText className="w-8 h-8 text-primary-400" />
-          Kreator Dokumentów Biznesowych
-        </h1>
-        <p className="text-gray-300">
-          Generuj profesjonalne dokumenty prawne z pomocą AI - zgodnie z polskim prawem
-        </p>
-      </div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="max-w-6xl mx-auto">
+      <AntAgentPanel currentTool="Kreator Dokumentów" className="mb-6" />
 
-      {/* Templates Selection */}
-      <div className="card">
-        <h2 className="text-xl font-bold text-white mb-4">📚 Wybierz szablon dokumentu</h2>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Panel Konfiguracji */}
+        <div className="card">
+          <h2 className="text-2xl font-bold mb-6">📄 Kreator Dokumentów</h2>
 
-        {categories.map(category => (
-          <div key={category} className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-300 mb-3">{category}</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {templates.filter(t => t.category === category).map(template => (
-                <button
-                  key={template.id}
-                  onClick={() => setSelectedTemplate(template.id)}
-                  className={`p-4 rounded-lg border-2 transition-all text-left ${selectedTemplate === template.id
-                      ? 'border-primary-500 bg-primary-500/10'
-                      : 'border-gray-700 hover:border-gray-600 bg-surface-dark'
-                    }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="text-3xl">{template.icon}</span>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-white mb-1">{template.name}</h4>
-                      <p className="text-sm text-gray-400">{template.description}</p>
-                    </div>
-                    {selectedTemplate === template.id && (
-                      <CheckCircle className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                    )}
-                  </div>
-                </button>
+          {/* Typ dokumentu */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Rodzaj dokumentu</label>
+            <select value={rodzaj} onChange={(e) => { setRodzaj(e.target.value); setDane({}); }} className="input-field">
+              {Object.entries(rodzajeMap).map(([key, { label }]) => (
+                <option key={key} value={key}>{label}</option>
               ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Details Form */}
-      {selectedTemplate && (
-        <div className="card">
-          <h2 className="text-xl font-bold text-white mb-4">✍️ Szczegóły dokumentu</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">
-                Nazwa firmy (opcjonalnie)
-              </label>
-              <input
-                type="text"
-                placeholder="np. Tech Solutions Sp. z o.o."
-                value={companyName}
-                onChange={(e) => setCompanyName(e.target.value)}
-                className="input-field"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-300 mb-2">
-                Dodatkowe szczegóły i wymagania (opcjonalnie)
-              </label>
-              <textarea
-                placeholder={`Przykład dla umowy:
-- Strony: [Twoja firma] i [Nazwa klienta]
-- Usługa: Tworzenie strony internetowej
-- Wynagrodzenie: 5000 PLN netto
-- Termin: 30 dni od podpisania
-- Dodatkowe warunki: możliwość przedłużenia o 14 dni`}
-                value={customDetails}
-                onChange={(e) => setCustomDetails(e.target.value)}
-                className="input-field resize-none"
-                rows={8}
-              />
-              <p className="text-xs text-gray-400 mt-2">
-                💡 Podaj konkretne informacje, które powinny znaleźć się w dokumencie
-              </p>
-            </div>
-
-            {/* Model AI + Kontekst firmy */}
-            <div className="space-y-4 border-t border-gray-700 pt-4">
-              <AIModelSelector value={model} onChange={setModel} />
-              <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
-            </div>
-
-            <button
-              onClick={handleGenerate}
-              disabled={isGenerating}
-              className="btn-primary w-full flex items-center justify-center gap-2"
-            >
-              {isGenerating ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" />
-                  Generuję dokument...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-5 h-5" />
-                  Wygeneruj dokument AI
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Error Message */}
-      {error && (
-        <div className="card bg-red-900/20 border-red-500/50">
-          <div className="flex items-center gap-3 text-red-300">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <p>{error}</p>
-          </div>
-        </div>
-      )}
-
-      {/* Generated Document */}
-      {generatedDocument && (
-        <div className="card">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <CheckCircle className="w-6 h-6 text-green-400" />
-              Wygenerowany dokument
-            </h2>
-            <div className="flex gap-2">
-              <button
-                onClick={copyToClipboard}
-                className="btn-secondary flex items-center gap-2"
-              >
-                <Copy className="w-4 h-4" />
-                {copiedMessage ? 'Skopiowano!' : 'Kopiuj'}
-              </button>
-              <button
-                onClick={downloadDocument}
-                className="btn-secondary flex items-center gap-2"
-              >
-                <Download className="w-4 h-4" />
-                Pobierz .md
-              </button>
-            </div>
+            </select>
           </div>
 
-          {/* Document Preview */}
-          <div className="bg-white text-gray-900 p-8 rounded-lg max-h-[600px] overflow-y-auto prose prose-sm max-w-none">
-            <ReactMarkdown>{generatedDocument}</ReactMarkdown>
+          {/* Poziom szczegółowości */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Poziom szczegółowości</label>
+            <select value={poziom} onChange={(e) => setPoziom(e.target.value)} className="input-field">
+              <option value="prosty">Szkic prosty (szybki)</option>
+              <option value="sredni">Średni (standardowy)</option>
+              <option value="pelny">Pełny dokument (dokładny)</option>
+            </select>
           </div>
-          {aiResult && <AIResultMeta result={aiResult} />}
 
-          {/* Warning */}
-          <div className="mt-4 p-4 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="w-5 h-5 text-yellow-400 mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-yellow-200">
-                <p className="font-bold mb-1">⚠️ Ważna informacja prawna</p>
-                <p>
-                  Ten dokument został wygenerowany przez AI jako szablon/pomoc.
-                  Przed użyciem w prawdziwych transakcjach biznesowych <strong>skonsultuj go z prawnikiem</strong>.
-                  Nie ponosimy odpowiedzialności za skutki użycia dokumentu bez weryfikacji prawnej.
-                </p>
+          {/* Dynamiczne pola wg typu */}
+          <div className="mb-4 space-y-3">
+            <label className="block text-sm font-medium mb-1 text-slate-300">Dane dokumentu</label>
+            {currentFields.map((field) => (
+              <div key={field}>
+                <label className="block text-xs text-slate-400 mb-1">{fieldLabels[field] || field}</label>
+                <input
+                  type="text"
+                  value={dane[field] || ''}
+                  onChange={(e) => updateDane(field, e.target.value)}
+                  className="input-field"
+                  placeholder={fieldPlaceholders[field] || ''}
+                />
               </div>
-            </div>
+            ))}
           </div>
-        </div>
-      )}
 
-      {/* Info Card */}
-      <div className="card bg-blue-900/20 border-blue-500/30">
-        <div className="flex items-start gap-3">
-          <FileText className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-          <div className="text-sm text-gray-300">
-            <p className="font-bold text-white mb-2">Jak używać Kreatora Dokumentów?</p>
-            <ol className="space-y-1 ml-4 list-decimal">
-              <li>Wybierz szablon dokumentu z listy powyżej</li>
-              <li>Podaj nazwę firmy i szczegóły (opcjonalnie - AI wypełni placeholdery)</li>
-              <li>Kliknij "Wygeneruj dokument AI"</li>
-              <li>Sprawdź dokument, edytuj jeśli potrzeba</li>
-              <li>Skopiuj lub pobierz gotowy dokument</li>
-              <li><strong className="text-yellow-400">ZAWSZE skonsultuj z prawnikiem przed użyciem!</strong></li>
-            </ol>
-            <p className="mt-3">
-              💡 <strong>Wskazówka:</strong> Im więcej szczegółów podasz, tym lepiej dostosowany będzie dokument.
-            </p>
+          {/* Dodatkowe punkty */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Dodatkowe punkty / klauzule (opcjonalnie)</label>
+            <textarea value={innePunkty} onChange={(e) => setInnePunkty(e.target.value)} className="textarea-field" rows={3}
+              placeholder="Każdy wiersz = osobny punkt, np.&#10;Klauzula o poufności&#10;Kara umowna 10% za opóźnienia" />
           </div>
+
+          {/* AI Config */}
+          <div className="mb-6 space-y-4 border-t border-business-border pt-4">
+            <AIModelSelector value={model} onChange={setModel} />
+            <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt}
+              placeholder="Np. Jesteśmy firmą IT z Polski, tworzymy umowy z programistami zdalnymi. Zawsze dodawaj klauzulę o poufności." />
+          </div>
+
+          <button onClick={() => handleGenerate()} disabled={api.loading || !dane.przedmiot?.trim()} className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed">
+            {api.loading ? <><span className="loading-spinner inline-block mr-2" />Generuję dokument...</> : '📝 Wygeneruj Dokument'}
+          </button>
+
+          {api.error && <div className="mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">⚠️ {api.error}</div>}
+        </div>
+
+        {/* Panel Wyniku */}
+        <div className="card">
+          <h2 className="text-2xl font-bold mb-6">📋 Podgląd Dokumentu</h2>
+
+          {!generatedDoc && !api.loading && (
+            <div className="text-center py-12 text-business-text-dim">
+              <svg className="w-16 h-16 mx-auto mb-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <p>Twój dokument pojawi się tutaj</p>
+              <p className="text-xs mt-2">Wybierz rodzaj dokumentu, wypełnij dane i kliknij Generuj</p>
+            </div>
+          )}
+
+          {api.loading && (
+            <div className="text-center py-12">
+              <div className="loading-spinner mx-auto mb-4" />
+              <p className="text-business-text-dim">AI generuje dokument...</p>
+            </div>
+          )}
+
+          {generatedDoc && (
+            <div className="space-y-4">
+              {/* Ostrzeżenie prawne */}
+              <div className="p-3 bg-yellow-900/20 border border-yellow-600/40 rounded-lg text-sm text-yellow-300">
+                ⚠️ Ten dokument jest szablonem wygenerowanym przez AI. <strong>Skonsultuj z prawnikiem</strong> przed użyciem.
+              </div>
+
+              <div className="bg-white text-gray-900 rounded-lg p-6 border-2 border-business-border max-h-[600px] overflow-y-auto">
+                <div className="prose max-w-none text-sm">
+                  <ReactMarkdown>{generatedDoc}</ReactMarkdown>
+                </div>
+              </div>
+
+              {api.meta && <ToolResultMeta model={api.meta.model} czas={api.meta.czas} tokeny={api.meta.tokeny} />}
+
+              <div className="flex gap-3">
+                <button onClick={() => copyToClipboard(generatedDoc)} className="btn-primary flex-1">📋 Kopiuj</button>
+                <button onClick={generateAlternative} className="btn-secondary flex-1" disabled={api.loading}>🔄 Inny model</button>
+                <button onClick={() => { setGeneratedDoc(''); setAlternativeDoc(''); }} className="btn-secondary">🆕 Nowy</button>
+              </div>
+
+              {alternativeDoc && (
+                <div className="bg-business-dark border border-blue-500/30 rounded-lg p-6 mt-4">
+                  <h4 className="text-sm font-bold text-blue-400 mb-3">🔄 Alternatywna wersja:</h4>
+                  <div className="prose prose-invert max-w-none text-sm max-h-[400px] overflow-y-auto">
+                    <ReactMarkdown>{alternativeDoc}</ReactMarkdown>
+                  </div>
+                  <button onClick={() => copyToClipboard(alternativeDoc)} className="btn-secondary mt-3 text-xs">📋 Kopiuj tę wersję</button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, Download, FileText, Calculator, Save, Sparkles } from 'lucide-react';
+import { Plus, Trash2, Download, FileText, Calculator, Save, Sparkles, ShieldCheck } from 'lucide-react';
 import {
-  useAIExecute,
+  useToolAPI,
   AIModelSelector,
   CompanyPromptField,
+  ToolResultMeta,
+  AntAgentPanel,
 } from '../shared/AIToolComponents';
 
 interface InvoiceItem {
@@ -72,38 +74,110 @@ const GeneratorFaktur = () => {
     grossTotal: 0
   });
 
-  // AI: model selector + company prompt + opis AI
+  // AI: model selector + company prompt + opis AI + walidacja
   const [model, setModel] = useState('auto');
   const [companyPrompt, setCompanyPrompt] = useState('');
-  const { execute: aiExecute, loading: aiLoading } = useAIExecute();
+  const [aiItemLoading, setAiItemLoading] = useState<string | null>(null);
+  const [aiBatchLoading, setAiBatchLoading] = useState(false);
+  const [walidacjaResult, setWalidacjaResult] = useState<string | null>(null);
+  const [walidacjaLoading, setWalidacjaLoading] = useState(false);
+  const [walidacjaMeta, setWalidacjaMeta] = useState<{ model?: string; czas?: number; tokeny?: { input: number; output: number } } | null>(null);
 
-  // Generuj AI opis dla pozycji
+  const api = useToolAPI('/api/narzedzia/generator-faktur');
+
+  // Generuj AI opis dla jednej pozycji
   const generateAIDescription = async (itemId: string) => {
     const item = invoice.items.find(i => i.id === itemId);
     if (!item || !item.name.trim()) return;
+    setAiItemLoading(itemId);
 
-    const data = await aiExecute({
-      narzedzie: 'generator_faktur',
-      model,
-      company_prompt: companyPrompt || undefined,
-      payload: {
-        akcja: 'opis_pozycji',
-        nazwa: item.name,
-        ilosc: item.quantity,
-        cena_jednostkowa: item.unitPrice,
-      },
-    });
+    try {
+      const result = await api.call({
+        model,
+        company_prompt: companyPrompt || undefined,
+        akcja: 'opisy_ai',
+        faktura: {
+          pozycje: [{ nazwa: item.name, ilosc: item.quantity, cena_jedn_netto: item.unitPrice, vat_stawka: item.vatRate }],
+        },
+      });
 
-    if (data?.wynik) {
-      try {
-        const parsed = JSON.parse(data.wynik);
-        if (parsed.opis) {
-          updateItem(itemId, 'name', parsed.opis);
+      if (result) {
+        const r = result as Record<string, unknown>;
+        const pozycje = (r.pozycje as Array<{ sugerowany_opis?: string }>) || [];
+        if (pozycje[0]?.sugerowany_opis) {
+          updateItem(itemId, 'name', pozycje[0].sugerowany_opis);
         }
-      } catch {
-        // Jeśli AI zwróciło plain text — użyj bezpośrednio
-        updateItem(itemId, 'name', data.wynik.trim());
       }
+    } finally {
+      setAiItemLoading(null);
+    }
+  };
+
+  // Batch AI opisy — wszystkie pozycje naraz
+  const generateAllDescriptions = async () => {
+    if (invoice.items.length === 0) return;
+    setAiBatchLoading(true);
+
+    try {
+      const result = await api.call({
+        model,
+        company_prompt: companyPrompt || undefined,
+        akcja: 'opisy_ai',
+        faktura: {
+          pozycje: invoice.items.map(i => ({ nazwa: i.name, ilosc: i.quantity, cena_jedn_netto: i.unitPrice, vat_stawka: i.vatRate })),
+        },
+      });
+
+      if (result) {
+        const r = result as Record<string, unknown>;
+        const pozycje = (r.pozycje as Array<{ sugerowany_opis?: string }>) || [];
+        pozycje.forEach((p, idx) => {
+          if (p.sugerowany_opis && invoice.items[idx]) {
+            updateItem(invoice.items[idx].id, 'name', p.sugerowany_opis);
+          }
+        });
+      }
+    } finally {
+      setAiBatchLoading(false);
+    }
+  };
+
+  // Walidacja faktury AI
+  const validateInvoiceAI = async () => {
+    if (invoice.items.length === 0) return;
+    setWalidacjaLoading(true);
+    setWalidacjaResult(null);
+    setWalidacjaMeta(null);
+
+    try {
+      const result = await api.call({
+        model,
+        company_prompt: companyPrompt || undefined,
+        akcja: 'walidacja_ai',
+        faktura: {
+          sprzedawca: invoice.seller,
+          nabywca: invoice.buyer,
+          pozycje: invoice.items.map(i => ({ nazwa: i.name, ilosc: i.quantity, cena_jedn_netto: i.unitPrice, vat_stawka: i.vatRate })),
+          sposob_platnosci: invoice.paymentMethod,
+          nr_konta: invoice.bankAccount || undefined,
+          termin_platnosci: invoice.dueDate,
+        },
+      });
+
+      if (result) {
+        const r = result as Record<string, unknown>;
+        setWalidacjaResult(r.walidacja as string || r.wynik as string || 'Brak wyniku walidacji');
+        if (r.model_uzyty) {
+          const m = r.model_uzyty as { nazwa_logiczna?: string; model_id?: string };
+          setWalidacjaMeta({
+            model: m.nazwa_logiczna || m.model_id,
+            czas: r.czas as number,
+            tokeny: r.tokeny as { input: number; output: number },
+          });
+        }
+      }
+    } finally {
+      setWalidacjaLoading(false);
     }
   };
 
@@ -406,6 +480,8 @@ const GeneratorFaktur = () => {
 
   return (
     <div className="space-y-6">
+      <AntAgentPanel currentTool="Generator Faktur" className="mb-2" />
+
       {/* Header */}
       <div className="text-center mb-6">
         <h1 className="text-3xl font-bold text-white mb-2">Generator Faktur VAT</h1>
@@ -637,11 +713,11 @@ const GeneratorFaktur = () => {
                         />
                         <button
                           onClick={() => generateAIDescription(item.id)}
-                          disabled={aiLoading || !item.name.trim()}
+                          disabled={aiItemLoading === item.id || !item.name.trim()}
                           className="text-blue-400 hover:text-blue-300 p-1 disabled:opacity-30 flex-shrink-0"
                           title="AI: rozwiń opis pozycji"
                         >
-                          <Sparkles className="w-4 h-4" />
+                          {aiItemLoading === item.id ? <span className="loading-spinner w-4 h-4 inline-block" /> : <Sparkles className="w-4 h-4" />}
                         </button>
                       </div>
                     </td>
@@ -723,16 +799,46 @@ const GeneratorFaktur = () => {
         )}
       </div>
 
-      {/* Płatność */}
+      {/* AI Panel */}
       <div className="card">
         <h2 className="text-xl font-bold text-white mb-4">🤖 Ustawienia AI</h2>
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4 mb-4">
           <AIModelSelector value={model} onChange={setModel} />
           <CompanyPromptField value={companyPrompt} onChange={setCompanyPrompt} />
         </div>
+
+        <div className="flex flex-wrap gap-3 mt-4">
+          <button
+            onClick={generateAllDescriptions}
+            disabled={aiBatchLoading || invoice.items.length === 0}
+            className="btn-secondary flex items-center gap-2 disabled:opacity-50"
+          >
+            {aiBatchLoading ? <><span className="loading-spinner inline-block w-4 h-4" /> Generuję opisy...</> : <><Sparkles className="w-4 h-4" /> ✨ Opisy AI (wszystkie)</>}
+          </button>
+          <button
+            onClick={validateInvoiceAI}
+            disabled={walidacjaLoading || invoice.items.length === 0}
+            className="btn-primary flex items-center gap-2 disabled:opacity-50"
+          >
+            {walidacjaLoading ? <><span className="loading-spinner inline-block w-4 h-4" /> Sprawdzam...</> : <><ShieldCheck className="w-4 h-4" /> ✅ Sprawdź fakturę AI</>}
+          </button>
+        </div>
+
         <p className="text-xs text-gray-500 mt-2">
-          Kliknij ✨ przy nazwie pozycji, aby AI rozwinął opis do profesjonalnej formy fakturowej.
+          Kliknij ✨ przy nazwie pozycji dla pojedynczego opisu, lub "Opisy AI" dla wszystkich naraz. "Sprawdź fakturę" waliduje NIP, stawki VAT i sumy.
         </p>
+
+        {walidacjaResult && (
+          <div className="mt-4 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+            <h4 className="text-sm font-bold text-blue-300 mb-2">🔍 Wynik walidacji AI:</h4>
+            <pre className="text-sm text-gray-300 whitespace-pre-wrap font-sans">{walidacjaResult}</pre>
+            {walidacjaMeta && <ToolResultMeta model={walidacjaMeta.model} czas={walidacjaMeta.czas} tokeny={walidacjaMeta.tokeny} />}
+          </div>
+        )}
+
+        {api.error && (
+          <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">⚠️ {api.error}</div>
+        )}
       </div>
 
       {/* Płatność */}
