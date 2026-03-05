@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAY_XLM_FEED_Converter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #050709;
+            --bg-darker: #0a0e12;
+            --bg-card: #0f1419;
+            --text-primary: #e0e6ed;
+            --text-secondary: #a8b0bb;
+            --accent-blue: #3d7dd6;
+            --accent-blue-hover: #4a8ae8;
+            --accent-green: #2d7a4a;
+            --border-color: #1a1f28;
+            --error-color: #b83c35;
+            --success-color: #3a7d4e;
+            --radius-small: 2px;
+            --radius-medium: 3px;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            padding: 12px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-small);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="url"],
+        input[type="text"],
+        textarea {
+            background: var(--bg-darker);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: var(--radius-small);
+            font-size: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="url"]:focus,
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(61, 125, 214, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: rgba(61, 125, 214, 0.05);
+            border: 1px solid rgba(61, 125, 214, 0.15);
+            border-radius: var(--radius-small);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(61, 125, 214, 0.1);
+            border-color: rgba(61, 125, 214, 0.3);
+        }
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-blue);
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            margin: 0;
+            font-size: 11px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--radius-small);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-blue-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(61, 125, 214, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(61, 125, 214, 0.2);
+        }
+
+        .btn-success {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #36884f;
+        }
+
+        .status-message {
+            padding: 10px 12px;
+            border-radius: var(--radius-small);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .status-error {
+            background: rgba(184, 60, 53, 0.1);
+            border: 1px solid rgba(184, 60, 53, 0.3);
+            color: #ff7a73;
+        }
+
+        .status-success {
+            background: rgba(45, 122, 74, 0.1);
+            border: 1px solid rgba(45, 122, 74, 0.3);
+            color: #5dcd7e;
+        }
+
+        .status-info {
+            background: rgba(61, 125, 214, 0.1);
+            border: 1px solid rgba(61, 125, 214, 0.3);
+            color: var(--accent-blue);
+        }
+
+        .status-loading {
+            background: rgba(61, 125, 214, 0.1);
+            border: 1px solid rgba(61, 125, 214, 0.3);
+            color: var(--accent-blue);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(61, 125, 214, 0.3);
+            border-top-color: var(--accent-blue);
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .stat-item {
+            background: rgba(61, 125, 214, 0.05);
+            border: 1px solid rgba(61, 125, 214, 0.15);
+            border-radius: var(--radius-small);
+            padding: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .download-area {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-small);
+            padding: 16px;
+            margin-top: 20px;
+        }
+
+        .download-area h3 {
+            font-size: 14px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .download-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 8px;
+        }
+
+        .download-item {
+            background: rgba(45, 122, 74, 0.08);
+            border: 1px solid rgba(45, 122, 74, 0.2);
+            border-radius: var(--radius-small);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .download-item:hover {
+            background: rgba(45, 122, 74, 0.15);
+            border-color: rgba(45, 122, 74, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .download-item a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-size: 12px;
+            flex: 1;
+            word-break: break-all;
+        }
+
+        .icon {
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tips {
+            background: rgba(61, 125, 214, 0.05);
+            border-left: 3px solid var(--accent-blue);
+            border-radius: var(--radius-small);
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .tips strong {
+            color: var(--accent-blue);
+        }
+
+        .proxy-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(45, 122, 74, 0.1);
+            border: 1px solid rgba(45, 122, 74, 0.3);
+            border-radius: var(--radius-small);
+            font-size: 11px;
+            margin-top: 8px;
+        }
+
+        .proxy-status.error {
+            background: rgba(184, 60, 53, 0.1);
+            border-color: rgba(184, 60, 53, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success-color);
+        }
+
+        .proxy-status.error .status-dot {
+            background: var(--error-color);
+        }
+
+        .drag-drop {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-small);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: rgba(61, 125, 214, 0.02);
+        }
+
+        .drag-drop:hover {
+            border-color: var(--accent-blue);
+            background: rgba(61, 125, 214, 0.08);
+        }
+
+        .drag-drop.dragover {
+            border-color: var(--accent-blue);
+            background: rgba(61, 125, 214, 0.15);
+        }
+
+        .drag-drop-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .drag-drop-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .format-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .format-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .format-options::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+        }
+
+        .format-options::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 3px;
+        }
+
+        .format-options::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue-hover);
+        }
+
+        .loading-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.3s;
+            margin-top: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+
+            .download-list {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 CAY_XLM_FEED_Converter</h1>
+            <p>Konwersja plików: XML ↔ JSON ↔ YAML ↔ CSV ↔ HTML ↔ Markdown ↔ JSONL</p>
+        </div>
+
+        <div class="content">
+            <!-- LEWY PANEL: URL -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon">🌐</span>
+                    Pobierz z URL
+                </div>
+                <p style="font-size: 11px; color: var(--text-secondary); margin: 0;">
+                    Wklej URL do pliku XML, JSON, YAML, CSV lub HTML i pobierz go bezpośrednio
+                </p>
+
+                <div class="input-group">
+                    <label>URL pliku:</label>
+                    <input type="url" id="urlInput" placeholder="https://example.com/data.xml" />
+                </div>
+
+                <label>Formaty docelowe:</label>
+                <div class="format-options" id="urlFormats">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlJsonCheck" checked />
+                        <label for="urlJsonCheck">JSON</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlCsvCheck" />
+                        <label for="urlCsvCheck">CSV</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlYamlCheck" />
+                        <label for="urlYamlCheck">YAML</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlHtmlCheck" />
+                        <label for="urlHtmlCheck">HTML</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlMarkdownCheck" />
+                        <label for="urlMarkdownCheck">Markdown</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="urlJsonlCheck" />
+                        <label for="urlJsonlCheck">JSONL</label>
+                    </div>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="urlPrettyCheck" checked />
+                    <label for="urlPrettyCheck">Formatowanie (Pretty Print)</label>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" id="checkProxyBtn">
+                        <span class="icon">🔍</span> Sprawdź proxy
+                    </button>
+                    <button class="btn-primary" id="fetchBtn">
+                        <span class="icon">⬇️</span> Pobierz i konwertuj
+                    </button>
+                </div>
+
+                <div id="urlStatus"></div>
+                <div id="proxyStatus"></div>
+                <div class="tips">
+                    <strong>💡 Tip:</strong> Aplikacja pobiera pliki przez localhost proxy (porty 4656/4657) dla obejścia CORS. Serwery muszą działać!
+                </div>
+            </div>
+
+            <!-- PRAWY PANEL: Plik lokalny -->
+            <div class="card">
+                <div class="card-title">
+                    <span class="icon">📁</span>
+                    Prześlij plik lokalnie
+                </div>
+                <p style="font-size: 11px; color: var(--text-secondary); margin: 0;">
+                    Wybierz plik z dysku lub przeciągnij go tutaj i konwertuj lokalnie (bez wysyłania)
+                </p>
+
+                <div class="drag-drop" id="dragDrop">
+                    <div class="drag-drop-icon">📄</div>
+                    <div class="drag-drop-text">Przeciągnij plik tutaj<br />lub kliknij aby wybrać</div>
+                </div>
+                <input type="file" id="fileInput" style="display: none;" accept=".xml,.json,.yaml,.yml,.csv,.html,.txt,.jsonl" />
+
+                <label>Formaty docelowe:</label>
+                <div class="format-options" id="localFormats">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localJsonCheck" checked />
+                        <label for="localJsonCheck">JSON</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localCsvCheck" />
+                        <label for="localCsvCheck">CSV</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localYamlCheck" />
+                        <label for="localYamlCheck">YAML</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localHtmlCheck" />
+                        <label for="localHtmlCheck">HTML</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localMarkdownCheck" />
+                        <label for="localMarkdownCheck">Markdown</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="localJsonlCheck" />
+                        <label for="localJsonlCheck">JSONL</label>
+                    </div>
+                </div>
+
+                <div class="checkbox-item">
+                    <input type="checkbox" id="localPrettyCheck" checked />
+                    <label for="localPrettyCheck">Formatowanie (Pretty Print)</label>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" id="clearBtn">
+                        <span class="icon">🗑️</span> Wyczyść
+                    </button>
+                    <button class="btn-primary" id="convertBtn">
+                        <span class="icon">⚙️</span> Konwertuj
+                    </button>
+                </div>
+
+                <div id="localStatus"></div>
+                <div id="loadingBar" class="loading-bar"></div>
+                <div id="stats" class="stats hidden">
+                    <div class="stat-item">
+                        <div class="stat-value" id="statRecords">0</div>
+                        <div class="stat-label">Rekordów</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statFields">0</div>
+                        <div class="stat-label">Pól</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="statSize">0 KB</div>
+                        <div class="stat-label">Rozmiar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOWNLOAD AREA -->
+        <div id="downloadArea" class="download-area hidden">
+            <h3>📥 Pobierz konwertowane pliki:</h3>
+            <div class="download-list" id="downloadList"></div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 CAY_XLM_FEED_Converter v1.0 | Obsługiwane formaty: XML, JSON, YAML, CSV, HTML, TXT, JSONL</p>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let currentData = null;
+        let currentFormat = null;
+
+        // Elements
+        const urlInput = document.getElementById('urlInput');
+        const fileInput = document.getElementById('fileInput');
+        const dragDrop = document.getElementById('dragDrop');
+        const fetchBtn = document.getElementById('fetchBtn');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const checkProxyBtn = document.getElementById('checkProxyBtn');
+        const downloadArea = document.getElementById('downloadArea');
+        const downloadList = document.getElementById('downloadList');
+
+        // Format checkboxes
+        const urlFormatCheckboxes = {
+            json: document.getElementById('urlJsonCheck'),
+            csv: document.getElementById('urlCsvCheck'),
+            yaml: document.getElementById('urlYamlCheck'),
+            html: document.getElementById('urlHtmlCheck'),
+            markdown: document.getElementById('urlMarkdownCheck'),
+            jsonl: document.getElementById('urlJsonlCheck'),
+        };
+
+        const localFormatCheckboxes = {
+            json: document.getElementById('localJsonCheck'),
+            csv: document.getElementById('localCsvCheck'),
+            yaml: document.getElementById('localYamlCheck'),
+            html: document.getElementById('localHtmlCheck'),
+            markdown: document.getElementById('localMarkdownCheck'),
+            jsonl: document.getElementById('localJsonlCheck'),
+        };
+
+        // Utilities
+        function showStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `
+                <div class="status-message status-${type}">
+                    <span class="icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : type === 'loading' ? '<span class="spinner"></span>' : 'ℹ️'}</span>
+                    ${message}
+                </div>
+            `;
+        }
+
+        function showProxyStatus(available) {
+            const element = document.getElementById('proxyStatus');
+            element.innerHTML = `
+                <div class="proxy-status ${available ? '' : 'error'}">
+                    <span class="status-dot"></span>
+                    <span>${available ? '✅ Proxy dostępny' : '❌ Proxy niedostępny - upewnij się że serwery działają (python -m http.server 4656)'}</span>
+                </div>
+            `;
+        }
+
+        function showStats(data) {
+            const statsEl = document.getElementById('stats');
+            let records = 0;
+            let fields = 0;
+            let size = new Blob([JSON.stringify(data)]).size;
+
+            if (Array.isArray(data)) {
+                records = data.length;
+                fields = data.length > 0 ? Object.keys(data[0]).length : 0;
+            } else if (typeof data === 'object') {
+                records = Object.keys(data).length;
+                fields = 1;
+            }
+
+            document.getElementById('statRecords').textContent = records.toLocaleString();
+            document.getElementById('statFields').textContent = fields;
+            document.getElementById('statSize').textContent = (size / 1024).toFixed(1) + ' KB';
+
+            statsEl.classList.remove('hidden');
+        }
+
+        // Check Proxy
+        checkProxyBtn.addEventListener('click', async () => {
+            showStatus('proxyStatus', 'Sprawdzanie proxy...', 'loading');
+            try {
+                const ports = [4656, 4657];
+                let available = false;
+
+                for (let port of ports) {
+                    try {
+                        const response = await fetch(`http://localhost:${port}/`, {
+                            method: 'HEAD',
+                            mode: 'no-cors',
+                        });
+                        available = true;
+                        break;
+                    } catch (e) {}
+                }
+
+                showProxyStatus(available);
+            } catch (e) {
+                showProxyStatus(false);
+            }
+        });
+
+        // Fetch from URL
+        fetchBtn.addEventListener('click', async () => {
+            const url = urlInput.value.trim();
+            if (!url) {
+                showStatus('urlStatus', 'Wklej URL do pliku', 'error');
+                return;
+            }
+
+            showStatus('urlStatus', 'Pobieranie pliku...', 'loading');
+
+            try {
+                // Spróbuj przez proxy
+                let data;
+                try {
+                    const proxyUrl = `http://localhost:4656/?url=${encodeURIComponent(url)}`;
+                    const response = await fetch(proxyUrl);
+                    data = await response.text();
+                } catch (e) {
+                    try {
+                        const proxyUrl = `http://localhost:4657/?url=${encodeURIComponent(url)}`;
+                        const response = await fetch(proxyUrl);
+                        data = await response.text();
+                    } catch (e2) {
+                        throw new Error('Proxy niedostępny - upewnij się że serwery działają');
+                    }
+                }
+
+                // Parsuj format
+                const format = detectFormat(data);
+                currentData = parseData(data, format);
+                currentFormat = format;
+
+                showStatus('urlStatus', 'Plik pobrany i sparsowany ✅', 'success');
+                showStats(currentData);
+                performConversion(true);
+            } catch (e) {
+                showStatus('urlStatus', 'Błąd: ' + e.message, 'error');
+            }
+        });
+
+        // Drag & Drop
+        dragDrop.addEventListener('click', () => fileInput.click());
+
+        dragDrop.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragDrop.classList.add('dragover');
+        });
+
+        dragDrop.addEventListener('dragleave', () => {
+            dragDrop.classList.remove('dragover');
+        });
+
+        dragDrop.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragDrop.classList.remove('dragover');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            showStatus('localStatus', 'Wczytywanie pliku...', 'loading');
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                try {
+                    const data = e.target.result;
+                    const format = detectFormat(data);
+                    currentData = parseData(data, format);
+                    currentFormat = format;
+
+                    showStatus('localStatus', `Plik wczytany: ${format.toUpperCase()} ✅`, 'success');
+                    showStats(currentData);
+                } catch (err) {
+                    showStatus('localStatus', 'Błąd: ' + err.message, 'error');
+                }
+            };
+
+            reader.readAsText(file);
+        }
+
+        // Format Detection
+        function detectFormat(data) {
+            data = data.trim();
+            if (data.startsWith('{') || data.startsWith('[')) return 'json';
+            if (data.startsWith('<?xml') || data.startsWith('<')) return 'xml';
+            if (data.match(/^[a-z_].*:/) || data.includes(':\n')) return 'yaml';
+            if (data.includes('<table') || data.includes('<tr')) return 'html';
+            if (data.includes(',')) return 'csv';
+            return 'txt';
+        }
+
+        // Data Parsing
+        function parseData(data, format) {
+            try {
+                if (format === 'json') {
+                    return JSON.parse(data);
+                } else if (format === 'xml') {
+                    return parseXML(data);
+                } else if (format === 'yaml') {
+                    return parseYAML(data);
+                } else if (format === 'csv') {
+                    return parseCSV(data);
+                } else if (format === 'html') {
+                    return parseHTML(data);
+                } else {
+                    return { raw: data };
+                }
+            } catch (e) {
+                throw new Error('Błąd parsowania: ' + e.message);
+            }
+        }
+
+        function parseXML(xml) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xml, 'text/xml');
+
+            if (xmlDoc.getElementsByTagName('parsererror').length > 0) {
+                throw new Error('Błąd w XML');
+            }
+
+            function elementToObject(element) {
+                const result = {};
+                for (let child of element.children) {
+                    const key = child.tagName;
+                    const value = child.children.length > 0 ? elementToObject(child) : child.textContent;
+                    if (result[key]) {
+                        if (!Array.isArray(result[key])) {
+                            result[key] = [result[key]];
+                        }
+                        result[key].push(value);
+                    } else {
+                        result[key] = value;
+                    }
+                }
+                return result;
+            }
+
+            const items = [];
+            for (let node of xmlDoc.children) {
+                for (let item of node.children) {
+                    items.push(elementToObject(item));
+                }
+            }
+
+            return items.length > 0 ? items : elementToObject(xmlDoc.documentElement);
+        }
+
+        function parseCSV(csv) {
+            const lines = csv.trim().split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const row = {};
+                const values = lines[i].split(',');
+                headers.forEach((header, index) => {
+                    row[header] = values[index] ? values[index].trim() : '';
+                });
+                data.push(row);
+            }
+
+            return data;
+        }
+
+        function parseHTML(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const tables = doc.getElementsByTagName('table');
+            const data = [];
+
+            for (let table of tables) {
+                const rows = table.getElementsByTagName('tr');
+                const headers = [];
+
+                for (let row of rows) {
+                    const cells = row.getElementsByTagName('td');
+                    if (cells.length === 0) {
+                        const ths = row.getElementsByTagName('th');
+                        for (let th of ths) {
+                            headers.push(th.textContent.trim());
+                        }
+                    } else {
+                        const obj = {};
+                        for (let i = 0; i < cells.length; i++) {
+                            obj[headers[i] || 'col' + i] = cells[i].textContent.trim();
+                        }
+                        data.push(obj);
+                    }
+                }
+            }
+
+            return data;
+        }
+
+        function parseYAML(yaml) {
+            // Simplified YAML parser
+            const lines = yaml.split('\n');
+            const data = {};
+
+            for (let line of lines) {
+                if (line.includes(':')) {
+                    const [key, value] = line.split(':').map(s => s.trim());
+                    data[key] = value;
+                }
+            }
+
+            return data;
+        }
+
+        // Conversion
+        convertBtn.addEventListener('click', () => {
+            if (!currentData) {
+                showStatus('localStatus', 'Najpierw wybierz plik', 'error');
+                return;
+            }
+            performConversion(false);
+        });
+
+        function performConversion(isUrl) {
+            const checkboxes = isUrl ? urlFormatCheckboxes : localFormatCheckboxes;
+            const statusId = isUrl ? 'urlStatus' : 'localStatus';
+            const formats = [];
+
+            for (let [format, checkbox] of Object.entries(checkboxes)) {
+                if (checkbox.checked) {
+                    formats.push(format);
+                }
+            }
+
+            if (formats.length === 0) {
+                showStatus(statusId, 'Wybierz co najmniej jeden format', 'error');
+                return;
+            }
+
+            showStatus(statusId, 'Konwersja w toku...', 'loading');
+
+            setTimeout(() => {
+                try {
+                    const files = {};
+
+                    for (let format of formats) {
+                        const converted = convertData(currentData, format);
+                        files[`data.${format}`] = converted;
+                    }
+
+                    displayDownloads(files);
+                    showStatus(statusId, `Konwersja zakończona! ${formats.length} format(y) gotowe ✅`, 'success');
+                } catch (e) {
+                    showStatus(statusId, 'Błąd konwersji: ' + e.message, 'error');
+                }
+            }, 100);
+        }
+
+        function convertData(data, format) {
+            const prettyPrint = format === 'json' || format === 'yaml';
+
+            if (format === 'json') {
+                return JSON.stringify(data, null, 2);
+            } else if (format === 'csv') {
+                return convertToCSV(data);
+            } else if (format === 'yaml') {
+                return convertToYAML(data);
+            } else if (format === 'html') {
+                return convertToHTML(data);
+            } else if (format === 'markdown') {
+                return convertToMarkdown(data);
+            } else if (format === 'jsonl') {
+                return convertToJSONL(data);
+            }
+
+            return JSON.stringify(data);
+        }
+
+        function convertToCSV(data) {
+            if (!Array.isArray(data)) return '';
+
+            const headers = Object.keys(data[0] || {});
+            const rows = [headers.join(',')];
+
+            for (let item of data) {
+                const values = headers.map(h => {
+                    const val = item[h] || '';
+                    return `"${String(val).replace(/"/g, '""')}"`;
+                });
+                rows.push(values.join(','));
+            }
+
+            return rows.join('\n');
+        }
+
+        function convertToYAML(data) {
+            function stringifyYAML(obj, indent = 0) {
+                const spaces = ' '.repeat(indent);
+                let result = '';
+
+                if (Array.isArray(obj)) {
+                    for (let item of obj) {
+                        result += spaces + '- ' + stringifyYAML(item, indent + 2) + '\n';
+                    }
+                } else if (typeof obj === 'object' && obj !== null) {
+                    for (let key in obj) {
+                        result += spaces + key + ': ' + stringifyYAML(obj[key], indent + 2) + '\n';
+                    }
+                } else {
+                    result = String(obj);
+                }
+
+                return result;
+            }
+
+            return stringifyYAML(data);
+        }
+
+        function convertToHTML(data) {
+            if (!Array.isArray(data)) data = [data];
+
+            let html = '<table border="1" style="border-collapse: collapse; width: 100%;"><tr>';
+
+            const headers = Object.keys(data[0] || {});
+            for (let header of headers) {
+                html += `<th style="padding: 8px; background: #0f1419; color: #3d7dd6;">${header}</th>`;
+            }
+
+            html += '</tr>';
+
+            for (let item of data) {
+                html += '<tr>';
+                for (let header of headers) {
+                    html += `<td style="padding: 8px; border: 1px solid #1a1f28;">${item[header] || ''}</td>`;
+                }
+                html += '</tr>';
+            }
+
+            html += '</table>';
+            return html;
+        }
+
+        function convertToMarkdown(data) {
+            if (!Array.isArray(data)) data = [data];
+
+            const headers = Object.keys(data[0] || {});
+            let md = '| ' + headers.join(' | ') + ' |\n';
+            md += '| ' + headers.map(() => '---').join(' | ') + ' |\n';
+
+            for (let item of data) {
+                md += '| ' + headers.map(h => item[h] || '').join(' | ') + ' |\n';
+            }
+
+            return md;
+        }
+
+        function convertToJSONL(data) {
+            if (!Array.isArray(data)) data = [data];
+
+            return data.map(item => JSON.stringify(item)).join('\n');
+        }
+
+        function displayDownloads(files) {
+            downloadList.innerHTML = '';
+
+            for (let filename in files) {
+                const content = files[filename];
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+
+                const item = document.createElement('div');
+                item.className = 'download-item';
+                item.innerHTML = `
+                    <a href="${url}" download="${filename}">
+                        <span class="icon">📥</span> ${filename}
+                    </a>
+                `;
+                downloadList.appendChild(item);
+            }
+
+            downloadArea.classList.remove('hidden');
+        }
+
+        clearBtn.addEventListener('click', () => {
+            currentData = null;
+            fileInput.value = '';
+            downloadArea.classList.add('hidden');
+            document.getElementById('stats').classList.add('hidden');
+            showStatus('localStatus', '', '');
+        });
+
+        // Initialize
+        checkProxyBtn.click();
+    </script>
+</body>
+</html>

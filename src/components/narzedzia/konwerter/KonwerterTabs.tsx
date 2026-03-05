@@ -8,7 +8,7 @@
 
 import { useState, Suspense, lazy } from 'react';
 
-const KonwerterPlikow = lazy(() => import('../narzedzia/Konwerter'));
+const KonwerterPlikow = lazy(() => import('../Konwerter'));
 const KonwerterFeedow = lazy(() => import('./KonwerterFeedow'));
 
 type TabId = 'pliki' | 'feedy';
